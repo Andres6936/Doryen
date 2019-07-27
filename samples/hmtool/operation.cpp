@@ -31,13 +31,13 @@ const char *Operation::tips[]= {
 
 static const char *header1[] = {
 // C header
-"#include <stdlib.h>\n"
-"#include \"libtcod.h\"\n"
+"#Include <stdlib.h>\n"
+"#Include \"libtcod.h\"\n"
 "// size of the heightmap\n"
 "#define HM_WIDTH 100\n"
 "#define HM_HEIGHT 80\n",
 // CPP header
-"#include \"libtcod.hpp\"\n"
+"#Include \"libtcod.hpp\"\n"
 "// size of the heightmap\n"
 "#define HM_WIDTH 100\n"
 "#define HM_HEIGHT 80\n",
@@ -65,9 +65,9 @@ static const char *footer1[] = {
 "}\n"
 "// test code to print the heightmap\n"
 "// to compile this file on Linux :\n"
-"//  gcc hm.c -o hm -I include/ -L . -ltcod\n"
+"//  gcc hm.c -o hm -I Include/ -L . -ltcod\n"
 "// to compile this file on Windows/mingw32 :\n"
-"//  gcc hm.c -o hm.exe -I include/ -L lib -ltcod-mingw\n"
+"//  gcc hm.c -o hm.exe -I Include/ -L lib -ltcod-mingw\n"
 "int main(int argc, char *argv[]) {\n"
 "\tint x,y;\n"
 "\tTCOD_heightmap_t *hm=TCOD_heightmap_new(HM_WIDTH,HM_HEIGHT);\n",
@@ -75,9 +75,9 @@ static const char *footer1[] = {
 "}\n"
 "// test code to print the heightmap\n"
 "// to compile this file on Linux :\n"
-"//  g++ hm.cpp -o hm -I include/ -L . -ltcod -ltcod++\n"
+"//  g++ hm.cpp -o hm -I Include/ -L . -ltcod -ltcod++\n"
 "// to compile this file on Windows/mingw32 :\n"
-"//  g++ hm.cpp -o hm.exe -I include/ -L lib -ltcod-mingw\n"
+"//  g++ hm.cpp -o hm.exe -I Include/ -L lib -ltcod-mingw\n"
 "int main(int argc, char *argv[]) {\n"
 "\tTCODHeightMap hm(HM_WIDTH,HM_HEIGHT);\n"
 "\tbuildMap(&hm);\n"
@@ -569,7 +569,7 @@ void AddHillOperation::runInternal() {
 
 bool AddHillOperation::addInternal() {
 	addInitCode(C,
-"#include <math.h>\n"
+"#Include <math.h>\n"
 "void addHill(TCOD_heightmap_t *hm,int nbHill, float baseRadius, float radiusVar, float height)  {\n"
 "\tint i;\n"
 "\tfor (i=0; i<  nbHill; i++ ) {\n"
@@ -584,7 +584,7 @@ bool AddHillOperation::addInternal() {
 "\t}\n"
 "}\n");
 	addInitCode(CPP,
-"#include <math.h>\n"
+"#Include <math.h>\n"
 "void addHill(TCODHeightMap *hm,int nbHill, float baseRadius, float radiusVar, float height)  {\n"
 "\tfor (int i=0; i<  nbHill; i++ ) {\n"
 "\t\tfloat hillMinRadius=baseRadius*(1.0f-radiusVar);\n"

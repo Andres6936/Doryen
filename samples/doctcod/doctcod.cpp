@@ -1045,7 +1045,7 @@ int main(int argc, char *argv[]) {
 		else if ( strcmp(argv[pnum],"-py") == 0 ) config.generatePy=true;
 		else if ( strcmp(argv[pnum],"-lua") == 0 ) config.generateLua=true;
 	}
-	TCODList<char *> files=TCODSystem::getDirectoryContent("include", "*.hpp");
+	TCODList<char *> files=TCODSystem::getDirectoryContent("Include", "*.hpp");
 	// hardcoded index page
 	char tmp[128];
 	root = new PageData();
@@ -1059,7 +1059,7 @@ int main(int argc, char *argv[]) {
 	// parse the *.hpp files
 	for ( char **it=files.begin(); it != files.end(); it++) {
 		char tmp[128];
-		sprintf(tmp,"include/%s",*it);
+		sprintf(tmp,"Include/%s",*it);
 		parseFile(tmp);
 	} 	
 	// computations

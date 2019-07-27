@@ -1,15 +1,16 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+
 PROJECT(libtcod)
 
-# All projects need "include" directory
-INCLUDE_DIRECTORIES(include)
+# All projects need "Include" directory
+INCLUDE_DIRECTORIES(Include)
 
 FIND_PACKAGE(OpenGL REQUIRED)
 
 SET(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 SET(INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 SET(DEPENDENCY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
-SET(GUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/gui)
+SET(GUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Include/gui)
 
 OPTION(LIBTCOD_SAMPLES "Generate libtcod samples" ON)
 OPTION(SWIG_CSHARP "Generate CSharp" OFF)
@@ -77,7 +78,7 @@ ELSE ()
             ${OPENGL_INCLUDE_DIRS})
 ENDIF ()
 
-ADD_SUBDIRECTORY(src) #Needs to come first since samples depend on it
+ADD_SUBDIRECTORY(Source) #Needs to come first since samples depend on it
 
 # Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the samples (eg. library API changes).
 IF (LIBTCOD_SAMPLES)
