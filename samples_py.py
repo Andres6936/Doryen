@@ -1591,7 +1591,7 @@ while not libtcod.console_is_window_closed():
     elif key.vk == libtcod.KEY_PRINTSCREEN or key.c == 'p':
         print ("screenshot")
         if key.lalt :
-            libtcod.console_save_apf(None,"samples.apf")
+            libtcod.console_save_apf(None,"Samples.apf")
             print ("apf")
         else :
             libtcod.sys_save_screenshot()

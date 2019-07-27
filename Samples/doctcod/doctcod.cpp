@@ -859,7 +859,7 @@ void printLanguageFilterForm(FILE *f, const char *langCode, const char *langName
 
 // generate a .html file for one page
 void genPageDocFromTemplate(PageData *page) {
-	char *pageTpl=loadTextFile("samples/doctcod/page.tpl");
+	char *pageTpl=loadTextFile("Samples/doctcod/page.tpl");
 	if (! pageTpl) return;
 	FILE *f = fopen(page->url,"wt");
 	while (*pageTpl) {

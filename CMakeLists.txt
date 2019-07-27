@@ -78,15 +78,15 @@ ELSE ()
             ${OPENGL_INCLUDE_DIRS})
 ENDIF ()
 
-ADD_SUBDIRECTORY(Source) #Needs to come first since samples depend on it
+ADD_SUBDIRECTORY(Source) #Needs to come first since Samples depend on it
 
-# Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the samples (eg. library API changes).
+# Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the Samples (eg. library API changes).
 IF (LIBTCOD_SAMPLES)
-    ADD_SUBDIRECTORY(samples)
-    ADD_SUBDIRECTORY(samples/frost) # Frost effect demo
-    ADD_SUBDIRECTORY(samples/navier) # Navier demo
-    ADD_SUBDIRECTORY(samples/rad) # Radiosity demo
-    ADD_SUBDIRECTORY(samples/ripples) # Water ripples demo
-    ADD_SUBDIRECTORY(samples/weather) # Weather + Day/Night demo
-    ADD_SUBDIRECTORY(samples/worldgen) # WorldGen demo
+    ADD_SUBDIRECTORY(Samples)
+    ADD_SUBDIRECTORY(Samples/frost) # Frost effect demo
+    ADD_SUBDIRECTORY(Samples/navier) # Navier demo
+    ADD_SUBDIRECTORY(Samples/rad) # Radiosity demo
+    ADD_SUBDIRECTORY(Samples/ripples) # Water ripples demo
+    ADD_SUBDIRECTORY(Samples/weather) # Weather + Day/Night demo
+    ADD_SUBDIRECTORY(Samples/worldgen) # WorldGen demo
 ENDIF ()

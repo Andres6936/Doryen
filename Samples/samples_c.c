@@ -1560,7 +1560,7 @@ int main( int argc, char *argv[] ) {
 		} else if ( key.vk == TCODK_PRINTSCREEN ) {
 			if ( key.lalt ) {
 				/* Alt-PrintScreen : save to samples.asc */
-				TCOD_console_save_asc(NULL,"samples.asc");
+				TCOD_console_save_asc(NULL,"Samples.asc");
 			} else {
 				/* save screenshot */
 				TCOD_sys_save_screenshot(NULL);

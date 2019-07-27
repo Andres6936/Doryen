@@ -1567,7 +1567,7 @@ int main( int argc, char *argv[] ) {
 #endif
 			if ( key.lalt ) {
 				// ALT-PrintScreen : save to .asc format
-				TCODConsole::root->saveApf("samples.apf");
+				TCODConsole::root->saveApf("Samples.apf");
 			} else {
 				// save screenshot 
 				TCODSystem::saveScreenshot(NULL);
