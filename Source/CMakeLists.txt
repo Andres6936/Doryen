@@ -1,10 +1,8 @@
 IF (MSVC)
-    # msvc wants to "deprecate" standard C. Turn those warnings off.
-    ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS)
-    ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE)
 
     SET(SDL_NAME SDL)
     SET(ZLIB_NAME zdll)
+
 ELSEIF (MINGW)
 
     SET(SDL_NAME SDL)
@@ -32,10 +30,6 @@ SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circul
 SET(LIBTCOD_CPP_SRC bresenham.cpp bsp.cpp color.cpp console.cpp fov.cpp heightmap.cpp image.cpp lex.cpp mersenne.cpp
         mouse.cpp namegen.cpp noise.cpp parser.cpp path.cpp sys.cpp txtfield.cpp zip.cpp)
 
-IF (APPLE)
-    SET(LIBTCOD_C_SRC ${LIBTCOD_C_SRC} ../osx/macsupport.m)
-ENDIF ()
-
 SET(LIBTCOD_GUI_SRC gui/button.cpp gui/container.cpp gui/flatlist.cpp gui/hbox.cpp gui/image.cpp gui/label.cpp gui/radiobutton.cpp
         gui/slider.cpp gui/statusbar.cpp gui/textbox.cpp gui/togglebutton.cpp gui/toolbar.cpp gui/vbox.cpp gui/widget.cpp)
 
@@ -62,26 +56,3 @@ IF (MSVC OR MINGW)
     SET_PROPERTY(TARGET ${LIBTCOD_NAME} PROPERTY COMPILE_DEFINITIONS LIBTCOD_EXPORTS)
     SET_PROPERTY(TARGET ${LIBTCOD_GUI_NAME} PROPERTY COMPILE_DEFINITIONS LIBTCOD_GUI_EXPORTS)
 ENDIF ()
-
-IF (MSVC)
-    # Since libtcod pulls in DLLs that use the release CRT, force the linker to never try to cross match CRTs
-    SET_PROPERTY(TARGET ${LIBTCOD_NAME} PROPERTY LINK_FLAGS "/NODEFAULTLIB:MSVCRTD.lib ")
-ENDIF ()
-
-SET_PROPERTY(TARGET ${LIBTCOD_NAME} PROPERTY DEBUG_POSTFIX "-debug")
-SET_PROPERTY(TARGET ${LIBTCOD_CPP_NAME} PROPERTY DEBUG_POSTFIX "-debug")
-SET_PROPERTY(TARGET ${LIBTCOD_GUI_NAME} PROPERTY DEBUG_POSTFIX "-debug")
-
-IF (UNIX)
-    SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "") #Workaround for -rdynamic
-    SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "") #same
-
-    SET(CMAKE_SKIP_RPATH ON) #Don't place hard coded rpaths'
-    SET(CMAKE_SHARED_LINKER_FLAGS "-Wl,-rpath,. ${CMAKE_SHARED_LINKER_FLAGS}")
-ENDIF ()
-
-#${LIBTCOD_CPP_NAME} is empty on non-linux platforms
-INSTALL(TARGETS ${LIBTCOD_NAME} ${LIBTCOD_GUI_NAME} ${LIBTCOD_CPP_NAME}
-        RUNTIME DESTINATION ${INSTALL_DIR}
-        LIBRARY DESTINATION ${INSTALL_DIR}
-        )
