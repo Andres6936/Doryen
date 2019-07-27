@@ -13,35 +13,37 @@ SET(DEPENDENCY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/dependencies)
 SET(GUI_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Include/gui)
 
 OPTION(LIBTCOD_SAMPLES "Generate libtcod samples" ON)
-OPTION(SWIG_CSHARP "Generate CSharp" OFF)
-OPTION(SWIG_PYTHON "Generate Python" OFF)
-OPTION(SWIG_LUA "Generate Lua" OFF)
+
+SET(LIBTCOD_NAME Doryen)
+SET(LIBTCOD_GUI_NAME DoryenUI)
 
 IF (MSVC)
-    SET(LIBTCOD_NAME libtcod-VS)
-    SET(LIBTCOD_GUI_NAME libtcod-gui-VS)
+
     SET(ZLIB_DIR msvc)
+
     IF (CMAKE_SIZEOF_VOID_P EQUAL 8)
         SET(LIB_DIR msvc64)
     ELSE ()
         SET(LIB_DIR msvc32)
     ENDIF ()
+
 ELSEIF (MINGW)
-    SET(LIBTCOD_NAME tcod-mingw)
-    SET(LIBTCOD_GUI_NAME tcod-gui-mingw)
+
     SET(LIB_DIR mingw)
     SET(ZLIB_DIR mingw)
+
 ELSEIF (APPLE)
-    SET(LIBTCOD_NAME tcod)
-    SET(LIBTCOD_GUI_NAME tcod-gui)
+
     SET(LIB_DIR osx)
     SET(ZLIB_DIR osx)
+
 ELSEIF (UNIX)
-    SET(LIBTCOD_NAME tcod)
+
     SET(LIBTCOD_CPP_NAME tcodxx)
-    SET(LIBTCOD_GUI_NAME tcod-gui)
+
     SET(LIB_DIR linux)
     SET(ZLIB_DIR linux)
+
 ENDIF ()
 
 #Linux uses system libraries
@@ -90,15 +92,3 @@ IF (LIBTCOD_SAMPLES)
     ADD_SUBDIRECTORY(samples/weather) # Weather + Day/Night demo
     ADD_SUBDIRECTORY(samples/worldgen) # WorldGen demo
 ENDIF ()
-
-# For swig to work you either need to set SWIG_PROGRAM_PATH (Windows) or SWIG_SYSTEM (Everywhere else).
-# You also need to uncomment the add_subdirectory at the end of the file...
-
-# This needs to be set to the path to a swig executable if you want swig support (and uncommented out).
-OPTION(SWIG_ON "Run SWIG" OFF)
-SET(SWIG_PROGRAM_PATH "C:\\Users\\donblas\\Programming\\swigwin-1.3.40" CACHE FILEPATH "Path to SWIG")
-IF (SWIG_ON)
-    SET(SWIG_SYSTEM TRUE)
-    ADD_SUBDIRECTORY(swig)
-ENDIF ()
-

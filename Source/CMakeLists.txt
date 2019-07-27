@@ -3,27 +3,24 @@ IF (MSVC)
     ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS)
     ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE)
 
-    SET(LIBTCOD_NAME libtcod-VS)
-    SET(LIBTCOD_GUI_NAME libtcod-gui-VS)
     SET(SDL_NAME SDL)
     SET(ZLIB_NAME zdll)
 ELSEIF (MINGW)
-    SET(LIBTCOD_NAME tcod-mingw)
-    SET(LIBTCOD_GUI_NAME tcod-gui-mingw)
+
     SET(SDL_NAME SDL)
     SET(ZLIB_NAME z)
+
 ELSEIF (APPLE)
-    SET(LIBTCOD_NAME tcod)
-    SET(LIBTCOD_GUI_NAME tcod-gui)
+
     FIND_PACKAGE(SDL REQUIRED)
     SET(SDL_NAME ${SDL_LIBRARY})
     SET(ZLIB_NAME z)
+
 ELSEIF (UNIX)
-    SET(LIBTCOD_NAME tcod)
-    SET(LIBTCOD_CPP_NAME tcodxx)
-    SET(LIBTCOD_GUI_NAME tcod-gui)
+
     SET(SDL_NAME SDL)
     SET(ZLIB_NAME z)
+
 ENDIF ()
 
 SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circular_raycasting.c
