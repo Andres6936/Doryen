@@ -46,18 +46,18 @@ static const char *version_string __attribute__((unused)) ="libtcod "TCOD_STRVER
 static bool windowClosed=false;
 TCOD_internal_context_t TCOD_ctx={
 	/* number of characters in the bitmap font */
-	16,16,
+	16, 16,
 	/* font type and layout */
-	false,false,false,
+	false, false, false,
 	/* character size in font */
-	8,8,
-	"terminal.png","",
-	NULL,NULL,NULL,0,false,0,0,0,0,0,0,
+	8, 8,
+    "Terminal.png", "",
+    NULL, NULL, NULL, 0, false, 0, 0, 0, 0, 0, 0,
 	/* default renderer to use */
 	TCOD_RENDERER_GLSL,
-	NULL,
+    NULL,
 	/* fading data */
-	{0,0,0},255,
+	{0,0,0}, 255,
 };
 
 static TCOD_color_t color_control_fore[TCOD_COLCTRL_NUMBER];
