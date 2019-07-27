@@ -570,9 +570,9 @@ void render_image(bool first, TCOD_key_t*key, TCOD_mouse_t *mouse) {
 	float x,y,scalex,scaley,angle;
 	long elapsed;
 	if ( img == NULL ) {
-		img=TCOD_image_load("data/img/skull.png");
+        img = TCOD_image_load( "Data/img/skull.png" );
 		TCOD_image_set_key_color(img,TCOD_black);
-		circle=TCOD_image_load("data/img/circle.png");
+        circle = TCOD_image_load( "Data/img/circle.png" );
 	}
 	if ( first ) {
 		TCOD_sys_set_fps(30); /* limited to 30 fps */
@@ -1087,11 +1087,11 @@ void render_name(bool first, TCOD_key_t*key, TCOD_mouse_t *mouse) {
 		TCOD_list_t files;
 		char **it;
 		names=TCOD_list_new();
-		files=TCOD_sys_get_directory_content("data/namegen","*.cfg");
+        files = TCOD_sys_get_directory_content( "Data/namegen", "*.cfg" );
 		// parse all the files
 		for (it=(char **)TCOD_list_begin(files); it!= (char **)TCOD_list_end(files); it++) {
 			char tmp[236];
-			sprintf(tmp, "data/namegen/%s",*it);
+            sprintf( tmp, "Data/namegen/%s", *it );
 			TCOD_namegen_parse(tmp,NULL);
 		}
 		// get the sets list
@@ -1412,7 +1412,7 @@ int main( int argc, char *argv[] ) {
 	int i;
 	TCOD_key_t key = {TCODK_NONE,0};
 	TCOD_mouse_t mouse;
-	char *font="data/fonts/consolas10x10_gs_tc.png";
+    char *font = "Data/fonts/consolas10x10_gs_tc.png";
 	int nb_char_horiz=0,nb_char_vertic=0;
 	int argn;
 	int fullscreen_width=0;

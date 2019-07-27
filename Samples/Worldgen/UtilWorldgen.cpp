@@ -1255,7 +1255,7 @@ void WorldGenerator::saveBiomeMap(const char *filename) {
     TCODColor(192,192,112),
     };
     if ( legend == NULL ) {
-        legend = new TCODImage("data/img/legend_biome.png");
+        legend = new TCODImage( "Data/img/legend_biome.png" );
         legend->getSize(&legendWidth,&legendHeight);
     }
     if ( filename == NULL ) filename="world_biome.png";
@@ -1296,7 +1296,7 @@ void WorldGenerator::saveTemperatureMap(const char *filename) {
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
     if ( legend == NULL ) {
-        legend = new TCODImage("data/img/legend_temperature.png");
+        legend = new TCODImage( "Data/img/legend_temperature.png" );
         legend->getSize(&legendWidth,&legendHeight);
         TCODColor::genMap(tempGradient,MAX_TEMP_KEY,tempKeyColor,tempIndexes);
     }
@@ -1335,7 +1335,7 @@ void WorldGenerator::savePrecipitationMap(const char *filename) {
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
     if ( legend == NULL ) {
-        legend = new TCODImage("data/img/legend_precipitation.png");
+        legend = new TCODImage( "Data/img/legend_precipitation.png" );
         legend->getSize(&legendWidth,&legendHeight);
     }
 
@@ -1374,7 +1374,7 @@ void WorldGenerator::saveAltitudeMap(const char *filename) {
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
     if ( legend == NULL ) {
-        legend = new TCODImage("data/img/legend_altitude.png");
+        legend = new TCODImage( "Data/img/legend_altitude.png" );
         legend->getSize(&legendWidth,&legendHeight);
         TCODColor::genMap(altGradient,MAX_ALT_KEY,altColors,altIndexes);
     }

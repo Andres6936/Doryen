@@ -577,9 +577,9 @@ void render_image(bool first, TCOD_key_t*key, TCOD_mouse_t *mouse) {
 	static TCODColor blue(0,0,255);
 	static TCODColor green(0,255,0);
 	if ( img == NULL ) {
-		img=new TCODImage("data/img/skull.png");
+        img = new TCODImage( "Data/img/skull.png" );
 		img->setKeyColor(TCODColor::black);
-		circle=new TCODImage("data/img/circle.png");
+        circle = new TCODImage( "Data/img/circle.png" );
 	}
 	if ( first ) {
 		TCODSystem::setFps(30); // fps limited to 30
@@ -1090,11 +1090,11 @@ void render_name(bool first, TCOD_key_t*key, TCOD_mouse_t *mouse) {
 	static TCODList<char *> sets;
 	int i;
 	if ( nbSets == 0 ) {
-		TCODList<char *> files=TCODSystem::getDirectoryContent("data/namegen","*.cfg");
+        TCODList <char *> files = TCODSystem::getDirectoryContent( "Data/namegen", "*.cfg" );
 		// parse all the files
 		for (char **it=files.begin(); it != files.end(); it++) {
 			char tmp[256];
-			sprintf(tmp, "data/namegen/%s",*it);
+            sprintf( tmp, "Data/namegen/%s", *it );
 			TCODNamegen::parse(tmp);
 		}
 		// get the sets list
@@ -1414,7 +1414,7 @@ int main( int argc, char *argv[] ) {
 	bool first=true; // first time we render a sample
 	TCOD_key_t key = {TCODK_NONE,0};
 	TCOD_mouse_t mouse;
-	const char *font="data/fonts/consolas10x10_gs_tc.png";
+    const char *font = "Data/fonts/consolas10x10_gs_tc.png";
 	int nbCharHoriz=0,nbCharVertic=0;
 	int argn;
 	int fullscreenWidth=0;
