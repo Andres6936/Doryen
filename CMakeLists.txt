@@ -83,10 +83,10 @@ ADD_SUBDIRECTORY(Source) #Needs to come first since Samples depend on it
 # Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the Samples (eg. library API changes).
 IF (LIBTCOD_SAMPLES)
     ADD_SUBDIRECTORY(Samples)
-    ADD_SUBDIRECTORY(Samples/frost) # Frost effect demo
-    ADD_SUBDIRECTORY(Samples/navier) # Navier demo
-    ADD_SUBDIRECTORY(Samples/rad) # Radiosity demo
-    ADD_SUBDIRECTORY(Samples/ripples) # Water ripples demo
-    ADD_SUBDIRECTORY(Samples/weather) # Weather + Day/Night demo
-    ADD_SUBDIRECTORY(Samples/worldgen) # WorldGen demo
+    ADD_SUBDIRECTORY(Samples/Frost) # Frost effect demo
+    ADD_SUBDIRECTORY(Samples/Navier) # Navier demo
+    ADD_SUBDIRECTORY(Samples/Rad) # Radiosity demo
+    ADD_SUBDIRECTORY(Samples/Ripples) # Water ripples demo
+    ADD_SUBDIRECTORY(Samples/Weather) # Weather + Day/Night demo
+    ADD_SUBDIRECTORY(Samples/Worldgen) # WorldGen demo
 ENDIF ()

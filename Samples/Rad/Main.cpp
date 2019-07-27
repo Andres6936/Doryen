@@ -27,8 +27,8 @@
 
 #include <math.h>
 #include "libtcod.hpp"
-#include "bsp_helper.hpp"
-#include "rad_shader.hpp"
+#include "BSPHelper.hpp"
+#include "RadShader.hpp"
 
 #define CON_WIDTH 80
 #define CON_HEIGHT 50

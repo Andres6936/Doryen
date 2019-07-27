@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2010 Jice
+* Photon reactor
+* Copyright (c) 2011 Jice
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
@@ -9,7 +10,7 @@
 *     * Redistributions in binary form must reproduce the above copyright
 *       notice, this list of conditions and the following disclaimer in the
 *       documentation and/or other materials provided with the distribution.
-*     * The name of Jice may not be used to endorse or promote products
+*     * The names of Jice may not be used to endorse or promote products
 *       derived from this software without specific prior written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY JICE ``AS IS'' AND ANY
@@ -23,22 +24,36 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "libtcod.hpp"
-#include "util_ripples.hpp"
+#include "RadShader.hpp"
 
-#define VERSION "0.1.0"
+void Shader::init(TCODMap *map) {
+	this->map=map;
+	int size=map->getWidth()*map->getHeight();
+	lightmap=new TCODColor[size];
+}
 
-// console size
-#define CON_W 80
-#define CON_H 50
+int Shader::addLight(int x, int y, int radius, const TCODColor &col) {
+	int id=lights.size();
+	Light l;
+	l.x=x;
+	l.y=y;
+	l.radius=radius;
+	l.col=col;
+	lights.push(l);
+	return id;
+}
 
-#define IN_RECTANGLE(x,y,w,h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
-#define SQRDIST(x1,y1,x2,y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
-
-#ifndef NDEBUG
-#define DBG(x) printf x
-#else
-#define DBG(x)
-#endif
-
-extern TCODNoise noise3d;
+void Shader::updateLight(int id, int x, int y, int radius, const TCODColor &col) {
+	Light *l=lights.begin()+id;
+	l->x=x;
+	l->y=y;
+	l->radius=radius;
+	l->col=col;
+}
+	
+	
+const TCODColor &Shader::getLightColor(int x, int y) {
+	return lightmap[ x + y * map->getWidth()];
+}

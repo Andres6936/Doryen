@@ -25,7 +25,7 @@
 */
 
 #include <string.h>
-#include "main.hpp"
+#include "Main.hpp"
 
 // dummy height indicating that a cell is not water
 #define NO_WATER -1000.0f
@@ -35,7 +35,7 @@
 #define ACTIVE_THRESHOLD 0.02f
 // height on the triggering ripple
 #define RIPPLE_TRIGGER 3.0f
-// how many times ripples are updated per second
+// how many times Ripples are updated per second
 #define RIPPLE_FPS 10
 
 RippleManager::RippleManager(TCODMap *waterMap) {

@@ -189,7 +189,7 @@ void Frost::render(TCODImage *img) {
 }
 
 int main() {
-	TCODConsole::initRoot(80,50,"frost test",false);
+	TCODConsole::initRoot(80,50,"Frost test",false);
 	TCOD_mouse_t mouse;
 	TCOD_key_t key;
 	TCODSystem::setFps(25);

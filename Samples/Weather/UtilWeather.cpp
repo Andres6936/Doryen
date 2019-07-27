@@ -25,7 +25,7 @@
 */
 
 #include <math.h>
-#include "main.hpp"
+#include "Main.hpp"
 
 #define OCTAVES 7.0f
 #define SCALE 2.0f

@@ -26,7 +26,7 @@
 */
 
 #include "libtcod.hpp"
-#include "rad_shader.hpp"
+#include "RadShader.hpp"
 
 PhotonShader::PhotonShader(float reflectivity, float selfIllumination, int nbPass) : 
 	maxRadius(0),reflectivity(reflectivity), selfIllumination(selfIllumination), nbPass(nbPass) {

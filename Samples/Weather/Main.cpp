@@ -25,7 +25,7 @@
 */
 
 #include <stdio.h>
-#include "main.hpp"
+#include "Main.hpp"
 
 TCODNoise noise1d(1);
 TCODNoise noise2d(2);
@@ -112,7 +112,7 @@ void render() {
 		}
 	}	
 	TCODConsole::root->setDefaultForeground(TCODColor::white);
-	TCODConsole::root->print(5,CON_H-12,"TCOD's weather system :\n"
+	TCODConsole::root->print(5,CON_H-12,"TCOD's Weather system :\n"
 		"- wind with varying speed and direction\n"
 		"- rain\n"
 		"- lightnings\n"

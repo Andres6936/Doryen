@@ -25,7 +25,7 @@
 */
 #include <stdio.h>
 #include <math.h>
-#include "main.hpp"
+#include "Navier.hpp"
 
 // gas simulation
 // based on Jos Stam, "Real-Time Fluid Dynamics for Games". Proceedings of the Game Developer Conference, March 2003.

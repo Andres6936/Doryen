@@ -29,19 +29,19 @@
 
 #include <math.h>
 #include <stdio.h>
-#include "main.hpp"
+#include "Main.hpp"
 
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
-    // artic/alpine climate (below -5°C)
+    // artic/alpine climate (below -5ï¿½C)
     { TUNDRA, TUNDRA, TUNDRA, TUNDRA, TUNDRA, },
-    // cold climate (-5 / 5 °C)
+    // cold climate (-5 / 5 ï¿½C)
     { COLD_DESERT, GRASSLAND, BOREAL_FOREST, BOREAL_FOREST, BOREAL_FOREST, },
-    // temperate climate (5 / 15 °C)
+    // temperate climate (5 / 15 ï¿½C)
     { COLD_DESERT, GRASSLAND, TEMPERATE_FOREST, TEMPERATE_FOREST, TROPICAL_MONTANE_FOREST, },
-    // warm climate (15 - 20°C)
+    // warm climate (15 - 20ï¿½C)
     { HOT_DESERT, SAVANNA, TROPICAL_DRY_FOREST, TROPICAL_EVERGREEN_FOREST, TROPICAL_EVERGREEN_FOREST, },
-    // tropical climate (above 20 °C)
+    // tropical climate (above 20 ï¿½C)
     { HOT_DESERT, THORN_FOREST, TROPICAL_DRY_FOREST, TROPICAL_EVERGREEN_FOREST, TROPICAL_EVERGREEN_FOREST, },
 };
 
@@ -103,7 +103,7 @@ static const int precIndexes[MAX_PREC_KEY] = {
 	4,8,12,16,20,24,28,32,36,40,50,60,70,80,100,120,140,160,255
 	};
 static const float precipitations[MAX_PREC_KEY] = {
-	0,1,2,3,4,5,6,7,8,9,10,13,15,18,20,25,30,35,40  // cm / m² / year
+	0,1,2,3,4,5,6,7,8,9,10,13,15,18,20,25,30,35,40  // cm / mï¿½ / year
 };
 static const TCODColor precColors[MAX_PREC_KEY]= {
 	TCODColor(128,0,0), // < 4
@@ -132,13 +132,13 @@ static const int MAX_TEMP_KEY=7;
 static const int tempIndexes[MAX_TEMP_KEY] = {0,42,84,126,168,210,255};
 static const int temperatures[MAX_TEMP_KEY] = {-30,-20,-10,0,10,20,30};
 static const TCODColor tempKeyColor[MAX_TEMP_KEY]= {
-	TCODColor(180,8,130), // -30 °C
-	TCODColor(32,1,139), // -20 °C
-	TCODColor(0,65,252),// -10 °C
-	TCODColor(37,255,236),// 0 °C
-	TCODColor(255,255,1), // 10 °C
-	TCODColor(255,29,4), // 20 °C
-	TCODColor(80,3,0), // 30 °C
+	TCODColor(180,8,130), // -30 ï¿½C
+	TCODColor(32,1,139), // -20 ï¿½C
+	TCODColor(0,65,252),// -10 ï¿½C
+	TCODColor(37,255,236),// 0 ï¿½C
+	TCODColor(255,255,1), // 10 ï¿½C
+	TCODColor(255,29,4), // 20 ï¿½C
+	TCODColor(80,3,0), // 30 ï¿½C
 };
 
 
@@ -977,8 +977,8 @@ void WorldGenerator::smoothPrecipitations() {
 }
 
 void WorldGenerator::computeTemperaturesAndBiomes() {
-	// temperature shift with altitude : -25°C at 6000 m
-	// mean temp at sea level : 25°C at lat 0  5°C at lat 45 -25°C at lat 90 (sinusoide)
+	// temperature shift with altitude : -25ï¿½C at 6000 m
+	// mean temp at sea level : 25ï¿½C at lat 0  5ï¿½C at lat 45 -25ï¿½C at lat 90 (sinusoide)
 	float sandCoef=1.0f/(1.0f-sandHeight);
 	float waterCoef=1.0f/sandHeight;
 	for (int y=0; y < HM_HEIGHT; y++) {

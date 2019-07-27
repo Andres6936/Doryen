@@ -1,0 +1,4 @@
+SET(LIBTCOD_RADIOSITY_SRC Main.cpp BSPHelper.cpp RadShader.cpp RadShaderPhoton.cpp RadShaderStandard.cpp)
+
+ADD_EXECUTABLE(Rad ${LIBTCOD_RADIOSITY_SRC})
+TARGET_LINK_LIBRARIES(Rad ${LIBTCOD_NAME} ${LIBTCOD_CPP_NAME})

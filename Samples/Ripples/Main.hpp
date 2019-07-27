@@ -24,7 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "libtcod.hpp"
-#include "util_weather.hpp"
+#include "UtilRipples.hpp"
 
 #define VERSION "0.1.0"
 
@@ -41,5 +41,4 @@
 #define DBG(x)
 #endif
 
-extern TCODNoise noise1d;
-extern TCODNoise noise2d;
+extern TCODNoise noise3d;

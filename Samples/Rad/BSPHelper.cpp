@@ -26,7 +26,7 @@
 */
 
 #include "libtcod.hpp"
-#include "bsp_helper.hpp"
+#include "BSPHelper.hpp"
 
 BspHelper::BspHelper() {
 	bspDepth=8;

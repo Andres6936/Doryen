@@ -24,7 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "libtcod.hpp"
-#include "util_worldgen.hpp"
+#include "UtilWorldgen.hpp"
 
 #define VERSION "0.1.0"
 
