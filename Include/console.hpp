@@ -35,6 +35,14 @@
  */
 class TCODLIB_API TCODConsole
 {
+
+private:
+
+    bool windowClose;
+
+    Doryen::Color controlBackground[TCOD_COLCTRL_NUMBER];
+    Doryen::Color controlForeground[TCOD_COLCTRL_NUMBER];
+
 public :
 
     static TCODConsole *root;
