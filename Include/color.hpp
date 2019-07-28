@@ -171,12 +171,12 @@ namespace Doryen
         @LuaEx
             if myColor == tcod.color.yellow then ... end
         */
-        bool operator==( const Doryen::Color &c ) const
+        bool operator==( const Color &c ) const
         {
             return ( c.r == r && c.g == g && c.b == b );
         }
 
-        bool operator!=( const Doryen::Color &c ) const
+        bool operator!=( const Color &c ) const
         {
             return ( c.r != r || c.g != g || c.b != b );
         }
@@ -196,7 +196,7 @@ namespace Doryen
         @C#Ex Doryen::TCODColor myDarkishRed = Doryen::TCODColor.darkGrey.Multiply(Doryen::TCODColor.lightRed);
         @LuaEx myDarkishRed = tcod.color.darkGrey * tcod.color.lightRed
         */
-        Doryen::Color operator*( const Doryen::Color &a ) const
+        Color operator*( const Color &a ) const
         {
             Doryen::Color ret;
             ret.r = ((( int ) r ) * a.r / 255 );
@@ -221,7 +221,7 @@ namespace Doryen
         @C#Ex Doryen::TCODColor myDarkishRed = Doryen::TCODColor.lightRed.Multiply(0.5f);
         @LuaEx myDarkishRed = tcod.color.lightRed * 0.5
         */
-        Doryen::Color operator*( float value ) const
+        Color operator*( float value ) const
         {
             int r = ( int ) ( this->r * value );
             int g = ( int ) ( this->g * value );
@@ -231,7 +231,7 @@ namespace Doryen
             g = CLAMP( 0, 255, g );
             b = CLAMP( 0, 255, b );
 
-            return Doryen::Color( r, g, b );
+            return Color( r, g, b );
         }
 
         /**
@@ -248,7 +248,7 @@ namespace Doryen
         @C#Ex Doryen::TCODColor myLightishRed = Doryen::TCODColor.red.Plus(Doryen::TCODColor.darkGrey)
         @LuaEx myLightishRed = tcod.color.red + tcod.color.darkGrey
         */
-        Doryen::Color operator+( const Doryen::Color &a ) const
+        Color operator+( const Color &a ) const
         {
             int r = ( int ) ( this->r ) + a.r;
             int g = ( int ) ( this->g ) + a.g;
@@ -258,7 +258,7 @@ namespace Doryen
             g = MIN( 255, g );
             b = MIN( 255, b );
 
-            return Doryen::Color( r, g, b );
+            return Color( r, g, b );
         }
 
         /**
@@ -275,7 +275,7 @@ namespace Doryen
         @C#Ex Doryen::TCODColor myRedish = Doryen::TCODColor.red.Minus(Doryen::TCODColor.darkGrey)
         @LuaEx myRedish = tcod.color.red - tcod.color.darkGrey
         */
-        Doryen::Color operator-( const Doryen::Color &a ) const
+        Color operator-( const Color &a ) const
         {
             int r = ( int ) ( this->r ) - a.r;
             int g = ( int ) ( this->g ) - a.g;
@@ -285,7 +285,7 @@ namespace Doryen
             g = MAX( 0, g );
             b = MAX( 0, b );
 
-            return Doryen::Color( r, g, b );
+            return Color( r, g, b );
         }
 
         /**
@@ -307,9 +307,9 @@ namespace Doryen
         @C#Ex Doryen::TCODColor myColor = Doryen::TCODColor.Interpolate( Doryen::TCODColor.darkGrey, Doryen::TCODColor.lightRed, coef );
         @LuaEx myColor = tcod.color.Interpolate( tcod.color.darkGrey, tcod.color.lightRed, coef )
         */
-        static Doryen::Color lerp( const Doryen::Color &a, const Doryen::Color &b, float coef )
+        static Color lerp( const Color &a, const Color &b, float coef )
         {
-            Doryen::Color ret;
+            Color ret;
             ret.r = ( a.r + ( b.r - a.r ) * coef );
             ret.g = ( a.g + ( b.g - a.g ) * coef );
             ret.b = ( a.b + ( b.b - a.b ) * coef );
@@ -360,7 +360,7 @@ namespace Doryen
             col = [ libtcod.Color( 0,0,0 ), libtcod.Color( 255,0,0 ), libtcod.Color(255,255,255) ] # colors : black, red, white
             map=libtcod.color_gen_map(col,idx)
         */
-        static void genMap( Doryen::Color *map, int nbKey, Doryen::Color const *keyColor, int const *keyIndex );
+        static void genMap( Color *map, int nbKey, Color const *keyColor, int const *keyIndex );
 
         // grey levels
         static const Color black;

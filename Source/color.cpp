@@ -130,7 +130,7 @@ Doryen::Color operator*( float value, const Doryen::Color &c )
 	return c*value;
 }
 
-void Doryen::Color::genMap( Doryen::Color *map, int nbKey, Doryen::Color const *keyColor, int const *keyIndex )
+void Doryen::Color::genMap( Color *map, int nbKey, Color const *keyColor, int const *keyIndex )
 {
 	for (int segment=0; segment < nbKey-1; segment++) {
 		int idxStart=keyIndex[segment];
