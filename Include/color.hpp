@@ -139,6 +139,18 @@ public :
     TCODColor( short r, short g, short b, short a );
 
     /**
+     * Determines whether another Color is equal to this Color.
+     *
+     * The result is true if and only if the argument is not null and is a
+     * Color object that has the same red, green, blue, and alpha values
+     * as this object.
+     *
+     * @param c The object to test for equality with this Color
+     * @return true if the objects are the same; false otherwise.
+     */
+    bool equals( const TCODColor &c ) const;
+
+    /**
     @PageName color
     @FuncTitle Compare two colors
     @CppEx

@@ -135,3 +135,8 @@ TCODColor::TCODColor( short r, short g, short b, short a )
     this->a = a;
 }
 
+bool TCODColor::equals( const TCODColor &c ) const
+{
+    return r == c.r && g == c.g && b == c.b && a == c.a;
+}
+
