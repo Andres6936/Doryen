@@ -158,9 +158,10 @@ float TCODParser::getFloatProperty(const char *name) const {
 	return TCOD_parser_get_float_property(data,name);
 }
 
-TCODColor TCODParser::getColorProperty(const char *name) const {
+Doryen::Color TCODParser::getColorProperty( const char *name ) const
+{
     TCOD_color_t c = TCOD_parser_get_color_property( data, name );
-    return TCODColor( c.r, c.g, c.b );
+    return Doryen::Color( c.r, c.g, c.b );
 }
 
 TCOD_dice_t TCODParser::getDiceProperty(const char *name) const {

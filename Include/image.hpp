@@ -136,29 +136,29 @@ public :
 	*/		
 	void getSize(int *w,int *h) const;
 
-	/**
-	@PageName image_read
-	@FuncTitle Getting the color of a pixel
-	@FuncDesc You can read the colors from an image with this function.
-	@Cpp TCODColor TCODImage::getPixel(int x, int y) const
-	@C TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y)
-	@Py image_get_pixel(image, x, y)
-	@C# TCODColor TCODImage::getPixel(int x, int y)
-	@Param image In the C and python version, the image handler, obtained with the load function.
-	@Param x,y The pixel coordinates inside the image.
-		0 <= x < width
-		0 <= y < height
-	@CppEx 
-		TCODImage *pix = new TCODImage(80,50);
-		TCODColor col=pix->getPixel(40,25);
-	@CEx 
-		TCOD_image_t pix = TCOD_image_new(80,50);
-		TCOD_color_t col=TCOD_image_get_pixel(pix,40,25);
-	@PyEx 
-		pix = litbcod.image_new(80,50)
-		col=litbcod.image_get_pixel(pix,40,25)
-	*/
-	TCODColor getPixel(int x, int y) const;
+    /**
+    @PageName image_read
+    @FuncTitle Getting the color of a pixel
+    @FuncDesc You can read the colors from an image with this function.
+    @Cpp Doryen::TCODColor TCODImage::getPixel(int x, int y) const
+    @C TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y)
+    @Py image_get_pixel(image, x, y)
+    @C# Doryen::TCODColor TCODImage::getPixel(int x, int y)
+    @Param image In the C and python version, the image handler, obtained with the load function.
+    @Param x,y The pixel coordinates inside the image.
+        0 <= x < width
+        0 <= y < height
+    @CppEx
+        TCODImage *pix = new TCODImage(80,50);
+        Doryen::TCODColor col=pix->getPixel(40,25);
+    @CEx
+        TCOD_image_t pix = TCOD_image_new(80,50);
+        TCOD_color_t col=TCOD_image_get_pixel(pix,40,25);
+    @PyEx
+        pix = litbcod.image_new(80,50)
+        col=litbcod.image_get_pixel(pix,40,25)
+    */
+    Doryen::Color getPixel( int x, int y ) const;
 
 	/**
 	@PageName image_read
@@ -190,64 +190,64 @@ public :
 	*/
    	bool isPixelTransparent(int x, int y) const;
 
-	/**
-	@PageName image_read
-	@FuncTitle Getting the average color of a part of the image
-	@FuncDesc This method uses mipmaps to get the average color of an arbitrary rectangular region of the image.
-		It can be used to draw a scaled-down version of the image. It's used by libtcod's blitting functions.
-	@Cpp TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
-	@C TCOD_color_t TCOD_image_get_mipmap_pixel(TCOD_image_t image,float x0,float y0, float x1, float y1)
-	@Py image_get_mipmap_pixel(image,x0,y0, x1, y1)
-	@C# TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
-	@Param image	In the C version, the image handler, obtained with the load function.
-	@Param x0,y0	Coordinates in pixels of the upper-left corner of the region.
-		0.0 <= x0 < x1
-		0.0 <= y0 < y1
-	@Param x1,y1	Coordinates in pixels of the lower-right corner of the region.
-		x0 < x1 < width
-		y0 < y1 < height
-	@CppEx 
-		// Get the average color of a 5x5 "superpixel" in the center of the image.
-		TCODImage *pix = new TCODImage(80,50);
-		TCODColor col=pix->getMipMapPixel(37.5f, 22.5f, 42.5f, 28.5f);
-	@CEx 
-		TCOD_image_t pix = TCOD_image_new(80,50);
-		TCOD_color_t col=TCOD_image_get_mipmap_pixel(pix,37.5f, 22.5f, 42.5f, 28.5f);
-	@PyEx
-		pix = libtcod.image_new(80,50)
-		col=libtcod.image_get_mipmap_pixel(pix,37.5, 22.5, 42.5, 28.5)
-	*/
-   	TCODColor getMipmapPixel(float x0,float y0, float x1, float y1);
+    /**
+    @PageName image_read
+    @FuncTitle Getting the average color of a part of the image
+    @FuncDesc This method uses mipmaps to get the average color of an arbitrary rectangular region of the image.
+        It can be used to draw a scaled-down version of the image. It's used by libtcod's blitting functions.
+    @Cpp Doryen::TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
+    @C TCOD_color_t TCOD_image_get_mipmap_pixel(TCOD_image_t image,float x0,float y0, float x1, float y1)
+    @Py image_get_mipmap_pixel(image,x0,y0, x1, y1)
+    @C# Doryen::TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
+    @Param image	In the C version, the image handler, obtained with the load function.
+    @Param x0,y0	Coordinates in pixels of the upper-left corner of the region.
+        0.0 <= x0 < x1
+        0.0 <= y0 < y1
+    @Param x1,y1	Coordinates in pixels of the lower-right corner of the region.
+        x0 < x1 < width
+        y0 < y1 < height
+    @CppEx
+        // Get the average color of a 5x5 "superpixel" in the center of the image.
+        TCODImage *pix = new TCODImage(80,50);
+        Doryen::TCODColor col=pix->getMipMapPixel(37.5f, 22.5f, 42.5f, 28.5f);
+    @CEx
+        TCOD_image_t pix = TCOD_image_new(80,50);
+        TCOD_color_t col=TCOD_image_get_mipmap_pixel(pix,37.5f, 22.5f, 42.5f, 28.5f);
+    @PyEx
+        pix = libtcod.image_new(80,50)
+        col=libtcod.image_get_mipmap_pixel(pix,37.5, 22.5, 42.5, 28.5)
+    */
+    Doryen::Color getMipmapPixel( float x0, float y0, float x1, float y1 );
 
-	/**
-	@PageName image_update
-	@PageTitle Updating an image
-	@PageFather image
-	@FuncTitle Filling an image with a color
-	@FuncDesc You can fill the whole image with a color with :
-	@Cpp void TCODImage::clear(const TCODColor color)
-	@C void TCOD_image_clear(TCOD_image_t image, TCOD_color_t color)
-	@Py image_clear(image,color)
-	@C# void TCODImage::clear(TCODColor color)
-	@Param image	In the C and python version, the image to fill.
-	@Param color	The color to use.
-	*/
-	void clear(const TCODColor col);
+    /**
+    @PageName image_update
+    @PageTitle Updating an image
+    @PageFather image
+    @FuncTitle Filling an image with a color
+    @FuncDesc You can fill the whole image with a color with :
+    @Cpp void TCODImage::clear(const Doryen::TCODColor color)
+    @C void TCOD_image_clear(TCOD_image_t image, TCOD_color_t color)
+    @Py image_clear(image,color)
+    @C# void TCODImage::clear(Doryen::TCODColor color)
+    @Param image	In the C and python version, the image to fill.
+    @Param color	The color to use.
+    */
+    void clear( const Doryen::Color col );
 
-	/**
-	@PageName image_update
-	@FuncTitle 	Changing the color of a pixel
-	@Cpp TCODColor TCODImage::putPixel(int x, int y, const TCODColor col)
-	@C void TCOD_image_put_pixel(TCOD_image_t image,int x, int y,TCOD_color_t col)
-	@Py image_put_pixel(image,x, y,col)
-	@C# TCODColor TCODImage::putPixel(int x, int y, TCODColor col)
-	@Param image	In the C version, the image handler, obtained with the load function.
-	@Param x,y	The pixel coordinates inside the image.
-		0 <= x < width
-		0 <= y < height
-	@Param col	The new color of the pixel.
-	*/
-	void putPixel(int x, int y, const TCODColor col);
+    /**
+    @PageName image_update
+    @FuncTitle 	Changing the color of a pixel
+    @Cpp Doryen::TCODColor TCODImage::putPixel(int x, int y, const Doryen::TCODColor col)
+    @C void TCOD_image_put_pixel(TCOD_image_t image,int x, int y,TCOD_color_t col)
+    @Py image_put_pixel(image,x, y,col)
+    @C# Doryen::TCODColor TCODImage::putPixel(int x, int y, Doryen::TCODColor col)
+    @Param image	In the C version, the image handler, obtained with the load function.
+    @Param x,y	The pixel coordinates inside the image.
+        0 <= x < width
+        0 <= y < height
+    @Param col	The new color of the pixel.
+    */
+    void putPixel( int x, int y, const Doryen::Color col );
 	
 	/**
 	@PageName image_update
@@ -375,31 +375,32 @@ public :
 	@Param angle	Rotation angle in radians.
 	*/	
 	void blit(TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET, float scalex=1.0f, float scaley=1.0f, float angle=0.0f) const;
-	/**
-	@PageName image_blit
-	@FuncTitle Blitting with a mask
-	@FuncDesc When blitting an image, you can define a key color that will be ignored by the blitting function. This makes it possible to blit non rectangular images or images with transparent pixels.
-	@Cpp void TCODImage::setKeyColor(const TCODColor keyColor)
-	@C void TCOD_image_set_key_color(TCOD_image_t image, TCOD_color_t keyColor)
-	@Py image_set_key_color(image, keyColor)
-	@C# void TCODImage::setKeyColor(TCODColor keyColor)
-	@Param image	In the C and python version, the image handler, obtained with the load function.
-	@Param color	Pixels with this color will be skipped by blitting functions.
-	@CppEx 
-		TCODImage *pix = TCODImage("mypix.bmp");
-		pix->setKeyColor(TCODColor::red);
-		// blitting the image, omitting red pixels
-		pix->blitRect(TCODConsole::root,40,25);
-	@CEx 
-		TCOD_image_t pix = TCOD_image_new(10,10);
-		TCOD_image_set_key_color(pix,TCOD_red);
-		TCOD_image_blit_rect(pix,NULL,40,25,5,5,TCOD_BKGND_SET);
-	@PyEx 
-		pix = libtcod.image_new(10,10)
-		libtcod.image_set_key_color(pix,libtcod.red)
-		libtcod.image_blit_rect(pix,0,40,25,5,5,libtcod.BKGND_SET)
-	*/	
-	void setKeyColor(const TCODColor keyColor);
+
+    /**
+    @PageName image_blit
+    @FuncTitle Blitting with a mask
+    @FuncDesc When blitting an image, you can define a key color that will be ignored by the blitting function. This makes it possible to blit non rectangular images or images with transparent pixels.
+    @Cpp void TCODImage::setKeyColor(const Doryen::TCODColor keyColor)
+    @C void TCOD_image_set_key_color(TCOD_image_t image, TCOD_color_t keyColor)
+    @Py image_set_key_color(image, keyColor)
+    @C# void TCODImage::setKeyColor(Doryen::TCODColor keyColor)
+    @Param image	In the C and python version, the image handler, obtained with the load function.
+    @Param color	Pixels with this color will be skipped by blitting functions.
+    @CppEx
+        TCODImage *pix = TCODImage("mypix.bmp");
+        pix->setKeyColor(Doryen::TCODColor::red);
+        // blitting the image, omitting red pixels
+        pix->blitRect(TCODConsole::root,40,25);
+    @CEx
+        TCOD_image_t pix = TCOD_image_new(10,10);
+        TCOD_image_set_key_color(pix,TCOD_red);
+        TCOD_image_blit_rect(pix,NULL,40,25,5,5,TCOD_BKGND_SET);
+    @PyEx
+        pix = libtcod.image_new(10,10)
+        libtcod.image_set_key_color(pix,libtcod.red)
+        libtcod.image_blit_rect(pix,0,40,25,5,5,libtcod.BKGND_SET)
+    */
+    void setKeyColor( const Doryen::Color keyColor );
 	
 	/**
 	@PageName image_blit

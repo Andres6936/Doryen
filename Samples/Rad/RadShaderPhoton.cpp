@@ -32,7 +32,8 @@ PhotonShader::PhotonShader(float reflectivity, float selfIllumination, int nbPas
 	maxRadius(0),reflectivity(reflectivity), selfIllumination(selfIllumination), nbPass(nbPass) {
 }
 
-int PhotonShader::addLight(int x, int y, int radius, const TCODColor &col) {
+int PhotonShader::addLight( int x, int y, int radius, const Doryen::Color &col )
+{
 	if ( radius > maxRadius ) maxRadius=radius;
 	return Shader::addLight(x,y,radius,col);
 }
@@ -175,7 +176,7 @@ void PhotonShader::compute() {
 	}
 	
 	CellData *cellData=data;
-	TCODColor *col=lightmap;
+    Doryen::Color *col = lightmap;
 	propagate();  
 	for (int c=0; c < size; c++,cellData++, col++) {
 		col->r = (uint8)MIN(255,cellData->outgoing.r);

@@ -30,19 +30,19 @@ public :
 	virtual ~Shader() {}
 	virtual void init(TCODMap *map);
 	// add a new light. return its ID
-	virtual int addLight(int x, int y, int radius, const TCODColor &col);
+    virtual int addLight( int x, int y, int radius, const Doryen::Color &col );
 	// update the light with given ID
-	virtual void updateLight(int id, int x, int y, int radius, const TCODColor &col);
+    virtual void updateLight( int id, int x, int y, int radius, const Doryen::Color &col );
 	virtual void compute() = 0;
 	// get the computed light color
-	virtual const TCODColor &getLightColor(int x, int y);
+    virtual const Doryen::Color &getLightColor( int x, int y );
 protected :
 	struct Light {
 		int x,y,radius;
-		TCODColor col;
+        Doryen::Color col;
 	};
 	TCODList<Light> lights;
-	TCODColor *lightmap;
+    Doryen::Color *lightmap;
 	TCODMap *map;
 };
 
@@ -56,7 +56,8 @@ public :
 	PhotonShader(float reflectivity, float selfIllumination, int nbPass);
 	void init(TCODMap *map);
 	void compute();
-	int addLight(int x, int y, int radius, const TCODColor &col);
+
+    int addLight( int x, int y, int radius, const Doryen::Color &col );
 protected :
 	// maximum radius of a light in the map
 	int maxRadius;

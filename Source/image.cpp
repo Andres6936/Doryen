@@ -40,7 +40,8 @@ TCODImage::TCODImage(const TCODConsole *con) {
 	data=(void *)TCOD_image_from_console(con->data);
 }
 
-void TCODImage::clear(const TCODColor col) {
+void TCODImage::clear( const Doryen::Color col )
+{
 	TCOD_color_t ccol;
 	ccol.r=col.r;
 	ccol.g=col.g;
@@ -56,21 +57,24 @@ TCODImage::~TCODImage() {
 	if ( deleteData ) TCOD_image_delete(data);
 }
 
-TCODColor TCODImage::getPixel(int x, int y) const {
+Doryen::Color TCODImage::getPixel( int x, int y ) const
+{
     TCOD_color_t c = TCOD_image_get_pixel( data, x, y );
-    return TCODColor( c.r, c.g, c.b );
+    return Doryen::Color( c.r, c.g, c.b );
 }
 
 int TCODImage::getAlpha(int x,int y) const {
 	return TCOD_image_get_alpha(data,x,y);
 }
 
-TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1) {
+Doryen::Color TCODImage::getMipmapPixel( float x0, float y0, float x1, float y1 )
+{
     TCOD_color_t c = TCOD_image_get_mipmap_pixel( data, x0, y0, x1, y1 );
-    return TCODColor( c.r, c.g, c.b );
+    return Doryen::Color( c.r, c.g, c.b );
 }
 
-void TCODImage::putPixel(int x, int y, const TCODColor col) {
+void TCODImage::putPixel( int x, int y, const Doryen::Color col )
+{
 	TCOD_color_t ccol = {col.r,col.g,col.b};
 	TCOD_image_put_pixel(data,x,y,ccol);
 }
@@ -87,7 +91,8 @@ void TCODImage::save(const char *filename) const {
 	TCOD_image_save(data,filename);
 }
 
-void TCODImage::setKeyColor(const TCODColor keyColor) {
+void TCODImage::setKeyColor( const Doryen::Color keyColor )
+{
 	TCOD_color_t ccol = {keyColor.r,keyColor.g,keyColor.b};
 	TCOD_image_set_key_color(data,ccol);
 }

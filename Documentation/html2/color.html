@@ -56,69 +56,122 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <tr><td>white</td><td title="white: 255,255,255" style="background-color: rgb(255,255,255)"></td></tr>
 </table><a name="0"></a><div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor<span class="code-symbol">::</span>desaturatedRed<br />TCODColor<span class="code-symbol">::</span>lightestRed<br />TCODColor<span class="code-symbol">::</span>lighterRed<br />TCODColor<span class="code-symbol">::</span>lightRed<br />TCODColor<span class="code-symbol">::</span>red<br />TCODColor<span class="code-symbol">::</span>darkRed<br />TCODColor<span class="code-symbol">::</span>darkerRed<br />TCODColor<span class="code-symbol">::</span>darkestRed</p>
+    <p class="cpp">Color<span class="code-symbol">::</span>desaturatedRed<br/>Color<span class="code-symbol">::</span>lightestRed<br/>Color<span
+            class="code-symbol">::</span>lighterRed<br/>Color<span class="code-symbol">::</span>lightRed<br/>Color<span
+            class="code-symbol">::</span>red<br/>Color<span class="code-symbol">::</span>darkRed<br/>Color<span
+            class="code-symbol">::</span>darkerRed<br/>Color<span class="code-symbol">::</span>darkestRed</p>
 <p class="c">TCOD_desaturated_red<br />TCOD_lightest_red<br />TCOD_lighter_red<br />TCOD_light_red<br />TCOD_red<br />TCOD_dark_red<br />TCOD_darker_red<br />TCOD_darkest_red</p>
 <p class="py">libtcod<span class="code-symbol">.</span>desaturated_red<br />libtcod<span class="code-symbol">.</span>lightest_red<br />libtcod<span class="code-symbol">.</span>lighter_red<br />libtcod<span class="code-symbol">.</span>light_red<br />libtcod<span class="code-symbol">.</span>red<br />libtcod<span class="code-symbol">.</span>dark_red<br />libtcod<span class="code-symbol">.</span>darker_red<br />libtcod<span class="code-symbol">.</span>darkest_red</p>
-<p class="cs">TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>desaturatedRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>lightestRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>lighterRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>lightRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>red<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>darkRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>darkerRed<br />TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>darkestRed</p>
+    <p class="cs">Color<span class="code-symbol">:</span><span class="code-symbol">:</span>desaturatedRed<br/>Color<span
+            class="code-symbol">:</span><span class="code-symbol">:</span>lightestRed<br/>Color<span
+            class="code-symbol">:</span><span class="code-symbol">:</span>lighterRed<br/>Color<span class="code-symbol">:</span><span
+            class="code-symbol">:</span>lightRed<br/>Color<span class="code-symbol">:</span><span
+            class="code-symbol">:</span>red<br/>Color<span class="code-symbol">:</span><span
+            class="code-symbol">:</span>darkRed<br/>Color<span class="code-symbol">:</span><span
+            class="code-symbol">:</span>darkerRed<br/>Color<span class="code-symbol">:</span><span
+            class="code-symbol">:</span>darkestRed</p>
 <p class="lua">tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>desaturatedRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lightestRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lighterRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lightRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>red<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkerRed<br />tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkestRed</p>
 </div><hr>
 <a name="1"></a><h3>Create your own colors</h3>
 <p>You can create your own colours using a set of constructors, both for RGB and HSV values.<br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myColor<span class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol">;</span><span class="code-comment"> //RGB<br /></span>TCODColor myOtherColor<span class="code-symbol">(</span><span class="code-value">321.0</span>f<span class="code-symbol">,</span><span class="code-value">0.7</span>f<span class="code-symbol">,</span><span class="code-value">1.0</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
+    <p class="cpp">Color myColor<span class="code-symbol">(</span><span class="code-value">24</span><span
+            class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span
+            class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol">;</span><span
+            class="code-comment"> //RGB<br/></span>Color myOtherColor<span class="code-symbol">(</span><span
+            class="code-value">321.0</span>f<span class="code-symbol">,</span><span class="code-value">0.7</span>f<span
+            class="code-symbol">,</span><span class="code-value">1.0</span>f<span class="code-symbol">)</span><span
+            class="code-symbol">;</span></p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_color<span class="code-symbol">=</span><span class="code-symbol">{</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">}</span><span class="code-symbol">;</span><span class="code-symbol"> <</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span><span class="code-symbol">*</span><span class="code-tcod"> RGB</span><span class="code-symbol"> *</span><span class="code-symbol"><</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span><span class="code-tcod"><br />TCOD_color_t</span> my_other_color<span class="code-symbol"> =</span> TCOD_color_RGB<span class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol">;</span><span class="code-symbol"> <</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span><span class="code-symbol">*</span><span class="code-tcod"> RGB</span> too<span class="code-symbol"> *</span><span class="code-symbol"><</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span><span class="code-tcod"><br />TCOD_color_t</span> my_yet_another_color<span class="code-symbol"> =</span> TCOD_color_HSV<span class="code-symbol">(</span><span class="code-value">321.0</span>f<span class="code-symbol">,</span><span class="code-value">0.7</span>f<span class="code-symbol">,</span><span class="code-value">1.0</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span><span class="code-symbol"> <</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span><span class="code-symbol">*</span><span class="code-tcod"> HSV</span><span class="code-symbol"> *</span><span class="code-symbol"><</span>span<span class="code-symbol">></span><span class="code-symbol">/</span><span class="code-symbol"><</span><span class="code-symbol">/</span>span<span class="code-symbol">></span></p>
 <p class="py">my_color<span class="code-symbol">=</span>libtcod<span class="code-symbol">.</span>Color<span class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span></p>
-<p class="cs">TCODColor myColor<span class="code-symbol"> =</span><span class="code-keyword"> new</span> TCODColor<span class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol">;</span><span class="code-comment"> //RGB<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>TCODColor myColor<span class="code-symbol"> =</span><span class="code-keyword"> new</span> TCODColor<span class="code-symbol">(</span><span class="code-value">321.0</span>f<span class="code-symbol">,</span><span class="code-value">0.7</span>f<span class="code-symbol">,</span><span class="code-value">1.0</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
+    <p class="cs">Color myColor<span class="code-symbol"> =</span><span class="code-keyword"> new</span> Color<span
+            class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span
+            class="code-value">64</span><span class="code-symbol">,</span><span class="code-value">255</span><span
+            class="code-symbol">)</span><span class="code-symbol">;</span><span class="code-comment"> //RGB<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Color
+        myColor<span class="code-symbol"> =</span><span class="code-keyword"> new</span> Color<span class="code-symbol">(</span><span
+                class="code-value">321.0</span>f<span class="code-symbol">,</span><span
+                class="code-value">0.7</span>f<span class="code-symbol">,</span><span
+                class="code-value">1.0</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="lua">myColor<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>Color<span class="code-symbol">(</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">24</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span></p>
 </div><hr>
 <a name="2"></a><h3>Compare two colors</h3>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp"><span class="code-keyword">if</span><span class="code-symbol"> (</span>myColor<span class="code-symbol"> ==</span> TCODColor<span class="code-symbol">::</span>yellow<span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span class="code-symbol"> }</span><span class="code-keyword"><br />if</span><span class="code-symbol"> (</span>myColor<span class="code-symbol"> !=</span> TCODColor<span class="code-symbol">::</span>white<span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span class="code-symbol"> }</span></p>
+    <p class="cpp"><span class="code-keyword">if</span><span class="code-symbol"> (</span>myColor<span
+            class="code-symbol"> ==</span> Color<span class="code-symbol">::</span>yellow<span
+            class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span
+            class="code-symbol"> }</span><span class="code-keyword"><br/>if</span><span class="code-symbol"> (</span>myColor<span
+            class="code-symbol"> !=</span> Color<span class="code-symbol">::</span>white<span
+            class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span
+            class="code-symbol"> }</span></p>
 <p class="c"><span class="code-keyword">if</span><span class="code-symbol"> (</span>TCOD_color_equals<span class="code-symbol">(</span>my_color<span class="code-symbol">,</span>TCOD_yellow<span class="code-symbol">)</span><span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span class="code-symbol"> }</span><span class="code-keyword"><br />if</span><span class="code-symbol"> (</span><span class="code-symbol">!</span>TCOD_color_equals<span class="code-symbol">(</span>my_color<span class="code-symbol">,</span>TCOD_white<span class="code-symbol">)</span><span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> ...</span><span class="code-symbol"> }</span></p>
 <p class="py"><span class="code-keyword">if</span> my_color<span class="code-symbol"> ==</span> libtcod<span class="code-symbol">.</span>yellow<span class="code-symbol"> :</span><span class="code-symbol"> .</span><span class="code-symbol">.</span><span class="code-symbol">.</span><span class="code-keyword"><br />if</span> my_color<span class="code-symbol"> !=</span> litbcod<span class="code-symbol">.</span>white<span class="code-symbol"> :</span><span class="code-symbol"> .</span><span class="code-symbol">.</span><span class="code-symbol">.</span></p>
-<p class="cs">if<span class="code-symbol"> (</span>myColor<span class="code-symbol">.</span>Equal<span class="code-symbol">(</span>TCODColor<span class="code-symbol">.</span>yellow<span class="code-symbol">)</span><span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> .</span><span class="code-symbol">.</span><span class="code-symbol">.</span><span class="code-symbol"> }</span><br />if<span class="code-symbol"> (</span>myColor<span class="code-symbol">.</span>NotEqual<span class="code-symbol">(</span>TCODColor<span class="code-symbol">.</span>white<span class="code-symbol">)</span><span class="code-symbol">)</span><span class="code-symbol"> {</span><span class="code-symbol"> .</span><span class="code-symbol">.</span><span class="code-symbol">.</span><span class="code-symbol"> }</span></p>
+    <p class="cs">if<span class="code-symbol"> (</span>myColor<span class="code-symbol">.</span>Equal<span
+            class="code-symbol">(</span>Color<span class="code-symbol">.</span>yellow<span
+            class="code-symbol">)</span><span class="code-symbol">)</span><span class="code-symbol"> {</span><span
+            class="code-symbol"> .</span><span class="code-symbol">.</span><span class="code-symbol">.</span><span
+            class="code-symbol"> }</span><br/>if<span class="code-symbol"> (</span>myColor<span
+            class="code-symbol">.</span>NotEqual<span class="code-symbol">(</span>Color<span
+            class="code-symbol">.</span>white<span class="code-symbol">)</span><span class="code-symbol">)</span><span
+            class="code-symbol"> {</span><span class="code-symbol"> .</span><span class="code-symbol">.</span><span
+            class="code-symbol">.</span><span class="code-symbol"> }</span></p>
 <p class="lua"><span class="code-keyword">if</span> myColor<span class="code-symbol"> ==</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>yellow<span class="code-keyword"> then</span><span class="code-symbol"> ...</span><span class="code-keyword"> end</span></p>
 </div><hr>
 <a name="3"></a><h3>Multiply two colors</h3>
 <p>c1 = c2 * c3 =><br />    c1.r = c2.r * c3.r / 255<br />    c1.g = c2.g * c3.g / 255<br />    c1.b = c2.b * c3.b / 255<br />	darkishRed = darkGrey * red<br /><table><tr><td style="background-color: rgb(96, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr></table><br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myDarkishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">::</span>darkGrey<span class="code-symbol"> *</span> TCODColor<span class="code-symbol">::</span>lightRed<span class="code-symbol">;</span></p>
+    <p class="cpp">Color myDarkishRed<span class="code-symbol"> =</span> Color<span class="code-symbol">::</span>darkGrey<span
+            class="code-symbol"> *</span> Color<span class="code-symbol">::</span>lightRed<span
+            class="code-symbol">;</span></p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_darkish_red<span class="code-symbol"> =</span> TCOD_color_multiply<span class="code-symbol">(</span>TCOD_dark_grey<span class="code-symbol">,</span> TCOD_light_red<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">my_darkish_red<span class="code-symbol"> =</span> libtcod<span class="code-symbol">.</span>dark_grey<span class="code-symbol"> *</span> libtcod<span class="code-symbol">.</span>light_red</p>
-<p class="cs">TCODColor myDarkishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">.</span>darkGrey<span class="code-symbol">.</span>Multiply<span class="code-symbol">(</span>TCODColor<span class="code-symbol">.</span>lightRed<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
+    <p class="cs">Color myDarkishRed<span class="code-symbol"> =</span> Color<span
+            class="code-symbol">.</span>darkGrey<span class="code-symbol">.</span>Multiply<span
+            class="code-symbol">(</span>Color<span class="code-symbol">.</span>lightRed<span
+            class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="lua">myDarkishRed<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkGrey<span class="code-symbol"> *</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lightRed</p>
 </div><hr>
 <a name="4"></a><h3>Multiply a color by a float</h3>
 <p>c1 = c2 * v =><br />    c1.r = CLAMP(0, 255, c2.r * v)<br />    c1.g = CLAMP(0, 255, c2.g * v)<br />    c1.b = CLAMP(0, 255, c2.b * v)<br />	darkishRed = red * 0.5<br /><table><tr><td style="background-color: rgb(128, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="width: 60px;"></td></tr></table><br /></tbody><br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myDarkishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">::</span>lightRed<span class="code-symbol"> *</span><span class="code-value"> 0.5</span>f<span class="code-symbol">;</span></p>
+    <p class="cpp">Color myDarkishRed<span class="code-symbol"> =</span> Color<span class="code-symbol">::</span>lightRed<span
+            class="code-symbol"> *</span><span class="code-value"> 0.5</span>f<span class="code-symbol">;</span></p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_darkish_red<span class="code-symbol"> =</span> TCOD_color_multiply_scalar<span class="code-symbol">(</span>TCOD_light_red<span class="code-symbol">,</span><span class="code-value"> 0.5</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">myDarkishRed<span class="code-symbol"> =</span> litbcod<span class="code-symbol">.</span>light_red<span class="code-symbol"> *</span><span class="code-value"> 0.5</span></p>
-<p class="cs">TCODColor myDarkishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">.</span>lightRed<span class="code-symbol">.</span>Multiply<span class="code-symbol">(</span><span class="code-value">0.5</span>f<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
+    <p class="cs">Color myDarkishRed<span class="code-symbol"> =</span> Color<span
+            class="code-symbol">.</span>lightRed<span class="code-symbol">.</span>Multiply<span
+            class="code-symbol">(</span><span class="code-value">0.5</span>f<span class="code-symbol">)</span><span
+            class="code-symbol">;</span></p>
 <p class="lua">myDarkishRed<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lightRed<span class="code-symbol"> *</span><span class="code-value"> 0.5</span></p>
 </div><hr>
 <a name="5"></a><h3>Adding two colors</h3>
 <p>c1 = c1 + c2 => c1.r = MIN(255, c1.r + c2.r)<br />                  c1.g = MIN(255, c1.g + c2.g)<br />                  c1.b = MIN(255, c1.b + c2.b)<br />	lightishRed = red + darkGrey<br /><table><tr><td style="background-color: rgb(255, 128, 128); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="background-color: rgb(128, 128, 128); width: 60px;"></td></tr></table><br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myLightishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">::</span>red<span class="code-symbol"> +</span> TCODColor<span class="code-symbol">::</span>darkGrey</p>
+    <p class="cpp">Color myLightishRed<span class="code-symbol"> =</span> Color<span
+            class="code-symbol">::</span>red<span class="code-symbol"> +</span> Color<span class="code-symbol">::</span>darkGrey
+    </p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_lightish_red<span class="code-symbol"> =</span> TCOD_color_add<span class="code-symbol">(</span>TCOD_red<span class="code-symbol">,</span> TCOD_dark_grey<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">myLightishRed<span class="code-symbol"> =</span> libtcod<span class="code-symbol">.</span>red<span class="code-symbol"> +</span> libtcod<span class="code-symbol">.</span>dark_grey</p>
-<p class="cs">TCODColor myLightishRed<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">.</span>red<span class="code-symbol">.</span>Plus<span class="code-symbol">(</span>TCODColor<span class="code-symbol">.</span>darkGrey<span class="code-symbol">)</span></p>
+    <p class="cs">Color myLightishRed<span class="code-symbol"> =</span> Color<span class="code-symbol">.</span>red<span
+            class="code-symbol">.</span>Plus<span class="code-symbol">(</span>Color<span class="code-symbol">.</span>darkGrey<span
+            class="code-symbol">)</span></p>
 <p class="lua">myLightishRed<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>red<span class="code-symbol"> +</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkGrey</p>
 </div><hr>
 <a name="6"></a><h3>Subtract two colors</h3>
 <p>c1 = c1 - c2 => c1.r = MAX(0, c1.r - c2.r)<br />                  c1.g = MAX(0, c1.g - c2.g)<br />                  c1.b = MAX(0, c1.b - c2.b)<br />	redish = red - darkGrey<br /><table><tr><td style="background-color: rgb(127, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="background-color: rgb(128, 128, 128); width: 60px;"></td></tr></table><br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myRedish<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">::</span>red<span class="code-symbol"> -</span> TCODColor<span class="code-symbol">::</span>darkGrey</p>
+    <p class="cpp">Color myRedish<span class="code-symbol"> =</span> Color<span class="code-symbol">::</span>red<span
+            class="code-symbol"> -</span> Color<span class="code-symbol">::</span>darkGrey</p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_redish<span class="code-symbol"> =</span> TCOD_color_subtract<span class="code-symbol">(</span>TCOD_red<span class="code-symbol">,</span> TCOD_dark_grey<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">myRedish<span class="code-symbol"> =</span> libtcod<span class="code-symbol">.</span>red<span class="code-symbol"> -</span> libtcod<span class="code-symbol">.</span>dark_grey</p>
-<p class="cs">TCODColor myRedish<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">.</span>red<span class="code-symbol">.</span>Minus<span class="code-symbol">(</span>TCODColor<span class="code-symbol">.</span>darkGrey<span class="code-symbol">)</span></p>
+    <p class="cs">Color myRedish<span class="code-symbol"> =</span> Color<span class="code-symbol">.</span>red<span
+            class="code-symbol">.</span>Minus<span class="code-symbol">(</span>Color<span class="code-symbol">.</span>darkGrey<span
+            class="code-symbol">)</span></p>
 <p class="lua">myRedish<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>red<span class="code-symbol"> -</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkGrey</p>
 </div><hr>
 <a name="7"></a><h3>Interpolate between two colors</h3>
@@ -130,61 +183,113 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 	<tr><td style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);" align="center">coef == 1.0f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr></table><br />	</p>
 <div class="code"></div>
 <h6>Example:</h6><div class="code">
-<p class="cpp">TCODColor myColor<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">::</span>lerp<span class="code-symbol"> (</span> TCODColor<span class="code-symbol">::</span>darkGrey<span class="code-symbol">,</span> TCODColor<span class="code-symbol">::</span>lightRed<span class="code-symbol">,</span>coef<span class="code-symbol"> )</span><span class="code-symbol">;</span></p>
+    <p class="cpp">Color myColor<span class="code-symbol"> =</span> Color<span class="code-symbol">::</span>lerp<span
+            class="code-symbol"> (</span> Color<span class="code-symbol">::</span>darkGrey<span
+            class="code-symbol">,</span> Color<span class="code-symbol">::</span>lightRed<span
+            class="code-symbol">,</span>coef<span class="code-symbol"> )</span><span class="code-symbol">;</span></p>
 <p class="c"><span class="code-tcod">TCOD_color_t</span> my_color<span class="code-symbol"> =</span> TCOD_color_lerp<span class="code-symbol"> (</span> TCOD_dark_grey<span class="code-symbol">,</span> TCOD_light_red<span class="code-symbol">,</span>coef<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">my_color<span class="code-symbol"> =</span> libtcod<span class="code-symbol">.</span>color_lerp<span class="code-symbol"> (</span> libtcod<span class="code-symbol">.</span>dark_grey<span class="code-symbol">,</span> litbcod<span class="code-symbol">.</span>light_red<span class="code-symbol">,</span>coef<span class="code-symbol">)</span></p>
-<p class="cs">TCODColor myColor<span class="code-symbol"> =</span> TCODColor<span class="code-symbol">.</span>Interpolate<span class="code-symbol">(</span> TCODColor<span class="code-symbol">.</span>darkGrey<span class="code-symbol">,</span> TCODColor<span class="code-symbol">.</span>lightRed<span class="code-symbol">,</span> coef<span class="code-symbol"> )</span><span class="code-symbol">;</span></p>
+    <p class="cs">Color myColor<span class="code-symbol"> =</span> Color<span
+            class="code-symbol">.</span>Interpolate<span class="code-symbol">(</span> Color<span
+            class="code-symbol">.</span>darkGrey<span class="code-symbol">,</span> Color<span
+            class="code-symbol">.</span>lightRed<span class="code-symbol">,</span> coef<span
+            class="code-symbol"> )</span><span class="code-symbol">;</span></p>
 <p class="lua">myColor<span class="code-symbol"> =</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>Interpolate<span class="code-symbol">(</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>darkGrey<span class="code-symbol">,</span> tcod<span class="code-symbol">.</span>color<span class="code-symbol">.</span>lightRed<span class="code-symbol">,</span> coef<span class="code-symbol"> )</span></p>
 </div><hr>
 <a name="8"></a><h3>Define a color by its hue, saturation and value</h3>
 <p>After this function is called, the r,g,b fields of the color are calculated according to the h,s,v parameters.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">::</span>setHSV<span class="code-symbol">(</span><span class="code-keyword">float</span> h<span class="code-symbol">,</span><span class="code-keyword"> float</span> s<span class="code-symbol">,</span><span class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> Color<span class="code-symbol">::</span>setHSV<span
+            class="code-symbol">(</span><span class="code-keyword">float</span> h<span class="code-symbol">,</span><span
+            class="code-keyword"> float</span> s<span class="code-symbol">,</span><span
+            class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_color_set_HSV<span class="code-symbol">(</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword">float</span> h<span class="code-symbol">,</span><span class="code-keyword"> float</span> s<span class="code-symbol">,</span><span class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
 <p class="py">color_set_hsv<span class="code-symbol">(</span>c<span class="code-symbol">,</span>h<span class="code-symbol">,</span>s<span class="code-symbol">,</span>v<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>setHSV<span class="code-symbol">(</span><span class="code-keyword">float</span> h<span class="code-symbol">,</span><span class="code-keyword"> float</span> s<span class="code-symbol">,</span><span class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> Color<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setHSV<span class="code-symbol">(</span><span
+                class="code-keyword">float</span> h<span class="code-symbol">,</span><span
+                class="code-keyword"> float</span> s<span class="code-symbol">,</span><span
+                class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
 <p class="lua">Color<span class="code-symbol">:</span>setHSV<span class="code-symbol">(</span> h<span class="code-symbol">,</span> s<span class="code-symbol"> ,</span>v<span class="code-symbol"> )</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>c</td><td>In the C and python versions, the color to modify<br />	</td></tr>
 <tr><td>h,s,v</td><td>Color components in the HSV space<br />		0.0 <= h < 360.0<br />		0.0 <= s <= 1.0<br />		0.0 <= v <= 1.0<br />	</td></tr>
 </tbody></table><a name="9"></a><h3>Define a color's hue, saturation or lightness</h3>
 <p>These functions set only a single component in the HSV color space.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">::</span>setHue<span class="code-symbol"> (</span><span class="code-keyword">float</span> h<span class="code-symbol">)</span><span class="code-keyword"><br />void</span> TCODColor<span class="code-symbol">::</span>setSaturation<span class="code-symbol"> (</span><span class="code-keyword">float</span> s<span class="code-symbol">)</span><span class="code-keyword"><br />void</span> TCODColor<span class="code-symbol">::</span>setValue<span class="code-symbol"> (</span><span class="code-keyword">float</span> v<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> Color<span class="code-symbol">::</span>setHue<span
+            class="code-symbol"> (</span><span class="code-keyword">float</span> h<span
+            class="code-symbol">)</span><span class="code-keyword"><br/>void</span> Color<span
+            class="code-symbol">::</span>setSaturation<span class="code-symbol"> (</span><span class="code-keyword">float</span>
+        s<span class="code-symbol">)</span><span class="code-keyword"><br/>void</span> Color<span
+                class="code-symbol">::</span>setValue<span class="code-symbol"> (</span><span
+                class="code-keyword">float</span> v<span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_color_set_hue<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword"> float</span> h<span class="code-symbol">)</span><span class="code-keyword"><br />void</span> TCOD_color_set_saturation<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword"> float</span> s<span class="code-symbol">)</span><span class="code-keyword"><br />void</span> TCOD_color_set_value<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
 <p class="lua">Color<span class="code-symbol">:</span>setHue<span class="code-symbol">(</span>h<span class="code-symbol">)</span><br />Color<span class="code-symbol">:</span>setSaturation<span class="code-symbol">(</span>s<span class="code-symbol">)</span><br />Color<span class="code-symbol">:</span>setValue<span class="code-symbol">(</span>v<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>h,s,v</td><td>Color components in the HSV space<br />	</td></tr>
 <tr><td>c</td><td>In the C and python versions, the color to modify<br />	</td></tr>
 </tbody></table><a name="10"></a><h3>Get a color hue, saturation and value components</h3>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">::</span>getHSV<span class="code-symbol">(</span><span class="code-keyword">float</span><span class="code-symbol"> *</span>h<span class="code-symbol">,</span><span class="code-keyword"> float</span><span class="code-symbol"> *</span>s<span class="code-symbol">,</span><span class="code-keyword"> float</span><span class="code-symbol"> *</span>v<span class="code-symbol">)</span><span class="code-keyword"> const</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> Color<span class="code-symbol">::</span>getHSV<span
+            class="code-symbol">(</span><span class="code-keyword">float</span><span class="code-symbol"> *</span>h<span
+            class="code-symbol">,</span><span class="code-keyword"> float</span><span
+            class="code-symbol"> *</span>s<span class="code-symbol">,</span><span
+            class="code-keyword"> float</span><span class="code-symbol"> *</span>v<span
+            class="code-symbol">)</span><span class="code-keyword"> const</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_color_get_HSV<span class="code-symbol">(</span><span class="code-tcod">TCOD_color_t</span> c<span class="code-symbol">,</span><span class="code-keyword">float</span><span class="code-symbol"> *</span> h<span class="code-symbol">,</span><span class="code-keyword"> float</span><span class="code-symbol"> *</span> s<span class="code-symbol">,</span><span class="code-keyword"> float</span><span class="code-symbol"> *</span> v<span class="code-symbol">)</span></p>
 <p class="py">color_get_HSV<span class="code-symbol">(</span>c<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>getHSV<span class="code-symbol">(</span><span class="code-keyword">out</span><span class="code-keyword"> float</span> h<span class="code-symbol">,</span><span class="code-keyword"> out</span><span class="code-keyword"> float</span> s<span class="code-symbol">,</span><span class="code-keyword"> out</span><span class="code-keyword"> float</span> v<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> Color<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>getHSV<span class="code-symbol">(</span><span
+                class="code-keyword">out</span><span class="code-keyword"> float</span> h<span
+                class="code-symbol">,</span><span class="code-keyword"> out</span><span
+                class="code-keyword"> float</span> s<span class="code-symbol">,</span><span
+                class="code-keyword"> out</span><span class="code-keyword"> float</span> v<span
+                class="code-symbol">)</span></p>
 <p class="lua">Color<span class="code-symbol">:</span>getHSV<span class="code-symbol">(</span><span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>c</td><td>In the C and python versions, the TCOD_color_t from which to read.<br />	</td></tr>
 <tr><td>h,s,v</td><td>Color components in the HSV space<br />		0.0 <= h < 360.0<br />		0.0 <= s <= 1.0<br />		0.0 <= v <= 1.0<br />	</td></tr>
 </tbody></table><a name="11"></a><h3>Get a color's hue, saturation or value</h3>
-<p>Should you need to extract only one of the HSV components, these functions are what you should call. Note that if you need all three values, it's way less burdensome for the CPU to call TCODColor::getHSV().<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">float</span> TCODColor<span class="code-symbol">::</span>getHue<span class="code-symbol"> (</span><span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCODColor<span class="code-symbol">::</span>getSaturation<span class="code-symbol"> (</span><span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCODColor<span class="code-symbol">::</span>getValue<span class="code-symbol"> (</span><span class="code-symbol">)</span></p>
+    <p>Should you need to extract only one of the HSV components, these functions are what you should call. Note that if
+        you need all three values, it's way less burdensome for the CPU to call Color::getHSV().<br/></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">float</span> Color<span class="code-symbol">::</span>getHue<span
+            class="code-symbol"> (</span><span class="code-symbol">)</span><span class="code-keyword"><br/>float</span>
+        Color<span class="code-symbol">::</span>getSaturation<span class="code-symbol"> (</span><span
+                class="code-symbol">)</span><span class="code-keyword"><br/>float</span> Color<span class="code-symbol">::</span>getValue<span
+                class="code-symbol"> (</span><span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">float</span> TCOD_color_get_hue<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span> c<span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCOD_color_get_saturation<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span> c<span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCOD_color_get_value<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span> c<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">float</span> TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>getHue<span class="code-symbol">(</span><span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>getSaturation<span class="code-symbol">(</span><span class="code-symbol">)</span><span class="code-keyword"><br />float</span> TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>getValue<span class="code-symbol">(</span><span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">float</span> Color<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>getHue<span class="code-symbol">(</span><span
+                class="code-symbol">)</span><span class="code-keyword"><br/>float</span> Color<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>getSaturation<span class="code-symbol">(</span><span
+                class="code-symbol">)</span><span class="code-keyword"><br/>float</span> Color<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>getValue<span class="code-symbol">(</span><span class="code-symbol">)</span>
+        </p>
 <p class="lua">Color<span class="code-symbol">:</span>getHue<span class="code-symbol">(</span><span class="code-symbol">)</span><br />Color<span class="code-symbol">:</span>getSaturation<span class="code-symbol">(</span><span class="code-symbol">)</span><br />Color<span class="code-symbol">:</span>getValue<span class="code-symbol">(</span><span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>c</td><td>the TCOD_color_t from which to read<br />	</td></tr>
 </tbody></table><a name="12"></a><h3>Shift a color's hue up or down</h3>
 <p>The hue shift value is the number of grades the color's hue will be shifted. The value can be negative for shift left, or positive for shift right.<br />		Resulting values H < 0 and H >= 360 are handled automatically.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">::</span>shiftHue<span class="code-symbol"> (</span><span class="code-keyword">float</span> hshift<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> Color<span class="code-symbol">::</span>shiftHue<span
+            class="code-symbol"> (</span><span class="code-keyword">float</span> hshift<span
+            class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_color_shift_hue<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword"> float</span> hshift<span class="code-symbol">)</span></p>
-<p class="cs">TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>shiftHue<span class="code-symbol">(</span><span class="code-keyword">float</span> hshift<span class="code-symbol">)</span></p>
+        <p class="cs">Color<span class="code-symbol">:</span><span class="code-symbol">:</span>shiftHue<span
+                class="code-symbol">(</span><span class="code-keyword">float</span> hshift<span
+                class="code-symbol">)</span></p>
 <p class="lua">Color<span class="code-symbol">:</span>shiftHue<span class="code-symbol">(</span>hshift<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>c</td><td>The color to modify<br />	</td></tr>
 <tr><td>hshift</td><td>The hue shift value<br />	</td></tr>
 </tbody></table><a name="13"></a><h3>Scale a color's saturation and value</h3>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODColor<span class="code-symbol">::</span>scaleHSV<span class="code-symbol"> (</span><span class="code-keyword">float</span> sscale<span class="code-symbol">,</span><span class="code-keyword"> float</span> vscale<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> Color<span class="code-symbol">::</span>scaleHSV<span
+            class="code-symbol"> (</span><span class="code-keyword">float</span> sscale<span
+            class="code-symbol">,</span><span class="code-keyword"> float</span> vscale<span
+            class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_color_scale_HSV<span class="code-symbol"> (</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>c<span class="code-symbol">,</span><span class="code-keyword"> float</span> scoef<span class="code-symbol">,</span><span class="code-keyword"> float</span> vcoef<span class="code-symbol">)</span></p>
 <p class="py">color_scale_HSV<span class="code-symbol">(</span>c<span class="code-symbol">,</span> scoef<span class="code-symbol">,</span> vcoef<span class="code-symbol">)</span></p>
-<p class="cs">TCODColor<span class="code-symbol">:</span><span class="code-symbol">:</span>scaleHSV<span class="code-symbol"> (</span><span class="code-keyword">float</span> sscale<span class="code-symbol">,</span><span class="code-keyword"> float</span> vscale<span class="code-symbol">)</span></p>
+        <p class="cs">Color<span class="code-symbol">:</span><span class="code-symbol">:</span>scaleHSV<span
+                class="code-symbol"> (</span><span class="code-keyword">float</span> sscale<span
+                class="code-symbol">,</span><span class="code-keyword"> float</span> vscale<span
+                class="code-symbol">)</span></p>
 <p class="lua">Color<span class="code-symbol">:</span>scaleHSV<span class="code-symbol">(</span>sscale<span class="code-symbol">,</span>vscale<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>c</td><td>The color to modify<br />	</td></tr>
@@ -204,7 +309,13 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 	<tr><td class="code"><pre>map[7]</pre></td><td style="background-color: rgb(255, 191, 191); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
 	<tr><td class="code"><pre>map[8]</pre></td><td style="background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td><td>white</td></tr>
 </tbody></table><br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">static</span><span class="code-keyword"> void</span> genMap<span class="code-symbol">(</span>TCODColor<span class="code-symbol"> *</span>map<span class="code-symbol">,</span><span class="code-keyword"> int</span> nbKey<span class="code-symbol">,</span> TCODColor<span class="code-keyword"> const</span><span class="code-symbol"> *</span>keyColor<span class="code-symbol">,</span><span class="code-keyword"> int</span><span class="code-keyword"> const</span><span class="code-symbol"> *</span>keyIndex<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">static</span><span class="code-keyword"> void</span>
+        genMap<span class="code-symbol">(</span>Color<span class="code-symbol"> *</span>map<span
+                class="code-symbol">,</span><span class="code-keyword"> int</span> nbKey<span
+                class="code-symbol">,</span> Color<span class="code-keyword"> const</span><span
+                class="code-symbol"> *</span>keyColor<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span><span class="code-keyword"> const</span><span
+                class="code-symbol"> *</span>keyIndex<span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_gen_map<span class="code-symbol">(</span><span class="code-tcod">TCOD_color_t</span><span class="code-symbol"> *</span>map<span class="code-symbol">,</span><span class="code-keyword"> int</span> nb_key<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span><span class="code-keyword"> const</span><span class="code-symbol"> *</span>key_color<span class="code-symbol">,</span><span class="code-keyword"> int</span><span class="code-keyword"> const</span><span class="code-symbol"> *</span>key_index<span class="code-symbol">)</span></p>
 <p class="py">color_gen_map<span class="code-symbol">(</span>keyColor<span class="code-symbol">,</span>keyIndex<span class="code-symbol">)</span></p>
 </div>
@@ -213,7 +324,27 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <tr class="hilite"><td>keyColor</td><td>Array of nbKey colors containing the color of each key<br />	</td></tr>
 <tr><td>keyIndex</td><td>Array of nbKey integers containing the index of each key.<br />		If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1] is the number of elements in map minus 1 but you can also use the function to fill only a part of the map array.<br />	</td></tr>
 </tbody></table><h6>Example:</h6><div class="code">
-<p class="cpp"><span class="code-keyword">int</span> idx<span class="code-symbol">[</span><span class="code-symbol">]</span><span class="code-symbol"> =</span><span class="code-symbol"> {</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value"> 4</span><span class="code-symbol">,</span><span class="code-value"> 8</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span class="code-comment"> // indexes of the keys<br /></span>TCODColor col<span class="code-symbol">[</span><span class="code-symbol">]</span><span class="code-symbol"> =</span><span class="code-symbol"> {</span> TCODColor<span class="code-symbol">(</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol"> )</span><span class="code-symbol">,</span> TCODColor<span class="code-symbol">(</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">)</span><span class="code-symbol">,</span> TCODColor<span class="code-symbol">(</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span class="code-comment"> // colors : black, red, white<br /></span>TCODColor map<span class="code-symbol">[</span><span class="code-value">9</span><span class="code-symbol">]</span><span class="code-symbol">;</span><br />TCODColor<span class="code-symbol">::</span>genMap<span class="code-symbol">(</span>map<span class="code-symbol">,</span><span class="code-value">3</span><span class="code-symbol">,</span>col<span class="code-symbol">,</span>idx<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
+    <p class="cpp"><span class="code-keyword">int</span> idx<span class="code-symbol">[</span><span class="code-symbol">]</span><span
+            class="code-symbol"> =</span><span class="code-symbol"> {</span><span class="code-value"> 0</span><span
+            class="code-symbol">,</span><span class="code-value"> 4</span><span class="code-symbol">,</span><span
+            class="code-value"> 8</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span
+            class="code-comment"> // indexes of the keys<br/></span>Color col<span class="code-symbol">[</span><span
+            class="code-symbol">]</span><span class="code-symbol"> =</span><span class="code-symbol"> {</span>
+        Color<span class="code-symbol">(</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span
+                class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span
+                class="code-symbol"> )</span><span class="code-symbol">,</span> Color<span
+                class="code-symbol">(</span><span class="code-value">255</span><span class="code-symbol">,</span><span
+                class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span
+                class="code-symbol">)</span><span class="code-symbol">,</span> Color<span
+                class="code-symbol">(</span><span class="code-value">255</span><span class="code-symbol">,</span><span
+                class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span
+                class="code-symbol">)</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span
+                class="code-comment"> // colors : black, red, white<br/></span>Color map<span
+                class="code-symbol">[</span><span class="code-value">9</span><span class="code-symbol">]</span><span
+                class="code-symbol">;</span><br/>Color<span class="code-symbol">::</span>genMap<span
+                class="code-symbol">(</span>map<span class="code-symbol">,</span><span class="code-value">3</span><span
+                class="code-symbol">,</span>col<span class="code-symbol">,</span>idx<span
+                class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="c"><span class="code-keyword">int</span> idx<span class="code-symbol">[</span><span class="code-symbol">]</span><span class="code-symbol"> =</span><span class="code-symbol"> {</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value"> 4</span><span class="code-symbol">,</span><span class="code-value"> 8</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span class="code-comment"> // indexes of the keys<br /></span><span class="code-tcod">TCOD_color_t</span> col<span class="code-symbol">[</span><span class="code-symbol">]</span><span class="code-symbol"> =</span><span class="code-symbol"> {</span><span class="code-symbol"> {</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol"> }</span><span class="code-symbol">,</span><span class="code-symbol"> {</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">}</span><span class="code-symbol">,</span><span class="code-symbol"> {</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">}</span><span class="code-symbol"> }</span><span class="code-symbol">;</span><span class="code-comment"> // colors : black, red, white<br /></span><span class="code-tcod">TCOD_color_t</span> map<span class="code-symbol">[</span><span class="code-value">9</span><span class="code-symbol">]</span><span class="code-symbol">;</span><br />TCOD_color_gen_map<span class="code-symbol">(</span>map<span class="code-symbol">,</span><span class="code-value">3</span><span class="code-symbol">,</span>col<span class="code-symbol">,</span>idx<span class="code-symbol">)</span><span class="code-symbol">;</span></p>
 <p class="py">idx<span class="code-symbol"> =</span><span class="code-symbol"> [</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value"> 4</span><span class="code-symbol">,</span><span class="code-value"> 8</span><span class="code-symbol"> ]</span><span class="code-comment"> # indexes of the keys<br /></span>col<span class="code-symbol"> =</span><span class="code-symbol"> [</span> libtcod<span class="code-symbol">.</span>Color<span class="code-symbol">(</span><span class="code-value"> 0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol"> )</span><span class="code-symbol">,</span> libtcod<span class="code-symbol">.</span>Color<span class="code-symbol">(</span><span class="code-value"> 255</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol">,</span><span class="code-value">0</span><span class="code-symbol"> )</span><span class="code-symbol">,</span> libtcod<span class="code-symbol">.</span>Color<span class="code-symbol">(</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">,</span><span class="code-value">255</span><span class="code-symbol">)</span><span class="code-symbol"> ]</span><span class="code-comment"> # colors : black, red, white<br /></span>map<span class="code-symbol">=</span>libtcod<span class="code-symbol">.</span>color_gen_map<span class="code-symbol">(</span>col<span class="code-symbol">,</span>idx<span class="code-symbol">)</span></p>
 </div><hr>

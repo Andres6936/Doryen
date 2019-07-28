@@ -54,7 +54,8 @@ void TCODZip::putData(int nbBytes, const void *pdata) {
 	TCOD_zip_put_data(data,nbBytes,pdata);
 }
 
-void TCODZip::putColor(const TCODColor *val) {
+void TCODZip::putColor( const Doryen::Color *val )
+{
 	TCOD_color_t col;
 	col.r=val->r;
 	col.g=val->g;
@@ -98,9 +99,10 @@ int TCODZip::getData(int nbBytes, void *pdata) {
 	return TCOD_zip_get_data(data,nbBytes,pdata);
 }
 
-TCODColor TCODZip::getColor() {
-    //return TCODColor(TCOD_zip_get_color(data));
-    return TCODColor( 0, 255, 255 );
+Doryen::Color TCODZip::getColor( )
+{
+    //return Doryen::Color(TCOD_zip_get_color(data));
+    return Doryen::Color( 0, 255, 255 );
 }
 
 TCODImage *TCODZip::getImage() {

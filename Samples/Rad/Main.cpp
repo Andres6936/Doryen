@@ -45,10 +45,14 @@ BspHelper bsp;
 int playerx=0,playery=0,playerBack;
 Shader *leftShader=NULL;
 Shader *rightShader=NULL;
-TCODColor darkWall(50,50,150);
-TCODColor lightWall(130,110,50);
-TCODColor darkGround(0,0,100);
-TCODColor lightGround(200,180,50);
+
+Doryen::Color darkWall( 50, 50, 150 );
+
+Doryen::Color lightWall( 130, 110, 50 );
+
+Doryen::Color darkGround( 0, 0, 100 );
+
+Doryen::Color lightGround( 200, 180, 50 );
 int torchIndex;
 
 float stdTime=0.0f;
@@ -95,8 +99,8 @@ void init() {
 		int lx=TCODRandom::getInstance()->getInt(1,MAP_WIDTH-2);
 		int ly=TCODRandom::getInstance()->getInt(1,MAP_HEIGHT-2);
 		findPos(&lx,&ly);
-		leftShader->addLight(lx,ly,LIGHT_RADIUS,TCODColor::white);
-		rightShader->addLight(lx,ly,LIGHT_RADIUS,TCODColor::white);
+        leftShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
+        rightShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
 		TCODConsole::root->setChar(lx,ly,'*');
 		TCODConsole::root->setChar(lx+CON_WIDTH/2,ly,'*');
 	}	
@@ -108,8 +112,8 @@ void init() {
 	TCODConsole::root->setChar(playerx+CON_WIDTH/2,playery,'@');
 
 	// add the player's torch
-	torchIndex = leftShader->addLight(playerx,playery,10,TCODColor::white);
-	rightShader->addLight(playerx,playery,LIGHT_RADIUS,TCODColor::white);
+    torchIndex = leftShader->addLight( playerx, playery, 10, Doryen::Color::white );
+    rightShader->addLight( playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
 
 	// init shaders (must be done after adding lights for photon shader)
 	leftShader->init(map);
@@ -151,7 +155,7 @@ void render() {
 	
 	for (int x=0; x < MAP_WIDTH; x++) {
 		for (int y=0; y < MAP_HEIGHT; y++) {
-			TCODColor darkCol,lightCol;
+            Doryen::Color darkCol, lightCol;
 			// get the cell dark and lit colors
 			if (map->isWalkable(x,y)) {
 				darkCol=darkGround;
@@ -164,13 +168,13 @@ void render() {
 			// hack : for a better look, lights are white and we only use them as 
 			// a lerp coefficient between dark and light colors.
 			// a true light model would multiply the light color with the cell color 
-			TCODColor leftLight=leftShader->getLightColor(x,y);
-			TCODColor cellLeftCol=TCODColor::lerp(darkCol,lightCol,gammaLookup[leftLight.r]/255.0f);
+            Doryen::Color leftLight = leftShader->getLightColor( x, y );
+            Doryen::Color cellLeftCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ leftLight.r ] / 255.0f );
 			TCODConsole::root->setCharBackground(x,y,cellLeftCol);
 
 			// render right map
-			TCODColor rightLight=rightShader->getLightColor(x,y);
-			TCODColor cellRightCol=TCODColor::lerp(darkCol,lightCol,gammaLookup[rightLight.r]/255.0f);
+            Doryen::Color rightLight = rightShader->getLightColor( x, y );
+            Doryen::Color cellRightCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ rightLight.r ] / 255.0f );
 			TCODConsole::root->setCharBackground(x+CON_WIDTH/2,y,cellRightCol);
 		}
 	}
@@ -192,8 +196,8 @@ void move(int dx, int dy) {
 		TCODConsole::root->setChar(playerx,playery,'@');
 		TCODConsole::root->setChar(playerx+CON_WIDTH/2,playery,'@');
 		// update the player's torch position
-		leftShader->updateLight(torchIndex,playerx,playery,LIGHT_RADIUS,TCODColor::white);
-		rightShader->updateLight(torchIndex,playerx,playery,LIGHT_RADIUS,TCODColor::white);
+        leftShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
+        rightShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
 	}
 }
 

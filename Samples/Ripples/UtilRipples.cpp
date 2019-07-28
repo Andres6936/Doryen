@@ -133,8 +133,8 @@ void RippleManager::renderRipples(const TCODImage *ground, TCODImage *groundWith
 				float f[3]={x,y,elCoef};
 				xOffset+=noise3d.get(f, TCOD_NOISE_SIMPLEX)*0.3f;
 				if ( ABS(xOffset) < 250 && ABS(yOffset) < 250 ) {
-					TCODColor col=ground->getPixel(x+(int)(xOffset),y+(int)(yOffset));
-					col = col + TCODColor::white*xOffset*0.1f;
+                    Doryen::Color col = ground->getPixel( x + ( int ) ( xOffset ), y + ( int ) ( yOffset ));
+                    col = col + Doryen::Color::white * xOffset * 0.1f;
 					groundWithRipples->putPixel(x,y,col);
 				}
 			}

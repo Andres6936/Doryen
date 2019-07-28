@@ -4,9 +4,11 @@
 #include "libtcod_int.h"
 
 
-TCODColor frostCol[256];
+Doryen::Color frostCol[256];
 int keys[4]={0,60,200,255};
-TCODColor keyCols[4]={TCODColor::black,TCODColor::darkerBlue,TCODColor::lighterBlue,TCODColor::lightestBlue};
+
+Doryen::Color keyCols[4] = { Doryen::Color::black, Doryen::Color::darkerBlue, Doryen::Color::lighterBlue,
+                             Doryen::Color::lightestBlue };
 
 #define GROW 5000.0f
 #define ANGLE_DELAY 0.2f 
@@ -74,7 +76,7 @@ void FrostManager::addFrost(int x, int y) {
 }
 
 void FrostManager::clear() {
-	img->clear(TCODColor::black);
+    img->clear( Doryen::Color::black );
 	memset(grid,0,sizeof(float)*w*h);
 }
 
@@ -193,7 +195,7 @@ int main() {
 	TCOD_mouse_t mouse;
 	TCOD_key_t key;
 	TCODSystem::setFps(25);
-	TCODColor::genMap(frostCol,sizeof(keys)/sizeof(int),keyCols,keys);
+    Doryen::Color::genMap( frostCol, sizeof( keys ) / sizeof( int ), keyCols, keys );
 	FrostManager frostManager(160,100);
 	while (! TCODConsole::isWindowClosed()) {
 		frostManager.render();

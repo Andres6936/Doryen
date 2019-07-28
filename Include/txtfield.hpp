@@ -35,7 +35,8 @@ public :
 	TCODText(int x, int y, int w, int h, int max_chars);
 	~TCODText();
 	void setProperties(int cursor_char, int blink_interval, const char * prompt, int tab_size);
-	void setColors(TCODColor fore, TCODColor back, float back_transparency);
+
+    void setColors( Doryen::Color fore, Doryen::Color back, float back_transparency );
 	bool update(TCOD_key_t key);
 	void render(TCODConsole * con);
 	const char *getText();

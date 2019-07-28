@@ -30,7 +30,7 @@
 
 void StandardShader::compute() {
 	// turn off all lights
-	memset(lightmap,0,sizeof(TCODColor)*map->getWidth()*map->getHeight());
+    memset( lightmap, 0, sizeof( Doryen::Color ) * map->getWidth( ) * map->getHeight( ));
 	for ( Light *l=lights.begin(); l != lights.end(); l++) {
 		// compute the potential visible set for this light
 		int minx=l->x-l->radius;
@@ -63,7 +63,7 @@ void StandardShader::compute() {
 					//double coef=(1.0f/(1.0f+(float)(squaredDist)));
 					// invsqr2
 					double coef=(1.0f/(1.0f+(float)(squaredDist)/20)- offset)*factor;
-					TCODColor *col=&lightmap[x+y*map->getWidth()];
+                    Doryen::Color *col = &lightmap[ x + y * map->getWidth( ) ];
 					*col = *col + l->col * coef;
 				}					
 			}

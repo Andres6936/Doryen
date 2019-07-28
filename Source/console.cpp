@@ -95,28 +95,36 @@ int TCODConsole::getHeight() const {
 	return TCOD_console_get_height(data);
 }
 
-void TCODConsole::setColorControl(TCOD_colctrl_t con, const TCODColor &fore, const TCODColor &back) {
+void TCODConsole::setColorControl( TCOD_colctrl_t con, const Doryen::Color &fore, const Doryen::Color &back )
+{
 	TCOD_color_t b={back.r,back.g,back.b},f={fore.r,fore.g,fore.b};
 	TCOD_console_set_color_control(con,f,b);
 }
 
-TCODColor TCODConsole::getDefaultBackground() const {
+Doryen::Color TCODConsole::getDefaultBackground( ) const
+{
 	TCOD_color_t c= TCOD_console_get_default_background(data);
-	TCODColor ret;
+    Doryen::Color ret;
 	ret.r=c.r;
 	ret.g=c.g;
 	ret.b=c.b;
 	return ret;
 }
-TCODColor TCODConsole::getDefaultForeground() const {
+
+Doryen::Color TCODConsole::getDefaultForeground( ) const
+{
     TCOD_color_t temp = TCOD_console_get_default_foreground( data );
-    return TCODColor( temp.r, temp.g, temp.b );
+    return Doryen::Color( temp.r, temp.g, temp.b );
 }
-void TCODConsole::setDefaultBackground(TCODColor back) {
+
+void TCODConsole::setDefaultBackground( Doryen::Color back )
+{
 	TCOD_color_t b={back.r,back.g,back.b};
 	TCOD_console_set_default_background(data,b);
 }
-void TCODConsole::setDefaultForeground(TCODColor fore) {
+
+void TCODConsole::setDefaultForeground( Doryen::Color fore )
+{
 	TCOD_color_t b={fore.r,fore.g,fore.b};
 	TCOD_console_set_default_foreground(data,b);
 }
@@ -170,7 +178,8 @@ void TCODConsole::flush() {
 	TCOD_console_flush();
 }
 
-void TCODConsole::setFade(uint8 val, const TCODColor &fade) {
+void TCODConsole::setFade( uint8 val, const Doryen::Color &fade )
+{
 	TCOD_color_t f= {fade.r,fade.g,fade.b};
 	TCOD_console_set_fade(val,f);
 }
@@ -179,16 +188,18 @@ uint8 TCODConsole::getFade() {
 	return TCOD_console_get_fade();
 }
 
-TCODColor TCODConsole::getFadingColor() {
+Doryen::Color TCODConsole::getFadingColor( )
+{
     TCOD_color_t temp = TCOD_console_get_fading_color( );
-    return TCODColor( temp.r, temp.g, temp.b );
+    return Doryen::Color( temp.r, temp.g, temp.b );
 }
 
 void TCODConsole::putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag) {
 	TCOD_console_put_char(data,x,y,c,flag);
 }
 
-void TCODConsole::putCharEx(int x, int y, int c, const TCODColor &fore, const TCODColor &back) {
+void TCODConsole::putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back )
+{
 	TCOD_color_t f={fore.r,fore.g,fore.b};
 	TCOD_color_t b={back.r,back.g,back.b};
 	TCOD_console_put_char_ex(data,x,y,c,f,b);
@@ -198,24 +209,30 @@ void TCODConsole::clear() {
 	TCOD_console_clear(data);
 }
 
-TCODColor TCODConsole::getCharBackground(int x, int y) const {
+Doryen::Color TCODConsole::getCharBackground( int x, int y ) const
+{
     TCOD_color_t temp = TCOD_console_get_char_background( data, x, y );
-    return TCODColor( temp.r, temp.g, temp.b );
+    return Doryen::Color( temp.r, temp.g, temp.b );
 }
-void TCODConsole::setCharForeground(int x,int y, const TCODColor &col) {
+
+void TCODConsole::setCharForeground( int x, int y, const Doryen::Color &col )
+{
 	TCOD_color_t c={col.r,col.g,col.b};
 	TCOD_console_set_char_foreground(data,x,y,c);
 }
-TCODColor TCODConsole::getCharForeground(int x, int y) const {
+
+Doryen::Color TCODConsole::getCharForeground( int x, int y ) const
+{
     TCOD_color_t temp = TCOD_console_get_char_foreground( data, x, y );
-    return TCODColor( temp.r, temp.g, temp.b );
+    return Doryen::Color( temp.r, temp.g, temp.b );
 }
 
 int TCODConsole::getChar(int x, int y) const {
 	return TCOD_console_get_char(data,x,y);
 }
 
-void TCODConsole::setCharBackground(int x, int y, const TCODColor &col, TCOD_bkgnd_flag_t flag) {
+void TCODConsole::setCharBackground( int x, int y, const Doryen::Color &col, TCOD_bkgnd_flag_t flag )
+{
 	TCOD_color_t c={col.r,col.g,col.b};
 	TCOD_console_set_char_background(data,x,y,c,flag);
 }
@@ -326,7 +343,9 @@ void TCODConsole::disableKeyboardRepeat() {
 bool TCODConsole::isKeyPressed(TCOD_keycode_t key) {
 	return TCOD_console_is_key_pressed(key) != 0;
 }
-void TCODConsole::setKeyColor(const TCODColor &col) {
+
+void TCODConsole::setKeyColor( const Doryen::Color &col )
+{
 	TCOD_color_t c={col.r,col.g,col.b};
 	TCOD_console_set_key_color(data,c);
 }
@@ -409,7 +428,8 @@ const char *TCODConsole::getColorControlString( TCOD_colctrl_t ctrl ) {
 }
 
 // ctrl = TCOD_COLCTRL_FORE_RGB or TCOD_COLCTRL_BACK_RGB
-const char *TCODConsole::getRGBColorControlString( TCOD_colctrl_t ctrl, const TCODColor & col ) {
+const char *TCODConsole::getRGBColorControlString( TCOD_colctrl_t ctrl, const Doryen::Color &col )
+{
 	static char buf[NB_BUFFERS][5];
 	static int buf_nb=0;
 	const char *ret;

@@ -2,10 +2,13 @@
 #include "libtcod.hpp"
 #include "gui.hpp"
 
-TCODColor Widget::back=TCODColor(40,40,120);
-TCODColor Widget::fore=TCODColor(220,220,180);
-TCODColor Widget::backFocus=TCODColor(70,70,130);
-TCODColor Widget::foreFocus=TCODColor(255,255,255);
+Doryen::Color Widget::back = Doryen::Color( 40, 40, 120 );
+
+Doryen::Color Widget::fore = Doryen::Color( 220, 220, 180 );
+
+Doryen::Color Widget::backFocus = Doryen::Color( 70, 70, 130 );
+
+Doryen::Color Widget::foreFocus = Doryen::Color( 255, 255, 255 );
 TCODConsole *Widget::con=NULL;
 TCODList<Widget *> Widget::widgets;
 TCOD_mouse_t Widget::mouse;
@@ -31,12 +34,14 @@ Widget::~Widget() {
 	widgets.remove(this);
 }
 
-void Widget::setBackgroundColor(const TCODColor col,const TCODColor colFocus) {
+void Widget::setBackgroundColor( const Doryen::Color col, const Doryen::Color colFocus )
+{
 	back=col;
 	backFocus=colFocus;
 }
 
-void Widget::setForegroundColor(const TCODColor col,const TCODColor colFocus) {
+void Widget::setForegroundColor( const Doryen::Color col, const Doryen::Color colFocus )
+{
 	fore=col;
 	foreFocus=colFocus;
 }

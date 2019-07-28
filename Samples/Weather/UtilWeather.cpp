@@ -193,10 +193,10 @@ bool Weather::hasRainDrop() {
 
 void Weather::calculateAmbient(float timeInSeconds) {
 	// calculate ambient light
-	static TCODColor night(0,0,128);
-	static TCODColor dawn(196,0,0);
-	static TCODColor dawn2(220,200,64);
-	static TCODColor day(255,255,195);
+    static Doryen::Color night( 0, 0, 128 );
+    static Doryen::Color dawn( 196, 0, 0 );
+    static Doryen::Color dawn2( 220, 200, 64 );
+    static Doryen::Color day( 255, 255, 195 );
 	float coef=0.0f;
 	float hour = timeInSeconds / 3600.0f;
 	// TODO : should use a color gradient map for that..
@@ -205,18 +205,18 @@ void Weather::calculateAmbient(float timeInSeconds) {
 		coef=0.0;
 	} else if ( hour < 7.0f ) {
 		// between 6am and 7am
-		coef = (hour - 6.0f); 
-		ambientColor = TCODColor::lerp(night,dawn,coef);
+		coef = (hour - 6.0f);
+        ambientColor = Doryen::Color::lerp( night, dawn, coef );
 		coef /= 3.0f;
 	} else if ( hour < 8.0f ) {
 		// between 7am and 8am
-		coef = (hour - 7.0f); 
-		ambientColor = TCODColor::lerp(dawn,dawn2,coef);
+		coef = (hour - 7.0f);
+        ambientColor = Doryen::Color::lerp( dawn, dawn2, coef );
 		coef = 0.33333 + coef/3.0f;
 	} else if ( hour < 9.0f ) {
 		// between 8am and 9am
-		coef = (hour - 8.0f); 
-		ambientColor = TCODColor::lerp(dawn2,day,coef);
+		coef = (hour - 8.0f);
+        ambientColor = Doryen::Color::lerp( dawn2, day, coef );
 		coef = 0.66666 + coef/3.0f;
 	} else if ( hour < 18.0f ) {
 		// between 9am and 6pm
@@ -224,18 +224,18 @@ void Weather::calculateAmbient(float timeInSeconds) {
 		coef=1.0f;
 	} else if ( hour < 19.0f ) {
 		// between 6pm and 7pm
-		coef = (hour - 18.0f); 
-		ambientColor = TCODColor::lerp(day,dawn2,coef);
+		coef = (hour - 18.0f);
+        ambientColor = Doryen::Color::lerp( day, dawn2, coef );
 		coef = 0.66666 + (1.0f-coef)/3.0f;
 	} else if ( hour < 20.0f ) {
 		// between 7pm and 8pm
-		coef = (hour - 19.0f); 
-		ambientColor = TCODColor::lerp(dawn2,dawn,coef);
+		coef = (hour - 19.0f);
+        ambientColor = Doryen::Color::lerp( dawn2, dawn, coef );
 		coef = 0.33333 + (1.0f-coef)/3.0f;
 	} else if ( hour < 21.0f ) {
 		// between 8pm and 9pm
-		coef = (hour - 20.0f); 
-		ambientColor = TCODColor::lerp(dawn,night,coef);
+		coef = (hour - 20.0f);
+        ambientColor = Doryen::Color::lerp( dawn, night, coef );
 		coef = (1.0f-coef)/3.0f;
 	}
 }

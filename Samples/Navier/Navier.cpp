@@ -259,18 +259,18 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
 }
 
 void render() {
-	static TCODColor deepBlue = TCODColor::darkestFlame;
-	static TCODColor highBlue = TCODColor::lightestYellow;
+    static Doryen::Color deepBlue = Doryen::Color::darkestFlame;
+    static Doryen::Color highBlue = Doryen::Color::lightestYellow;
 	for (int x=0;x <= N; x++) {
 		for (int y=0; y <= N; y++ ) {
 			float coef=(float)(dens[IX(x,y)]/128.0f);
 			coef=CLAMP(0.0f,1.0f,coef);
-			img.putPixel(x,y,TCODColor::lerp(deepBlue,highBlue,coef ));
+            img.putPixel( x, y, Doryen::Color::lerp( deepBlue, highBlue, coef ));
 		}
 	}
 	img.blit2x(TCODConsole::root,0,0);
 	TCODConsole::root->print(2,HEIGHT-2,"%4d fps", TCODSystem::getFps());
-	TCODConsole::root->setDefaultForeground(TCODColor::white);
+    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
 	TCODConsole::root->putChar(playerx,playery,'@');
 }
 

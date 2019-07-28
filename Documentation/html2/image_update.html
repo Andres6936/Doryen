@@ -17,18 +17,28 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <li><a href="#0">Filling an image with a color</a></li><li><a href="#1">Changing the color of a pixel</a></li><li><a href="#2">Scaling an image</a></li><li><a href="#3">Flipping the image horizontally</a></li><li><a href="#4">Flipping the image vertically</a></li><li><a href="#5">Rotating the image clockwise</a></li><li><a href="#6">Inverting the colors of the image</a></li></ul></div>
 <a name="0"></a><h3>Filling an image with a color</h3>
 <p>You can fill the whole image with a color with :<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODImage<span class="code-symbol">::</span>clear<span class="code-symbol">(</span><span class="code-keyword">const</span> TCODColor color<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODImage<span class="code-symbol">::</span>clear<span
+            class="code-symbol">(</span><span class="code-keyword">const</span> Color color<span
+            class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_image_clear<span class="code-symbol">(</span><span class="code-tcod">TCOD_image_t</span> image<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span> color<span class="code-symbol">)</span></p>
 <p class="py">image_clear<span class="code-symbol">(</span>image<span class="code-symbol">,</span>color<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODImage<span class="code-symbol">:</span><span class="code-symbol">:</span>clear<span class="code-symbol">(</span>TCODColor color<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODImage<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>clear<span class="code-symbol">(</span>Color color<span class="code-symbol">)</span>
+        </p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>image</td><td>In the C and python version, the image to fill.<br />	</td></tr>
 <tr><td>color</td><td>The color to use.<br />	</td></tr>
 </tbody></table><a name="1"></a><h3>Changing the color of a pixel</h3>
-<div class="code"><p class="cpp">TCODColor TCODImage<span class="code-symbol">::</span>putPixel<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> const</span> TCODColor col<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp">Color TCODImage<span class="code-symbol">::</span>putPixel<span
+            class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span
+            class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> const</span>
+        Color col<span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_image_put_pixel<span class="code-symbol">(</span><span class="code-tcod">TCOD_image_t</span> image<span class="code-symbol">,</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-tcod">TCOD_color_t</span> col<span class="code-symbol">)</span></p>
 <p class="py">image_put_pixel<span class="code-symbol">(</span>image<span class="code-symbol">,</span>x<span class="code-symbol">,</span> y<span class="code-symbol">,</span>col<span class="code-symbol">)</span></p>
-<p class="cs">TCODColor TCODImage<span class="code-symbol">:</span><span class="code-symbol">:</span>putPixel<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span> TCODColor col<span class="code-symbol">)</span></p>
+        <p class="cs">Color TCODImage<span class="code-symbol">:</span><span class="code-symbol">:</span>putPixel<span
+                class="code-symbol">(</span><span class="code-keyword">int</span> x<span
+                class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span>
+            Color col<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>image</td><td>In the C version, the image handler, obtained with the load function.<br />	</td></tr>
 <tr><td>x,y</td><td>The pixel coordinates inside the image.<br />		0 <= x < width<br />		0 <= y < height<br />	</td></tr>

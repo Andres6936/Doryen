@@ -64,17 +64,18 @@ static const int keyIndex[MAX_COLOR_KEY] = {0,
 	(int)(snowHeight*255)+10,
 	255
 };
-static const TCODColor keyColor[MAX_COLOR_KEY]= {
-	TCODColor(0,0,50),    // deep water
-	TCODColor(20,20,200), // water-sand transition
-	TCODColor(134,180,101),// sand
-	TCODColor(80,120,10),// sand-grass transition
-	TCODColor(17,109,7), // grass
-	TCODColor(30,85,12), // grass-rock transisiton
-	TCODColor(64,70,20), // rock
-	TCODColor(120,140,40), // rock-snow transisiton
-	TCODColor(208,208,239), // snow
-	TCODColor(255,255,255)
+
+static const Doryen::Color keyColor[MAX_COLOR_KEY] = {
+        Doryen::Color( 0, 0, 50 ),    // deep water
+        Doryen::Color( 20, 20, 200 ), // water-sand transition
+        Doryen::Color( 134, 180, 101 ),// sand
+        Doryen::Color( 80, 120, 10 ),// sand-grass transition
+        Doryen::Color( 17, 109, 7 ), // grass
+        Doryen::Color( 30, 85, 12 ), // grass-rock transisiton
+        Doryen::Color( 64, 70, 20 ), // rock
+        Doryen::Color( 120, 140, 40 ), // rock-snow transisiton
+        Doryen::Color( 208, 208, 239 ), // snow
+        Doryen::Color( 255, 255, 255 )
 };
 
 // altitude color map
@@ -86,15 +87,16 @@ static const int altIndexes[MAX_ALT_KEY] = {
 static const float altitudes[MAX_ALT_KEY] = {
      -2000,-1000,-100,0,500,1000,2500,4000	// in meters
 	};
-static const TCODColor altColors[MAX_ALT_KEY]= {
-	TCODColor(24,165,255), // -2000
-	TCODColor(132,214,255), // -1000
-	TCODColor(247,255,255), // -100
-	TCODColor(49,149,44), // 0
-	TCODColor(249,209,151), // 500
-	TCODColor(165,148,24), // 1000
-	TCODColor(153,110,6), // 2500
-	TCODColor(172,141,138), // 4000
+
+static const Doryen::Color altColors[MAX_ALT_KEY] = {
+        Doryen::Color( 24, 165, 255 ), // -2000
+        Doryen::Color( 132, 214, 255 ), // -1000
+        Doryen::Color( 247, 255, 255 ), // -100
+        Doryen::Color( 49, 149, 44 ), // 0
+        Doryen::Color( 249, 209, 151 ), // 500
+        Doryen::Color( 165, 148, 24 ), // 1000
+        Doryen::Color( 153, 110, 6 ), // 2500
+        Doryen::Color( 172, 141, 138 ), // 4000
 };
 
 // precipitation color map
@@ -105,40 +107,42 @@ static const int precIndexes[MAX_PREC_KEY] = {
 static const float precipitations[MAX_PREC_KEY] = {
 	0,1,2,3,4,5,6,7,8,9,10,13,15,18,20,25,30,35,40  // cm / m� / year
 };
-static const TCODColor precColors[MAX_PREC_KEY]= {
-	TCODColor(128,0,0), // < 4
-	TCODColor(173,55,0), // 4-8
-	TCODColor(227,102,0), // 8-12
-	TCODColor(255,149,0), // 12-16
-	TCODColor(255,200,0), // 16-20
-	TCODColor(255,251,0), // 20-24
-	TCODColor(191,255,0), // 24-28
-	TCODColor(106,251,0), // 28-32
-	TCODColor(25,255,48), // 32-36
-	TCODColor(48,255,141), // 36-40
-	TCODColor(28,255,232), // 40-50
-	TCODColor(54,181,255), // 50-60
-	TCODColor(41,71,191), // 60-70
-	TCODColor(38,0,255), // 70-80
-	TCODColor(140,0,255), // 80-100
-	TCODColor(221,0,255), // 100-120
-	TCODColor(255,87,255), // 120-140
-	TCODColor(255,173,255), // 140-160
-	TCODColor(255,206,255), // > 160
+
+static const Doryen::Color precColors[MAX_PREC_KEY] = {
+        Doryen::Color( 128, 0, 0 ), // < 4
+        Doryen::Color( 173, 55, 0 ), // 4-8
+        Doryen::Color( 227, 102, 0 ), // 8-12
+        Doryen::Color( 255, 149, 0 ), // 12-16
+        Doryen::Color( 255, 200, 0 ), // 16-20
+        Doryen::Color( 255, 251, 0 ), // 20-24
+        Doryen::Color( 191, 255, 0 ), // 24-28
+        Doryen::Color( 106, 251, 0 ), // 28-32
+        Doryen::Color( 25, 255, 48 ), // 32-36
+        Doryen::Color( 48, 255, 141 ), // 36-40
+        Doryen::Color( 28, 255, 232 ), // 40-50
+        Doryen::Color( 54, 181, 255 ), // 50-60
+        Doryen::Color( 41, 71, 191 ), // 60-70
+        Doryen::Color( 38, 0, 255 ), // 70-80
+        Doryen::Color( 140, 0, 255 ), // 80-100
+        Doryen::Color( 221, 0, 255 ), // 100-120
+        Doryen::Color( 255, 87, 255 ), // 120-140
+        Doryen::Color( 255, 173, 255 ), // 140-160
+        Doryen::Color( 255, 206, 255 ), // > 160
 };
 
 // temperature color map
 static const int MAX_TEMP_KEY=7;
 static const int tempIndexes[MAX_TEMP_KEY] = {0,42,84,126,168,210,255};
 static const int temperatures[MAX_TEMP_KEY] = {-30,-20,-10,0,10,20,30};
-static const TCODColor tempKeyColor[MAX_TEMP_KEY]= {
-	TCODColor(180,8,130), // -30 �C
-	TCODColor(32,1,139), // -20 �C
-	TCODColor(0,65,252),// -10 �C
-	TCODColor(37,255,236),// 0 �C
-	TCODColor(255,255,1), // 10 �C
-	TCODColor(255,29,4), // 20 �C
-	TCODColor(80,3,0), // 30 �C
+
+static const Doryen::Color tempKeyColor[MAX_TEMP_KEY] = {
+        Doryen::Color( 180, 8, 130 ), // -30 �C
+        Doryen::Color( 32, 1, 139 ), // -20 �C
+        Doryen::Color( 0, 65, 252 ),// -10 �C
+        Doryen::Color( 37, 255, 236 ),// 0 �C
+        Doryen::Color( 255, 255, 1 ), // 10 �C
+        Doryen::Color( 255, 29, 4 ), // 20 �C
+        Doryen::Color( 80, 3, 0 ), // 30 �C
 };
 
 
@@ -464,7 +468,8 @@ float WorldGenerator::getCloudThickness(float x, float y) const {
     return v;
 }
 
-TCODColor WorldGenerator::getMapColor(float h) {
+Doryen::Color WorldGenerator::getMapColor( float h )
+{
 	int colorIdx;
 	if ( h < sandHeight ) colorIdx = (int)(h/sandHeight * COLOR_KEY_MAX_SEA);
 	else colorIdx = COLOR_KEY_MIN_LAND + (int)((h-sandHeight)/(1.0f-sandHeight) * (255-COLOR_KEY_MIN_LAND));
@@ -483,7 +488,7 @@ void WorldGenerator::computeSunLight(float lightDir[3]) {
 
 float WorldGenerator::getMapIntensity(float worldX,float worldY, float lightDir[3]) {
     // sun color & direction
-    static const TCODColor sunCol(255,255,160);
+    static const Doryen::Color sunCol( 255, 255, 160 );
 	float normal[3];
     float wx = CLAMP(0.0f, HM_WIDTH-1,worldX);
     float wy = CLAMP(0.0f, HM_HEIGHT-1,worldY);
@@ -496,11 +501,13 @@ normal[2] *= 3.0f;
 	return intensity;
 }
 
-TCODColor WorldGenerator::getInterpolatedColor(float worldX,float worldY) {
+Doryen::Color WorldGenerator::getInterpolatedColor( float worldX, float worldY )
+{
 	return getInterpolatedColor(worldmap,worldX,worldY);
 }
 
-TCODColor WorldGenerator::getInterpolatedColor(TCODImage *img,float x,float y) {
+Doryen::Color WorldGenerator::getInterpolatedColor( TCODImage *img, float x, float y )
+{
 	int w,h;
 	img->getSize(&w,&h);
 	float wx = CLAMP(0.0f, w-1,x);
@@ -510,13 +517,13 @@ TCODColor WorldGenerator::getInterpolatedColor(TCODImage *img,float x,float y) {
 	float dx = wx - iwx;
 	float dy = wy - iwy;
 
-	TCODColor colNW = img->getPixel(iwx,iwy);
-	TCODColor colNE = (iwx < w-1 ? img->getPixel(iwx+1,iwy) : colNW);
-	TCODColor colSW = (iwy < h-1 ? img->getPixel(iwx,iwy+1) : colNW);
-	TCODColor colSE = (iwx < w-1 && iwy < h-1 ? img->getPixel(iwx+1,iwy+1) : colNW);
-	TCODColor colN = TCODColor::lerp(colNW,colNE,dx);
-	TCODColor colS = TCODColor::lerp(colSW,colSE,dx);
-	TCODColor col = TCODColor::lerp(colN,colS,dy);
+    Doryen::Color colNW = img->getPixel( iwx, iwy );
+    Doryen::Color colNE = ( iwx < w - 1 ? img->getPixel( iwx + 1, iwy ) : colNW );
+    Doryen::Color colSW = ( iwy < h - 1 ? img->getPixel( iwx, iwy + 1 ) : colNW );
+    Doryen::Color colSE = ( iwx < w - 1 && iwy < h - 1 ? img->getPixel( iwx + 1, iwy + 1 ) : colNW );
+    Doryen::Color colN = Doryen::Color::lerp( colNW, colNE, dx );
+    Doryen::Color colS = Doryen::Color::lerp( colSW, colSE, dx );
+    Doryen::Color col = Doryen::Color::lerp( colN, colS, dy );
 	return col;
 }
 
@@ -1008,30 +1015,31 @@ void WorldGenerator::computeTemperaturesAndBiomes() {
 	DBG( ("Temperatures min/max: %g / %g\n",min,max));
 }
 
-TCODColor WorldGenerator::getBiomeColor(EBiome biome,int x,int y) {
-    static const TCODColor biomeColors[] = {
+Doryen::Color WorldGenerator::getBiomeColor( EBiome biome, int x, int y )
+{
+    static const Doryen::Color biomeColors[] = {
     // TUNDRA,
-    TCODColor(200,240,255),
+            Doryen::Color( 200, 240, 255 ),
     // COLD_DESERT,
-    TCODColor(180,210,210),
+            Doryen::Color( 180, 210, 210 ),
     // GRASSLAND,
-    TCODColor::sea,
+            Doryen::Color::sea,
     // BOREAL_FOREST,
-    TCODColor(14,93,43),
+            Doryen::Color( 14, 93, 43 ),
     // TEMPERATE_FOREST,
-    TCODColor(44,177,83),
+            Doryen::Color( 44, 177, 83 ),
     // TROPICAL_MONTANE_FOREST,
-    TCODColor(185,232,164),
+            Doryen::Color( 185, 232, 164 ),
     // HOT_DESERT,
-    TCODColor(235,255,210),
+            Doryen::Color( 235, 255, 210 ),
     // SAVANNA,
-    TCODColor(255,205,20),
+            Doryen::Color( 255, 205, 20 ),
     // TROPICAL_DRY_FOREST,
-    TCODColor(60,130,40),
+            Doryen::Color( 60, 130, 40 ),
     // TROPICAL_EVERGREEN_FOREST,
-    TCODColor::green,
+            Doryen::Color::green,
     // THORN_FOREST,
-    TCODColor(192,192,112),
+            Doryen::Color( 192, 192, 112 ),
     };
     int r=0,g=0,b=0, count=1;
     r +=biomeColors[biome].r;
@@ -1041,7 +1049,7 @@ TCODColor WorldGenerator::getBiomeColor(EBiome biome,int x,int y) {
         int ix=x+wgRng->getInt(-10,10);
         int iy=y+wgRng->getInt(-10,10);
         if ( IN_RECTANGLE(ix,iy,HM_WIDTH,HM_HEIGHT) ) {
-            TCODColor c=biomeColors[biomeMap[ix+iy*HM_WIDTH]];
+            Doryen::Color c = biomeColors[ biomeMap[ ix + iy * HM_WIDTH ]];
             r+=c.r + wgRng->getInt(-10,10);
             g+=c.g + wgRng->getInt(-10,10);
             b+=c.b + wgRng->getInt(-10,10);
@@ -1054,7 +1062,7 @@ TCODColor WorldGenerator::getBiomeColor(EBiome biome,int x,int y) {
     r=CLAMP(0,255,r);
     g=CLAMP(0,255,g);
     b=CLAMP(0,255,b);
-    return TCODColor(r,g,b);
+    return Doryen::Color( r, g, b );
 }
 
 void WorldGenerator::computeColors() {
@@ -1065,21 +1073,34 @@ void WorldGenerator::computeColors() {
 			float h=hm->getValue(x,y);
 			float temp = temperature->getValue(x,y);
 			EBiome biome = biomeMap[x+y*HM_WIDTH];
-			TCODColor c;
+            Doryen::Color c;
 			if (h < sandHeight ) c = getMapColor(h);
 			else {
 				c = getMapColor(h);
-                c=TCODColor::lerp(c,getBiomeColor(biome,x,y),0.5f);
+                c = Doryen::Color::lerp( c, getBiomeColor( biome, x, y ), 0.5f );
 			}
 
 			// snow near poles
 			temp += 10*(clouds[HM_WIDTH-1-x][HM_HEIGHT-1-y]); // cheap 2D noise ;)
-			if ( temp < -10.0f && h < sandHeight ) worldmap->putPixel(x,y,TCODColor::lerp(TCODColor::white,c,0.3f));
-			else if ( temp < -8.0f && h < sandHeight ) worldmap->putPixel(x,y,TCODColor::lerp(TCODColor::white,c,0.3f + 0.7f * (10.0f+temp)/2.0f));
-			else if ( temp < -2.0f && h >= sandHeight) worldmap->putPixel(x,y,TCODColor::white);
-			else if ( temp < 2.0f && h >= sandHeight ) {
-				//TCODColor snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
-				c = TCODColor::lerp(TCODColor::white,c,(temp+2)/4.0f);
+            if ( temp < -10.0f && h < sandHeight )
+            {
+                worldmap->putPixel( x, y,
+                                    Doryen::Color::lerp( Doryen::Color::white, c,
+                                                         0.3f ));
+            }
+            else if ( temp < -8.0f && h < sandHeight )
+            {
+                worldmap->putPixel( x, y,
+                                    Doryen::Color::lerp( Doryen::Color::white, c,
+                                                         0.3f + 0.7f * ( 10.0f +
+                                                                         temp ) /
+                                                                2.0f ));
+            }
+            else if ( temp < -2.0f && h >= sandHeight )
+            { worldmap->putPixel( x, y, Doryen::Color::white ); }
+            else if ( temp < 2.0f && h >= sandHeight ) {
+                //Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
+                c = Doryen::Color::lerp( Doryen::Color::white, c, ( temp + 2 ) / 4.0f );
 				worldmap->putPixel(x,y,c);
 			} else {
 				worldmap->putPixel(x,y,c);
@@ -1088,25 +1109,25 @@ void WorldGenerator::computeColors() {
 		}
 	}
 	// draw rivers
-	/*
-	for (river_t **it=rivers.begin(); it != rivers.end(); it++) {
-	    for (int i=0; i < (*it)->coords.size(); i++ ) {
-	        int coord = (*it)->coords.get(i);
-	        int strength = (*it)->strength.get(i);
-	        int x = coord % HM_WIDTH;
-	        int y = coord / HM_WIDTH;
-	        TCODColor c= worldmap->getPixel(x,y);
-	        c = TCODColor::lerp(c,TCODColor::blue,(float)(strength)/5.0f);
-	        worldmap->putPixel(x,y,c);
-	    }
-	}
-	*/
+    /*
+    for (river_t **it=rivers.begin(); it != rivers.end(); it++) {
+        for (int i=0; i < (*it)->coords.size(); i++ ) {
+            int coord = (*it)->coords.get(i);
+            int strength = (*it)->strength.get(i);
+            int x = coord % HM_WIDTH;
+            int y = coord / HM_WIDTH;
+            Doryen::Color c= worldmap->getPixel(x,y);
+            c = Doryen::Color::lerp(c,Doryen::Color::blue,(float)(strength)/5.0f);
+            worldmap->putPixel(x,y,c);
+        }
+    }
+    */
 	md=mapData;
 	for (int y=0; y < HM_HEIGHT; y++) {
         for (int x=0; x < HM_WIDTH; x++) {
             if ( md->riverId > 0 ) {
-                TCODColor c= worldmap->getPixel(x,y);
-                c = TCODColor::lerp(c,TCODColor::blue,0.3f);
+                Doryen::Color c = worldmap->getPixel( x, y );
+                c = Doryen::Color::lerp( c, Doryen::Color::blue, 0.3f );
                 worldmap->putPixel(x,y,c);
             }
             md++;
@@ -1123,7 +1144,7 @@ void WorldGenerator::computeColors() {
 		        int ix=x+dx[i];
 		        int iy=y+dy[i];
 		        if (IN_RECTANGLE(ix,iy,HM_WIDTH,HM_HEIGHT)){
-		            TCODColor c=worldmap->getPixel(ix,iy);
+                    Doryen::Color c = worldmap->getPixel( ix, iy );
 		            r += coef[i]*c.r;
 		            g += coef[i]*c.g;
 		            b += coef[i]*c.b;
@@ -1133,7 +1154,7 @@ void WorldGenerator::computeColors() {
             r /= count;
             g /= count;
             b /= count;
-            worldmap->putPixel(x,y,TCODColor(r,g,b));
+            worldmap->putPixel( x, y, Doryen::Color( r, g, b ));
 		}
 	}
 	drawCoasts(worldmap);
@@ -1143,7 +1164,7 @@ void WorldGenerator::generate(TCODRandom *wRng) {
 	float t00,t0=TCODSystem::getElapsedSeconds();
 	t00=t0;
     cloudDx=cloudTotalDx=0.0f;
-	TCODColor::genMap(mapGradient,MAX_COLOR_KEY,keyColor,keyIndex);
+    Doryen::Color::genMap( mapGradient, MAX_COLOR_KEY, keyColor, keyIndex );
 	if ( wRng == NULL ) wRng=TCODRandom::getInstance();
 	wgRng = wRng;
 	noise=new TCODNoise(2,wgRng);
@@ -1215,13 +1236,19 @@ void WorldGenerator::drawCoasts(TCODImage *img) {
         for (int y=0; y < HM_HEIGHT-1; y++) {
             float h = hm->getValue(x,y);
             float h2 = hm->getValue(x+1,y);
-            if ( ( h < sandHeight && h2 >= sandHeight )
-                || ( h2 < sandHeight && h >= sandHeight ) ) img->putPixel(x,y,TCODColor::black);
+            if (( h < sandHeight && h2 >= sandHeight )
+                || ( h2 < sandHeight && h >= sandHeight ))
+            {
+                img->putPixel( x, y, Doryen::Color::black );
+            }
             else {
                 h = hm->getValue(x,y);
                 h2 = hm->getValue(x,y+1);
-                if ( ( h < sandHeight && h2 >= sandHeight )
-                    || ( h2 < sandHeight && h >= sandHeight ) ) img->putPixel(x,y,TCODColor::black);
+                if (( h < sandHeight && h2 >= sandHeight )
+                    || ( h2 < sandHeight && h >= sandHeight ))
+                {
+                    img->putPixel( x, y, Doryen::Color::black );
+                }
             }
         }
     }
@@ -1230,29 +1257,29 @@ void WorldGenerator::drawCoasts(TCODImage *img) {
 void WorldGenerator::saveBiomeMap(const char *filename) {
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
-    static const TCODColor biomeColors[] = {
+    static const Doryen::Color biomeColors[] = {
     // TUNDRA,
-    TCODColor(88,234,250),
+            Doryen::Color( 88, 234, 250 ),
     // COLD_DESERT,
-    TCODColor(129,174,170),
+            Doryen::Color( 129, 174, 170 ),
     // GRASSLAND,
-    TCODColor::sea,
+            Doryen::Color::sea,
     // BOREAL_FOREST,
-    TCODColor(14,93,43),
+            Doryen::Color( 14, 93, 43 ),
     // TEMPERATE_FOREST,
-    TCODColor(44,177,83),
+            Doryen::Color( 44, 177, 83 ),
     // TROPICAL_MONTANE_FOREST,
-    TCODColor(185,232,164),
+            Doryen::Color( 185, 232, 164 ),
     // HOT_DESERT,
-    TCODColor(229,247,184),
+            Doryen::Color( 229, 247, 184 ),
     // SAVANNA,
-    TCODColor::orange,
+            Doryen::Color::orange,
     // TROPICAL_DRY_FOREST,
-    TCODColor::darkYellow,
+            Doryen::Color::darkYellow,
     // TROPICAL_EVERGREEN_FOREST,
-    TCODColor::green,
+            Doryen::Color::green,
     // THORN_FOREST,
-    TCODColor(192,192,112),
+            Doryen::Color( 192, 192, 112 ),
     };
     if ( legend == NULL ) {
         legend = new TCODImage( "Data/img/legend_biome.png" );
@@ -1264,8 +1291,9 @@ void WorldGenerator::saveBiomeMap(const char *filename) {
 	for (int x=0; x < HM_WIDTH; x++) {
 		for (int y=0; y < HM_HEIGHT; y++) {
 		    float h=hm->getValue(x,y);
-		    if ( h < sandHeight ) img.putPixel(x,y,TCODColor(100,100,255));
-		    else img.putPixel(x,y,biomeColors[biomeMap[x+y*HM_WIDTH]]);
+            if ( h < sandHeight )
+            { img.putPixel( x, y, Doryen::Color( 100, 100, 255 )); }
+            else img.putPixel(x,y,biomeColors[biomeMap[x+y*HM_WIDTH]]);
 		}
 	}
 	drawCoasts(&img);
@@ -1291,14 +1319,14 @@ void WorldGenerator::saveBiomeMap(const char *filename) {
 }
 
 void WorldGenerator::saveTemperatureMap(const char *filename) {
-    static TCODColor tempGradient[256];
+    static Doryen::Color tempGradient[256];
 
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
     if ( legend == NULL ) {
         legend = new TCODImage( "Data/img/legend_temperature.png" );
         legend->getSize(&legendWidth,&legendHeight);
-        TCODColor::genMap(tempGradient,MAX_TEMP_KEY,tempKeyColor,tempIndexes);
+        Doryen::Color::genMap( tempGradient, MAX_TEMP_KEY, tempKeyColor, tempIndexes );
     }
 
     if ( filename == NULL ) filename="world_temperature.png";
@@ -1309,8 +1337,9 @@ void WorldGenerator::saveTemperatureMap(const char *filename) {
     for (int x=0; x < HM_WIDTH; x++) {
         for (int y=0; y < HM_HEIGHT; y++) {
 		    float h=hm->getValue(x,y);
-		    if ( h < sandHeight ) img.putPixel(x,y,TCODColor(100,100,255));
-		    else {
+            if ( h < sandHeight )
+            { img.putPixel( x, y, Doryen::Color( 100, 100, 255 )); }
+            else {
 	            float temp=temperature->getValue(x,y);
 	            temp = (temp - minTemp) / (maxTemp-minTemp);
 	            int colorIdx = (int)(temp*255);
@@ -1345,8 +1374,9 @@ void WorldGenerator::savePrecipitationMap(const char *filename) {
     for (int x=0; x < HM_WIDTH; x++) {
         for (int y=0; y < HM_HEIGHT; y++) {
 		    float h=hm->getValue(x,y);
-		    if ( h < sandHeight ) img.putPixel(x,y,TCODColor(100,100,255));
-		    else {
+            if ( h < sandHeight )
+            { img.putPixel( x, y, Doryen::Color( 100, 100, 255 )); }
+            else {
 	            float prec=precipitation->getValue(x,y);
 	            int iprec = (int)(prec * 180);
 	            int colorIdx=0;
@@ -1369,14 +1399,14 @@ void WorldGenerator::savePrecipitationMap(const char *filename) {
 }
 
 void WorldGenerator::saveAltitudeMap(const char *filename) {
-    static TCODColor altGradient[256];
+    static Doryen::Color altGradient[256];
 
     static TCODImage *legend=NULL;
     static int legendHeight,legendWidth;
     if ( legend == NULL ) {
         legend = new TCODImage( "Data/img/legend_altitude.png" );
         legend->getSize(&legendWidth,&legendHeight);
-        TCODColor::genMap(altGradient,MAX_ALT_KEY,altColors,altIndexes);
+        Doryen::Color::genMap( altGradient, MAX_ALT_KEY, altColors, altIndexes );
     }
 
     if ( filename == NULL ) filename="world_altitude.png";

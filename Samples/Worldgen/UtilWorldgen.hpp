@@ -51,14 +51,14 @@ enum EBiome {TUNDRA,
 class WorldGenerator {
 public :
 	// altitude->color map
-	TCODColor mapGradient[256];
+    Doryen::Color mapGradient[256];
 	// world height map (0.0 - 1.0)
 	TCODHeightMap *hm;
 	// height map without erosion
 	TCODHeightMap *hm2;
 	// complete world map (not shaded)
 	TCODImage *worldmap;
-	// temperature map (in °C)
+	// temperature map (in ï¿½C)
 	TCODHeightMap *temperature;
 	// precipitation map (0.0 - 1.0)
 	TCODHeightMap *precipitation;
@@ -76,7 +76,8 @@ public :
 	bool isOnSea(float x, float y) const;
 	float getCloudThickness(float x, float y) const;
 	void getInterpolatedNormal(float x, float y, float n[3]) const;
-	TCODColor getInterpolatedColor(float worldX,float worldY);
+
+    Doryen::Color getInterpolatedColor( float worldX, float worldY );
 	float getInterpolatedIntensity(float worldX, float worldY);
 
 	// update
@@ -85,8 +86,8 @@ public :
 	
 	// data
 	float getRealAltitude(float x, float y) const; // altitude in meters
-	float getPrecipitations(float x, float y) const; // in centimeter/m²/year
-	float getTemperature(float x, float y) const; // in °C
+	float getPrecipitations(float x, float y) const; // in centimeter/mï¿½/year
+	float getTemperature(float x, float y) const; // in ï¿½C
 	EBiome getBiome(float x, float y) const;
 
 	// map generators
@@ -128,17 +129,19 @@ protected :
 	void erodeMap();
 	void smoothMap();
 	// compute the ground color from the heightmap
-	TCODColor getMapColor(float h);
+    Doryen::Color getMapColor( float h );
 	// get sun light intensity on a point of the map
 	float getMapIntensity(float worldX,float worldY, float lightDir[3]);
-	TCODColor getInterpolatedColor(TCODImage *img,float x,float y);
+
+    Doryen::Color getInterpolatedColor( TCODImage *img, float x, float y );
 	float getInterpolatedFloat(float *arr,float x,float y, int width, int height);
 	void generateRivers();
 	void smoothPrecipitations() ;
 	int getRiverStrength(int riverId);
 	void setLandMass(float percent, float waterLevel);
 	void computeTemperaturesAndBiomes();
-	TCODColor getBiomeColor(EBiome biome,int x,int y);
+
+    Doryen::Color getBiomeColor( EBiome biome, int x, int y );
 	void computePrecipitations();
 	void computeColors();
 	void drawCoasts(TCODImage *img);

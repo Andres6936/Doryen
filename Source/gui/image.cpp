@@ -1,7 +1,8 @@
 #include "libtcod.hpp"
 #include "gui.hpp"
 
-Image::Image(int x,int y,int w, int h, const char *tip) : Widget(x,y,w,h), back(TCODColor::black) {
+Image::Image( int x, int y, int w, int h, const char *tip ) : Widget( x, y, w, h ), back( Doryen::Color::black )
+{
 	if ( tip ) setTip(tip);
 }
 
@@ -13,7 +14,8 @@ void Image::render() {
 	con->rect(x,y,w,h,TCOD_BKGND_SET);
 }
 
-void Image::setBackgroundColor(const TCODColor col) {
+void Image::setBackgroundColor( const Doryen::Color col )
+{
 	back=col;
 }
 

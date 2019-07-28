@@ -400,43 +400,43 @@ public :
 	@PageFather console
 	*/
 
-	/**
-	@PageName console_draw_basic
-	@PageTitle Basic printing functions
-	@PageFather console_draw
-	@FuncTitle Setting the default background color
-	@FuncDesc This function changes the default background color for a console. The default background color is used by several drawing functions like clear, putChar, ...
-	@Cpp void TCODConsole::setDefaultBackground(TCODColor back)
-	@C void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t back)
-	@Py console_set_default_background(con,back)
-	@C# void TCODConsole::setBackgroundColor(TCODColor back)
-	@Lua Console:setBackgroundColor(back)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param back the new default background color for this console
-	@CppEx TCODConsole::root->setDefaultBackground(myColor)
-	@CEx TCOD_console_set_default_background(NULL, my_color)
-	@PyEx litbcod.console_set_default_background(0, my_color)
-	@Lua libtcod.TCODConsole_root:setBackgroundColor( myColor )
-	*/
-	void setDefaultBackground(TCODColor back);
+    /**
+    @PageName console_draw_basic
+    @PageTitle Basic printing functions
+    @PageFather console_draw
+    @FuncTitle Setting the default background color
+    @FuncDesc This function changes the default background color for a console. The default background color is used by several drawing functions like clear, putChar, ...
+    @Cpp void TCODConsole::setDefaultBackground(Doryen::TCODColor back)
+    @C void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t back)
+    @Py console_set_default_background(con,back)
+    @C# void TCODConsole::setBackgroundColor(Doryen::TCODColor back)
+    @Lua Console:setBackgroundColor(back)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param back the new default background color for this console
+    @CppEx TCODConsole::root->setDefaultBackground(myColor)
+    @CEx TCOD_console_set_default_background(NULL, my_color)
+    @PyEx litbcod.console_set_default_background(0, my_color)
+    @Lua libtcod.TCODConsole_root:setBackgroundColor( myColor )
+    */
+    void setDefaultBackground( Doryen::Color back );
 
-	/**
-	@PageName console_draw_basic
-	@FuncTitle Setting the default foreground color
-	@FuncDesc This function changes the default foreground color for a console. The default foreground color is used by several drawing functions like clear, putChar, ...
-	@Cpp void TCODConsole::setDefaultForeground(TCODColor fore)
-	@C void TCOD_console_set_default_foreground(TCOD_console_t con,TCOD_color_t fore)
-	@Py console_set_default_foreground(con, fore)
-	@C# void TCODConsole::setForegroundColor(TCODColor fore)
-	@Lua Console:setForegroundColor(fore)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param fore the new default foreground color for this console
-	@CppEx TCODConsole::root->setDefaultForeground(myColor)
-	@CEx TCOD_console_set_default_foreground(NULL, my_color)
-	@PyEx litbcod.console_set_default_foreground(0, my_color)
-	@LuaEx libtcod.TCODConsole_root:setForegroundColor( myColor )
-	*/
-	void setDefaultForeground(TCODColor fore);
+    /**
+    @PageName console_draw_basic
+    @FuncTitle Setting the default foreground color
+    @FuncDesc This function changes the default foreground color for a console. The default foreground color is used by several drawing functions like clear, putChar, ...
+    @Cpp void TCODConsole::setDefaultForeground(Doryen::TCODColor fore)
+    @C void TCOD_console_set_default_foreground(TCOD_console_t con,TCOD_color_t fore)
+    @Py console_set_default_foreground(con, fore)
+    @C# void TCODConsole::setForegroundColor(Doryen::TCODColor fore)
+    @Lua Console:setForegroundColor(fore)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param fore the new default foreground color for this console
+    @CppEx TCODConsole::root->setDefaultForeground(myColor)
+    @CEx TCOD_console_set_default_foreground(NULL, my_color)
+    @PyEx litbcod.console_set_default_foreground(0, my_color)
+    @LuaEx libtcod.TCODConsole_root:setForegroundColor( myColor )
+    */
+    void setDefaultForeground( Doryen::Color fore );
 
 	/**
 	@PageName console_draw_basic
@@ -454,43 +454,44 @@ public :
 	*/
 	void clear();
 
-	/**
-	@PageName console_draw_basic
-	@FuncTitle Setting the background color of a cell
-	@FuncDesc This function modifies the background color of a cell, leaving other properties (foreground color and ASCII code) unchanged.
-	@Cpp void TCODConsole::setCharBackground(int x, int y, const TCODColor &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET)
-	@C void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_color_t col, TCOD_bkgnd_flag_t flag)
-	@Py console_set_char_background(con, x,  y, col, flag=BKGND_SET)
-	@C#
-		void TCODConsole::setCharBackground(int x, int y, TCODColor col)
-		void TCODConsole::setCharBackground(int x, int y, TCODColor col, TCODBackgroundFlag flag)
-	@Lua
-		Console:setCharBackground(x, y, col)
-		Console:setCharBackground(x, y, col, flag)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param x,y coordinates of the cell in the console.
-		0 <= x < console width
-		0 <= y < console height
-	@Param col the background color to use. You can use color constants
-	@Param flag this flag defines how the cell's background color is modified. See <a href="console_bkgnd_flag_t.html">TCOD_bkgnd_flag_t</a>
-	*/
-	void setCharBackground(int x, int y, const TCODColor &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET);
-	/**
-	@PageName console_draw_basic
-	@FuncTitle Setting the foreground color of a cell
-	@FuncDesc This function modifies the foreground color of a cell, leaving other properties (background color and ASCII code) unchanged.
-	@Cpp void TCODConsole::setCharForeground(int x, int y, const TCODColor &col)
-	@C void TCOD_console_set_char_foreground(TCOD_console_t con,int x, int y, TCOD_color_t col)
-	@Py console_set_char_foreground(con, x, y, col)
-	@C# void TCODConsole::setCharForeground(int x, int y, TCODColor col)
-	@Lua Console:setCharForeground(x, y, col)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param x,y coordinates of the cell in the console.
-		0 <= x < console width
-		0 <= y < console height
-	@Param col the foreground color to use. You can use color constants
-	*/
-	void setCharForeground(int x, int y, const TCODColor &col);
+    /**
+    @PageName console_draw_basic
+    @FuncTitle Setting the background color of a cell
+    @FuncDesc This function modifies the background color of a cell, leaving other properties (foreground color and ASCII code) unchanged.
+    @Cpp void TCODConsole::setCharBackground(int x, int y, const Doryen::TCODColor &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET)
+    @C void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_color_t col, TCOD_bkgnd_flag_t flag)
+    @Py console_set_char_background(con, x,  y, col, flag=BKGND_SET)
+    @C#
+        void TCODConsole::setCharBackground(int x, int y, Doryen::TCODColor col)
+        void TCODConsole::setCharBackground(int x, int y, Doryen::TCODColor col, TCODBackgroundFlag flag)
+    @Lua
+        Console:setCharBackground(x, y, col)
+        Console:setCharBackground(x, y, col, flag)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param x,y coordinates of the cell in the console.
+        0 <= x < console width
+        0 <= y < console height
+    @Param col the background color to use. You can use color constants
+    @Param flag this flag defines how the cell's background color is modified. See <a href="console_bkgnd_flag_t.html">TCOD_bkgnd_flag_t</a>
+    */
+    void setCharBackground( int x, int y, const Doryen::Color &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET );
+
+    /**
+    @PageName console_draw_basic
+    @FuncTitle Setting the foreground color of a cell
+    @FuncDesc This function modifies the foreground color of a cell, leaving other properties (background color and ASCII code) unchanged.
+    @Cpp void TCODConsole::setCharForeground(int x, int y, const Doryen::TCODColor &col)
+    @C void TCOD_console_set_char_foreground(TCOD_console_t con,int x, int y, TCOD_color_t col)
+    @Py console_set_char_foreground(con, x, y, col)
+    @C# void TCODConsole::setCharForeground(int x, int y, Doryen::TCODColor col)
+    @Lua Console:setCharForeground(x, y, col)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param x,y coordinates of the cell in the console.
+        0 <= x < console width
+        0 <= y < console height
+    @Param col the foreground color to use. You can use color constants
+    */
+    void setCharForeground( int x, int y, const Doryen::Color &col );
 
 	/**
 	@PageName console_draw_basic
@@ -535,26 +536,26 @@ public :
 	*/
 	void putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT);
 
-	/**
-	@PageName console_draw_basic
-	@FuncTitle Setting every property of a cell using specific colors
-	@FuncDesc This function modifies every property of a cell :
-		* set the cell's background color to back.
-		* set the cell's foreground color to fore.
-		* set the cell's ASCII code to c.
-	@Cpp void TCODConsole::putCharEx(int x, int y, int c, const TCODColor & fore, const TCODColor & back)
-	@C void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back)
-	@Py console_put_char_ex( con, x,  y, c, fore, back)
-	@C# void TCODConsole::putCharEx(int x, int y, int c, TCODColor fore, TCODColor back)
-	@Lua Console:putCharEx(x, y, c, fore, back)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param x,y coordinates of the cell in the console.
-		0 <= x < console width
-		0 <= y < console height
-	@Param c the new ASCII code for the cell. You can use ASCII constants
-	@Param fore,back new foreground and background colors for this cell
-	*/
-	void putCharEx(int x, int y, int c, const TCODColor &fore, const TCODColor &back);
+    /**
+    @PageName console_draw_basic
+    @FuncTitle Setting every property of a cell using specific colors
+    @FuncDesc This function modifies every property of a cell :
+        * set the cell's background color to back.
+        * set the cell's foreground color to fore.
+        * set the cell's ASCII code to c.
+    @Cpp void TCODConsole::putCharEx(int x, int y, int c, const Doryen::TCODColor & fore, const Doryen::TCODColor & back)
+    @C void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back)
+    @Py console_put_char_ex( con, x,  y, c, fore, back)
+    @C# void TCODConsole::putCharEx(int x, int y, int c, Doryen::TCODColor fore, Doryen::TCODColor back)
+    @Lua Console:putCharEx(x, y, c, fore, back)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param x,y coordinates of the cell in the console.
+        0 <= x < console width
+        0 <= y < console height
+    @Param c the new ASCII code for the cell. You can use ASCII constants
+    @Param fore,back new foreground and background colors for this cell
+    */
+    void putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back );
 
 	/**
 	@PageName console_bkgnd_flag_t
@@ -752,72 +753,72 @@ public :
 	*/
 	int getHeightRect(int x, int y, int w, int h, const char *fmt, ...);
 
-	/**
-	@PageName console_print
-	@FuncTitle Changing the colors while printing a string
-	@FuncDesc If you want to draw a string using different colors for each word, the basic solution is to call a string printing function several times, changing the default colors between each call.
-		The TCOD library offers a simpler way to do this, allowing you to draw a string using different colors in a single call. For this, you have to insert color control codes in your string.
-		A color control code is associated with a color set (a foreground color and a background color). If you insert this code in your string, the next characters will use the colors associated with the color control code.
-		There are 5 predefined color control codes :
-		For python, remove TCOD_ : libtcod.COLCTRL_1
-			TCOD_COLCTRL_1
-			TCOD_COLCTRL_2
-			TCOD_COLCTRL_3
-			TCOD_COLCTRL_4
-			TCOD_COLCTRL_5
-		To associate a color with a code, use setColorControl.
-		To go back to the console's default colors, insert in your string the color stop control code :
-			TCOD_COLCTRL_STOP
+    /**
+    @PageName console_print
+    @FuncTitle Changing the colors while printing a string
+    @FuncDesc If you want to draw a string using different colors for each word, the basic solution is to call a string printing function several times, changing the default colors between each call.
+        The TCOD library offers a simpler way to do this, allowing you to draw a string using different colors in a single call. For this, you have to insert color control codes in your string.
+        A color control code is associated with a color set (a foreground color and a background color). If you insert this code in your string, the next characters will use the colors associated with the color control code.
+        There are 5 predefined color control codes :
+        For python, remove TCOD_ : libtcod.COLCTRL_1
+            TCOD_COLCTRL_1
+            TCOD_COLCTRL_2
+            TCOD_COLCTRL_3
+            TCOD_COLCTRL_4
+            TCOD_COLCTRL_5
+        To associate a color with a code, use setColorControl.
+        To go back to the console's default colors, insert in your string the color stop control code :
+            TCOD_COLCTRL_STOP
 
-		You can also use any color without assigning it to a control code, using the generic control codes :
-			TCOD_COLCTRL_FORE_RGB
-			TCOD_COLCTRL_BACK_RGB
+        You can also use any color without assigning it to a control code, using the generic control codes :
+            TCOD_COLCTRL_FORE_RGB
+            TCOD_COLCTRL_BACK_RGB
 
-		Those controls respectively change the foreground and background color used to print the string characters. In the string, you must insert the r,g,b components of the color (between 1 and 255. The value 0 is forbidden because it represents the end of the string in C/C++) immediately after this code.
-	@Cpp static void TCODConsole::setColorControl(TCOD_colctrl_t con, const TCODColor &fore, const TCODColor &back)
-	@C void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_color_t fore, TCOD_color_t back)
-	@Py console_set_color_control(con,fore,back)
-	@C# Not supported directly, use getRGBColorControlString and getColorControlString.
-	@Lua Not supported
-	@Param con the color control TCOD_COLCTRL_x, 1<=x<=5
-	@Param fore foreground color when this control is activated
-	@Param back background color when this control is activated
-	@CppEx
-		// A string with a red over black word, using predefined color control codes
-		TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor::red,TCODColor::black);
-		TCODConsole::root->print(1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
-		// A string with a red over black word, using generic color control codes
-		TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-	          TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-		// A string with a red over black word, using generic color control codes
-		TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-	          TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-	@CEx
-		// A string with a red over black word, using predefined color control codes
-		TCOD_console_set_color_control(TCOD_COLCTRL_1,red,black);
-		TCOD_console_print(NULL,1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
-		// A string with a red word (over default background color), using generic color control codes
-		TCOD_console_print(NULL,1,1,"String with a %c%c%c%cred%c word.",
-			TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_STOP);
-		// A string with a red over black word, using generic color control codes
-		TCOD_console_print(NULL,1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-			TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-	@PyEx
-		# A string with a red over black word, using predefined color control codes
-		libtcod.console_set_color_control(libtcod.COLCTRL_1,litbcod.red,litbcod.black)
-		libtcod.console_print(0,1,1,"String with a %cred%c word."%(libtcod.COLCTRL_1,libtcod.COLCTRL_STOP))
-		# A string with a red word (over default background color), using generic color control codes
-		litbcod.console_print(0,1,1,"String with a %c%c%c%cred%c word."%(libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_STOP))
-		# A string with a red over black word, using generic color control codes
-		libtcod.console_print(0,1,1,"String with a %c%c%c%c%c%c%c%cred%c word."%
-		        (libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_BACK_RGB,1,1,1,libtcod.COLCTRL_STOP))
+        Those controls respectively change the foreground and background color used to print the string characters. In the string, you must insert the r,g,b components of the color (between 1 and 255. The value 0 is forbidden because it represents the end of the string in C/C++) immediately after this code.
+    @Cpp static void TCODConsole::setColorControl(TCOD_colctrl_t con, const Doryen::TCODColor &fore, const Doryen::TCODColor &back)
+    @C void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_color_t fore, TCOD_color_t back)
+    @Py console_set_color_control(con,fore,back)
+    @C# Not supported directly, use getRGBColorControlString and getColorControlString.
+    @Lua Not supported
+    @Param con the color control TCOD_COLCTRL_x, 1<=x<=5
+    @Param fore foreground color when this control is activated
+    @Param back background color when this control is activated
+    @CppEx
+        // A string with a red over black word, using predefined color control codes
+        TCODConsole::setColorControl(TCOD_COLCTRL_1,Doryen::TCODColor::red,Doryen::TCODColor::black);
+        TCODConsole::root->print(1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
+        // A string with a red over black word, using generic color control codes
+        TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
+              TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
+        // A string with a red over black word, using generic color control codes
+        TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
+              TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
+    @CEx
+        // A string with a red over black word, using predefined color control codes
+        TCOD_console_set_color_control(TCOD_COLCTRL_1,red,black);
+        TCOD_console_print(NULL,1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
+        // A string with a red word (over default background color), using generic color control codes
+        TCOD_console_print(NULL,1,1,"String with a %c%c%c%cred%c word.",
+            TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_STOP);
+        // A string with a red over black word, using generic color control codes
+        TCOD_console_print(NULL,1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
+            TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
+    @PyEx
+        # A string with a red over black word, using predefined color control codes
+        libtcod.console_set_color_control(libtcod.COLCTRL_1,litbcod.red,litbcod.black)
+        libtcod.console_print(0,1,1,"String with a %cred%c word."%(libtcod.COLCTRL_1,libtcod.COLCTRL_STOP))
+        # A string with a red word (over default background color), using generic color control codes
+        litbcod.console_print(0,1,1,"String with a %c%c%c%cred%c word."%(libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_STOP))
+        # A string with a red over black word, using generic color control codes
+        libtcod.console_print(0,1,1,"String with a %c%c%c%c%c%c%c%cred%c word."%
+                (libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_BACK_RGB,1,1,1,libtcod.COLCTRL_STOP))
 
-	@C#Ex
-		TCODConsole.root.print(1,1,String.Format("String with a {0}red{1} word.",
-			TCODConsole.getRGBColorControlString(ColorControlForeground,TCODColor.red),
-			TCODConsole.getColorControlString(ColorControlStop));
-	*/
-	static void setColorControl(TCOD_colctrl_t con, const TCODColor &fore, const TCODColor &back);
+    @C#Ex
+        TCODConsole.root.print(1,1,String.Format("String with a {0}red{1} word.",
+            TCODConsole.getRGBColorControlString(ColorControlForeground,Doryen::TCODColor.red),
+            TCODConsole.getColorControlString(ColorControlStop));
+    */
+    static void setColorControl( TCOD_colctrl_t con, const Doryen::Color &fore, const Doryen::Color &back );
 
 #ifndef NO_UNICODE
 	/**
@@ -997,63 +998,63 @@ public :
 	*/
 	int getHeight() const;
 
-	/**
-	@PageName console_read
-	@FuncTitle Reading the default background color
-	@FuncDesc This function returns the default background color of a console.
-	@Cpp TCODColor TCODConsole::getDefaultBackground() const
-	@C TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con)
-	@Py console_get_default_background(con)
-	@C# TCODColor TCODConsole::getBackgroundColor()
-	@Lua Console:getBackgroundColor()
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	*/
-	TCODColor getDefaultBackground() const;
+    /**
+    @PageName console_read
+    @FuncTitle Reading the default background color
+    @FuncDesc This function returns the default background color of a console.
+    @Cpp Doryen::TCODColor TCODConsole::getDefaultBackground() const
+    @C TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con)
+    @Py console_get_default_background(con)
+    @C# Doryen::TCODColor TCODConsole::getBackgroundColor()
+    @Lua Console:getBackgroundColor()
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    */
+    Doryen::Color getDefaultBackground( ) const;
 
-	/**
-	@PageName console_read
-	@FuncTitle Reading the default foreground color
-	@FuncDesc This function returns the default foreground color of a console.
-	@Cpp TCODColor TCODConsole::getDefaultForeground() const
-	@C TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con)
-	@Py console_get_default_foreground(con)
-	@C# TCODColor TCODConsole::getForegroundColor()
-	@Lua Console:getForegroundColor()
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	*/
-	TCODColor getDefaultForeground() const;
+    /**
+    @PageName console_read
+    @FuncTitle Reading the default foreground color
+    @FuncDesc This function returns the default foreground color of a console.
+    @Cpp Doryen::TCODColor TCODConsole::getDefaultForeground() const
+    @C TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con)
+    @Py console_get_default_foreground(con)
+    @C# Doryen::TCODColor TCODConsole::getForegroundColor()
+    @Lua Console:getForegroundColor()
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    */
+    Doryen::Color getDefaultForeground( ) const;
 
-	/**
-	@PageName console_read
-	@FuncTitle Reading the background color of a cell
-	@FuncDesc This function returns the background color of a cell.
-	@Cpp TCODColor TCODConsole::getCharBackground(int x, int y) const
-	@C TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y)
-	@Py console_get_char_background(con,x,y)
-	@C# TCODColor TCODConsole::getCharBackground(int x, int y)
-	@Lua Console::getCharBackground(x, y)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param x,y coordinates of the cell in the console.
-		0 <= x < console width
-		0 <= y < console height
-	*/
-	TCODColor getCharBackground(int x, int y) const;
+    /**
+    @PageName console_read
+    @FuncTitle Reading the background color of a cell
+    @FuncDesc This function returns the background color of a cell.
+    @Cpp Doryen::TCODColor TCODConsole::getCharBackground(int x, int y) const
+    @C TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y)
+    @Py console_get_char_background(con,x,y)
+    @C# Doryen::TCODColor TCODConsole::getCharBackground(int x, int y)
+    @Lua Console::getCharBackground(x, y)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param x,y coordinates of the cell in the console.
+        0 <= x < console width
+        0 <= y < console height
+    */
+    Doryen::Color getCharBackground( int x, int y ) const;
 
-	/**
-	@PageName console_read
-	@FuncTitle Reading the foreground color of a cell
-	@FuncDesc This function returns the foreground color of a cell.
-	@Cpp TCODColor TCODConsole::getCharForeground(int x, int y) const
-	@C TCOD_color_t TCOD_console_get_char_foreground(TCOD_console_t con,int x, int y)
-	@Py console_get_char_foreground(con,x,y)
-	@C# TCODColor TCODConsole::getCharForeground(int x, int y)
-	@Lua Console::getCharForeground(x, y)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param x,y coordinates of the cell in the console.
-		0 <= x < console width
-		0 <= y < console height
-	*/
-	TCODColor getCharForeground(int x, int y) const;
+    /**
+    @PageName console_read
+    @FuncTitle Reading the foreground color of a cell
+    @FuncDesc This function returns the foreground color of a cell.
+    @Cpp Doryen::TCODColor TCODConsole::getCharForeground(int x, int y) const
+    @C TCOD_color_t TCOD_console_get_char_foreground(TCOD_console_t con,int x, int y)
+    @Py console_get_char_foreground(con,x,y)
+    @C# Doryen::TCODColor TCODConsole::getCharForeground(int x, int y)
+    @Lua Console::getCharForeground(x, y)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param x,y coordinates of the cell in the console.
+        0 <= x < console width
+        0 <= y < console height
+    */
+    Doryen::Color getCharForeground( int x, int y ) const;
 
 	/**
 	@PageName console_read
@@ -1071,42 +1072,42 @@ public :
 	*/
 	int getChar(int x, int y) const;
 
-	/**
-	@PageName console_fading
-	@PageTitle Screen fading functions
-	@PageFather console_draw
-	@PageDesc Use these functions to easily fade to/from a color
-	@FuncTitle Changing the fading parameters
-	@FuncDesc This function defines the fading parameters, allowing to easily fade the game screen to/from a color. Once they are defined, the fading parameters are valid for ever. You don't have to call setFade for each rendered frame (unless you change the fading parameters).
-	@Cpp static void TCODConsole::setFade(uint8 fade, const TCODColor &fadingColor)
-	@C void TCOD_console_set_fade(uint8 fade, TCOD_color_t fadingColor)
-	@Py console_set_fade(fade, fadingColor)
-	@C# static void TCODConsole::setFade(byte fade, TCODColor fadingColor)
-	@Lua tcod.console.setFade(fade, fadingColor)
-	@Param fade the fading amount. 0 => the screen is filled with the fading color. 255 => no fading effect
-	@Param fadingColor the color to use during the console flushing operation
-	@CppEx
-		for (int fade=255; fade >= 0; fade --) {
-			TCODConsole::setFade(fade,TCODColor::black);
-			TCODConsole::flush();
-		}
-	@CEx
-		int fade;
-		for (fade=255; fade >= 0; fade --) {
-			TCOD_console_setFade(fade,TCOD_black);
-			TCOD_console_flush();
-		}
-	@PyEx
-		for fade in range(255,0) :
-			libtcod.console_setFade(fade,libtcod.black)
-			libtcod.console_flush()
-	@LuaEx
-		for fade=255,0,-1 do
-			tcod.console.setFade(fade,tcod.color.black)
-			tcod.console.flush()
-		end
-	*/
-	static void setFade(uint8 fade, const TCODColor &fadingColor);
+    /**
+    @PageName console_fading
+    @PageTitle Screen fading functions
+    @PageFather console_draw
+    @PageDesc Use these functions to easily fade to/from a color
+    @FuncTitle Changing the fading parameters
+    @FuncDesc This function defines the fading parameters, allowing to easily fade the game screen to/from a color. Once they are defined, the fading parameters are valid for ever. You don't have to call setFade for each rendered frame (unless you change the fading parameters).
+    @Cpp static void TCODConsole::setFade(uint8 fade, const Doryen::TCODColor &fadingColor)
+    @C void TCOD_console_set_fade(uint8 fade, TCOD_color_t fadingColor)
+    @Py console_set_fade(fade, fadingColor)
+    @C# static void TCODConsole::setFade(byte fade, Doryen::TCODColor fadingColor)
+    @Lua tcod.console.setFade(fade, fadingColor)
+    @Param fade the fading amount. 0 => the screen is filled with the fading color. 255 => no fading effect
+    @Param fadingColor the color to use during the console flushing operation
+    @CppEx
+        for (int fade=255; fade >= 0; fade --) {
+            TCODConsole::setFade(fade,Doryen::TCODColor::black);
+            TCODConsole::flush();
+        }
+    @CEx
+        int fade;
+        for (fade=255; fade >= 0; fade --) {
+            TCOD_console_setFade(fade,TCOD_black);
+            TCOD_console_flush();
+        }
+    @PyEx
+        for fade in range(255,0) :
+            libtcod.console_setFade(fade,libtcod.black)
+            libtcod.console_flush()
+    @LuaEx
+        for fade=255,0,-1 do
+            tcod.console.setFade(fade,tcod.color.black)
+            tcod.console.flush()
+        end
+    */
+    static void setFade( uint8 fade, const Doryen::Color &fadingColor );
 
 	/**
 	@PageName console_fading
@@ -1120,17 +1121,17 @@ public :
 	*/
 	static uint8 getFade();
 
-	/**
-	@PageName console_fading
-	@FuncTitle Reading the fading color
-	@FuncDesc This function returns the current fading color, previously defined by setFade.
-	@Cpp static TCODColor TCODConsole::getFadingColor()
-	@C TCOD_color_t TCOD_console_get_fading_color()
-	@Py console_get_fading_color()
-	@C# static TCODColor TCODConsole::getFadingColor()
-	@Lua tcod.console.getFadingColor()
-	*/
-	static TCODColor getFadingColor();
+    /**
+    @PageName console_fading
+    @FuncTitle Reading the fading color
+    @FuncDesc This function returns the current fading color, previously defined by setFade.
+    @Cpp static Doryen::TCODColor TCODConsole::getFadingColor()
+    @C TCOD_color_t TCOD_console_get_fading_color()
+    @Py console_get_fading_color()
+    @C# static Doryen::TCODColor TCODConsole::getFadingColor()
+    @Lua tcod.console.getFadingColor()
+    */
+    static Doryen::Color getFadingColor( );
 
 	/**
 	@PageName console_flush
@@ -1480,44 +1481,44 @@ public :
 		Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
 	*/
 
-	/**
-	@PageName console_offscreen
-	@PageFather console
-	@PageTitle Using off-screen consoles
-	@PageDesc The offscreen consoles allow you to draw on secondary consoles as you would do with the root console. You can then blit those secondary consoles on the root console. This allows you to use local coordinate space while rendering a portion of the final screen, and easily move components of the screen without modifying the rendering functions.
-	@FuncTitle Creating an offscreen console
-	@FuncDesc You can create as many off-screen consoles as you want by using this function. You can draw on them as you would do with the root console, but you cannot flush them to the screen. Else, you can blit them on other consoles, including the root console. See blit. The C version of this function returns a console handler that you can use in most console drawing functions.
-	@Cpp TCODConsole::TCODConsole(int w, int h)
-	@C TCOD_console_t TCOD_console_new(int w, int h)
-	@Py console_new(w,h)
-	@C# TCODConsole::TCODConsole(int w, int h)
-	@Lua tcod.Console(w,h)
-	@Param w,h the console size.
-		0 < w
-		0 < h
-	@CppEx
-		// Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
-		TCODConsole *offscreenConsole = new TCODConsole(40,20);
-		offscreenConsole->setDefaultBackground(TCODColor::red);
-		offscreenConsole->clear();
-		TCODConsole::blit(offscreenConsole,0,0,40,20,TCODConsole::root,5,5,255);
-	@CEx
-		TCOD_console_t offscreen_console = TCOD_console_new(40,20);
-		TCOD_console_set_default_background(offscreen_console,TCOD_red);
-		TCOD_console_clear(offscreen_console);
-		TCOD_console_blit(offscreen_console,0,0,40,20,NULL,5,5,255);
-	@PyEx
-		offscreen_console = libtcod.console_new(40,20)
-		libtcod.console_set_background_color(offscreen_console,libtcod.red)
-		libtcod.console_clear(offscreen_console)
-		libtcod.console_blit(offscreen_console,0,0,40,20,0,5,5,255)
-	@LuaEx
-		-- Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
-		offscreenConsole = tcod.Console(40,20)
-		offscreenConsole:setBackgroundColor(tcod.color.red)
-		offscreenConsole:clear()
-		tcod.console.blit(offscreenConsole,0,0,40,20,libtcod.TCODConsole_root,5,5,255)
-	*/
+    /**
+    @PageName console_offscreen
+    @PageFather console
+    @PageTitle Using off-screen consoles
+    @PageDesc The offscreen consoles allow you to draw on secondary consoles as you would do with the root console. You can then blit those secondary consoles on the root console. This allows you to use local coordinate space while rendering a portion of the final screen, and easily move components of the screen without modifying the rendering functions.
+    @FuncTitle Creating an offscreen console
+    @FuncDesc You can create as many off-screen consoles as you want by using this function. You can draw on them as you would do with the root console, but you cannot flush them to the screen. Else, you can blit them on other consoles, including the root console. See blit. The C version of this function returns a console handler that you can use in most console drawing functions.
+    @Cpp TCODConsole::TCODConsole(int w, int h)
+    @C TCOD_console_t TCOD_console_new(int w, int h)
+    @Py console_new(w,h)
+    @C# TCODConsole::TCODConsole(int w, int h)
+    @Lua tcod.Console(w,h)
+    @Param w,h the console size.
+        0 < w
+        0 < h
+    @CppEx
+        // Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
+        TCODConsole *offscreenConsole = new TCODConsole(40,20);
+        offscreenConsole->setDefaultBackground(Doryen::TCODColor::red);
+        offscreenConsole->clear();
+        TCODConsole::blit(offscreenConsole,0,0,40,20,TCODConsole::root,5,5,255);
+    @CEx
+        TCOD_console_t offscreen_console = TCOD_console_new(40,20);
+        TCOD_console_set_default_background(offscreen_console,TCOD_red);
+        TCOD_console_clear(offscreen_console);
+        TCOD_console_blit(offscreen_console,0,0,40,20,NULL,5,5,255);
+    @PyEx
+        offscreen_console = libtcod.console_new(40,20)
+        libtcod.console_set_background_color(offscreen_console,libtcod.red)
+        libtcod.console_clear(offscreen_console)
+        libtcod.console_blit(offscreen_console,0,0,40,20,0,5,5,255)
+    @LuaEx
+        -- Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
+        offscreenConsole = tcod.Console(40,20)
+        offscreenConsole:setBackgroundColor(tcod.color.red)
+        offscreenConsole:clear()
+        tcod.console.blit(offscreenConsole,0,0,40,20,libtcod.TCODConsole_root,5,5,255)
+    */
 	TCODConsole(int w, int h);
 	
 	/**
@@ -1696,19 +1697,20 @@ public :
 		end
 	*/
 	static void blit(const TCODConsole *src,int xSrc, int ySrc, int wSrc, int hSrc, TCODConsole *dst, int xDst, int yDst, float foreground_alpha=1.0f, float background_alpha=1.0f);
-	/**
-	@PageName console_offscreen
-	@FuncTitle Define a blit-transparent color
-	@FuncDesc This function defines a transparent background color for an offscreen console. All cells with this background color are ignored by the blit operation. You can use it to blit only some parts of the console.
-	@Cpp void TCODConsole::setKeyColor(const TCODColor &col)
-	@C void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col)
-	@Py console_set_key_color(con,col)
-	@C# void TCODConsole::setKeyColor(TCODColor col)
-	@Lua Console:setKeyColor(col)
-	@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-	@Param col the transparent background color
-	*/
-	void setKeyColor(const TCODColor &col);
+
+    /**
+    @PageName console_offscreen
+    @FuncTitle Define a blit-transparent color
+    @FuncDesc This function defines a transparent background color for an offscreen console. All cells with this background color are ignored by the blit operation. You can use it to blit only some parts of the console.
+    @Cpp void TCODConsole::setKeyColor(const Doryen::TCODColor &col)
+    @C void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col)
+    @Py console_set_key_color(con,col)
+    @C# void TCODConsole::setKeyColor(Doryen::TCODColor col)
+    @Lua Console:setKeyColor(col)
+    @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+    @Param col the transparent background color
+    */
+    void setKeyColor( const Doryen::Color &col );
 	/**
 	@PageName console_offscreen
 	@FuncTitle Destroying an offscreen console
@@ -1746,7 +1748,7 @@ public :
     // ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP
 	static const char *getColorControlString( TCOD_colctrl_t ctrl );
 	// ctrl = TCOD_COLCTRL_FORE_RGB or TCOD_COLCTRL_BACK_RGB
-	static const char *getRGBColorControlString( TCOD_colctrl_t ctrl, const TCODColor & col );
+    static const char *getRGBColorControlString( TCOD_colctrl_t ctrl, const Doryen::Color &col );
 
 protected :
 	friend class TCODLIB_API TCODImage;

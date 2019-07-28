@@ -31,10 +31,11 @@
 void Shader::init(TCODMap *map) {
 	this->map=map;
 	int size=map->getWidth()*map->getHeight();
-	lightmap=new TCODColor[size];
+    lightmap = new Doryen::Color[size];
 }
 
-int Shader::addLight(int x, int y, int radius, const TCODColor &col) {
+int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
+{
 	int id=lights.size();
 	Light l;
 	l.x=x;
@@ -45,15 +46,17 @@ int Shader::addLight(int x, int y, int radius, const TCODColor &col) {
 	return id;
 }
 
-void Shader::updateLight(int id, int x, int y, int radius, const TCODColor &col) {
+void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color &col )
+{
 	Light *l=lights.begin()+id;
 	l->x=x;
 	l->y=y;
 	l->radius=radius;
 	l->col=col;
 }
-	
-	
-const TCODColor &Shader::getLightColor(int x, int y) {
+
+
+const Doryen::Color &Shader::getLightColor( int x, int y )
+{
 	return lightmap[ x + y * map->getWidth()];
 }

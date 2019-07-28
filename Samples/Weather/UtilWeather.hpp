@@ -35,7 +35,9 @@ public :
 	void move(int dx, int dy);
 	// description of current weather
 	const char *getWeather();
-	const TCODColor &getAmbientLightColor() { return ambientColor; }
+
+    const Doryen::Color &getAmbientLightColor( )
+    { return ambientColor; }
 	// timeInSecond : between 0 and 3600*24
 	void calculateAmbient(float timeInSeconds);
 	// how fast the weather is changing. 0 : never changes, 1 : default > 1 : faster...
@@ -61,5 +63,5 @@ protected :
 	float changeFactor;
 	TCODHeightMap *map;
 	TCODList<lightning_t> lightnings;
-	TCODColor ambientColor;
+    Doryen::Color ambientColor;
 };

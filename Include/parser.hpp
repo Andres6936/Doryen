@@ -205,7 +205,8 @@ public :
 	int getIntProperty(const char *name) const;
 	int getCharProperty(const char *name) const;
 	float getFloatProperty(const char *name) const;
-	TCODColor getColorProperty(const char *name) const;
+
+    Doryen::Color getColorProperty( const char *name ) const;
 	TCOD_dice_t getDiceProperty(const char *name) const;
 	const char * getStringProperty(const char *name) const;
 	void * getCustomProperty(const char *name) const;

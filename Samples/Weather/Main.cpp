@@ -31,7 +31,7 @@ TCODNoise noise1d(1);
 TCODNoise noise2d(2);
 Weather weather;
 float dayTime=6*3600.0f; // starts at 6.00am
-TCODColor lightningColor(220,220,255);
+Doryen::Color lightningColor( 220, 220, 255 );
 TCODImage *ground;
                      
 void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
@@ -68,7 +68,7 @@ void render() {
 			int r=0,g=0,b=0;
 			
 			// default ground color
-			TCODColor groundCol=ground->getPixel(x,y);
+            Doryen::Color groundCol = ground->getPixel( x, y );
 			
 			// take cloud shadow into account
 			float cloudCoef = weather.getCloud(x,y);
@@ -93,7 +93,7 @@ void render() {
 			r=groundCol.r*r/200;
 			g=groundCol.g*g/200;
 			b=groundCol.b*b/200;
-			img.putPixel(x,y,TCODColor(r,g,b));			
+            img.putPixel( x, y, Doryen::Color( r, g, b ));
 		}
 	}
 	img.blit2x(TCODConsole::root,0,0);
@@ -103,15 +103,15 @@ void render() {
 			if ( weather.hasRainDrop() ) {
 				float lightning=weather.getLightning(x*2,y*2);
 				float cloudCoef = weather.getCloud(x*2,y*2);
-				TCODColor col=TCODColor::darkBlue*cloudCoef;
+                Doryen::Color col = Doryen::Color::darkBlue * cloudCoef;
 				col = col * weather.getAmbientLightColor();
 				if ( lightning > 0.0f ) col = col + 2*lightning*lightningColor;
 				TCODConsole::root->setChar(x,y,'/');
 				TCODConsole::root->setCharForeground(x,y,col);
 			}
 		}
-	}	
-	TCODConsole::root->setDefaultForeground(TCODColor::white);
+	}
+    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
 	TCODConsole::root->print(5,CON_H-12,"TCOD's Weather system :\n"
 		"- wind with varying speed and direction\n"
 		"- rain\n"
@@ -132,19 +132,19 @@ int main (int argc, char *argv[]) {
 	weather.init(CON_W*2,CON_H*2);
 	ground = new TCODImage(CON_W*2,CON_H*2);
 	// generate some good locking ground
-	TCODColor colors[] = {
-		TCODColor(40,117,0), // grass
-		TCODColor(69,125,0), // sparse grass
-		TCODColor(110,125,0), // withered grass
-		TCODColor(150,143,92), // dried grass
-		TCODColor(133,115,71), // bare ground
-		TCODColor(111,100,73) // dirt
+    Doryen::Color colors[] = {
+            Doryen::Color( 40, 117, 0 ), // grass
+            Doryen::Color( 69, 125, 0 ), // sparse grass
+            Doryen::Color( 110, 125, 0 ), // withered grass
+            Doryen::Color( 150, 143, 92 ), // dried grass
+            Doryen::Color( 133, 115, 71 ), // bare ground
+            Doryen::Color( 111, 100, 73 ) // dirt
 	};
 	int keys[] = {
 		0,51,102,153,204,255
 	};
-	TCODColor gradientMap[256];
-	TCODColor::genMap(gradientMap,6,colors,keys);
+    Doryen::Color gradientMap[256];
+    Doryen::Color::genMap( gradientMap, 6, colors, keys );
 	for (int x=0; x < CON_W*2; x++) {
 		for (int y=0; y < CON_H*2; y++) {
 			float f[2]={x*3.0f/CON_W,y*3.0f/CON_H};
@@ -153,8 +153,8 @@ int main (int argc, char *argv[]) {
 			ih=CLAMP(0,255,ih);
 			float coef=1.0f;
 			// darken the lower part (text background) 
-			if ( y > CON_H*2-27) coef=0.5f; 
-			TCODColor col=coef*gradientMap[ih];
+			if ( y > CON_H*2-27) coef=0.5f;
+            Doryen::Color col = coef * gradientMap[ ih ];
 			// add some noise
 			col = col * TCODRandom::getInstance()->getFloat(0.95f,1.05f);
 			ground->putPixel(x,y,col);

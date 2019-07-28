@@ -31,87 +31,119 @@
 #include "libtcod_int.h"
 
 // grey levels
-const TCODColor TCODColor::black(TCOD_BLACK);
-const TCODColor TCODColor::grey(TCOD_GREY);
-const TCODColor TCODColor::white(TCOD_WHITE);
+const Doryen::Color Doryen::Color::black( TCOD_BLACK );
+
+const Doryen::Color Doryen::Color::grey( TCOD_GREY );
+
+const Doryen::Color Doryen::Color::white( TCOD_WHITE );
 
 //sepia
-const TCODColor TCODColor::sepia(TCOD_SEPIA);
+const Doryen::Color Doryen::Color::sepia( TCOD_SEPIA );
 
 // standard colors
-const TCODColor TCODColor::red(TCOD_RED);
-const TCODColor TCODColor::flame(TCOD_FLAME);
-const TCODColor TCODColor::orange(TCOD_ORANGE);
-const TCODColor TCODColor::amber(TCOD_AMBER);
-const TCODColor TCODColor::yellow(TCOD_YELLOW);
-const TCODColor TCODColor::lime(TCOD_LIME);
-const TCODColor TCODColor::chartreuse(TCOD_CHARTREUSE);
-const TCODColor TCODColor::green(TCOD_GREEN);
-const TCODColor TCODColor::sea(TCOD_SEA);
-const TCODColor TCODColor::turquoise(TCOD_TURQUOISE);
-const TCODColor TCODColor::cyan(TCOD_CYAN);
-const TCODColor TCODColor::sky(TCOD_SKY);
-const TCODColor TCODColor::azure(TCOD_AZURE);
-const TCODColor TCODColor::blue(TCOD_BLUE);
-const TCODColor TCODColor::han(TCOD_HAN);
-const TCODColor TCODColor::violet(TCOD_VIOLET);
-const TCODColor TCODColor::purple(TCOD_PURPLE);
-const TCODColor TCODColor::fuchsia(TCOD_FUCHSIA);
-const TCODColor TCODColor::magenta(TCOD_MAGENTA);
-const TCODColor TCODColor::pink(TCOD_PINK);
-const TCODColor TCODColor::crimson(TCOD_CRIMSON);
+const Doryen::Color Doryen::Color::red( TCOD_RED );
+
+const Doryen::Color Doryen::Color::flame( TCOD_FLAME );
+
+const Doryen::Color Doryen::Color::orange( TCOD_ORANGE );
+
+const Doryen::Color Doryen::Color::amber( TCOD_AMBER );
+
+const Doryen::Color Doryen::Color::yellow( TCOD_YELLOW );
+
+const Doryen::Color Doryen::Color::lime( TCOD_LIME );
+
+const Doryen::Color Doryen::Color::chartreuse( TCOD_CHARTREUSE );
+
+const Doryen::Color Doryen::Color::green( TCOD_GREEN );
+
+const Doryen::Color Doryen::Color::sea( TCOD_SEA );
+
+const Doryen::Color Doryen::Color::turquoise( TCOD_TURQUOISE );
+
+const Doryen::Color Doryen::Color::cyan( TCOD_CYAN );
+
+const Doryen::Color Doryen::Color::sky( TCOD_SKY );
+
+const Doryen::Color Doryen::Color::azure( TCOD_AZURE );
+
+const Doryen::Color Doryen::Color::blue( TCOD_BLUE );
+
+const Doryen::Color Doryen::Color::han( TCOD_HAN );
+
+const Doryen::Color Doryen::Color::violet( TCOD_VIOLET );
+
+const Doryen::Color Doryen::Color::purple( TCOD_PURPLE );
+
+const Doryen::Color Doryen::Color::fuchsia( TCOD_FUCHSIA );
+
+const Doryen::Color Doryen::Color::magenta( TCOD_MAGENTA );
+
+const Doryen::Color Doryen::Color::pink( TCOD_PINK );
+
+const Doryen::Color Doryen::Color::crimson( TCOD_CRIMSON );
 
 // dark colors
-const TCODColor TCODColor::darkYellow(TCOD_DARK_YELLOW);
-const TCODColor TCODColor::darkBlue(TCOD_DARK_BLUE);
+const Doryen::Color Doryen::Color::darkYellow( TCOD_DARK_YELLOW );
+
+const Doryen::Color Doryen::Color::darkBlue( TCOD_DARK_BLUE );
 
 // darker colors
-const TCODColor TCODColor::darkerBlue(TCOD_DARKER_BLUE);
+const Doryen::Color Doryen::Color::darkerBlue( TCOD_DARKER_BLUE );
 
 // darkest colors
-const TCODColor TCODColor::darkestFlame(TCOD_DARKEST_FLAME);
+const Doryen::Color Doryen::Color::darkestFlame( TCOD_DARKEST_FLAME );
 
 // light colors
-const TCODColor TCODColor::lightYellow(TCOD_LIGHT_YELLOW);
-const TCODColor TCODColor::lightBlue(TCOD_LIGHT_BLUE);
+const Doryen::Color Doryen::Color::lightYellow( TCOD_LIGHT_YELLOW );
+
+const Doryen::Color Doryen::Color::lightBlue( TCOD_LIGHT_BLUE );
 
 // lighter colors
-const TCODColor TCODColor::lighterBlue(TCOD_LIGHTER_BLUE);
+const Doryen::Color Doryen::Color::lighterBlue( TCOD_LIGHTER_BLUE );
 
 // lightest colors
-const TCODColor TCODColor::lightestYellow(TCOD_LIGHTEST_YELLOW);
-const TCODColor TCODColor::lightestBlue(TCOD_LIGHTEST_BLUE);
+const Doryen::Color Doryen::Color::lightestYellow( TCOD_LIGHTEST_YELLOW );
+
+const Doryen::Color Doryen::Color::lightestBlue( TCOD_LIGHTEST_BLUE );
 
 //special
-const TCODColor TCODColor::brass(TCOD_BRASS);
-const TCODColor TCODColor::copper(TCOD_COPPER);
-const TCODColor TCODColor::gold(TCOD_GOLD);
-const TCODColor TCODColor::silver(TCOD_SILVER);
+const Doryen::Color Doryen::Color::brass( TCOD_BRASS );
+
+const Doryen::Color Doryen::Color::copper( TCOD_COPPER );
+
+const Doryen::Color Doryen::Color::gold( TCOD_GOLD );
+
+const Doryen::Color Doryen::Color::silver( TCOD_SILVER );
 
 //miscellaneous
-const TCODColor TCODColor::celadon(TCOD_CELADON);
-const TCODColor TCODColor::peach(TCOD_PEACH);
+const Doryen::Color Doryen::Color::celadon( TCOD_CELADON );
+
+const Doryen::Color Doryen::Color::peach( TCOD_PEACH );
 
 #ifndef TCOD_HAIKU
 #endif
 
 // non member operators
-TCODColor operator *(float value, const TCODColor &c) {
+Doryen::Color operator*( float value, const Doryen::Color &c )
+{
 	return c*value;
 }
 
-void TCODColor::genMap(TCODColor *map, int nbKey, TCODColor const *keyColor, int const *keyIndex) {
+void Doryen::Color::genMap( Doryen::Color *map, int nbKey, Doryen::Color const *keyColor, int const *keyIndex )
+{
 	for (int segment=0; segment < nbKey-1; segment++) {
 		int idxStart=keyIndex[segment];
 		int idxEnd=keyIndex[segment+1];
 		int idx;
 		for ( idx=idxStart;idx <= idxEnd; idx++) {
-			map[idx]=TCODColor::lerp(keyColor[segment],keyColor[segment+1],(float)(idx-idxStart)/(idxEnd-idxStart));
+            map[ idx ] = Doryen::Color::lerp( keyColor[ segment ], keyColor[ segment + 1 ],
+                                              ( float ) ( idx - idxStart ) / ( idxEnd - idxStart ));
 		}
 	}
 }
 
-TCODColor::TCODColor( short r, short g, short b )
+Doryen::Color::Color( short r, short g, short b )
 {
     this->r = r;
     this->g = g;
@@ -119,7 +151,7 @@ TCODColor::TCODColor( short r, short g, short b )
     this->a = 255;
 }
 
-TCODColor::TCODColor( )
+Doryen::Color::Color( )
 {
     r = 0;
     g = 0;
@@ -127,7 +159,7 @@ TCODColor::TCODColor( )
     a = 255;
 }
 
-TCODColor::TCODColor( short r, short g, short b, short a )
+Doryen::Color::Color( short r, short g, short b, short a )
 {
     this->r = r;
     this->g = g;
@@ -135,7 +167,7 @@ TCODColor::TCODColor( short r, short g, short b, short a )
     this->a = a;
 }
 
-bool TCODColor::equals( const TCODColor &c ) const
+bool Doryen::Color::equals( const Color &c ) const
 {
     return r == c.r && g == c.g && b == c.b && a == c.a;
 }

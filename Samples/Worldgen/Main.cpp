@@ -47,21 +47,22 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
 	worldGen.updateClouds(elapsed);	
 }
 
-TCODColor getMapShadedColor(float worldX,float worldY,bool clouds) {
+Doryen::Color getMapShadedColor( float worldX, float worldY, bool clouds )
+{
     // sun color 
-    static TCODColor sunCol(255,255,200);
+    static Doryen::Color sunCol( 255, 255, 200 );
     float wx = CLAMP(0.0f, worldGen.getWidth()-1,worldX);
     float wy = CLAMP(0.0f, worldGen.getHeight()-1,worldY);
 	// apply cloud shadow
 	float cloudAmount = clouds ? worldGen.getCloudThickness(wx,wy) : 0.0f;
-	TCODColor col = worldGen.getInterpolatedColor(worldX,worldY);
+    Doryen::Color col = worldGen.getInterpolatedColor( worldX, worldY );
 	// apply sun light
     float intensity = worldGen.getInterpolatedIntensity(wx,wy);
 	intensity = MIN(intensity, 1.5f-cloudAmount);
 	int cr = (int)(intensity*(int)(col.r)*sunCol.r/255 );
 	int cg = (int)(intensity*(int)(col.g)*sunCol.g/255 );
 	int cb = (int)(intensity*(int)(col.b)*sunCol.b/255 );
-	TCODColor col2;
+    Doryen::Color col2;
 	col2.r = CLAMP(0,255,cr);
 	col2.g = CLAMP(0,255,cg);
 	col2.b = CLAMP(0,255,cb);
@@ -84,8 +85,8 @@ void render() {
 		}
 	}
 	map.blit2x(TCODConsole::root,0,0);
-	
-	TCODConsole::root->setDefaultForeground(TCODColor::white);
+
+    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
 	static const char *biomeNames[] = {
 		"Tundra","Cold desert","Grassland", "Boreal forest",
 		"Temperate forest", "Tropical/Montane forest",

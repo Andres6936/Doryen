@@ -17,10 +17,14 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <li><a href="#0">Setting the default background color</a></li><li><a href="#1">Setting the default foreground color</a></li><li><a href="#2">Clearing a console</a></li><li><a href="#3">Setting the background color of a cell</a></li><li><a href="#4">Setting the foreground color of a cell</a></li><li><a href="#5">Setting the ASCII code of a cell</a></li><li><a href="#6">Setting every property of a cell using default colors</a></li><li><a href="#7">Setting every property of a cell using specific colors</a></li></ul></div>
 <a name="0"></a><h3>Setting the default background color</h3>
 <p>This function changes the default background color for a console. The default background color is used by several drawing functions like clear, putChar, ...<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">::</span>setDefaultBackground<span class="code-symbol">(</span>TCODColor back<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span
+            class="code-symbol">::</span>setDefaultBackground<span class="code-symbol">(</span>Color back<span
+            class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_console_set_default_background<span class="code-symbol">(</span><span class="code-tcod">TCOD_console_t</span> con<span class="code-symbol">,</span><span class="code-tcod">TCOD_color_t</span> back<span class="code-symbol">)</span></p>
 <p class="py">console_set_default_background<span class="code-symbol">(</span>con<span class="code-symbol">,</span>back<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>setBackgroundColor<span class="code-symbol">(</span>TCODColor back<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setBackgroundColor<span class="code-symbol">(</span>Color back<span
+                class="code-symbol">)</span></p>
 <p class="lua">libtcod<span class="code-symbol">.</span>TCODConsole_root<span class="code-symbol">:</span>setBackgroundColor<span class="code-symbol">(</span> myColor<span class="code-symbol"> )</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>
@@ -32,10 +36,14 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 </div><hr>
 <a name="1"></a><h3>Setting the default foreground color</h3>
 <p>This function changes the default foreground color for a console. The default foreground color is used by several drawing functions like clear, putChar, ...<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">::</span>setDefaultForeground<span class="code-symbol">(</span>TCODColor fore<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span
+            class="code-symbol">::</span>setDefaultForeground<span class="code-symbol">(</span>Color fore<span
+            class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_console_set_default_foreground<span class="code-symbol">(</span><span class="code-tcod">TCOD_console_t</span> con<span class="code-symbol">,</span><span class="code-tcod">TCOD_color_t</span> fore<span class="code-symbol">)</span></p>
 <p class="py">console_set_default_foreground<span class="code-symbol">(</span>con<span class="code-symbol">,</span> fore<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>setForegroundColor<span class="code-symbol">(</span>TCODColor fore<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setForegroundColor<span class="code-symbol">(</span>Color fore<span
+                class="code-symbol">)</span></p>
 <p class="lua">Console<span class="code-symbol">:</span>setForegroundColor<span class="code-symbol">(</span>fore<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>
@@ -57,10 +65,24 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>
 </tbody></table><a name="3"></a><h3>Setting the background color of a cell</h3>
 <p>This function modifies the background color of a cell, leaving other properties (foreground color and ASCII code) unchanged.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">::</span>setCharBackground<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> const</span> TCODColor<span class="code-symbol"> &</span>col<span class="code-symbol">,</span><span class="code-tcod"> TCOD_bkgnd_flag_t</span> flag<span class="code-symbol"> =</span><span class="code-tcod"> TCOD_BKGND_SET</span><span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span
+            class="code-symbol">::</span>setCharBackground<span class="code-symbol">(</span><span class="code-keyword">int</span>
+        x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span
+                class="code-symbol">,</span><span class="code-keyword"> const</span> Color<span
+                class="code-symbol"> &</span>col<span class="code-symbol">,</span><span class="code-tcod"> TCOD_bkgnd_flag_t</span>
+        flag<span class="code-symbol"> =</span><span class="code-tcod"> TCOD_BKGND_SET</span><span
+                class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_console_set_char_background<span class="code-symbol">(</span><span class="code-tcod">TCOD_console_t</span> con<span class="code-symbol">,</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span> col<span class="code-symbol">,</span><span class="code-tcod"> TCOD_bkgnd_flag_t</span> flag<span class="code-symbol">)</span></p>
 <p class="py">console_set_char_background<span class="code-symbol">(</span>con<span class="code-symbol">,</span> x<span class="code-symbol">,</span>  y<span class="code-symbol">,</span> col<span class="code-symbol">,</span> flag<span class="code-symbol">=</span><span class="code-tcod">BKGND_SET</span><span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span> TCODColor col<span class="code-symbol">)</span><span class="code-keyword"><br />void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span> TCODColor col<span class="code-symbol">,</span> TCODBackgroundFlag flag<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span><span
+                class="code-keyword">int</span> x<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span> y<span class="code-symbol">,</span> Color col<span class="code-symbol">)</span><span
+                class="code-keyword"><br/>void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span><span
+                class="code-keyword">int</span> x<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span> y<span class="code-symbol">,</span> Color col<span class="code-symbol">,</span>
+            TCODBackgroundFlag flag<span class="code-symbol">)</span></p>
 <p class="lua">Console<span class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span>x<span class="code-symbol">,</span> y<span class="code-symbol">,</span> col<span class="code-symbol">)</span><br />Console<span class="code-symbol">:</span>setCharBackground<span class="code-symbol">(</span>x<span class="code-symbol">,</span> y<span class="code-symbol">,</span> col<span class="code-symbol">,</span> flag<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>
@@ -69,10 +91,18 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <tr><td>flag</td><td>this flag defines how the cell's background color is modified. See <a href="console_bkgnd_flag_t.html">TCOD_bkgnd_flag_t</a><br />	</td></tr>
 </tbody></table><a name="4"></a><h3>Setting the foreground color of a cell</h3>
 <p>This function modifies the foreground color of a cell, leaving other properties (background color and ASCII code) unchanged.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">::</span>setCharForeground<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> const</span> TCODColor<span class="code-symbol"> &</span>col<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span
+            class="code-symbol">::</span>setCharForeground<span class="code-symbol">(</span><span class="code-keyword">int</span>
+        x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span
+                class="code-symbol">,</span><span class="code-keyword"> const</span> Color<span
+                class="code-symbol"> &</span>col<span class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_console_set_char_foreground<span class="code-symbol">(</span><span class="code-tcod">TCOD_console_t</span> con<span class="code-symbol">,</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span> col<span class="code-symbol">)</span></p>
 <p class="py">console_set_char_foreground<span class="code-symbol">(</span>con<span class="code-symbol">,</span> x<span class="code-symbol">,</span> y<span class="code-symbol">,</span> col<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>setCharForeground<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span> TCODColor col<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>setCharForeground<span class="code-symbol">(</span><span
+                class="code-keyword">int</span> x<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span> y<span class="code-symbol">,</span> Color col<span class="code-symbol">)</span>
+        </p>
 <p class="lua">Console<span class="code-symbol">:</span>setCharForeground<span class="code-symbol">(</span>x<span class="code-symbol">,</span> y<span class="code-symbol">,</span> col<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>
@@ -103,10 +133,22 @@ you are here: <a onclick="link('../index2.html')">Index</a> &gt; <a onclick="lin
 <tr><td>flag</td><td>this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t<br />	</td></tr>
 </tbody></table><a name="7"></a><h3>Setting every property of a cell using specific colors</h3>
 <p>This function modifies every property of a cell :<br />		* set the cell's background color to back.<br />		* set the cell's foreground color to fore.<br />		* set the cell's ASCII code to c.<br />	</p>
-<div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">::</span>putCharEx<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> int</span> c<span class="code-symbol">,</span><span class="code-keyword"> const</span> TCODColor<span class="code-symbol"> &</span> fore<span class="code-symbol">,</span><span class="code-keyword"> const</span> TCODColor<span class="code-symbol"> &</span> back<span class="code-symbol">)</span></p>
+    <div class="code"><p class="cpp"><span class="code-keyword">void</span> TCODConsole<span
+            class="code-symbol">::</span>putCharEx<span class="code-symbol">(</span><span
+            class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span>
+        y<span class="code-symbol">,</span><span class="code-keyword"> int</span> c<span
+                class="code-symbol">,</span><span class="code-keyword"> const</span> Color<span
+                class="code-symbol"> &</span> fore<span class="code-symbol">,</span><span
+                class="code-keyword"> const</span> Color<span class="code-symbol"> &</span> back<span
+                class="code-symbol">)</span></p>
 <p class="c"><span class="code-keyword">void</span> TCOD_console_put_char_ex<span class="code-symbol">(</span><span class="code-tcod">TCOD_console_t</span> con<span class="code-symbol">,</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> int</span> c<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span> fore<span class="code-symbol">,</span><span class="code-tcod"> TCOD_color_t</span> back<span class="code-symbol">)</span></p>
 <p class="py">console_put_char_ex<span class="code-symbol">(</span> con<span class="code-symbol">,</span> x<span class="code-symbol">,</span>  y<span class="code-symbol">,</span> c<span class="code-symbol">,</span> fore<span class="code-symbol">,</span> back<span class="code-symbol">)</span></p>
-<p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span class="code-symbol">:</span>putCharEx<span class="code-symbol">(</span><span class="code-keyword">int</span> x<span class="code-symbol">,</span><span class="code-keyword"> int</span> y<span class="code-symbol">,</span><span class="code-keyword"> int</span> c<span class="code-symbol">,</span> TCODColor fore<span class="code-symbol">,</span> TCODColor back<span class="code-symbol">)</span></p>
+        <p class="cs"><span class="code-keyword">void</span> TCODConsole<span class="code-symbol">:</span><span
+                class="code-symbol">:</span>putCharEx<span class="code-symbol">(</span><span
+                class="code-keyword">int</span> x<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span> y<span class="code-symbol">,</span><span
+                class="code-keyword"> int</span> c<span class="code-symbol">,</span> Color fore<span
+                class="code-symbol">,</span> Color back<span class="code-symbol">)</span></p>
 <p class="lua">Console<span class="code-symbol">:</span>putCharEx<span class="code-symbol">(</span>x<span class="code-symbol">,</span> y<span class="code-symbol">,</span> c<span class="code-symbol">,</span> fore<span class="code-symbol">,</span> back<span class="code-symbol">)</span></p>
 </div>
 <table class="param"><tbody><tr><th>Parameter</th><th>Description</th></tr><tr class="hilite"><td>con</td><td>in the C and Python versions, the offscreen console handler or NULL for the root console<br />	</td></tr>

@@ -17,13 +17,15 @@ public :
 	virtual void setVisible(bool val) { visible=val; }
 	bool isVisible() { return visible; }
 	virtual void computeSize() {}
-	static void setBackgroundColor(const TCODColor col,const TCODColor colFocus);
-	static void setForegroundColor(const TCODColor col,const TCODColor colFocus);
+
+    static void setBackgroundColor( const Doryen::Color col, const Doryen::Color colFocus );
+
+    static void setForegroundColor( const Doryen::Color col, const Doryen::Color colFocus );
 	static void setConsole(TCODConsole *con);
 	static void updateWidgets(const TCOD_key_t k,const TCOD_mouse_t mouse);
 	static void renderWidgets();
 	static TCOD_mouse_t mouse;
-	static TCODColor fore;
+    static Doryen::Color fore;
 	virtual void expand(int width, int height) {}
 protected :
 	friend class StatusBar;
@@ -40,9 +42,9 @@ protected :
 	static void updateWidgetsIntern(const TCOD_key_t k);
 
 	static float elapsed;
-	static TCODColor back;
-	static TCODColor backFocus;
-	static TCODColor foreFocus;
+    static Doryen::Color back;
+    static Doryen::Color backFocus;
+    static Doryen::Color foreFocus;
 	static TCODConsole *con;
 	static TCODList <Widget *>widgets;
 	char *tip;

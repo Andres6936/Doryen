@@ -30,7 +30,7 @@ TCODNoise noise3d(3);
 RippleManager *rippleManager;
 TCODImage *ground, *ground2;
 
-TCODColor mapGradient[256];
+Doryen::Color mapGradient[256];
 #define MAX_COLOR_KEY 8
 
 // TCOD's land color map
@@ -47,15 +47,16 @@ static int keyIndex[MAX_COLOR_KEY] = {0,
 	(int)(snowHeight*255)+10,
 	255
 };
-static TCODColor keyColor[MAX_COLOR_KEY]= {
-	TCODColor(10,10,90),    // deep water
-	TCODColor(30,30,170), // water-sand transition
-	TCODColor(114,150,71),// sand
-	TCODColor(80,120,10),// sand-grass transition
-	TCODColor(17,109,7), // grass
-	TCODColor(120,220,120), // grass-snow transisiton
-	TCODColor(208,208,239), // snow
-	TCODColor(255,255,255)
+
+static Doryen::Color keyColor[MAX_COLOR_KEY] = {
+        Doryen::Color( 10, 10, 90 ),    // deep water
+        Doryen::Color( 30, 30, 170 ), // water-sand transition
+        Doryen::Color( 114, 150, 71 ),// sand
+        Doryen::Color( 80, 120, 10 ),// sand-grass transition
+        Doryen::Color( 17, 109, 7 ), // grass
+        Doryen::Color( 120, 220, 120 ), // grass-snow transisiton
+        Doryen::Color( 208, 208, 239 ), // snow
+        Doryen::Color( 255, 255, 255 )
 };
 
 void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
@@ -73,7 +74,7 @@ void render() {
 	}
 	rippleManager->renderRipples(ground,ground2);		
 	ground2->blit2x(TCODConsole::root,0,0);
-	TCODConsole::root->setDefaultForeground(TCODColor::white);
+    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
 	TCODConsole::root->print(3,49,"Click in water to trigger ripples");
 }
 
@@ -90,7 +91,7 @@ int main (int argc, char *argv[]) {
 	hm.addFbm(&noise2d,3.0f,3.0f,0,0,7.0f,1.0f,0.5f);
 	hm.normalize();
 	// apply a color map to create a ground image
-	TCODColor::genMap(mapGradient,MAX_COLOR_KEY,keyColor,keyIndex);
+    Doryen::Color::genMap( mapGradient, MAX_COLOR_KEY, keyColor, keyIndex );
 	ground=new TCODImage(CON_W*2,CON_H*2);
 	ground2=new TCODImage(CON_W*2,CON_H*2);
 	// create a TCODMap defining water zones. Walkable = water

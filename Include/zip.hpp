@@ -121,15 +121,15 @@ public :
 	*/
 	void putString(const char *val);
 
-   	/**
-	@PageName zip_put
-	@FuncTitle Putting a color in the buffer
-	@Cpp void TCODZip::putColor(const TCODColor *val)
-	@C void TCOD_zip_put_color(TCOD_zip_t zip, const TCOD_color_t val)
-	@Param zip	In the C version, the buffer handler, returned by the constructor.
-	@Param val	A color to store in the buffer
-	*/
-	void putColor(const TCODColor *val);
+    /**
+ @PageName zip_put
+ @FuncTitle Putting a color in the buffer
+ @Cpp void TCODZip::putColor(const Doryen::TCODColor *val)
+ @C void TCOD_zip_put_color(TCOD_zip_t zip, const TCOD_color_t val)
+ @Param zip	In the C version, the buffer handler, returned by the constructor.
+ @Param val	A color to store in the buffer
+ */
+    void putColor( const Doryen::Color *val );
 
 	/**
 	@PageName zip_put
@@ -249,15 +249,15 @@ public :
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
 	*/	
 	const char *getString();
-	
-	/**
-	@PageName zip_load
-	@FuncTitle Reading a color from the buffer
-	@Cpp TCODColor TCODZip::getColor()
-	@C TCOD_color_t TCOD_zip_get_color(TCOD_zip_t zip)
-	@Param zip	In the C version, the buffer handler, returned by the constructor.
-	*/	
-	TCODColor getColor();
+
+    /**
+    @PageName zip_load
+    @FuncTitle Reading a color from the buffer
+    @Cpp Doryen::TCODColor TCODZip::getColor()
+    @C TCOD_color_t TCOD_zip_get_color(TCOD_zip_t zip)
+    @Param zip	In the C version, the buffer handler, returned by the constructor.
+    */
+    Doryen::Color getColor( );
 	
 	/**
 	@PageName zip_load
