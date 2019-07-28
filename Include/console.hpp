@@ -31,24 +31,8 @@
 #include "console_types.h"
 
 /**
-	@PageName console
-	@PageCategory Core
-	@PageTitle Console
-	@PageDesc The console emulator handles the rendering of the game screen and the keyboard input.
-Classic real time game loop:
-	@Cpp
-		TCODConsole::initRoot(80,50,"my game",false);
-		TCODSystem::setFps(25); // limit framerate to 25 frames per second
-		while (!endGame && !TCODConsole::isWindowClosed()) {
-			// ... draw on TCODConsole::root
-			TCODConsole::flush();
-			TCOD_key_t key = TCODConsole::checkForKeypress();
-			updateWorld (key, TCODSystem::getLastFrameLength());
-			// updateWorld(TCOD_key_t key, float elapsed) (using key if key.vk != TCODK_NONE)
-			// use elapsed to scale any update that is time dependant.
-		}
-*/
-
+ * The console emulator handles the rendering of the game screen and the keyboard input.
+ */
 class TCODLIB_API TCODConsole
 {
 public :
@@ -56,119 +40,57 @@ public :
     static TCODConsole *root;
 
     /**
-    @PageName console_init_root
-    @PageTitle Creating the game window
-    @PageFather console_init
-    @Cpp static void TCODConsole::initRoot (int w, int h, const char * title, bool fullscreen = false, TCOD_renderer_t renderer = TCOD_RENDERER_SDL)
-    @C void TCOD_console_init_root (int w, int h, const char * title, bool fullscreen, TCOD_renderer_t renderer)
-    @Py console_init_root (w, h, title, fullscreen = False, renderer = RENDERER_SDL)
-    @C#
-        static void TCODConsole::initRoot(int w, int h, string title)
-        static void TCODConsole::initRoot(int w, int h, string title, bool fullscreen)
-        static void TCODConsole::initRoot(int w, int h, string title, bool fullscreen, TCODRendererType renderer)
-    @Lua
-        tcod.console.initRoot(w,h,title) -- fullscreen = false, renderer = SDL
-        tcod.console.initRoot(w,h,title,fullscreen) -- renderer = SDL
-        tcod.console.initRoot(w,h,title,fullscreen,renderer)
-        -- renderers : tcod.GLSL, tcod.OpenGL, tcod.SDL
-    @Param w,h size of the console(in characters). The default font in libtcod (./terminal.png) uses 8x8 pixels characters.
-        You can change the font by calling TCODConsole::setCustomFont before calling initRoot.
-    @Param title title of the window. It's not visible when you are in fullscreen.
-        Note 1 : you can dynamically change the window title with TCODConsole::setWindowTitle
-    @Param fullscreen wether you start in windowed or fullscreen mode.
-        Note 1 : you can dynamically change this mode with TCODConsole::setFullscreen
-        Note 2 : you can get current mode with TCODConsole::isFullscreen
-    @Param renderer which renderer to use. Possible values are :
-    * TCOD_RENDERER_GLSL : works only on video cards with pixel shaders
-    * TCOD_RENDERER_OPENGL : works on all video cards supporting OpenGL 1.4
-    * TCOD_RENDERER_SDL : should work everywhere!
-        Note 1: if you select a renderer that is not supported by the player's machine, libtcod scan the lower renderers until it finds a working one.
-        Note 2: on recent video cards, GLSL results in up to 900% increase of framerates in the true color sample compared to SDL renderer.
-        Note 3: whatever renderer you use, it can always be overriden by the player through the libtcod.cfg file.
-        Note 4: you can dynamically change the renderer after calling initRoot with TCODSystem::setRenderer.
-        Note 5: you can get current renderer with TCODSystem::getRenderer. It might be different from the one you set in initRoot in case it's not supported on the player's computer.
-    @CppEx TCODConsole::initRoot(80, 50, "The Chronicles Of Doryen v0.1");
-    @CEx TCOD_console_init_root(80, 50, "The Chronicles Of Doryen v0.1", false, TCOD_RENDERER_OPENGL);
-    @PyEx libtcod.console_init_root(80, 50, 'The Chronicles Of Doryen v0.1')
-    @LuaEx tcod.console.initRoot(80,50,"The Chronicles Of Doryen v0.1")
-    */
+     * Creating the game window.
+     *
+     * The default font in libtcod (./Terminal.png) uses 8x8 pixels characters.
+     *
+     * You can change the font by calling TCODConsole::setCustomFont before
+     * calling initRoot.
+     *
+     * @param w width size of the console (in characters).
+     * @param h height size of the console (in characters).
+     * @param title title of the window. It's not visible when you are in fullscreen.
+     * @param fullscreen wether you start in windowed or fullscreen mode.
+     * @param renderer renderer to use. Possible values are :
+     *
+     *  1- TCOD_RENDERER_GLSL : works only on video cards with pixel shaders. <br>
+     *  2- TCOD_RENDERER_OPENGL : works on all video cards supporting OpenGL 1.4 <br>
+     *  3- TCOD_RENDERER_SDL : should work everywhere!. <br>
+     *
+     * @note If you select a renderer that is not supported by the player's machine,
+     * libtcod scan the lower renderers until it finds a working one.
+     *
+     * @note On recent video cards, GLSL results in up to 900% increase of
+     * framerates in the true color sample compared to SDL renderer.
+     *
+     * @note Whatever renderer you use, it can always be overriden by the player
+     * through the libtcod.cfg file.
+     */
     static void
     initRoot( int w, int h, const char *title, bool fullscreen = false, TCOD_renderer_t renderer = TCOD_RENDERER_SDL );
 
     /**
-    @PageName console_set_custom_font
-    @PageTitle Using a custom bitmap font
-    @PageFather console_init
-    @FuncTitle setCustomFont
-    @FuncDesc This function allows you to use a bitmap font (png or bmp) with custom character size or layout.
-        It should be called before initializing the root console with initRoot.
-        Once this function is called, you can define your own custom mappings using mapping functions
-        <h5>Different font layouts</h5>
-        <table>
-        <tr><td>ASCII_INROW</td><td>ASCII_INCOL</td><td>TCOD</td></tr>
-
-        <tr><td><img src='terminal8x8_gs_ro.png' /></td><td><img src='terminal8x8_gs_as.png' /></td><td><img src='terminal8x8_gs_tc.png' /></td></tr>
-        </table>
-        <ul>
-        <li>ascii, in columns : characters 0 to 15 are in the first column. The space character is at coordinates 2,0.</li>
-        <li>ascii, in rows : characters 0 to 15 are in the first row. The space character is at coordinates 0,2.</li>
-        <li>tcod : special mapping. Not all ascii values are mapped. The space character is at coordinates 0,0.</li>
-        </ul>
-        <h5>Different font types</h5>
-        <table>
-        <tr><td>standard<br />(non antialiased)</td><td>antialiased<br />(32 bits PNG)</td><td>antialiased<br />(greyscale)</td></tr>
-
-        <tr><td><img src='terminal.png' /></td><td><img src='terminal8x8_aa_as.png' /></td><td><img src='terminal8x8_gs_as2.png' /></td></tr>
-        </table>
-        <ul>
-        <li>standard : transparency is given by a key color automatically detected by looking at the color of the space character</li>
-        <li>32 bits : transparency is given by the png alpha layer. The font color does not matter but it must be desaturated</li>
-        <li>greyscale : transparency is given by the pixel value. You can use white characters on black background or black characters on white background. The background color is automatically detected by looking at the color of the space character</li>
-        </ul>
-        Examples of fonts can be found in libtcod's fonts directory. Check the Readme file there.
-    @Cpp static void TCODConsole::setCustomFont(const char *fontFile, int flags=TCOD_FONT_LAYOUT_ASCII_INCOL,int nbCharHoriz=0, int nbCharVertic=0)
-    @C void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_horiz, int nb_char_vertic)
-    @Py console_set_custom_font(fontFile, flags=FONT_LAYOUT_ASCII_INCOL,nb_char_horiz=0, nb_char_vertic=0)
-    @C#
-        static void TCODConsole::setCustomFont(string fontFile)
-        static void TCODConsole::setCustomFont(string fontFile, int flags)
-        static void TCODConsole::setCustomFont(string fontFile, int flags, int nbCharHoriz)
-        static void TCODConsole::setCustomFont(string fontFile, int flags, int nbCharHoriz, int nbCharVertic)
-    @Lua
-        tcod.console.setCustomFont(fontFile)
-        tcod.console.setCustomFont(fontFile, flags)
-        tcod.console.setCustomFont(fontFile, nbCharHoriz)
-        tcod.console.setCustomFont(fontFile, flags, nbCharHoriz, nbCharVertic)
-        -- flags : tcod.LayoutAsciiInColumn, tcod.LayoutAsciiInRow, tcod.LayoutTCOD, tcod.Greyscale
-    @Param fontFile Name of a .bmp or .png file containing the font.
-    @Param flags Used to define the characters layout in the bitmap and the font type :
-        TCOD_FONT_LAYOUT_ASCII_INCOL : characters in ASCII order, code 0-15 in the first column
-        TCOD_FONT_LAYOUT_ASCII_INROW : characters in ASCII order, code 0-15 in the first row
-        TCOD_FONT_LAYOUT_TCOD : simplified layout. See examples below.
-        TCOD_FONT_TYPE_GREYSCALE : create an anti-aliased font from a greyscale bitmap
-        For python, remove TCOD _ :
-        libtcod.FONT_LAYOUT_ASCII_INCOL
-    @Param nbCharHoriz,nbCharVertic Number of characters in the font.
-        Should be 16x16 for ASCII layouts, 32x8 for TCOD layout.
-        But you can use any other layout.
-        If set to 0, there are deduced from the font layout flag.
-    @CppEx
-        TCODConsole::setCustomFont("standard_8x8_ascii_in_col_font.bmp",TCOD_FONT_LAYOUT_ASCII_INCOL);
-        TCODConsole::setCustomFont("32bits_8x8_ascii_in_row_font.png",TCOD_FONT_LAYOUT_ASCII_INROW);
-        TCODConsole::setCustomFont("greyscale_8x8_tcod_font.png",TCOD_FONT_LAYOUT_TCOD | TCOD_FONT_TYPE_GREYSCALE);
-    @CEx
-        TCOD_console_set_custom_font("standard_8x8_ascii_in_col_font.bmp",TCOD_FONT_LAYOUT_ASCII_INCOL,16,16);
-        TCOD_console_set_custom_font("32bits_8x8_ascii_in_row_font.png",TCOD_FONT_LAYOUT_ASCII_INROW,32,8);
-        TCOD_console_set_custom_font("greyscale_8x8_tcod_font.png",TCOD_FONT_LAYOUT_TCOD | TCOD_FONT_TYPE_GREYSCALE,32,8);
-    @PyEx
-        libtcod.console_set_custom_font("standard_8x8_ascii_in_col_font.bmp",libtcod.FONT_LAYOUT_ASCII_INCOL)
-        libtcod.console_set_custom_font("32bits_8x8_ascii_in_row_font.png",libtcod.FONT_LAYOUT_ASCII_INROW)
-        libtcod.console_set_custom_font("greyscale_8x8_tcod_font.png",libtcod.FONT_LAYOUT_TCOD | libtcod.FONT_TYPE_GREYSCALE)
-    @LuaEx
-        tcod.console.setCustomFont("standard_8x8_ascii_in_col_font.bmp",tcod.LayoutAsciiInColumn);
-        tcod.console.setCustomFont("32bits_8x8_ascii_in_row_font.png",tcod.LayoutAsciiInRow);
-        tcod.console.setCustomFont("greyscale_8x8_tcod_font.png",tcod.LayoutTCOD + tcod.Greyscale);
-    */
+     * This function allows you to use a bitmap font (png or bmp) with custom
+     * character size or layout.
+     *
+     * It should be called before initializing the root console with initRoot.
+     * Once this function is called, you can define your own custom mappings
+     * using mapping functions.
+     *
+     * @param fontFile Name of a .bmp or .png file containing the font.
+     * @param flags Used to define the characters layout in the bitmap and the font type :
+     *
+     * 1- TCOD_FONT_LAYOUT_ASCII_INCOL : characters in ASCII order, code 0-15 in the first column. <br>
+     * 2- TCOD_FONT_LAYOUT_ASCII_INROW : characters in ASCII order, code 0-15 in the first row <br>
+     * 3- TCOD_FONT_LAYOUT_TCOD : simplified layout. <br>
+     * 4- TCOD_FONT_TYPE_GREYSCALE : create an anti-aliased font from a greyscale bitmap. <br>
+     *
+     * @param nbCharHoriz Number of characters in the font.
+     * @param nbCharVertic Number of characters in the font.
+     *
+     * @note If set to 0 nbCharHoriz or nbCharVertic, there are deduced from
+     * the font layout flag.
+     */
     static void setCustomFont( const char *fontFile, int flags = TCOD_FONT_LAYOUT_ASCII_INCOL, int nbCharHoriz = 0,
                                int nbCharVertic = 0 );
 
