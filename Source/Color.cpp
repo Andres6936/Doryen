@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <color.hpp>
+#include <Color.hpp>
 
 #include "libtcod.hpp"
 #include "libtcod_int.h"

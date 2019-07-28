@@ -30,7 +30,7 @@
 
 #include "libtcod.h"
 #include "list.hpp"
-#include "color.hpp"
+#include "Color.hpp"
 #include "console.hpp"
 #include "image.hpp"
 #include "sys.hpp"

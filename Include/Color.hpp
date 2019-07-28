@@ -155,34 +155,6 @@ namespace Doryen
 
         /**
         @PageName color
-        @FuncTitle Compare two colors
-        @CppEx
-            if (myColor == Doryen::TCODColor::yellow) { ... }
-            if (myColor != Doryen::TCODColor::white) { ... }
-        @CEx
-            if (TCOD_color_equals(my_color,TCOD_yellow)) { ... }
-            if (!TCOD_color_equals(my_color,TCOD_white)) { ... }
-        @PyEx
-            if my_color == libtcod.yellow : ...
-            if my_color != litbcod.white : ...
-        @C#Ex
-            if (myColor.Equal(Doryen::TCODColor.yellow)) { ... }
-            if (myColor.NotEqual(Doryen::TCODColor.white)) { ... }
-        @LuaEx
-            if myColor == tcod.color.yellow then ... end
-        */
-        bool operator==( const Color &c ) const
-        {
-            return ( c.r == r && c.g == g && c.b == b );
-        }
-
-        bool operator!=( const Color &c ) const
-        {
-            return ( c.r != r || c.g != g || c.b != b );
-        }
-
-        /**
-        @PageName color
         @FuncTitle Multiply two colors
         @FuncDesc c1 = c2 * c3 =>
         c1.r = c2.r * c3.r / 255

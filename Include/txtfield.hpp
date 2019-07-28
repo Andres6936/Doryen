@@ -28,7 +28,7 @@
 #ifndef _TCOD_TEXT_HPP_
 #define _TCOD_TEXT_HPP_
 
-#include "color.hpp"
+#include "Color.hpp"
 
 class TCODLIB_API TCODText {
 public :
