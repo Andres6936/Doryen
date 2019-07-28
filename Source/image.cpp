@@ -57,7 +57,8 @@ TCODImage::~TCODImage() {
 }
 
 TCODColor TCODImage::getPixel(int x, int y) const {
-	return TCOD_image_get_pixel(data,x,y);
+    TCOD_color_t c = TCOD_image_get_pixel( data, x, y );
+    return TCODColor( c.r, c.g, c.b );
 }
 
 int TCODImage::getAlpha(int x,int y) const {
@@ -65,7 +66,8 @@ int TCODImage::getAlpha(int x,int y) const {
 }
 
 TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1) {
-	return TCOD_image_get_mipmap_pixel(data,x0,y0,x1,y1);
+    TCOD_color_t c = TCOD_image_get_mipmap_pixel( data, x0, y0, x1, y1 );
+    return TCODColor( c.r, c.g, c.b );
 }
 
 void TCODImage::putPixel(int x, int y, const TCODColor col) {

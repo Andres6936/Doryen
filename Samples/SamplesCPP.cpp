@@ -311,7 +311,7 @@ void render_noise(bool first, TCOD_key_t*key, TCOD_mouse_t *mouse) {
 			}
 			uint8 c=(uint8)((value+1.0f)/2.0f*255);
 			// use a bluish color
-			TCODColor col((uint8)(c/2),(uint8)(c/2),c);
+            TCODColor col(( short ) ( c / 2 ), ( short ) ( c / 2 ), ( short ) c );
 			img->putPixel(x,y,col);
 		}
 	}

@@ -99,7 +99,8 @@ int TCODZip::getData(int nbBytes, void *pdata) {
 }
 
 TCODColor TCODZip::getColor() {
-	return TCODColor(TCOD_zip_get_color(data));
+    //return TCODColor(TCOD_zip_get_color(data));
+    return TCODColor( 0, 255, 255 );
 }
 
 TCODImage *TCODZip::getImage() {

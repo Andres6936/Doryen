@@ -109,7 +109,8 @@ TCODColor TCODConsole::getDefaultBackground() const {
 	return ret;
 }
 TCODColor TCODConsole::getDefaultForeground() const {
-	return TCOD_console_get_default_foreground(data);
+    TCOD_color_t temp = TCOD_console_get_default_foreground( data );
+    return TCODColor( temp.r, temp.g, temp.b );
 }
 void TCODConsole::setDefaultBackground(TCODColor back) {
 	TCOD_color_t b={back.r,back.g,back.b};
@@ -179,7 +180,8 @@ uint8 TCODConsole::getFade() {
 }
 
 TCODColor TCODConsole::getFadingColor() {
-	return TCOD_console_get_fading_color();
+    TCOD_color_t temp = TCOD_console_get_fading_color( );
+    return TCODColor( temp.r, temp.g, temp.b );
 }
 
 void TCODConsole::putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag) {
@@ -197,14 +199,16 @@ void TCODConsole::clear() {
 }
 
 TCODColor TCODConsole::getCharBackground(int x, int y) const {
-	return TCOD_console_get_char_background(data,x,y);
+    TCOD_color_t temp = TCOD_console_get_char_background( data, x, y );
+    return TCODColor( temp.r, temp.g, temp.b );
 }
 void TCODConsole::setCharForeground(int x,int y, const TCODColor &col) {
 	TCOD_color_t c={col.r,col.g,col.b};
 	TCOD_console_set_char_foreground(data,x,y,c);
 }
 TCODColor TCODConsole::getCharForeground(int x, int y) const {
-	return TCOD_console_get_char_foreground(data,x,y);
+    TCOD_color_t temp = TCOD_console_get_char_foreground( data, x, y );
+    return TCODColor( temp.r, temp.g, temp.b );
 }
 
 int TCODConsole::getChar(int x, int y) const {

@@ -159,7 +159,8 @@ float TCODParser::getFloatProperty(const char *name) const {
 }
 
 TCODColor TCODParser::getColorProperty(const char *name) const {
-	return TCOD_parser_get_color_property(data,name);
+    TCOD_color_t c = TCOD_parser_get_color_property( data, name );
+    return TCODColor( c.r, c.g, c.b );
 }
 
 TCOD_dice_t TCODParser::getDiceProperty(const char *name) const {
