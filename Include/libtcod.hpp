@@ -31,7 +31,7 @@
 #include "libtcod.h"
 #include "list.hpp"
 #include "Color.hpp"
-#include "console.hpp"
+#include "Console.hpp"
 #include "image.hpp"
 #include "sys.hpp"
 #include "mersenne.hpp"

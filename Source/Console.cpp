@@ -44,14 +44,86 @@ TCODConsole::TCODConsole( )
     }
 }
 
-TCODConsole::TCODConsole(int w, int h) {
-	data = TCOD_console_new(w,h);
+TCODConsole::TCODConsole( int w, int h )
+{
+    if ( w > 0 && h > 0 )
+    {
+        TCOD_console_data_t *console = new TCOD_console_data_t;
+
+        console->w = w;
+        console->h = h;
+
+        console->fore = TCOD_white;
+        console->back = TCOD_black;
+        console->fade = 255;
+        console->buf = new char_t[console->w * console->h];
+        console->oldbuf = new char_t[console->w * console->h];
+        console->bkgnd_flag = TCOD_BKGND_NONE;
+        console->alignment = TCOD_LEFT;
+
+        for ( int j = 0; j < console->w * console->h; j++ )
+        {
+            console->buf[ j ].c = ' ';
+            console->buf[ j ].cf = -1;
+        }
+
+        data = console;
+    }
+    else
+    {
+        // Throw Error
+    }
 }
 
 TCODConsole::TCODConsole(const char *filename) {
 	data = TCOD_console_from_file(filename);
 }
 
+void TCODConsole::initRoot( int w, int h, const char *title, bool fullscreen, TCOD_renderer_t renderer )
+{
+    TCODConsole *con = new TCODConsole( );
+
+    if ( w > 0 && h > 0 )
+    {
+        TCOD_console_data_t *console = new TCOD_console_data_t;
+
+        console->w = w;
+        console->h = h;
+
+        TCOD_ctx.root = console;
+        TCOD_ctx.renderer = renderer;
+
+        console->fore = TCOD_white;
+        console->back = TCOD_black;
+        console->fade = 255;
+        console->buf = new char_t[console->w * console->h];
+        console->oldbuf = new char_t[console->w * console->h];
+        console->bkgnd_flag = TCOD_BKGND_NONE;
+        console->alignment = TCOD_LEFT;
+
+        for ( int j = 0; j < console->w * console->h; j++ )
+        {
+            console->buf[ j ].c = ' ';
+            console->buf[ j ].cf = -1;
+        }
+
+        if ( !TCOD_sys_init( console->w, console->h, console->buf,
+                             console->oldbuf, fullscreen ))
+        {
+            // Throw Error
+        }
+
+        TCOD_sys_set_window_title( title );
+
+        con->data = console;
+
+        root = con;
+    }
+    else
+    {
+        // Throw Error
+    }
+}
 bool TCODConsole::loadAsc(const char *filename) {
 	return TCOD_console_load_asc(data,filename) != 0;
 }
@@ -61,6 +133,7 @@ bool TCODConsole::saveAsc(const char *filename) const {
 bool TCODConsole::saveApf(const char *filename) const {
 	return TCOD_console_save_apf(data,filename) != 0;
 }
+
 bool TCODConsole::loadApf(const char *filename) {
 	return TCOD_console_load_apf(data,filename) != 0;
 }
@@ -141,52 +214,6 @@ void TCODConsole::setDefaultForeground( Doryen::Color fore )
 
 void TCODConsole::setWindowTitle(const char *title) {
 	TCOD_sys_set_window_title(title);
-}
-
-void TCODConsole::initRoot( int w, int h, const char *title, bool fullscreen, TCOD_renderer_t renderer )
-{
-    TCODConsole *con = new TCODConsole( );
-
-    if ( w > 0 && h > 0 )
-    {
-        TCOD_console_data_t *console = new TCOD_console_data_t;
-
-        console->w = w;
-        console->h = h;
-
-        TCOD_ctx.root = console;
-        TCOD_ctx.renderer = renderer;
-
-        console->fore = TCOD_white;
-        console->back = TCOD_black;
-        console->fade = 255;
-        console->buf = new char_t[console->w * console->h];
-        console->oldbuf = new char_t[console->w * console->h];
-        console->bkgnd_flag = TCOD_BKGND_NONE;
-        console->alignment = TCOD_LEFT;
-
-        for ( int j = 0; j < console->w * console->h; j++ )
-        {
-            console->buf[ j ].c = ' ';
-            console->buf[ j ].cf = -1;
-        }
-
-        if ( !TCOD_sys_init( console->w, console->h, console->buf,
-                             console->oldbuf, fullscreen ))
-        {
-            // Throw Error
-        }
-
-        TCOD_sys_set_window_title( title );
-
-        con->data = console;
-
-        root = con;
-    }
-    else
-    {
-        // Throw Error
-    }
 }
 
 void TCODConsole::setFullscreen(bool fullscreen) {
