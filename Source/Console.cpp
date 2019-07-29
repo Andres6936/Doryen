@@ -267,7 +267,7 @@ TCOD_alignment_t Doryen::Console::getAlignment( ) const
 
 Doryen::Console::~Console( )
 {
-	TCOD_console_delete(data);
+    // TCOD_console_delete(data);
 }
 
 void Doryen::Console::blit( const Doryen::Console *srcCon, int xSrc, int ySrc, int wSrc, int hSrc,

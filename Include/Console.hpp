@@ -1650,33 +1650,12 @@ namespace Doryen
         */
         void setKeyColor( const Doryen::Color &col );
 
+
         /**
-        @PageName console_offscreen
-        @FuncTitle Destroying an offscreen console
-        @FuncDesc Use this function to destroy an offscreen console and release any resources allocated. Don't use it on the root console.
-        @Cpp TCODConsole::~TCODConsole()
-        @C void TCOD_console_delete(TCOD_console_t con)
-        @Py console_delete(con)
-        @C# void TCODConsole::Dispose()
-        @Lua through garbage collector
-        @Param con in the C and Python versions, the offscreen console handler
-        @CppEx
-            TCODConsole *off1 = new TCODConsole(80,50);
-            ... use off1
-            delete off1; // destroy the offscreen console
-        @CEx
-            TCOD_console_t off1 = TCOD_console_new(80,50);
-            ... use off1
-            TCOD_console_delete(off1); // destroy the offscreen console
-        @PyEx
-            off1 = libtcod.console_new(80,50)
-            ... use off1
-            libtcod.console_delete(off1) # destroy the offscreen console
-        @LuaEx
-            off1 = tcod.Console(80,50)
-            ... use off1
-            off1=nil -- release the reference
-        */
+         * Destroy an offscreen console and release any resources allocated.
+         *
+         * @note Don't use it on the root console.
+         */
         virtual ~Console( );
 
         void setDirty( int x, int y, int w, int h );
