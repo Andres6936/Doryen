@@ -21,7 +21,8 @@ public :
     static void setBackgroundColor( const Doryen::Color col, const Doryen::Color colFocus );
 
     static void setForegroundColor( const Doryen::Color col, const Doryen::Color colFocus );
-	static void setConsole(TCODConsole *con);
+
+    static void setConsole( Doryen::Console *con );
 	static void updateWidgets(const TCOD_key_t k,const TCOD_mouse_t mouse);
 	static void renderWidgets();
 	static TCOD_mouse_t mouse;
@@ -45,7 +46,7 @@ protected :
     static Doryen::Color back;
     static Doryen::Color backFocus;
     static Doryen::Color foreFocus;
-	static TCODConsole *con;
+    static Doryen::Console *con;
 	static TCODList <Widget *>widgets;
 	char *tip;
 	bool mouseIn:1;

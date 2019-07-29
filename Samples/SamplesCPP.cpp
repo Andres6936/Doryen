@@ -48,7 +48,7 @@ constexpr short SAMPLE_SCREEN_Y = 10;
 // ***************************
 
 // the offscreen console in which the samples are rendered
-TCODConsole sampleConsole( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+Doryen::Console sampleConsole( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
 
 // ***************************
 // true colors sample
@@ -157,8 +157,8 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static TCODConsole secondary( SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2 ); // second screen
-    static TCODConsole screenshot( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // second screen
+    static Doryen::Console secondary( SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2 ); // second screen
+    static Doryen::Console screenshot( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // second screen
     static bool init = false; // draw the secondary screen only the first time
     static int counter = 0;
     static int x = 0, y = 0; // secondary screen position
@@ -176,8 +176,8 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         TCODSystem::setFps( 30 ); // fps limited to 30
         // get a "screenshot" of the current sample screen
-        TCODConsole::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
-                           &screenshot, 0, 0 );
+        Doryen::Console::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
+                               &screenshot, 0, 0 );
     }
     counter++;
     if ( counter % 20 == 0 )
@@ -195,11 +195,11 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         { ydir = 1; }
     }
     // restore the initial screen
-    TCODConsole::blit( &screenshot, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
-                       &sampleConsole, 0, 0 );
+    Doryen::Console::blit( &screenshot, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
+                           &sampleConsole, 0, 0 );
     // blit the overlapping screen
-    TCODConsole::blit( &secondary, 0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2,
-                       &sampleConsole, x, y, 1.0f, 0.75f );
+    Doryen::Console::blit( &secondary, 0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2,
+                           &sampleConsole, x, y, 1.0f, 0.75f );
 
 }
 
@@ -222,7 +222,7 @@ public :
 
 void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static TCODConsole bk( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // colored background
+    static Doryen::Console bk( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // colored background
     static bool init = false;
     static const char *flagNames[] = {
             "TCOD_BKGND_NONE",
@@ -280,7 +280,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sampleConsole.setDefaultForeground( Doryen::Color::white );
     }
     // blit the background
-    TCODConsole::blit( &bk, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT, &sampleConsole, 0, 0 );
+    Doryen::Console::blit( &bk, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT, &sampleConsole, 0, 0 );
     // render the gradient
     int recty = ( int ) (( SAMPLE_SCREEN_HEIGHT - 2 ) * (( 1.0f + cosf( TCODSystem::getElapsedSeconds( ))) / 2.0f ));
     for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
@@ -1719,7 +1719,8 @@ void render_sdl( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         {
             TCODSystem::registerSDLRenderer( NULL );
             // we want libtcod to redraw the sample console even if nothing has changed in it
-            TCODConsole::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+            Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
+                                             SAMPLE_SCREEN_HEIGHT );
         }
     }
 }
@@ -1838,21 +1839,21 @@ int main( int argc, char *argv[] )
 
     if ( fontFlags == 0 )
     { fontFlags = fontNewFlags; }
-    TCODConsole::setCustomFont( font, fontFlags, nbCharHoriz, nbCharVertic );
+    Doryen::Console::setCustomFont( font, fontFlags, nbCharHoriz, nbCharVertic );
     if ( fullscreenWidth > 0 )
     {
         TCODSystem::forceFullscreenResolution( fullscreenWidth, fullscreenHeight );
     }
 
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
 
     console.initRoot( 80, 50, "libtcod C++ sample", fullscreen, renderer );
 
-    while ( !TCODConsole::isWindowClosed( ))
+    while ( !Doryen::Console::isWindowClosed( ))
     {
         if ( !creditsEnd )
         {
-            creditsEnd = TCODConsole::renderCredits( 60, 43, false );
+            creditsEnd = Doryen::Console::renderCredits( 60, 43, false );
         }
 
         // print the list of samples
@@ -1861,71 +1862,73 @@ int main( int argc, char *argv[] )
             if ( i == curSample )
             {
                 // set colors for currently selected sample
-                TCODConsole::root->setDefaultForeground( Doryen::Color::white );
-                TCODConsole::root->setDefaultBackground( Doryen::Color::lightBlue );
+                Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
+                Doryen::Console::root->setDefaultBackground( Doryen::Color::lightBlue );
             }
             else
             {
                 // set colors for other samples
-                TCODConsole::root->setDefaultForeground( Doryen::Color::grey );
-                TCODConsole::root->setDefaultBackground( Doryen::Color::black );
+                Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
+                Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
             }
             // print the sample name
-            TCODConsole::root->printEx( 2, 46 - ( nbSamples - i ), TCOD_BKGND_SET, TCOD_LEFT, samples[ i ].name );
+            Doryen::Console::root->printEx( 2, 46 - ( nbSamples - i ), TCOD_BKGND_SET, TCOD_LEFT, samples[ i ].name );
         }
         // print the help message
-        TCODConsole::root->setDefaultForeground( Doryen::Color::grey );
-        TCODConsole::root->printEx( 79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
-                                    ( int ) ( TCODSystem::getLastFrameLength( ) * 1000 ), TCODSystem::getFps( ));
-        TCODConsole::root->printEx( 79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
-                                    TCODSystem::getElapsedMilli( ), TCODSystem::getElapsedSeconds( ));
-        TCODConsole::root->print( 2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S );
-        TCODConsole::root->print( 2, 48, "ALT-ENTER : switch to %s",
-                                  TCODConsole::isFullscreen( ) ? "windowed mode  " : "fullscreen mode" );
+        Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
+        Doryen::Console::root->printEx( 79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
+                                        ( int ) ( TCODSystem::getLastFrameLength( ) * 1000 ), TCODSystem::getFps( ));
+        Doryen::Console::root->printEx( 79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
+                                        TCODSystem::getElapsedMilli( ), TCODSystem::getElapsedSeconds( ));
+        Doryen::Console::root->print( 2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S );
+        Doryen::Console::root->print( 2, 48, "ALT-ENTER : switch to %s",
+                                      Doryen::Console::isFullscreen( ) ? "windowed mode  " : "fullscreen mode" );
 
         // render current sample
         samples[ curSample ].render( first, &key, &mouse );
         first = false;
 
         // blit the sample console on the root console
-        TCODConsole::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
-                           SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
-                           TCODConsole::root, SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y // the destination console & position
+        Doryen::Console::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
+                               SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
+                               Doryen::Console::root, SAMPLE_SCREEN_X,
+                               SAMPLE_SCREEN_Y // the destination console & position
         );
         // erase the renderer in debug mode (needed because the root console is not cleared each frame)
-        TCODConsole::root->print( 1, 1, "        " );
+        Doryen::Console::root->print( 1, 1, "        " );
 #ifndef NO_SDL_SAMPLE
         if ( sdl_callback_enabled )
         {
             // we want libtcod to redraw the sample console even if nothing has changed in it
-            TCODConsole::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+            Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
+                                             SAMPLE_SCREEN_HEIGHT );
         }
 #endif
         /* display renderer list and current renderer */
         cur_renderer = TCODSystem::getRenderer( );
-        TCODConsole::root->setDefaultForeground( Doryen::Color::grey );
-        TCODConsole::root->setDefaultBackground( Doryen::Color::black );
-        TCODConsole::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS + 1 ), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :" );
+        Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
+        Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
+        Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS + 1 ), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :" );
         for ( int i = 0; i < TCOD_NB_RENDERERS; i++ )
         {
             if ( i == cur_renderer )
             {
                 /* set colors for current renderer */
-                TCODConsole::root->setDefaultForeground( Doryen::Color::white );
-                TCODConsole::root->setDefaultBackground( Doryen::Color::lightBlue );
+                Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
+                Doryen::Console::root->setDefaultBackground( Doryen::Color::lightBlue );
             }
             else
             {
                 /* set colors for other renderer */
-                TCODConsole::root->setDefaultForeground( Doryen::Color::grey );
-                TCODConsole::root->setDefaultBackground( Doryen::Color::black );
+                Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
+                Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
             }
-            TCODConsole::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS - i ), TCOD_BKGND_SET, TCOD_LEFT,
-                                        renderer_name[ i ] );
+            Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS - i ), TCOD_BKGND_SET, TCOD_LEFT,
+                                            renderer_name[ i ] );
         }
 
         // update the game screen
-        TCODConsole::flush( );
+        Doryen::Console::flush( );
 
         // did the user hit a key ?
         TCODSystem::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &key, &mouse );
@@ -1946,7 +1949,7 @@ int main( int argc, char *argv[] )
         else if ( key.vk == TCODK_ENTER && key.lalt )
         {
             // ALT-ENTER : switch fullscreen
-            TCODConsole::setFullscreen( !TCODConsole::isFullscreen( ));
+            Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( ));
 #ifdef TCOD_LINUX
         }
         else if ( key.c == 'p' )
@@ -1957,7 +1960,7 @@ int main( int argc, char *argv[] )
             if ( key.lalt )
             {
                 // ALT-PrintScreen : save to .asc format
-                TCODConsole::root->saveApf( "Samples.apf" );
+                Doryen::Console::root->saveApf( "Samples.apf" );
             }
             else
             {

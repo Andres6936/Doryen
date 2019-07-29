@@ -36,7 +36,8 @@ TCODImage::TCODImage(int width, int height) : deleteData(true) {
 	data=(void *)TCOD_image_new(width,height);
 }
 
-TCODImage::TCODImage(const TCODConsole *con) {
+TCODImage::TCODImage( const Doryen::Console *con )
+{
 	data=(void *)TCOD_image_from_console(con->data);
 }
 
@@ -79,11 +80,15 @@ void TCODImage::putPixel( int x, int y, const Doryen::Color col )
 	TCOD_image_put_pixel(data,x,y,ccol);
 }
 
-void TCODImage::blit(TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex, float scaley, float angle) const {
+void
+TCODImage::blit( Doryen::Console *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex, float scaley,
+                 float angle ) const
+{
 	TCOD_image_blit(data,console->data,x,y,bkgnd_flag,scalex,scaley,angle);
 }
 
-void TCODImage::blitRect(TCODConsole *console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) const {
+void TCODImage::blitRect( Doryen::Console *console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag ) const
+{
 	TCOD_image_blit_rect(data,console->data,x,y,w,h,bkgnd_flag);
 }
 
@@ -101,7 +106,8 @@ bool TCODImage::isPixelTransparent(int x, int y) const {
 	return TCOD_image_is_pixel_transparent(data,x,y) != 0;
 }
 
-void TCODImage::refreshConsole(const TCODConsole *console) {
+void TCODImage::refreshConsole( const Doryen::Console *console )
+{
 	TCOD_image_refresh_console(data,console->data);
 }
 
@@ -126,6 +132,7 @@ void TCODImage::scale(int neww, int newh) {
 }
 
 
-void TCODImage::blit2x(TCODConsole *dest, int dx, int dy, int sx, int sy, int w, int h) const {
+void TCODImage::blit2x( Doryen::Console *dest, int dx, int dy, int sx, int sy, int w, int h ) const
+{
 	TCOD_image_blit_2x(data,dest->data,dx,dy,sx,sy,w,h);
 }

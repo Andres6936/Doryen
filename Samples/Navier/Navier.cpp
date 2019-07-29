@@ -203,19 +203,23 @@ void get_from_UI ( float * d, float * u, float * v, float elapsed, TCOD_key_t k,
 
 	stepDelay -= elapsed;
 	if ( stepDelay < 0.0f ) {
-		if ( TCODConsole::isKeyPressed(TCODK_UP) && playery > 0 ) {
+        if ( Doryen::Console::isKeyPressed( TCODK_UP ) && playery > 0 )
+        {
 			playery--;
 			vy -= force;
-		} 
-		if ( TCODConsole::isKeyPressed(TCODK_DOWN) && playery < N/2-1 ) {
+		}
+        if ( Doryen::Console::isKeyPressed( TCODK_DOWN ) && playery < N / 2 - 1 )
+        {
 			playery++;
 			vx += force;
-		} 
-		if ( TCODConsole::isKeyPressed(TCODK_LEFT) && playerx > 0 ) {
+		}
+        if ( Doryen::Console::isKeyPressed( TCODK_LEFT ) && playerx > 0 )
+        {
 			playerx--;
 			vx -= force;
 		}
-		if ( TCODConsole::isKeyPressed(TCODK_RIGHT) && playerx < N/2-1 ) { 
+        if ( Doryen::Console::isKeyPressed( TCODK_RIGHT ) && playerx < N / 2 - 1 )
+        {
 			playerx++;
 			vx += force;
 		}
@@ -268,23 +272,24 @@ void render() {
             img.putPixel( x, y, Doryen::Color::lerp( deepBlue, highBlue, coef ));
 		}
 	}
-	img.blit2x(TCODConsole::root,0,0);
-	TCODConsole::root->print(2,HEIGHT-2,"%4d fps", TCODSystem::getFps());
-    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
-	TCODConsole::root->putChar(playerx,playery,'@');
+    img.blit2x( Doryen::Console::root, 0, 0 );
+    Doryen::Console::root->print( 2, HEIGHT - 2, "%4d fps", TCODSystem::getFps( ));
+    Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
+    Doryen::Console::root->putChar( playerx, playery, '@' );
 }
 
 int main (int argc, char *argv[]) {
 	// initialize the game window
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( WIDTH, HEIGHT, "pyromancer flame spell v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODSystem::setFps(25);
 	TCODMouse::showCursor(true);
 	
 	bool endCredits=false;
 	init();
-	
-	while (! TCODConsole::isWindowClosed()) {
+
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;
 
@@ -300,19 +305,21 @@ int main (int argc, char *argv[]) {
 			k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
-			if (! k.pressed ) TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-			k.vk=TCODK_NONE;
+            if ( !k.pressed )
+            { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
+            k.vk=TCODK_NONE;
 		}
 		// update the game
 		update(TCODSystem::getLastFrameLength(),k,mouse);
 
 		// render the game screen
 		render();
-		TCODConsole::root->print(5,49,"Arrows to move, left mouse button to cast");
+        Doryen::Console::root->print( 5, 49, "Arrows to move, left mouse button to cast" );
 		// render libtcod credits
-		if (! endCredits ) endCredits = TCODConsole::renderCredits(4,4,true);
-		// flush updates to screen
-		TCODConsole::root->flush();
+        if ( !endCredits )
+        { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
+        // flush updates to screen
+        Doryen::Console::root->flush( );
 	}
 	return 0;	
 }

@@ -84,9 +84,9 @@ void render() {
 			map.putPixel(px,py,getMapShadedColor(wx,wy,true));
 		}
 	}
-	map.blit2x(TCODConsole::root,0,0);
+    map.blit2x( Doryen::Console::root, 0, 0 );
 
-    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
+    Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
 	static const char *biomeNames[] = {
 		"Tundra","Cold desert","Grassland", "Boreal forest",
 		"Temperate forest", "Tropical/Montane forest",
@@ -95,22 +95,23 @@ void render() {
 	};
 	if ( worldGen.isOnSea(mx,my) ) {
 		// some information are irrelevant on sea
-		TCODConsole::root->print(5,47,"Alt %5dm\n\nMove the mouse to scroll the map",
-			(int)worldGen.getRealAltitude(mx,my)
+        Doryen::Console::root->print( 5, 47, "Alt %5dm\n\nMove the mouse to scroll the map",
+                                      ( int ) worldGen.getRealAltitude( mx, my )
 		);
 	} else {
-		TCODConsole::root->print(5,47,"Alt %5dm  Prec %3dcm/sq. m/y  Temp %d deg C\nBiome : %s\nMove the mouse to scroll the map",
-			(int)worldGen.getRealAltitude(mx,my),
-			(int)worldGen.getPrecipitations(mx,my),
-			(int)worldGen.getTemperature(mx,my),
-			biomeNames[worldGen.getBiome(mx,my)]
+        Doryen::Console::root->print( 5, 47,
+                                      "Alt %5dm  Prec %3dcm/sq. m/y  Temp %d deg C\nBiome : %s\nMove the mouse to scroll the map",
+                                      ( int ) worldGen.getRealAltitude( mx, my ),
+                                      ( int ) worldGen.getPrecipitations( mx, my ),
+                                      ( int ) worldGen.getTemperature( mx, my ),
+                                      biomeNames[ worldGen.getBiome( mx, my ) ]
 		);
 	}
 }
 
 int main (int argc, char *argv[]) {
 	// initialize the game window
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( WIDTH, HEIGHT, "World generator v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODSystem::setFps(25);
 	TCODMouse::showCursor(true);
@@ -126,10 +127,11 @@ int main (int argc, char *argv[]) {
         1.0f,1.0f,0.0f
     };	
 	worldGen.computeSunLight(lightDir);
-	
-	while (! TCODConsole::isWindowClosed()) {
+
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		//	read keyboard
-//		TCOD_key_t k=TCODConsole::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
+//		TCOD_key_t k=Doryen::Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
 //		TCOD_mouse_t mouse=TCODMouse::getStatus();
 
 		TCODSystem::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS|TCOD_EVENT_MOUSE),&k,&mouse);
@@ -140,8 +142,9 @@ int main (int argc, char *argv[]) {
 			k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
-			if (! k.pressed ) TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-			k.vk=TCODK_NONE;
+            if ( !k.pressed )
+            { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
+            k.vk=TCODK_NONE;
 		}
 		// update the game
 		update(TCODSystem::getLastFrameLength(),k,mouse);
@@ -149,9 +152,10 @@ int main (int argc, char *argv[]) {
 		// render the game screen
 		render();
 		// render libtcod credits
-		if (! endCredits ) endCredits = TCODConsole::renderCredits(4,4,true);
-		// flush updates to screen
-		TCODConsole::root->flush();
+        if ( !endCredits )
+        { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
+        // flush updates to screen
+        Doryen::Console::root->flush( );
 	}
 	return 0;	
 }

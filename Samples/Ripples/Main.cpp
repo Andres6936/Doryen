@@ -72,15 +72,15 @@ void render() {
 			ground2->putPixel(x,y,ground->getPixel(x,y));
 		}
 	}
-	rippleManager->renderRipples(ground,ground2);		
-	ground2->blit2x(TCODConsole::root,0,0);
-    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
-	TCODConsole::root->print(3,49,"Click in water to trigger ripples");
+	rippleManager->renderRipples(ground,ground2);
+    ground2->blit2x( Doryen::Console::root, 0, 0 );
+    Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
+    Doryen::Console::root->print( 3, 49, "Click in water to trigger ripples" );
 }
 
 int main (int argc, char *argv[]) {
 	// initialize the game window
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( CON_W, CON_H, "Water ripples v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODSystem::setFps(25);
 	TCODMouse::showCursor(true);
@@ -109,8 +109,9 @@ int main (int argc, char *argv[]) {
 		}
 	}
 	rippleManager = new RippleManager(&waterMap);
-	
-	while (! TCODConsole::isWindowClosed()) {
+
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;
 
@@ -122,8 +123,9 @@ int main (int argc, char *argv[]) {
 			k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
-			if (! k.pressed ) TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-			k.vk=TCODK_NONE;
+            if ( !k.pressed )
+            { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
+            k.vk=TCODK_NONE;
 		}
 		// update the game
 		update(TCODSystem::getLastFrameLength(),k,mouse);
@@ -131,9 +133,10 @@ int main (int argc, char *argv[]) {
 		// render the game screen
 		render();
 		// render libtcod credits
-		if (! endCredits ) endCredits = TCODConsole::renderCredits(4,4,true);
-		// flush updates to screen
-		TCODConsole::root->flush();
+        if ( !endCredits )
+        { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
+        // flush updates to screen
+        Doryen::Console::root->flush( );
 	}
 	return 0;	
 }

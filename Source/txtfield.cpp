@@ -50,7 +50,8 @@ bool TCODText::update(TCOD_key_t key){
 	return TCOD_text_update(data,key) != 0;
 }
 
-void TCODText::render(TCODConsole * con){
+void TCODText::render( Doryen::Console *con )
+{
 	TCOD_text_render(data,con->data);
 }
 

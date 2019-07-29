@@ -38,7 +38,8 @@ public :
 
     void setColors( Doryen::Color fore, Doryen::Color back, float back_transparency );
 	bool update(TCOD_key_t key);
-	void render(TCODConsole * con);
+
+    void render( Doryen::Console *con );
 	const char *getText();
 	void reset();
 protected :

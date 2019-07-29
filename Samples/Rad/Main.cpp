@@ -82,7 +82,7 @@ void findPos(int *x, int *y) {
 }
 
 void init() {
-	TCODConsole::root->clear();
+    Doryen::Console::root->clear( );
 
 	// build the dungeon
 	map=new TCODMap(MAP_WIDTH,MAP_HEIGHT);
@@ -101,15 +101,15 @@ void init() {
 		findPos(&lx,&ly);
         leftShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
         rightShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
-		TCODConsole::root->setChar(lx,ly,'*');
-		TCODConsole::root->setChar(lx+CON_WIDTH/2,ly,'*');
+        Doryen::Console::root->setChar( lx, ly, '*' );
+        Doryen::Console::root->setChar( lx + CON_WIDTH / 2, ly, '*' );
 	}	
 	
 	// find a starting position for the player
-	findPos(&playerx,&playery); 
-	playerBack=TCODConsole::root->getChar(playerx,playery);
-	TCODConsole::root->setChar(playerx,playery,'@');
-	TCODConsole::root->setChar(playerx+CON_WIDTH/2,playery,'@');
+	findPos(&playerx,&playery);
+    playerBack = Doryen::Console::root->getChar( playerx, playery );
+    Doryen::Console::root->setChar( playerx, playery, '@' );
+    Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, '@' );
 
 	// add the player's torch
     torchIndex = leftShader->addLight( playerx, playery, 10, Doryen::Color::white );
@@ -170,31 +170,31 @@ void render() {
 			// a true light model would multiply the light color with the cell color 
             Doryen::Color leftLight = leftShader->getLightColor( x, y );
             Doryen::Color cellLeftCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ leftLight.r ] / 255.0f );
-			TCODConsole::root->setCharBackground(x,y,cellLeftCol);
+            Doryen::Console::root->setCharBackground( x, y, cellLeftCol );
 
 			// render right map
             Doryen::Color rightLight = rightShader->getLightColor( x, y );
             Doryen::Color cellRightCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ rightLight.r ] / 255.0f );
-			TCODConsole::root->setCharBackground(x+CON_WIDTH/2,y,cellRightCol);
+            Doryen::Console::root->setCharBackground( x + CON_WIDTH / 2, y, cellRightCol );
 		}
 	}
-	TCODConsole::root->print(CON_WIDTH/4,0,"Standard lighting %1.2fms",stdLength);
-	TCODConsole::root->print(3*CON_WIDTH/4,0,"Photon reactor %1.2fms",radLength);
+    Doryen::Console::root->print( CON_WIDTH / 4, 0, "Standard lighting %1.2fms", stdLength );
+    Doryen::Console::root->print( 3 * CON_WIDTH / 4, 0, "Photon reactor %1.2fms", radLength );
 
 }
 
 void move(int dx, int dy) {
 	if (map->isWalkable(playerx+dx,playery+dy)) {
 		// restore the previous map char
-		TCODConsole::root->setChar(playerx,playery,playerBack);
-		TCODConsole::root->setChar(playerx+CON_WIDTH/2,playery,playerBack);
+        Doryen::Console::root->setChar( playerx, playery, playerBack );
+        Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, playerBack );
 		// move the player
 		playerx+=dx;
 		playery+=dy;
-		playerBack=TCODConsole::root->getChar(playerx,playery);
+        playerBack = Doryen::Console::root->getChar( playerx, playery );
 		// render the player
-		TCODConsole::root->setChar(playerx,playery,'@');
-		TCODConsole::root->setChar(playerx+CON_WIDTH/2,playery,'@');
+        Doryen::Console::root->setChar( playerx, playery, '@' );
+        Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, '@' );
 		// update the player's torch position
         leftShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
         rightShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
@@ -202,16 +202,17 @@ void move(int dx, int dy) {
 }
 
 int main() {
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( 80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL );
-	TCODConsole::root->setAlignment(TCOD_CENTER);
+    Doryen::Console::root->setAlignment( TCOD_CENTER );
 	TCOD_key_t k = {TCODK_NONE,0};
 	TCOD_mouse_t mouse;
 
 	init();
-	while (! TCODConsole::isWindowClosed()) {
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		render();
-		TCODConsole::flush();
+        Doryen::Console::flush( );
 		TCODSystem::checkForEvent((TCOD_event_t)TCOD_EVENT_KEY_PRESS,&k,&mouse);
 		switch(k.vk) {
 			// move with arrows or numpad (2468)

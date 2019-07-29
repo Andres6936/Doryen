@@ -141,15 +141,15 @@ public :
 	*/
 	void putImage(const TCODImage *val);
 
-	/**
-	@PageName zip_put
-	@FuncTitle Putting a console in the buffer
-	@Cpp void TCODZip::putConsole(const TCODConsole *val)
-	@C void TCOD_zip_put_console(TCOD_zip_t zip, const TCOD_console_t val)
-	@Param zip	In the C version, the buffer handler, returned by the constructor.
-	@Param val	A console to store in the buffer
-	*/
-	void putConsole(const TCODConsole *val);
+    /**
+    @PageName zip_put
+    @FuncTitle Putting a console in the buffer
+    @Cpp void TCODZip::putConsole(const Doryen::TCODConsole *val)
+    @C void TCOD_zip_put_console(TCOD_zip_t zip, const TCOD_console_t val)
+    @Param zip	In the C version, the buffer handler, returned by the constructor.
+    @Param val	A console to store in the buffer
+    */
+    void putConsole( const Doryen::Console *val );
 
 	/**
 	@PageName zip_put
@@ -267,15 +267,15 @@ public :
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
 	*/	
 	TCODImage *getImage();
-	
-	/**
-	@PageName zip_load
-	@FuncTitle Reading a console from the buffer
-	@Cpp TCODConsole *TCODZip::getConsole()
-	@C TCOD_console_t TCOD_zip_get_console(TCOD_zip_t zip)
-	@Param zip	In the C version, the buffer handler, returned by the constructor.
-	*/	
-	TCODConsole *getConsole();
+
+    /**
+    @PageName zip_load
+    @FuncTitle Reading a console from the buffer
+    @Cpp Doryen::TCODConsole *TCODZip::getConsole()
+    @C TCOD_console_t TCOD_zip_get_console(TCOD_zip_t zip)
+    @Param zip	In the C version, the buffer handler, returned by the constructor.
+    */
+    Doryen::Console *getConsole( );
 	
 	/**
 	@PageName zip_load

@@ -96,7 +96,7 @@ void render() {
             img.putPixel( x, y, Doryen::Color( r, g, b ));
 		}
 	}
-	img.blit2x(TCODConsole::root,0,0);
+    img.blit2x( Doryen::Console::root, 0, 0 );
 	// rain drops
 	for (int x=0; x < CON_W; x++) {
 		for (int y=0; y < CON_H; y++) {
@@ -106,13 +106,13 @@ void render() {
                 Doryen::Color col = Doryen::Color::darkBlue * cloudCoef;
 				col = col * weather.getAmbientLightColor();
 				if ( lightning > 0.0f ) col = col + 2*lightning*lightningColor;
-				TCODConsole::root->setChar(x,y,'/');
-				TCODConsole::root->setCharForeground(x,y,col);
+                Doryen::Console::root->setChar( x, y, '/' );
+                Doryen::Console::root->setCharForeground( x, y, col );
 			}
 		}
 	}
-    TCODConsole::root->setDefaultForeground( Doryen::Color::white );
-	TCODConsole::root->print(5,CON_H-12,"TCOD's Weather system :\n"
+    Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
+    Doryen::Console::root->print( 5, CON_H - 12, "TCOD's Weather system :\n"
 		"- wind with varying speed and direction\n"
 		"- rain\n"
 		"- lightnings\n"
@@ -120,12 +120,13 @@ void render() {
 		"Day time : %s\n"
 		"Weather : %s\n\n"
 		"Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
-		"Accelerate time with ENTER",getDaytime(), weather.getWeather(), weather.getIndicatorDelta());
+                                                 "Accelerate time with ENTER", getDaytime( ), weather.getWeather( ),
+                                  weather.getIndicatorDelta( ));
 }
 
 int main (int argc, char *argv[]) {
 	// initialize the game window
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( CON_W, CON_H, "Weather system v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODMouse::showCursor(true);
 	TCODSystem::setFps(25);
@@ -166,10 +167,11 @@ int main (int argc, char *argv[]) {
 	weather.setChangeFactor(3.0f);
 	
 	bool endCredits=false;
-	
-	while (! TCODConsole::isWindowClosed()) {
+
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		//	read keyboard
-		TCOD_key_t k=TCODConsole::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
+        TCOD_key_t k = Doryen::Console::checkForKeypress( TCOD_KEY_PRESSED | TCOD_KEY_RELEASED );
 		TCOD_mouse_t mouse=TCODMouse::getStatus();
 		if ( k.vk == TCODK_PRINTSCREEN ) {
 			// screenshot
@@ -177,8 +179,9 @@ int main (int argc, char *argv[]) {
 			k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
-			if (! k.pressed ) TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-			k.vk=TCODK_NONE;
+            if ( !k.pressed )
+            { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
+            k.vk=TCODK_NONE;
 		}
 		// update the game
 		update(TCODSystem::getLastFrameLength(),k,mouse);
@@ -186,9 +189,10 @@ int main (int argc, char *argv[]) {
 		// render the game screen
 		render();
 		// render libtcod credits
-		if (! endCredits ) endCredits = TCODConsole::renderCredits(4,4,true);
-		// flush updates to screen
-		TCODConsole::root->flush();
+        if ( !endCredits )
+        { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
+        // flush updates to screen
+        Doryen::Console::root->flush( );
 	}
 	return 0;	
 }

@@ -43,7 +43,7 @@ typedef struct {
 	uint8 dirt;	/* cell modified since last flush ? */
 } char_t;
 
-/* TCODConsole non public data */
+/* Console non public data */
 typedef struct {
 	char_t *buf; /* current console */
 	char_t *oldbuf; /* console for last frame */
@@ -176,7 +176,7 @@ void TCOD_map_compute_fov_permissive2(TCOD_map_t map, int player_x, int player_y
 void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
 void TCOD_map_postproc(map_t *map,int x0,int y0, int x1, int y1, int dx, int dy);
 
-/* TCODConsole non public methods*/
+/* Console non public methods*/
 bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen);
 int TCOD_console_print_internal(TCOD_console_t con,int x,int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t align, char *msg, bool can_split, bool count_only);
 int TCOD_console_stringLength(const unsigned char *s);

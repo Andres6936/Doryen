@@ -67,7 +67,8 @@ void TCODZip::putImage(const TCODImage *val) {
 	TCOD_zip_put_image(data,val->data);
 }
 
-void TCODZip::putConsole(const TCODConsole *val) {
+void TCODZip::putConsole( const Doryen::Console *val )
+{
 	TCOD_zip_put_console(data,val->data);
 }
 
@@ -109,8 +110,9 @@ TCODImage *TCODZip::getImage() {
 	return new TCODImage(TCOD_zip_get_image(data));
 }
 
-TCODConsole *TCODZip::getConsole() {
-	return new TCODConsole(TCOD_zip_get_console(data));
+Doryen::Console *TCODZip::getConsole( )
+{
+    return new Doryen::Console( TCOD_zip_get_console( data ));
 }
 
 uint32 TCODZip::getCurrentBytes() const {

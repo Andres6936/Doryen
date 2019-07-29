@@ -9,7 +9,8 @@ Doryen::Color Widget::fore = Doryen::Color( 220, 220, 180 );
 Doryen::Color Widget::backFocus = Doryen::Color( 70, 70, 130 );
 
 Doryen::Color Widget::foreFocus = Doryen::Color( 255, 255, 255 );
-TCODConsole *Widget::con=NULL;
+
+Doryen::Console *Widget::con = NULL;
 TCODList<Widget *> Widget::widgets;
 TCOD_mouse_t Widget::mouse;
 float Widget::elapsed;
@@ -46,7 +47,8 @@ void Widget::setForegroundColor( const Doryen::Color col, const Doryen::Color co
 	foreFocus=colFocus;
 }
 
-void Widget::setConsole(TCODConsole *console) {
+void Widget::setConsole( Doryen::Console *console )
+{
 	con=console;
 }
 
@@ -104,8 +106,9 @@ void Widget::updateWidgets(const TCOD_key_t k,const TCOD_mouse_t pmouse) {
 }
 
 void Widget::renderWidgets() {
-	if (!con) con=TCODConsole::root;
-	for (Widget **w=widgets.begin(); w!= widgets.end(); w++) {
+    if ( !con )
+    { con = Doryen::Console::root; }
+    for (Widget **w=widgets.begin(); w!= widgets.end(); w++) {
 		if ((*w)->isVisible()) (*w)->render();
 	}
 }

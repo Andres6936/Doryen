@@ -95,7 +95,7 @@ void FrostManager::render() {
 	for (Frost **it=list.begin();it!=list.end();it++) {
 		(*it)->render(img);
 	}
-	img->blit2x(TCODConsole::root,0,0);
+    img->blit2x( Doryen::Console::root, 0, 0 );
 }
 
 Frost::Frost(int x, int y, FrostManager *manager) :x(x),y(y),manager(manager) {
@@ -191,16 +191,17 @@ void Frost::render(TCODImage *img) {
 }
 
 int main() {
-    TCODConsole console = TCODConsole( );
+    Doryen::Console console = Doryen::Console( );
     console.initRoot( 80, 50, "Frost test", false );
 	TCOD_mouse_t mouse;
 	TCOD_key_t key;
 	TCODSystem::setFps(25);
     Doryen::Color::genMap( frostCol, sizeof( keys ) / sizeof( int ), keyCols, keys );
 	FrostManager frostManager(160,100);
-	while (! TCODConsole::isWindowClosed()) {
+    while ( !Doryen::Console::isWindowClosed( ))
+    {
 		frostManager.render();
-		TCODConsole::flush();
+        Doryen::Console::flush( );
 		TCODSystem::checkForEvent(TCOD_EVENT_KEY_RELEASE|TCOD_EVENT_MOUSE,&key,&mouse);
 		if ( key.vk == TCODK_BACKSPACE ) frostManager.clear();
 		if ( mouse.lbutton ) {

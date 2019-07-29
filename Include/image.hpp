@@ -66,48 +66,48 @@ public :
 	@PyEx pix = libtcod.image_load("mypic.bmp")	
 	*/	
 	TCODImage(const char *filename);
-	
-	/**
-	@PageName image_create
-	@FuncTitle Creating an image from a console
-	@FuncDesc You can create an image from any console (either the root console or an offscreen console).
-		The image size will depend on the console size and the font characters size.
-		You can then save the image to a file with the save function.
-	@Cpp TCODImage::TCODImage(const TCODConsole *console)
-	@C TCOD_image_t TCOD_image_from_console(TCOD_console_t console)
-	@Py image_from_console(console)
-	@C# TCODImage::TCODImage(TCODConsole console)
-	@Param console The console to convert. In the C version, use NULL for the root console.
-	@CppEx TCODImage *pix = new TCODImage(TCODConsole::root);
-	@CEx TCOD_image_t pix = TCOD_image_from_console(NULL);
-	@PyEx pix = libtcod.image_from_console(0)
-	*/	
-	TCODImage(const TCODConsole *console);
-	
-	/**
-	@PageName image_create
-	@FuncTitle refreshing an image created from a console
-	@FuncDesc If you need to refresh the image with the console's new content, you don't have to delete it and create another one. Instead, use this function. Note that you must use the same console that was used in the TCOD_image_from_console call (or at least a console with the same size).
-	@Cpp void TCODImage::refreshConsole(const TCODConsole *console)
-	@C void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console)
-	@Py image_refresh_console(image, console)
-	@C# void TCODImage::refreshConsole(TCODConsole console)
-	@Param image In the C version, the image created with TCOD_image_from_console.
-	@Param console The console to capture. In the C version, use NULL for the root console.
-	@CppEx 
-		TCODImage *pix = new TCODImage(TCODConsole::root); // create an image from the root console
-		// ... modify the console
-		pix->refreshConsole(TCODConsole::root); // update the image with the console's new content
-	@CEx 
-		TCOD_image_t pix = TCOD_image_from_console(NULL);
-		// ... modify the console .. 
-		TCOD_image_refresh_console(pix,NULL);
-	@PyEx 
-		pix = libtcod.image_from_console(0)
-		# ... modify the console .. 
-		libtcod.image_refresh_console(pix,0)
-	*/
-	void refreshConsole(const TCODConsole *console);
+
+    /**
+    @PageName image_create
+    @FuncTitle Creating an image from a console
+    @FuncDesc You can create an image from any console (either the root console or an offscreen console).
+        The image size will depend on the console size and the font characters size.
+        You can then save the image to a file with the save function.
+    @Cpp TCODImage::TCODImage(const Doryen::TCODConsole *console)
+    @C TCOD_image_t TCOD_image_from_console(TCOD_console_t console)
+    @Py image_from_console(console)
+    @C# TCODImage::TCODImage(Doryen::TCODConsole console)
+    @Param console The console to convert. In the C version, use NULL for the root console.
+    @CppEx TCODImage *pix = new TCODImage(Doryen::TCODConsole::root);
+    @CEx TCOD_image_t pix = TCOD_image_from_console(NULL);
+    @PyEx pix = libtcod.image_from_console(0)
+    */
+    TCODImage( const Doryen::Console *console );
+
+    /**
+    @PageName image_create
+    @FuncTitle refreshing an image created from a console
+    @FuncDesc If you need to refresh the image with the console's new content, you don't have to delete it and create another one. Instead, use this function. Note that you must use the same console that was used in the TCOD_image_from_console call (or at least a console with the same size).
+    @Cpp void TCODImage::refreshConsole(const Doryen::TCODConsole *console)
+    @C void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console)
+    @Py image_refresh_console(image, console)
+    @C# void TCODImage::refreshConsole(Doryen::TCODConsole console)
+    @Param image In the C version, the image created with TCOD_image_from_console.
+    @Param console The console to capture. In the C version, use NULL for the root console.
+    @CppEx
+        TCODImage *pix = new TCODImage(Doryen::TCODConsole::root); // create an image from the root console
+        // ... modify the console
+        pix->refreshConsole(Doryen::TCODConsole::root); // update the image with the console's new content
+    @CEx
+        TCOD_image_t pix = TCOD_image_from_console(NULL);
+        // ... modify the console ..
+        TCOD_image_refresh_console(pix,NULL);
+    @PyEx
+        pix = libtcod.image_from_console(0)
+        # ... modify the console ..
+        libtcod.image_refresh_console(pix,0)
+    */
+    void refreshConsole( const Doryen::Console *console );
 
 	/**
 	@PageName image_read
@@ -331,50 +331,52 @@ public :
 	  */	
 	void save(const char *filename) const;
 
-	/**
-	@PageName image_blit
-	@PageFather image
-	@PageTitle Blitting an image on a console
-	@FuncTitle Standard blitting
-	@FuncDesc This function blits a rectangular part of the image on a console without scaling it or rotating it. Each pixel of the image fills a console cell.
-	@Cpp void TCODImage::blitRect(TCODConsole *console, int x, int y, int w=-1, int h=-1, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET ) const
-	@C void TCOD_image_blit_rect(TCOD_image_t image, TCOD_console_t console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag)
-	@Py image_blit_rect(image, console, x, y, w, h, bkgnd_flag)
-	@C# 
-		void TCODImage::blitRect(TCODConsole console, int x, int y) 
-		void TCODImage::blitRect(TCODConsole console, int x, int y, int w)
-		void TCODImage::blitRect(TCODConsole console, int x, int y, int w, int h)
-		void TCODImage::blitRect(TCODConsole console, int x, int y, int w, int h, TCODBackgroundFlag bkgnd_flag)	
-	@Param image	In the C version, the image handler, obtained with the load function.
-	@Param console	The console on which the image will be drawn. In the C version, use NULL for the root console.
-	@Param x,y	Coordinates in the console of the upper-left corner of the image.
-	@Param w,h	Dimension of the image on the console. Use -1,-1 to use the image size.
-	@Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.	
-	*/	
-	void blitRect(TCODConsole *console, int x, int y, int w=-1, int h=-1, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET ) const;
-	
-	/**
-	@PageName image_blit
-	@FuncTitle Blitting with scaling and/or rotation
-	@FuncDesc This function allows you to specify the floating point coordinates of the center
-		of the image, its scale and its rotation angle.
-	@Cpp void TCODImage::blit(TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET, float scalex=1.0f, float scaley=1.0f, float angle=0.0f) const
-	@C void TCOD_image_blit(TCOD_image_t image, TCOD_console_t console, int x, int y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex, float scaley, float angle)
-	@Py image_blit(image, console, x, y, bkgnd_flag, scalex, scaley, angle)
-	@C#
-		void TCODImage::blit(TCODConsole console, float x, float y)
-		void TCODImage::blit(TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag)
-		void TCODImage::blit(TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex)
-		void TCODImage::blit(TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley)
-		void TCODImage::blit(TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley, float angle)
-	@Param image	In the C version, the image handler, obtained with the load function.
-	@Param console	The console on which the image will be drawn. In the C version, use NULL for the root console.
-	@Param x,y	Coordinates in the console of the center of the image.
-	@Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
-	@Param scalex,scaley	Scale coefficient. Must be > 0.0.
-	@Param angle	Rotation angle in radians.
-	*/	
-	void blit(TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET, float scalex=1.0f, float scaley=1.0f, float angle=0.0f) const;
+    /**
+    @PageName image_blit
+    @PageFather image
+    @PageTitle Blitting an image on a console
+    @FuncTitle Standard blitting
+    @FuncDesc This function blits a rectangular part of the image on a console without scaling it or rotating it. Each pixel of the image fills a console cell.
+    @Cpp void TCODImage::blitRect(Doryen::TCODConsole *console, int x, int y, int w=-1, int h=-1, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET ) const
+    @C void TCOD_image_blit_rect(TCOD_image_t image, TCOD_console_t console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag)
+    @Py image_blit_rect(image, console, x, y, w, h, bkgnd_flag)
+    @C#
+        void TCODImage::blitRect(Doryen::TCODConsole console, int x, int y)
+        void TCODImage::blitRect(Doryen::TCODConsole console, int x, int y, int w)
+        void TCODImage::blitRect(Doryen::TCODConsole console, int x, int y, int w, int h)
+        void TCODImage::blitRect(Doryen::TCODConsole console, int x, int y, int w, int h, TCODBackgroundFlag bkgnd_flag)
+    @Param image	In the C version, the image handler, obtained with the load function.
+    @Param console	The console on which the image will be drawn. In the C version, use NULL for the root console.
+    @Param x,y	Coordinates in the console of the upper-left corner of the image.
+    @Param w,h	Dimension of the image on the console. Use -1,-1 to use the image size.
+    @Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
+    */
+    void blitRect( Doryen::Console *console, int x, int y, int w = -1, int h = -1,
+                   TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET ) const;
+
+    /**
+    @PageName image_blit
+    @FuncTitle Blitting with scaling and/or rotation
+    @FuncDesc This function allows you to specify the floating point coordinates of the center
+        of the image, its scale and its rotation angle.
+    @Cpp void TCODImage::blit(Doryen::TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET, float scalex=1.0f, float scaley=1.0f, float angle=0.0f) const
+    @C void TCOD_image_blit(TCOD_image_t image, TCOD_console_t console, int x, int y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex, float scaley, float angle)
+    @Py image_blit(image, console, x, y, bkgnd_flag, scalex, scaley, angle)
+    @C#
+        void TCODImage::blit(Doryen::TCODConsole console, float x, float y)
+        void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag)
+        void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex)
+        void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley)
+        void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley, float angle)
+    @Param image	In the C version, the image handler, obtained with the load function.
+    @Param console	The console on which the image will be drawn. In the C version, use NULL for the root console.
+    @Param x,y	Coordinates in the console of the center of the image.
+    @Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
+    @Param scalex,scaley	Scale coefficient. Must be > 0.0.
+    @Param angle	Rotation angle in radians.
+    */
+    void blit( Doryen::Console *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET,
+               float scalex = 1.0f, float scaley = 1.0f, float angle = 0.0f ) const;
 
     /**
     @PageName image_blit
@@ -390,7 +392,7 @@ public :
         TCODImage *pix = TCODImage("mypix.bmp");
         pix->setKeyColor(Doryen::TCODColor::red);
         // blitting the image, omitting red pixels
-        pix->blitRect(TCODConsole::root,40,25);
+        pix->blitRect(Doryen::TCODConsole::root,40,25);
     @CEx
         TCOD_image_t pix = TCOD_image_new(10,10);
         TCOD_image_set_key_color(pix,TCOD_red);
@@ -401,33 +403,33 @@ public :
         libtcod.image_blit_rect(pix,0,40,25,5,5,libtcod.BKGND_SET)
     */
     void setKeyColor( const Doryen::Color keyColor );
-	
-	/**
-	@PageName image_blit
-	@FuncTitle Blitting with subcell resolution
-	@FuncDesc Eventually, you can use some special characters in the libtcod fonts :
-		<img src="subcell.png">
-		to double the console resolution using this blitting function.
-		<table><tr><td> 
-		Comparison before/after subcell resolution in TCOD :<br /> 
-		<img src="subcell_comp.png"></td><td> 
-		Pyromancer ! screenshot, making full usage of subcell resolution :<br /> 
-		<img src="subcell_pyro.png"></td></tr></table>
-	@Cpp void TCODImage::blit2x(TCODConsole *dest, int dx, int dy, int sx=0, int sy=0, int w=-1, int h=-1 ) const;
-	@C void TCOD_image_blit_2x(TCOD_image_t image, TCOD_console_t dest, int dx, int dy, int sx, int sy, int w, int h);
-	@Py image_blit_2x(image, dest, dx, dy, sx=0, sy=0, w=-1, h=-1)
-	@C#
-		void TCODImage::blit2x(TCODConsole dest, int dx, int dy);
-		void TCODImage::blit2x(TCODConsole dest, int dx, int dy, int sx);
-		void TCODImage::blit2x(TCODConsole dest, int dx, int dy, int sx, int sy);
-		void TCODImage::blit2x(TCODConsole dest, int dx, int dy, int sx, int sy, int w);
-		void TCODImage::blit2x(TCODConsole dest, int dx, int dy, int sx, int sy, int w, int h);
-	@Param image	In the C and python version, the image handler, obtained with the load function.
-	@Param dest	The console of which the image will be blited. Foreground, background and character data will be overwritten.
-	@Param dx,dy	Coordinate of the console cell where the upper left corner of the blitted image will be.
-	@Param sx,sy,w,h	Part of the image to blit. Use -1 in w and h to blit the whole image.
-	*/	
-	void blit2x(TCODConsole *dest, int dx, int dy, int sx=0, int sy=0, int w=-1, int h=-1) const;
+
+    /**
+    @PageName image_blit
+    @FuncTitle Blitting with subcell resolution
+    @FuncDesc Eventually, you can use some special characters in the libtcod fonts :
+        <img src="subcell.png">
+        to double the console resolution using this blitting function.
+        <table><tr><td>
+        Comparison before/after subcell resolution in TCOD :<br />
+        <img src="subcell_comp.png"></td><td>
+        Pyromancer ! screenshot, making full usage of subcell resolution :<br />
+        <img src="subcell_pyro.png"></td></tr></table>
+    @Cpp void TCODImage::blit2x(Doryen::TCODConsole *dest, int dx, int dy, int sx=0, int sy=0, int w=-1, int h=-1 ) const;
+    @C void TCOD_image_blit_2x(TCOD_image_t image, TCOD_console_t dest, int dx, int dy, int sx, int sy, int w, int h);
+    @Py image_blit_2x(image, dest, dx, dy, sx=0, sy=0, w=-1, h=-1)
+    @C#
+        void TCODImage::blit2x(Doryen::TCODConsole dest, int dx, int dy);
+        void TCODImage::blit2x(Doryen::TCODConsole dest, int dx, int dy, int sx);
+        void TCODImage::blit2x(Doryen::TCODConsole dest, int dx, int dy, int sx, int sy);
+        void TCODImage::blit2x(Doryen::TCODConsole dest, int dx, int dy, int sx, int sy, int w);
+        void TCODImage::blit2x(Doryen::TCODConsole dest, int dx, int dy, int sx, int sy, int w, int h);
+    @Param image	In the C and python version, the image handler, obtained with the load function.
+    @Param dest	The console of which the image will be blited. Foreground, background and character data will be overwritten.
+    @Param dx,dy	Coordinate of the console cell where the upper left corner of the blitted image will be.
+    @Param sx,sy,w,h	Part of the image to blit. Use -1 in w and h to blit the whole image.
+    */
+    void blit2x( Doryen::Console *dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1 ) const;
 
 	TCODImage(TCOD_image_t img) : data(img), deleteData(false) {}
 	virtual ~TCODImage();
