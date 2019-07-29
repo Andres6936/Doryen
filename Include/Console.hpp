@@ -1669,13 +1669,8 @@ public :
     TCODConsole( TCOD_console_t con ) : data( con )
     { }
 
-    // ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP
-    static const char *getColorControlString( TCOD_colctrl_t ctrl );
-
-    // ctrl = TCOD_COLCTRL_FORE_RGB or TCOD_COLCTRL_BACK_RGB
-    static const char *getRGBColorControlString( TCOD_colctrl_t ctrl, const Doryen::Color &col );
-
 protected :
+
     friend class TCODLIB_API TCODImage;
 
     friend class TCODLIB_API TCODZip;
