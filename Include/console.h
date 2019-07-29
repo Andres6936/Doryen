@@ -42,9 +42,10 @@ TCODLIB_API bool TCOD_console_is_fullscreen();
 TCODLIB_API bool TCOD_console_is_window_closed();
 
 TCODLIB_API void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_horiz, int nb_char_vertic);
-TCODLIB_API void TCOD_console_map_ascii_code_to_font(int asciiCode, int fontCharX, int fontCharY);
-TCODLIB_API void TCOD_console_map_ascii_codes_to_font(int asciiCode, int nbCodes, int fontCharX, int fontCharY);
-TCODLIB_API void TCOD_console_map_string_to_font(const char *s, int fontCharX, int fontCharY);
+
+TCODLIB_API
+TCODLIB_API
+TCODLIB_API
 
 TCODLIB_API void TCOD_console_set_dirty(int x, int y, int w, int h);
 TCODLIB_API void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t col);

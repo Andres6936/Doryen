@@ -166,51 +166,6 @@ namespace Doryen
                                    int nbCharVertic = 0 );
 
         /**
-        @PageName console_map
-        @PageTitle Using custom characters mapping
-        @PageFather console_init
-        @FuncTitle Mapping a single ASCII code to a character
-        @PageDesc These functions allow you to map characters in the bitmap font to ASCII codes.
-            They should be called after initializing the root console with initRoot.
-            You can dynamically change the characters mapping at any time, allowing to use several fonts in the same screen.
-        @Cpp static void TCODConsole::mapAsciiCodeToFont(int asciiCode, int fontCharX, int fontCharY)
-        @C void TCOD_console_map_ascii_code_to_font(int asciiCode, int fontCharX, int fontCharY)
-        @Py console_map_ascii_code_to_font(asciiCode, fontCharX, fontCharY)
-        @C# static void TCODConsole::mapAsciiCodeToFont(int asciiCode, int fontCharX, int fontCharY)
-        @Lua tcod.console.mapAsciiCodeToFont(asciiCode, fontCharX, fontCharY)
-        @Param asciiCode ASCII code to map.
-        @Param fontCharX,fontCharY Coordinate of the character in the bitmap font (in characters, not pixels).
-        */
-        static void mapAsciiCodeToFont( int asciiCode, int fontCharX, int fontCharY );
-
-        /**
-        @PageName console_map
-        @FuncTitle Mapping consecutive ASCII codes to consecutive characters
-        @Cpp static void TCODConsole::mapAsciiCodesToFont(int firstAsciiCode, int nbCodes, int fontCharX, int fontCharY)
-        @C void TCOD_console_map_ascii_codes_to_font(int firstAsciiCode, int nbCodes, int fontCharX, int fontCharY)
-        @Py console_map_ascii_codes_to_font(firstAsciiCode, nbCodes, fontCharX, fontCharY)
-        @C# static void TCODConsole::mapAsciiCodesToFont(int firstAsciiCode, int nbCodes, int fontCharX, int fontCharY)
-        @Lua tcod.console.mapAsciiCodesToFont(firstAsciiCode, nbCodes, fontCharX, fontCharY)
-        @Param firstAsciiCode first ASCII code to map
-        @Param nbCodes number of consecutive ASCII codes to map
-        @Param fontCharX,fontCharY coordinate of the character in the bitmap font (in characters, not pixels) corresponding to the first ASCII code
-        */
-        static void mapAsciiCodesToFont( int firstAsciiCode, int nbCodes, int fontCharX, int fontCharY );
-
-        /**
-        @PageName console_map
-        @FuncTitle Mapping ASCII code from a string to consecutive characters
-        @Cpp static void TCODConsole::mapStringToFont(const char *s, int fontCharX, int fontCharY)
-        @C void TCOD_console_map_string_to_font(const char *s, int fontCharX, int fontCharY)
-        @Py console_map_string_to_font(s, fontCharX, fontCharY)
-        @C# static void TCODConsole::mapStringToFont(string s, int fontCharX, int fontCharY)
-        @Lua tcod.console.mapStringToFont(s, fontCharX, fontCharY)
-        @Param s string containing the ASCII codes to map
-        @Param fontCharX,fontCharY coordinate of the character in the bitmap font (in characters, not pixels) corresponding to the first ASCII code in the string
-        */
-        static void mapStringToFont( const char *s, int fontCharX, int fontCharY );
-
-        /**
         @PageName console_fullscreen
         @PageTitle Fullscreen mode
         @PageFather console_init

@@ -185,21 +185,6 @@ void Doryen::Console::setCustomFont( const char *fontFile, int flags, int nbChar
 	TCOD_console_set_custom_font(fontFile,flags,nbCharHoriz,nbCharVertic);
 }
 
-void Doryen::Console::mapAsciiCodeToFont( int asciiCode, int fontCharX, int fontCharY )
-{
-	TCOD_console_map_ascii_code_to_font(asciiCode,fontCharX,fontCharY);
-}
-
-void Doryen::Console::mapAsciiCodesToFont( int firstAsciiCode, int nbCodes, int fontCharX, int fontCharY )
-{
-	TCOD_console_map_ascii_codes_to_font(firstAsciiCode,nbCodes,fontCharX,fontCharY);
-}
-
-void Doryen::Console::mapStringToFont( const char *s, int fontCharX, int fontCharY )
-{
-	TCOD_console_map_string_to_font(s, fontCharX, fontCharY);
-}
-
 void Doryen::Console::setDirty( int x, int y, int w, int h )
 {
 	TCOD_console_set_dirty(x,y,w,h);

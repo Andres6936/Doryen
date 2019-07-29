@@ -1110,36 +1110,6 @@ void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_ho
 	TCOD_sys_set_custom_font(fontFile, nb_char_horiz, nb_char_vertic, flags);
 }
 
-void TCOD_console_map_ascii_code_to_font(int asciiCode, int fontCharX, int fontCharY) {
-	TCOD_sys_map_ascii_to_font(asciiCode, fontCharX, fontCharY);
-}
-
-void TCOD_console_map_ascii_codes_to_font(int asciiCode, int nbCodes, int fontCharX, int fontCharY) {
-	int c;
-	TCOD_IFNOT(asciiCode >= 0 && asciiCode+nbCodes <= TCOD_ctx.max_font_chars) return;
-	for (c=asciiCode; c < asciiCode+nbCodes; c++ ) {
-		TCOD_sys_map_ascii_to_font(c, fontCharX, fontCharY);
-		fontCharX++;
-		if ( fontCharX == TCOD_ctx.fontNbCharHoriz ) {
-			fontCharX=0;
-			fontCharY++;
-		}
-	}
-}
-
-void TCOD_console_map_string_to_font(const char *s, int fontCharX, int fontCharY) {
-	TCOD_IFNOT(s != NULL) return;
-	while (*s) {
-		TCOD_console_map_ascii_code_to_font(*s, fontCharX, fontCharY);
-		fontCharX++;
-		if ( fontCharX == TCOD_ctx.fontNbCharHoriz ) {
-			fontCharX=0;
-			fontCharY++;
-		}
-		s++;
-	}
-}
-
 void TCOD_console_set_keyboard_repeat(int initial_delay, int interval) {
 	TCOD_sys_set_keyboard_repeat(initial_delay,interval);
 }
