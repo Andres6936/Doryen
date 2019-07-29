@@ -1034,8 +1034,8 @@ void TCOD_console_init_root(int w, int h, const char*title, bool fullscreen, TCO
 		TCOD_ctx.root=con;
 		TCOD_ctx.renderer=renderer;
 		for (i=0; i < TCOD_COLCTRL_NUMBER; i++) {
-			color_control_fore[i]=TCOD_white;
-			color_control_back[i]=TCOD_black;
+            color_control_fore[ i ] = TCOD_white; // FIXME: Posible causa de error con OpenGL
+            color_control_back[ i ] = TCOD_black; // FIXME: Posible causa de error con OpenGL
 		}
 		TCOD_console_init((TCOD_console_t)con,title,fullscreen);
 	}
