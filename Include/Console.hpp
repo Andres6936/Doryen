@@ -103,6 +103,13 @@ namespace Doryen
         Console( const char *filename );
 
         /**
+         * Destroy an offscreen console and release any resources allocated.
+         *
+         * @note Don't use it on the root console.
+         */
+        virtual ~Console( );
+
+        /**
          * Creating the game window.
          *
          * The default font in libtcod (./Terminal.png) uses 8x8 pixels characters.
@@ -1637,14 +1644,6 @@ namespace Doryen
         @Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
         @Param shift This field represents the status of the shift key : true => pressed, false => released.
         */
-
-        /**
-         * Destroy an offscreen console and release any resources allocated.
-         *
-         * @note Don't use it on the root console.
-         */
-        virtual ~Console( );
-
 
         void setDirty( int x, int y, int w, int h );
     };
