@@ -182,136 +182,69 @@ namespace Doryen
         static void setFullscreen( bool fullscreen );
 
         /**
-        @PageName console_window
-        @PageFather console_init
-        @PageTitle Communicate with the window manager
-        @FuncTitle Changing the window title
-        @FuncDesc This function dynamically changes the title of the game window.
-            Note that the window title is not visible while in fullscreen.
-        @Cpp static void TCODConsole::setWindowTitle(const char *title)
-         @C void TCOD_console_set_window_title(const char *title)
-        @Py console_set_window_title(title)
-        @C# static void TCODConsole::setWindowTitle(string title)
-        @Lua tcod.console.setWindowTitle(title)
-        @Param title New title of the game window
-        */
+         * Dynamically changes the title of the game window.
+         *
+         * @note Note that the window title is not visible while in fullscreen.
+         *
+         * @param title New title of the game window.
+         */
         static void setWindowTitle( const char *title );
 
         /**
-        @PageName console_window
-        @FuncTitle Handling "close window" events
-        @FuncDesc When you start the program, this returns false. Once a "close window" event has been sent by the window manager, it will allways return true. You're supposed to exit cleanly the game.
-        @Cpp static bool TCODConsole::isWindowClosed()
-        @C bool TCOD_console_is_window_closed()
-        @Py console_is_window_closed()
-        @C# static bool TCODConsole::isWindowClosed()
-        @Lua tcod.console.isWindowClosed()
-        */
+         * When you start the program, this returns false. Once a "close window"
+         * event has been sent by the window manager, it will allways return
+         * true. You're supposed to exit cleanly the game.
+         *
+         * @return true if the user want exit the app, false otherwise.
+         */
         static bool isWindowClosed( );
 
         /**
-        @PageName console_credits
-        @PageTitle libtcod's credits
-        @PageFather console_init
-        @PageDesc Use these functions to display credits, as seen in the samples.
-        @FuncTitle Using a separate credit page
-        @FuncDesc You can print a "Powered by libtcod x.y.z" screen during your game startup simply by calling this function after initRoot.
-            The credits screen can be skipped by pressing any key.
-        @Cpp static void TCODConsole::credits()
-        @C void TCOD_console_credits()
-        @Py console_credits()
-        @C# static void TCODConsole::credits()
-        @Lua tcod.console.credits()
-        */
+         * Display credits, as seen in the samples.
+         *
+         * You can print a "Powered by libtcod x.y.z" screen during your game
+         * startup simply by calling this function after initRoot.
+         *
+         * @note The credits screen can be skipped by pressing any key.
+         */
         static void credits( );
 
         /**
-        @PageName console_credits
-        @FuncTitle Embedding credits in an existing page
-        @FuncDesc You can also print the credits on one of your game screens (your main menu for example) by calling this function in your main loop.
-            This function returns true when the credits screen is finished, indicating that you no longer need to call it.
-        @Cpp static bool TCODConsole::renderCredits(int x, int y, bool alpha)
-        @C bool TCOD_console_credits_render(int x, int y, bool alpha)
-        @Py bool TCOD_console_credits_render(int x, int y, bool alpha)
-        @C# static bool TCODConsole::renderCredits(int x, int y, bool alpha)
-        @Lua tcod.console.renderCredits(x, y, alpha)
-        @Param x,y Position of the credits text in your root console
-        @Param alpha If true, credits are transparently added on top of the existing screen.
-            For this to work, this function must be placed between your screen rendering code and the console flush.
-        @CppEx
-          TCODConsole::initRoot(80,50,"The Chronicles Of Doryen v0.1",false); // initialize the root console
-          bool endCredits=false;
-          while ( ! TCODConsole::isWindowClosed() ) { // your game loop
-              // your game rendering here...
-              // render transparent credits near the center of the screen
-              if (! endCredits ) endCredits=TCODConsole::renderCredits(35,25,true);
-              TCODConsole::flush();
-          }
-        @CEx
-          TCOD_console_init_root(80,50,"The Chronicles Of Doryen v0.1",false);
-          bool end_credits=false;
-          while ( ! TCOD_console_is_window_closed() ) {
-              // your game rendering here...
-              // render transparent credits near the center of the screen
-              if (! end_credits ) end_credits=TCOD_console_credits_render(35,25,true);
-              TCOD_console_flush();
-          }
-        @PyEx
-          libtcod.console_init_root(80,50,"The Chronicles Of Doryen v0.1",False)
-          end_credits=False
-          while not libtcod.console_is_window_closed() :
-              // your game rendering here...
-              // render transparent credits near the center of the screen
-              if (not end_credits )  : end_credits=libtcod.console_credits_render(35,25,True)
-              libtcod.console_flush()
-        @LuaEx
-            tcod.console.initRoot(80,50,"The Chronicles Of Doryen v0.1") -- initialize the root console
-            endCredits=false
-            while not tcod.console.isWindowClosed() do -- your game loop
-                -- your game rendering here...
-                -- render transparent credits near the center of the screen
-                if not endCredits then endCredits=tcod.console.renderCredits(35,25,true) end
-                tcod.console.flush()
-            end
-        */
+         * You can also print the credits on one of your game screens (your
+         * main menu for example) by calling this function in your main loop.
+         *
+         * This function returns true when the credits screen is finished,
+         * indicating that you no longer need to call it.
+         *
+         * @param x coordiante in x of the credits text in your root console.
+         * @param y coordiante in y of the credits text in your root console.
+         * @param alpha if true, credits are transparently added on top of
+         * the existing screen.
+         *
+         * @note For this to work, this function must be placed between
+         * your screen rendering code and the console flush.
+         *
+         * @return true when the credits screen is finished, false otherwise.
+         */
         static bool renderCredits( int x, int y, bool alpha );
 
         /**
-        @PageName console_credits
-        @FuncTitle Restart the credits animation
-        @FuncDesc When using rederCredits, you can restart the credits animation from the begining before it's finished by calling this function.
-        @Cpp static void TCODConsole::resetCredits()
-        @C void TCOD_console_credits_reset()
-        @Py console_credits_reset()
-        @C# static void TCODConsole::resetCredits()
-        @Lua tcod.console.resetCredits()
-        */
+         * @brief Restart the credits animation.
+         *
+         * When using rederCredits, you can restart the credits animation
+         * from the begining before it's finished by calling this function.
+         */
         static void resetCredits( );
 
         /**
-        @PageName console_draw
-        @PageTitle Drawing on the root console
-        @PageFather console
-        */
-
-        /**
-        @PageName console_draw_basic
-        @PageTitle Basic printing functions
-        @PageFather console_draw
-        @FuncTitle Setting the default background color
-        @FuncDesc This function changes the default background color for a console. The default background color is used by several drawing functions like clear, putChar, ...
-        @Cpp void TCODConsole::setDefaultBackground(Doryen::TCODColor back)
-        @C void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t back)
-        @Py console_set_default_background(con,back)
-        @C# void TCODConsole::setBackgroundColor(Doryen::TCODColor back)
-        @Lua Console:setBackgroundColor(back)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param back the new default background color for this console
-        @CppEx TCODConsole::root->setDefaultBackground(myColor)
-        @CEx TCOD_console_set_default_background(NULL, my_color)
-        @PyEx litbcod.console_set_default_background(0, my_color)
-        @Lua libtcod.TCODConsole_root:setBackgroundColor( myColor )
-        */
+         * @brief Setting the default background color.
+         *
+         * Changes the default background color for a console. The default
+         * background color is used by several drawing functions like
+         * clear, putChar, ...
+         *
+         * @param back the new default background color for this console.
+         */
         void setDefaultBackground( Doryen::Color back );
 
         /**
