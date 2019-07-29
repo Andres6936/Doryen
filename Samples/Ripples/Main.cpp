@@ -80,7 +80,8 @@ void render() {
 
 int main (int argc, char *argv[]) {
 	// initialize the game window
-	TCODConsole::initRoot(CON_W,CON_H,"Water ripples v"VERSION, false,TCOD_RENDERER_SDL);
+    TCODConsole console = TCODConsole( );
+    console.initRoot( CON_W, CON_H, "Water ripples v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODSystem::setFps(25);
 	TCODMouse::showCursor(true);
 	

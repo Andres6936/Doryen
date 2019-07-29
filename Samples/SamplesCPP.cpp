@@ -1485,7 +1485,10 @@ int main( int argc, char *argv[] ) {
 		TCODSystem::forceFullscreenResolution(fullscreenWidth,fullscreenHeight);
 	}
 
-	TCODConsole::initRoot(80,50,"libtcod C++ sample",fullscreen,renderer);
+    TCODConsole console = TCODConsole( );
+
+    console.initRoot( 80, 50, "libtcod C++ sample", fullscreen, renderer );
+
 	do {
 		if (! creditsEnd) {
 			creditsEnd=TCODConsole::renderCredits(60,43,false);

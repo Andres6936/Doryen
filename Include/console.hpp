@@ -74,7 +74,7 @@ public :
      * @note Whatever renderer you use, it can always be overriden by the player
      * through the libtcod.cfg file.
      */
-    static void
+    void
     initRoot( int w, int h, const char *title, bool fullscreen = false, TCOD_renderer_t renderer = TCOD_RENDERER_SDL );
 
     /**
@@ -1398,6 +1398,8 @@ public :
         Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
     */
 
+    TCODConsole( );
+
     /**
     @PageName console_offscreen
     @PageFather console
@@ -1679,8 +1681,6 @@ protected :
     friend class TCODLIB_API TCODZip;
 
     friend class TCODLIB_API TCODText;
-
-    TCODConsole( );
 
     TCOD_console_t data;
 };

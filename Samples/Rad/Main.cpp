@@ -202,7 +202,8 @@ void move(int dx, int dy) {
 }
 
 int main() {
-	TCODConsole::initRoot(80,50,"Photon reactor - radiosity engine for roguelikes",false,TCOD_RENDERER_SDL);
+    TCODConsole console = TCODConsole( );
+    console.initRoot( 80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL );
 	TCODConsole::root->setAlignment(TCOD_CENTER);
 	TCOD_key_t k = {TCODK_NONE,0};
 	TCOD_mouse_t mouse;
