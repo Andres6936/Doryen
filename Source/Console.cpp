@@ -35,6 +35,25 @@ Doryen::Console *Doryen::Console::root = NULL;
 
 Doryen::Console::Console( )
 {
+    TCOD_console_data_t *console = new TCOD_console_data_t;
+
+    console->w = 80;
+    console->h = 25;
+
+    console->fore = TCOD_white;
+    console->back = TCOD_black;
+    console->fade = 255;
+    console->buf = new char_t[console->w * console->h];
+    console->oldbuf = new char_t[console->w * console->h];
+    console->bkgnd_flag = TCOD_BKGND_NONE;
+    console->alignment = TCOD_LEFT;
+
+    for ( int j = 0; j < console->w * console->h; j++ )
+    {
+        console->buf[ j ].c = ' ';
+        console->buf[ j ].cf = -1;
+    }
+
     windowClose = false;
 
     for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
@@ -42,6 +61,8 @@ Doryen::Console::Console( )
         controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
         controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
     }
+
+    data = console;
 }
 
 Doryen::Console::Console( int w, int h )
@@ -67,6 +88,14 @@ Doryen::Console::Console( int w, int h )
             console->buf[ j ].cf = -1;
         }
 
+        windowClose = false;
+
+        for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
+        {
+            controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
+            controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
+        }
+
         data = console;
     }
     else
@@ -78,6 +107,11 @@ Doryen::Console::Console( int w, int h )
 Doryen::Console::Console( const char *filename )
 {
 	data = TCOD_console_from_file(filename);
+}
+
+Doryen::Console::~Console( )
+{
+    // TCOD_console_delete(data);
 }
 
 void Doryen::Console::initRoot( int w, int h, const char *title, bool fullscreen, TCOD_renderer_t renderer )
@@ -263,11 +297,6 @@ void Doryen::Console::setAlignment( TCOD_alignment_t alignment )
 TCOD_alignment_t Doryen::Console::getAlignment( ) const
 {
 	return TCOD_console_get_alignment(data);
-}
-
-Doryen::Console::~Console( )
-{
-    // TCOD_console_delete(data);
 }
 
 void Doryen::Console::blit( const Doryen::Console *srcCon, int xSrc, int ySrc, int wSrc, int hSrc,

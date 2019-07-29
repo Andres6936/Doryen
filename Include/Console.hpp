@@ -33,7 +33,20 @@
 namespace Doryen
 {
     /**
-     * The console emulator handles the rendering of the game screen and the keyboard input.
+     * The console emulator handles the rendering of the game screen and the
+     * keyboard input.
+     *
+     * The instaces of Console class are called offscreen consoles, this you
+     * allow draw on secondary consoles as you would do with the
+     * root console. You can then blit those secondary consoles on the root
+     * console. This allows you to use local coordinate space while rendering
+     * a portion of the final screen, and easily move components of the screen
+     * without modifying the rendering functions.
+     *
+     * You can create as many off-screen consoles as you want by using
+     * instances. You can draw on them as you would do with the root console,
+     * but you cannot flush them to the screen. Else, you can blit them on other
+     * consoles, including the root console.
      */
     class Console
     {
@@ -59,6 +72,35 @@ namespace Doryen
         TCOD_console_t data;
 
         static Console *root;
+
+        explicit Console( TCOD_console_t con ) : data( con )
+        { }
+
+        /**
+         * Create an offscreen console.
+         *
+         * @note The size of offscreen console is 80x25 default.
+         */
+        Console( );
+
+
+        /**
+         * Create an offscreen console.
+         *
+         * @param w width of console. w > 0.
+         * @param h height of console. h > 0.
+         */
+        Console( int w, int h );
+
+        /**
+         * Create an offscreen console from a .asc or .apf file.
+         *
+         * You can create an offscreen console from a file
+         * created with Dorpy with this constructor.
+         *
+         * @param filename path to the .asc or .apf file created with Dorpy.
+         */
+        Console( const char *filename );
 
         /**
          * Creating the game window.
@@ -1297,41 +1339,6 @@ namespace Doryen
         static void disableKeyboardRepeat( );
 
         /**
-        @PageName console_key_t
-        @PageTitle 	Keyboard event structure
-        @PageFather console_input
-        @PageDesc This structure contains information about a key pressed/released by the user.
-        @C
-            typedef struct {
-                TCOD_keycode_t vk;
-                char c;
-                bool pressed;
-                bool lalt;
-                bool lctrl;
-                bool ralt;
-                bool rctrl;
-                bool shift;
-            } TCOD_key_t;
-        @Lua
-            key.KeyCode
-            key.Character
-            key.Pressed
-            key.LeftAlt
-            key.LeftControl
-            key.RightAlt
-            key.RightControl
-            key.Shift
-        @Param vk An arbitrary value representing the physical key on the keyboard. Possible values are stored in the TCOD_keycode_t enum. If no key was pressed, the value is TCODK_NONE
-        @Param c If the key correspond to a printable character, the character is stored in this field. Else, this field contains 0.
-        @Param pressed true if the event is a key pressed, or false for a key released.
-        @Param lalt This field represents the status of the left Alt key : true => pressed, false => released.
-        @Param lctrl This field represents the status of the left Control key : true => pressed, false => released.
-        @Param ralt This field represents the status of the right Alt key : true => pressed, false => released.
-        @Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
-        @Param shift This field represents the status of the shift key : true => pressed, false => released.
-        */
-
-        /**
         @PageName console_keycode_t
         @PageTitle 	Key codes
         @PageFather console_input
@@ -1414,62 +1421,7 @@ namespace Doryen
             Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
         */
 
-        Console( );
 
-        /**
-        @PageName console_offscreen
-        @PageFather console
-        @PageTitle Using off-screen consoles
-        @PageDesc The offscreen consoles allow you to draw on secondary consoles as you would do with the root console. You can then blit those secondary consoles on the root console. This allows you to use local coordinate space while rendering a portion of the final screen, and easily move components of the screen without modifying the rendering functions.
-        @FuncTitle Creating an offscreen console
-        @FuncDesc You can create as many off-screen consoles as you want by using this function. You can draw on them as you would do with the root console, but you cannot flush them to the screen. Else, you can blit them on other consoles, including the root console. See blit. The C version of this function returns a console handler that you can use in most console drawing functions.
-        @Cpp TCODConsole::TCODConsole(int w, int h)
-        @C TCOD_console_t TCOD_console_new(int w, int h)
-        @Py console_new(w,h)
-        @C# TCODConsole::TCODConsole(int w, int h)
-        @Lua tcod.Console(w,h)
-        @Param w,h the console size.
-            0 < w
-            0 < h
-        @CppEx
-            // Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
-            TCODConsole *offscreenConsole = new TCODConsole(40,20);
-            offscreenConsole->setDefaultBackground(Doryen::TCODColor::red);
-            offscreenConsole->clear();
-            TCODConsole::blit(offscreenConsole,0,0,40,20,TCODConsole::root,5,5,255);
-        @CEx
-            TCOD_console_t offscreen_console = TCOD_console_new(40,20);
-            TCOD_console_set_default_background(offscreen_console,TCOD_red);
-            TCOD_console_clear(offscreen_console);
-            TCOD_console_blit(offscreen_console,0,0,40,20,NULL,5,5,255);
-        @PyEx
-            offscreen_console = libtcod.console_new(40,20)
-            libtcod.console_set_background_color(offscreen_console,libtcod.red)
-            libtcod.console_clear(offscreen_console)
-            libtcod.console_blit(offscreen_console,0,0,40,20,0,5,5,255)
-        @LuaEx
-            -- Creating a 40x20 offscreen console, filling it with red and blitting it on the root console at position 5,5
-            offscreenConsole = tcod.Console(40,20)
-            offscreenConsole:setBackgroundColor(tcod.color.red)
-            offscreenConsole:clear()
-            tcod.console.blit(offscreenConsole,0,0,40,20,libtcod.TCODConsole_root,5,5,255)
-        */
-        Console( int w, int h );
-
-        /**
-        @PageName console_offscreen
-        @FuncTitle Creating an offscreen console from a .asc or .apf file
-        @FuncDesc You can create an offscreen console from a file created with Ascii Paint with this constructor
-        @Cpp TCODConsole::TCODConsole(const char *filename)
-        @C TCOD_console_t TCOD_console_from_file(const char *filename)
-        @Param filename path to the .asc or .apf file created with Ascii Paint
-        @CppEx
-            // Creating an offscreen console, filling it with data from the .asc file
-            TCODConsole *offscreenConsole = new TCODConsole("myfile.asc");
-        @CEx
-            TCOD_console_t offscreen_console = TCOD_console_from_file("myfile.apf");
-        */
-        Console( const char *filename );
 
         /**
         @PageName console_offscreen
@@ -1636,6 +1588,7 @@ namespace Doryen
         blit( const Console *src, int xSrc, int ySrc, int wSrc, int hSrc, Console *dst, int xDst, int yDst,
               float foreground_alpha = 1.0f, float background_alpha = 1.0f );
 
+
         /**
         @PageName console_offscreen
         @FuncTitle Define a blit-transparent color
@@ -1650,6 +1603,40 @@ namespace Doryen
         */
         void setKeyColor( const Doryen::Color &col );
 
+        /**
+        @PageName console_key_t
+        @PageTitle 	Keyboard event structure
+        @PageFather console_input
+        @PageDesc This structure contains information about a key pressed/released by the user.
+        @C
+            typedef struct {
+                TCOD_keycode_t vk;
+                char c;
+                bool pressed;
+                bool lalt;
+                bool lctrl;
+                bool ralt;
+                bool rctrl;
+                bool shift;
+            } TCOD_key_t;
+        @Lua
+            key.KeyCode
+            key.Character
+            key.Pressed
+            key.LeftAlt
+            key.LeftControl
+            key.RightAlt
+            key.RightControl
+            key.Shift
+        @Param vk An arbitrary value representing the physical key on the keyboard. Possible values are stored in the TCOD_keycode_t enum. If no key was pressed, the value is TCODK_NONE
+        @Param c If the key correspond to a printable character, the character is stored in this field. Else, this field contains 0.
+        @Param pressed true if the event is a key pressed, or false for a key released.
+        @Param lalt This field represents the status of the left Alt key : true => pressed, false => released.
+        @Param lctrl This field represents the status of the left Control key : true => pressed, false => released.
+        @Param ralt This field represents the status of the right Alt key : true => pressed, false => released.
+        @Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
+        @Param shift This field represents the status of the shift key : true => pressed, false => released.
+        */
 
         /**
          * Destroy an offscreen console and release any resources allocated.
@@ -1658,11 +1645,8 @@ namespace Doryen
          */
         virtual ~Console( );
 
+
         void setDirty( int x, int y, int w, int h );
-
-
-        Console( TCOD_console_t con ) : data( con )
-        { }
     };
 }
 
