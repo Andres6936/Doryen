@@ -1848,7 +1848,7 @@ int main( int argc, char *argv[] )
 
     console.initRoot( 80, 50, "libtcod C++ sample", fullscreen, renderer );
 
-    do
+    while ( !TCODConsole::isWindowClosed( ))
     {
         if ( !creditsEnd )
         {
@@ -1979,6 +1979,6 @@ int main( int argc, char *argv[] )
             TCODSystem::setRenderer( TCOD_RENDERER_SDL );
         }
     }
-    while ( !TCODConsole::isWindowClosed( ));
+
     return 0;
 }
