@@ -166,49 +166,19 @@ namespace Doryen
                                    int nbCharVertic = 0 );
 
         /**
-        @PageName console_fullscreen
-        @PageTitle Fullscreen mode
-        @PageFather console_init
-        @FuncTitle Getting the current mode
-        @FuncDesc This function returns true if the current mode is fullscreen.
-        @Cpp static bool TCODConsole::isFullscreen()
-        @C bool TCOD_console_is_fullscreen()
-        @Py console_is_fullscreen()
-        @C# static bool TCODConsole::isFullscreen()
-        @Lua tcod.console.isFullscreen()
-        */
+         * @return returns true if the current mode is fullscreen.
+         */
         static bool isFullscreen( );
 
         /**
-        @PageName console_fullscreen
-        @FuncTitle Switching between windowed and fullscreen modes
-        @FuncDesc This function switches the root console to fullscreen or windowed mode.
-            Note that there is no predefined key combination to switch to/from fullscreen. You have to do this in your own code.
-        @Cpp static void TCODConsole::setFullscreen(bool fullscreen)
-        @C void TCOD_console_set_fullscreen(bool fullscreen)
-        @Py console_set_fullscreen(fullscreen)
-        @C# static void TCODConsole::setFullscreen(bool fullscreen)
-        @Lua tcod.console.setFullscreen(fullscreen)
-        @Param fullscreen true to switch to fullscreen mode.
-            false to switch to windowed mode.
-        @CppEx
-            TCOD_key_t key=TCODConsole::checkForKeypress();
-            if ( key.vk == TCODK_ENTER && key.lalt )
-                TCODConsole::setFullscreen(!TCODConsole::isFullscreen());
-        @CEx
-            TCOD_key_t key=TCOD_console_check_for_keypress();
-            if ( key.vk == TCODK_ENTER && key.lalt )
-                TCOD_console_set_fullscreen(!TCOD_console_is_fullscreen());
-        @PyEx
-            key=libtcod.console_check_for_keypress()
-            if key.vk == libtcod.KEY_ENTER and key.lalt :
-                libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
-        @LuaEx
-            key=tcod.console.checkForKeypress()
-            if key.KeyCode == tcod.Enter and key.LeftAlt then
-                tcod.console.setFullscreen(not tcod.console.isFullscreen())
-            end
-        */
+         * Switches the root console to fullscreen or windowed mode.
+         *
+         * @note Note that there is no predefined key combination to
+         * switch to/from fullscreen. You have to do this in your own code.
+         *
+         * @param fullscreen true to switch to fullscreen mode, false to
+         * switch to windowed mode.
+         */
         static void setFullscreen( bool fullscreen );
 
         /**
