@@ -113,7 +113,7 @@ int main (int argc, char *argv[]) {
 	// initialize the game window
     Doryen::Console console = Doryen::Console( );
     console.initRoot( WIDTH, HEIGHT, "World generator v"VERSION, false, TCOD_RENDERER_SDL );
-    Doryen::Plataform::setFps( 25 );
+    Doryen::Platform::setFps( 25 );
 	TCODMouse::showCursor(true);
 
 	TCOD_key_t k = {TCODK_NONE,0};
@@ -134,12 +134,12 @@ int main (int argc, char *argv[]) {
 //		TCOD_key_t k=Doryen::Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
 //		TCOD_mouse_t mouse=TCODMouse::getStatus();
 
-        Doryen::Plataform::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &k, &mouse );
+        Doryen::Platform::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &k, &mouse );
 
 		if ( k.vk == TCODK_PRINTSCREEN ) {
 			// screenshot
             if ( !k.pressed )
-            { Doryen::Plataform::saveScreenshot( NULL ); }
+            { Doryen::Platform::saveScreenshot( NULL ); }
             k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
@@ -148,7 +148,7 @@ int main (int argc, char *argv[]) {
             k.vk=TCODK_NONE;
 		}
 		// update the game
-        update( Doryen::Plataform::getLastFrameLength( ), k, mouse );
+        update( Doryen::Platform::getLastFrameLength( ), k, mouse );
 
 		// render the game screen
 		render();

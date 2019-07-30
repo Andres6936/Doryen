@@ -65,7 +65,7 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
     if ( first )
     {
-        Doryen::Plataform::setFps( 0 ); // unlimited fps
+        Doryen::Platform::setFps( 0 ); // unlimited fps
         sampleConsole.clear( );
     }
     // ==== slighty modify the corner colors ====
@@ -174,7 +174,7 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
         // get a "screenshot" of the current sample screen
         Doryen::Console::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
                                &screenshot, 0, 0 );
@@ -249,13 +249,13 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if (( bkFlag & 0xff ) == TCOD_BKGND_ALPH )
     {
         // for the alpha mode, update alpha every frame
-        float alpha = ( 1.0f + cosf( Doryen::Plataform::getElapsedSeconds( ) * 2 )) / 2.0f;
+        float alpha = ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) * 2 )) / 2.0f;
         bkFlag = TCOD_BKGND_ALPHA( alpha );
     }
     else if (( bkFlag & 0xff ) == TCOD_BKGND_ADDA )
     {
         // for the add alpha mode, update alpha every frame
-        float alpha = ( 1.0f + cosf( Doryen::Plataform::getElapsedSeconds( ) * 2 )) / 2.0f;
+        float alpha = ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) * 2 )) / 2.0f;
         bkFlag = TCOD_BKGND_ADDALPHA( alpha );
     }
     if ( !init )
@@ -276,14 +276,14 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
         sampleConsole.setDefaultForeground( Doryen::Color::white );
     }
     // blit the background
     Doryen::Console::blit( &bk, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT, &sampleConsole, 0, 0 );
     // render the gradient
     int recty = ( int ) (( SAMPLE_SCREEN_HEIGHT - 2 ) *
-                         (( 1.0f + cosf( Doryen::Plataform::getElapsedSeconds( ))) / 2.0f ));
+                         (( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ))) / 2.0f ));
     for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
     {
         Doryen::Color col;
@@ -295,7 +295,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sampleConsole.setCharBackground( x, recty + 2, col, ( TCOD_bkgnd_flag_t ) bkFlag );
     }
     // calculate the segment ends
-    float angle = Doryen::Plataform::getElapsedSeconds( ) * 2.0f;
+    float angle = Doryen::Platform::getElapsedSeconds( ) * 2.0f;
     float cosAngle = cosf( angle );
     float sinAngle = sinf( angle );
     int xo = ( int ) ( SAMPLE_SCREEN_WIDTH / 2 * ( 1 + cosAngle ));
@@ -348,7 +348,7 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
     }
 
     // texture animation
@@ -562,7 +562,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
         // we draw the foreground only the first time.
         // during the player movement, only the @ is redrawn.
         // the rest impacts only the background color
@@ -734,16 +734,16 @@ void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
     }
     sampleConsole.setDefaultBackground( Doryen::Color::black );
     sampleConsole.clear( );
-    float x = SAMPLE_SCREEN_WIDTH / 2 + cosf( Doryen::Plataform::getElapsedSeconds( )) * 10.0f;
+    float x = SAMPLE_SCREEN_WIDTH / 2 + cosf( Doryen::Platform::getElapsedSeconds( )) * 10.0f;
     float y = ( float ) ( SAMPLE_SCREEN_HEIGHT / 2 );
-    float scalex = 0.2f + 1.8f * ( 1.0f + cosf( Doryen::Plataform::getElapsedSeconds( ) / 2 )) / 2.0f;
+    float scalex = 0.2f + 1.8f * ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) / 2 )) / 2.0f;
     float scaley = scalex;
-    float angle = Doryen::Plataform::getElapsedSeconds( );
-    long elapsed = Doryen::Plataform::getElapsedMilli( ) / 2000;
+    float angle = Doryen::Platform::getElapsedSeconds( );
+    long elapsed = Doryen::Platform::getElapsedMilli( ) / 2000;
     if ( elapsed & 1 )
     {
         // split the color channels of circle.png
@@ -780,7 +780,7 @@ void render_mouse( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
         sampleConsole.setDefaultBackground( Doryen::Color::grey );
         sampleConsole.setDefaultForeground( Doryen::Color::lightYellow );
         TCODMouse::move( 320, 200 );
@@ -880,7 +880,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); // fps limited to 30
+        Doryen::Platform::setFps( 30 ); // fps limited to 30
         // we draw the foreground only the first time.
         // during the player movement, only the @ is redrawn.
         // the rest impacts only the background color
@@ -974,7 +974,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
     }
     // move the creature
-    busy -= Doryen::Plataform::getLastFrameLength( );
+    busy -= Doryen::Platform::getLastFrameLength( );
     if ( busy <= 0.0f )
     {
         busy = 0.2f;
@@ -1380,7 +1380,7 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     int i;
     if ( nbSets == 0 )
     {
-        TCODList <char *> files = Doryen::Plataform::getDirectoryContent( "Data/namegen", "*.cfg" );
+        TCODList <char *> files = Doryen::Platform::getDirectoryContent( "Data/namegen", "*.cfg" );
         // parse all the files
         for ( char **it = files.begin( ); it != files.end( ); it++ )
         {
@@ -1394,7 +1394,7 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); /* limited to 30 fps */
+        Doryen::Platform::setFps( 30 ); /* limited to 30 fps */
     }
 
     while ( names.size( ) >= 15 )
@@ -1424,7 +1424,7 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
     }
 
-    delay += Doryen::Plataform::getLastFrameLength( );
+    delay += Doryen::Platform::getLastFrameLength( );
     if ( delay >= 0.5f )
     {
         delay -= 0.5f;
@@ -1473,11 +1473,11 @@ public :
         // now we have almighty access to the screen's precious pixels !!
         // get the font character size
         int charw, charh;
-        Doryen::Plataform::getCharSize( &charw, &charh );
+        Doryen::Platform::getCharSize( &charw, &charh );
         // compute the sample console position in pixels
         int samplex = SAMPLE_SCREEN_X * charw;
         int sampley = SAMPLE_SCREEN_Y * charh;
-        delay -= Doryen::Plataform::getLastFrameLength( );
+        delay -= Doryen::Platform::getLastFrameLength( );
         if ( delay < 0.0f )
         {
             delay = 3.0f;
@@ -1588,7 +1588,7 @@ protected :
         int ridx = screen->format->Rshift / 8;
         int gidx = screen->format->Gshift / 8;
         int bidx = screen->format->Bshift / 8;
-        f[ 2 ] = Doryen::Plataform::getElapsedSeconds( );
+        f[ 2 ] = Doryen::Platform::getElapsedSeconds( );
         for ( int x = samplex; x < samplex + samplew; x++ )
         {
             Uint8 *p = ( Uint8 * ) screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
@@ -1701,7 +1701,7 @@ void render_sdl( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
     if ( first )
     {
-        Doryen::Plataform::setFps( 30 ); /* limited to 30 fps */
+        Doryen::Platform::setFps( 30 ); /* limited to 30 fps */
         // use noise sample as background. rendering is done in SampleRenderer
         sampleConsole.setDefaultBackground( Doryen::Color::lightBlue );
         sampleConsole.setDefaultForeground( Doryen::Color::white );
@@ -1714,11 +1714,11 @@ void render_sdl( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sdl_callback_enabled = !sdl_callback_enabled;
         if ( sdl_callback_enabled )
         {
-            Doryen::Plataform::registerSDLRenderer( new SampleRenderer( ));
+            Doryen::Platform::registerSDLRenderer( new SampleRenderer( ));
         }
         else
         {
-            Doryen::Plataform::registerSDLRenderer( NULL );
+            Doryen::Platform::registerSDLRenderer( NULL );
             // we want libtcod to redraw the sample console even if nothing has changed in it
             Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
                                              SAMPLE_SCREEN_HEIGHT );
@@ -1843,7 +1843,7 @@ int main( int argc, char *argv[] )
     Doryen::Console::setCustomFont( font, fontFlags, nbCharHoriz, nbCharVertic );
     if ( fullscreenWidth > 0 )
     {
-        Doryen::Plataform::forceFullscreenResolution( fullscreenWidth, fullscreenHeight );
+        Doryen::Platform::forceFullscreenResolution( fullscreenWidth, fullscreenHeight );
     }
 
     Doryen::Console console = Doryen::Console( );
@@ -1878,10 +1878,10 @@ int main( int argc, char *argv[] )
         // print the help message
         Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
         Doryen::Console::root->printEx( 79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
-                                        ( int ) ( Doryen::Plataform::getLastFrameLength( ) * 1000 ),
-                                        Doryen::Plataform::getFps( ));
+                                        ( int ) ( Doryen::Platform::getLastFrameLength( ) * 1000 ),
+                                        Doryen::Platform::getFps( ));
         Doryen::Console::root->printEx( 79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
-                                        Doryen::Plataform::getElapsedMilli( ), Doryen::Plataform::getElapsedSeconds( ));
+                                        Doryen::Platform::getElapsedMilli( ), Doryen::Platform::getElapsedSeconds( ));
         Doryen::Console::root->print( 2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S );
         Doryen::Console::root->print( 2, 48, "ALT-ENTER : switch to %s",
                                       Doryen::Console::isFullscreen( ) ? "windowed mode  " : "fullscreen mode" );
@@ -1907,7 +1907,7 @@ int main( int argc, char *argv[] )
         }
 #endif
         /* display renderer list and current renderer */
-        cur_renderer = Doryen::Plataform::getRenderer( );
+        cur_renderer = Doryen::Platform::getRenderer( );
         Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
         Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
         Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS + 1 ), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :" );
@@ -1933,7 +1933,7 @@ int main( int argc, char *argv[] )
         Doryen::Console::flush( );
 
         // did the user hit a key ?
-        Doryen::Plataform::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &key, &mouse );
+        Doryen::Platform::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &key, &mouse );
         if ( key.vk == TCODK_DOWN )
         {
             // down arrow : next sample
@@ -1967,21 +1967,21 @@ int main( int argc, char *argv[] )
             else
             {
                 // save screenshot
-                Doryen::Plataform::saveScreenshot( NULL );
+                Doryen::Platform::saveScreenshot( NULL );
             }
         }
         else if ( key.vk == TCODK_F1 )
         {
             // switch renderers with F1,F2,F3
-            Doryen::Plataform::setRenderer( TCOD_RENDERER_GLSL );
+            Doryen::Platform::setRenderer( TCOD_RENDERER_GLSL );
         }
         else if ( key.vk == TCODK_F2 )
         {
-            Doryen::Plataform::setRenderer( TCOD_RENDERER_OPENGL );
+            Doryen::Platform::setRenderer( TCOD_RENDERER_OPENGL );
         }
         else if ( key.vk == TCODK_F3 )
         {
-            Doryen::Plataform::setRenderer( TCOD_RENDERER_SDL );
+            Doryen::Platform::setRenderer( TCOD_RENDERER_SDL );
         }
     }
 

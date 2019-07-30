@@ -28,113 +28,113 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void Doryen::Plataform::saveScreenshot( const char *filename )
+void Doryen::Platform::saveScreenshot( const char *filename )
 {
 	TCOD_sys_save_screenshot(filename);
 }
 
-void Doryen::Plataform::sleepMilli( uint32 milliseconds )
+void Doryen::Platform::sleepMilli( uint32 milliseconds )
 {
 	TCOD_sys_sleep_milli(milliseconds);
 }
 
-uint32 Doryen::Plataform::getElapsedMilli( )
+uint32 Doryen::Platform::getElapsedMilli( )
 {
 	return TCOD_sys_elapsed_milli();
 }
 
-float Doryen::Plataform::getElapsedSeconds( )
+float Doryen::Platform::getElapsedSeconds( )
 {
 	return TCOD_sys_elapsed_seconds();
 }
 
-void Doryen::Plataform::forceFullscreenResolution( int width, int height )
+void Doryen::Platform::forceFullscreenResolution( int width, int height )
 {
 	TCOD_sys_force_fullscreen_resolution(width,height);
 }
 
-void Doryen::Plataform::setRenderer( TCOD_renderer_t renderer )
+void Doryen::Platform::setRenderer( TCOD_renderer_t renderer )
 {
 	TCOD_sys_set_renderer(renderer);
 }
 
-TCOD_event_t Doryen::Plataform::waitForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush )
+TCOD_event_t Doryen::Platform::waitForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush )
 {
 	return TCOD_sys_wait_for_event(eventMask,key,mouse,flush);
 }
 
-TCOD_event_t Doryen::Plataform::checkForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse )
+TCOD_event_t Doryen::Platform::checkForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
 	return TCOD_sys_check_for_event(eventMask,key,mouse);
 }
 
-TCOD_renderer_t Doryen::Plataform::getRenderer( )
+TCOD_renderer_t Doryen::Platform::getRenderer( )
 {
 	return TCOD_sys_get_renderer();
 }
 
-void Doryen::Plataform::setFps( int val )
+void Doryen::Platform::setFps( int val )
 {
 	TCOD_sys_set_fps(val);
 }
 
-int Doryen::Plataform::getFps( )
+int Doryen::Platform::getFps( )
 {
 	return TCOD_sys_get_fps();
 }
 
-float Doryen::Plataform::getLastFrameLength( )
+float Doryen::Platform::getLastFrameLength( )
 {
 	return TCOD_sys_get_last_frame_length();
 }
 
-void Doryen::Plataform::getCurrentResolution( int *w, int *h )
+void Doryen::Platform::getCurrentResolution( int *w, int *h )
 {
 	TCOD_sys_get_current_resolution(w,h);
 }
 
-void Doryen::Plataform::getFullscreenOffsets( int *offx, int *offy )
+void Doryen::Platform::getFullscreenOffsets( int *offx, int *offy )
 {
 	TCOD_sys_get_fullscreen_offsets(offx,offy);
 }
 
-void Doryen::Plataform::updateChar( int asciiCode, int fontx, int fonty, const TCODImage *img, int x, int y )
+void Doryen::Platform::updateChar( int asciiCode, int fontx, int fonty, const TCODImage *img, int x, int y )
 {
 	TCOD_sys_update_char(asciiCode,fontx,fonty,img->data,x,y);
 }
 
-void Doryen::Plataform::getCharSize( int *w, int *h )
+void Doryen::Platform::getCharSize( int *w, int *h )
 {
 	TCOD_sys_get_char_size(w,h);
 }
 
 // filesystem stuff
-bool Doryen::Plataform::createDirectory( const char *path )
+bool Doryen::Platform::createDirectory( const char *path )
 {
 	return TCOD_sys_create_directory(path) != 0;
 }
 
-bool Doryen::Plataform::deleteFile( const char *path )
+bool Doryen::Platform::deleteFile( const char *path )
 {
 	return TCOD_sys_delete_file(path) != 0;
 }
 
-bool Doryen::Plataform::deleteDirectory( const char *path )
+bool Doryen::Platform::deleteDirectory( const char *path )
 {
 	return TCOD_sys_delete_directory(path) != 0;
 }
 
-bool Doryen::Plataform::isDirectory( const char *path )
+bool Doryen::Platform::isDirectory( const char *path )
 {
 	return TCOD_sys_is_directory(path) != 0;
 }
 
-TCOD_list_t Doryen::Plataform::getDirectoryContent( const char *path, const char *pattern )
+TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
 {
 	return TCOD_sys_get_directory_content(path,pattern);
 }
 
-bool Doryen::Plataform::fileExists( const char *filename, ... )
+bool Doryen::Platform::fileExists( const char *filename, ... )
 {
 	FILE * in;
 	bool ret = false;
@@ -151,113 +151,113 @@ bool Doryen::Plataform::fileExists( const char *filename, ... )
 	return ret;
 }
 
-bool Doryen::Plataform::readFile( const char *filename, unsigned char **buf, uint32 *size )
+bool Doryen::Platform::readFile( const char *filename, unsigned char **buf, uint32 *size )
 {
 	return TCOD_sys_read_file(filename,buf,size) != 0;
 }
 
-bool Doryen::Plataform::writeFile( const char *filename, unsigned char *buf, uint32 size )
+bool Doryen::Platform::writeFile( const char *filename, unsigned char *buf, uint32 size )
 {
 	return TCOD_sys_write_file(filename,buf,size) != 0;
 }
 
 // clipboard stuff
-void Doryen::Plataform::setClipboard( const char *value )
+void Doryen::Platform::setClipboard( const char *value )
 {
 	TCOD_sys_clipboard_set(value);
 }
 
-char *Doryen::Plataform::getClipboard( )
+char *Doryen::Platform::getClipboard( )
 {
 	return TCOD_sys_clipboard_get();
 }
 
 
 // thread stuff
-int Doryen::Plataform::getNumCores( )
+int Doryen::Platform::getNumCores( )
 {
 	return TCOD_sys_get_num_cores();
 }
 
-TCOD_thread_t Doryen::Plataform::newThread( int (*func)( void * ), void *data )
+TCOD_thread_t Doryen::Platform::newThread( int (*func)( void * ), void *data )
 {
 	return TCOD_thread_new(func,data);
 }
 
-void Doryen::Plataform::deleteThread( TCOD_thread_t th )
+void Doryen::Platform::deleteThread( TCOD_thread_t th )
 {
 	TCOD_thread_delete(th);
 }
 
-void Doryen::Plataform::waitThread( TCOD_thread_t th )
+void Doryen::Platform::waitThread( TCOD_thread_t th )
 {
 	TCOD_thread_wait(th);
 }
 
 // mutex
-TCOD_mutex_t Doryen::Plataform::newMutex( )
+TCOD_mutex_t Doryen::Platform::newMutex( )
 {
 	return TCOD_mutex_new();
 }
 
-void Doryen::Plataform::mutexIn( TCOD_mutex_t mut )
+void Doryen::Platform::mutexIn( TCOD_mutex_t mut )
 {
 	TCOD_mutex_in(mut);
 }
 
-void Doryen::Plataform::mutexOut( TCOD_mutex_t mut )
+void Doryen::Platform::mutexOut( TCOD_mutex_t mut )
 {
 	TCOD_mutex_out(mut);
 }
 
-void Doryen::Plataform::deleteMutex( TCOD_mutex_t mut )
+void Doryen::Platform::deleteMutex( TCOD_mutex_t mut )
 {
 	TCOD_mutex_delete(mut);
 }
 
 // semaphore
-TCOD_semaphore_t Doryen::Plataform::newSemaphore( int initVal )
+TCOD_semaphore_t Doryen::Platform::newSemaphore( int initVal )
 {
 	return TCOD_semaphore_new(initVal);
 }
 
-void Doryen::Plataform::lockSemaphore( TCOD_semaphore_t sem )
+void Doryen::Platform::lockSemaphore( TCOD_semaphore_t sem )
 {
 	TCOD_semaphore_lock(sem);
 }
 
-void Doryen::Plataform::unlockSemaphore( TCOD_semaphore_t sem )
+void Doryen::Platform::unlockSemaphore( TCOD_semaphore_t sem )
 {
 	TCOD_semaphore_unlock(sem);
 }
 
-void Doryen::Plataform::deleteSemaphore( TCOD_semaphore_t sem )
+void Doryen::Platform::deleteSemaphore( TCOD_semaphore_t sem )
 {
 	TCOD_semaphore_delete(sem);
 }
 
 // condition
-TCOD_cond_t Doryen::Plataform::newCondition( )
+TCOD_cond_t Doryen::Platform::newCondition( )
 {
 	return TCOD_condition_new();
 }
 
-void Doryen::Plataform::signalCondition( TCOD_cond_t cond )
+void Doryen::Platform::signalCondition( TCOD_cond_t cond )
 {
 	TCOD_condition_signal(cond);
 }
 
-void Doryen::Plataform::broadcastCondition( TCOD_cond_t cond )
+void Doryen::Platform::broadcastCondition( TCOD_cond_t cond )
 {
 	TCOD_condition_broadcast(cond);
 }
 
-void Doryen::Plataform::waitCondition( TCOD_cond_t cond, TCOD_mutex_t mut )
+void Doryen::Platform::waitCondition( TCOD_cond_t cond, TCOD_mutex_t mut )
 {
 	TCOD_condition_wait(cond, mut);
 }
 
-void Doryen::Plataform::deleteCondition( TCOD_cond_t cond )
+void Doryen::Platform::deleteCondition( TCOD_cond_t cond )
 {
 	TCOD_condition_delete(cond);
 }
@@ -268,7 +268,7 @@ extern "C" void TCOD_CRenderer(void *sdl_surface) {
 	if ( renderer ) renderer->render(sdl_surface);
 }
 
-void Doryen::Plataform::registerSDLRenderer( ITCODSDLRenderer *renderer )
+void Doryen::Platform::registerSDLRenderer( ITCODSDLRenderer *renderer )
 {
 	::renderer = renderer;
 	TCOD_sys_register_SDL_renderer(TCOD_CRenderer);

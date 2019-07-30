@@ -33,7 +33,7 @@
 #include "Color.hpp"
 #include "Console.hpp"
 #include "image.hpp"
-#include "Plataform/Plataform.hpp"
+#include "Platform/Platform.hpp"
 #include "mersenne.hpp"
 #include "mouse.hpp"
 #include "bresenham.hpp"

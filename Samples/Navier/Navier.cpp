@@ -273,7 +273,7 @@ void render() {
 		}
 	}
     img.blit2x( Doryen::Console::root, 0, 0 );
-    Doryen::Console::root->print( 2, HEIGHT - 2, "%4d fps", Doryen::Plataform::getFps( ));
+    Doryen::Console::root->print( 2, HEIGHT - 2, "%4d fps", Doryen::Platform::getFps( ));
     Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
     Doryen::Console::root->putChar( playerx, playery, '@' );
 }
@@ -282,7 +282,7 @@ int main (int argc, char *argv[]) {
 	// initialize the game window
     Doryen::Console console = Doryen::Console( );
     console.initRoot( WIDTH, HEIGHT, "pyromancer flame spell v"VERSION, false, TCOD_RENDERER_SDL );
-    Doryen::Plataform::setFps( 25 );
+    Doryen::Platform::setFps( 25 );
 	TCODMouse::showCursor(true);
 	
 	bool endCredits=false;
@@ -293,7 +293,7 @@ int main (int argc, char *argv[]) {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;
 
-        Doryen::Plataform::checkForEvent( TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse );
+        Doryen::Platform::checkForEvent( TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse );
 /*
 		v_prev[IX(N/2,0)] = 1.0f;
 		u_prev[IX(N/3,N/3)]=1.0f;
@@ -302,7 +302,7 @@ int main (int argc, char *argv[]) {
 		if ( k.vk == TCODK_PRINTSCREEN ) {
 			// screenshot
             if ( !k.pressed )
-            { Doryen::Plataform::saveScreenshot( NULL ); }
+            { Doryen::Platform::saveScreenshot( NULL ); }
             k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
@@ -311,7 +311,7 @@ int main (int argc, char *argv[]) {
             k.vk=TCODK_NONE;
 		}
 		// update the game
-        update( Doryen::Plataform::getLastFrameLength( ), k, mouse );
+        update( Doryen::Platform::getLastFrameLength( ), k, mouse );
 
 		// render the game screen
 		render();

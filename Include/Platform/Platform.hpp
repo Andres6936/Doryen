@@ -51,7 +51,7 @@ namespace Doryen
      *
      * @note Use them is you want your code to be easily portable.
      */
-    class Plataform
+    class Platform
     {
 
     public :

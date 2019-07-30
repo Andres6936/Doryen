@@ -188,7 +188,7 @@ char_t *TCOD_console_get_buf(TCOD_console_t con);
 void TCOD_fatal(const char *fmt, ...);
 void TCOD_fatal_nopar(const char *msg);
 
-/* Plataform non public methods */
+/* Platform non public methods */
 TCODLIB_API void TCOD_sys_startup();
 bool TCOD_sys_init(int w,int h, char_t *buf, char_t *oldbuf, bool fullscreen);
 void TCOD_sys_set_custom_font(const char *font_name,int nb_ch, int nb_cv,int flags);
