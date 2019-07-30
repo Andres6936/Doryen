@@ -82,7 +82,7 @@ ADD_SUBDIRECTORY(Source) #Needs to come first since Samples depend on it
 
 # Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the Samples (eg. library API changes).
 IF (LIBTCOD_SAMPLES)
-    ADD_SUBDIRECTORY(Samples)
+    ADD_SUBDIRECTORY(Samples/CPP)
     ADD_SUBDIRECTORY(Samples/Frost) # Frost effect demo
     ADD_SUBDIRECTORY(Samples/Navier) # Navier demo
     ADD_SUBDIRECTORY(Samples/Rad) # Radiosity demo
