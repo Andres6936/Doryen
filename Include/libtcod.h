@@ -191,7 +191,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "heightmap.h"
 #include "zip.h"
 #include "namegen.h"
-#include "txtfield.h"
 #ifdef __cplusplus
 #undef bool
 }

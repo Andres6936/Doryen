@@ -48,5 +48,4 @@
 #include "heightmap.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"
-#include "txtfield.hpp"
 #endif
