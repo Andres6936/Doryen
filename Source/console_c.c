@@ -1145,44 +1145,6 @@ static void TCOD_console_read_asc(TCOD_console_t con,FILE *f,int width, int heig
     fclose(f);
 }
 
-bool TCOD_console_load_asc(TCOD_console_t pcon, const char *filename) {
-	float version;
-	int width,height;
-	FILE *f;
-	TCOD_console_data_t *con=pcon ? (TCOD_console_data_t *)pcon : TCOD_ctx.root;
-	TCOD_IFNOT(con != NULL) return false;
-	TCOD_IFNOT( filename != NULL ) {
-		return false;
-	}
-	f=fopen(filename,"rb");
-	TCOD_IFNOT( f!=NULL ) {
-		return false;
-	}
-	if (fscanf(f, "ASCII-Paint v%g", &version) != 1 ) {
-		fclose(f);
-		return false;
-	}
-	if (fscanf(f, "%i %i", &width, &height) != 2 ) {
-		fclose(f);
-		return false;
-	}
-	TCOD_IFNOT ( width > 0 && height > 0) {
-		fclose(f);
-		return false;
-	}
-	if ( con->w != width || con->h != height ) {
-		/* resize console */
-		if (con->buf) free(con->buf);
-		if (con->oldbuf) free(con->oldbuf);
-		con->buf = (char_t *)calloc(sizeof(char_t),width*height);
-		con->oldbuf = (char_t *)calloc(sizeof(char_t),width*height);
-		con->w=width;
-		con->h=height;
-	}
-	TCOD_console_read_asc(con,f,width,height,version);
-	return true;
-}
-
 bool TCOD_console_save_asc(TCOD_console_t pcon, const char *filename) {
 	static float version = 0.3f;
 	FILE *f;

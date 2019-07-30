@@ -105,7 +105,7 @@ TCODLIB_API bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
 
 /* ASCII paint file support */
 TCODLIB_API
-TCODLIB_API bool TCOD_console_load_asc(TCOD_console_t con, const char *filename);
+TCODLIB_API
 TCODLIB_API bool TCOD_console_load_apf(TCOD_console_t con, const char *filename);
 TCODLIB_API bool TCOD_console_save_asc(TCOD_console_t con, const char *filename);
 TCODLIB_API bool TCOD_console_save_apf(TCOD_console_t con, const char *filename);

@@ -122,7 +122,7 @@ Doryen::Console::Console( const char *filename )
 
     float version;
 
-    fscanf( file, "ASCII-Paint v%g", &version );
+    fscanf( file, "Dorpy Version: %g", &version );
 
     int width;
     int height;
@@ -203,6 +203,8 @@ Doryen::Console::Console( const char *filename )
         // Not implement.
     }
 
+    data = console;
+
     fclose( file );
 }
 
@@ -259,7 +261,110 @@ void Doryen::Console::initRoot( int w, int h, const char *title, bool fullscreen
 
 bool Doryen::Console::loadAsc( const char *filename )
 {
-	return TCOD_console_load_asc(data,filename) != 0;
+    if ( filename == nullptr )
+    {
+        // Throw Error
+        return false;
+    }
+
+    FILE *file;
+
+    file = fopen( filename, "rb" );
+
+    if ( file == nullptr )
+    {
+        // Throw Error
+        return false;
+    }
+
+    float version;
+
+    fscanf( file, "Dorpy Version: %g", &version );
+
+    int width;
+    int height;
+
+    fscanf( file, "%i %i", &width, &height );
+
+    if ( width < 0 || height < 0 )
+    {
+        // Throw Error
+        return false;
+    }
+
+    TCOD_console_data_t *console = ( TCOD_console_data_t * ) data;
+
+    console->w = width;
+    console->h = height;
+
+    console->fore = TCOD_white;
+    console->back = TCOD_black;
+    console->fade = 255;
+    console->buf = new char_t[console->w * console->h];
+    console->oldbuf = new char_t[console->w * console->h];
+    console->bkgnd_flag = TCOD_BKGND_NONE;
+    console->alignment = TCOD_LEFT;
+
+    windowClose = false;
+
+    for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
+    {
+        controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
+        controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
+    }
+
+    if ( strstr( filename, ".asc" ))
+    {
+        while ( fgetc( file ) != '#' )
+        {
+            for ( int x = 0; x < width; x++ )
+            {
+                for ( int y = 0; y < height; y++ )
+                {
+                    TCOD_color_t foreground;
+                    TCOD_color_t background;
+
+                    int c = fgetc( file );
+
+                    foreground.r = fgetc( file );
+                    foreground.g = fgetc( file );
+                    foreground.b = fgetc( file );
+
+                    background.r = fgetc( file );
+                    background.g = fgetc( file );
+                    background.b = fgetc( file );
+
+                    // Skip solid/walkable info
+                    if ( version >= 0.3f )
+                    {
+                        fgetc( file );
+                        fgetc( file );
+                    }
+
+                    if ( c < 0 || c > TCOD_ctx.max_font_chars )
+                    {
+                        // Throw Error
+                        return false;
+                    }
+
+                    int offset = y * console->w + x;
+
+                    console->buf[ offset ].c = c;
+                    console->buf[ offset ].cf = TCOD_ctx.ascii_to_tcod[ c ];
+                    console->buf[ offset ].fore = foreground;
+                    console->buf[ offset ].back = background;
+                }
+            }
+        }
+    }
+    else
+    {
+        // Not implement.
+    }
+
+    fclose( file );
+
+    return true;
 }
 
 bool Doryen::Console::saveAsc( const char *filename ) const
