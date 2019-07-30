@@ -48,3 +48,8 @@ void FrostManager::render( )
     }
     img->blit2x( Doryen::Console::root, 0, 0 );
 }
+
+Doryen::Color *FrostManager::getFrostCol( )
+{
+    return frostCol;
+}

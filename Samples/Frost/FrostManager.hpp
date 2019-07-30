@@ -13,6 +13,10 @@ class FrostManager
 
 public :
 
+    Doryen::Color frostCol[256];
+
+    Doryen::Color *getFrostCol( );
+
     FrostManager( int w, int h );
 
     ~FrostManager( );

@@ -12,11 +12,13 @@ int main( )
 {
     Doryen::Console console = Doryen::Console( );
     console.initRoot( 80, 50, "Frost test", false );
+
+    FrostManager frostManager( 160, 100 );
+
     TCOD_mouse_t mouse;
     TCOD_key_t key;
     Doryen::Platform::setFps( 25 );
-    Doryen::Color::genMap( frostCol, sizeof( keys ) / sizeof( int ), keyCols, keys );
-    FrostManager frostManager( 160, 100 );
+    Doryen::Color::genMap( frostManager.getFrostCol( ), sizeof( keys ) / sizeof( int ), keyCols, keys );
 
     while ( !Doryen::Console::isWindowClosed( ))
     {

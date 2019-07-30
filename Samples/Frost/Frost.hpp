@@ -14,8 +14,6 @@
 #define PIX_PER_FRAME 6
 #define RANGE 10
 
-static Doryen::Color frostCol[256];
-
 class Frost
 {
 
