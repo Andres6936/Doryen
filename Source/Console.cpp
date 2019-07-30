@@ -223,30 +223,34 @@ void Doryen::Console::setColorControl( TCOD_colctrl_t con, const Doryen::Color &
 
 Doryen::Color Doryen::Console::getDefaultBackground( ) const
 {
-	TCOD_color_t c= TCOD_console_get_default_background(data);
-    Doryen::Color ret;
-	ret.r=c.r;
-	ret.g=c.g;
-	ret.b=c.b;
-	return ret;
+    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
+    TCOD_color_t c = tempConsole->back;
+
+    return Doryen::Color( c.r, c.g, c.b );
 }
 
 Doryen::Color Doryen::Console::getDefaultForeground( ) const
 {
-    TCOD_color_t temp = TCOD_console_get_default_foreground( data );
-    return Doryen::Color( temp.r, temp.g, temp.b );
+    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
+    TCOD_color_t c = tempConsole->fore;
+
+    return Doryen::Color( c.r, c.g, c.b );
 }
 
 void Doryen::Console::setDefaultBackground( Doryen::Color back )
 {
-	TCOD_color_t b={back.r,back.g,back.b};
-	TCOD_console_set_default_background(data,b);
+    TCOD_color_t background = { back.r, back.g, back.b };
+
+    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
+    tempConsole->back = background;
 }
 
 void Doryen::Console::setDefaultForeground( Doryen::Color fore )
 {
-	TCOD_color_t b={fore.r,fore.g,fore.b};
-	TCOD_console_set_default_foreground(data,b);
+    TCOD_color_t foreground = { fore.r, fore.g, fore.b };
+
+    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
+    tempConsole->fore = foreground;
 }
 
 void Doryen::Console::setWindowTitle( const char *title )
