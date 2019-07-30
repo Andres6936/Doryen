@@ -7,15 +7,17 @@
 
 #include "FrostManager.hpp"
 
-#define GROW 5000.0f
-#define ANGLE_DELAY 0.2f
-#define FROST_LEVEL 0.8f
-#define SMOOTH 0.3f
-#define PIX_PER_FRAME 6
-#define RANGE 10
-
 class Frost
 {
+
+public:
+
+    static constexpr float GROW = 5000.0f;
+    static constexpr float ANGLE_DELAY = 0.2f;
+    static constexpr float FROST_LEVEL = 0.8f;
+    static constexpr float SMOOTH = 0.3f;
+    static constexpr short PIX_PER_FRAME = 6;
+    static constexpr short RANGE = 10;
 
 private:
 
