@@ -2,6 +2,15 @@
 
 Frost::Frost( int x, int y, FrostManager *nFrostManager ) : x( x ), y( y ), manager( nFrostManager )
 {
+    bestx = 0;
+    besty = 0;
+
+    rx = 0;
+    ry = 0;
+
+    ra = 0;
+    rr = 0;
+
     border = 0;
     timer = 0.0f;
 }
