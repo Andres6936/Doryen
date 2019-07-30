@@ -104,7 +104,7 @@ TCODLIB_API void TCOD_console_disable_keyboard_repeat();
 TCODLIB_API bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
 
 /* ASCII paint file support */
-TCODLIB_API TCOD_console_t TCOD_console_from_file(const char *filename);
+TCODLIB_API
 TCODLIB_API bool TCOD_console_load_asc(TCOD_console_t con, const char *filename);
 TCODLIB_API bool TCOD_console_load_apf(TCOD_console_t con, const char *filename);
 TCODLIB_API bool TCOD_console_save_asc(TCOD_console_t con, const char *filename);

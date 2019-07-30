@@ -1145,40 +1145,6 @@ static void TCOD_console_read_asc(TCOD_console_t con,FILE *f,int width, int heig
     fclose(f);
 }
 
-static void TCOD_console_read_apf(TCOD_console_t con,FILE *f,int width, int height, float version) {
-}
-
-TCOD_console_t TCOD_console_from_file(const char *filename) {
-	float version;
-	int width,height;
-	TCOD_console_t con;
-	FILE *f;
-	TCOD_IFNOT( filename != NULL ) {
-		return NULL;
-	}
-	f=fopen(filename,"rb");
-	TCOD_IFNOT( f!=NULL ) {
-		return NULL;
-	}
-	if (fscanf(f, "ASCII-Paint v%g", &version) != 1 ) {
-		fclose(f);
-		return NULL;
-	}
-	if (fscanf(f, "%i %i", &width, &height) != 2 ) {
-		fclose(f);
-		return NULL;
-	}
-	TCOD_IFNOT ( width > 0 && height > 0) {
-		fclose(f);
-		return NULL;
-	}
-	con=TCOD_console_new(width,height);
-	if ( strstr(filename,".asc") )
-		TCOD_console_read_asc(con,f,width,height,version);
-	else TCOD_console_read_apf(con,f,width,height,version);
-	return con;
-}
-
 bool TCOD_console_load_asc(TCOD_console_t pcon, const char *filename) {
 	float version;
 	int width,height;
