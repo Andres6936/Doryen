@@ -1,10 +1,14 @@
 #include "FrostManager.hpp"
 #include "Frost.hpp"
 
-FrostManager::FrostManager( int w, int h ) : w( w ), h( h )
+FrostManager::FrostManager( int width, int height )
 {
-    grid = new float[w * h];
-    img = new TCODImage( w, h );
+    w = width;
+    h = height;
+
+    grid = new float[width * height];
+
+    img = new TCODImage( width, height );
 }
 
 FrostManager::~FrostManager( )
@@ -49,7 +53,7 @@ void FrostManager::render( )
     img->blit2x( Doryen::Console::root, 0, 0 );
 }
 
-Doryen::Color *FrostManager::getFrostCol( )
+Doryen::Color *FrostManager::getFrostColor( )
 {
-    return frostCol;
+    return frostColor;
 }

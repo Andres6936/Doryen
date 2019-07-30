@@ -20,19 +20,23 @@ int main( )
 
     Doryen::Platform::setFps( 25 );
 
-    Doryen::Color::genMap( frostManager.getFrostCol( ), sizeof( keys ) / sizeof( int ), keyCols, keys );
+    Doryen::Color::genMap( frostManager.getFrostColor( ), sizeof( keys ) / sizeof( int ), keyCols, keys );
 
     while ( !console.isWindowClosed( ))
     {
         frostManager.render( );
+
         Doryen::Console::flush( );
         Doryen::Platform::checkForEvent( TCOD_EVENT_KEY_RELEASE | TCOD_EVENT_MOUSE, &key, &mouse );
+
         if ( key.vk == TCODK_BACKSPACE )
         { frostManager.clear( ); }
+
         if ( mouse.lbutton )
         {
             frostManager.addFrost( mouse.cx * 2, mouse.cy * 2 );
         }
+
         frostManager.update( Doryen::Platform::getLastFrameLength( ));
     }
 

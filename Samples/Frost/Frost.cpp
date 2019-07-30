@@ -116,7 +116,7 @@ void Frost::render( TCODImage *img )
                     float f = getValue( cx - ( x - RANGE ), cy - ( y - RANGE ));
                     int idx = ( int ) ( f * 255 );
                     idx = MIN( 255, idx );
-                    img->putPixel( cx, cy, manager->getFrostCol( )[ idx ] );
+                    img->putPixel( cx, cy, manager->getFrostColor( )[ idx ] );
                 }
             }
         }

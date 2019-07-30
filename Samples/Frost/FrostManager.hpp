@@ -11,13 +11,29 @@ class Frost;
 class FrostManager
 {
 
+private:
+
+    /**
+     * The width.
+     */
+    int w;
+
+    /**
+     * The height.
+     */
+    int h;
+
+    float *grid;
+
+    Doryen::Color frostColor[256];
+
+    TCODList <Frost *> list;
+
+    TCODImage *img;
+
 public :
 
-    Doryen::Color frostCol[256];
-
-    Doryen::Color *getFrostCol( );
-
-    FrostManager( int w, int h );
+    FrostManager( int width, int height );
 
     ~FrostManager( );
 
@@ -43,14 +59,11 @@ public :
         grid[ cx + cy * w ] = v;
     }
 
+    Doryen::Color *getFrostColor( );
+
 protected :
 
     friend class Frost;
-
-    TCODList <Frost *> list;
-    float *grid;
-    TCODImage *img;
-    int w, h;
 };
 
 #endif //LIBTCOD_FROSTMANAGER_HPP
