@@ -29,120 +29,88 @@
 #define _TCOD_SYS_HPP
 
 /**
-	@PageName system
-	@PageCategory Core
-	@PageTitle System layer
-	@PageDesc This toolkit contains some system specific miscellaneous utilities. Use them is you want your code to be easily portable.
+ * This toolkit contains some system specific miscellaneous utilities.
+ *
+ * @note Use them is you want your code to be easily portable.
  */
-
-class TCODLIB_API ITCODSDLRenderer {
+class TCODLIB_API ITCODSDLRenderer
+{
 public :
-	virtual ~ITCODSDLRenderer() {}
-	virtual void render(void *sdlSurface) = 0;
+    virtual ~ITCODSDLRenderer( )
+    { }
+
+    virtual void render( void *sdlSurface ) = 0;
 };
 
-class TCODLIB_API TCODSystem {
+/**
+ * This toolkit contains some system specific miscellaneous utilities.
+ *
+ * @note Use them is you want your code to be easily portable.
+ */
+class TCODLIB_API TCODSystem
+{
+
 public :
-	/**
-	@PageName system_time
-	@PageFather system
-	@PageTitle High precision time functions
-	@PageDesc These are functions specifically aimed at real time game development.
-	@FuncTitle Limit the frames per second
-	@FuncDesc The setFps function allows you to limit the number of frames per second.
-		If a frame is rendered faster than expected, the TCOD_console_flush function will wait so that the frame rate never exceed this value.
-		You can call this function during your game initialization.
-		You can dynamically change the frame rate. Just call this function once again.
-		<b>You should always limit the frame rate, except during benchmarks, else your game will use 100% of the CPU power</b>
-	@Cpp static void TCODSystem::setFps(int val)
-	@C void TCOD_sys_set_fps(int val)
-	@Py sys_set_fps(val)
-	@C# static void TCODSystem::setFps(int val)
-	@Lua tcod.system.setFps(val)
-	@Param val Maximum number of frames per second. 0 means unlimited frame rate.
-	*/
+
+    /**
+     * @brief  Allows you to limit the number of frames per second.
+     *
+     * If a frame is rendered faster than expected, the TCOD_console_flush
+     * function will wait so that the frame rate never exceed this value.
+     *
+     * @note You can call this function during your game initialization.
+     * @note You can dynamically change the frame rate. Just call this function
+     * once again.
+     * @note You should always limit the frame rate, except during benchmarks,
+     * else your game will use 100% of the CPU power
+     *
+     * @param val Maximum number of frames per second. 0 means unlimited frame rate.
+     */
 	static void setFps(int val);
 
-	/**
-	@PageName system_time
-	@FuncTitle Get the number of frames rendered during the last second
-	@FuncDesc The value returned by this function is updated every second.
-	@Cpp static int TCODSystem::getFps()
-	@C int TCOD_sys_get_fps()
-	@Py sys_get_fps()
-	@C# static int TCODSystem::getFps()
-	@Lua tcod.system.getFps()
-	*/
+    /**
+     * @brief Get the number of frames rendered during the last second.
+     *
+     * @note The value returned by this function is updated every second.
+     *
+     * @return Number of frames rendered during the las second.
+     */
 	static int getFps();
 
-	/**
-	@PageName system_time
-	@FuncTitle Get the duration of the last frame
-	@FuncDesc This function returns the length in seconds of the last rendered frame.
-		You can use this value to update every time dependent object in the world.
-	@Cpp static float TCODSystem::getLastFrameLength()
-	@C float TCOD_sys_get_last_frame_length()
-	@Py sys_get_last_frame_length()
-	@C# static float TCODSystem::getLastFrameLength()
-	@Lua tcod.system.getLastFrameLength()
-	@CppEx
-		// moving an objet at 5 console cells per second
-		float x=0,y=0; // object coordinates
-		x += 5 * TCODSystem::getLastFrameLength();
-		TCODConsole::root->putChar((int)(x),(int)(y),'X');
-	@CEx
-		float x=0,y=0;
-		x += 5 * TCOD_sys_get_last_frame_length();
-		TCOD_console_put_char(NULL,(int)(x),(int)(y),'X');
-	@PyEx
-		x=0.0
-		y=0.0
-		x += 5 * libtcod.sys_get_last_frame_length()
-		libtcod.console_put_char(0,int(x),int(y),'X')
-	@LuaEx
-		-- moving an objet at 5 console cells per second
-		x=0
-		y=0 -- object coordinates
-		x = x + 5 * tcod.system.getLastFrameLength()
-		libtcod.TCODConsole_root:putChar(x,y,'X')
-	*/
+    /**
+     * @brief Get the duration of the last frame.
+     *
+     * This function returns the length in seconds of the last rendered frame.
+     *
+     * @note You can use this value to update every time dependent object in the world.
+     *
+     * @return
+     */
 	static float getLastFrameLength();
 
-	/**
-	@PageName system_time
-	@FuncTitle Pause the program
-	@FuncDesc Use this function to stop the program execution for a specified number of milliseconds.
-	@Cpp static void TCODSystem::sleepMilli(uint32 val)
-	@C void TCOD_sys_sleep_milli(uint32 val)
-	@Py sys_sleep_milli(val)
-	@C# static void TCODSystem::sleepMilli(uint val)
-	@Lua tcod.system.sleepMilli(val)
-	@Param val number of milliseconds before the function returns
-	*/
+    /**
+     * @brief Pause the app.
+     *
+     * Use this function to stop the program execution for a specified number of milliseconds.
+     *
+     * @param val number of milliseconds before the function returns.
+     */
 	static void sleepMilli(uint32 val);
 
-	/**
-	@PageName system_time
-	@FuncTitle Get global timer in milliseconds
-	@FuncDesc This function returns the number of milliseconds since the program has started.
-	@Cpp static uint32 TCODSystem::getElapsedMilli()
-	@C uint32 TCOD_sys_elapsed_milli()
-	@Py sys_elapsed_milli()
-	@C# static uint TCODSystem::getElapsedMilli()
-	@Lua tcod.system.getElapsedMilli()
-	*/
+    /**
+     * @brief Get global timer in milliseconds.
+     *
+     * Returns the number of milliseconds since the program has started.
+     *
+     * @return number of milliseconds since the program has started.
+     */
 	static uint32 getElapsedMilli();
 
-	/**
-	@PageName system_time
-	@FuncTitle Get global timer in seconds
-	@FuncDesc This function returns the number of seconds since the program has started.
-	@Cpp static float TCODSystem::getElapsedSeconds()
-	@C float TCOD_sys_elapsed_seconds()
-	@Py sys_elapsed_seconds()
-	@C# static float TCODSystem::getElapsedSeconds()
-	@Lua tcod.system.getElapsedSeconds()
-	*/
+    /**
+     * Returns the number of seconds since the program has started.
+     *
+     * @return number of seconds since the program has started.
+     */
 	static float getElapsedSeconds();
 
 	/**
