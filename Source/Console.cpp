@@ -503,62 +503,6 @@ bool Doryen::Console::renderCredits( int x, int y, bool alpha )
 
 #ifndef NO_UNICODE
 
-void Doryen::Console::mapStringToFont( const wchar_t *s, int fontCharX, int fontCharY )
-{
-	TCOD_console_map_string_to_font_utf(s, fontCharX, fontCharY);
-}
-
-void Doryen::Console::print( int x, int y, const wchar_t *fmt, ... )
-{
-	va_list ap;
-	TCOD_console_data_t *dat=(TCOD_console_data_t *)data;
-	TCOD_IFNOT ( dat != NULL ) return;
-	va_start(ap,fmt);
-	TCOD_console_print_internal_utf(data,x,y,0,0,dat->bkgnd_flag,dat->alignment,TCOD_console_vsprint_utf(fmt,ap),false,false);
-	va_end(ap);
-}
-
-void
-Doryen::Console::printEx( int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ... )
-{
-	va_list ap;
-	va_start(ap,fmt);
-	TCOD_console_print_internal_utf(data,x,y,0,0,flag,alignment,TCOD_console_vsprint_utf(fmt,ap),false,false);
-	va_end(ap);
-}
-
-int Doryen::Console::printRect( int x, int y, int w, int h, const wchar_t *fmt, ... )
-{
-	va_list ap;
-	TCOD_console_data_t *dat=(TCOD_console_data_t *)data;
-	TCOD_IFNOT ( dat != NULL ) return 0;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal_utf(data,x,y,w,h,dat->bkgnd_flag,dat->alignment,
-		TCOD_console_vsprint_utf(fmt,ap),true,false);
-	va_end(ap);
-	return ret;
-}
-
-int Doryen::Console::printRectEx( int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
-                                  TCOD_alignment_t alignment, const wchar_t *fmt, ... )
-{
-	va_list ap;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal_utf(data,x,y,w,h,flag,alignment,
-		TCOD_console_vsprint_utf(fmt,ap),true,false);
-	va_end(ap);
-	return ret;
-}
-
-int Doryen::Console::getHeightRect( int x, int y, int w, int h, const wchar_t *fmt, ... )
-{
-	va_list ap;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal_utf(data,x,y,w,h,TCOD_BKGND_NONE,TCOD_LEFT,TCOD_console_vsprint_utf(fmt,ap),true,true);
-	va_end(ap);
-	return ret;
-}
-
 // ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP
 #define NB_BUFFERS 10
 

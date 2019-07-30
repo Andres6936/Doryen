@@ -649,56 +649,6 @@ namespace Doryen
         */
         static void setColorControl( TCOD_colctrl_t con, const Doryen::Color &fore, const Doryen::Color &back );
 
-#ifndef NO_UNICODE
-
-        /**
-        @PageName console_print
-        @FuncTitle Unicode functions
-        @FuncDesc those functions are similar to their ASCII equivalent, but work with unicode strings (wchar_t in C/C++).
-            Note that unicode is not supported in the python wrapper.
-        @Cpp static void TCODConsole::mapStringToFont(const wchar_t *s, int fontCharX, int fontCharY)
-        @C void TCOD_console_map_string_to_font_utf(const wchar_t *s, int fontCharX, int fontCharY)
-        */
-        static void mapStringToFont( const wchar_t *s, int fontCharX, int fontCharY );
-
-        /**
-        @PageName console_print
-        @Cpp void TCODConsole::print(int x, int y, const wchar_t *fmt, ...)
-        @C void TCOD_console_print_utf(TCOD_console_t con,int x, int y, const wchar_t *fmt, ...)
-        */
-        void print( int x, int y, const wchar_t *fmt, ... );
-
-        /**
-        @PageName console_print
-        @Cpp void TCODConsole::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ...)
-        @C void TCOD_console_print_ex_utf(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ...)
-        */
-        void printEx( int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ... );
-
-        /**
-        @PageName console_print
-        @Cpp int TCODConsole::printRect(int x, int y, int w, int h, const wchar_t *fmt, ...)
-        @C int TCOD_console_print_rect_utf(TCOD_console_t con,int x, int y, int w, int h, const wchar_t *fmt, ...)
-        */
-        int printRect( int x, int y, int w, int h, const wchar_t *fmt, ... );
-
-        /**
-        @PageName console_print
-        @Cpp int TCODConsole::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ...)
-        @C int TCOD_console_print_rect_ex_utf(TCOD_console_t con,int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt, ...)
-        */
-        int
-        printRectEx( int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const wchar_t *fmt,
-                     ... );
-
-        /**
-        @PageName console_print
-        @Cpp int TCODConsole::getHeightRect(int x, int y, int w, int h, const wchar_t *fmt, ...)
-        @C int TCOD_console_get_height_rect_utf(TCOD_console_t con,int x, int y, int w, int h, const wchar_t *fmt, ...)
-        */
-        int getHeightRect( int x, int y, int w, int h, const wchar_t *fmt, ... );
-
-#endif
 
         /**
         @PageName console_advanced
