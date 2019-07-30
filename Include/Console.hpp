@@ -248,59 +248,37 @@ namespace Doryen
         void setDefaultBackground( Doryen::Color back );
 
         /**
-        @PageName console_draw_basic
-        @FuncTitle Setting the default foreground color
-        @FuncDesc This function changes the default foreground color for a console. The default foreground color is used by several drawing functions like clear, putChar, ...
-        @Cpp void TCODConsole::setDefaultForeground(Doryen::TCODColor fore)
-        @C void TCOD_console_set_default_foreground(TCOD_console_t con,TCOD_color_t fore)
-        @Py console_set_default_foreground(con, fore)
-        @C# void TCODConsole::setForegroundColor(Doryen::TCODColor fore)
-        @Lua Console:setForegroundColor(fore)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param fore the new default foreground color for this console
-        @CppEx TCODConsole::root->setDefaultForeground(myColor)
-        @CEx TCOD_console_set_default_foreground(NULL, my_color)
-        @PyEx litbcod.console_set_default_foreground(0, my_color)
-        @LuaEx libtcod.TCODConsole_root:setForegroundColor( myColor )
-        */
+         * Changes the default foreground color for a console.
+         *
+         * The default foreground color is used by several drawing function
+         * like clear, putChar, ...
+         *
+         * @param fore the new default foreground color for this console.
+         */
         void setDefaultForeground( Doryen::Color fore );
 
         /**
-        @PageName console_draw_basic
-        @FuncTitle Clearing a console
-        @FuncDesc This function modifies all cells of a console :
-            * set the cell's background color to the console default background color
-            * set the cell's foreground color to the console default foreground color
-            * set the cell's ASCII code to 32 (space)
-        @Cpp void TCODConsole::clear()
-        @C void TCOD_console_clear(TCOD_console_t con)
-        @Py console_clear(con)
-        @C# void TCODConsole::clear()
-        @Lua Console:clear()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
+         * Modifies all cells of a console :
+         *
+         * 1- Set the cell's background color to the console default background color.
+         * 2- Set the cell's foreground color to the console default foreground color.
+         * 3- Set the cell's ASCII code to 32 (space).
+         */
         void clear( );
 
         /**
-        @PageName console_draw_basic
-        @FuncTitle Setting the background color of a cell
-        @FuncDesc This function modifies the background color of a cell, leaving other properties (foreground color and ASCII code) unchanged.
-        @Cpp void TCODConsole::setCharBackground(int x, int y, const Doryen::TCODColor &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET)
-        @C void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_color_t col, TCOD_bkgnd_flag_t flag)
-        @Py console_set_char_background(con, x,  y, col, flag=BKGND_SET)
-        @C#
-            void TCODConsole::setCharBackground(int x, int y, Doryen::TCODColor col)
-            void TCODConsole::setCharBackground(int x, int y, Doryen::TCODColor col, TCODBackgroundFlag flag)
-        @Lua
-            Console:setCharBackground(x, y, col)
-            Console:setCharBackground(x, y, col, flag)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param col the background color to use. You can use color constants
-        @Param flag this flag defines how the cell's background color is modified. See <a href="console_bkgnd_flag_t.html">TCOD_bkgnd_flag_t</a>
-        */
+         * @brief Setting the background color of a cell.
+         *
+         * Modifies the background color of a cell, leaving other properties
+         * (foreground color and ASCII code) unchanged.
+         *
+         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+         * @param col the background color to use. You can use color constants.
+         * @param flag this flag defines how the cell's background color is modified.
+         *
+         * @see TCOD_bkgnd_flag_t
+         */
         void setCharBackground( int x, int y, const Doryen::Color &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET );
 
         /**
