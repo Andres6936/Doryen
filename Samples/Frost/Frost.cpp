@@ -195,19 +195,19 @@ int main() {
     console.initRoot( 80, 50, "Frost test", false );
 	TCOD_mouse_t mouse;
 	TCOD_key_t key;
-    Plataform::setFps( 25 );
+    Doryen::Plataform::setFps( 25 );
     Doryen::Color::genMap( frostCol, sizeof( keys ) / sizeof( int ), keyCols, keys );
 	FrostManager frostManager(160,100);
     while ( !Doryen::Console::isWindowClosed( ))
     {
 		frostManager.render();
         Doryen::Console::flush( );
-        Plataform::checkForEvent( TCOD_EVENT_KEY_RELEASE | TCOD_EVENT_MOUSE, &key, &mouse );
+        Doryen::Plataform::checkForEvent( TCOD_EVENT_KEY_RELEASE | TCOD_EVENT_MOUSE, &key, &mouse );
 		if ( key.vk == TCODK_BACKSPACE ) frostManager.clear();
 		if ( mouse.lbutton ) {
 			frostManager.addFrost(mouse.cx*2,mouse.cy*2);
 		}
-        frostManager.update( Plataform::getLastFrameLength( ));
+        frostManager.update( Doryen::Plataform::getLastFrameLength( ));
 	}
 	return 0;
 }

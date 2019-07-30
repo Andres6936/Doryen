@@ -91,7 +91,7 @@ void Widget::update(const TCOD_key_t k) {
 }
 
 void Widget::updateWidgetsIntern(const TCOD_key_t k) {
-    elapsed = Plataform::getLastFrameLength( );
+    elapsed = Doryen::Plataform::getLastFrameLength( );
 	for (Widget **w=widgets.begin(); w!= widgets.end(); w++) {
 		if ( (*w)->isVisible() ) {
 			(*w)->computeSize();

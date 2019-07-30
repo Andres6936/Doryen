@@ -124,7 +124,7 @@ bool RippleManager::updateRipples(float elapsed) {
 }
 
 void RippleManager::renderRipples(const TCODImage *ground, TCODImage *groundWithRipples) {
-    float elCoef = Plataform::getElapsedSeconds( ) * 2.0f;
+    float elCoef = Doryen::Plataform::getElapsedSeconds( ) * 2.0f;
 	for ( int x = 1; x < width-1; x++ ) {
 		for ( int y = 1; y < height-1; y++ ) {
 			if ( getData(x,y) != NO_WATER ) {

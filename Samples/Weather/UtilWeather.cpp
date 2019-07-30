@@ -81,7 +81,7 @@ void Weather::update(float elapsed) {
 	if ( indicator < LIGHTNING_LEVEL ) {
 		float storm=(LIGHTNING_LEVEL-indicator)/LIGHTNING_LEVEL; // storm power 0-1
 		float lp = LIGHTNING_MIN_PROB + (int)((LIGHTNING_MAX_PROB-LIGHTNING_MIN_PROB) *storm); // nb of lightning per second
-        int fps = Plataform::getFps( );
+        int fps = Doryen::Plataform::getFps( );
 		if( fps > 0 ) {
 			int ilp=(int)(lp * fps);
 			if (TCODRandom::getInstance()->getInt(0,ilp)==0) {
