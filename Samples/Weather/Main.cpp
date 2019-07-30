@@ -168,7 +168,7 @@ int main (int argc, char *argv[]) {
 	
 	bool endCredits=false;
 
-    while ( !Doryen::Console::isWindowClosed( ))
+    while ( !console.isWindowClosed( ))
     {
 		//	read keyboard
         TCOD_key_t k = Doryen::Console::checkForKeypress( TCOD_KEY_PRESSED | TCOD_KEY_RELEASED );

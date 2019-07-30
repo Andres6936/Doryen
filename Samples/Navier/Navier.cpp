@@ -288,7 +288,7 @@ int main (int argc, char *argv[]) {
 	bool endCredits=false;
 	init();
 
-    while ( !Doryen::Console::isWindowClosed( ))
+    while ( !console.isWindowClosed( ))
     {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;

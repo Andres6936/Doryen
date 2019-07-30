@@ -110,7 +110,7 @@ int main (int argc, char *argv[]) {
 	}
 	rippleManager = new RippleManager(&waterMap);
 
-    while ( !Doryen::Console::isWindowClosed( ))
+    while ( !console.isWindowClosed( ))
     {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;

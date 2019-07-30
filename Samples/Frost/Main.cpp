@@ -11,16 +11,18 @@ Doryen::Color keyCols[4] = { Doryen::Color::black, Doryen::Color::darkerBlue, Do
 int main( )
 {
     Doryen::Console console = Doryen::Console( );
-    console.initRoot( 80, 50, "Frost test", false );
+    console.initRoot( 80, 50, "Frost Test", false );
 
-    FrostManager frostManager( 160, 100 );
+    FrostManager frostManager = FrostManager( 160, 100 );
 
     TCOD_mouse_t mouse;
     TCOD_key_t key;
+
     Doryen::Platform::setFps( 25 );
+
     Doryen::Color::genMap( frostManager.getFrostCol( ), sizeof( keys ) / sizeof( int ), keyCols, keys );
 
-    while ( !Doryen::Console::isWindowClosed( ))
+    while ( !console.isWindowClosed( ))
     {
         frostManager.render( );
         Doryen::Console::flush( );

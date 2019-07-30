@@ -197,7 +197,7 @@ namespace Doryen
          *
          * @return true if the user want exit the app, false otherwise.
          */
-        static bool isWindowClosed( );
+        bool isWindowClosed( );
 
         /**
          * Display credits, as seen in the samples.

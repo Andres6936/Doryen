@@ -209,7 +209,7 @@ int main() {
 	TCOD_mouse_t mouse;
 
 	init();
-    while ( !Doryen::Console::isWindowClosed( ))
+    while ( !console.isWindowClosed( ))
     {
 		render();
         Doryen::Console::flush( );
