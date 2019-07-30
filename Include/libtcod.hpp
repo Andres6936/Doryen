@@ -34,6 +34,7 @@
 #include "Console.hpp"
 #include "image.hpp"
 #include "Platform/Platform.hpp"
+#include "Renderer/Sdl.hpp"
 #include "mersenne.hpp"
 #include "mouse.hpp"
 #include "bresenham.hpp"

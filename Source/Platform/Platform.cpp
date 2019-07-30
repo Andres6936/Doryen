@@ -24,18 +24,34 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "libtcod.hpp"
 #include <stdio.h>
 #include <stdarg.h>
 
-void Doryen::Platform::saveScreenshot( const char *filename )
+void Doryen::Platform::setFps( int val )
 {
-	TCOD_sys_save_screenshot(filename);
+    TCOD_sys_set_fps( val );
+}
+
+int Doryen::Platform::getFps( )
+{
+    return TCOD_sys_get_fps( );
+}
+
+float Doryen::Platform::getLastFrameLength( )
+{
+    return TCOD_sys_get_last_frame_length( );
 }
 
 void Doryen::Platform::sleepMilli( uint32 milliseconds )
 {
-	TCOD_sys_sleep_milli(milliseconds);
+    TCOD_sys_sleep_milli( milliseconds );
+}
+
+void Doryen::Platform::saveScreenshot( const char *filename )
+{
+    TCOD_sys_save_screenshot( filename );
 }
 
 uint32 Doryen::Platform::getElapsedMilli( )
@@ -71,21 +87,6 @@ TCOD_event_t Doryen::Platform::checkForEvent( int eventMask, TCOD_key_t *key, TC
 TCOD_renderer_t Doryen::Platform::getRenderer( )
 {
 	return TCOD_sys_get_renderer();
-}
-
-void Doryen::Platform::setFps( int val )
-{
-	TCOD_sys_set_fps(val);
-}
-
-int Doryen::Platform::getFps( )
-{
-	return TCOD_sys_get_fps();
-}
-
-float Doryen::Platform::getLastFrameLength( )
-{
-	return TCOD_sys_get_last_frame_length();
 }
 
 void Doryen::Platform::getCurrentResolution( int *w, int *h )
