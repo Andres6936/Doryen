@@ -19,7 +19,7 @@ FrostManager::~FrostManager( )
 
 void FrostManager::addFrost( int x, int y )
 {
-    list.push( new Frost( x, y, this ));
+    frost.emplace_back( x, y, this );
     setValue( x, y, 1.0f );
 }
 
@@ -31,25 +31,23 @@ void FrostManager::clear( )
 
 void FrostManager::update( float elapsed )
 {
-    TCODList <Frost *> toRemove;
-    for ( Frost **it = list.begin( ); it != list.end( ); it++ )
+    for ( unsigned long i = 0; i < frost.size( ); i++ )
     {
-        if ( !( *it )->update( elapsed ))
-        { toRemove.push( *it ); }
+        if ( !frost[ i ].update( elapsed ))
+        {
+            frost.erase( frost.begin( ) + i );
+        }
     }
-    for ( Frost **it = toRemove.begin( ); it != toRemove.end( ); it++ )
-    {
-        list.removeFast( *it );
-    }
-    toRemove.clearAndDelete( );
+
 }
 
 void FrostManager::render( )
 {
-    for ( Frost **it = list.begin( ); it != list.end( ); it++ )
+    for ( Frost &temp: frost )
     {
-        ( *it )->render( img );
+        temp.render( img );
     }
+
     img->blit2x( Doryen::Console::root, 0, 0 );
 }
 

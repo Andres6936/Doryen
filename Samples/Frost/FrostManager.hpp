@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <vector>
 #include "libtcod.hpp"
 #include "libtcod_int.h"
 
@@ -27,7 +28,7 @@ private:
 
     Doryen::Color frostColor[256];
 
-    TCODList <Frost *> list;
+    std::vector <Frost> frost;
 
     TCODImage *img;
 
