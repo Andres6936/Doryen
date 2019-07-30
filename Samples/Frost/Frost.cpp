@@ -20,15 +20,20 @@ bool Frost::update( float elapsed )
     for ( int i = PIX_PER_FRAME; i > 0; i-- )
     {
         timer -= elapsed;
+
         if ( timer <= 0 )
         {
             // find a new random frost direction
             ra = TCODRandom::getInstance( )->getFloat( 0.0f, 2 * 3.1415926f );
             rr = TCODRandom::getInstance( )->getFloat( 0, 2 * RANGE );
+
             timer = ANGLE_DELAY;
+
             rx = ( int ) ( RANGE + rr * cosf( ra ));
             ry = ( int ) ( RANGE + rr * sinf( ra ));
+
             int minDist = 100000;
+
             // find closest frost pixel
             for ( int cx = 1; cx < 2 * RANGE; cx++ )
             {
@@ -113,7 +118,9 @@ bool Frost::update( float elapsed )
 void Frost::render( TCODImage *img )
 {
     int w, h;
+
     img->getSize( &w, &h );
+
     for ( int cx = x - RANGE; cx <= x + RANGE; cx++ )
     {
         if (( unsigned ) cx < ( unsigned ) w )
