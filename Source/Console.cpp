@@ -617,30 +617,6 @@ void Doryen::Console::printEx( int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignm
 	va_end(ap);
 }
 
-
-/*
-void Doryen::Console::printLine(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_print_location_t location, const char *fmt, ...) {
-	va_list ap;
-	va_start(ap,fmt);
-	switch(location)
-	{
-		case TCOD_PRINT_LEFT:
-			TCOD_console_print(data,x,y,getWidth()-x,getHeight()-y,flag,LEFT,TCOD_console_vsprint(fmt,ap),false,false);
-			break;
-		case TCOD_PRINT_RIGHT:
-			TCOD_console_print(data,x,y,x+1,getHeight()-y,flag,RIGHT,TCOD_console_vsprint(fmt,ap),false,false);
-			break;
-		case TCOD_PRINT_CENTER:
-			TCOD_console_print(data,x,y,getWidth(),getHeight()-y,flag,CENTER,TCOD_console_vsprint(fmt,ap),false,false);
-			break;
-		default:
-			TCOD_ASSERT(0);
-			break;
-	}
-	va_end(ap);
-}
-*/
-
 int Doryen::Console::printRect( int x, int y, int w, int h, const char *fmt, ... )
 {
 	va_list ap;

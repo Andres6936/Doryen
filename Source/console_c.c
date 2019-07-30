@@ -558,16 +558,6 @@ void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool e
 	}
 }
 
-void TCOD_console_print(TCOD_console_t con,int x, int y, const char *fmt, ...) {
-	va_list ap;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return;
-	va_start(ap,fmt);
-	TCOD_console_print_internal(con,x,y,0,0,dat->bkgnd_flag,
-		dat->alignment,TCOD_console_vsprint(fmt,ap), false, false);
-	va_end(ap);
-}
-
 void TCOD_console_print_ex(TCOD_console_t con,int x, int y,
 	TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...) {
 	va_list ap;
@@ -579,33 +569,12 @@ void TCOD_console_print_ex(TCOD_console_t con,int x, int y,
 	va_end(ap);
 }
 
-int TCOD_console_print_rect(TCOD_console_t con,int x, int y, int w, int h, const char *fmt, ...) {
-	int ret;
-	va_list ap;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return 0;
-	va_start(ap,fmt);
-	ret = TCOD_console_print_internal(con,x,y,w,h,dat->bkgnd_flag,dat->alignment,
-		TCOD_console_vsprint(fmt,ap), true, false);
-	va_end(ap);
-	return ret;
-}
-
 int TCOD_console_print_rect_ex(TCOD_console_t con,int x, int y, int w, int h,
 	TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment,const char *fmt, ...) {
 	int ret;
 	va_list ap;
 	va_start(ap,fmt);
 	ret = TCOD_console_print_internal(con,x,y,w,h,flag,alignment,TCOD_console_vsprint(fmt,ap), true, false);
-	va_end(ap);
-	return ret;
-}
-
-int TCOD_console_get_height_rect(TCOD_console_t con,int x, int y, int w, int h, const char *fmt, ...) {
-	int ret;
-	va_list ap;
-	va_start(ap,fmt);
-	ret = TCOD_console_print_internal(con,x,y,w,h,TCOD_BKGND_NONE,TCOD_LEFT,TCOD_console_vsprint(fmt,ap), true, true);
 	va_end(ap);
 	return ret;
 }
@@ -1119,32 +1088,6 @@ bool TCOD_console_credits_render(int x, int y, bool alpha) {
 	return true;
 }
 
-static void TCOD_console_read_asc(TCOD_console_t con,FILE *f,int width, int height, float version) {
-	int x,y;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return;
-	while(fgetc(f) != '#');
-	for(x = 0; x < width; x++) {
-	    for(y = 0; y < height; y++) {
-	    	TCOD_color_t fore,back;
-		    int c = fgetc(f);
-		    fore.r = fgetc(f);
-		    fore.g = fgetc(f);
-		    fore.b = fgetc(f);
-		    back.r = fgetc(f);
-		    back.g = fgetc(f);
-		    back.b = fgetc(f);
-		    /* skip solid/walkable info */
-		    if ( version >= 0.3f ) {
-		    	fgetc(f); 
-		    	fgetc(f);
-		    }
-		    TCOD_console_put_char_ex(con,x,y,c,fore,back);
-	    }
-    }
-    fclose(f);
-}
-
 bool TCOD_console_save_asc(TCOD_console_t pcon, const char *filename) {
 	static float version = 0.3f;
 	FILE *f;
@@ -1295,9 +1238,6 @@ typedef struct {
 	uint32 grid_width;
 	uint32 grid_height;
 } SettingsDataV1;
-
-#define FILTER_TYPE_UNCOMPRESSED 0
-#define FORMAT_TYPE_CRGBRGB 0
 
 typedef struct {
 	uint32 width;
@@ -1663,229 +1603,3 @@ bool TCOD_console_load_apf(TCOD_console_t pcon, const char *filename) {
 
 	return true;
 }
-/*
-
-bool ApfFile::Load(std::string filename){
-	detectBigEndianness();
-
-	uint32 sett = fourCC("sett");
-	uint32 imgd = fourCC("imgd");
-	uint32 LIST = fourCC("LIST");
-	uint32 LAYR = fourCC("LAYR");
-	uint32 layr = fourCC("layr");
-
-	Data data; // File data
-
-	data.details.width = 1;
-	data.details.height = 1;
-	data.details.filter = FILTER_TYPE_UNCOMPRESSED;
-	data.details.format = FORMAT_TYPE_CRGBRGB;
-
-	data.settings.show_grid = true;
-	data.settings.grid_width = 10;
-	data.settings.grid_height = 10;
-
-	data.currentLayer = NULL;
-
-	#define ERR(x) {printf("Error: %s\n. Aborting operation.",x); return false;}
-	#define ERR_NEWER(x) {printf("Error: It looks like this file was made with a newer version of Ascii-Paint\n. In particular the %s field. Aborting operation.",x); return false;}
-
-	FILE* fp = fopen(filename.c_str(), "rb");
-	if(fp == NULL) {
-		printf("The file %s could not be loaded.\n", filename.c_str());
-		return false;
-	}
-	else {
-		// read the header
-		uint32 riff;
-		if (not get32(&riff,fp)
-			or
-			not fourCCequals(riff,"RIFF")){
-			ERR("File doesn't have a RIFF header");
-		}
-		// else
-		uint32 riffSize;
-		if (!get32(&riffSize,fp)) ERR("No RIFF size field!");
-		fix(&riffSize);
-
-		bool keepGoing = true;
-		while(keepGoing and fp){ // for each subfield, try to find the APF_ field
-			uint32 apf;
-			if (not get32(&apf,fp)) break;
-			if (fourCCequals(apf,"apf ") or fourCCequals(apf,"APF ")){
-				// Process APF segment
-				while(keepGoing and fp){
-					uint32 seg;
-					if (not get32(&seg,fp)){
-						keepGoing = false;
-						break;
-					}
-					else {
-						if (seg==sett){
-							// size
-							uint32 sz;
-							get32(&sz,fp);
-							fix(&sz);
-							// version
-							uint32 ver;
-							get32(&ver,fp);
-							fix(&ver);
-							if (ver!=1) ERR_NEWER("settings");
-							// ver must be 1
-							SettingsDataV1 settingsData;
-							if (not getData((void*)&settingsData,sizeof settingsData,fp)) ERR("Can't read settings.");
-							data.settings = settingsData;
-							fix(&data.settings);
-
-							// Change app settings
-							app->setGridDimensions(data.settings.grid_width,data.settings.grid_height);
-							app->setShowGrid(data.settings.show_grid==1);
-						}
-						else if (seg==imgd){
-							// sz
-							uint32 sz;
-							get32(&sz,fp);
-							fix(&sz);
-							// version
-							uint32 ver;
-							get32(&ver,fp);
-							fix(&ver);
-							if (ver!=1) ERR_NEWER("image details");
-							// ver must be 1
-							ImageDetailsV1 dets;
-							if (not getData((void*)&dets, sizeof dets, fp)) ERR("Can't read image details.");
-							data.details = dets;
-							fix(&data.details);
-
-							// get canvas ready
-							app->canvasWidth = data.details.width;
-							app->canvasHeight = data.details.height;
-							app->initCanvas();
-
-							// delete new layer
-							app->deleteLayer(app->getCurrentLayer()->name);
-
-						}
-						else if (seg==layr){
-							// printf("Found a layer\n");
-
-							// sz
-							uint32 sz;
-							get32(&sz,fp);
-							fix(&sz);
-							// version
-							uint32 ver;
-							get32(&ver,fp);
-							fix(&ver);
-							if (ver>2) ERR_NEWER("layer spec");
-
-							if (ver==1){
-								LayerV1 layerHeader;
-								if (not getData((void*)&layerHeader, sizeof layerHeader, fp)) ERR("Can't read layer header.");
-								fix(&layerHeader);
-
-								// creat new layer data
-								LayerData* ld = new LayerData;
-								ld->header = layerHeader; // already fix'd
-								ld->data = new uint8[ld->header.dataSize];
-
-								// Read in the data chunk
-								getData((void*) ld->data, ld->header.dataSize, fp);
-
-								// push layer onto the list
-								data.currentLayer = ld;
-								data.layers.push(ld);
-							}
-							else if (ver==2){
-								LayerV2 layerHeader;
-								if (not getData((void*)&layerHeader, sizeof layerHeader, fp)) ERR("Can't read layer header.");
-								fix(&layerHeader);
-
-								// creat new layer data
-								LayerData* ld = new LayerData;
-								ld->header = layerHeader; // already fix'd
-								ld->data = new uint8[ld->header.dataSize];
-
-								// Read in the data chunk
-								getData((void*) ld->data, ld->header.dataSize, fp);
-
-								// push layer onto the list
-								data.currentLayer = ld;
-								data.layers.push(ld);
-							}
-						}
-						else {
-							// skip unknown segment
-							uint32 sz;
-							get32(&sz,fp);
-							fix(&sz);
-							fseek(fp,sz,SEEK_CUR);
-						}
-					}
-				}
-
-				// we're done!
-				keepGoing = false;
-			}
-			else {
-				// skip this segment
-				uint32 sz;
-				get32(&sz,fp);
-				fseek(fp,sz,SEEK_CUR);
-			}
-		}
-
-		// finally, copy the layers into the current document
-		for(int i=0;i<data.layers.size();i++){
-			// for now, just load the first layer
-			LayerData* ld = data.layers.get(i);
-
-			// canvas width/height have already been set...
-			Layer* l = app->addNewLayer();
-
-			// Parse layer header
-			l->name = fromFourCC(ld->header.name);
-			l->fgalpha = ld->header.fgalpha;
-			l->bgalpha = ld->header.bgalpha;
-			l->visible = (ld->header.visible==1);
-			// l->compositingMode =
-
-			// Copy data into currently selected canvas
-			uint8* imgData = ld->data;
-			CanvasImage *img = new CanvasImage;
-			// Write the brush data for every brush in the image
-			int index = 0;
-			for(int x = 0; x < app->canvasWidth; x++) {
-				for(int y = 0; y < app->canvasHeight; y++) {
-					Brush b;
-					b.symbol = (unsigned char)(imgData[index++]);
-					b.fore.r = (uint8)(imgData[index++]);
-					b.fore.g = (uint8)(imgData[index++]);
-					b.fore.b = (uint8)(imgData[index++]);
-					b.back.r = (uint8)(imgData[index++]);
-					b.back.g = (uint8)(imgData[index++]);
-					b.back.b = (uint8)(imgData[index++]);
-					b.solid = true; // deprecated
-					b.walkable = true; // deprecated
-					img->push_back(b);
-				}
-			}
-
-			app->setCanvasImage(*img);
-			delete img;
-		}
-
-		// then free all the temporary layer data
-		for(int i=0;i<data.layers.size();i++){
-			delete[]data.layers.get(i)->data;
-			delete data.layers.get(i);
-		}
-
-		// and update the layer widget
-		app->gui->layerWidget->regenerateLayerList();
-	}
-	fclose(fp);
-
-	return true;
-}
-*/
