@@ -47,7 +47,7 @@ public :
  *
  * @note Use them is you want your code to be easily portable.
  */
-class TCODLIB_API TCODSystem
+class TCODLIB_API Plataform
 {
 
 public :

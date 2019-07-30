@@ -28,91 +28,114 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void TCODSystem::saveScreenshot(const char *filename) {
+void Plataform::saveScreenshot( const char *filename )
+{
 	TCOD_sys_save_screenshot(filename);
 }
 
-void TCODSystem::sleepMilli(uint32 milliseconds) {
+void Plataform::sleepMilli( uint32 milliseconds )
+{
 	TCOD_sys_sleep_milli(milliseconds);
 }
 
-uint32 TCODSystem::getElapsedMilli() {
+uint32 Plataform::getElapsedMilli( )
+{
 	return TCOD_sys_elapsed_milli();
 }
 
-float TCODSystem::getElapsedSeconds() {
+float Plataform::getElapsedSeconds( )
+{
 	return TCOD_sys_elapsed_seconds();
 }
 
-void TCODSystem::forceFullscreenResolution(int width, int height) {
+void Plataform::forceFullscreenResolution( int width, int height )
+{
 	TCOD_sys_force_fullscreen_resolution(width,height);
 }
 
-void TCODSystem::setRenderer(TCOD_renderer_t renderer) {
+void Plataform::setRenderer( TCOD_renderer_t renderer )
+{
 	TCOD_sys_set_renderer(renderer);
 }
-TCOD_event_t TCODSystem::waitForEvent(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush) {
+
+TCOD_event_t Plataform::waitForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush )
+{
 	return TCOD_sys_wait_for_event(eventMask,key,mouse,flush);
 }
 
-TCOD_event_t TCODSystem::checkForEvent(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse) {
+TCOD_event_t Plataform::checkForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse )
+{
 	return TCOD_sys_check_for_event(eventMask,key,mouse);
 }
 
-TCOD_renderer_t TCODSystem::getRenderer() {
+TCOD_renderer_t Plataform::getRenderer( )
+{
 	return TCOD_sys_get_renderer();
 }
 
-void TCODSystem::setFps(int val) {
+void Plataform::setFps( int val )
+{
 	TCOD_sys_set_fps(val);
 }
 
-int TCODSystem::getFps() {
+int Plataform::getFps( )
+{
 	return TCOD_sys_get_fps();
 }
 
-float TCODSystem::getLastFrameLength() {
+float Plataform::getLastFrameLength( )
+{
 	return TCOD_sys_get_last_frame_length();
 }
 
-void TCODSystem::getCurrentResolution(int *w, int *h) {
+void Plataform::getCurrentResolution( int *w, int *h )
+{
 	TCOD_sys_get_current_resolution(w,h);
 }
 
-void TCODSystem::getFullscreenOffsets(int *offx, int *offy) {
+void Plataform::getFullscreenOffsets( int *offx, int *offy )
+{
 	TCOD_sys_get_fullscreen_offsets(offx,offy);
 }
 
-void TCODSystem::updateChar(int asciiCode, int fontx, int fonty,const TCODImage *img,int x,int y) {
+void Plataform::updateChar( int asciiCode, int fontx, int fonty, const TCODImage *img, int x, int y )
+{
 	TCOD_sys_update_char(asciiCode,fontx,fonty,img->data,x,y);
 }
 
-void TCODSystem::getCharSize(int *w, int *h) {
+void Plataform::getCharSize( int *w, int *h )
+{
 	TCOD_sys_get_char_size(w,h);
 }
 
 // filesystem stuff
-bool TCODSystem::createDirectory(const char *path) {
+bool Plataform::createDirectory( const char *path )
+{
 	return TCOD_sys_create_directory(path) != 0;
 }
 
-bool TCODSystem::deleteFile(const char *path) {
+bool Plataform::deleteFile( const char *path )
+{
 	return TCOD_sys_delete_file(path) != 0;
 }
 
-bool TCODSystem::deleteDirectory(const char *path) {
+bool Plataform::deleteDirectory( const char *path )
+{
 	return TCOD_sys_delete_directory(path) != 0;
 }
 
-bool TCODSystem::isDirectory(const char *path) {
+bool Plataform::isDirectory( const char *path )
+{
 	return TCOD_sys_is_directory(path) != 0;
 }
 
-TCOD_list_t TCODSystem::getDirectoryContent(const char *path, const char *pattern) {
+TCOD_list_t Plataform::getDirectoryContent( const char *path, const char *pattern )
+{
 	return TCOD_sys_get_directory_content(path,pattern);
 }
 
-bool TCODSystem::fileExists(const char * filename, ...) {
+bool Plataform::fileExists( const char *filename, ... )
+{
 	FILE * in;
 	bool ret = false;
 	char f[1024];
@@ -128,93 +151,114 @@ bool TCODSystem::fileExists(const char * filename, ...) {
 	return ret;
 }
 
-bool TCODSystem::readFile(const char *filename, unsigned char **buf, uint32 *size) {
+bool Plataform::readFile( const char *filename, unsigned char **buf, uint32 *size )
+{
 	return TCOD_sys_read_file(filename,buf,size) != 0;
 }
 
-bool TCODSystem::writeFile(const char *filename, unsigned char *buf, uint32 size) {
+bool Plataform::writeFile( const char *filename, unsigned char *buf, uint32 size )
+{
 	return TCOD_sys_write_file(filename,buf,size) != 0;
 }
 
 // clipboard stuff
-void TCODSystem::setClipboard(const char *value) {
+void Plataform::setClipboard( const char *value )
+{
 	TCOD_sys_clipboard_set(value);
 }
 
-char *TCODSystem::getClipboard() {
+char *Plataform::getClipboard( )
+{
 	return TCOD_sys_clipboard_get();
 }
 
 
 // thread stuff
-int TCODSystem::getNumCores() {
+int Plataform::getNumCores( )
+{
 	return TCOD_sys_get_num_cores();
 }
 
-TCOD_thread_t TCODSystem::newThread(int (*func)(void *), void *data) {
+TCOD_thread_t Plataform::newThread( int (*func)( void * ), void *data )
+{
 	return TCOD_thread_new(func,data);
 }
 
-void TCODSystem::deleteThread(TCOD_thread_t th) {
+void Plataform::deleteThread( TCOD_thread_t th )
+{
 	TCOD_thread_delete(th);
 }
 
-void TCODSystem::waitThread(TCOD_thread_t th) {
+void Plataform::waitThread( TCOD_thread_t th )
+{
 	TCOD_thread_wait(th);
 }
 
 // mutex
-TCOD_mutex_t TCODSystem::newMutex() {
+TCOD_mutex_t Plataform::newMutex( )
+{
 	return TCOD_mutex_new();
 }
 
-void TCODSystem::mutexIn(TCOD_mutex_t mut) {
+void Plataform::mutexIn( TCOD_mutex_t mut )
+{
 	TCOD_mutex_in(mut);
 }
 
-void TCODSystem::mutexOut(TCOD_mutex_t mut) {
+void Plataform::mutexOut( TCOD_mutex_t mut )
+{
 	TCOD_mutex_out(mut);
 }
 
-void TCODSystem::deleteMutex(TCOD_mutex_t mut) {
+void Plataform::deleteMutex( TCOD_mutex_t mut )
+{
 	TCOD_mutex_delete(mut);
 }
 
 // semaphore
-TCOD_semaphore_t TCODSystem::newSemaphore(int initVal) {
+TCOD_semaphore_t Plataform::newSemaphore( int initVal )
+{
 	return TCOD_semaphore_new(initVal);
 }
 
-void TCODSystem::lockSemaphore(TCOD_semaphore_t sem) {
+void Plataform::lockSemaphore( TCOD_semaphore_t sem )
+{
 	TCOD_semaphore_lock(sem);
 }
 
-void TCODSystem::unlockSemaphore(TCOD_semaphore_t sem) {
+void Plataform::unlockSemaphore( TCOD_semaphore_t sem )
+{
 	TCOD_semaphore_unlock(sem);
 }
 
-void TCODSystem::deleteSemaphore( TCOD_semaphore_t sem) {
+void Plataform::deleteSemaphore( TCOD_semaphore_t sem )
+{
 	TCOD_semaphore_delete(sem);
 }
 
 // condition
-TCOD_cond_t TCODSystem::newCondition() {
+TCOD_cond_t Plataform::newCondition( )
+{
 	return TCOD_condition_new();
 }
 
-void TCODSystem::signalCondition(TCOD_cond_t cond) {
+void Plataform::signalCondition( TCOD_cond_t cond )
+{
 	TCOD_condition_signal(cond);
 }
 
-void TCODSystem::broadcastCondition(TCOD_cond_t cond) {
+void Plataform::broadcastCondition( TCOD_cond_t cond )
+{
 	TCOD_condition_broadcast(cond);
 }
 
-void TCODSystem::waitCondition(TCOD_cond_t cond, TCOD_mutex_t mut) {
+void Plataform::waitCondition( TCOD_cond_t cond, TCOD_mutex_t mut )
+{
 	TCOD_condition_wait(cond, mut);
 }
 
-void TCODSystem::deleteCondition( TCOD_cond_t cond) {
+void Plataform::deleteCondition( TCOD_cond_t cond )
+{
 	TCOD_condition_delete(cond);
 }
 
@@ -223,7 +267,9 @@ static ITCODSDLRenderer *renderer=NULL;
 extern "C" void TCOD_CRenderer(void *sdl_surface) {
 	if ( renderer ) renderer->render(sdl_surface);
 }
-void TCODSystem::registerSDLRenderer(ITCODSDLRenderer *renderer) {
+
+void Plataform::registerSDLRenderer( ITCODSDLRenderer *renderer )
+{
 	::renderer = renderer;
 	TCOD_sys_register_SDL_renderer(TCOD_CRenderer);
 }

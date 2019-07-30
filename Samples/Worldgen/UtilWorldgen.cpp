@@ -217,8 +217,8 @@ void WorldGenerator::addHill(int nbHill, float baseRadius, float radiusVar, floa
 
 void WorldGenerator::setLandMass(float landMass, float waterLevel) {
 	// fix land mass. We want a proportion of landMass above sea level
-#ifndef NDEBUG	
-	float t0=TCODSystem::getElapsedSeconds();
+#ifndef NDEBUG
+    float t0 = Plataform::getElapsedSeconds( );
 #endif	
 	int heightcount[256];
 	memset(heightcount,0,sizeof(heightcount));
@@ -250,25 +250,25 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel) {
 			hm->setValue(x,y,h);
 		}
 	}
-#ifndef NDEBUG	
-	float t1=TCODSystem::getElapsedSeconds();
+#ifndef NDEBUG
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Landmass... %g\n", t1-t0 ));
 #endif
 }
 
 // function building the heightmap
 void WorldGenerator::buildBaseMap() {
-	float t0=TCODSystem::getElapsedSeconds();
+    float t0 = Plataform::getElapsedSeconds( );
 	addHill(600,16.0*HM_WIDTH/200,0.7,0.3);
 	hm->normalize();
-	float t1=TCODSystem::getElapsedSeconds();
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Hills... %g\n", t1-t0 ));
 	t0=t1;
 
 	hm->addFbm(noise,2.20*HM_WIDTH/400,2.20*HM_WIDTH/400,0,0,10.0f,1.0,2.05);
 	hm->normalize();
 	hm2->copy(hm);
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Fbm... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -285,14 +285,14 @@ void WorldGenerator::buildBaseMap() {
 			}
 	    }
 	}
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Flatten plains... %g\n", t1-t0 ));
 	t0=t1;
 
 
 	// we use a custom erosion algo
 	//hm->rainErosion(15000*HM_WIDTH/400,0.03,0.01,wgRng);
-	//t1=TCODSystem::getElapsedSeconds();
+    //t1=Plataform::getElapsedSeconds();
 	//DBG(("  Erosion... %g\n", t1-t0 ));
 	//t0=t1;
 	// compute clouds
@@ -305,7 +305,7 @@ void WorldGenerator::buildBaseMap() {
 			clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f,4.0f,TCOD_NOISE_SIMPLEX));
 	    }
 	}
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Init clouds... %g\n", t1-t0 ));
 	t0=t1;
 }
@@ -318,14 +318,14 @@ void WorldGenerator::smoothMap() {
 	static const int smoothKernelDy[9]={-1,-1,-1,0,0,0,1,1,1};
 	static const float smoothKernelWeight[9]={2,8,2,8,20,8,2,8,2};
 
-#ifndef NDEBUG	
-	float t0=TCODSystem::getElapsedSeconds();
+#ifndef NDEBUG
+    float t0 = Plataform::getElapsedSeconds( );
 #endif
 	hm->kernelTransform(smoothKernelSize,smoothKernelDx,smoothKernelDy,smoothKernelWeight,-1000,1000);
 	hm2->kernelTransform(smoothKernelSize,smoothKernelDx,smoothKernelDy,smoothKernelWeight,-1000,1000);
 	hm->normalize();
-#ifndef NDEBUG	
-	float t1=TCODSystem::getElapsedSeconds();
+#ifndef NDEBUG
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Blur... %g\n", t1-t0 ));
 #endif
 }
@@ -818,7 +818,7 @@ void WorldGenerator::computePrecipitations() {
     static const float waterAdd = 0.03f;
     static const float slopeCoef = 2.0f;
     static const float basePrecip = 0.01f; // precipitation coef when slope == 0
-	float t0=TCODSystem::getElapsedSeconds();
+    float t0 = Plataform::getElapsedSeconds( );
     // north/south winds
     for (int diry=-1; diry <= 1; diry += 2 ) {
         for (int x=0; x < HM_WIDTH; x++) {
@@ -845,7 +845,7 @@ void WorldGenerator::computePrecipitations() {
             }
         }
     }
-	float t1=TCODSystem::getElapsedSeconds();
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("  North/south winds... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -875,7 +875,7 @@ void WorldGenerator::computePrecipitations() {
             }
         }
     }
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  East/west winds... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -896,7 +896,7 @@ void WorldGenerator::computePrecipitations() {
             precipitation->setValue(x,y,precip);
 		}
 	}
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  latitude... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -927,7 +927,7 @@ void WorldGenerator::computePrecipitations() {
 }
 
 void WorldGenerator::smoothPrecipitations() {
-	float t0=TCODSystem::getElapsedSeconds();
+    float t0 = Plataform::getElapsedSeconds( );
 
 	// better quality polishing blur using a 5x5 kernel
 	// faster than TCODHeightmap kernelTransform function
@@ -972,12 +972,12 @@ void WorldGenerator::smoothPrecipitations() {
 	}
 	precipitation->copy(&temphm);
 
-	float t1=TCODSystem::getElapsedSeconds();
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Blur... %g\n", t1-t0 ));
 	t0=t1;
 
 	precipitation->normalize();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("  Normalization... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -1161,7 +1161,7 @@ void WorldGenerator::computeColors() {
 }
 
 void WorldGenerator::generate(TCODRandom *wRng) {
-	float t00,t0=TCODSystem::getElapsedSeconds();
+    float t00, t0 = Plataform::getElapsedSeconds( );
 	t00=t0;
     cloudDx=cloudTotalDx=0.0f;
     Doryen::Color::genMap( mapGradient, MAX_COLOR_KEY, keyColor, keyIndex );
@@ -1177,27 +1177,27 @@ void WorldGenerator::generate(TCODRandom *wRng) {
 	biomeMap = new EBiome[HM_WIDTH*HM_HEIGHT];
 	mapData = new map_data_t[HM_WIDTH*HM_HEIGHT];
 	memset(mapData,0,sizeof(map_data_t)*HM_WIDTH*HM_HEIGHT);
-	float t1=TCODSystem::getElapsedSeconds();
+    float t1 = Plataform::getElapsedSeconds( );
 	DBG(("Initialization... %g\n", t1-t0 ));
 	t0=t1;
 
 	buildBaseMap();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Heightmap construction... %g\n", t1-t0 ));
 	t0=t1;
 
 	computePrecipitations();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Precipitation map... %g\n", t1-t0 ));
 	t0=t1;
 
 	erodeMap();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Erosion... %g\n", t1-t0 ));
 	t0=t1;
 
 	smoothMap();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Smooth... %g\n", t1-t0 ));
 	t0=t1;
 
@@ -1207,26 +1207,26 @@ void WorldGenerator::generate(TCODRandom *wRng) {
 //	for (int i=0; i < 1; i++) {
 		generateRivers();
 	}
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Rivers... %g\n", t1-t0 ));
 	t0=t1;
 
     smoothPrecipitations();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Smooth precipitations... %g\n", t1-t0 ));
 	t0=t1;
 
 	computeTemperaturesAndBiomes();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Temperature map... %g\n", t1-t0 ));
 	t0=t1;
 
 	computeColors();
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("Color map... %g\n", t1-t0 ));
 	t0=t1;
 
-	t1=TCODSystem::getElapsedSeconds();
+    t1 = Plataform::getElapsedSeconds( );
 	DBG(("TOTAL TIME... %g\n", t1-t00 ));
 }
 

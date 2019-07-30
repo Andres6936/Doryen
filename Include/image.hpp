@@ -26,7 +26,15 @@
 */
 
 class TCODLIB_API TCODImage {
-public :
+public:
+
+    friend class TCODLIB_API TCODSystem;
+
+    friend class TCODLIB_API TCODZip;
+
+    void *data;
+    bool deleteData;
+
 	/**
 	@PageName image
 	@PageTitle Image toolkit
@@ -433,11 +441,5 @@ public :
 
 	TCODImage(TCOD_image_t img) : data(img), deleteData(false) {}
 	virtual ~TCODImage();
-
-protected :
-	friend class TCODLIB_API TCODSystem;
-	friend class TCODLIB_API TCODZip;
-	void *data;
-	bool deleteData;
 };
 

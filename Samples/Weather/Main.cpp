@@ -129,7 +129,7 @@ int main (int argc, char *argv[]) {
     Doryen::Console console = Doryen::Console( );
     console.initRoot( CON_W, CON_H, "Weather system v"VERSION, false, TCOD_RENDERER_SDL );
 	TCODMouse::showCursor(true);
-	TCODSystem::setFps(25);
+    Plataform::setFps( 25 );
 	
 	weather.init(CON_W*2,CON_H*2);
 	ground = new TCODImage(CON_W*2,CON_H*2);
@@ -175,8 +175,9 @@ int main (int argc, char *argv[]) {
 		TCOD_mouse_t mouse=TCODMouse::getStatus();
 		if ( k.vk == TCODK_PRINTSCREEN ) {
 			// screenshot
-			if (! k.pressed ) TCODSystem::saveScreenshot(NULL);
-			k.vk=TCODK_NONE;
+            if ( !k.pressed )
+            { Plataform::saveScreenshot( NULL ); }
+            k.vk=TCODK_NONE;
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
             if ( !k.pressed )
@@ -184,7 +185,7 @@ int main (int argc, char *argv[]) {
             k.vk=TCODK_NONE;
 		}
 		// update the game
-		update(TCODSystem::getLastFrameLength(),k,mouse);
+        update( Plataform::getLastFrameLength( ), k, mouse );
 
 		// render the game screen
 		render();

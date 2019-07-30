@@ -119,7 +119,7 @@ void init() {
 	leftShader->init(map);
 	rightShader->init(map);
 
-	timeSecond=TCODSystem::getElapsedMilli()/1000;
+    timeSecond = Plataform::getElapsedMilli( ) / 1000;
 	
 	if (enableGammaCorrection) {
 		for (int i=0; i< 256; i++) {
@@ -137,11 +137,11 @@ void init() {
 void render() {
 	// compute lights
 	framesCount++;
-	uint32 start=TCODSystem::getElapsedMilli();
+    uint32 start = Plataform::getElapsedMilli( );
 	leftShader->compute();
-	uint32 leftEnd=TCODSystem::getElapsedMilli();
+    uint32 leftEnd = Plataform::getElapsedMilli( );
 	rightShader->compute();
-	uint32 rightEnd=TCODSystem::getElapsedMilli();
+    uint32 rightEnd = Plataform::getElapsedMilli( );
 	stdTime+=(leftEnd-start)*0.001f;
 	radTime+=(rightEnd-leftEnd)*0.001f;
 	if ( (int)(start/1000) != timeSecond ) {
@@ -213,7 +213,7 @@ int main() {
     {
 		render();
         Doryen::Console::flush( );
-		TCODSystem::checkForEvent((TCOD_event_t)TCOD_EVENT_KEY_PRESS,&k,&mouse);
+        Plataform::checkForEvent(( TCOD_event_t ) TCOD_EVENT_KEY_PRESS, &k, &mouse );
 		switch(k.vk) {
 			// move with arrows or numpad (2468)
 			case TCODK_KP8 : case TCODK_UP : move(0,-1); break;
@@ -230,7 +230,9 @@ int main() {
 					default:break;
 				}
 			break;
-			case TCODK_PRINTSCREEN : TCODSystem::saveScreenshot(NULL); break;
+            case TCODK_PRINTSCREEN :
+                Plataform::saveScreenshot( NULL );
+                break;
 			default:break;
 		}
 	}
