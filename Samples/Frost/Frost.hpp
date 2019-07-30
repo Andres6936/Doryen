@@ -17,7 +17,7 @@
 class Frost
 {
 
-public:
+private:
 
     int x;
     int y;
@@ -35,6 +35,8 @@ public:
     float rr;
 
     FrostManager *manager;
+
+public:
 
     Frost( int x, int y, FrostManager *nFrostManager );
 
