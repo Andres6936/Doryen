@@ -45,11 +45,12 @@ public :
 
 namespace Doryen
 {
+
     /**
- * This toolkit contains some system specific miscellaneous utilities.
- *
- * @note Use them is you want your code to be easily portable.
- */
+     * This toolkit contains some system specific miscellaneous utilities.
+     *
+     * @note Use them is you want your code to be easily portable.
+     */
     class Plataform
     {
 
