@@ -91,10 +91,6 @@ void TCOD_parser_error(const char *msg, ...) {
 	lex->token_type = TCOD_LEX_ERROR;
 }
 
-const char *TCOD_struct_get_name(TCOD_parser_struct_t def) {
-	return ((TCOD_struct_int_t *)def)->name;
-}
-
 /* add a property to an entity definition */
 void TCOD_struct_add_property(TCOD_parser_struct_t def,const char *name,TCOD_value_type_t type, bool mandatory) {
 	TCOD_struct_prop_t *prop=(TCOD_struct_prop_t *)calloc(1,sizeof(TCOD_struct_prop_t));
@@ -104,59 +100,12 @@ void TCOD_struct_add_property(TCOD_parser_struct_t def,const char *name,TCOD_val
 	TCOD_list_push(DEF_PROPS(def),(void *)prop);
 }
 
-/* add a list property to an entity definition */
-void TCOD_struct_add_list_property(TCOD_parser_struct_t def,const char *name,TCOD_value_type_t type, bool mandatory) {
-	TCOD_struct_add_property(def,name,type|TCOD_TYPE_LIST,mandatory);
-}
-
-void TCOD_struct_add_value_list_sized(TCOD_parser_struct_t def,const char *name, const char **value_list, int size, bool mandatory) {
-	char ** newArray = NULL;
-	/* duplicate value list to avoid issues with C# garbage collector */
- 	TCOD_value_type_t type = (TCOD_value_type_t)((int)TCOD_TYPE_VALUELIST00 + TCOD_list_size(DEF_LISTS(def)));
-	int i = 0;
-
-	if(size) newArray = calloc(size+1, sizeof(char*));
-
-	for(i = 0 ; i < size ; i++)
-		newArray[i] = TCOD_strdup(value_list[i]);
-	newArray[size] = NULL;
-
-	TCOD_struct_add_property(def,name,type,mandatory);
-	TCOD_list_push(DEF_LISTS(def),(void *)newArray);
-}
-
-/* add a value-list property to an entity definition */
-void TCOD_struct_add_value_list(TCOD_parser_struct_t def,const char *name, const char **value_list, bool mandatory) {
-	int size = 0;
-	if(value_list)
-	{
-		while(value_list[size] != NULL)
-		{
-			size++;
-		};
-	}
-	TCOD_struct_add_value_list_sized(def, name, value_list, size, mandatory);
-}
-
 
 /* add a flag (simplified bool value) to an entity definition */
-/* a flag cannot be mandatory. if present => true, if omitted => false */
-void TCOD_struct_add_flag(TCOD_parser_struct_t def,const char *propname) {
-	TCOD_list_push(DEF_FLAGS(def),(void *)TCOD_strdup(propname));
-}
 
 /* add a sub-entity to an entity definition */
 void TCOD_struct_add_structure(TCOD_parser_struct_t def, TCOD_parser_struct_t sub_definition) {
 	TCOD_list_push(((TCOD_struct_int_t *)def)->structs,(const void *)sub_definition);
-}
-
-/* check if given property is mandatory for this entity definition */
-bool TCOD_struct_is_mandatory(TCOD_parser_struct_t def, const char *propname) {
-	TCOD_struct_prop_t **iprop;
-	for (iprop=(TCOD_struct_prop_t **)TCOD_list_begin(DEF_PROPS(def)); iprop!=(TCOD_struct_prop_t **)TCOD_list_end(DEF_PROPS(def));iprop++) {
-		if ( strcmp((*iprop)->name,propname) == 0 ) return (*iprop)->mandat;
-	}
-	return false;
 }
 
 /* returns the type of given property */
@@ -620,18 +569,6 @@ TCOD_parser_t TCOD_parser_new() {
 	return (TCOD_parser_t) ent;
 }
 
-TCOD_value_type_t TCOD_parser_new_custom_type(TCOD_parser_t parser, TCOD_parser_custom_t custom_type_parser) {
-	TCOD_parser_int_t *p=(TCOD_parser_int_t *)parser;
-	TCOD_value_type_t type= TCOD_TYPE_CUSTOM00;
-	while ( p->customs[ type - TCOD_TYPE_CUSTOM00 ] && type < TCOD_TYPE_CUSTOM15 ) type=(TCOD_value_type_t)(type+1);
-	if ( p->customs[ type - TCOD_TYPE_CUSTOM00 ] ) {
-		/* no more custom types slots available */
-		return TCOD_TYPE_NONE;
-	}
-	p->customs[type - TCOD_TYPE_CUSTOM00] = custom_type_parser;
-	return type;
-}
-
 TCOD_parser_struct_t TCOD_parser_new_struct(TCOD_parser_t parser, char *name) {
 	TCOD_struct_int_t *ent = (TCOD_struct_int_t*)calloc(1,sizeof(TCOD_struct_int_t));
 	ent->name=TCOD_strdup(name);
@@ -845,42 +782,8 @@ int TCOD_parser_get_int_property(TCOD_parser_t parser, const char *name) {
 	return value ? value->i : 0;
 }
 
-int TCOD_parser_get_char_property(TCOD_parser_t parser, const char *name) {
-	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_CHAR,name);
-	return value ? value->c : 0;
-}
-
-float TCOD_parser_get_float_property(TCOD_parser_t parser, const char *name) {
-	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_FLOAT,name);
-	return value ? value->f : 0.0f;
-}
-
 const char * TCOD_parser_get_string_property(TCOD_parser_t parser, const char *name) {
 	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_STRING,name);
 	return value ? value->s : NULL;
-}
-
-TCOD_color_t TCOD_parser_get_color_property(TCOD_parser_t parser, const char *name) {
-	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_COLOR,name);
-	return value ? value->col : TCOD_black;
-}
-
-TCOD_dice_t TCOD_parser_get_dice_property(TCOD_parser_t parser, const char *name) {
-	static TCOD_dice_t default_dice={0,0,0.0f,0.0f};
-	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_DICE,name);
-	return value ? value->dice : default_dice;
-}
-
-void * TCOD_parser_get_custom_property(TCOD_parser_t parser, const char *name) {
-	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_CUSTOM00,name);
-	return value ? value->custom : NULL;
-}
-
-TCOD_list_t TCOD_parser_get_list_property(TCOD_parser_t parser, const char *name, TCOD_value_type_t type) {
-	static TCOD_list_t empty_list=NULL;
-	const TCOD_value_t *value;
-	if (! empty_list ) empty_list=TCOD_list_new();
-	value=TCOD_get_property(parser,TCOD_TYPE_LIST|type,name);
-	return value ? value->list : empty_list;
 }
 
