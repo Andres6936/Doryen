@@ -104,12 +104,12 @@ namespace Doryen
          * @param xTo Coordinates of the line's ending point.
          * @param yTo Coordinates of the line's ending point.
          *
-         * @param listener Callback called for each line's point.
+         * @param plistener Callback called for each line's point.
          * The function stops if the callback returns false.
          *
          * @return
          */
-        bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *listener );
+        bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener );
     };
 }
 

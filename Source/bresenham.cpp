@@ -32,12 +32,98 @@
 // ********** bresenham line drawing **********
 void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
 {
-    TCOD_line_init( xFrom, yFrom, xTo, yTo );
+    //TCOD_line_init( xFrom, yFrom, xTo, yTo );
+
+    origx = xFrom;
+    origy = yFrom;
+    destx = xTo;
+    desty = yTo;
+    deltax = xTo - xFrom;
+    deltay = yTo - yFrom;
+
+    if ( deltax > 0 )
+    {
+        stepx = 1;
+    }
+    else if ( deltax < 0 )
+    {
+        stepx = -1;
+    }
+    else
+    {
+        stepx = 0;
+    }
+
+    if ( deltay > 0 )
+    {
+        stepy = 1;
+    }
+    else if ( deltay < 0 )
+    {
+        stepy = -1;
+    }
+    else
+    {
+        stepy = 0;
+    }
+
+    if ( stepx * deltax > stepy * deltay )
+    {
+        e = stepx * deltax;
+
+        deltax = deltax * 2;
+        deltay = deltay * 2;
+    }
+    else
+    {
+        e = stepy * deltay;
+
+        deltax = deltax * 2;
+        deltay = deltay * 2;
+    }
 }
 
 bool Doryen::Line::step( int *xCur, int *yCur )
 {
-    return TCOD_line_step( xCur, yCur ) != 0;
+    //return TCOD_line_step( xCur, yCur ) != 0;
+
+    if ( stepx * deltax > stepy * deltay )
+    {
+        if ( origx == destx )
+        {
+            return true;
+        }
+
+        origx = origx + stepx;
+        e = e - stepy * deltay;
+
+        if ( e < 0 )
+        {
+            origy = origy + stepy;
+            e = e + stepx * deltax;
+        }
+    }
+    else
+    {
+        if ( origy == desty )
+        {
+            return true;
+        }
+
+        origy = origy + stepy;
+        e = e - stepx * deltax;
+
+        if ( e < 0 )
+        {
+            origx = origx + stepx;
+            e = e + stepy * deltay;
+        }
+    }
+
+    *xCur = origx;
+    *yCur = origy;
+
+    return false;
 }
 
 static TCODLineListener *listener = NULL;
@@ -52,6 +138,64 @@ bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListene
 {
     listener = plistener;
     return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
+
+//    origx=xFrom;
+//    origy=yFrom;
+//    destx=xTo;
+//    desty=yTo;
+//    deltax=xTo - xFrom;
+//    deltay=yTo - yFrom;
+//
+//    if (deltax > 0)
+//    {
+//        stepx = 1;
+//    }
+//    else if (deltax < 0)
+//    {
+//        stepx = -1;
+//    }
+//    else
+//    {
+//        stepx = 0;
+//    }
+//
+//    if (deltay > 0)
+//    {
+//        stepy = 1;
+//    }
+//    else if (deltay < 0)
+//    {
+//        stepy = -1;
+//    }
+//    else
+//    {
+//        stepy = 0;
+//    }
+//
+//    if (stepx * deltax > stepy * deltay)
+//    {
+//        e = stepx * deltax;
+//
+//        deltax = deltax * 2;
+//        deltay = deltay * 2;
+//    }
+//    else
+//    {
+//        e = stepy * deltay;
+//
+//        deltax = deltax * 2;
+//        deltay = deltay * 2;
+//    }
+//
+//    while(!step(&xFrom, &yFrom))
+//    {
+//        if (! listener->putPoint(xFrom, yFrom))
+//        {
+//            return false;
+//        }
+//    }
+//
+//    return true;
 }
 
 Doryen::Line::Line( )
