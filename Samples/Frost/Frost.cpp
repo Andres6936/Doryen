@@ -85,8 +85,8 @@ bool Frost::update( float elapsed )
         int curx = bestx;
         int cury = besty;
         // frosting
-        TCODLine::init( curx, cury, rx, ry );
-        TCODLine::step( &curx, &cury );
+        Doryen::Line::init( curx, cury, rx, ry );
+        Doryen::Line::step( &curx, &cury );
         if (( unsigned ) ( x - RANGE + curx ) < ( unsigned ) manager->w &&
             ( unsigned ) ( y - RANGE + cury ) < ( unsigned ) manager->h )
         {

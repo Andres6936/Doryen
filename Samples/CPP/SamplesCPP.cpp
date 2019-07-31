@@ -270,7 +270,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 
     // render the line
     LineListener listener;
-    TCODLine::line( xo, yo, xd, yd, &listener );
+    Doryen::Line::line( xo, yo, xd, yd, &listener );
     // print the current flag
     sampleConsole.print( 2, 2, "%s (ENTER to change)", flagNames[ bkFlag & 0xff ] );
 }

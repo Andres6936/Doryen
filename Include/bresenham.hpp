@@ -37,62 +37,66 @@ public :
     { }
 };
 
-/**
- * @brief This toolkit is a very simple and lightweight implementation of the
- * bresenham line drawing algorithm. It allows you to follow straight paths
- * on your map very easily.
- */
-class TCODLIB_API TCODLine
+namespace Doryen
 {
 
-public :
-
     /**
-     * @brief Initializing the line.
-     *
-     * First, you have to initialize the toolkit with your starting and ending
-     * coordinates.
-     *
-     * @param xFrom Coordinates of the line's starting point.
-     * @param yFrom Coordinates of the line's starting point.
-     * @param xTo Coordinates of the line's ending point.
-     * @param yTo Coordinates of the line's ending point.
+     * @brief This toolkit is a very simple and lightweight implementation of the
+     * bresenham line drawing algorithm. It allows you to follow straight paths
+     * on your map very easily.
      */
-    static void init( int xFrom, int yFrom, int xTo, int yTo );
+    class Line
+    {
 
-    /**
-     * @brief Walking the line.
-     *
-     * You can then step through each cell with this function. It returns true
-     * when you reach the line's ending point.
-     *
-     * @param xCur the coordinates of the next cell on the line are stored
-     * here when the function returns.
-     *
-     * @param yCur the coordinates of the next cell on the line are stored
-     * here when the function returns
-     *
-     * @return true when you reach the line's ending point.
-     */
-    static bool step( int *xCur, int *yCur );
+    public :
 
-    /**
-     * @brief Callback-based function.
-     *
-     * The function returns false if the line has been interrupted by the
-     * callback (it returned false before the last point).
-     *
-     * @param xFrom Coordinates of the line's starting point.
-     * @param yFrom Coordinates of the line's starting point.
-     * @param xTo Coordinates of the line's ending point.
-     * @param yTo Coordinates of the line's ending point.
-     *
-     * @param listener Callback called for each line's point.
-     * The function stops if the callback returns false.
-     *
-     * @return
-     */
-    static bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *listener );
-};
+        /**
+         * @brief Initializing the line.
+         *
+         * First, you have to initialize the toolkit with your starting and ending
+         * coordinates.
+         *
+         * @param xFrom Coordinates of the line's starting point.
+         * @param yFrom Coordinates of the line's starting point.
+         * @param xTo Coordinates of the line's ending point.
+         * @param yTo Coordinates of the line's ending point.
+         */
+        static void init( int xFrom, int yFrom, int xTo, int yTo );
+
+        /**
+         * @brief Walking the line.
+         *
+         * You can then step through each cell with this function. It returns true
+         * when you reach the line's ending point.
+         *
+         * @param xCur the coordinates of the next cell on the line are stored
+         * here when the function returns.
+         *
+         * @param yCur the coordinates of the next cell on the line are stored
+         * here when the function returns
+         *
+         * @return true when you reach the line's ending point.
+         */
+        static bool step( int *xCur, int *yCur );
+
+        /**
+         * @brief Callback-based function.
+         *
+         * The function returns false if the line has been interrupted by the
+         * callback (it returned false before the last point).
+         *
+         * @param xFrom Coordinates of the line's starting point.
+         * @param yFrom Coordinates of the line's starting point.
+         * @param xTo Coordinates of the line's ending point.
+         * @param yTo Coordinates of the line's ending point.
+         *
+         * @param listener Callback called for each line's point.
+         * The function stops if the callback returns false.
+         *
+         * @return
+         */
+        static bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *listener );
+    };
+}
 
 #endif

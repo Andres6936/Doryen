@@ -28,12 +28,12 @@
 #include "libtcod.hpp"
 
 // ********** bresenham line drawing **********
-void TCODLine::init( int xFrom, int yFrom, int xTo, int yTo )
+void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
 {
     TCOD_line_init( xFrom, yFrom, xTo, yTo );
 }
 
-bool TCODLine::step( int *xCur, int *yCur )
+bool Doryen::Line::step( int *xCur, int *yCur )
 {
     return TCOD_line_step( xCur, yCur ) != 0;
 }
@@ -46,7 +46,7 @@ extern "C" uint8 internalListener( int x, int y )
     return listener->putPoint( x, y ) ? 1 : 0;
 }
 
-bool TCODLine::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener )
+bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener )
 {
     listener = plistener;
     return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
