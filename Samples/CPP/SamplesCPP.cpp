@@ -1300,54 +1300,54 @@ int main( int argc, char *argv[] )
     };
 
     // initialize the root console (open the game window)
-    for ( int argn = 1; argn < argc; argn++ )
+    for ( int j = 1; j < argc; j++ )
     {
-        if ( strcmp( argv[ argn ], "-font" ) == 0 && argn + 1 < argc )
+        if ( strcmp( argv[ j ], "-font" ) == 0 && j + 1 < argc )
         {
-            argn++;
-            font = argv[ argn ];
+            j++;
+            font = argv[ j ];
             fontFlags = 0;
         }
-        else if ( strcmp( argv[ argn ], "-font-nb-char" ) == 0 && argn + 2 < argc )
+        else if ( strcmp( argv[ j ], "-font-nb-char" ) == 0 && j + 2 < argc )
         {
-            argn++;
-            nbCharHoriz = atoi( argv[ argn ] );
-            argn++;
-            nbCharVertic = atoi( argv[ argn ] );
+            j++;
+            nbCharHoriz = atoi( argv[ j ] );
+            j++;
+            nbCharVertic = atoi( argv[ j ] );
             fontFlags = 0;
         }
-        else if ( strcmp( argv[ argn ], "-fullscreen-resolution" ) == 0 && argn + 2 < argc )
+        else if ( strcmp( argv[ j ], "-fullscreen-resolution" ) == 0 && j + 2 < argc )
         {
-            argn++;
-            fullscreenWidth = atoi( argv[ argn ] );
-            argn++;
-            fullscreenHeight = atoi( argv[ argn ] );
+            j++;
+            fullscreenWidth = atoi( argv[ j ] );
+            j++;
+            fullscreenHeight = atoi( argv[ j ] );
         }
-        else if ( strcmp( argv[ argn ], "-renderer" ) == 0 && argn + 1 < argc )
+        else if ( strcmp( argv[ j ], "-renderer" ) == 0 && j + 1 < argc )
         {
-            argn++;
-            renderer = ( TCOD_renderer_t ) atoi( argv[ argn ] );
+            j++;
+            renderer = ( TCOD_renderer_t ) atoi( argv[ j ] );
         }
-        else if ( strcmp( argv[ argn ], "-fullscreen" ) == 0 )
+        else if ( strcmp( argv[ j ], "-fullscreen" ) == 0 )
         {
             fullscreen = true;
         }
-        else if ( strcmp( argv[ argn ], "-font-in-row" ) == 0 )
+        else if ( strcmp( argv[ j ], "-font-in-row" ) == 0 )
         {
             fontNewFlags |= TCOD_FONT_LAYOUT_ASCII_INROW;
             fontFlags = 0;
         }
-        else if ( strcmp( argv[ argn ], "-font-greyscale" ) == 0 )
+        else if ( strcmp( argv[ j ], "-font-greyscale" ) == 0 )
         {
             fontNewFlags |= TCOD_FONT_TYPE_GREYSCALE;
             fontFlags = 0;
         }
-        else if ( strcmp( argv[ argn ], "-font-tcod" ) == 0 )
+        else if ( strcmp( argv[ j ], "-font-tcod" ) == 0 )
         {
             fontNewFlags |= TCOD_FONT_LAYOUT_TCOD;
             fontFlags = 0;
         }
-        else if ( strcmp( argv[ argn ], "-help" ) == 0 || strcmp( argv[ argn ], "-?" ) == 0 )
+        else if ( strcmp( argv[ j ], "-help" ) == 0 || strcmp( argv[ j ], "-?" ) == 0 )
         {
             printf( "options :\n" );
             printf( "-font <filename> : use a custom font\n" );
@@ -1368,7 +1368,9 @@ int main( int argc, char *argv[] )
 
     if ( fontFlags == 0 )
     { fontFlags = fontNewFlags; }
+
     Doryen::Console::setCustomFont( font, fontFlags, nbCharHoriz, nbCharVertic );
+
     if ( fullscreenWidth > 0 )
     {
         Doryen::Platform::forceFullscreenResolution( fullscreenWidth, fullscreenHeight );
@@ -1400,9 +1402,11 @@ int main( int argc, char *argv[] )
                 Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
                 Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
             }
+
             // print the sample name
             Doryen::Console::root->printEx( 2, 46 - ( nbSamples - i ), TCOD_BKGND_SET, TCOD_LEFT, samples[ i ].name );
         }
+
         // print the help message
         Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
         Doryen::Console::root->printEx( 79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
@@ -1436,9 +1440,11 @@ int main( int argc, char *argv[] )
 #endif
         /* display renderer list and current renderer */
         cur_renderer = Doryen::Platform::getRenderer( );
+
         Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
         Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
         Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS + 1 ), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :" );
+
         for ( int i = 0; i < TCOD_NB_RENDERERS; i++ )
         {
             if ( i == cur_renderer )
