@@ -118,7 +118,6 @@ TCODLIB_API TCOD_parser_t TCOD_parser_new();
 TCODLIB_API TCOD_parser_struct_t TCOD_parser_new_struct(TCOD_parser_t parser, char *name);
 TCODLIB_API TCOD_value_type_t TCOD_parser_new_custom_type(TCOD_parser_t parser,TCOD_parser_custom_t custom_type_parser);
 TCODLIB_API void TCOD_parser_run(TCOD_parser_t parser, const char *filename, TCOD_parser_listener_t *listener);
-TCODLIB_API void TCOD_parser_delete(TCOD_parser_t parser);
 /* error during parsing. can be called by the parser listener */
 TCODLIB_API void TCOD_parser_error(const char *msg, ...);
 /* default parser listener */
@@ -129,7 +128,8 @@ TCODLIB_API float TCOD_parser_get_float_property(TCOD_parser_t parser, const cha
 TCODLIB_API const char * TCOD_parser_get_string_property(TCOD_parser_t parser, const char *name);
 TCODLIB_API TCOD_color_t TCOD_parser_get_color_property(TCOD_parser_t parser, const char *name);
 TCODLIB_API TCOD_dice_t TCOD_parser_get_dice_property(TCOD_parser_t parser, const char *name);
-TCODLIB_API void TCOD_parser_get_dice_property_py(TCOD_parser_t parser, const char *name, TCOD_dice_t *dice);
+
+TCODLIB_API
 TCODLIB_API void * TCOD_parser_get_custom_property(TCOD_parser_t parser, const char *name);
 TCODLIB_API TCOD_list_t TCOD_parser_get_list_property(TCOD_parser_t parser, const char *name, TCOD_value_type_t type);
 

@@ -643,34 +643,6 @@ TCOD_parser_struct_t TCOD_parser_new_struct(TCOD_parser_t parser, char *name) {
 	return (TCOD_parser_struct_t )ent;
 }
 
-void TCOD_parser_delete(TCOD_parser_t parser) {
-	TCOD_parser_int_t *p=(TCOD_parser_int_t *)parser;
-	TCOD_struct_int_t **idef;
-	TCOD_struct_prop_t **propCleanup;
-
-	char *** listCleanup;
-	int listSize = 0;
-
- 	for (idef=(TCOD_struct_int_t **)TCOD_list_begin(p->structs); idef!= (TCOD_struct_int_t **)TCOD_list_end(p->structs); idef++) {
-		free((*idef)->name);
-
-		for ( propCleanup = (TCOD_struct_prop_t**) TCOD_list_begin((*idef)->props); propCleanup != (TCOD_struct_prop_t**)TCOD_list_end((*idef)->props); propCleanup++ ) {
-			free((*propCleanup)->name);
-		}
- 		TCOD_list_clear_and_delete((*idef)->props);
-
-
-		for ( listCleanup = (char ***) TCOD_list_begin((*idef)->lists); listCleanup != (char ***)TCOD_list_end((*idef)->lists); listCleanup++ ) {
-			while((*listCleanup)[listSize] != NULL) {
-				free((*listCleanup)[listSize]);
-				listSize++;
-			}
-		}
-		TCOD_list_clear_and_delete((*idef)->lists);
-	}
-	TCOD_list_clear_and_delete(p->structs);
-}
-
 /* parse a file */
 static TCOD_list_t *default_props;
 /* triggers callbacks in the listener for each event during parsing */
@@ -897,10 +869,6 @@ TCOD_dice_t TCOD_parser_get_dice_property(TCOD_parser_t parser, const char *name
 	static TCOD_dice_t default_dice={0,0,0.0f,0.0f};
 	const TCOD_value_t *value=TCOD_get_property(parser,TCOD_TYPE_DICE,name);
 	return value ? value->dice : default_dice;
-}
-
-void TCOD_parser_get_dice_property_py(TCOD_parser_t parser, const char *name, TCOD_dice_t *dice) {
-	*dice=TCOD_parser_get_dice_property(parser,name);
 }
 
 void * TCOD_parser_get_custom_property(TCOD_parser_t parser, const char *name) {
