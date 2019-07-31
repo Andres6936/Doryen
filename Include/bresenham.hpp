@@ -75,7 +75,7 @@ namespace Doryen
          * @param xTo Coordinates of the line's ending point.
          * @param yTo Coordinates of the line's ending point.
          */
-        static void init( int xFrom, int yFrom, int xTo, int yTo );
+        void init( int xFrom, int yFrom, int xTo, int yTo );
 
         /**
          * @brief Walking the line.
@@ -91,7 +91,7 @@ namespace Doryen
          *
          * @return true when you reach the line's ending point.
          */
-        static bool step( int *xCur, int *yCur );
+        bool step( int *xCur, int *yCur );
 
         /**
          * @brief Callback-based function.
@@ -109,7 +109,7 @@ namespace Doryen
          *
          * @return
          */
-        static bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *listener );
+        bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *listener );
     };
 }
 
