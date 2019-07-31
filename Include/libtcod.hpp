@@ -41,7 +41,6 @@
 #include "noise.hpp"
 #include "fov.hpp"
 #include "path.hpp"
-#include "lex.hpp"
 #include "parser.hpp"
 #include "tree.hpp"
 #include "bsp.hpp"

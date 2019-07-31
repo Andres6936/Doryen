@@ -61,23 +61,9 @@ int TCOD_strncasecmp(const char *s1, const char *s2, size_t n) {
 		n--;
 	} while((c1 == c2) && (c1 != '\0') && n > 0);
 	return (int) c1-c2;
-} 
-
-static const char * TCOD_LEX_names[] = {
-  "unknown token",
-  "symbol",
-  "keyword",
-  "identifier",
-  "string",
-  "integer",
-  "float",
-  "char",
-  "eof"
-};
+}
 
 static char *TCOD_last_error=NULL;
-
-const char *TCOD_lex_get_token_name(int token_type) { return TCOD_LEX_names[token_type]; }
 
 static void allocate_tok(TCOD_lex_t *lex, int len) {
 	if ( lex->toklen > len ) return;
@@ -153,18 +139,6 @@ TCOD_lex_t * TCOD_lex_new( const char **_symbols, const char **_keywords, const 
 	return (TCOD_lex_t *)lex;
 }
 
-char *TCOD_lex_get_last_javadoc(TCOD_lex_t *lex)
-{
-	if ( ! lex->javadoc_read && lex->last_javadoc_comment[0] != '\0' )
-	{
-		lex->javadoc_read=true;
-		return lex->last_javadoc_comment;
-	}
-	lex->javadoc_read=false;
-	lex->last_javadoc_comment[0]='\0';
-	return NULL;
-}
-
 void TCOD_lex_delete(TCOD_lex_t *lex)
 {
 	if ( ! lex->savept )
@@ -191,13 +165,6 @@ void TCOD_lex_set_data_buffer_internal(TCOD_lex_t *lex)
     lex->tok[0] = '\0';
 }
 
-
-void TCOD_lex_set_data_buffer(TCOD_lex_t *lex,char *dat)
-{
-	lex->buf = dat;
-	lex->allocBuf = false;
-	TCOD_lex_set_data_buffer_internal(lex);
-}
 
 bool TCOD_lex_set_data_file(TCOD_lex_t *lex, const char *_filename)
 {
@@ -639,37 +606,6 @@ int TCOD_lex_parse(TCOD_lex_t *lex)
 }
 
 
-int TCOD_lex_parse_until_token_type(TCOD_lex_t *lex,int tokenType)
-{
-	int token;
-    token = TCOD_lex_parse(lex);
-    if ( token == TCOD_LEX_ERROR ) return token;
-    while ( token != TCOD_LEX_EOF )
-    {
-        if ( token == tokenType )
-            return token;
-	    token = TCOD_lex_parse(lex);
-	    if ( token == TCOD_LEX_ERROR ) return token;
-    }
-    return token;
-}
-
-int TCOD_lex_parse_until_token_value(TCOD_lex_t *lex, const char *tokenValue)
-{
-	int token;
-    token = TCOD_lex_parse(lex);
-    if ( token == TCOD_LEX_ERROR ) return token;
-    {
-    while ( token != TCOD_LEX_EOF )
-        if ( strcmp( lex->tok, tokenValue ) == 0
-			|| ( ( lex->flags & TCOD_LEX_FLAG_NOCASE ) && TCOD_strcasecmp(lex->tok, tokenValue ) == 0 ) )
-            return token;
-	    token = TCOD_lex_parse(lex);
-	    if ( token == TCOD_LEX_ERROR ) return token;
-    }
-    return token;
-}
-
 void TCOD_lex_savepoint(TCOD_lex_t *lex,TCOD_lex_t *_savept)
 {
 	TCOD_lex_t *savept=(TCOD_lex_t *)_savept;
@@ -685,15 +621,3 @@ void TCOD_lex_restore(TCOD_lex_t *lex,TCOD_lex_t *_savept)
 	*lex = *savept;
 	lex->savept=false;
 }
-
-bool TCOD_lex_expect_token_type(TCOD_lex_t *lex,int token_type)
-{
-	return (TCOD_lex_parse(lex) == token_type);
-}
-
-bool TCOD_lex_expect_token_value(TCOD_lex_t *lex,int token_type, const char *token_value)
-{
-	TCOD_lex_parse(lex);
-	return (token_type == lex->token_type && strcmp(lex->tok, token_value) == 0 );
-}
-
