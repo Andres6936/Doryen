@@ -137,65 +137,22 @@ extern "C" uint8 internalListener( int x, int y )
 bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener )
 {
     listener = plistener;
-    return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
+    //return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
 
-//    origx=xFrom;
-//    origy=yFrom;
-//    destx=xTo;
-//    desty=yTo;
-//    deltax=xTo - xFrom;
-//    deltay=yTo - yFrom;
-//
-//    if (deltax > 0)
-//    {
-//        stepx = 1;
-//    }
-//    else if (deltax < 0)
-//    {
-//        stepx = -1;
-//    }
-//    else
-//    {
-//        stepx = 0;
-//    }
-//
-//    if (deltay > 0)
-//    {
-//        stepy = 1;
-//    }
-//    else if (deltay < 0)
-//    {
-//        stepy = -1;
-//    }
-//    else
-//    {
-//        stepy = 0;
-//    }
-//
-//    if (stepx * deltax > stepy * deltay)
-//    {
-//        e = stepx * deltax;
-//
-//        deltax = deltax * 2;
-//        deltay = deltay * 2;
-//    }
-//    else
-//    {
-//        e = stepy * deltay;
-//
-//        deltax = deltax * 2;
-//        deltay = deltay * 2;
-//    }
-//
-//    while(!step(&xFrom, &yFrom))
-//    {
-//        if (! listener->putPoint(xFrom, yFrom))
-//        {
-//            return false;
-//        }
-//    }
-//
-//    return true;
+    static Doryen::Line lineTemp = Doryen::Line( );
+
+    lineTemp.init( xFrom, yFrom, xTo, yTo );
+
+
+    while ( !lineTemp.step( &xFrom, &yFrom ))
+    {
+        if ( !listener->putPoint( xFrom, yFrom ))
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 Doryen::Line::Line( )
