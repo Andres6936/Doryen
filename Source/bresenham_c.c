@@ -81,23 +81,11 @@ bool TCOD_line_step_mt(int *xCur, int *yCur, TCOD_bresenham_data_t *data) {
 	return false;
 }
 
-bool TCOD_line_mt(int xo, int yo, int xd, int yd, TCOD_line_listener_t listener, TCOD_bresenham_data_t *data) {
-	TCOD_line_init_mt(xo,yo,xd,yd,data);
-	do {
-		if (! listener(xo,yo)) return false;
-	} while (! TCOD_line_step_mt(&xo,&yo,data));
-	return true;
-}
-
 void TCOD_line_init(int xFrom, int yFrom, int xTo, int yTo) {
 	TCOD_line_init_mt(xFrom,yFrom,xTo,yTo,&bresenham_data);
 }
 
 bool TCOD_line_step(int *xCur, int *yCur) {
 	return TCOD_line_step_mt(xCur,yCur,&bresenham_data);
-}
-
-bool TCOD_line(int xo, int yo, int xd, int yd, TCOD_line_listener_t listener) {
-	return TCOD_line_mt(xo,yo,xd,yd,listener,&bresenham_data);
 }
 

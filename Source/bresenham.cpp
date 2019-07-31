@@ -32,8 +32,6 @@
 // ********** bresenham line drawing **********
 void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
 {
-    //TCOD_line_init( xFrom, yFrom, xTo, yTo );
-
     origx = xFrom;
     origy = yFrom;
     destx = xTo;
@@ -85,8 +83,6 @@ void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
 
 bool Doryen::Line::step( int *xCur, int *yCur )
 {
-    //return TCOD_line_step( xCur, yCur ) != 0;
-
     if ( stepx * deltax > stepy * deltay )
     {
         if ( origx == destx )
@@ -128,17 +124,8 @@ bool Doryen::Line::step( int *xCur, int *yCur )
 
 static TCODLineListener *listener = NULL;
 
-// C to C++ bridge
-extern "C" uint8 internalListener( int x, int y )
-{
-    return listener->putPoint( x, y ) ? 1 : 0;
-}
-
 bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener )
 {
-    listener = plistener;
-    //return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
-
     static Doryen::Line lineTemp = Doryen::Line( );
 
     lineTemp.init( xFrom, yFrom, xTo, yTo );
@@ -146,7 +133,7 @@ bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListene
 
     while ( !lineTemp.step( &xFrom, &yFrom ))
     {
-        if ( !listener->putPoint( xFrom, yFrom ))
+        if ( !plistener->putPoint( xFrom, yFrom ))
         {
             return false;
         }
