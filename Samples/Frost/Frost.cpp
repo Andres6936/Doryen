@@ -84,9 +84,12 @@ bool Frost::update( float elapsed )
         }
         int curx = bestx;
         int cury = besty;
+
         // frosting
-        Doryen::Line::init( curx, cury, rx, ry );
-        Doryen::Line::step( &curx, &cury );
+        Doryen::Line objLine = Doryen::Line( );
+        objLine.init( curx, cury, rx, ry );
+        objLine.step( &curx, &cury );
+
         if (( unsigned ) ( x - RANGE + curx ) < ( unsigned ) manager->w &&
             ( unsigned ) ( y - RANGE + cury ) < ( unsigned ) manager->h )
         {

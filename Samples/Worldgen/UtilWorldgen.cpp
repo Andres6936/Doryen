@@ -687,7 +687,10 @@ void WorldGenerator::generateRivers() {
                 besty=ty;
             }
         }
-        Doryen::Line::init( bestx, besty, rx, ry );
+
+        Doryen::Line objLine = Doryen::Line( );
+        objLine.init( bestx, besty, rx, ry );
+
         int len = 3,cx=bestx,cy=besty;
         map_data_t *md=&mapData[cx+cy*HM_WIDTH];
         if (md->riverId == riverId ) md->riverId=0;
@@ -700,7 +703,7 @@ void WorldGenerator::generateRivers() {
                 precipitation->setValue(cx,cy,1.0f);
 	        }
 	        if (cx ==0 || cx == HM_WIDTH-1 || cy == 0 || cy == HM_HEIGHT-1 ) len = 0;
-            else if ( Doryen::Line::step( &cx, &cy ))
+            else if ( objLine.step( &cx, &cy ))
             { len = 0; }
             len --;
         } while(len > 0 );

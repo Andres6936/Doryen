@@ -25,6 +25,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <bresenham.hpp>
+
 #include "libtcod.hpp"
 
 // ********** bresenham line drawing **********
@@ -50,6 +52,19 @@ bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListene
 {
     listener = plistener;
     return TCOD_line( xFrom, yFrom, xTo, yTo, internalListener ) != 0;
+}
+
+Doryen::Line::Line( )
+{
+    stepx = 0;
+    stepy = 0;
+    e = 0;
+    deltax = 0;
+    deltay = 0;
+    origx = 0;
+    origy = 0;
+    destx = 0;
+    desty = 0;
 }
 
 

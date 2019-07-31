@@ -28,7 +28,7 @@
 #ifndef _TCOD_BRESENHAM_HPP
 #define _TCOD_BRESENHAM_HPP
 
-class TCODLIB_API TCODLineListener
+class TCODLineListener
 {
 public :
     virtual bool putPoint( int x, int y ) = 0;
@@ -48,7 +48,21 @@ namespace Doryen
     class Line
     {
 
+    private:
+
+        int stepx;
+        int stepy;
+        int e;
+        int deltax;
+        int deltay;
+        int origx;
+        int origy;
+        int destx;
+        int desty;
+
     public :
+
+        Line( );
 
         /**
          * @brief Initializing the line.
