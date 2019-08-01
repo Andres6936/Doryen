@@ -35,7 +35,7 @@ bool TCODMouse::isCursorVisible() {
 }
 
 void TCODMouse::move(int x, int y) {
-	TCOD_mouse_move(x,y);
+    SDL_WarpMouse(( Uint16 ) x, ( Uint16 ) y );
 }
 
 TCOD_mouse_t TCODMouse::getStatus() {

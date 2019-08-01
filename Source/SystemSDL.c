@@ -1816,14 +1816,6 @@ void *TCOD_sys_get_sdl_window() {
 }
 #endif
 
-void TCOD_mouse_move(int x, int y) {
-#if SDL_VERSION_ATLEAST(2,0,0)
-  SDL_WarpMouseInWindow(window, (Uint16)x,(Uint16)y);
-#else
-  SDL_WarpMouse((Uint16)x,(Uint16)y);
-#endif
-}
-
 #if SDL_VERSION_ATLEAST(2,0,0)
 void TCOD_mouse_includes_touch(bool enable) {
 	mouse_touch = enable;

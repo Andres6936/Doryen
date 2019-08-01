@@ -32,7 +32,4 @@
 
 TCODLIB_API TCOD_mouse_t TCOD_mouse_get_status();
 
-TCODLIB_API void TCOD_mouse_move(int x, int y);
-TCODLIB_API void TCOD_mouse_includes_touch(bool enable);
-
 #endif
