@@ -154,82 +154,51 @@ public :
                      TCOD_fov_algorithm_t algo = FOV_BASIC );
 
     /**
-    @PageName fov_get
-    @PageFather fov
-    @PageTitle Reading fov information
-    @FuncTitle Checking if a cell is in fov
-    @FuncDesc Once your computed the field of view, you can know if a cell is visible with :
-    @Cpp bool TCODMap::isInFov(int x, int y) const
-    @C bool TCOD_map_is_in_fov(TCOD_map_t map, int x, int y)
-    @Py map_is_in_fov(map, x, y)
-    @C# bool TCODMap::isInFov(int x, int y)
-    @Param map	In the C version, the map handler returned by the TCOD_map_new function.
-    @Param x,y	Coordinates of the cell we want to check.
-        0 <= x < map width.
-        0 <= y < map height.
-    @CppEx
-        TCODMap *map = new TCODMap(50,50); // allocate the map
-        map->setProperties(10,10,true,true); // set a cell as 'empty'
-        map->computeFov(10,10); // calculate fov from the cell 10x10
-        bool visible=map->isInFov(10,10); // is the cell 10x10 visible ?
-    @CEx
-        TCOD_map_t map = TCOD_map_new(50,50);
-        TCOD_map_set_properties(map,10,10,true,true);
-        TCOD_map_compute_fov(map,10,10);
-        bool visible = TCOD_map_is_in_fov(map,10,10);
-    @PyEx
-        map = libtcod.map_new(50,50)
-        libtcod.map_set_properties(map,10,10,True,True)
-        libtcod.map_compute_fov(map,10,10)
-        visible = libtcod.map_is_in_fov(map,10,10)
-    */
+     * @brief Checking if a cell is in fov.
+     *
+     * Once your computed the field of view, you can know if a cell is visible.
+     *
+     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+     *
+     * @return True if the cell is visible inside of fov, false otherwise.
+     */
     bool isInFov( int x, int y ) const;
 
     /**
-    @PageName fov_get
-    @FuncTitle Checking a cell transparency/walkability
-    @FuncDesc You can also retrieve transparent/walkable informations with :
- @Cpp
-     bool TCODMap::isTransparent(int x, int y) const
-     bool TCODMap::isWalkable(int x, int y) const
- @C
-     bool TCOD_map_is_transparent(TCOD_map_t map, int x, int y)
-     bool TCOD_map_is_walkable(TCOD_map_t map, int x, int y)
- @Py
-     map_is_transparent(map, x, y)
-     map_is_walkable(map, x, y)
- @C#
-     bool TCODMap::isTransparent(int x, int y)
-     bool TCODMap::isWalkable(int x, int y)
- @Param map	In the C version, the map handler returned by the TCOD_map_new function.
- @Param x,y	Coordinates of the cell we want to check.
-     0 <= x < map width.
-     0 <= y < map height.
- */
+     * @brief Checking a cell transparency/walkability.
+     *
+     * You can also retrieve transparent/walkable informations.
+     *
+     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+     *
+     * @return True if the cell is transparent/walkable inside
+     * of fov, false otherwise.
+     */
     bool isTransparent( int x, int y ) const;
 
+    /**
+     * @brief Checking a cell transparency/walkability.
+     *
+     * You can also retrieve transparent/walkable informations.
+     *
+     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+     *
+     * @return True if the cell is transparent/walkable inside
+     * of fov, false otherwise.
+     */
     bool isWalkable( int x, int y ) const;
 
     /**
-    @PageName fov_get
-    @FuncTitle Getting the map size
-    @FuncDesc You can retrieve the map size with :
- @Cpp
-     int TCODMap::getWidth() const
-     int TCODMap::getHeight() const
- @C
-     int TCOD_map_get_width(TCOD_map_t map)
-     int TCOD_map_get_height(TCOD_map_t map)
- @Py
-     map_get_width(map)
-     map_get_height(map)
- @C#
-     int TCODMap::getWidth()
-     int TCODMap::getHeight()
- @Param map	In the C version, the map handler returned by the TCOD_map_new function.
- */
+     * @return The width of the map.
+     */
     int getWidth( ) const;
 
+    /**
+     * @return The height of the map.
+     */
     int getHeight( ) const;
 };
 
