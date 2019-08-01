@@ -24,26 +24,74 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "libtcod.hpp"
 
 Doryen::Map::Map( int width, int height )
 {
-    data = TCOD_map_new( width, height );
+    if ( width < 0 || height < 0 )
+    {
+        // Throw Error
+    }
+    else
+    {
+        this->width = width;
+        this->height = height;
+        this->nbcells = width * height;
+
+        cells = new cell_t[nbcells];
+    }
 }
 
 void Doryen::Map::clear( bool transparent, bool walkable )
 {
-    TCOD_map_clear( data, transparent, walkable );
+    for ( int i = 0; i < width * height; i++ )
+    {
+        cells[ i ].transparent = transparent;
+        cells[ i ].walkable = walkable;
+        cells[ i ].fov = false;
+    }
 }
 
 void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkable )
 {
-    TCOD_map_set_properties( data, x, y, isTransparent, isWalkable );
+    if ( x < 0 || x >= width || y < 0 || y >= height )
+    {
+        // Throw Error
+    }
+    else
+    {
+        cells[ x + width * y ].transparent = isTransparent;
+        cells[ x + width * y ].walkable = isWalkable;
+    }
 }
 
-void Doryen::Map::copy( const Doryen::Map *source )
+void Doryen::Map::copy( Map &source )
 {
-    TCOD_map_copy( source->data, data );
+    // Comparamos el tamaño del mapa original (this) con el
+    // objetivo (source), Si ambos tienen un tamaño similar
+    // (esto es, source.nbcells == nbcells), no hay necesidad
+    // de elimnar el mapa del objetivo (source) para volver
+    // a reservar, simplemente sobreescribimos el mapa.
+
+    // En caso de no ser igual el tamaño de los mapas, eliminamos,
+    // reservamos y sobreescribimos.
+
+    if ( source.nbcells != nbcells )
+    {
+        delete source.cells;
+
+        source.cells = new cell_t[nbcells];
+    }
+    else
+    {
+        for ( int i = 0; i < width * height; i++ )
+        {
+            source.cells[ i ].transparent = cells[ i ].transparent;
+            source.cells[ i ].walkable = cells[ i ].walkable;
+            source.cells[ i ].fov = cells[ i ].fov;
+        }
+    }
 }
 
 void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCOD_fov_algorithm_t algo )
@@ -53,30 +101,30 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCO
 
 bool Doryen::Map::isInFov( int x, int y ) const
 {
-    return TCOD_map_is_in_fov( data, x, y ) != 0;
+    return cells[ x + width * y ].fov;
 }
 
 bool Doryen::Map::isTransparent( int x, int y ) const
 {
-    return TCOD_map_is_transparent( data, x, y ) != 0;
+    return cells[ x + width * y ].transparent;
 }
 
 bool Doryen::Map::isWalkable( int x, int y ) const
 {
-    return TCOD_map_is_walkable( data, x, y ) != 0;
+    return cells[ x + width * y ].walkable;
 }
 
 int Doryen::Map::getWidth( ) const
 {
-    return TCOD_map_get_width( data );
+    return width;
 }
 
 int Doryen::Map::getHeight( ) const
 {
-    return TCOD_map_get_height( data );
+    return height;
 }
 
 Doryen::Map::~Map( )
 {
-    TCOD_map_delete( data );
+    delete[] cells;
 }

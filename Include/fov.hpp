@@ -29,6 +29,7 @@
 #define _TCOD_FOV_HPP
 
 #include "fov_types.h"
+#include "libtcod_int.h"
 
 class TCODPath;
 
@@ -74,6 +75,11 @@ namespace Doryen
         virtual ~Map( );
 
         friend class TCODLIB_API TCODPath;
+
+        int width;
+        int height;
+        int nbcells;
+        cell_t *cells;
 
         TCOD_map_t data;
 
@@ -126,7 +132,7 @@ namespace Doryen
          *
          * @param source The map containing the source data.
          */
-        void copy( const Map *source );
+        void copy( Map &source );
 
         /**
          * @brief Computing the field of view.
