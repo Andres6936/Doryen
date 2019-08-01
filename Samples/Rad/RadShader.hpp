@@ -28,7 +28,8 @@
 class Shader {
 public :
 	virtual ~Shader() {}
-	virtual void init(TCODMap *map);
+
+    virtual void init( Doryen::Map *map );
 	// add a new light. return its ID
     virtual int addLight( int x, int y, int radius, const Doryen::Color &col );
 	// update the light with given ID
@@ -43,7 +44,7 @@ protected :
 	};
 	TCODList<Light> lights;
     Doryen::Color *lightmap;
-	TCODMap *map;
+    Doryen::Map *map;
 };
 
 class StandardShader : public Shader {
@@ -54,7 +55,8 @@ public :
 class PhotonShader : public Shader {
 public :
 	PhotonShader(float reflectivity, float selfIllumination, int nbPass);
-	void init(TCODMap *map);
+
+    void init( Doryen::Map *map );
 	void compute();
 
     int addLight( int x, int y, int radius, const Doryen::Color &col );

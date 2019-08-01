@@ -38,7 +38,8 @@ int PhotonShader::addLight( int x, int y, int radius, const Doryen::Color &col )
 	return Shader::addLight(x,y,radius,col);
 }
 
-void PhotonShader::init(TCODMap *map) {
+void PhotonShader::init( Doryen::Map *map )
+{
 	Shader::init(map);
 	int size=map->getWidth()*map->getHeight();
 	int maxDiameter=2*maxRadius+1;

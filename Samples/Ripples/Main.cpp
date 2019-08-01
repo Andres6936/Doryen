@@ -95,8 +95,8 @@ int main (int argc, char *argv[]) {
     Doryen::Color::genMap( mapGradient, MAX_COLOR_KEY, keyColor, keyIndex );
 	ground=new TCODImage(CON_W*2,CON_H*2);
 	ground2=new TCODImage(CON_W*2,CON_H*2);
-	// create a TCODMap defining water zones. Walkable = water
-	TCODMap waterMap(CON_W*2,CON_H*2);
+    // create a Doryen::Map defining water zones. Walkable = water
+    Doryen::Map waterMap( CON_W * 2, CON_H * 2 );
 
 	for (int x=0; x < CON_W*2;x++) {
 		for (int y=0; y < CON_H*2;y++) {

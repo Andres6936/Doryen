@@ -498,7 +498,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static int px = 20, py = 10; // player position
     static bool recomputeFov = true; // the player moved. must recompute fov
     static bool torch = false; // torch fx on ?
-    static TCODMap *map = NULL;
+    static Doryen::Map *map = NULL;
     static Doryen::Color darkWall( 0, 0, 100 );
     static Doryen::Color lightWall( 130, 110, 50 );
     static Doryen::Color darkGround( 50, 50, 150 );
@@ -513,7 +513,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( !map )
     {
         // initialize the map for the fov toolkit
-        map = new TCODMap( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+        map = new Doryen::Map( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
         for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
         {
             for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
@@ -816,7 +816,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 #define SQUARED_TORCH_RADIUS (TORCH_RADIUS*TORCH_RADIUS)
     static int px = 20, py = 10; // player position
     static int dx = 24, dy = 1; // destination
-    static TCODMap *map = NULL;
+    static Doryen::Map *map = NULL;
     static Doryen::Color darkWall( 0, 0, 100 );
     static Doryen::Color darkGround( 50, 50, 150 );
     static Doryen::Color lightGround( 200, 180, 50 );
@@ -831,7 +831,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( !map )
     {
         // initialize the map for the fov toolkit
-        map = new TCODMap( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+        map = new Doryen::Map( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
         for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
         {
             for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )

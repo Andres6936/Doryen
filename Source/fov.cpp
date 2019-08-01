@@ -26,57 +26,57 @@
 */
 #include "libtcod.hpp"
 
-TCODMap::TCODMap( int width, int height )
+Doryen::Map::Map( int width, int height )
 {
     data = TCOD_map_new( width, height );
 }
 
-void TCODMap::clear( bool transparent, bool walkable )
+void Doryen::Map::clear( bool transparent, bool walkable )
 {
     TCOD_map_clear( data, transparent, walkable );
 }
 
-void TCODMap::setProperties( int x, int y, bool isTransparent, bool isWalkable )
+void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkable )
 {
     TCOD_map_set_properties( data, x, y, isTransparent, isWalkable );
 }
 
-void TCODMap::copy( const TCODMap *source )
+void Doryen::Map::copy( const Doryen::Map *source )
 {
     TCOD_map_copy( source->data, data );
 }
 
-void TCODMap::computeFov( int x, int y, int maxRadius, bool light_walls, TCOD_fov_algorithm_t algo )
+void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCOD_fov_algorithm_t algo )
 {
     TCOD_map_compute_fov( data, x, y, maxRadius, light_walls, algo );
 }
 
-bool TCODMap::isInFov( int x, int y ) const
+bool Doryen::Map::isInFov( int x, int y ) const
 {
     return TCOD_map_is_in_fov( data, x, y ) != 0;
 }
 
-bool TCODMap::isTransparent( int x, int y ) const
+bool Doryen::Map::isTransparent( int x, int y ) const
 {
     return TCOD_map_is_transparent( data, x, y ) != 0;
 }
 
-bool TCODMap::isWalkable( int x, int y ) const
+bool Doryen::Map::isWalkable( int x, int y ) const
 {
     return TCOD_map_is_walkable( data, x, y ) != 0;
 }
 
-int TCODMap::getWidth( ) const
+int Doryen::Map::getWidth( ) const
 {
     return TCOD_map_get_width( data );
 }
 
-int TCODMap::getHeight( ) const
+int Doryen::Map::getHeight( ) const
 {
     return TCOD_map_get_height( data );
 }
 
-TCODMap::~TCODMap( )
+Doryen::Map::~Map( )
 {
     TCOD_map_delete( data );
 }

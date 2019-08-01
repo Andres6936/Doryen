@@ -453,7 +453,7 @@ void TCOD_path_get_destination(TCOD_path_t p, int *x, int *y) {
 typedef struct {
 	int diagonal_cost;
 	int width, height, nodes_max;
-	TCOD_map_t map; /* a TCODMap with walkability data */
+    TCOD_map_t map; /* a Map with walkability data */
 	TCOD_path_func_t func;
 	void *user_data;
 	unsigned int * distances; /* distances grid */

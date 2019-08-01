@@ -38,11 +38,13 @@
 // how many times Ripples are updated per second
 #define RIPPLE_FPS 10
 
-RippleManager::RippleManager(TCODMap *waterMap) {
+RippleManager::RippleManager( Doryen::Map *waterMap )
+{
 	init(waterMap);
 }
 
-void RippleManager::init(TCODMap *waterMap) {
+void RippleManager::init( Doryen::Map *waterMap )
+{
 	this->width=waterMap->getWidth();
 	this->height=waterMap->getHeight();
 	bool visited[width][height];

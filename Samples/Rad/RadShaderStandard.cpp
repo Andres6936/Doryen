@@ -44,7 +44,7 @@ void StandardShader::compute() {
 		float offset = 1.0f/(1.0f+(float)(l->radius*l->radius)/20);
 		float factor = 1.0f/(1.0f-offset);
 		// compute the light's fov
-		TCODMap lmap(maxx-minx+1,maxy-miny+1);
+        Doryen::Map lmap( maxx - minx + 1, maxy - miny + 1 );
 		for (int x=minx; x <= maxx; x++) {
 			for (int y=miny; y <= maxy; y++) {
 				lmap.setProperties(x-minx,y-miny,map->isWalkable(x,y),map->isTransparent(x,y));

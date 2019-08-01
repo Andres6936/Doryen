@@ -31,15 +31,21 @@ public :
 	int bspDepth;
 	int minRoomSize;
 	bool randomRoom; 
-	bool roomWalls; 			
-	void createBspDungeon(TCODMap *map, TCODRandom *rng);
+	bool roomWalls;
+
+    void createBspDungeon( Doryen::Map *map, TCODRandom *rng );
 	// libtcod bsp callback stuff
 	bool visitNode(TCODBsp *node, void *userData);
 private :
-	void vline(TCODMap *map,int x, int y1, int y2);
-	void vline_up(TCODMap *map,int x, int y);
-	void vline_down(TCODMap *map,int x, int y);
-	void hline(TCODMap *map,int x1, int y, int x2);
-	void hline_left(TCODMap *map,int x, int y);
-	void hline_right(TCODMap *map,int x, int y);		
+    void vline( Doryen::Map *map, int x, int y1, int y2 );
+
+    void vline_up( Doryen::Map *map, int x, int y );
+
+    void vline_down( Doryen::Map *map, int x, int y );
+
+    void hline( Doryen::Map *map, int x1, int y, int x2 );
+
+    void hline_left( Doryen::Map *map, int x, int y );
+
+    void hline_right( Doryen::Map *map, int x, int y );
 };

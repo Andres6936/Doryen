@@ -36,7 +36,8 @@ BspHelper::BspHelper() {
 }
 
 // draw a vertical line
-void BspHelper::vline(TCODMap *map,int x, int y1, int y2) {
+void BspHelper::vline( Doryen::Map *map, int x, int y1, int y2 )
+{
 	int y=y1;
 	int dy=(y1>y2?-1:1);
 	map->setProperties(x,y,true,true);
@@ -49,7 +50,8 @@ void BspHelper::vline(TCODMap *map,int x, int y1, int y2) {
 
 
 // draw a vertical line up until we reach an empty space
-void BspHelper::vline_up(TCODMap *map,int x, int y) {
+void BspHelper::vline_up( Doryen::Map *map, int x, int y )
+{
 	while (y >= 0 && !map->isTransparent(x,y)) {
 		map->setProperties(x,y,true,true);
 		y--;
@@ -57,7 +59,8 @@ void BspHelper::vline_up(TCODMap *map,int x, int y) {
 }
 
 // draw a vertical line down until we reach an empty space
-void BspHelper::vline_down(TCODMap *map,int x, int y) {
+void BspHelper::vline_down( Doryen::Map *map, int x, int y )
+{
 	while (y < map->getHeight() && !map->isTransparent(x,y)) {
 		map->setProperties(x,y,true,true);
 		y++;
@@ -65,7 +68,8 @@ void BspHelper::vline_down(TCODMap *map,int x, int y) {
 }
 
 // draw a horizontal line
-void BspHelper::hline(TCODMap *map,int x1, int y, int x2) {
+void BspHelper::hline( Doryen::Map *map, int x1, int y, int x2 )
+{
 	int x=x1;
 	int dx=(x1>x2?-1:1);
 	map->setProperties(x,y,true,true);
@@ -77,7 +81,8 @@ void BspHelper::hline(TCODMap *map,int x1, int y, int x2) {
 }
 
 // draw a horizontal line left until we reach an empty space
-void BspHelper::hline_left(TCODMap *map,int x, int y) {
+void BspHelper::hline_left( Doryen::Map *map, int x, int y )
+{
 	while (x >= 0 && !map->isTransparent(x,y)) {
 		map->setProperties(x,y,true,true);
 		x--;
@@ -85,7 +90,8 @@ void BspHelper::hline_left(TCODMap *map,int x, int y) {
 }
 
 // draw a horizontal line right until we reach an empty space
-void BspHelper::hline_right(TCODMap *map,int x, int y) {
+void BspHelper::hline_right( Doryen::Map *map, int x, int y )
+{
 	while (x < map->getWidth() && !map->isTransparent(x,y)) {
 		map->setProperties(x,y,true,true);
 		x++;
@@ -93,7 +99,7 @@ void BspHelper::hline_right(TCODMap *map,int x, int y) {
 }
 
 bool BspHelper::visitNode(TCODBsp *node, void *userData) {
-	TCODMap *map=(TCODMap *)userData;
+    Doryen::Map *map = ( Doryen::Map * ) userData;
 	if ( node->isLeaf() ) {
 		// calculate the room size
 		int minx = node->x+1;
@@ -180,7 +186,8 @@ bool BspHelper::visitNode(TCODBsp *node, void *userData) {
 	return true;
 }
 
-void BspHelper::createBspDungeon(TCODMap *map, TCODRandom *rng) {
+void BspHelper::createBspDungeon( Doryen::Map *map, TCODRandom *rng )
+{
 	TCODBsp *bsp = new TCODBsp(0,0,map->getWidth(),map->getHeight());
 	map->clear(false,false); // fill with walls
 	// create the BSP tree

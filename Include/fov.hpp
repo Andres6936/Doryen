@@ -32,174 +32,180 @@
 
 class TCODPath;
 
-/**
- * This toolkit allows to easily calculate the potential visible set of map
- * cells from the player position.
- *
- * @note A cell is potentially visible if the line of sight from the player
- * to the cell in unobstructed.
- *
- * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
- * to all the cells on the submap perimeter).
- *
- * 2- <b>FOV_DIAMOND</b>: based on
- * http://www.geocities.com/temerra/los_rays.html this algorithm.
- *
- * 3- <b>FOV_SHADOW</b>: based on
- * http://roguebasin.roguelikedevelopment.org/index.php?
- * title=FOV_using_recursive_shadowcasting this algorithm.
- *
- * 4- <b>FOV_PERMISSIVE_x</b>: based on
- * http://roguebasin.roguelikedevelopment.org/index.php?
- * title=Precise_Permissive_Field_of_View this algorithm.
- *
- * Permissive has a variable permissiveness parameter. You can either use the
- * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
- * permissive).
- *
- * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
- * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
- *
- * Comparison of the algorithms:
- *
- * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
- */
-class TCODLIB_API TCODMap
+namespace Doryen
 {
-public :
-
-    virtual ~TCODMap( );
-
-    friend class TCODLIB_API TCODPath;
-
-    friend class TCODLIB_API TCODDijkstra;
-
-    TCOD_map_t data;
 
     /**
-     * @brief Building the map.
+     * This toolkit allows to easily calculate the potential visible set of map
+     * cells from the player position.
      *
-     * First, you have to allocate a map of the same size as your dungeon.
+     * @note A cell is potentially visible if the line of sight from the player
+     * to the cell in unobstructed.
      *
-     * @param width The size of the map (in map cells).
-     * @param height The size of the map (in map cells).
+     * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
+     * to all the cells on the submap perimeter).
+     *
+     * 2- <b>FOV_DIAMOND</b>: based on
+     * http://www.geocities.com/temerra/los_rays.html this algorithm.
+     *
+     * 3- <b>FOV_SHADOW</b>: based on
+     * http://roguebasin.roguelikedevelopment.org/index.php?
+     * title=FOV_using_recursive_shadowcasting this algorithm.
+     *
+     * 4- <b>FOV_PERMISSIVE_x</b>: based on
+     * http://roguebasin.roguelikedevelopment.org/index.php?
+     * title=Precise_Permissive_Field_of_View this algorithm.
+     *
+     * Permissive has a variable permissiveness parameter. You can either use the
+     * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
+     * permissive).
+     *
+     * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
+     * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
+     *
+     * Comparison of the algorithms:
+     *
+     * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
      */
-    TCODMap( int width, int height );
+    class TCODLIB_API Map
+    {
+    public :
 
-    /**
-     * @brief Defining the cell properties.
-     *
-     * Then, build your dungeon by defining which cells let the light pass
-     * and which cells are walkable.
-     *
-     * @note (by default, all cells block the light)
-     * @note (by default, all cells are not-walkable).
-     *
-     * @param x Coordinate of the cell that we want to update.
-     * @param y Coordinate of the cell that we want to update.
-     *
-     * @param isTransparent If true, this cell will let the light pass else
-     * it will block the light.
-     *
-     * @param isWalkable If true, creatures can walk true this cell (it is
-     * not a wall).
-     */
-    void setProperties( int x, int y, bool isTransparent, bool isWalkable );
+        virtual ~Map( );
 
-    /**
-     * @brief Clearing the map.
-     *
-     * You can clear an existing map (setting all cells to the chosen
-     * walkable/transparent values).
-     *
-     * @param transparent Whether the cells should be transparent.
-     * @param walkable Whether the cells should be walkable.
-     */
-    void clear( bool transparent = false, bool walkable = false );
+        friend class TCODLIB_API TCODPath;
 
-    /**
-     * @brief Copying a map.
-     *
-     * You can copy an existing map into another. You have to allocate
-     * the destination map first.
-     *
-     * @param source The map containing the source data.
-     */
-    void copy( const TCODMap *source );
+        friend class TCODLIB_API TCODDijkstra;
 
-    /**
-     * @brief Computing the field of view.
-     *
-     * Once your map is allocated and empty cells have been defined, you can
-     * calculate the field of view.
-     *
-     * @param playerX Position of the player in the map. 0 <= player_x < map width.
-     * @param playerY Position of the player in the map. 0 <= player_y < map height.
-     *
-     * @param maxRadius If > 0, the fov is only computed up to maxRadius cells
-     * away from the player. Else, the range is unlimited.
-     *
-     * @param light_walls Wether the wall cells near ground cells in fov must be
-     * in fov too.
-     *
-     * @param algo FOV algorithm to use. This are:
-     *
-     * 1- FOV_BASIC
-     * 2- FOV_DIAMOND
-     * 3- FOV_SHADOW
-     * 4- FOV_PERMISSIVE_x
-     * 5- FOV_RESTRICTIVE
-     */
-    void computeFov( int playerX, int playerY, int maxRadius = 0, bool light_walls = true,
-                     TCOD_fov_algorithm_t algo = FOV_BASIC );
+        TCOD_map_t data;
 
-    /**
-     * @brief Checking if a cell is in fov.
-     *
-     * Once your computed the field of view, you can know if a cell is visible.
-     *
-     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
-     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
-     *
-     * @return True if the cell is visible inside of fov, false otherwise.
-     */
-    bool isInFov( int x, int y ) const;
+        /**
+         * @brief Building the map.
+         *
+         * First, you have to allocate a map of the same size as your dungeon.
+         *
+         * @param width The size of the map (in map cells).
+         * @param height The size of the map (in map cells).
+         */
+        Map( int width, int height );
 
-    /**
-     * @brief Checking a cell transparency/walkability.
-     *
-     * You can also retrieve transparent/walkable informations.
-     *
-     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
-     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
-     *
-     * @return True if the cell is transparent/walkable inside
-     * of fov, false otherwise.
-     */
-    bool isTransparent( int x, int y ) const;
+        /**
+         * @brief Defining the cell properties.
+         *
+         * Then, build your dungeon by defining which cells let the light pass
+         * and which cells are walkable.
+         *
+         * @note (by default, all cells block the light)
+         * @note (by default, all cells are not-walkable).
+         *
+         * @param x Coordinate of the cell that we want to update.
+         * @param y Coordinate of the cell that we want to update.
+         *
+         * @param isTransparent If true, this cell will let the light pass else
+         * it will block the light.
+         *
+         * @param isWalkable If true, creatures can walk true this cell (it is
+         * not a wall).
+         */
+        void setProperties( int x, int y, bool isTransparent, bool isWalkable );
 
-    /**
-     * @brief Checking a cell transparency/walkability.
-     *
-     * You can also retrieve transparent/walkable informations.
-     *
-     * @param x Coordinates of the cell we want to check. 0 <= x < map width.
-     * @param y Coordinates of the cell we want to check. 0 <= y < map height.
-     *
-     * @return True if the cell is transparent/walkable inside
-     * of fov, false otherwise.
-     */
-    bool isWalkable( int x, int y ) const;
+        /**
+         * @brief Clearing the map.
+         *
+         * You can clear an existing map (setting all cells to the chosen
+         * walkable/transparent values).
+         *
+         * @param transparent Whether the cells should be transparent.
+         * @param walkable Whether the cells should be walkable.
+         */
+        void clear( bool transparent = false, bool walkable = false );
 
-    /**
-     * @return The width of the map.
-     */
-    int getWidth( ) const;
+        /**
+         * @brief Copying a map.
+         *
+         * You can copy an existing map into another. You have to allocate
+         * the destination map first.
+         *
+         * @param source The map containing the source data.
+         */
+        void copy( const Map *source );
 
-    /**
-     * @return The height of the map.
-     */
-    int getHeight( ) const;
-};
+        /**
+         * @brief Computing the field of view.
+         *
+         * Once your map is allocated and empty cells have been defined, you can
+         * calculate the field of view.
+         *
+         * @param playerX Position of the player in the map. 0 <= player_x < map width.
+         * @param playerY Position of the player in the map. 0 <= player_y < map height.
+         *
+         * @param maxRadius If > 0, the fov is only computed up to maxRadius cells
+         * away from the player. Else, the range is unlimited.
+         *
+         * @param light_walls Wether the wall cells near ground cells in fov must be
+         * in fov too.
+         *
+         * @param algo FOV algorithm to use. This are:
+         *
+         * 1- FOV_BASIC
+         * 2- FOV_DIAMOND
+         * 3- FOV_SHADOW
+         * 4- FOV_PERMISSIVE_x
+         * 5- FOV_RESTRICTIVE
+         */
+        void computeFov( int playerX, int playerY, int maxRadius = 0, bool light_walls = true,
+                         TCOD_fov_algorithm_t algo = FOV_BASIC );
+
+        /**
+         * @brief Checking if a cell is in fov.
+         *
+         * Once your computed the field of view, you can know if a cell is visible.
+         *
+         * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+         * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+         *
+         * @return True if the cell is visible inside of fov, false otherwise.
+         */
+        bool isInFov( int x, int y ) const;
+
+        /**
+         * @brief Checking a cell transparency/walkability.
+         *
+         * You can also retrieve transparent/walkable informations.
+         *
+         * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+         * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+         *
+         * @return True if the cell is transparent/walkable inside
+         * of fov, false otherwise.
+         */
+        bool isTransparent( int x, int y ) const;
+
+        /**
+         * @brief Checking a cell transparency/walkability.
+         *
+         * You can also retrieve transparent/walkable informations.
+         *
+         * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+         * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+         *
+         * @return True if the cell is transparent/walkable inside
+         * of fov, false otherwise.
+         */
+        bool isWalkable( int x, int y ) const;
+
+        /**
+         * @return The width of the map.
+         */
+        int getWidth( ) const;
+
+        /**
+         * @return The height of the map.
+         */
+        int getHeight( ) const;
+    };
+
+}
+
 
 #endif

@@ -27,7 +27,8 @@
 #include "libtcod.hpp"
 
 
-TCODPath::TCODPath(const TCODMap *map, float diagonalCost) {
+TCODPath::TCODPath( const Doryen::Map *map, float diagonalCost )
+{
 	data=(void *)TCOD_path_new_using_map(map->data,diagonalCost);
 }
 
@@ -85,7 +86,8 @@ void TCODPath::getDestination(int *x,int *y) const {
 // ----------------- //
 
 //ctor
-TCODDijkstra::TCODDijkstra (TCODMap *map, float diagonalCost) {
+TCODDijkstra::TCODDijkstra( Doryen::Map *map, float diagonalCost )
+{
     data = TCOD_dijkstra_new(map->data,diagonalCost);
 }
 

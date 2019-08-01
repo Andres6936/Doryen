@@ -28,7 +28,8 @@
 #include "libtcod.hpp"
 #include "RadShader.hpp"
 
-void Shader::init(TCODMap *map) {
+void Shader::init( Doryen::Map *map )
+{
 	this->map=map;
 	int size=map->getWidth()*map->getHeight();
     lightmap = new Doryen::Color[size];

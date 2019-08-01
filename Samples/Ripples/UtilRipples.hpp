@@ -33,13 +33,14 @@ struct WaterZone {
 
 class RippleManager {
 public :
-	RippleManager(TCODMap *waterMap);
+    RippleManager( Doryen::Map *waterMap );
 	void startRipple(int dungeonx, int dungeony);
 	bool updateRipples(float elapsed);
 	void renderRipples(const TCODImage *ground, TCODImage *groundWithRipples);
 protected :
 	int width,height;
 	WaterZone zone;
-	void init(TCODMap *waterMap);
+
+    void init( Doryen::Map *waterMap );
 	float getData(int x, int y) const { return zone.data[x+y*width]; }
 };
