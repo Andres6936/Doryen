@@ -170,7 +170,8 @@ void TCOD_sys_register_SDL_renderer(SDL_renderer_t renderer) {
 	TCOD_ctx.sdl_cbk=renderer;
 }
 
-void TCOD_sys_map_ascii_to_font(asciiCode, fontCharX, fontCharY) {
+void TCOD_sys_map_ascii_to_font( int asciiCode, int fontCharX, int fontCharY )
+{
 	if ( asciiCode > 0 && asciiCode < TCOD_ctx.max_font_chars )
 		TCOD_ctx.ascii_to_tcod[asciiCode] = fontCharX + fontCharY * TCOD_ctx.fontNbCharHoriz;
 }
@@ -181,7 +182,7 @@ void TCOD_sys_load_font() {
 	int x,y;
 
 	if ( charmap ) SDL_FreeSurface(charmap);
-	charmap=TCOD_sys_load_image(TCOD_ctx.font_file);
+    charmap = static_cast<SDL_Surface *>(TCOD_sys_load_image( TCOD_ctx.font_file ));
 	if (charmap == NULL ) TCOD_fatal("SDL : cannot load %s",TCOD_ctx.font_file);
 	if ( (float)(charmap->w / TCOD_ctx.fontNbCharHoriz) != charmap->w / TCOD_ctx.fontNbCharHoriz
 		|| (float)(charmap->h / TCOD_ctx.fontNbCharVertic) != charmap->h / TCOD_ctx.fontNbCharVertic ) TCOD_fatal(" %s size is not a multiple of font layout (%dx%d)\n",
@@ -829,7 +830,23 @@ static void TCOD_sys_load_player_config() {
 	font=TCOD_parser_get_string_property(parser, "libtcod.font");
 	if ( font != NULL ) {
 		/* custom font */
-		if ( TCOD_sys_file_exists(font)) {
+
+        bool existFile = false;
+
+        FILE *fops;
+        char f[1024];
+        va_list ap;
+        vsprintf( f, font, ap );
+        va_end( ap );
+        fops = fopen( f, "rb" );
+        if ( fops )
+        {
+            fclose( fops );
+            existFile = true;
+        }
+
+        if ( existFile )
+        {
 			int fontNbCharHoriz,fontNbCharVertic;
 			strcpy(TCOD_ctx.font_file,font);
 			TCOD_ctx.font_in_row=TCOD_parser_get_bool_property(parser,"libtcod.fontInRow");
@@ -882,7 +899,25 @@ bool TCOD_sys_init(int w,int h, char_t *buf, char_t *oldbuf, bool fullscreen) {
 #endif
 	if ( ! has_startup ) TCOD_sys_startup();
 	/* check if there is a user (player) config file */
-	if ( TCOD_sys_file_exists("./libtcod.cfg")) {
+
+    bool existFile = false;
+
+    char filename[] = "./libtcod.cfg";
+
+    FILE *fops;
+    char f[1024];
+    va_list ap;
+    vsprintf( f, filename, ap );
+    va_end( ap );
+    fops = fopen( f, "rb" );
+    if ( fops )
+    {
+        fclose( fops );
+        existFile = true;
+    }
+
+    if ( existFile )
+    {
 		/* yes, read it */
 		TCOD_sys_load_player_config();
 		if (TCOD_ctx.fullscreen) fullscreen=true;
@@ -1354,14 +1389,14 @@ static void TCOD_sys_mouse_touch_conversion(SDL_Event *ev, TCOD_mouse_t *mouse) 
 
 static TCOD_mouse_t tcod_mouse={0,0,0,0,0,0,0,0,false,false,false,false,false,false,false,false};
 static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse) {
-	TCOD_event_t retMask=0;
+    int retMask = TCOD_EVENT_KEY_NONE;
 	switch(ev->type) {
 		case SDL_KEYDOWN : {		 
 			TCOD_key_t tmpKey=TCOD_sys_SDLtoTCOD(ev,TCOD_KEY_PRESSED);
 			if ( (TCOD_EVENT_KEY_PRESS & eventMask) != 0) {
-				retMask|=TCOD_EVENT_KEY_PRESS; 
-				if ( key ) *key = tmpKey; 
-				return retMask;					
+                retMask |= TCOD_EVENT_KEY_PRESS;
+				if ( key ) *key = tmpKey;
+                return static_cast<TCOD_event_t>(retMask);
 			}
 		}
 		break;
@@ -1370,7 +1405,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 			if ( (TCOD_EVENT_KEY_RELEASE & eventMask) != 0) {
 				retMask|=TCOD_EVENT_KEY_RELEASE; 
 				if ( key ) *key = tmpKey;
-				return retMask;					
+                return static_cast<TCOD_event_t>(retMask);
 			}
 		}
 		break;
@@ -1417,7 +1452,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 				mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / charHeight;
 				mouse->dcx = mouse->dx / charWidth;
 				mouse->dcy = mouse->dy / charHeight;
-				return retMask;
+                return static_cast<TCOD_event_t>(retMask);
 			}
 		break; 
 		case SDL_MOUSEBUTTONDOWN : 
@@ -1433,7 +1468,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 					case SDL_BUTTON_WHEELDOWN : mouse->wheel_down=true;break;
 #endif
 				}
-				return retMask;
+                return static_cast<TCOD_event_t>(retMask);
 			}
 		break; 
 		case SDL_MOUSEBUTTONUP : 
@@ -1445,7 +1480,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 					case SDL_BUTTON_MIDDLE : if (mousebm) mouse->mbutton_pressed = mouse_force_bm=true; mouse->mbutton = mousebm=false; break;
 					case SDL_BUTTON_RIGHT : if (mousebr) mouse->rbutton_pressed = mouse_force_br=true; mouse->rbutton = mousebr=false; break;
 				}
-				return retMask;
+                return static_cast<TCOD_event_t>(retMask);
 			}
 		break;
 		case SDL_QUIT :
@@ -1474,14 +1509,15 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 #endif
 		default : break; 
 	}
-	return retMask;
+    return static_cast<TCOD_event_t>(retMask);
 }
 
 TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush) {
 	SDL_Event ev;
-	TCOD_event_t retMask=0;
-	if ( eventMask == 0 ) return 0;
-	SDL_PumpEvents();
+    TCOD_event_t retMask = TCOD_EVENT_KEY_NONE;
+    if ( eventMask == 0 )
+    { return TCOD_EVENT_KEY_NONE; }
+    SDL_PumpEvents();
 	if ( flush ) {
 		while ( SDL_PollEvent(&ev) ) {
 			TCOD_sys_SDLtoTCOD(&ev,0);
@@ -1496,7 +1532,7 @@ TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_
 	tcod_mouse.dy=0;
 	do {
 		SDL_WaitEvent(&ev);
-		retMask=TCOD_sys_handle_event(&ev,eventMask,key,&tcod_mouse);
+        retMask = TCOD_sys_handle_event( &ev, static_cast<TCOD_event_t>(eventMask), key, &tcod_mouse );
 	} while ( ev.type != SDL_QUIT && (retMask & TCOD_EVENT_KEY) == 0 );
 	if (mouse) { *mouse=tcod_mouse; }
 	return retMask;
@@ -1504,9 +1540,10 @@ TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_
 
 TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse) {
 	SDL_Event ev;
-	TCOD_event_t retMask=0;
-	if ( eventMask == 0 ) return 0;
-	SDL_PumpEvents();
+    TCOD_event_t retMask = TCOD_EVENT_KEY_NONE;
+    if ( eventMask == 0 )
+    { return TCOD_EVENT_KEY_NONE; }
+    SDL_PumpEvents();
 	tcod_mouse.lbutton_pressed =false;
 	tcod_mouse.rbutton_pressed =false;
 	tcod_mouse.mbutton_pressed =false;
@@ -1519,7 +1556,7 @@ TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse
 		key->c=0;
 	}
 	while ( SDL_PollEvent(&ev) ) {
-		retMask=TCOD_sys_handle_event(&ev,eventMask,key,&tcod_mouse);
+        retMask = TCOD_sys_handle_event( &ev, static_cast<TCOD_event_t>(eventMask), key, &tcod_mouse );
 		if ((retMask & TCOD_EVENT_KEY) != 0)
 			/* only one key event per frame */ 
 			break; 
@@ -1779,15 +1816,6 @@ void *TCOD_sys_get_sdl_window() {
 }
 #endif
 
-/* mouse stuff */
-void TCOD_mouse_show_cursor(bool visible) {
-  SDL_ShowCursor(visible ? 1 : 0);
-}
-
-bool TCOD_mouse_is_cursor_visible() {
-  return SDL_ShowCursor(-1) ? true : false;
-}
-
 void TCOD_mouse_move(int x, int y) {
 #if SDL_VERSION_ATLEAST(2,0,0)
   SDL_WarpMouseInWindow(window, (Uint16)x,(Uint16)y);
@@ -1802,80 +1830,3 @@ void TCOD_mouse_includes_touch(bool enable) {
 }
 #endif
 
-bool TCOD_sys_read_file(const char *filename, unsigned char **buf, uint32 *size) {
-	uint32 filesize;
-	/* get file size */
-#if SDL_VERSION_ATLEAST(2,0,0)
-	SDL_RWops *rwops= SDL_RWFromFile(filename,"rb");
-	if (!rwops) return false;
-	SDL_RWseek(rwops,0,RW_SEEK_END);
-	filesize=SDL_RWtell(rwops);
-	SDL_RWseek(rwops,0,RW_SEEK_SET);	
-#else
-	FILE * fops=fopen(filename,"rb");
-	if (!fops) return false;
-	fseek(fops,0,SEEK_END);
-	filesize=ftell(fops);
-	fseek(fops,0,SEEK_SET);
-#endif
-	/* allocate buffer */
-	*buf = (unsigned char *)malloc(sizeof(unsigned char)*filesize);
-	/* read from file */
-#if SDL_VERSION_ATLEAST(2,0,0)
-	if (SDL_RWread(rwops,*buf,sizeof(unsigned char),filesize) != filesize) {
-		SDL_RWclose(rwops);
-		free(*buf);
-		return false;
-	}
-	SDL_RWclose(rwops);
-#else
-	if (fread(*buf,sizeof(unsigned char),filesize,fops) != filesize ) {
-		fclose(fops);
-		free(*buf);
-		return false;
-	}
-	*size=filesize;
-	fclose(fops);
-#endif
-	return true;
-}
-
-bool TCOD_sys_file_exists(const char * filename, ...) {
-#if SDL_VERSION_ATLEAST(2,0,0)
-	SDL_RWops *rwops;
-#else
-	FILE * fops;
-#endif
-	char f[1024];
-	va_list ap;
-	va_start(ap,filename);
-	vsprintf(f,filename,ap);
-	va_end(ap);
-#if SDL_VERSION_ATLEAST(2,0,0)
-	rwops = SDL_RWFromFile(f,"rb");
-	if (rwops) {
-		SDL_RWclose(rwops);
-#else
-	fops=fopen(f,"rb");
-	if (fops) {
-		fclose(fops);
-#endif
-		return true;
-	}
-	return false;
-}
-
-bool TCOD_sys_write_file(const char *filename, unsigned char *buf, uint32 size) {
-#if SDL_VERSION_ATLEAST(2,0,0)
-	SDL_RWops *rwops= SDL_RWFromFile(filename,"wb");
-	if (!rwops) return false;
-	SDL_RWwrite(rwops,buf,sizeof(unsigned char),size);
-	SDL_RWclose(rwops);
-#else
-	FILE * fops=fopen(filename,"wb");
-	if (!fops) return false;
-	fwrite(buf,sizeof(unsigned char),size,fops);
-	fclose(fops);
-#endif
-	return true;
-}

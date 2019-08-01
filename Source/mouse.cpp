@@ -31,7 +31,7 @@ void TCODMouse::showCursor(bool visible) {
 }
 
 bool TCODMouse::isCursorVisible() {
-	return TCOD_mouse_is_cursor_visible() != 0;
+    return ( SDL_ShowCursor( -1 ) != 0 ) != 0;
 }
 
 void TCODMouse::move(int x, int y) {

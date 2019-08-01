@@ -154,12 +154,36 @@ bool Doryen::Platform::fileExists( const char *filename, ... )
 
 bool Doryen::Platform::readFile( const char *filename, unsigned char **buf, uint32 *size )
 {
-	return TCOD_sys_read_file(filename,buf,size) != 0;
+    uint32 filesize;
+    /* get file size */
+    FILE *fops = fopen( filename, "rb" );
+    if ( !fops )
+    { return false; }
+    fseek( fops, 0, SEEK_END );
+    filesize = ftell( fops );
+    fseek( fops, 0, SEEK_SET );
+    /* allocate buffer */
+    *buf = ( unsigned char * ) malloc( sizeof( unsigned char ) * filesize );
+    /* read from file */
+    if ( fread( *buf, sizeof( unsigned char ), filesize, fops ) != filesize )
+    {
+        fclose( fops );
+        free( *buf );
+        return false;
+    }
+    *size = filesize;
+    fclose( fops );
+    return true;
 }
 
 bool Doryen::Platform::writeFile( const char *filename, unsigned char *buf, uint32 size )
 {
-	return TCOD_sys_write_file(filename,buf,size) != 0;
+    FILE *fops = fopen( filename, "wb" );
+    if ( !fops )
+    { return false; }
+    fwrite( buf, sizeof( unsigned char ), size, fops );
+    fclose( fops );
+    return true;
 }
 
 // clipboard stuff

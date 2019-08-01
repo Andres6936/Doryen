@@ -53,10 +53,44 @@ SDL_Surface *TCOD_sys_read_png(const char *filename) {
 	unsigned int rowsize;
 
 	lodepng_state_init(&state);
-	/*optionally customize the state*/
-	if (!TCOD_sys_read_file(filename,&png,&pngsize)) return NULL;
 
-	lodepng_inspect(&width,&height,&state, png, pngsize);
+    bool readFile = false;
+
+    uint32 filesize;
+    /* get file size */
+    FILE *fops = fopen( filename, "rb" );
+
+    if ( !fops )
+    {
+        readFile = false;
+    }
+    else
+    {
+        fseek( fops, 0, SEEK_END );
+        filesize = ftell( fops );
+        fseek( fops, 0, SEEK_SET );
+        /* allocate buffer */
+        png = ( unsigned char * ) malloc( sizeof( unsigned char ) * filesize );
+        /* read from file */
+        if ( fread( png, sizeof( unsigned char ), filesize, fops ) != filesize )
+        {
+            fclose( fops );
+            free( png );
+            readFile = false;
+        }
+        else
+        {
+            pngsize = filesize;
+            fclose( fops );
+            readFile = true;
+        }
+    }
+
+	/*optionally customize the state*/
+    if ( !readFile )
+    { return NULL; }
+
+    lodepng_inspect(&width,&height,&state, png, pngsize);
 	bpp=lodepng_get_bpp(&state.info_png.color);
 
 	if ( bpp == 24 ) {
@@ -110,7 +144,13 @@ void TCOD_sys_write_png(const SDL_Surface *surf, const char *filename) {
 	error=lodepng_encode_memory(&buf,&size,image,surf->w,surf->h,LCT_RGB,8);
 	free(image);
 	if ( ! error ) {
-		TCOD_sys_write_file(filename,buf,size);
+        FILE *fops = fopen( filename, "wb" );
+        if ( !fops )
+        {
+            // Throw error
+        }
+        fwrite( buf, sizeof( unsigned char ), size, fops );
+        fclose( fops );
 		free(buf);
 	} else {
 		printf("error %u: %s\n", error, lodepng_error_text(error));
