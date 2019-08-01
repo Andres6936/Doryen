@@ -75,8 +75,6 @@ namespace Doryen
 
         friend class TCODLIB_API TCODPath;
 
-        friend class TCODLIB_API TCODDijkstra;
-
         TCOD_map_t data;
 
         /**
