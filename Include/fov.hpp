@@ -33,13 +33,12 @@
 class TCODPath;
 
 /**
- @PageName fov
- @PageCategory Roguelike toolkits
- @PageTitle Field of view
- @PageDesc This toolkit allows to easily calculate the potential visible set of map cells from the player position.
-A cell is potentially visible if the line of sight from the player to the cell in unobstructed.
+ * This toolkit allows to easily calculate the potential visible set of map
+ * cells from the player position.
+ *
+ * @note A cell is potentially visible if the line of sight from the player
+ * to the cell in unobstructed.
  */
-
 class TCODLIB_API TCODMap
 {
 public :
@@ -53,80 +52,54 @@ public :
     TCOD_map_t data;
 
     /**
-    @PageName fov_init
-    @PageFather fov
-    @PageTitle Building the map
-    @FuncTitle Creating the map object
-    @FuncDesc First, you have to allocate a map of the same size as your dungeon.
-    @Cpp TCODMap::TCODMap (int width, int height)
-    @C TCOD_map_t TCOD_map_new (int width, int height)
-    @Py map_new (width, height)
-    @C# TCODMap::TCODMap(int width, int height)
-    @Param width, height	The size of the map (in map cells).
-    */
+     * @brief Building the map.
+     *
+     * First, you have to allocate a map of the same size as your dungeon.
+     *
+     * @param width The size of the map (in map cells).
+     * @param height The size of the map (in map cells).
+     */
     TCODMap( int width, int height );
 
     /**
-    @PageName fov_init
-    @PageFather fov
-    @FuncTitle Defining the cell properties
-    @FuncDesc Then, build your dungeon by defining which cells let the light pass (by default, all cells block the light) and which cells are walkable (by default, all cells are not-walkable).
-    @Cpp void TCODMap::setProperties (int x, int y, bool isTransparent, bool isWalkable)
-    @C void TCOD_map_set_properties (TCOD_map_t map, int x, int y, bool is_transparent, bool is_walkable)
-    @Py map_set_properties (map, x, y, is_transparent, is_walkable)
-    @C# void TCODMap::setProperties (int x, int y, bool isTransparent, bool isWalkable)
-    @Param map	In the C version, the map handler returned by the TCOD_map_new function.
-    @Param x, y	Coordinate of the cell that we want to update.
-    @Param isTransparent	If true, this cell will let the light pass else it will block the light.
-    @Param isWalkable	If true, creatures can walk true this cell (it is not a wall).
-    */
+     * @brief Defining the cell properties.
+     *
+     * Then, build your dungeon by defining which cells let the light pass
+     * and which cells are walkable.
+     *
+     * @note (by default, all cells block the light)
+     * @note (by default, all cells are not-walkable).
+     *
+     * @param x Coordinate of the cell that we want to update.
+     * @param y Coordinate of the cell that we want to update.
+     *
+     * @param isTransparent If true, this cell will let the light pass else
+     * it will block the light.
+     *
+     * @param isWalkable If true, creatures can walk true this cell (it is
+     * not a wall).
+     */
     void setProperties( int x, int y, bool isTransparent, bool isWalkable );
 
     /**
-    @PageName fov_init
-    @PageFather fov
-    @FuncTitle Clearing the map
-    @FuncDesc You can clear an existing map (setting all cells to the chosen walkable/transparent values) with:
-    @Cpp void TCODMap::clear (bool transparent = false, bool walkable = false)
-    @C void TCOD_map_clear (TCOD_map_t map, bool transparent, bool walkable)
-    @Py map_clear (map, transparent = False, walkable = False)
-    @C#
-        void TCODMap::clear()
-        void TCODMap::clear(bool transparent)
-        void TCODMap::clear(bool transparent, bool walkable)
-    @Param map	In the C version, the map handler returned by the TCOD_map_new function.
-    @Param walkable	Whether the cells should be walkable.
-    @Param transparent	Whether the cells should be transparent.
-    */
+     * @brief Clearing the map.
+     *
+     * You can clear an existing map (setting all cells to the chosen
+     * walkable/transparent values).
+     *
+     * @param transparent Whether the cells should be transparent.
+     * @param walkable Whether the cells should be walkable.
+     */
     void clear( bool transparent = false, bool walkable = false );
 
     /**
-    @PageName fov_init
-    @PageFather fov
-    @FuncTitle Copying a map
-    @FuncDesc You can copy an existing map into another. You have to allocate the destination map first.
-    @Cpp void TCODMap::copy (const TCODMap * source)
-    @C void TCOD_map_copy (TCOD_map_t source, TCOD_map_t dest)
-    @Py map_copy (source, dest)
-    @C# void TCODMap::copy (TCODMap source)
-    @Param source	The map containing the source data.
-    @Param dest	In C and python version, the map where data is copied.
-    @CppEx
-        TCODMap * map = new TCODMap(50,50); // allocate the map
-        map->setProperties(10,10,true,true); // set a cell as 'empty'
-        TCODMap * map2 = new TCODMap(10,10); // allocate another map
-        map2->copy(map); // copy map data into map2, reallocating it to 50x50
-    @CEx
-        TCOD_map_t map = TCOD_map_new(50,50);
-        TCOD_map_t map2 = TCOD_map_new(10,10);
-        TCOD_map_set_properties(map,10,10,true,true);
-        TCOD_map_copy(map,map2);
-    @PyEx
-        map = libtcod.map_new(50,50)
-        map2 = libtcod.map_new(10,10)
-        libtcod.map_set_properties(map,10,10,True,True)
-        libtcod.map_copy(map,map2)
-    */
+     * @brief Copying a map.
+     *
+     * You can copy an existing map into another. You have to allocate
+     * the destination map first.
+     *
+     * @param source The map containing the source data.
+     */
     void copy( const TCODMap *source );
 
     /**
