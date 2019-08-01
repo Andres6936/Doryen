@@ -182,7 +182,7 @@ void TCOD_sys_load_font() {
 	int x,y;
 
 	if ( charmap ) SDL_FreeSurface(charmap);
-    charmap = static_cast<SDL_Surface *>(TCOD_sys_load_image( TCOD_ctx.font_file ));
+    charmap = ( TCOD_sys_load_image( TCOD_ctx.font_file ));
 	if (charmap == NULL ) TCOD_fatal("SDL : cannot load %s",TCOD_ctx.font_file);
 	if ( (float)(charmap->w / TCOD_ctx.fontNbCharHoriz) != charmap->w / TCOD_ctx.fontNbCharHoriz
 		|| (float)(charmap->h / TCOD_ctx.fontNbCharVertic) != charmap->h / TCOD_ctx.fontNbCharVertic ) TCOD_fatal(" %s size is not a multiple of font layout (%dx%d)\n",
@@ -1396,7 +1396,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 			if ( (TCOD_EVENT_KEY_PRESS & eventMask) != 0) {
                 retMask |= TCOD_EVENT_KEY_PRESS;
 				if ( key ) *key = tmpKey;
-                return static_cast<TCOD_event_t>(retMask);
+                return ( retMask );
 			}
 		}
 		break;
@@ -1405,7 +1405,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 			if ( (TCOD_EVENT_KEY_RELEASE & eventMask) != 0) {
 				retMask|=TCOD_EVENT_KEY_RELEASE; 
 				if ( key ) *key = tmpKey;
-                return static_cast<TCOD_event_t>(retMask);
+                return ( retMask );
 			}
 		}
 		break;
@@ -1452,7 +1452,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 				mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / charHeight;
 				mouse->dcx = mouse->dx / charWidth;
 				mouse->dcy = mouse->dy / charHeight;
-                return static_cast<TCOD_event_t>(retMask);
+                return ( retMask );
 			}
 		break; 
 		case SDL_MOUSEBUTTONDOWN : 
@@ -1468,7 +1468,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 					case SDL_BUTTON_WHEELDOWN : mouse->wheel_down=true;break;
 #endif
 				}
-                return static_cast<TCOD_event_t>(retMask);
+                return ( retMask );
 			}
 		break; 
 		case SDL_MOUSEBUTTONUP : 
@@ -1480,7 +1480,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 					case SDL_BUTTON_MIDDLE : if (mousebm) mouse->mbutton_pressed = mouse_force_bm=true; mouse->mbutton = mousebm=false; break;
 					case SDL_BUTTON_RIGHT : if (mousebr) mouse->rbutton_pressed = mouse_force_br=true; mouse->rbutton = mousebr=false; break;
 				}
-                return static_cast<TCOD_event_t>(retMask);
+                return ( retMask );
 			}
 		break;
 		case SDL_QUIT :
@@ -1509,7 +1509,7 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event *ev,TCOD_event_t eventMask, 
 #endif
 		default : break; 
 	}
-    return static_cast<TCOD_event_t>(retMask);
+    return ( retMask );
 }
 
 TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush) {
@@ -1532,7 +1532,7 @@ TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_
 	tcod_mouse.dy=0;
 	do {
 		SDL_WaitEvent(&ev);
-        retMask = TCOD_sys_handle_event( &ev, static_cast<TCOD_event_t>(eventMask), key, &tcod_mouse );
+        retMask = TCOD_sys_handle_event( &ev, ( eventMask ), key, &tcod_mouse );
 	} while ( ev.type != SDL_QUIT && (retMask & TCOD_EVENT_KEY) == 0 );
 	if (mouse) { *mouse=tcod_mouse; }
 	return retMask;
@@ -1556,7 +1556,7 @@ TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse
 		key->c=0;
 	}
 	while ( SDL_PollEvent(&ev) ) {
-        retMask = TCOD_sys_handle_event( &ev, static_cast<TCOD_event_t>(eventMask), key, &tcod_mouse );
+        retMask = TCOD_sys_handle_event( &ev, ( eventMask ), key, &tcod_mouse );
 		if ((retMask & TCOD_EVENT_KEY) != 0)
 			/* only one key event per frame */ 
 			break; 

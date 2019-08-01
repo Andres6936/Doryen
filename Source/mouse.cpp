@@ -27,11 +27,11 @@
 #include "libtcod.hpp"
 
 void TCODMouse::showCursor(bool visible) {
-	TCOD_mouse_show_cursor(visible);
+    SDL_ShowCursor( visible ? 1 : 0 );
 }
 
 bool TCODMouse::isCursorVisible() {
-    return ( SDL_ShowCursor( -1 ) != 0 ) != 0;
+    return ( SDL_ShowCursor( -1 ) != 0 );
 }
 
 void TCODMouse::move(int x, int y) {

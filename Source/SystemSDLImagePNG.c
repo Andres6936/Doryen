@@ -111,7 +111,7 @@ SDL_Surface *TCOD_sys_read_png(const char *filename) {
 	}
 		
 	/* create the SDL surface */
-	bitmap=TCOD_sys_get_surface(width,height,bpp==32);
+    bitmap = ( TCOD_sys_get_surface( width, height, bpp == 32 ));
 	source=image;
 	rowsize=width*bpp/8;
 	for (y=0; y<  height; y++ ) {
