@@ -64,18 +64,6 @@ TCOD_list_t TCOD_list_allocate(int nb_elements) {
 	return l;
 }
 
-TCOD_list_t TCOD_list_duplicate(TCOD_list_t l) {
-	int i=0;
-	void **t;
-	TCOD_list_int_t *ret=(TCOD_list_int_t *)TCOD_list_new();
-	while ( ret->allocSize < LIST(l)->allocSize ) TCOD_list_allocate_int((TCOD_list_t)ret);
-	ret->fillSize=LIST(l)->fillSize;
-	for (t=TCOD_list_begin(l); t != TCOD_list_end(l); t++) {
-		ret->array[i++]=*t;
-	}
-	return (TCOD_list_t)ret;
-}
-
 void TCOD_list_delete(TCOD_list_t l) {
 	if ( l ) {
 		if ( LIST(l)->array ) free(LIST(l)->array);
@@ -91,16 +79,7 @@ void * TCOD_list_pop(TCOD_list_t l) {
 	if ( LIST(l)->fillSize == 0 ) return NULL;
 	return LIST(l)->array[--(LIST(l)->fillSize)];
 }
-void * TCOD_list_peek(TCOD_list_t l) {
-	if ( LIST(l)->fillSize == 0 ) return NULL;
-	return LIST(l)->array[LIST(l)->fillSize-1];
-}
-void TCOD_list_add_all(TCOD_list_t l, TCOD_list_t l2) {
-	void **curElt;
-	for ( curElt = TCOD_list_begin(l2); curElt != TCOD_list_end(l2); curElt ++) {
-		TCOD_list_push(l,*curElt);
-	}
-}
+
 void * TCOD_list_get(TCOD_list_t l,int idx) {
 	return LIST(l)->array[idx];
 }
@@ -147,28 +126,7 @@ void TCOD_list_remove(TCOD_list_t l, const void * elt) {
 		}
 	}
 }
-void **TCOD_list_remove_iterator_fast(TCOD_list_t l, void **elt) {
-	*elt = LIST(l)->array[LIST(l)->fillSize-1];
-	LIST(l)->fillSize--;
-	if ( LIST(l)->fillSize == 0 ) return ((void **)NULL)-1;
-	else return elt-1;
-}
-void TCOD_list_remove_fast(TCOD_list_t l, const void * elt) {
-	void **curElt;
-	for ( curElt = TCOD_list_begin(l); curElt != TCOD_list_end(l); curElt ++) {
-		if ( *curElt == elt ) {
-			TCOD_list_remove_iterator_fast(l,curElt);
-			return;
-		}
-	}
-}
-bool TCOD_list_contains(TCOD_list_t l,const void * elt) {
-	void **curElt;
-	for ( curElt = TCOD_list_begin(l); curElt != TCOD_list_end(l); curElt ++) {
-		if ( *curElt == elt ) return true;
-	}
-	return false;
-}
+
 void TCOD_list_clear(TCOD_list_t l) {
 	LIST(l)->fillSize=0;
 }
