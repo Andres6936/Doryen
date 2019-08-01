@@ -68,13 +68,13 @@ namespace Doryen
      *
      * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
      */
-    class TCODLIB_API Map
+    class Map
     {
     public :
 
         virtual ~Map( );
 
-        friend class TCODLIB_API TCODPath;
+        friend class TCODPath;
 
         int width;
         int height;

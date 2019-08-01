@@ -96,7 +96,64 @@ void Doryen::Map::copy( Map &source )
 
 void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCOD_fov_algorithm_t algo )
 {
-    TCOD_map_compute_fov( data, x, y, maxRadius, light_walls, algo );
+    // TCOD_map_compute_fov( data, x, y, maxRadius, light_walls, algo );
+
+    if ( algo == FOV_BASIC )
+    {
+
+    }
+    else if ( algo == FOV_DIAMOND )
+    {
+
+    }
+    else if ( algo == FOV_SHADOW )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_0 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_1 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_2 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_3 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_4 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_5 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_6 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_7 )
+    {
+
+    }
+    else if ( algo == FOV_PERMISSIVE_8 )
+    {
+
+    }
+    else if ( algo == FOV_RESTRICTIVE )
+    {
+
+    }
+    else
+    {
+        // Throw Error
+    }
 }
 
 bool Doryen::Map::isInFov( int x, int y ) const
