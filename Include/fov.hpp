@@ -38,6 +38,31 @@ class TCODPath;
  *
  * @note A cell is potentially visible if the line of sight from the player
  * to the cell in unobstructed.
+ *
+ * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
+ * to all the cells on the submap perimeter).
+ *
+ * 2- <b>FOV_DIAMOND</b>: based on
+ * http://www.geocities.com/temerra/los_rays.html this algorithm.
+ *
+ * 3- <b>FOV_SHADOW</b>: based on
+ * http://roguebasin.roguelikedevelopment.org/index.php?
+ * title=FOV_using_recursive_shadowcasting this algorithm.
+ *
+ * 4- <b>FOV_PERMISSIVE_x</b>: based on
+ * http://roguebasin.roguelikedevelopment.org/index.php?
+ * title=Precise_Permissive_Field_of_View this algorithm.
+ *
+ * Permissive has a variable permissiveness parameter. You can either use the
+ * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
+ * permissive).
+ *
+ * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
+ * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
+ *
+ * Comparison of the algorithms:
+ *
+ * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
  */
 class TCODLIB_API TCODMap
 {
@@ -103,53 +128,28 @@ public :
     void copy( const TCODMap *source );
 
     /**
-    @PageName fov_compute
-    @PageTitle Computing the field of view
-    @PageFather fov
-    @FuncDesc Once your map is allocated and empty cells have been defined, you can calculate the field of view with :
-        <div class="code"><pre>typedef enum { FOV_BASIC,
-           FOV_DIAMOND,
-           FOV_SHADOW,
-           FOV_PERMISSIVE_0,FOV_PERMISSIVE_1,FOV_PERMISSIVE_2,FOV_PERMISSIVE_3,
-           FOV_PERMISSIVE_4,FOV_PERMISSIVE_5,FOV_PERMISSIVE_6,FOV_PERMISSIVE_7,FOV_PERMISSIVE_8,
-           FOV_RESTRICTIVE,
-           NB_FOV_ALGORITHMS } TCOD_fov_algorithm_t;
-        </pre></div>
-        * FOV_BASIC : classic libtcod fov algorithm (ray casted from the player to all the cells on the submap perimeter)
-        * FOV_DIAMOND : based on <a href="http://www.geocities.com/temerra/los_rays.html">this</a> algorithm
-        * FOV_SHADOW : based on <a href="http://roguebasin.roguelikedevelopment.org/index.php?title=FOV_using_recursive_shadowcasting">this</a> algorithm
-        * FOV_PERMISSIVE_x : based on <a href="http://roguebasin.roguelikedevelopment.org/index.php?title=Precise_Permissive_Field_of_View">this</a> algorithm
-        Permissive has a variable permissiveness parameter. You can either use the constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more permissive), or using the macro FOV_PERMISSIVE(x).
-        * FOV_RESTRICTIVE : Mingos' Restrictive Precise Angle Shadowcasting (MRPAS). Original implementation <a href="http://umbrarumregnum.110mb.com/download/mrpas">here</a>. Comparison of the algorithms :
-        Check <a href="http://roguecentral.org/libtcod/fov/fov.pdf">this</a>.
-    @Cpp void TCODMap::computeFov(int playerX,int playerY, int maxRadius=0,bool light_walls = true, TCOD_fov_algorithm_t algo = FOV_BASIC)
-    @C void TCOD_map_compute_fov(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls, TCOD_fov_algorithm_t algo)
-    @Py map_compute_fov(map, player_x, player_y, max_radius=0, light_walls=True, algo=FOV_BASIC )
-    @C#
-        void TCODMap::computeFov(int playerX, int playerY)
-        void TCODMap::computeFov(int playerX, int playerY, int maxRadius)
-        void TCODMap::computeFov(int playerX, int playerY, int maxRadius,bool light_walls)
-        void TCODMap::computeFov(int playerX, int playerY, int maxRadius,bool light_walls, TCODFOVTypes algo)
-    @Param map	In the C version, the map handler returned by the TCOD_map_new function.
-    @Param player_x,player_y	Position of the player in the map.
-        0 <= player_x < map width.
-        0 <= player_y < map height.
-    @Param maxRadius	If > 0, the fov is only computed up to maxRadius cells away from the player. Else, the range is unlimited.
-    @Param light_walls	Wether the wall cells near ground cells in fov must be in fov too.
-    @Param algo	FOV algorithm to use.
-    @CppEx
-        TCODMap *map = new TCODMap(50,50); // allocate the map
-        map->setProperties(10,10,true,true); // set a cell as 'empty'
-        map->computeFov(10,10); // calculate fov from the cell 10x10 (basic raycasting, unlimited range, walls lighting on)
-    @CEx
-        TCOD_map_t map = TCOD_map_new(50,50);
-        TCOD_map_set_properties(map,10,10,true,true);
-        TCOD_map_compute_fov(map,10,10,0,true,FOV_SHADOW); // using shadow casting
-    @PyEx
-        map = libtcod.map_new(50,50)
-        libtcod.map_set_properties(map,10,10,True,True)
-        libtcod.map_compute_fov(map,10,10,0,True,libtcod.FOV_PERMISSIVE(2))
-    */
+     * @brief Computing the field of view.
+     *
+     * Once your map is allocated and empty cells have been defined, you can
+     * calculate the field of view.
+     *
+     * @param playerX Position of the player in the map. 0 <= player_x < map width.
+     * @param playerY Position of the player in the map. 0 <= player_y < map height.
+     *
+     * @param maxRadius If > 0, the fov is only computed up to maxRadius cells
+     * away from the player. Else, the range is unlimited.
+     *
+     * @param light_walls Wether the wall cells near ground cells in fov must be
+     * in fov too.
+     *
+     * @param algo FOV algorithm to use. This are:
+     *
+     * 1- FOV_BASIC
+     * 2- FOV_DIAMOND
+     * 3- FOV_SHADOW
+     * 4- FOV_PERMISSIVE_x
+     * 5- FOV_RESTRICTIVE
+     */
     void computeFov( int playerX, int playerY, int maxRadius = 0, bool light_walls = true,
                      TCOD_fov_algorithm_t algo = FOV_BASIC );
 
