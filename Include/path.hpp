@@ -28,10 +28,13 @@
 #ifndef _TCOD_PATH_HPP
 #define _TCOD_PATH_HPP
 
-class TCODLIB_API ITCODPathCallback {
+class TCODLIB_API ITCODPathCallback
+{
 public :
-	virtual ~ITCODPathCallback() {}
-	virtual float getWalkCost( int xFrom, int yFrom, int xTo, int yTo, void *userData ) const = 0;
+    virtual ~ITCODPathCallback( )
+    { }
+
+    virtual float getWalkCost( int xFrom, int yFrom, int xTo, int yTo, void *userData ) const = 0;
 };
 
 /**
@@ -50,7 +53,8 @@ Dijkstra:      A*:
 ..........   ..........
 </pre></div>
  */
-class TCODLIB_API TCODPath {
+class TCODLIB_API TCODPath
+{
 public :
     /**
     @PageName path_init
@@ -153,52 +157,52 @@ public :
         path = libtcod.path_new_using_function(50,50,my_func)
         dijkstra = libtcod.dijkstra_new_using_function(50,50,my_func)
     */
-	TCODPath(int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost=1.41f);
-	
-	/**
-	@PageName path_init
-	@FuncTitle Destroying a path
-	@FuncDesc To release the resources used by a path, destroy it with :
-	@Cpp 
-		TCODPath::~TCODPath()
-		TCODDijkstra::~TCODDijkstra()
-	@C 
-		void TCOD_path_delete(TCOD_path_t path)
-		void TCOD_dijkstra_delete(TCOD_dijkstra_t dijkstra)
-	@Py 
-		path_delete(path)
-		dijkstra_delete(dijkstra)
-	@C#
-		void TCODPath::Dispose()
-		void TCODDijkstra::Dispose()
-	@Param path	In the C version, the path handler returned by one of the TCOD_path_new_* function.
-	@Param dijkstra	In the C version, the path handler returned by one of the TCOD_dijkstra_new* function.
-	@CppEx 
-		TCODPath *path = new TCODPath(myMap); // allocate the path
-		// use the path...
-		delete path; // destroy the path
-		
-		TCODDijkstra *dijkstra = new TCODDijkstra(myMap); // allocate the path
-		// use the path...
-		delete dijkstra; // destroy the path
-	@CEx 
-		TCOD_path_t path = TCOD_path_new_using_map(my_map);
-		// use the path ... 
-		TCOD_path_delete(path);
-		
-		TCOD_dijkstra_t dijkstra = TCOD_dijkstra_new(my_map);
-		// use the path ... 
-		TCOD_dijkstra_delete(dijkstra);
-	@PyEx 
-		path = libtcod.path_new_using_map(my_map)
-		# use the path ... 
-		libtcod.path_delete(path)
-		
-		dijkstra = libtcod.dijkstra_new(my_map)
-		# use the path ... 
-		libtcod.dijkstra_delete(dijkstra)	
-	*/	
-	virtual ~TCODPath();
+    TCODPath( int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost = 1.41f );
+
+    /**
+    @PageName path_init
+    @FuncTitle Destroying a path
+    @FuncDesc To release the resources used by a path, destroy it with :
+    @Cpp
+        TCODPath::~TCODPath()
+        TCODDijkstra::~TCODDijkstra()
+    @C
+        void TCOD_path_delete(TCOD_path_t path)
+        void TCOD_dijkstra_delete(TCOD_dijkstra_t dijkstra)
+    @Py
+        path_delete(path)
+        dijkstra_delete(dijkstra)
+    @C#
+        void TCODPath::Dispose()
+        void TCODDijkstra::Dispose()
+    @Param path	In the C version, the path handler returned by one of the TCOD_path_new_* function.
+    @Param dijkstra	In the C version, the path handler returned by one of the TCOD_dijkstra_new* function.
+    @CppEx
+        TCODPath *path = new TCODPath(myMap); // allocate the path
+        // use the path...
+        delete path; // destroy the path
+
+        TCODDijkstra *dijkstra = new TCODDijkstra(myMap); // allocate the path
+        // use the path...
+        delete dijkstra; // destroy the path
+    @CEx
+        TCOD_path_t path = TCOD_path_new_using_map(my_map);
+        // use the path ...
+        TCOD_path_delete(path);
+
+        TCOD_dijkstra_t dijkstra = TCOD_dijkstra_new(my_map);
+        // use the path ...
+        TCOD_dijkstra_delete(dijkstra);
+    @PyEx
+        path = libtcod.path_new_using_map(my_map)
+        # use the path ...
+        libtcod.path_delete(path)
+
+        dijkstra = libtcod.dijkstra_new(my_map)
+        # use the path ...
+        libtcod.dijkstra_delete(dijkstra)
+    */
+    virtual ~TCODPath( );
 
     /**
     @PageName path_compute
@@ -227,7 +231,7 @@ public :
         path = libtcod.path_new_using_map(my_map)
         libtcod.path_compute(path,5,5,25,25)
     */
-	bool compute(int ox, int oy, int dx, int dy);
+    bool compute( int ox, int oy, int dx, int dy );
 
     /**
     @PageName path_compute
@@ -262,234 +266,242 @@ public :
         libtcod.path_compute(path,5,5,25,25) # calculate path from 5,5 to 25,25
         libtcod.path_reverse(path) # now the path goes from 25,25 to 5,5
     */
-	void reverse();
-	
+    void reverse( );
 
-	/**
-	@PageName path_read
-	@PageTitle Reading path information
-	@PageFather path
-	@PageDescDesc Once the path has been computed, you can get information about it using of one those functions.
-	@FuncTitle Getting the path origin and destination
-	@FuncDesc 	
-		You can read the current origin and destination cells with getOrigin/getDestination.
-		Note that when you walk the path, the origin changes at each step.
-	@Cpp 
-		void TCODPath::getOrigin(int *x,int *y) const
-		void TCODPath::getDestination(int *x,int *y) const
-	@C 
-		void TCOD_path_get_origin(TCOD_path_t path, int *x, int *y)
-		void TCOD_path_get_destination(TCOD_path_t path, int *x, int *y)
-	@Py 
-		path_get_origin(path) # returns x,y
-		path_get_destination(path) # returns x,y
-	@C#
-		void TCODPath::getOrigin(out int x, out int y)
-		void TCODPath::getDestination(out int x, out int y)
-	@Param path	In the C version, the path handler returned by a creation function.
-	@Param x,y	The function returns the cell coordinates in these variables
-	*/	
-	void getOrigin(int *x,int *y) const;
-	void getDestination(int *x,int *y) const;
 
-	/**
-	@PageName path_read
-	@FuncTitle Getting the path length
-	@FuncDesc You can get the number of steps needed to reach destination :
-	@Cpp 
-		int TCODPath::size() const
-		int TCODDijkstra::size() const
-	@C 
-		int TCOD_path_size(TCOD_path_t path)
-		int TCOD_dijkstra_size(TCOD_dijkstra_t dijkstra)
-	@Py 
-		path_size(path)
-		dijkstra_size(dijkstra)
-	@C#
-		int TCODPath::size()
-		int TCODDijkstra::size()
-	@Param path, dijkstra	In the C version, the path handler returned by a creation function.
-	*/		
-	int size() const;
-	
-	/**
-	@PageName path_read
-	@FuncTitle Read the path cells' coordinates	
-	@FuncDesc You can get the coordinates of each point along the path :
-	@Cpp 
-		void TCODPath::get(int index, int *x, int *y) const
-		void TCODDijkstra::get(int index, int *x, int *y) const
-	@C 
-		void TCOD_path_get(TCOD_path_t path, int index, int *x, int *y)
-		void TCOD_dijkstra_get(TCOD_dijkstra_t dijkstra, int index, int *x, int *y)
-	@Py 
-		path_get(path, index) # returns x,y
-		dijkstra_get(dijkstra, index) # returns x,y
-	@C#
-		int TCODPath::size()
-		int TCODDijkstra::size()
-	@Param path, dijkstra	In the C version, the path handler returned by a creation function.
-	@Param index	Step number.
-		0 <= index < path size
-	@Param x,y	Address of the variables receiving the coordinates of the point.
-	@CppEx 
-		for (int i=0; i < path->size(); i++ ) {
-			int x,y;
-			path->get(i,&x,&y);
-			printf ("Astar coord : %d %d\n", x,y );
-		}
-		for (int i=0; i < dijkstra->size(); i++ ) {
-			int x,y;
-			dijkstra->get(i,&x,&y);
-			printf ("Dijkstra coord : %d %d\n", x,y );
-		}
-	@CEx 
-		int i;
-		for (i=0; i < TCOD_path_size(path); i++ ) {
-			int x,y;
-			TCOD_path_get(path,i,&x,&y);
-			printf ("Astar coord : %d %d\n", x,y );
-		}
-		for (i=0; i < TCOD_dijkstra_size(dijkstra); i++ ) {
-			int x,y;
-			TCOD_dijkstra_get(dijkstra,i,&x,&y);
-			printf ("Dijsktra coord : %d %d\n", x,y );
-		}
-	@PyEx 
-		for i in range (libtcod.path_size(path)) :
-			x,y=libtcod.path_get(path,i)
-			print 'Astar coord : ',x,y
-		for i in range (libtcod.dijkstra_size(dijkstra)) :
-			x,y=libtcod.dijkstra_get(dijkstra,i)
-			print 'Dijkstra coord : ',x,y
-	*/	
-	void get(int index, int *x, int *y) const;
+    /**
+    @PageName path_read
+    @PageTitle Reading path information
+    @PageFather path
+    @PageDescDesc Once the path has been computed, you can get information about it using of one those functions.
+    @FuncTitle Getting the path origin and destination
+    @FuncDesc
+        You can read the current origin and destination cells with getOrigin/getDestination.
+        Note that when you walk the path, the origin changes at each step.
+    @Cpp
+        void TCODPath::getOrigin(int *x,int *y) const
+        void TCODPath::getDestination(int *x,int *y) const
+    @C
+        void TCOD_path_get_origin(TCOD_path_t path, int *x, int *y)
+        void TCOD_path_get_destination(TCOD_path_t path, int *x, int *y)
+    @Py
+        path_get_origin(path) # returns x,y
+        path_get_destination(path) # returns x,y
+    @C#
+        void TCODPath::getOrigin(out int x, out int y)
+        void TCODPath::getDestination(out int x, out int y)
+    @Param path	In the C version, the path handler returned by a creation function.
+    @Param x,y	The function returns the cell coordinates in these variables
+    */
+    void getOrigin( int *x, int *y ) const;
 
-	/**
-	@PageName path_read
-	@FuncTitle Checking if the path is empty
-	@FuncDesc If you want a creature to follow the path, a more convenient way is to walk the path :
-		You know when you reached destination when the path is empty :
-	@Cpp 
-		bool TCODPath::isEmpty() const
-		bool TCODDijkstra::isEmpty() const
-	@C 
-		bool TCOD_path_is_empty(TCOD_path_t path)
-		bool TCOD_dijkstra_is_empty(TCOD_dijkstra_t dijkstra)
-	@Py 
-		path_is_empty(path)
-		dijkstra_is_empty(dijkstra)
-	@C#
-		bool TCODPath::isEmpty()
-		bool TCODDijkstra::isEmpty()
-	@Param path, dijkstra	In the C version, the path handler returned by a creation function.	
-	*/
-	bool isEmpty() const;
+    void getDestination( int *x, int *y ) const;
 
-	/**
-	@PageName path_read
-	@FuncTitle Walking the path
-	@FuncDesc You can walk the path and go to the next step with :
-		Note that walking the path consume one step (and decrease the path size by one). The function returns false if recalculateWhenNeeded is false and the next cell on the path is no longer walkable, or if recalculateWhenNeeded is true, the next cell on the path is no longer walkable and no other path has been found. Also note that recalculateWhenNeeded only applies to A*.
-	@Cpp 
-		bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
-		bool TCODDijkstra::walk(int *x, int *y)
-	@C 
-		bool TCOD_path_walk(TCOD_path_t path, int *x, int *y, bool recalculate_when_needed)
-		bool TCOD_dijkstra_walk(TCOD_dijkstra_t dijkstra, int *x, int *y)
-	@Py 
-		path_walk(TCOD_path_t path, recalculate_when_needed) # returns x,y or None,None if no path
-		dijkstra_walk(TCOD_dijkstra_t dijkstra)
-	@C#
-		bool TCODPath::walk(ref int x, ref int y, bool recalculateWhenNeeded)
-		bool TCODDijkstra::walk(ref int x, ref int y)
-	@Param path, dijkstra	In the C version, the path handler returned by a creation function.
-	@Param x,y	Address of the variables receiving the coordinates of the next point.
-	@Param recalculateWhenNeeded	If the next point is no longer walkable (another creature may be in the way), recalculate a new path and walk it.
-	@CppEx 
-		while (! path->isEmpty()) {
-			int x,y;
-			if (path->walk(&x,&y,true)) {
-				printf ("Astar coord: %d %d\n",x,y );
-			} else {
-				printf ("I'm stuck!\n" );
-				break;
-			}
-		}
-		while (! dijkstra->isEmpty()) {
-			int x,y;
-			if (dijkstra->walk(&x,&y)) {
-				printf ("Dijkstra coord: %d %d\n",x,y );
-			} else {
-				printf ("I'm stuck!\n" );
-				break;
-			}
-		}
-	@CEx 
-		while (! TCOD_path_is_empty(path)) {
-			int x,y;
-			if (TCOD_path_walk(path,&x,&y,true)) {
-				printf ("Astar coord: %d %d\n",x,y );
-			} else {
-				printf ("I'm stuck!\n" );
-				break;
-			}
-		}
-		while (! TCOD_dijkstra_is_empty(dijkstra)) {
-			int x,y;
-			if (TCOD_dijkstra_walk(dijkstra,&x,&y)) {
-				printf ("Dijkstra coord: %d %d\n",x,y );
-			} else {
-				printf ("I'm stuck!\n" );
-				break;
-			}
-		}
-	@PyEx 
-		while not libtcod.path_is_empty(path)) :
-			x,y=libtcod.path_walk(path,True)
-			if not x is None :
-				print 'Astar coord: ',x,y
-			else :
-				print "I'm stuck!"
-				break
-		while not libtcod.dijkstra_is_empty(dijkstra)) :
-			x,y=libtcod.dijkstra_walk(dijkstra,True)
-			if not x is None :
-				print 'Dijkstra coord: ',x,y
-			else :
-				print "I'm stuck!"
-				break	
-	*/	
-	bool walk(int *x, int *y, bool recalculateWhenNeeded);
+    /**
+    @PageName path_read
+    @FuncTitle Getting the path length
+    @FuncDesc You can get the number of steps needed to reach destination :
+    @Cpp
+        int TCODPath::size() const
+        int TCODDijkstra::size() const
+    @C
+        int TCOD_path_size(TCOD_path_t path)
+        int TCOD_dijkstra_size(TCOD_dijkstra_t dijkstra)
+    @Py
+        path_size(path)
+        dijkstra_size(dijkstra)
+    @C#
+        int TCODPath::size()
+        int TCODDijkstra::size()
+    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
+    */
+    int size( ) const;
+
+    /**
+    @PageName path_read
+    @FuncTitle Read the path cells' coordinates
+    @FuncDesc You can get the coordinates of each point along the path :
+    @Cpp
+        void TCODPath::get(int index, int *x, int *y) const
+        void TCODDijkstra::get(int index, int *x, int *y) const
+    @C
+        void TCOD_path_get(TCOD_path_t path, int index, int *x, int *y)
+        void TCOD_dijkstra_get(TCOD_dijkstra_t dijkstra, int index, int *x, int *y)
+    @Py
+        path_get(path, index) # returns x,y
+        dijkstra_get(dijkstra, index) # returns x,y
+    @C#
+        int TCODPath::size()
+        int TCODDijkstra::size()
+    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
+    @Param index	Step number.
+        0 <= index < path size
+    @Param x,y	Address of the variables receiving the coordinates of the point.
+    @CppEx
+        for (int i=0; i < path->size(); i++ ) {
+            int x,y;
+            path->get(i,&x,&y);
+            printf ("Astar coord : %d %d\n", x,y );
+        }
+        for (int i=0; i < dijkstra->size(); i++ ) {
+            int x,y;
+            dijkstra->get(i,&x,&y);
+            printf ("Dijkstra coord : %d %d\n", x,y );
+        }
+    @CEx
+        int i;
+        for (i=0; i < TCOD_path_size(path); i++ ) {
+            int x,y;
+            TCOD_path_get(path,i,&x,&y);
+            printf ("Astar coord : %d %d\n", x,y );
+        }
+        for (i=0; i < TCOD_dijkstra_size(dijkstra); i++ ) {
+            int x,y;
+            TCOD_dijkstra_get(dijkstra,i,&x,&y);
+            printf ("Dijsktra coord : %d %d\n", x,y );
+        }
+    @PyEx
+        for i in range (libtcod.path_size(path)) :
+            x,y=libtcod.path_get(path,i)
+            print 'Astar coord : ',x,y
+        for i in range (libtcod.dijkstra_size(dijkstra)) :
+            x,y=libtcod.dijkstra_get(dijkstra,i)
+            print 'Dijkstra coord : ',x,y
+    */
+    void get( int index, int *x, int *y ) const;
+
+    /**
+    @PageName path_read
+    @FuncTitle Checking if the path is empty
+    @FuncDesc If you want a creature to follow the path, a more convenient way is to walk the path :
+        You know when you reached destination when the path is empty :
+    @Cpp
+        bool TCODPath::isEmpty() const
+        bool TCODDijkstra::isEmpty() const
+    @C
+        bool TCOD_path_is_empty(TCOD_path_t path)
+        bool TCOD_dijkstra_is_empty(TCOD_dijkstra_t dijkstra)
+    @Py
+        path_is_empty(path)
+        dijkstra_is_empty(dijkstra)
+    @C#
+        bool TCODPath::isEmpty()
+        bool TCODDijkstra::isEmpty()
+    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
+    */
+    bool isEmpty( ) const;
+
+    /**
+    @PageName path_read
+    @FuncTitle Walking the path
+    @FuncDesc You can walk the path and go to the next step with :
+        Note that walking the path consume one step (and decrease the path size by one). The function returns false if recalculateWhenNeeded is false and the next cell on the path is no longer walkable, or if recalculateWhenNeeded is true, the next cell on the path is no longer walkable and no other path has been found. Also note that recalculateWhenNeeded only applies to A*.
+    @Cpp
+        bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
+        bool TCODDijkstra::walk(int *x, int *y)
+    @C
+        bool TCOD_path_walk(TCOD_path_t path, int *x, int *y, bool recalculate_when_needed)
+        bool TCOD_dijkstra_walk(TCOD_dijkstra_t dijkstra, int *x, int *y)
+    @Py
+        path_walk(TCOD_path_t path, recalculate_when_needed) # returns x,y or None,None if no path
+        dijkstra_walk(TCOD_dijkstra_t dijkstra)
+    @C#
+        bool TCODPath::walk(ref int x, ref int y, bool recalculateWhenNeeded)
+        bool TCODDijkstra::walk(ref int x, ref int y)
+    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
+    @Param x,y	Address of the variables receiving the coordinates of the next point.
+    @Param recalculateWhenNeeded	If the next point is no longer walkable (another creature may be in the way), recalculate a new path and walk it.
+    @CppEx
+        while (! path->isEmpty()) {
+            int x,y;
+            if (path->walk(&x,&y,true)) {
+                printf ("Astar coord: %d %d\n",x,y );
+            } else {
+                printf ("I'm stuck!\n" );
+                break;
+            }
+        }
+        while (! dijkstra->isEmpty()) {
+            int x,y;
+            if (dijkstra->walk(&x,&y)) {
+                printf ("Dijkstra coord: %d %d\n",x,y );
+            } else {
+                printf ("I'm stuck!\n" );
+                break;
+            }
+        }
+    @CEx
+        while (! TCOD_path_is_empty(path)) {
+            int x,y;
+            if (TCOD_path_walk(path,&x,&y,true)) {
+                printf ("Astar coord: %d %d\n",x,y );
+            } else {
+                printf ("I'm stuck!\n" );
+                break;
+            }
+        }
+        while (! TCOD_dijkstra_is_empty(dijkstra)) {
+            int x,y;
+            if (TCOD_dijkstra_walk(dijkstra,&x,&y)) {
+                printf ("Dijkstra coord: %d %d\n",x,y );
+            } else {
+                printf ("I'm stuck!\n" );
+                break;
+            }
+        }
+    @PyEx
+        while not libtcod.path_is_empty(path)) :
+            x,y=libtcod.path_walk(path,True)
+            if not x is None :
+                print 'Astar coord: ',x,y
+            else :
+                print "I'm stuck!"
+                break
+        while not libtcod.dijkstra_is_empty(dijkstra)) :
+            x,y=libtcod.dijkstra_walk(dijkstra,True)
+            if not x is None :
+                print 'Dijkstra coord: ',x,y
+            else :
+                print "I'm stuck!"
+                break
+    */
+    bool walk( int *x, int *y, bool recalculateWhenNeeded );
 
 protected :
-	friend float TCOD_path_func(int xFrom, int yFrom, int xTo,int yTo, void *data);
-	TCOD_path_t data;
-	struct WrapperData {
-		void *userData;
-		const ITCODPathCallback *listener;
-	} cppData;
+    friend float TCOD_path_func( int xFrom, int yFrom, int xTo, int yTo, void *data );
+
+    TCOD_path_t data;
+    struct WrapperData
+    {
+        void *userData;
+        const ITCODPathCallback *listener;
+    } cppData;
 };
 
 //Dijkstra kit
-class TCODLIB_API TCODDijkstra {
-    public:
+class TCODLIB_API TCODDijkstra
+{
+public:
     TCODDijkstra( Doryen::Map *map, float diagonalCost = 1.41f );
-        TCODDijkstra (int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost=1.41f);
-        ~TCODDijkstra (void);
-        /**
-        @PageName path_compute
-		@FuncTitle Computing a Dijkstra grid
-		@FuncDesc In case of Dijkstra, this works in a slightly different way. In order to be able to compute a path, Dijkstra must first analyse the distances from the selected root (origin) node to all other nodes:
-		@Cpp void TCODDijkstra::compute(int rootX, int rootY)     
-		@C void TCOD_dijkstra_compute(TCOD_dijkstra_t dijkstra, int root_x, int root_y)
-		@Py dijkstra_compute(dijkstra, root_x, root_y)
-		@C# void TCODDijkstra::compute(int rootX, int rootY)
-		@Param dijkstra	In the C version, the path handler returned by a creation function.
-		@Param root_x,root_y	Coordinates of the root node (origin) of the path.
-			The coordinates should be inside the map, at a walkable position. Otherwise, the function's behaviour will be undefined.        
-        */        
-        void compute (int rootX, int rootY);
+
+    TCODDijkstra( int width, int height, const ITCODPathCallback *listener, void *userData,
+                  float diagonalCost = 1.41f );
+
+    ~TCODDijkstra( void );
+
+    /**
+    @PageName path_compute
+    @FuncTitle Computing a Dijkstra grid
+    @FuncDesc In case of Dijkstra, this works in a slightly different way. In order to be able to compute a path, Dijkstra must first analyse the distances from the selected root (origin) node to all other nodes:
+    @Cpp void TCODDijkstra::compute(int rootX, int rootY)
+    @C void TCOD_dijkstra_compute(TCOD_dijkstra_t dijkstra, int root_x, int root_y)
+    @Py dijkstra_compute(dijkstra, root_x, root_y)
+    @C# void TCODDijkstra::compute(int rootX, int rootY)
+    @Param dijkstra	In the C version, the path handler returned by a creation function.
+    @Param root_x,root_y	Coordinates of the root node (origin) of the path.
+        The coordinates should be inside the map, at a walkable position. Otherwise, the function's behaviour will be undefined.
+    */
+    void compute( int rootX, int rootY );
 
     /**
     @PageName path_compute
@@ -521,32 +533,39 @@ class TCODLIB_API TCODDijkstra {
         libtcod.dijkstra_path_set(dijkstra,5,5)
         libtcod.dijkstra_path_set(dijkstra,45,45)
     */
-        bool setPath (int toX, int toY);
+    bool setPath( int toX, int toY );
 
-        /**
-        @PageName path_read
-		@FuncTitle Getting the distance from a cell to the root node
-		@FuncDesc You can get the distance of any set of coordinates from the root node:
-			Note that if the coordinates x,y are outside of the map or are a non-walkable position, the function will return -1.0f. This functionality is only available for Dijkstra's algorithm.        
-		@Cpp float TCODDijkstra::getDistance(int x, int y)
-		@C float TCOD_dijkstra_get_distance(TCOD_dijkstra_t dijkstra, int x, int y)
-		@Py dijkstra_get_distance(dijkstra, x, y)
-		@C# float TCODDijkstra::getDistance(int x, int y)
-		@Param dijkstra	In the C version, the path handler returned by a creation function.
-		@Param x,y	The coordinates whose distance from the root node are to be checked
-        */        
-        float getDistance (int x, int y);
-        bool walk (int *x, int *y);
-		bool isEmpty() const;
-		void reverse();
-		int size() const;
-		void get(int index, int *x, int *y) const;
-    private:
-        TCOD_dijkstra_t data;
-        struct WrapperData {
-            void *userData;
-            const ITCODPathCallback *listener;
-        } cppData;
+    /**
+    @PageName path_read
+    @FuncTitle Getting the distance from a cell to the root node
+    @FuncDesc You can get the distance of any set of coordinates from the root node:
+        Note that if the coordinates x,y are outside of the map or are a non-walkable position, the function will return -1.0f. This functionality is only available for Dijkstra's algorithm.
+    @Cpp float TCODDijkstra::getDistance(int x, int y)
+    @C float TCOD_dijkstra_get_distance(TCOD_dijkstra_t dijkstra, int x, int y)
+    @Py dijkstra_get_distance(dijkstra, x, y)
+    @C# float TCODDijkstra::getDistance(int x, int y)
+    @Param dijkstra	In the C version, the path handler returned by a creation function.
+    @Param x,y	The coordinates whose distance from the root node are to be checked
+    */
+    float getDistance( int x, int y );
+
+    bool walk( int *x, int *y );
+
+    bool isEmpty( ) const;
+
+    void reverse( );
+
+    int size( ) const;
+
+    void get( int index, int *x, int *y ) const;
+
+private:
+    TCOD_dijkstra_t data;
+    struct WrapperData
+    {
+        void *userData;
+        const ITCODPathCallback *listener;
+    } cppData;
 };
 
 #endif
