@@ -1,23 +1,26 @@
 #ifndef LIBTCOD_CIRCULARRAYCASTING_HPP
 #define LIBTCOD_CIRCULARRAYCASTING_HPP
 
+#pragma once
+
 #include <fov.hpp>
 
-class CircularRaycasting
+namespace Doryen
 {
+    class CircularRaycasting
+    {
 
-private:
+    private:
 
-    static void castRay( Doryen::Map &map, int xo, int yo, int xd, int yd,
-                         int radiusDouble, bool ligthWalls );
+        static void castRay( Doryen::Map &map, int xo, int yo, int xd, int yd,
+                             int radiusDouble, bool ligthWalls );
 
-public:
+    public:
 
-    CircularRaycasting( ) = default;
+        void operator()( Doryen::Map &map, int playerX, int playerY,
+                         int maxRadius, bool ligthWalls );
 
-    void operator()( Doryen::Map &map, int playerX, int playerY,
-                     int maxRadius, bool ligthWalls );
-
-};
+    };
+}
 
 #endif //LIBTCOD_CIRCULARRAYCASTING_HPP

@@ -28,7 +28,8 @@
 #ifndef _TCOD_FOV_HPP
 #define _TCOD_FOV_HPP
 
-#include "fov_types.h"
+#pragma once
+
 #include "libtcod_int.h"
 
 class TCODPath;
@@ -70,6 +71,7 @@ namespace Doryen
      */
     class Map
     {
+
     public :
 
         virtual ~Map( );

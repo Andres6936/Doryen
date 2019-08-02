@@ -1,8 +1,10 @@
-#include <algorithm>
 #include "FOV/CircularRaycasting.hpp"
 
-void CircularRaycasting::operator()( Doryen::Map &map, int playerX, int playerY,
-                                     int maxRadius, bool ligthWalls )
+#include <algorithm>
+#include <bresenham.hpp>
+
+void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
+                                             int playerY, int maxRadius, bool ligthWalls )
 {
     int xMin = 0;
     int yMin = 0;
@@ -35,8 +37,64 @@ void CircularRaycasting::operator()( Doryen::Map &map, int playerX, int playerY,
     }
 }
 
-void CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo, int xd, int yd, int radiusDouble, bool ligthWalls )
+void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
+                                          int xd, int yd, int radiusDouble, bool ligthWalls )
 {
     int curX = xo;
     int curY = yo;
+
+    bool in = false;
+    bool blocked = false;
+    bool end = false;
+
+    Doryen::Line line = Doryen::Line( );
+    line.init( xo, yo, xd, yd );
+
+    int offset = curX + map.width * curY;
+
+    if ( offset >= 0 && offset < map.nbcells )
+    {
+        in = true;
+        map.cells[ offset ].fov = true;
+    }
+
+    while ( !end )
+    {
+        end = line.step( &curX, &curY );
+
+        offset = curX + map.width * curY;
+
+        if ( radiusDouble > 0 )
+        {
+            int currentRadius = ( curX - xo ) * ( curX - xo ) + ( curY - yo ) * ( curY - yo );
+
+            if ( currentRadius > radiusDouble )
+            {
+                return;
+            }
+        }
+
+        if ( offset >= 0 && offset < map.nbcells )
+        {
+            in = true;
+
+            if ( !blocked && !map.cells[ offset ].transparent )
+            {
+                blocked = true;
+            }
+            else if ( blocked )
+            {
+                return;
+            }
+
+            if ( ligthWalls || !blocked )
+            {
+                map.cells[ offset ].fov = true;
+            }
+        }
+        else if ( in )
+        {
+            return;
+        }
+    }
 }

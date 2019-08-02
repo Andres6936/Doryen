@@ -25,7 +25,10 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <FOV/CircularRaycasting.hpp>
+
 #include "libtcod.hpp"
+#include "fov_types.h"
 
 Doryen::Map::Map( int width, int height )
 {
@@ -100,7 +103,9 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCO
 
     if ( algo == FOV_BASIC )
     {
+        Doryen::CircularRaycasting circularRaycasting;
 
+        circularRaycasting( *this, x, y, maxRadius, light_walls );
     }
     else if ( algo == FOV_DIAMOND )
     {
