@@ -130,96 +130,51 @@ public :
     virtual ~TCODPath( );
 
     /**
-    @PageName path_compute
-    @PageFather path
-    @PageTitle Computing the path
-    @FuncTitle Computing an A* path
-    @FuncDesc Once you created a TCODPath object, you can compute the path between two points:
-    @Cpp bool TCODPath::compute(int ox, int oy, int dx, int dy)
-    @C bool TCOD_path_compute(TCOD_path_t path, int ox,int oy, int dx, int dy)
-    @Py path_compute(path, ox, oy, dx, dy)
-    @C#	void TCODPath::compute(int ox, int oy, int dx, int dy)
-    @Param path	In the C version, the path handler returned by a creation function.
-    @Param ox,oy	Coordinates of the origin of the path.
-    @Param dx,dy	Coordinates of the destination of the path.
-        Both points should be inside the map, and at a walkable position. The function returns false if there is no possible path.
-    @CppEx
-        Doryen::TCODMap *myMap = new Doryen::TCODMap(50,50);
-        TCODPath *path = new TCODPath(myMap); // allocate the path
-        path->compute(5,5,25,25); // calculate path from 5,5 to 25,25
-    @CEx
-        TCOD_map_t my_map=TCOD_map_new(50,50);
-        TCOD_path_t path = TCOD_path_new_using_map(my_map);
-        TCOD_path_compute(path,5,5,25,25);
-    @PyEx
-        my_map=libtcod.map_new(50,50)
-        path = libtcod.path_new_using_map(my_map)
-        libtcod.path_compute(path,5,5,25,25)
-    */
+     * @brief Computing an A* path.
+     *
+     * Once you created a TCODPath object, you can compute the path between two points.
+     *
+     * @param ox Coordinates of the origin of the path.
+     * @param oy Coordinates of the origin of the path.
+     * @param dx Coordinates of the destination of the path.
+     * @param dy Coordinates of the destination of the path.
+     *
+     * @note Both points {dx and dy} should be inside the map, and at a walkable position.
+     * @note The function returns false if there is no possible path.
+     *
+     * @return True if there is posible path, false otherwise.
+     */
     bool compute( int ox, int oy, int dx, int dy );
 
-
     /**
-    @PageName path_compute
-    @FuncTitle Reversing a path
-    @FuncDesc Once you computed a path, you can exchange origin and destination :
-    @Cpp
-        void TCODPath::reverse()
-        void TCODDijkstra::reverse()
-    @C
-        void TCOD_path_reverse(TCOD_path_t path)
-        void TCOD_dijkstra_reverse(TCOD_dijkstra_t dijkstra)
-    @Py
-        path_reverse(path)
-        dijkstra_reverse(dijkstra)
-    @C#
-        void TCODPath::reverse()
-        void TCODDijkstra::reverse()
-    @Param path	In the C version, the path handler returned by a creation function.
-    @CppEx
-        Doryen::TCODMap *myMap = new Doryen::TCODMap(50,50);
-        TCODPath *path = new TCODPath(myMap); // allocate the path
-        path->compute(5,5,25,25); // calculate path from 5,5 to 25,25
-        path->reverse(); // now the path goes from 25,25 to 5,5
-    @CEx
-        TCOD_map_t my_map=TCOD_map_new(50,50);
-        TCOD_path_t path = TCOD_path_new_using_map(my_map);
-        TCOD_path_compute(path,5,5,25,25); // calculate path from 5,5 to 25,25
-        TCOD_path_reverse(path); // now the path goes from 25,25 to 5,5
-    @PyEx
-        my_map=libtcod.map_new(50,50)
-        path = libtcod.path_new_using_map(my_map)
-        libtcod.path_compute(path,5,5,25,25) # calculate path from 5,5 to 25,25
-        libtcod.path_reverse(path) # now the path goes from 25,25 to 5,5
-    */
+     * @brief Reversing a path.
+     *
+     * Once you computed a path, you can exchange origin and destination.
+     */
     void reverse( );
 
     /**
-    @PageName path_read
-    @PageTitle Reading path information
-    @PageFather path
-    @PageDescDesc Once the path has been computed, you can get information about it using of one those functions.
-    @FuncTitle Getting the path origin and destination
-    @FuncDesc
-        You can read the current origin and destination cells with getOrigin/getDestination.
-        Note that when you walk the path, the origin changes at each step.
-    @Cpp
-        void TCODPath::getOrigin(int *x,int *y) const
-        void TCODPath::getDestination(int *x,int *y) const
-    @C
-        void TCOD_path_get_origin(TCOD_path_t path, int *x, int *y)
-        void TCOD_path_get_destination(TCOD_path_t path, int *x, int *y)
-    @Py
-        path_get_origin(path) # returns x,y
-        path_get_destination(path) # returns x,y
-    @C#
-        void TCODPath::getOrigin(out int x, out int y)
-        void TCODPath::getDestination(out int x, out int y)
-    @Param path	In the C version, the path handler returned by a creation function.
-    @Param x,y	The function returns the cell coordinates in these variables
-    */
+     * Once the path has been computed, you can get information about it using
+     * of one those functions.
+     *
+     * You can read the current origin and destination cells with getOrigin/getDestination.
+     *
+     * @note Note that when you walk the path, the origin changes at each step.
+     *
+     * @param x The function returns the cell coordinates in these variables.
+     * @param y The function returns the cell coordinates in these variables.
+     */
     void getOrigin( int *x, int *y ) const;
 
+    /**
+     * Once the path has been computed, you can get information about it using
+     * of one those functions.
+     *
+     * You can read the current origin and destination cells with getOrigin/getDestination.
+     *
+     * @param x The function returns the cell coordinates in these variables.
+     * @param y The function returns the cell coordinates in these variables.
+     */
     void getDestination( int *x, int *y ) const;
 
     /**
