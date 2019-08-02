@@ -77,106 +77,49 @@ protected :
 public :
 
     /**
-    @PageName path_init
-    @PageFather path
-    @PageTitle Creating a path
-    @FuncTitle Allocating a pathfinder from a map
-    @FuncDesc First, you have to allocate a path using a map from <a href="fov.html">the Field of view module</a>.
-    @Cpp
-        TCODPath::TCODPath(const Doryen::TCODMap *map, float diagonalCost=1.41f)
-        TCODDijkstra::TCODDijkstra(const Doryen::TCODMap *map, float diagonalCost=1.41f)
-    @C
-        TCOD_path_t TCOD_path_new_using_map(TCOD_map_t map, float diagonalCost)
-        TCOD_dijkstra_t TCOD_dijkstra_new(TCOD_map_t map, float diagonalCost)
-    @Py
-        path_new_using_map(map, diagonalCost=1.41)
-        dijkstra_new(map, diagonalCost=1.41)
-    @C#
-        TCODPath(Doryen::TCODMap map, float diagonalCost)
-        TCODPath(Doryen::TCODMap map)
-        TCODDijkstra(Doryen::TCODMap map, float diagonalCost)
-        TCODDijkstra(Doryen::TCODMap map)
-    @Param map	The map. The path finder will use the 'walkable' property of the cells to find a path.
-    @Param diagonalCost	Cost of a diagonal movement compared to an horizontal or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
-        It you want the same cost for all movements, use 1.0f.
-        If you don't want the path finder to use diagonal movements, use 0.0f.
-    @CppEx
-        // A* :
-        Doryen::TCODMap *myMap = new Doryen::TCODMap(50,50);
-        TCODPath *path = new TCODPath(myMap); // allocate the path
-        // Dijkstra:
-        Doryen::TCODMap *myMap = new Doryen::TCODMap(50,50);
-        TCODDijkstra *dijkstra = new TCODDijkstra(myMap); // allocate the path
-    @CEx
-        // A* :
-        TCOD_map_t my_map=TCOD_map_new(50,50,true);
-        TCOD_path_t path = TCOD_path_new_using_map(my_map,1.41f);
-        // Dijkstra :
-        TCOD_map_t my_map=TCOD_map_new(50,50,true);
-        TCOD_dijkstra_t dijk = TCOD_dijkstra_new(my_map,1.41f);
-    @PyEx
-        # A* :
-        my_map=libtcod.map_new(50,50,True)
-        path = libtcod.path_new_using_map(my_map)
-        # Dijkstra
-        my_map=libtcod.map_new(50,50,True)
-        dijk = libtcod.dijkstra_new(my_map)
-    */
+     * @brief Allocating a pathfinder from a map.
+     *
+     * First, you have to allocate a path using a map. {Doryen::Map}.
+     *
+     * @param map The map. The path finder will use the 'walkable' property of
+     * the cells to find a path.
+     *
+     * @param diagonalCost Cost of a diagonal movement compared to an horizontal
+     * or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
+     *
+     * @note It you want the same cost for all movements, use 1.0f.
+     * @note If you don't want the path finder to use diagonal movements, use 0.0f.
+     */
     TCODPath( const Doryen::Map *map, float diagonalCost = 1.41f );
 
     /**
-    @PageName path_init
-    @FuncTitle Allocating a pathfinder using a callback
-    @FuncDesc Since the walkable status of a cell may depend on a lot of parameters (the creature type, the weather, the terrain type...), you can also create a path by providing a function rather than relying on a Doryen::TCODMap.
-    @Cpp
-        // Callback :
-        class ITCODPathCallback {
-            public: virtual float getWalkCost( int xFrom, int yFrom, int xTo, int yTo, void *userData ) const = 0;
-        };
-        // A* constructor:
-        TCODPath::TCODPath(int width, int height, const ITCODPathCallback *callback, void *userData, float diagonalCost=1.41f)
-        // Dijkstra constructor
-        TCODDijkstra::TCODDijkstra(int width, int height, const ITCODPathCallback *callback, void *userData, float diagonalCost=1.41f)
-    @C
-        typedef float (*TCOD_path_func_t)( int xFrom, int yFrom, int xTo, int yTo, void *user_data )
-        TCOD_path_t TCOD_path_new_using_function(int width, int height, TCOD_path_func_t callback, void *user_data, float diagonalCost)
-        TCOD_dijkstra_t TCOD_dijkstra_new_using_function(int width, int height, TCOD_path_func_t callback, void *user_data, float diagonalCost)
-    @Py
-        def path_func(xFrom,yFrom,xTo,yTo,userData) : ...
-        path_new_using_function(width, height, path_func, user_data=0, diagonalCost=1.41)
-        dijkstra_new_using_function(width, height, path_func, user_data=0, diagonalCost=1.41)
-    @C#
-        TCODPath(int width, int height, ITCODPathCallback listener, float diagonalCost)
-        TCODPath(int width, int height, ITCODPathCallback listener)
-        TCODDijkstra(int width, int height, ITCODPathCallback listener, float diagonalCost)
-        TCODDijkstra(int width, int height, ITCODPathCallback listener)
-    @Param width,height	The size of the map (in map cells).
-    @Param callback	A custom function that must return the walk cost from coordinates xFrom,yFrom to coordinates xTo,yTo.
-        The cost must be > 0.0f if the cell xTo,yTo is walkable.
-        It must be equal to 0.0f if it's not.
-        You must not take additional cost due to diagonal movements into account as it's already done by the pathfinder.
-    @Param userData	Custom data that will be passed to the function.
-    @Param diagonalCost	Cost of a diagonal movement compared to an horizontal or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
-        It you want the same cost for all movements, use 1.0f.
-        If you don't want the path finder to use diagonal movements, use 0.0f.
-    @CppEx
-        class MyCallback : public ITCODPathCallback {
-        public :
-            float getWalkCost(int xFrom, int yFrom, int xTo, int yTo, void *userData ) const { ... }
-        };
-        TCODPath *path = new TCODPath(50,50,new MyCallback(),NULL); // allocate the path
-        TCODDijkstra *dijkstra = new TCODDijkstra(50,50,new MyCallback(),NULL); // allocate Dijkstra
-    @CEx
-        float my_func(int xFrom, int yFrom, int xTo, int yTo, void *user_data) { ... }
-        TCOD_path_t path = TCOD_path_new_using_function(50,50,my_func,NULL,1.41f);
-        TCOD_dijkstra_t dijkstra = TCOD_dijkstra_new_using_function(50,50,my_func,NULL,1.41f);
-    @PyEx
-        def my_func(xFrom, yFrom, xTo, yTo, user_data) :
-            # return a float cost for this movement
-            return 1.0
-        path = libtcod.path_new_using_function(50,50,my_func)
-        dijkstra = libtcod.dijkstra_new_using_function(50,50,my_func)
-    */
+     * @brief Allocating a pathfinder using a callback.
+     *
+     * Since the walkable status of a cell may depend on a lot of parameters
+     * (the creature type, the weather, the terrain type...), you can also
+     * create a path by providing a function rather than relying on a Doryen::Map.
+     *
+     * @param width The size of the map (in map cells).
+     * @param height The size of the map (in map cells).
+     *
+     * @param listener A custom function that must return the walk cost from
+     * coordinates xFrom,yFrom to coordinates xTo,yTo.
+     *
+     * 1- The cost must be > 0.0f if the cell xTo,yTo is walkable.
+     *
+     * 2- It must be equal to 0.0f if it's not.
+     *
+     * 3- You must not take additional cost due to diagonal movements into account
+     *    as it's already done by the pathfinder.
+     *
+     * @param userData Custom data that will be passed to the function.
+     *
+     * @param diagonalCost Cost of a diagonal movement compared to an horizontal
+     * or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
+     *
+     * @note It you want the same cost for all movements, use 1.0f.
+     * @note If you don't want the path finder to use diagonal movements, use 0.0f.
+     */
     TCODPath( int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost = 1.41f );
 
     /**
