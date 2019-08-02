@@ -198,100 +198,47 @@ public :
     void get( int index, int *x, int *y ) const;
 
     /**
-    @PageName path_read
-    @FuncTitle Checking if the path is empty
-    @FuncDesc If you want a creature to follow the path, a more convenient way is to walk the path :
-        You know when you reached destination when the path is empty :
-    @Cpp
-        bool TCODPath::isEmpty() const
-        bool TCODDijkstra::isEmpty() const
-    @C
-        bool TCOD_path_is_empty(TCOD_path_t path)
-        bool TCOD_dijkstra_is_empty(TCOD_dijkstra_t dijkstra)
-    @Py
-        path_is_empty(path)
-        dijkstra_is_empty(dijkstra)
-    @C#
-        bool TCODPath::isEmpty()
-        bool TCODDijkstra::isEmpty()
-    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
-    */
+     * @brief Checking if the path is empty.
+     *
+     * If you want a creature to follow the path, a more convenient way is to
+     * walk the path.
+     *
+     * You know when you reached destination when the path is empty.
+     *
+     * @return True if the path is empty (reached destination), false otherwise.
+     */
     bool isEmpty( ) const;
 
     /**
-    @PageName path_read
-    @FuncTitle Walking the path
-    @FuncDesc You can walk the path and go to the next step with :
-        Note that walking the path consume one step (and decrease the path size by one). The function returns false if recalculateWhenNeeded is false and the next cell on the path is no longer walkable, or if recalculateWhenNeeded is true, the next cell on the path is no longer walkable and no other path has been found. Also note that recalculateWhenNeeded only applies to A*.
-    @Cpp
-        bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
-        bool TCODDijkstra::walk(int *x, int *y)
-    @C
-        bool TCOD_path_walk(TCOD_path_t path, int *x, int *y, bool recalculate_when_needed)
-        bool TCOD_dijkstra_walk(TCOD_dijkstra_t dijkstra, int *x, int *y)
-    @Py
-        path_walk(TCOD_path_t path, recalculate_when_needed) # returns x,y or None,None if no path
-        dijkstra_walk(TCOD_dijkstra_t dijkstra)
-    @C#
-        bool TCODPath::walk(ref int x, ref int y, bool recalculateWhenNeeded)
-        bool TCODDijkstra::walk(ref int x, ref int y)
-    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
-    @Param x,y	Address of the variables receiving the coordinates of the next point.
-    @Param recalculateWhenNeeded	If the next point is no longer walkable (another creature may be in the way), recalculate a new path and walk it.
-    @CppEx
-        while (! path->isEmpty()) {
-            int x,y;
-            if (path->walk(&x,&y,true)) {
-                printf ("Astar coord: %d %d\n",x,y );
-            } else {
-                printf ("I'm stuck!\n" );
-                break;
-            }
-        }
-        while (! dijkstra->isEmpty()) {
-            int x,y;
-            if (dijkstra->walk(&x,&y)) {
-                printf ("Dijkstra coord: %d %d\n",x,y );
-            } else {
-                printf ("I'm stuck!\n" );
-                break;
-            }
-        }
-    @CEx
-        while (! TCOD_path_is_empty(path)) {
-            int x,y;
-            if (TCOD_path_walk(path,&x,&y,true)) {
-                printf ("Astar coord: %d %d\n",x,y );
-            } else {
-                printf ("I'm stuck!\n" );
-                break;
-            }
-        }
-        while (! TCOD_dijkstra_is_empty(dijkstra)) {
-            int x,y;
-            if (TCOD_dijkstra_walk(dijkstra,&x,&y)) {
-                printf ("Dijkstra coord: %d %d\n",x,y );
-            } else {
-                printf ("I'm stuck!\n" );
-                break;
-            }
-        }
-    @PyEx
-        while not libtcod.path_is_empty(path)) :
-            x,y=libtcod.path_walk(path,True)
-            if not x is None :
-                print 'Astar coord: ',x,y
-            else :
-                print "I'm stuck!"
-                break
-        while not libtcod.dijkstra_is_empty(dijkstra)) :
-            x,y=libtcod.dijkstra_walk(dijkstra,True)
-            if not x is None :
-                print 'Dijkstra coord: ',x,y
-            else :
-                print "I'm stuck!"
-                break
-    */
+     * @brief Walking the path.
+     *
+     * You can walk the path and go to the next step.
+     *
+     * @note Note that walking the path consume one step (and decrease
+     * the path size by one).
+     *
+     * The function returns false if recalculateWhenNeeded is false and
+     * the next cell on the path is no longer walkable, or
+     * if recalculateWhenNeeded is true, the next cell on the path is
+     * no longer walkable and no other path has been found.
+     *
+     * @note recalculateWhenNeeded only applies to A*.
+     *
+     * @param x Address of the variables receiving the coordinates of
+     * the next point.
+     *
+     * @param y Address of the variables receiving the coordinates of
+     * the next point.
+     *
+     * @param recalculateWhenNeeded If the next point is no longer
+     * walkable (another creature may be in the way), recalculate
+     * a new path and walk it.
+     *
+     * @return false if recalculateWhenNeeded is false and the next
+     * cell on the path is no longer walkable, or if recalculateWhenNeeded
+     * is true, the next cell on the path is no longer walkable and
+     * no other path has been found.
+     */
     bool walk( int *x, int *y, bool recalculateWhenNeeded );
 };
 
