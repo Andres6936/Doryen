@@ -26,9 +26,19 @@
 */
 
 #include <FOV/CircularRaycasting.hpp>
+#include <fov.hpp>
+
 
 #include "libtcod.hpp"
 #include "fov_types.h"
+
+Doryen::Map::Map( )
+{
+    width = 0;
+    height = 0;
+    nbcells = 0;
+    cells = nullptr;
+}
 
 Doryen::Map::Map( int width, int height )
 {
@@ -69,30 +79,41 @@ void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkab
     }
 }
 
-void Doryen::Map::copy( Map &source )
+void Doryen::Map::copy( const Map &source )
 {
     // Comparamos el tamaño del mapa original (this) con el
     // objetivo (source), Si ambos tienen un tamaño similar
-    // (esto es, source.nbcells == nbcells), no hay necesidad
-    // de elimnar el mapa del objetivo (source) para volver
+    // (esto es, this->nbcells == source.nbcells), no hay necesidad
+    // de elimnar el mapa (this) para volver
     // a reservar, simplemente sobreescribimos el mapa.
 
     // En caso de no ser igual el tamaño de los mapas, eliminamos,
     // reservamos y sobreescribimos.
 
-    if ( source.nbcells != nbcells )
+    if ( this->nbcells != source.nbcells )
     {
-        delete[] source.cells;
+        // Eliminamos el mapa.
+        delete[] this->cells;
 
-        source.cells = new Doryen::Cell[nbcells]( );
+        // Reservamos una nueva lista de celdas del mismo tamaño que
+        // el source.
+        this->cells = new Doryen::Cell[source.nbcells]( );
+
+        // Copiamos las variables miembros del source.
+        this->nbcells = source.nbcells;
+        this->width = source.width;
+        this->height = source.height;
     }
     else
     {
-        for ( int i = 0; i < width * height; i++ )
+        // Recordemos que en este punto, el tamaño de los mapas {this,
+        // como source} son iguales.
+        // Restamos 1 porque empezamos a contar desde 0.
+        for ( int i = 0; i <= nbcells - 1; i++ )
         {
-            source.cells[ i ].transparent = cells[ i ].transparent;
-            source.cells[ i ].walkable = cells[ i ].walkable;
-            source.cells[ i ].fov = cells[ i ].fov;
+            this->cells[ i ].transparent = source.cells[ i ].transparent;
+            this->cells[ i ].walkable = source.cells[ i ].walkable;
+            this->cells[ i ].fov = source.cells[ i ].fov;
         }
     }
 }
