@@ -31,6 +31,7 @@
 #pragma once
 
 #include "Cell.hpp"
+#include "fov.h"
 
 class TCODPath;
 

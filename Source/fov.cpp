@@ -42,7 +42,7 @@ Doryen::Map::Map( int width, int height )
         this->height = height;
         this->nbcells = width * height;
 
-        cells = new Doryen::Cell[nbcells];
+        this->cells = new Doryen::Cell[nbcells]( );
     }
 }
 
@@ -84,7 +84,7 @@ void Doryen::Map::copy( Map &source )
     {
         delete[] source.cells;
 
-        source.cells = new Doryen::Cell[nbcells];
+        source.cells = new Doryen::Cell[nbcells]( );
     }
     else
     {

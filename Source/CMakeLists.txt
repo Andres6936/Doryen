@@ -29,7 +29,7 @@ SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circul
 
 SET(LIBTCOD_CPP_SRC bresenham.cpp bsp.cpp Color.cpp Console.cpp fov.cpp heightmap.cpp image.cpp mersenne.cpp
         mouse.cpp namegen.cpp noise.cpp path.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
-        FOV/CircularRaycasting.cpp)
+        FOV/CircularRaycasting.cpp Cell.cpp)
 
 SET(LIBTCOD_GUI_SRC gui/button.cpp gui/container.cpp gui/flatlist.cpp gui/hbox.cpp gui/image.cpp gui/label.cpp gui/radiobutton.cpp
         gui/slider.cpp gui/statusbar.cpp gui/textbox.cpp gui/togglebutton.cpp gui/toolbar.cpp gui/vbox.cpp gui/widget.cpp)

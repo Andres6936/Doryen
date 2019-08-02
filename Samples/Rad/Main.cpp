@@ -40,7 +40,7 @@
 #define CELL_REFLECTIVITY 1.5
 #define CELL_SELF_ILLUMINATION 0.4
 
-TCODMap *map;
+Doryen::Map *map;
 BspHelper bsp;
 int playerx=0,playery=0,playerBack;
 Shader *leftShader=NULL;
@@ -85,7 +85,7 @@ void init() {
     Doryen::Console::root->clear( );
 
 	// build the dungeon
-	map=new TCODMap(MAP_WIDTH,MAP_HEIGHT);
+    map = new Doryen::Map( MAP_WIDTH, MAP_HEIGHT );
 	bsp.createBspDungeon(map,NULL);
 	// empty map
 	//map->clear(true,true);	

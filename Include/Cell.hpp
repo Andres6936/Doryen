@@ -11,6 +11,10 @@ namespace Doryen
         bool transparent;
         bool walkable;
         bool fov;
+
+        Cell( );
+
+        Cell( bool isTransparent, bool isWalkable, bool isFOV );
     };
 }
 

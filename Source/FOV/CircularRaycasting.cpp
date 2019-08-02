@@ -23,7 +23,7 @@ void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
         yMax = std::min( map.height, playerY + maxRadius + 1 );
     }
 
-    for ( int i = 0; map.nbcells; i++ )
+    for ( int i = 0; i <= map.nbcells - 1; i++ )
     {
         map.cells[ i ].fov = false;
     }
