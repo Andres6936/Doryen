@@ -68,15 +68,7 @@ class TCODLIB_API TCODPath
 
 protected :
 
-    friend float TCOD_path_func( int xFrom, int yFrom, int xTo, int yTo, void *data );
-
     TCOD_path_t data;
-
-    struct WrapperData
-    {
-        void *userData;
-        const ITCODPathCallback *listener;
-    } cppData;
 
 private:
 
@@ -101,11 +93,6 @@ private:
     int dx;
 
     /**
-     * List of Direction to follow the path.
-     */
-    std::vector <Doryen::Direction> path;
-
-    /**
      * Map size.
      */
     int w;
@@ -116,21 +103,6 @@ private:
     int h;
 
     /**
-     * wxh djikstra distance grid (covered distance).
-     */
-    float *grid;
-
-    /**
-     * wxh A* score grid (covered distance + estimated remaining distance).
-     */
-    float *heur;
-
-    /**
-     * wxh 'previous' grid : direction to the previous cell.
-     */
-    std::vector <Doryen::Direction> prev;
-
-    /**
      * Cost of a diagonal movement compared to an horizontal
      * or vertical movement. On a standard cartesian map, it
      * should be sqrt(2) (1.41f).
@@ -138,15 +110,36 @@ private:
     float diagonalCost;
 
     /**
-     * min_heap used in the algorithm. stores the offset in grid/heur (offset=x+y*w).
+     * wxh djikstra distance grid (covered distance).
      */
-    TCOD_list_t heap;
+    std::vector <float> grid;
 
-    TCOD_map_t map;
+    /**
+     * wxh A* score grid (covered distance + estimated remaining distance).
+     */
+    std::vector <float> heur;
+
+    /**
+     * heap used in the algorithm. stores the offset in grid/heur (offset=x+y*w).
+     */
+    std::vector <unsigned long> heap;
+
+    /**
+     * wxh 'previous' grid : direction to the previous cell.
+     */
+    std::vector <Doryen::Direction> prev;
+
+    /**
+     * List of Direction to follow the path.
+     */
+    std::vector <Doryen::Direction> path;
+
+    /**
+     * Reference to the map.
+     */
+    Doryen::Map map;
 
     TCOD_path_func_t func;
-
-    void *user_data;
 
 public :
 
@@ -164,37 +157,7 @@ public :
      * @note It you want the same cost for all movements, use 1.0f.
      * @note If you don't want the path finder to use diagonal movements, use 0.0f.
      */
-    TCODPath( const Doryen::Map *map, float diagonalCost = 1.41f );
-
-    /**
-     * @brief Allocating a pathfinder using a callback.
-     *
-     * Since the walkable status of a cell may depend on a lot of parameters
-     * (the creature type, the weather, the terrain type...), you can also
-     * create a path by providing a function rather than relying on a Doryen::Map.
-     *
-     * @param width The size of the map (in map cells).
-     * @param height The size of the map (in map cells).
-     *
-     * @param listener A custom function that must return the walk cost from
-     * coordinates xFrom,yFrom to coordinates xTo,yTo.
-     *
-     * 1- The cost must be > 0.0f if the cell xTo,yTo is walkable.
-     *
-     * 2- It must be equal to 0.0f if it's not.
-     *
-     * 3- You must not take additional cost due to diagonal movements into account
-     *    as it's already done by the pathfinder.
-     *
-     * @param userData Custom data that will be passed to the function.
-     *
-     * @param diagonalCost Cost of a diagonal movement compared to an horizontal
-     * or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
-     *
-     * @note It you want the same cost for all movements, use 1.0f.
-     * @note If you don't want the path finder to use diagonal movements, use 0.0f.
-     */
-    TCODPath( int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost = 1.41f );
+    explicit TCODPath( const Doryen::Map &map, float diagonalCost = 1.41f );
 
     /**
      * @brief Destroying a path.
@@ -208,17 +171,17 @@ public :
      *
      * Once you created a TCODPath object, you can compute the path between two points.
      *
-     * @param ox Coordinates of the origin of the path.
-     * @param oy Coordinates of the origin of the path.
-     * @param dx Coordinates of the destination of the path.
-     * @param dy Coordinates of the destination of the path.
+     * @param originX Coordinates of the origin of the path.
+     * @param originY Coordinates of the origin of the path.
+     * @param destinationX Coordinates of the destination of the path.
+     * @param destinationY Coordinates of the destination of the path.
      *
      * @note Both points {dx and dy} should be inside the map, and at a walkable position.
      * @note The function returns false if there is no possible path.
      *
      * @return True if there is posible path, false otherwise.
      */
-    bool compute( int ox, int oy, int dx, int dy );
+    bool compute( int originX, int originY, int destinationX, int destinationY );
 
     /**
      * @brief Reversing a path.
@@ -321,9 +284,6 @@ class TCODLIB_API TCODDijkstra
 {
 public:
     TCODDijkstra( Doryen::Map *map, float diagonalCost = 1.41f );
-
-    TCODDijkstra( int width, int height, const ITCODPathCallback *listener, void *userData,
-                  float diagonalCost = 1.41f );
 
     ~TCODDijkstra( void );
 

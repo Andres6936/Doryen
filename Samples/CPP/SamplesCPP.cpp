@@ -844,7 +844,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                 { map->setProperties( x, y, true, false ); } // window
             }
         }
-        path = new TCODPath( map );
+        path = new TCODPath( *map );
         dijkstra = new TCODDijkstra( map );
     }
     if ( first )

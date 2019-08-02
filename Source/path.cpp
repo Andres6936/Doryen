@@ -27,29 +27,86 @@
 #include "libtcod.hpp"
 
 
-TCODPath::TCODPath( const Doryen::Map *map, float diagonalCost )
+TCODPath::TCODPath( const Doryen::Map &map, float diagonalCost )
 {
-	data=(void *)TCOD_path_new_using_map(map->data,diagonalCost);
+    ox = 0;
+    oy = 0;
+
+    dx = 0;
+    dy = 0;
+
+    this->diagonalCost = diagonalCost;
+
+    w = map.width;
+    h = map.height;
+
+    // Correctly using reserve() can prevent unnecessary reallocations.
+    grid.reserve( w * h );
+    heur.reserve( w * h );
+    prev.reserve( w * h );
+
+    // Copiamos el mapa pasado por parámetro.
+    this->map.copy( map );
 }
 
-TCODPath::~TCODPath() {
-	TCOD_path_delete(data);
-}
-
-float TCOD_path_func(int xFrom, int yFrom, int xTo,int yTo, void *data) {
-	TCODPath::WrapperData *cppData=(TCODPath::WrapperData *)data;
-	return cppData->listener->getWalkCost(xFrom,yFrom,xTo,yTo,cppData->userData);
-}
-
-TCODPath::TCODPath(int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost) {
-	cppData.listener=listener;
-	cppData.userData=userData;
-	data=(void *)TCOD_path_new_using_function(width, height, TCOD_path_func, (void *)&cppData,diagonalCost);
-}
+TCODPath::~TCODPath( ) = default;
 
 
-bool TCODPath::compute(int ox, int oy, int dx, int dy) {
-	return TCOD_path_compute(data,ox,oy,dx,dy) != 0;
+bool TCODPath::compute( int originX, int originY, int destinationX, int destinationY )
+{
+    // Check that origin and destination are inside the map.
+    if ( originX < 0 || originX >= map.width || originY < 0 || originY >= map.height )
+    {
+        // Throw Error
+    }
+    else
+    {
+        if ( originX == destinationX && originY == destinationY )
+        {
+            // Destination reached.
+            return true;
+        }
+
+        this->ox = originX;
+        this->oy = originY;
+
+        this->dx = destinationX;
+        this->dy = destinationY;
+
+        path.clear( );
+        heap.clear( );
+
+        // Fill with zeros.
+        for ( float &i : grid )
+        {
+            i = 0.0f;
+        }
+
+        // Fill with nulls.
+        for ( Doryen::Direction &direction: prev )
+        {
+            direction = Doryen::Direction::NONE;
+        }
+
+        // Origin position is marked with 1.0f
+        heur[ originX + w * originY ] = 1.0f;
+
+        // Put the origin cell as a bootstrap.
+
+        unsigned long offset = ox + w * oy;
+
+        // Append the new value to the end of the heap.
+        heap.push_back( offset );
+
+        unsigned long end = heap.size( ) - 1;
+
+        unsigned long child = end;
+
+        while ( child > 0 )
+        {
+            float childDist = heur.at( heap.at( child ));
+        }
+    }
 }
 
 bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded) {
@@ -89,13 +146,6 @@ void TCODPath::getDestination(int *x,int *y) const {
 TCODDijkstra::TCODDijkstra( Doryen::Map *map, float diagonalCost )
 {
     data = TCOD_dijkstra_new(map->data,diagonalCost);
-}
-
-//another ctor
-TCODDijkstra::TCODDijkstra (int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost) {
-	cppData.listener=listener;
-	cppData.userData=userData;
-	data=(void *)TCOD_dijkstra_new_using_function(width, height, TCOD_path_func, (void *)&cppData,diagonalCost);
 }
 
 //dtor
