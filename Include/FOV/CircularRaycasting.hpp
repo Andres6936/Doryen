@@ -15,6 +15,9 @@ namespace Doryen
         static void castRay( Doryen::Map &map, int xo, int yo, int xd, int yd,
                              int radiusDouble, bool ligthWalls );
 
+        static void postProcessing( Doryen::Map &map, int x0, int y0, int x1,
+                                    int y1, int dx, int dy );
+
     public:
 
         void operator()( Doryen::Map &map, int playerX, int playerY,

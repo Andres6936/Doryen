@@ -127,3 +127,52 @@ void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
         }
     }
 }
+
+void Doryen::CircularRaycasting::postProcessing( Doryen::Map &map, int x0,
+                                                 int y0, int x1, int y1, int dx, int dy )
+{
+    for ( int cx = x0; cx <= x1; cx++ )
+    {
+        for ( int cy = y0; cy <= y1; cy++ )
+        {
+            int x2 = cx + dx;
+            int y2 = cy + dy;
+
+            unsigned int offset = cx + map.width * cy;
+
+            if ( offset < map.nbcells && map.cells[ offset ].fov == 1
+                 && map.cells[ offset ].transparent )
+            {
+                if ( x2 >= x0 && x2 <= x1 )
+                {
+                    unsigned int offset2 = x2 + map.width * cy;
+
+                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
+                    {
+                        map.cells[ offset2 ].fov = true;
+                    }
+                }
+
+                if ( y2 >= y0 && y2 <= y1 )
+                {
+                    unsigned int offset2 = cx + map.width * y2;
+
+                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
+                    {
+                        map.cells[ offset2 ].fov = true;
+                    }
+                }
+
+                if ( x2 >= x0 && x2 <= x1 && y2 >= y0 && y2 <= y1 )
+                {
+                    unsigned int offset2 = x2 + map.width * y2;
+
+                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
+                    {
+                        map.cells[ offset2 ].fov = true;
+                    }
+                }
+            }
+        }
+    }
+}
