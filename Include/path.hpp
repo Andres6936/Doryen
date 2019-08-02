@@ -123,48 +123,10 @@ public :
     TCODPath( int width, int height, const ITCODPathCallback *listener, void *userData, float diagonalCost = 1.41f );
 
     /**
-    @PageName path_init
-    @FuncTitle Destroying a path
-    @FuncDesc To release the resources used by a path, destroy it with :
-    @Cpp
-        TCODPath::~TCODPath()
-        TCODDijkstra::~TCODDijkstra()
-    @C
-        void TCOD_path_delete(TCOD_path_t path)
-        void TCOD_dijkstra_delete(TCOD_dijkstra_t dijkstra)
-    @Py
-        path_delete(path)
-        dijkstra_delete(dijkstra)
-    @C#
-        void TCODPath::Dispose()
-        void TCODDijkstra::Dispose()
-    @Param path	In the C version, the path handler returned by one of the TCOD_path_new_* function.
-    @Param dijkstra	In the C version, the path handler returned by one of the TCOD_dijkstra_new* function.
-    @CppEx
-        TCODPath *path = new TCODPath(myMap); // allocate the path
-        // use the path...
-        delete path; // destroy the path
-
-        TCODDijkstra *dijkstra = new TCODDijkstra(myMap); // allocate the path
-        // use the path...
-        delete dijkstra; // destroy the path
-    @CEx
-        TCOD_path_t path = TCOD_path_new_using_map(my_map);
-        // use the path ...
-        TCOD_path_delete(path);
-
-        TCOD_dijkstra_t dijkstra = TCOD_dijkstra_new(my_map);
-        // use the path ...
-        TCOD_dijkstra_delete(dijkstra);
-    @PyEx
-        path = libtcod.path_new_using_map(my_map)
-        # use the path ...
-        libtcod.path_delete(path)
-
-        dijkstra = libtcod.dijkstra_new(my_map)
-        # use the path ...
-        libtcod.dijkstra_delete(dijkstra)
-    */
+     * @brief Destroying a path.
+     *
+     * To release the resources used by a path, destroy it.
+     */
     virtual ~TCODPath( );
 
     /**
