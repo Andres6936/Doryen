@@ -28,6 +28,10 @@
 #ifndef _TCOD_PATH_HPP
 #define _TCOD_PATH_HPP
 
+#include <vector>
+
+#include "Enum/Direction.hpp"
+
 class TCODLIB_API ITCODPathCallback
 {
 public :
@@ -73,6 +77,71 @@ protected :
         void *userData;
         const ITCODPathCallback *listener;
     } cppData;
+
+private:
+
+    /**
+     * Coordinates of the creature position.
+     */
+    int ox;
+
+    /**
+     * Coordinates of the creature position.
+     */
+    int oy;
+
+    /**
+     * Coordinates of the creature's destination.
+     */
+    int dy;
+
+    /**
+     * Coordinates of the creature's destination.
+     */
+    int dx;
+
+    /**
+     * List of Direction to follow the path.
+     */
+    std::vector <Doryen::Direction> path;
+
+    /**
+     * Map size.
+     */
+    int w;
+
+    /**
+     * Map size.
+     */
+    int h;
+
+    /**
+     * wxh djikstra distance grid (covered distance).
+     */
+    float *grid;
+
+    /**
+     * wxh A* score grid (covered distance + estimated remaining distance).
+     */
+    float *heur;
+
+    /**
+     * wxh 'previous' grid : direction to the previous cell.
+     */
+    std::vector <Doryen::Direction> prev;
+
+    float diagonalCost;
+
+    /**
+     * min_heap used in the algorithm. stores the offset in grid/heur (offset=x+y*w).
+     */
+    TCOD_list_t heap;
+
+    TCOD_map_t map;
+
+    TCOD_path_func_t func;
+
+    void *user_data;
 
 public :
 
