@@ -30,7 +30,7 @@
 
 #pragma once
 
-#include "libtcod_int.h"
+#include "Cell.hpp"
 
 class TCODPath;
 
@@ -81,7 +81,8 @@ namespace Doryen
         int width;
         int height;
         int nbcells;
-        cell_t *cells;
+
+        Doryen::Cell *cells;
 
         TCOD_map_t data;
 

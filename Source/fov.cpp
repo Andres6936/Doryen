@@ -42,7 +42,7 @@ Doryen::Map::Map( int width, int height )
         this->height = height;
         this->nbcells = width * height;
 
-        cells = new cell_t[nbcells];
+        cells = new Doryen::Cell[nbcells];
     }
 }
 
@@ -82,9 +82,9 @@ void Doryen::Map::copy( Map &source )
 
     if ( source.nbcells != nbcells )
     {
-        delete source.cells;
+        delete[] source.cells;
 
-        source.cells = new cell_t[nbcells];
+        source.cells = new Doryen::Cell[nbcells];
     }
     else
     {
@@ -97,7 +97,8 @@ void Doryen::Map::copy( Map &source )
     }
 }
 
-void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls, TCOD_fov_algorithm_t algo )
+void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
+                              TCOD_fov_algorithm_t algo )
 {
     // TCOD_map_compute_fov( data, x, y, maxRadius, light_walls, algo );
 
