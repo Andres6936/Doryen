@@ -62,7 +62,10 @@ void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
 
     if ( ligthWalls )
     {
-
+        postProcessing( map, xMin, yMin, playerX, playerY, -1, -1 );
+        postProcessing( map, playerX, yMin, xMax - 1, playerY, 1, -1 );
+        postProcessing( map, xMin, playerY, playerX, yMax - 1, -1, 1 );
+        postProcessing( map, playerX, playerY, xMax - 1, yMax - 1, 1, 1 );
     }
 }
 
