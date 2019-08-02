@@ -55,7 +55,21 @@ Dijkstra:      A*:
  */
 class TCODLIB_API TCODPath
 {
+
+protected :
+
+    friend float TCOD_path_func( int xFrom, int yFrom, int xTo, int yTo, void *data );
+
+    TCOD_path_t data;
+
+    struct WrapperData
+    {
+        void *userData;
+        const ITCODPathCallback *listener;
+    } cppData;
+
 public :
+
     /**
     @PageName path_init
     @PageFather path
@@ -233,6 +247,7 @@ public :
     */
     bool compute( int ox, int oy, int dx, int dy );
 
+
     /**
     @PageName path_compute
     @FuncTitle Reversing a path
@@ -267,7 +282,6 @@ public :
         libtcod.path_reverse(path) # now the path goes from 25,25 to 5,5
     */
     void reverse( );
-
 
     /**
     @PageName path_read
@@ -466,16 +480,6 @@ public :
                 break
     */
     bool walk( int *x, int *y, bool recalculateWhenNeeded );
-
-protected :
-    friend float TCOD_path_func( int xFrom, int yFrom, int xTo, int yTo, void *data );
-
-    TCOD_path_t data;
-    struct WrapperData
-    {
-        void *userData;
-        const ITCODPathCallback *listener;
-    } cppData;
 };
 
 //Dijkstra kit
