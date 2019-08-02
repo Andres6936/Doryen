@@ -87,6 +87,8 @@ namespace Doryen
 
         TCOD_map_t data;
 
+        Map( );
+
         /**
          * @brief Building the map.
          *
@@ -136,7 +138,7 @@ namespace Doryen
          *
          * @param source The map containing the source data.
          */
-        void copy( Map &source );
+        void copy( const Map &source );
 
         /**
          * @brief Computing the field of view.
