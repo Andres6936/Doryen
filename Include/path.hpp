@@ -178,76 +178,23 @@ public :
     void getDestination( int *x, int *y ) const;
 
     /**
-    @PageName path_read
-    @FuncTitle Getting the path length
-    @FuncDesc You can get the number of steps needed to reach destination :
-    @Cpp
-        int TCODPath::size() const
-        int TCODDijkstra::size() const
-    @C
-        int TCOD_path_size(TCOD_path_t path)
-        int TCOD_dijkstra_size(TCOD_dijkstra_t dijkstra)
-    @Py
-        path_size(path)
-        dijkstra_size(dijkstra)
-    @C#
-        int TCODPath::size()
-        int TCODDijkstra::size()
-    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
-    */
+     * @brief Getting the path length.
+     *
+     * You can get the number of steps needed to reach destination.
+     *
+     * @return number of steps needed to reach destination.
+     */
     int size( ) const;
 
     /**
-    @PageName path_read
-    @FuncTitle Read the path cells' coordinates
-    @FuncDesc You can get the coordinates of each point along the path :
-    @Cpp
-        void TCODPath::get(int index, int *x, int *y) const
-        void TCODDijkstra::get(int index, int *x, int *y) const
-    @C
-        void TCOD_path_get(TCOD_path_t path, int index, int *x, int *y)
-        void TCOD_dijkstra_get(TCOD_dijkstra_t dijkstra, int index, int *x, int *y)
-    @Py
-        path_get(path, index) # returns x,y
-        dijkstra_get(dijkstra, index) # returns x,y
-    @C#
-        int TCODPath::size()
-        int TCODDijkstra::size()
-    @Param path, dijkstra	In the C version, the path handler returned by a creation function.
-    @Param index	Step number.
-        0 <= index < path size
-    @Param x,y	Address of the variables receiving the coordinates of the point.
-    @CppEx
-        for (int i=0; i < path->size(); i++ ) {
-            int x,y;
-            path->get(i,&x,&y);
-            printf ("Astar coord : %d %d\n", x,y );
-        }
-        for (int i=0; i < dijkstra->size(); i++ ) {
-            int x,y;
-            dijkstra->get(i,&x,&y);
-            printf ("Dijkstra coord : %d %d\n", x,y );
-        }
-    @CEx
-        int i;
-        for (i=0; i < TCOD_path_size(path); i++ ) {
-            int x,y;
-            TCOD_path_get(path,i,&x,&y);
-            printf ("Astar coord : %d %d\n", x,y );
-        }
-        for (i=0; i < TCOD_dijkstra_size(dijkstra); i++ ) {
-            int x,y;
-            TCOD_dijkstra_get(dijkstra,i,&x,&y);
-            printf ("Dijsktra coord : %d %d\n", x,y );
-        }
-    @PyEx
-        for i in range (libtcod.path_size(path)) :
-            x,y=libtcod.path_get(path,i)
-            print 'Astar coord : ',x,y
-        for i in range (libtcod.dijkstra_size(dijkstra)) :
-            x,y=libtcod.dijkstra_get(dijkstra,i)
-            print 'Dijkstra coord : ',x,y
-    */
+     * @brief Read the path cells' coordinates.
+     *
+     * You can get the coordinates of each point along the path.
+     *
+     * @param index Step number. 0 <= index < path size.
+     * @param x Address of the variables receiving the coordinates of the point.
+     * @param y Address of the variables receiving the coordinates of the point.
+     */
     void get( int index, int *x, int *y ) const;
 
     /**
