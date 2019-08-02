@@ -33,6 +33,35 @@ void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
 
     while ( xo < xMax )
     {
+        castRay( map, playerX, playerY, xo++, yo, radiusDouble, ligthWalls );
+    }
+
+    xo = xMax - 1;
+    yo = yMin + 1;
+
+    while ( yo < yMax )
+    {
+        castRay( map, playerX, playerY, xo, yo++, radiusDouble, ligthWalls );
+    }
+
+    xo = xMax - 2;
+    yo = yMax - 1;
+
+    while ( xo >= 0 )
+    {
+        castRay( map, playerX, playerY, xo--, yo, radiusDouble, ligthWalls );
+    }
+
+    xo = xMin;
+    yo = yMax - 2;
+
+    while ( yo > 0 )
+    {
+        castRay( map, playerX, playerY, xo, yo--, radiusDouble, ligthWalls );
+    }
+
+    if ( ligthWalls )
+    {
 
     }
 }
