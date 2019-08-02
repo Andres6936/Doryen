@@ -130,6 +130,11 @@ private:
      */
     std::vector <Doryen::Direction> prev;
 
+    /**
+     * Cost of a diagonal movement compared to an horizontal
+     * or vertical movement. On a standard cartesian map, it
+     * should be sqrt(2) (1.41f).
+     */
     float diagonalCost;
 
     /**
