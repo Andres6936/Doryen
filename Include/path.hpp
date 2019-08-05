@@ -135,7 +135,7 @@ private:
     std::vector <Doryen::Direction> path;
 
     /**
-     * Reference to the map.
+     * Copy of the map.
      */
     Doryen::Map map;
 

@@ -102,9 +102,124 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
         unsigned long child = end;
 
+        std::vector <unsigned long> array = heap;
+
         while ( child > 0 )
         {
-            float childDist = heur.at( heap.at( child ));
+            unsigned long offChild = array.at( child );
+
+            float childDist = heur.at( offChild );
+
+            unsigned long parent = ( child - 1 ) / 2;
+            unsigned long offParent = array[ parent ];
+
+            float parentDist = heur.at( offParent );
+
+            if ( parentDist > childDist )
+            {
+                unsigned long tmp = array.at( child );
+                array[ child ] = array.at( parent );
+                array[ parent ] = tmp;
+                child = parent;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        unsigned long x = 0;
+        unsigned long y = 0;
+        unsigned long distance = 0;
+
+        unsigned long offsetBestCell = 0;
+
+        // Fill the djikstra grid until we reach dx, dy
+        while ( grid.at( destinationX + w * destinationY ) == 0 && !heap.empty( ))
+        {
+            // Get the coordinate pair with the minimum A* score from the heap
+            std::vector <unsigned long> array = heap;
+
+            unsigned long end = heap.size( ) - 1;
+            offsetBestCell = array.at( 0 );
+
+            x = ( offsetBestCell % w );
+            y = ( offsetBestCell / w );
+
+            distance = grid.at( offsetBestCell );
+
+            // Take the last element and put it at first position (heap root)
+            array[ 0 ] = array.at( end );
+            heap.pop_back( );
+
+            unsigned long cur = 0;
+            unsigned long child = 1;
+
+            while ( child <= end )
+            {
+                unsigned long toSwap = cur;
+                unsigned long offCur = array.at( cur );
+
+                float curDist = heur.at( offCur );
+                float swapValue = curDist;
+
+                unsigned long offChild = array.at( child );
+
+                float childDist = heur.at( offChild );
+
+                if ( childDist < curDist )
+                {
+                    toSwap = child;
+                    swapValue = childDist;
+                }
+
+                if ( child < end )
+                {
+                    // Get the min between child and child + 1
+                    unsigned long offChild = array.at( child + 1 );
+
+                    float childDist = heur.at( offChild );
+
+                    if ( swapValue > childDist )
+                    {
+                        toSwap = child + 1;
+                        swapValue = childDist;
+                    }
+                }
+
+                if ( toSwap != cur )
+                {
+                    // Get down one level
+                    unsigned long tmp = array.at( toSwap );
+
+                    array[ toSwap ] = array.at( cur );
+                    array[ cur ] = tmp;
+
+                    cur = toSwap;
+                }
+                else
+                {
+                    break;
+                }
+
+                child = cur * 2 + 1;
+            }
+        }
+
+        unsigned long imax;
+
+        if ( diagonalCost == 0.0f )
+        {
+            imax = 4;
+        }
+        else
+        {
+            imax = 8;
+        }
+
+        for ( unsigned long i = 0; i < imax; i++ )
+        {
+            // Convert i to dx, dy
         }
     }
 }
