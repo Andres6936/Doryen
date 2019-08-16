@@ -493,9 +493,15 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             "##############################################",
     };
 
-#define TORCH_RADIUS 10.0f
-#define SQUARED_TORCH_RADIUS (TORCH_RADIUS*TORCH_RADIUS)
-    static int px = 20, py = 10; // player position
+    constexpr float TORCH_RADIUS = 10.0f;
+
+    constexpr float SQUARED_TORCH_RADIUS = ( TORCH_RADIUS * TORCH_RADIUS );
+
+    // Player position X.
+    static int playerX = 20;
+    // Player position Y.
+    static int playerY = 10;
+
     static bool recomputeFov = true; // the player moved. must recompute fov
     static bool torch = false; // torch fx on ?
     static Doryen::Map *map = NULL;
@@ -509,11 +515,14 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static const char *algo_names[] = { "BASIC      ", "DIAMOND    ", "SHADOW     ",
                                         "PERMISSIVE0", "PERMISSIVE1", "PERMISSIVE2", "PERMISSIVE3", "PERMISSIVE4",
                                         "PERMISSIVE5", "PERMISSIVE6", "PERMISSIVE7", "PERMISSIVE8", "RESTRICTIVE" };
+
     static float torchx = 0.0f; // torch light position in the perlin noise
+
     if ( !map )
     {
         // initialize the map for the fov toolkit
         map = new Doryen::Map( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+
         for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
         {
             for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
@@ -541,7 +550,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
                              torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
         sampleConsole.setDefaultForeground( Doryen::Color::black );
-        sampleConsole.putChar( px, py, '@', TCOD_BKGND_NONE );
+        sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
         // draw windows
         for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
         {
@@ -558,10 +567,21 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         // calculate the field of view from the player position
         recomputeFov = false;
-        map->computeFov( px, py, torch ? ( int ) ( TORCH_RADIUS ) : 0, light_walls, ( TCOD_fov_algorithm_t ) algonum );
+
+        if ( torch )
+        {
+            map->computeFov( playerX, playerY, ( int ) ( TORCH_RADIUS ), light_walls,
+                             ( TCOD_fov_algorithm_t ) algonum );
+        }
+        else
+        {
+            map->computeFov( playerX, playerY, 0, light_walls, ( TCOD_fov_algorithm_t ) algonum );
+        }
     }
+
     // torch position & intensity variation
     float dx = 0.0f, dy = 0.0f, di = 0.0f;
+
     if ( torch )
     {
         // slightly change the perlin noise parameter
@@ -590,7 +610,14 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                 Doryen::Color light;
                 if ( !torch )
                 {
-                    light = wall ? lightWall : lightGround;
+                    if ( wall )
+                    {
+                        light = lightWall;
+                    }
+                    else
+                    {
+                        light = lightGround;
+                    }
                 }
                 else
                 {
@@ -598,7 +625,8 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                     Doryen::Color base = ( wall ? darkWall : darkGround );
                     light = ( wall ? lightWall : lightGround );
                     // cell distance to torch (squared)
-                    float r = ( float ) (( x - px + dx ) * ( x - px + dx ) + ( y - py + dy ) * ( y - py + dy ));
+                    float r = ( float ) (( x - playerX + dx ) * ( x - playerX + dx ) +
+                                         ( y - playerY + dy ) * ( y - playerY + dy ));
                     if ( r < SQUARED_TORCH_RADIUS)
                     {
                         // l = 1.0 at player position, 0.0 at a radius of 10 cells
@@ -616,44 +644,44 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( key->c == 'I' || key->c == 'i' )
     {
         // player move north
-        if ( smap[ py - 1 ][ px ] == ' ' )
+        if ( smap[ playerY - 1 ][ playerX ] == ' ' )
         {
-            sampleConsole.putChar( px, py, ' ', TCOD_BKGND_NONE );
-            py--;
-            sampleConsole.putChar( px, py, '@', TCOD_BKGND_NONE );
+            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+            playerY--;
+            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
             recomputeFov = true;
         }
     }
     else if ( key->c == 'K' || key->c == 'k' )
     {
         // player move south
-        if ( smap[ py + 1 ][ px ] == ' ' )
+        if ( smap[ playerY + 1 ][ playerX ] == ' ' )
         {
-            sampleConsole.putChar( px, py, ' ', TCOD_BKGND_NONE );
-            py++;
-            sampleConsole.putChar( px, py, '@', TCOD_BKGND_NONE );
+            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+            playerY++;
+            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
             recomputeFov = true;
         }
     }
     else if ( key->c == 'J' || key->c == 'j' )
     {
         // player move west
-        if ( smap[ py ][ px - 1 ] == ' ' )
+        if ( smap[ playerY ][ playerX - 1 ] == ' ' )
         {
-            sampleConsole.putChar( px, py, ' ', TCOD_BKGND_NONE );
-            px--;
-            sampleConsole.putChar( px, py, '@', TCOD_BKGND_NONE );
+            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+            playerX--;
+            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
             recomputeFov = true;
         }
     }
     else if ( key->c == 'L' || key->c == 'l' )
     {
         // player move east
-        if ( smap[ py ][ px + 1 ] == ' ' )
+        if ( smap[ playerY ][ playerX + 1 ] == ' ' )
         {
-            sampleConsole.putChar( px, py, ' ', TCOD_BKGND_NONE );
-            px++;
-            sampleConsole.putChar( px, py, '@', TCOD_BKGND_NONE );
+            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+            playerX++;
+            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
             recomputeFov = true;
         }
     }
