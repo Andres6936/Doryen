@@ -245,12 +245,28 @@ bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
     }
     else
     {
+        currentSolutionNode = start;
 
+        x = &currentSolutionNode->x;
+        y = &currentSolutionNode->y;
+
+        if ( currentSolutionNode->child )
+        {
+            currentSolutionNode = currentSolutionNode->child;
+        }
     }
 }
 
-bool TCODPath::isEmpty() const {
-	return TCOD_path_is_empty(data) != 0;
+bool TCODPath::isEmpty( ) const
+{
+    if ( state == SearchState::SUCCEEDED )
+    {
+        false;
+    }
+    else
+    {
+        true;
+    }
 }
 
 void TCODPath::reverse() {
