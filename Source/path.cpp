@@ -122,11 +122,11 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 if (node->parent)
                 {
-                    successorsAdded = node->getSuccessors( successors, node->parent);
+                    successorsAdded = node->getSuccessors( successors, map, node->parent);
                 }
                 else
                 {
-                    successorsAdded = node->getSuccessors( successors);
+                    successorsAdded = node->getSuccessors( successors, map, nullptr);
                 }
 
                 if (! successorsAdded)
@@ -147,7 +147,7 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 for (Node *nodeSuccessor: successors)
                 {
-                    float valueGSuccessor = node->g + node->getCost(nodeSuccessor);
+                    float valueGSuccessor = node->g + node->getCost( nodeSuccessor, map );
 
                     typename std::vector<Node *>::iterator openListResult;
 

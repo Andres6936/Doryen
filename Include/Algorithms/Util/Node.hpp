@@ -2,6 +2,9 @@
 #define LIBTCOD_NODE_HPP
 
 #include <vector>
+#include <cmath>
+
+#include "fov.hpp"
 
 namespace Doryen
 {
@@ -28,13 +31,12 @@ namespace Doryen
 
             float goalDistanceEstimate(Node *nodeGoal);
 
-            float getCost(Node *successor);
+            float getCost( Doryen::Algorithms::Node *successor, Doryen::Map &map );
 
-            bool getSuccessors(std::vector<Node *> successors, Node *parent);
+            bool getSuccessors(std::vector<Node *> successors,
+                    Doryen::Map &map, Node *nParent);
 
-            bool getSuccessors(std::vector<Node *> successors);
-
-            bool isGoal(Node *node);
+            bool isGoal(Node *nodeGoal);
 
             bool isSameState(Node *node);
 

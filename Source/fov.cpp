@@ -185,16 +185,31 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
 
 bool Doryen::Map::isInFov( int x, int y ) const
 {
+    if (x < width || x >= width || y < height || y >= height)
+    {
+        return false;
+    }
+
     return cells[ x + width * y ].fov;
 }
 
 bool Doryen::Map::isTransparent( int x, int y ) const
 {
+    if (x < width || x >= width || y < height || y >= height)
+    {
+        return false;
+    }
+
     return cells[ x + width * y ].transparent;
 }
 
 bool Doryen::Map::isWalkable( int x, int y ) const
 {
+    if (x < width || x >= width || y < height || y >= height)
+    {
+        return false;
+    }
+
     return cells[ x + width * y ].walkable;
 }
 
