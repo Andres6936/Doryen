@@ -253,7 +253,11 @@ bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
         if ( currentSolutionNode->child )
         {
             currentSolutionNode = currentSolutionNode->child;
+
+            return true;
         }
+
+        return false;
     }
 }
 
