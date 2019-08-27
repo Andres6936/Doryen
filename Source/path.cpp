@@ -26,25 +26,8 @@
 */
 #include "libtcod.hpp"
 
-
 TCODPath::TCODPath( const Doryen::Map &map, float diagonalCost )
 {
-    ox = 0;
-    oy = 0;
-
-    dx = 0;
-    dy = 0;
-
-    this->diagonalCost = diagonalCost;
-
-    w = map.width;
-    h = map.height;
-
-    // Correctly using reserve() can prevent unnecessary reallocations.
-    grid.reserve( w * h );
-    heur.reserve( w * h );
-    prev.reserve( w * h );
-
     // Copiamos el mapa pasado por parámetro.
     this->map.copy( map );
 }
@@ -58,174 +41,212 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
     if ( originX < 0 || originX >= map.width || originY < 0 || originY >= map.height )
     {
         // Throw Error
+        state = SearchState ::INVALID;
+        return false;
     }
     else
     {
-        if ( originX == destinationX && originY == destinationY )
+        // Abbreviation of Node
+        using Node = Doryen::Algorithms::Node;
+
+        start = new Node(originX, originY);
+        goal = new Node(destinationX, destinationY);
+
+        state = SearchState ::SEARCHING;
+
+        start->g = 0;
+        start->h = start->goalDistanceEstimate(goal);
+        start->f = start->g + start->h;
+        start->parent = nullptr;
+
+        openList.push_back(start);
+
+        steps = 0;
+
+        while (state == SearchState::SEARCHING)
         {
-            // Destination reached.
-            return true;
-        }
-
-        this->ox = originX;
-        this->oy = originY;
-
-        this->dx = destinationX;
-        this->dy = destinationY;
-
-        path.clear( );
-        heap.clear( );
-
-        // Fill with zeros.
-        for ( float &i : grid )
-        {
-            i = 0.0f;
-        }
-
-        // Fill with nulls.
-        for ( Doryen::Direction &direction: prev )
-        {
-            direction = Doryen::Direction::NONE;
-        }
-
-        // Origin position is marked with 1.0f
-        heur[ originX + w * originY ] = 1.0f;
-
-        // Put the origin cell as a bootstrap.
-
-        unsigned long offset = ox + w * oy;
-
-        // Append the new value to the end of the heap.
-        heap.push_back( offset );
-
-        unsigned long end = heap.size( ) - 1;
-
-        unsigned long child = end;
-
-        std::vector <unsigned long> array = heap;
-
-        while ( child > 0 )
-        {
-            unsigned long offChild = array.at( child );
-
-            float childDist = heur.at( offChild );
-
-            unsigned long parent = ( child - 1 ) / 2;
-            unsigned long offParent = array[ parent ];
-
-            float parentDist = heur.at( offParent );
-
-            if ( parentDist > childDist )
+            if (openList.empty() || cancelRequest)
             {
-                unsigned long tmp = array.at( child );
-                array[ child ] = array.at( parent );
-                array[ parent ] = tmp;
-                child = parent;
+                // FreeAllNodes();
+                state = SearchState ::FAILED;
+                return false;
             }
-            else
+
+            steps += 1;
+
+            Node *node = openList.front();
+            std::pop_heap(openList.begin(), openList.end(), HeapCompare());
+            openList.pop_back();
+
+            if (node->isGoal(goal))
             {
-                break;
-            }
-        }
+                goal->parent = node->parent;
+                goal->g = node->g;
 
-        unsigned long x = 0;
-        unsigned long y = 0;
-        unsigned long distance = 0;
+                // A special case is that the start was passed in as the
+                // goal state so handle that here.
 
-        unsigned long offsetBestCell = 0;
-
-        // Fill the djikstra grid until we reach dx, dy
-        while ( grid.at( destinationX + w * destinationY ) == 0 && !heap.empty( ))
-        {
-            // Get the coordinate pair with the minimum A* score from the heap
-            std::vector <unsigned long> array = heap;
-
-            unsigned long end = heap.size( ) - 1;
-            offsetBestCell = array.at( 0 );
-
-            x = ( offsetBestCell % w );
-            y = ( offsetBestCell / w );
-
-            distance = grid.at( offsetBestCell );
-
-            // Take the last element and put it at first position (heap root)
-            array[ 0 ] = array.at( end );
-            heap.pop_back( );
-
-            unsigned long cur = 0;
-            unsigned long child = 1;
-
-            while ( child <= end )
-            {
-                unsigned long toSwap = cur;
-                unsigned long offCur = array.at( cur );
-
-                float curDist = heur.at( offCur );
-                float swapValue = curDist;
-
-                unsigned long offChild = array.at( child );
-
-                float childDist = heur.at( offChild );
-
-                if ( childDist < curDist )
+                // Better: if ( node.isNotStartStateAndGoalState() )
+                if ( ! node->isSameState( start ))
                 {
-                    toSwap = child;
-                    swapValue = childDist;
-                }
+                    delete node;
 
-                if ( child < end )
-                {
-                    // Get the min between child and child + 1
-                    unsigned long offChild = array.at( child + 1 );
+                    // Set the child pointers in each node (except Goal
+                    // which has no child).
+                    Node *nodeChild = goal;
+                    Node *nodeParent = goal->parent;
 
-                    float childDist = heur.at( offChild );
+                    nodeParent->child = nodeChild;
 
-                    if ( swapValue > childDist )
+                    nodeChild = nodeParent;
+                    nodeParent = nodeParent->parent;
+
+                    while (nodeChild != start)
                     {
-                        toSwap = child + 1;
-                        swapValue = childDist;
+                        nodeParent->child = nodeChild;
+
+                        nodeChild = nodeParent;
+                        nodeParent = nodeParent->parent;
                     }
                 }
 
-                if ( toSwap != cur )
+                // FreeUnusedNodes();
+                state = SearchState ::SUCCEEDED;
+                return true;
+            }
+            else // Not Goal
+            {
+                successors.clear();
+
+                bool successorsAdded;
+
+                if (node->parent)
                 {
-                    // Get down one level
-                    unsigned long tmp = array.at( toSwap );
-
-                    array[ toSwap ] = array.at( cur );
-                    array[ cur ] = tmp;
-
-                    cur = toSwap;
+                    successorsAdded = node->getSuccessors( successors, node->parent);
                 }
                 else
                 {
-                    break;
+                    successorsAdded = node->getSuccessors( successors);
                 }
 
-                child = cur * 2 + 1;
+                if (! successorsAdded)
+                {
+                    for (Node *nodeSuccessor: successors)
+                    {
+                        delete nodeSuccessor;
+                    }
+
+                    successors.clear();
+
+                    delete node;
+                    // FreeAllNodes()
+
+                    state = SearchState ::OUT_OF_MEMORY;
+                    return false;
+                }
+
+                for (Node *nodeSuccessor: successors)
+                {
+                    float valueGSuccessor = node->g + node->getCost(nodeSuccessor);
+
+                    typename std::vector<Node *>::iterator openListResult;
+
+                    for (openListResult = openList.begin(); openListResult != openList.end(); openListResult += 1)
+                    {
+                        if ((*openListResult)->isSameState(nodeSuccessor))
+                        {
+                            break;
+                        }
+                    }
+
+                    if (openListResult != openList.end())
+                    {
+                        if ((*openListResult)->g <= valueGSuccessor)
+                        {
+                            delete nodeSuccessor;
+
+                            continue;
+                        }
+                    }
+
+                    typename std::vector<Node *>::iterator closedListResult;
+
+                    for (closedListResult = closedList.begin(); closedListResult != closedList.end(); closedListResult += 1)
+                    {
+                        if ((*closedListResult)->isSameState(nodeSuccessor))
+                        {
+                            break;
+                        }
+                    }
+
+                    if (closedListResult != closedList.end())
+                    {
+                        if ((*closedListResult)->g <= valueGSuccessor)
+                        {
+                            delete nodeSuccessor;
+
+                            continue;
+                        }
+                    }
+
+                    nodeSuccessor->parent = node;
+                    nodeSuccessor->g = valueGSuccessor;
+                    nodeSuccessor->h = nodeSuccessor->goalDistanceEstimate(goal);
+                    nodeSuccessor->f = nodeSuccessor->g + nodeSuccessor->h;
+
+                    if (closedListResult != closedList.end())
+                    {
+                        (*closedListResult)->parent = nodeSuccessor->parent;
+                        (*closedListResult)->g = nodeSuccessor->g;
+                        (*closedListResult)->h = nodeSuccessor->h;
+                        (*closedListResult)->f = nodeSuccessor->f;
+
+                        delete nodeSuccessor;
+
+                        openList.push_back((*closedListResult));
+
+                        closedList.erase(closedListResult);
+
+                        std::push_heap(openList.begin(), openList.end(), HeapCompare());
+                    }
+                    else if (openListResult != openList.end())
+                    {
+                        (*openListResult)->parent = nodeSuccessor->parent;
+                        (*openListResult)->g = nodeSuccessor->g;
+                        (*openListResult)->h = nodeSuccessor->h;
+                        (*openListResult)->f = nodeSuccessor->f;
+
+                        delete nodeSuccessor;
+
+                        std::make_heap(openList.begin(), openList.end(), HeapCompare());
+                    }
+                    else
+                    {
+                        openList.push_back(nodeSuccessor);
+
+                        std::push_heap(openList.begin(), openList.end(), HeapCompare());
+                    }
+                }
+
+                closedList.push_back(node);
             }
         }
 
-        unsigned long imax;
-
-        if ( diagonalCost == 0.0f )
-        {
-            imax = 4;
-        }
-        else
-        {
-            imax = 8;
-        }
-
-        for ( unsigned long i = 0; i < imax; i++ )
-        {
-            // Convert i to dx, dy
-        }
+        return true;
     }
 }
 
-bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded) {
-	return TCOD_path_walk(data,x,y,recalculateWhenNeeded) != 0;
+bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
+{
+    if (state != SearchState::SUCCEEDED)
+    {
+        // Throw Error
+        return false;
+    }
+    else
+    {
+
+    }
 }
 
 bool TCODPath::isEmpty() const {

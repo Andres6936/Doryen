@@ -29,8 +29,11 @@
 #define _TCOD_PATH_HPP
 
 #include <vector>
+#include <algorithm>
 
 #include "Enum/Direction.hpp"
+#include "Algorithms/Util/Node.hpp"
+#include "Algorithms/Enum/SearchState.hpp"
 
 class TCODLIB_API ITCODPathCallback
 {
@@ -38,9 +41,24 @@ public :
     virtual ~ITCODPathCallback( )
     { }
 
-    virtual float getWalkCost( int xFrom, int yFrom, int xTo, int yTo, void *userData ) const = 0;
+    virtual float getWalkCost( int xFrom, int yFrom,
+            int xTo, int yTo, void *userData ) const = 0;
 };
 
+// For sorting the heap the STL needs compare function that
+// lets us compare the f value of two nodes
+class HeapCompare
+{
+
+public:
+
+    bool operator() (const Doryen::Algorithms::Node &x,
+            const Doryen::Algorithms::Node &y) const
+    {
+        return x.f > y.f;
+    }
+
+};
 
 /**
  * This toolkit allows to easily calculate the optimal path between two points in
@@ -134,12 +152,30 @@ private:
      */
     std::vector <Doryen::Direction> path;
 
+    TCOD_path_func_t func;
+
     /**
      * Copy of the map.
      */
     Doryen::Map map;
 
-    TCOD_path_func_t func;
+    std::vector<Doryen::Algorithms::Node *> openList;
+
+    std::vector<Doryen::Algorithms::Node *> closedList;
+
+    std::vector<Doryen::Algorithms::Node *> successors;
+
+    SearchState state = SearchState::NOT_INITIALISED;
+
+    int steps = 0;
+
+    Doryen::Algorithms::Node *start;
+
+    Doryen::Algorithms::Node *goal;
+
+    Doryen::Algorithms::Node *currentSolutionNode;
+
+    bool cancelRequest = false;
 
 public :
 
