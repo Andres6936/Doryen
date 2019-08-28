@@ -52,10 +52,10 @@ class HeapCompare
 
 public:
 
-    bool operator() (const Doryen::Algorithms::Node &x,
-            const Doryen::Algorithms::Node &y) const
+    bool operator()( const Doryen::Algorithms::Node *x,
+                     const Doryen::Algorithms::Node *y ) const
     {
-        return x.f > y.f;
+        return x->f > y->f;
     }
 
 };
@@ -268,7 +268,7 @@ public :
      * @param x Address of the variables receiving the coordinates of the point.
      * @param y Address of the variables receiving the coordinates of the point.
      */
-    void get( int index, int *x, int *y ) const;
+    void get( int index, int *x, int *y );
 
     /**
      * @brief Checking if the path is empty.

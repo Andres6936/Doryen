@@ -112,6 +112,9 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 // FreeUnusedNodes();
                 state = SearchState ::SUCCEEDED;
+
+                currentSolutionNode = start;
+
                 return true;
             }
             else // Not Goal
@@ -245,8 +248,6 @@ bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
     }
     else
     {
-        currentSolutionNode = start;
-
         x = &currentSolutionNode->x;
         y = &currentSolutionNode->y;
 
@@ -265,11 +266,11 @@ bool TCODPath::isEmpty( ) const
 {
     if ( state == SearchState::SUCCEEDED )
     {
-        false;
+        return false;
     }
     else
     {
-        true;
+        return true;
     }
 }
 
@@ -277,12 +278,23 @@ void TCODPath::reverse() {
 	TCOD_path_reverse(data);
 }
 
-int TCODPath::size() const {
-	return TCOD_path_size(data);
+int TCODPath::size( ) const
+{
+    return steps;
 }
 
-void TCODPath::get(int index, int *x, int *y) const {
-	return TCOD_path_get(data,index,x,y);
+void TCODPath::get( int index, int *x, int *y )
+{
+    while ( index <= steps )
+    {
+        x = &currentSolutionNode->x;
+        y = &currentSolutionNode->y;
+
+        if ( currentSolutionNode->child )
+        {
+            currentSolutionNode = currentSolutionNode->child;
+        }
+    }
 }
 
 void TCODPath::getOrigin(int *x,int *y) const {

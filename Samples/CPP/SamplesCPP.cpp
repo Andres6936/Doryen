@@ -888,7 +888,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
 
         path = new TCODPath( *map );
-        dijkstra = new TCODDijkstra( map );
+        //dijkstra = new TCODDijkstra( map );
     }
 
     if ( first )

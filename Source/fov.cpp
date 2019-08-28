@@ -187,30 +187,30 @@ bool Doryen::Map::isInFov( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return false;
+        return cells[ x + width * y ].fov;
     }
 
-    return cells[ x + width * y ].fov;
+    return false;
 }
 
 bool Doryen::Map::isTransparent( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return false;
+        return cells[ x + width * y ].transparent;
     }
 
-    return cells[ x + width * y ].transparent;
+    return false;
 }
 
 bool Doryen::Map::isWalkable( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return false;
+        return cells[ x + width * y ].walkable;
     }
 
-    return cells[ x + width * y ].walkable;
+    return false;
 }
 
 int Doryen::Map::getWidth( ) const
