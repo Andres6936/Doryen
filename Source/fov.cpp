@@ -104,17 +104,15 @@ void Doryen::Map::copy( const Map &source )
         this->width = source.width;
         this->height = source.height;
     }
-    else
+
+    // Recordemos que en este punto, el tamaño de los mapas {this,
+    // como source} son iguales.
+    // Restamos 1 porque empezamos a contar desde 0.
+    for ( int i = 0; i <= nbcells - 1; i++ )
     {
-        // Recordemos que en este punto, el tamaño de los mapas {this,
-        // como source} son iguales.
-        // Restamos 1 porque empezamos a contar desde 0.
-        for ( int i = 0; i <= nbcells - 1; i++ )
-        {
-            this->cells[ i ].transparent = source.cells[ i ].transparent;
-            this->cells[ i ].walkable = source.cells[ i ].walkable;
-            this->cells[ i ].fov = source.cells[ i ].fov;
-        }
+        this->cells[ i ].transparent = source.cells[ i ].transparent;
+        this->cells[ i ].walkable = source.cells[ i ].walkable;
+        this->cells[ i ].fov = source.cells[ i ].fov;
     }
 }
 

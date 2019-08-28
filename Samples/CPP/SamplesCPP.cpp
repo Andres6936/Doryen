@@ -880,10 +880,12 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             {
                 if ( smap[ y ][ x ] == ' ' )
                 {
-                    map->setProperties( x, y, true, true );// ground
+                    map->setProperties( x, y, true, true ); // ground
                 }
                 else if ( smap[ y ][ x ] == '=' )
-                { map->setProperties( x, y, true, false ); } // window
+                {
+                    map->setProperties( x, y, true, false ); // window
+                }
             }
         }
 
