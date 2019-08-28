@@ -262,16 +262,27 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
     }
 }
 
-bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
+Doryen::Math::Point2D TCODPath::walk( bool recalculateWhenNeeded )
 {
     if (state != SearchState::SUCCEEDED)
     {
         // Throw Error
-        return false;
     }
     else
     {
-        return true;
+        // Recordemos, que nuestro vector de puntos {pointList}
+        // almacena los puntos de acuerdo a la siguiente estructura
+        // Punto inicial -> Punto final
+        // Por ende, es necesario obtener el primer elemento he ir
+        // eliminandolo, con el fin de recorrer de forma lógica la
+        // ruta.
+
+        // Obtenemos el primer elemento
+        Doryen::Math::Point2D point = pointList.front( );
+        // Eliminamos el primer elemento
+        pointList.pop_front( );
+
+        return point;
     }
 }
 
@@ -291,7 +302,14 @@ int TCODPath::size( ) const
 
 Doryen::Math::Point2D TCODPath::getPoint2DAt( const int index )
 {
-    return pointList.at( index );
+    if ( state != SearchState::SUCCEEDED )
+    {
+        // Throw error
+    }
+    else
+    {
+        return pointList.at( index );
+    }
 }
 
 void TCODPath::getOrigin(int *x,int *y) const {

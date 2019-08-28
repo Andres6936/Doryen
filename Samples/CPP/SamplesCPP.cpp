@@ -1001,7 +1001,12 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             if ( !path->isEmpty( ))
             {
                 sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-                path->walk( &playerX, &playerY, true );
+
+                Doryen::Math::Point2D point = path->walk( true );
+
+                playerX = point.x;
+                playerY = point.y;
+
                 sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
             }
         }

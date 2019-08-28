@@ -29,6 +29,7 @@
 #define _TCOD_PATH_HPP
 
 #include <vector>
+#include <deque>
 #include <algorithm>
 
 #include "Math/Point2D.hpp"
@@ -123,7 +124,7 @@ private:
      */
     Doryen::Map map;
 
-    std::vector <Doryen::Math::Point2D> pointList;
+    std::deque <Doryen::Math::Point2D> pointList;
 
     std::vector<Doryen::Algorithms::Node *> openList;
 
@@ -234,7 +235,7 @@ public :
      * @param x Address of the variables receiving the coordinates of the point.
      * @param y Address of the variables receiving the coordinates of the point.
      */
-    Doryen::Math::Point2D getPoint2DAt( const int index );
+    Doryen::Math::Point2D getPoint2DAt( int index );
 
     /**
      * @brief Checking if the path is empty.
@@ -278,7 +279,7 @@ public :
      * is true, the next cell on the path is no longer walkable and
      * no other path has been found.
      */
-    bool walk( int *x, int *y, bool recalculateWhenNeeded );
+    Doryen::Math::Point2D walk( bool recalculateWhenNeeded );
 };
 
 //Dijkstra kit
