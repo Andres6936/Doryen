@@ -958,11 +958,12 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     // draw the path
     if ( usingAstar )
     {
+        Doryen::Math::Point2D point;
+
         for ( int i = 0; i < path->size( ); i++ )
         {
-            int x, y;
-            path->get( i, &x, &y );
-            sampleConsole.setCharBackground( x, y, lightGround, TCOD_BKGND_SET );
+            point = path->getPoint2DAt( i );
+            sampleConsole.setCharBackground( point.x, point.y, lightGround, TCOD_BKGND_SET );
         }
     }
     else

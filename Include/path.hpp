@@ -31,6 +31,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "Math/Point2D.hpp"
 #include "Enum/Direction.hpp"
 #include "Algorithms/Util/Node.hpp"
 #include "Algorithms/Enum/SearchState.hpp"
@@ -91,16 +92,6 @@ protected :
 private:
 
     /**
-     * Coordinates of the creature position.
-     */
-    int ox;
-
-    /**
-     * Coordinates of the creature position.
-     */
-    int oy;
-
-    /**
      * Coordinates of the creature's destination.
      */
     int dy;
@@ -121,33 +112,6 @@ private:
     int h;
 
     /**
-     * Cost of a diagonal movement compared to an horizontal
-     * or vertical movement. On a standard cartesian map, it
-     * should be sqrt(2) (1.41f).
-     */
-    float diagonalCost;
-
-    /**
-     * wxh djikstra distance grid (covered distance).
-     */
-    std::vector <float> grid;
-
-    /**
-     * wxh A* score grid (covered distance + estimated remaining distance).
-     */
-    std::vector <float> heur;
-
-    /**
-     * heap used in the algorithm. stores the offset in grid/heur (offset=x+y*w).
-     */
-    std::vector <unsigned long> heap;
-
-    /**
-     * wxh 'previous' grid : direction to the previous cell.
-     */
-    std::vector <Doryen::Direction> prev;
-
-    /**
      * List of Direction to follow the path.
      */
     std::vector <Doryen::Direction> path;
@@ -158,6 +122,8 @@ private:
      * Copy of the map.
      */
     Doryen::Map map;
+
+    std::vector <Doryen::Math::Point2D> pointList;
 
     std::vector<Doryen::Algorithms::Node *> openList;
 
@@ -268,7 +234,7 @@ public :
      * @param x Address of the variables receiving the coordinates of the point.
      * @param y Address of the variables receiving the coordinates of the point.
      */
-    void get( int index, int *x, int *y );
+    Doryen::Math::Point2D getPoint2DAt( const int index );
 
     /**
      * @brief Checking if the path is empty.

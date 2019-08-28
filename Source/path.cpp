@@ -115,6 +115,29 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 currentSolutionNode = start;
 
+                // En este punto, el algoritmo A Star ha hallado una ruta
+                // hacia el objetivo, sin embargo y por temas de conveniencia
+                // recorreremos cada coordenada de la ruta y almacenaremos las
+                // coordenadas en un vector destinato a esta tarea.
+                while ( true )
+                {
+                    Doryen::Math::Point2D point( currentSolutionNode->x, currentSolutionNode->y );
+
+                    pointList.push_back( point );
+
+                    if ( currentSolutionNode->child )
+                    {
+                        currentSolutionNode = currentSolutionNode->child;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // Reiniciamos el recorrido
+                currentSolutionNode = start;
+
                 return true;
             }
             else // Not Goal
@@ -248,30 +271,13 @@ bool TCODPath::walk(int *x, int *y, bool recalculateWhenNeeded)
     }
     else
     {
-        x = &currentSolutionNode->x;
-        y = &currentSolutionNode->y;
-
-        if ( currentSolutionNode->child )
-        {
-            currentSolutionNode = currentSolutionNode->child;
-
-            return true;
-        }
-
-        return false;
+        return true;
     }
 }
 
 bool TCODPath::isEmpty( ) const
 {
-    if ( state == SearchState::SUCCEEDED )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return pointList.empty( );
 }
 
 void TCODPath::reverse() {
@@ -280,21 +286,12 @@ void TCODPath::reverse() {
 
 int TCODPath::size( ) const
 {
-    return steps;
+    return pointList.size( );
 }
 
-void TCODPath::get( int index, int *x, int *y )
+Doryen::Math::Point2D TCODPath::getPoint2DAt( const int index )
 {
-    while ( index <= steps )
-    {
-        x = &currentSolutionNode->x;
-        y = &currentSolutionNode->y;
-
-        if ( currentSolutionNode->child )
-        {
-            currentSolutionNode = currentSolutionNode->child;
-        }
-    }
+    return pointList.at( index );
 }
 
 void TCODPath::getOrigin(int *x,int *y) const {
