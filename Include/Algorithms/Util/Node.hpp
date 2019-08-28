@@ -33,8 +33,8 @@ namespace Doryen
 
             float getCost( Doryen::Algorithms::Node *successor, Doryen::Map &map );
 
-            bool getSuccessors(std::vector<Node *> successors,
-                    Doryen::Map &map, Node *nParent);
+            bool getSuccessors( std::vector <Node *> &successors,
+                                Doryen::Map &map, Node *nParent);
 
             bool isGoal(Node *nodeGoal);
 

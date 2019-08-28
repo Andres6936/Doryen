@@ -42,8 +42,8 @@ float Doryen::Algorithms::Node::getCost( Doryen::Algorithms::Node *successor,
     }
 }
 
-bool Doryen::Algorithms::Node::getSuccessors( std::vector <Node *> successors,
-        Doryen::Map &map, Doryen::Algorithms::Node *nParent )
+bool Doryen::Algorithms::Node::getSuccessors( std::vector <Node *> &successors,
+                                              Doryen::Map &map, Doryen::Algorithms::Node *nParent )
 {
     int parentX = -1;
     int parentY = -1;
