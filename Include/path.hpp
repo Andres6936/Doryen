@@ -180,7 +180,7 @@ public :
      * @param x The function returns the cell coordinates in these variables.
      * @param y The function returns the cell coordinates in these variables.
      */
-    void getOrigin( int *x, int *y ) const;
+    Doryen::Math::Point2D getOriginPoint2D( ) const;
 
     /**
      * Once the path has been computed, you can get information about it using
@@ -191,7 +191,7 @@ public :
      * @param x The function returns the cell coordinates in these variables.
      * @param y The function returns the cell coordinates in these variables.
      */
-    void getDestination( int *x, int *y ) const;
+    Doryen::Math::Point2D getDestinationPoint2D( ) const;
 
     /**
      * @brief Getting the path length.
@@ -255,7 +255,7 @@ public :
      * is true, the next cell on the path is no longer walkable and
      * no other path has been found.
      */
-    Doryen::Math::Point2D walk( bool recalculateWhenNeeded );
+    Doryen::Math::Point2D walk( );
 };
 
 //Dijkstra kit

@@ -269,7 +269,7 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
     }
 }
 
-Doryen::Math::Point2D TCODPath::walk( bool recalculateWhenNeeded )
+Doryen::Math::Point2D TCODPath::walk( )
 {
     if (state != SearchState::SUCCEEDED)
     {
@@ -320,14 +320,14 @@ Doryen::Math::Point2D TCODPath::getPoint2DAt( const int index )
     }
 }
 
-void TCODPath::getOrigin( int *x, int *y ) const
+Doryen::Math::Point2D TCODPath::getOriginPoint2D( ) const
 {
-
+    return pointList.front( );
 }
 
-void TCODPath::getDestination( int *x, int *y ) const
+Doryen::Math::Point2D TCODPath::getDestinationPoint2D( ) const
 {
-
+    return pointList.back( );
 }
 
 void TCODPath::freeAllNodes( )
@@ -345,6 +345,13 @@ void TCODPath::freeAllNodes( )
     }
 
     closedList.clear( );
+
+    for ( Doryen::Algorithms::Node *node: successors )
+    {
+        delete node;
+    }
+
+    successors.clear( );
 
     delete start;
     delete goal;
