@@ -24,6 +24,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include <path.hpp>
+
 #include "libtcod.hpp"
 
 TCODPath::TCODPath( const Doryen::Map &map, float diagonalCost )
@@ -110,7 +112,6 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
                     }
                 }
 
-                // FreeUnusedNodes();
                 state = SearchState ::SUCCEEDED;
 
                 currentSolutionNode = start;
@@ -137,6 +138,12 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 // Reiniciamos el recorrido
                 currentSolutionNode = start;
+
+                // Una vez obtenido lo que queriamos (obtener una lista de
+                // los puntos desde el origen {start} hasta el final {goal})
+                // debemos de liberar la memoria para ser utilizada en una
+                // nueva busqueda en caso de ser necessario.
+                freeAllNodes( );
 
                 return true;
             }
@@ -291,8 +298,9 @@ bool TCODPath::isEmpty( ) const
     return pointList.empty( );
 }
 
-void TCODPath::reverse() {
-	TCOD_path_reverse(data);
+void TCODPath::reverse( )
+{
+
 }
 
 int TCODPath::size( ) const
@@ -312,12 +320,34 @@ Doryen::Math::Point2D TCODPath::getPoint2DAt( const int index )
     }
 }
 
-void TCODPath::getOrigin(int *x,int *y) const {
-	TCOD_path_get_origin(data,x,y);
+void TCODPath::getOrigin( int *x, int *y ) const
+{
+
 }
 
-void TCODPath::getDestination(int *x,int *y) const {
-	TCOD_path_get_destination(data,x,y);
+void TCODPath::getDestination( int *x, int *y ) const
+{
+
+}
+
+void TCODPath::freeAllNodes( )
+{
+    for ( Doryen::Algorithms::Node *node: openList )
+    {
+        delete node;
+    }
+
+    openList.clear( );
+
+    for ( Doryen::Algorithms::Node *node: closedList )
+    {
+        delete node;
+    }
+
+    closedList.clear( );
+
+    delete start;
+    delete goal;
 }
 
 // ----------------- //
@@ -328,47 +358,55 @@ void TCODPath::getDestination(int *x,int *y) const {
 //ctor
 TCODDijkstra::TCODDijkstra( Doryen::Map *map, float diagonalCost )
 {
-    data = TCOD_dijkstra_new(map->data,diagonalCost);
+    //data = TCOD_dijkstra_new( map->data, diagonalCost );
 }
 
 //dtor
-TCODDijkstra::~TCODDijkstra (void) {
-    TCOD_dijkstra_delete(data);
+TCODDijkstra::~TCODDijkstra( void )
+{
+    //TCOD_dijkstra_delete( data );
 }
 
 //compute distances grid
-void TCODDijkstra::compute (int rootX, int rootY) {
-    TCOD_dijkstra_compute(data,rootX,rootY);
+void TCODDijkstra::compute( int rootX, int rootY )
+{
+    //TCOD_dijkstra_compute( data, rootX, rootY );
 }
 
 //retrieve distance to a given cell
-float TCODDijkstra::getDistance (int x, int y) {
-    return TCOD_dijkstra_get_distance(data,x,y);
+float TCODDijkstra::getDistance( int x, int y )
+{
+    //return TCOD_dijkstra_get_distance( data, x, y );
 }
 
 //create a path
-bool TCODDijkstra::setPath (int toX, int toY) {
-    return (TCOD_dijkstra_path_set(data,toX,toY) != 0);
+bool TCODDijkstra::setPath( int toX, int toY )
+{
+    //return ( TCOD_dijkstra_path_set( data, toX, toY ) != 0 );
 }
 
-void TCODDijkstra::reverse() {
-	TCOD_dijkstra_reverse(data);
+void TCODDijkstra::reverse( )
+{
+    //TCOD_dijkstra_reverse( data );
 }
 
 //walk a path
-bool TCODDijkstra::walk (int *x, int *y) {
-    return TCOD_dijkstra_path_walk(data,x,y) != 0;
+bool TCODDijkstra::walk( int *x, int *y )
+{
+    //return TCOD_dijkstra_path_walk( data, x, y ) != 0;
 }
 
-bool TCODDijkstra::isEmpty() const {
-	return TCOD_dijkstra_is_empty(data) != 0;
+bool TCODDijkstra::isEmpty( ) const
+{
+    //return TCOD_dijkstra_is_empty( data ) != 0;
 }
 
-int TCODDijkstra::size() const {
-	return TCOD_dijkstra_size(data);
+int TCODDijkstra::size( ) const
+{
+    // return TCOD_dijkstra_size( data );
 }
 
-void TCODDijkstra::get(int index, int *x, int *y) const {
-	return TCOD_dijkstra_get(data,index,x,y);
+void TCODDijkstra::get( int index, int *x, int *y ) const
+{
+    // return TCOD_dijkstra_get( data, index, x, y );
 }
-

@@ -183,7 +183,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "bresenham.h"
 #include "noise.h"
 #include "fov.h"
-#include "path.h"
 #include "lex.h"
 #include "parser.h"
 #include "tree.h"

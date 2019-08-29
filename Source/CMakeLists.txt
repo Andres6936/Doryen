@@ -24,7 +24,7 @@ ENDIF ()
 SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circular_raycasting.c
         fov_diamond_raycasting.c fov_permissive.c fov_permissive2.c fov_recursive_shadowcasting.c
         fov_restrictive.c heightmap_c.c image_c.c lex_c.c list_c.c mersenne_c.c namegen_c.c
-        noise_c.c parser_c.c path_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
+        noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
         tree_c.c zip_c.c png/lodepng.c SystemSDL.c SystemSDLImagePNG.c)
 
 SET(LIBTCOD_CPP_SRC bresenham.cpp bsp.cpp Color.cpp Console.cpp fov.cpp heightmap.cpp image.cpp mersenne.cpp

@@ -37,7 +37,7 @@
 #include "Algorithms/Util/Node.hpp"
 #include "Algorithms/Enum/SearchState.hpp"
 
-class TCODLIB_API ITCODPathCallback
+class ITCODPathCallback
 {
 public :
     virtual ~ITCODPathCallback( )
@@ -83,41 +83,10 @@ public:
  * ..........   ..........
  * @endcode
  */
-class TCODLIB_API TCODPath
+class TCODPath
 {
 
-protected :
-
-    TCOD_path_t data;
-
 private:
-
-    /**
-     * Coordinates of the creature's destination.
-     */
-    int dy;
-
-    /**
-     * Coordinates of the creature's destination.
-     */
-    int dx;
-
-    /**
-     * Map size.
-     */
-    int w;
-
-    /**
-     * Map size.
-     */
-    int h;
-
-    /**
-     * List of Direction to follow the path.
-     */
-    std::vector <Doryen::Direction> path;
-
-    TCOD_path_func_t func;
 
     /**
      * Copy of the map.
@@ -143,6 +112,13 @@ private:
     Doryen::Algorithms::Node *currentSolutionNode;
 
     bool cancelRequest = false;
+
+    /**
+     * This method is called on two occasions:
+     * 1. When a search fails.
+     * 2. You want to free all the memory used.
+     */
+    void freeAllNodes( );
 
 public :
 
@@ -283,7 +259,7 @@ public :
 };
 
 //Dijkstra kit
-class TCODLIB_API TCODDijkstra
+class TCODDijkstra
 {
 public:
     TCODDijkstra( Doryen::Map *map, float diagonalCost = 1.41f );
@@ -360,13 +336,6 @@ public:
 
     void get( int index, int *x, int *y ) const;
 
-private:
-    TCOD_dijkstra_t data;
-    struct WrapperData
-    {
-        void *userData;
-        const ITCODPathCallback *listener;
-    } cppData;
 };
 
 #endif

@@ -32,16 +32,4 @@ typedef void *TCOD_map_t;
 
 #include "fov_types.h"
 
-/* allocate a new map */
-/* calculate the field of view (potentially visible cells from player_x,player_y) */
-void TCOD_map_compute_fov( TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls,
-                           TCOD_fov_algorithm_t algo );
-
-bool TCOD_map_is_walkable( TCOD_map_t map, int x, int y );
-
-int TCOD_map_get_width( TCOD_map_t map );
-
-int TCOD_map_get_height( TCOD_map_t map );
-
-int TCOD_map_get_nb_cells( TCOD_map_t map );
 #endif

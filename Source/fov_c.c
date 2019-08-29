@@ -52,26 +52,3 @@ void TCOD_map_compute_fov(TCOD_map_t map, int player_x, int player_y, int max_ra
 	}
 }
 
-bool TCOD_map_is_walkable(TCOD_map_t map, int x, int y) {
-	map_t *m = (map_t *)map;
-	TCOD_IFNOT(map != NULL && (unsigned)x < (unsigned)m->width && (unsigned)y < (unsigned)m->height) return false;
-	return m->cells[x+y*m->width].walkable;
-}
-int TCOD_map_get_width(TCOD_map_t map) {
-	map_t *m = (map_t *)map;
-	TCOD_IFNOT(map != NULL) return 0;
-	return m->width;
-}
-
-int TCOD_map_get_height(TCOD_map_t map) {
-	map_t *m = (map_t *)map;
-	TCOD_IFNOT(map != NULL) return 0;
-	return m->height;
-}
-
-int TCOD_map_get_nb_cells(TCOD_map_t map) {
-	map_t *m = (map_t *)map;
-	TCOD_IFNOT(map != NULL) return 0;
-	return m->nbcells;
-}
-
