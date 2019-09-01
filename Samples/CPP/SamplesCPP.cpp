@@ -4,10 +4,12 @@
  * It's in the public domain.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <math.h>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <cmath>
+#include <iostream>
+
 #include "libtcod.hpp"
 
 #include "SampleRenderer.hpp"
@@ -841,26 +843,23 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             "##############################################",
     };
 
-#define TORCH_RADIUS 10.0f
-#define SQUARED_TORCH_RADIUS (TORCH_RADIUS*TORCH_RADIUS)
-
     static int playerX = 20;
     static int playerY = 10;
 
-    static int destinationX = 24;
-    static int destinationY = 1;
+    static int destinationX = 33;
+    static int destinationY = 4;
 
-    static Doryen::Map *map = NULL;
+    static Doryen::Map *map = nullptr;
     static Doryen::Color darkWall( 0, 0, 100 );
     static Doryen::Color darkGround( 50, 50, 150 );
     static Doryen::Color lightGround( 200, 180, 50 );
 
-    static TCODPath *path = NULL;
+    static TCODPath *AStar = nullptr;
 
     static bool usingAstar = true;
     static float dijkstraDist = 0;
 
-    static TCODDijkstra *dijkstra = NULL;
+    static TCODDijkstra *dijkstra = nullptr;
 
     static bool recalculatePath = false;
     static float busy;
@@ -889,7 +888,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             }
         }
 
-        path = new TCODPath( *map );
+        AStar = new TCODPath( *map );
         //dijkstra = new TCODDijkstra( map );
     }
 
@@ -919,11 +918,12 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
         recalculatePath = true;
     }
+
     if ( recalculatePath )
     {
         if ( usingAstar )
         {
-            path->compute( playerX, playerY, destinationX, destinationY );
+            AStar->compute( playerX, playerY, destinationX, destinationY );
         }
         else
         {
@@ -960,10 +960,18 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         Doryen::Math::Point2D point;
 
-        for ( int i = 0; i < path->size( ); i++ )
+        for ( int i = 0; i < AStar->size( ); i++ )
         {
-            point = path->getPoint2DAt( i );
-            sampleConsole.setCharBackground( point.x, point.y, lightGround, TCOD_BKGND_SET );
+            try
+            {
+                point = AStar->getPoint2DAt( i );
+
+                sampleConsole.setCharBackground( point.x, point.y, lightGround, TCOD_BKGND_SET );
+            }
+            catch ( Doryen::Exceptions::IllegalMethodCall &e )
+            {
+                std::cout << e.showError( );
+            }
         }
     }
     else
@@ -998,16 +1006,23 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         busy = 0.2f;
         if ( usingAstar )
         {
-            if ( !path->isEmpty( ))
+            if ( !AStar->isEmpty( ))
             {
                 sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
 
-                Doryen::Math::Point2D point = path->walk( );
+                try
+                {
+                    Doryen::Math::Point2D point = AStar->walk( );
 
-                playerX = point.x;
-                playerY = point.y;
+                    playerX = point.x;
+                    playerY = point.y;
 
-                sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+                    sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+                }
+                catch ( Doryen::Exceptions::IllegalMethodCall &e )
+                {
+                    std::cout << e.showError( );
+                }
             }
         }
         else

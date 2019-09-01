@@ -46,4 +46,8 @@
 #include "heightmap.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"
+
+#include "Exceptions/Exception.hpp"
+#include "Exceptions/IllegalMethodCall.hpp"
+
 #endif

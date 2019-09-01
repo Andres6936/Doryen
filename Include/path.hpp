@@ -105,11 +105,11 @@ private:
 
     int steps = 0;
 
-    Doryen::Algorithms::Node *start;
+    Doryen::Algorithms::Node *start = nullptr;
 
-    Doryen::Algorithms::Node *goal;
+    Doryen::Algorithms::Node *goal = nullptr;
 
-    Doryen::Algorithms::Node *currentSolutionNode;
+    Doryen::Algorithms::Node *currentSolutionNode = nullptr;
 
     bool cancelRequest = false;
 
@@ -136,7 +136,7 @@ public :
      * @note It you want the same cost for all movements, use 1.0f.
      * @note If you don't want the path finder to use diagonal movements, use 0.0f.
      */
-    explicit TCODPath( const Doryen::Map &map, float diagonalCost = 1.41f );
+    explicit TCODPath( const Doryen::Map &map );
 
     /**
      * @brief Destroying a path.
@@ -160,7 +160,15 @@ public :
      *
      * @return True if there is posible path, false otherwise.
      */
-    bool compute( int originX, int originY, int destinationX, int destinationY );
+    void compute( int originX, int originY, int destinationX, int destinationY );
+
+    /**
+     * This method should be called, after of call to method Compute and before of
+     * call to any other method.
+     *
+     * @return True if the algorithm find an route to goal, false otherwise.
+     */
+    bool findPath( );
 
     /**
      * @brief Reversing a path.

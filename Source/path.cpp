@@ -24,27 +24,30 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include <path.hpp>
 
-#include "libtcod.hpp"
+#include "Exceptions/IllegalMethodCall.hpp"
 
-TCODPath::TCODPath( const Doryen::Map &map, float diagonalCost )
+TCODPath::TCODPath( const Doryen::Map &map )
 {
     // Copiamos el mapa pasado por parámetro.
     this->map.copy( map );
 }
 
-TCODPath::~TCODPath( ) = default;
+TCODPath::~TCODPath( )
+{
+    freeAllNodes( );
+}
 
-
-bool TCODPath::compute( int originX, int originY, int destinationX, int destinationY )
+void TCODPath::compute( int originX, int originY, int destinationX, int destinationY )
 {
     // Check that origin and destination are inside the map.
     if ( originX < 0 || originX >= map.width || originY < 0 || originY >= map.height )
     {
         // Throw Error
         state = SearchState ::INVALID;
-        return false;
+        return;
     }
     else
     {
@@ -69,15 +72,17 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
         {
             if (openList.empty() || cancelRequest)
             {
-                // FreeAllNodes();
                 state = SearchState ::FAILED;
-                return false;
+                freeAllNodes( );
+                return;
             }
 
             steps += 1;
 
             Node *node = openList.front();
+
             std::pop_heap(openList.begin(), openList.end(), HeapCompare());
+
             openList.pop_back();
 
             if (node->isGoal(goal))
@@ -119,7 +124,12 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
                 // En este punto, el algoritmo A Star ha hallado una ruta
                 // hacia el objetivo, sin embargo y por temas de conveniencia
                 // recorreremos cada coordenada de la ruta y almacenaremos las
-                // coordenadas en un vector destinato a esta tarea.
+                // coordenadas en una estructura de datos apropiada destinada
+                // a esta tarea.
+
+                // Limpiamos la estructura de datos.
+                pointList.clear( );
+
                 while ( true )
                 {
                     Doryen::Math::Point2D point( currentSolutionNode->x, currentSolutionNode->y );
@@ -136,16 +146,13 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
                     }
                 }
 
-                // Reiniciamos el recorrido
-                currentSolutionNode = start;
-
                 // Una vez obtenido lo que queriamos (obtener una lista de
                 // los puntos desde el origen {start} hasta el final {goal})
                 // debemos de liberar la memoria para ser utilizada en una
                 // nueva busqueda en caso de ser necessario.
                 freeAllNodes( );
 
-                return true;
+                return;
             }
             else // Not Goal
             {
@@ -164,18 +171,12 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 if (! successorsAdded)
                 {
-                    for (Node *nodeSuccessor: successors)
-                    {
-                        delete nodeSuccessor;
-                    }
-
-                    successors.clear();
-
                     delete node;
-                    // FreeAllNodes()
+
+                    freeAllNodes( );
 
                     state = SearchState ::OUT_OF_MEMORY;
-                    return false;
+                    return;
                 }
 
                 for (Node *nodeSuccessor: successors)
@@ -265,7 +266,7 @@ bool TCODPath::compute( int originX, int originY, int destinationX, int destinat
             }
         }
 
-        return true;
+        return;
     }
 }
 
@@ -273,7 +274,8 @@ Doryen::Math::Point2D TCODPath::walk( )
 {
     if (state != SearchState::SUCCEEDED)
     {
-        // Throw Error
+        throw Doryen::Exceptions::IllegalMethodCall(
+                "Illegal Method Call in Walk" );
     }
     else
     {
@@ -312,7 +314,8 @@ Doryen::Math::Point2D TCODPath::getPoint2DAt( const int index )
 {
     if ( state != SearchState::SUCCEEDED )
     {
-        // Throw error
+        throw Doryen::Exceptions::IllegalMethodCall(
+                "Illegal Method Call in getPoint2D" );
     }
     else
     {
@@ -353,8 +356,19 @@ void TCODPath::freeAllNodes( )
 
     successors.clear( );
 
-    delete start;
     delete goal;
+}
+
+bool TCODPath::findPath( )
+{
+    if ( state == SearchState::SUCCEEDED )
+    {
+        return false;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 // ----------------- //
