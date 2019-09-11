@@ -120,6 +120,16 @@ private:
      */
     void freeAllNodes( );
 
+    /*
+     * This call is made by the search class
+     * when the search ends. A lot of nodes
+     * may be created that are still present
+     * when the search ends. They will be
+     * deleted by this routine once the
+     * search ends.
+     */
+    void freeUnusedNodes( );
+
 public :
 
     /**
@@ -161,6 +171,8 @@ public :
      * @return True if there is posible path, false otherwise.
      */
     void compute( int originX, int originY, int destinationX, int destinationY );
+
+    void freeSolutionNodes( );
 
     /**
      * This method should be called, after of call to method Compute and before of

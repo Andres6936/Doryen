@@ -857,13 +857,12 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static TCODPath *AStar = nullptr;
 
     static bool usingAstar = true;
-    static float dijkstraDist = 0;
 
-    static TCODDijkstra *dijkstra = nullptr;
+    //static float dijkstraDist = 0;
+    //static TCODDijkstra *dijkstra = nullptr;
 
     static bool recalculatePath = false;
     static float busy;
-    static int oldChar = ' ';
 
     int mouseX = 0;
     int mouseY = 0;
@@ -895,6 +894,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( first )
     {
         Doryen::Platform::setFps( 30 ); // fps limited to 30
+
         // we draw the foreground only the first time.
         // during the player movement, only the @ is redrawn.
         // the rest impacts only the background color
@@ -923,25 +923,29 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         if ( usingAstar )
         {
-            AStar->compute( playerX, playerY, destinationX, destinationY );
+            if ( smap[ destinationY ][ destinationX ] == ' ' )
+            {
+                AStar->compute( playerX, playerY, destinationX, destinationY );
+                AStar->freeSolutionNodes( );
+            }
         }
         else
         {
-            dijkstraDist = 0.0f;
-            // compute the distance grid
-            dijkstra->compute( playerX, playerY );
-            // get the maximum distance (needed for ground shading only)
-            for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-            {
-                for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-                {
-                    float d = dijkstra->getDistance( x, y );
-                    if ( d > dijkstraDist )
-                    { dijkstraDist = d; }
-                }
-            }
-            // compute the path
-            dijkstra->setPath( destinationX, destinationY );
+//            dijkstraDist = 0.0f;
+//            // compute the distance grid
+//            dijkstra->compute( playerX, playerY );
+//            // get the maximum distance (needed for ground shading only)
+//            for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
+//            {
+//                for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
+//                {
+//                    float d = dijkstra->getDistance( x, y );
+//                    if ( d > dijkstraDist )
+//                    { dijkstraDist = d; }
+//                }
+//            }
+//            // compute the path
+//            dijkstra->setPath( destinationX, destinationY );
         }
         recalculatePath = false;
         busy = 0.2f;
@@ -952,11 +956,19 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
         {
             bool wall = smap[ y ][ x ] == '#';
-            sampleConsole.setCharBackground( x, y, wall ? darkWall : darkGround, TCOD_BKGND_SET );
+
+            if ( wall )
+            {
+                sampleConsole.setCharBackground( x, y, darkWall, TCOD_BKGND_SET );
+            }
+            else
+            {
+                sampleConsole.setCharBackground( x, y, darkGround, TCOD_BKGND_SET );
+            }
         }
     }
     // draw the path
-    if ( usingAstar )
+    if ( usingAstar && AStar->findPath( ))
     {
         Doryen::Math::Point2D point;
 
@@ -976,26 +988,27 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     else
     {
-        for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-        {
-            for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-            {
-                bool wall = smap[ y ][ x ] == '#';
-                if ( !wall )
-                {
-                    float d = dijkstra->getDistance( x, y );
-                    sampleConsole.setCharBackground( x, y, Doryen::Color::lerp( lightGround, darkGround,
-                                                                                0.9f * d / dijkstraDist ),
-                                                     TCOD_BKGND_SET );
-                }
-            }
-        }
-        for ( int i = 0; i < dijkstra->size( ); i++ )
-        {
-            int x, y;
-            dijkstra->get( i, &x, &y );
-            sampleConsole.setCharBackground( x, y, lightGround, TCOD_BKGND_SET );
-        }
+//        for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
+//        {
+//            for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
+//            {
+//                bool wall = smap[ y ][ x ] == '#';
+//                if ( !wall )
+//                {
+//                    float d = dijkstra->getDistance( x, y );
+//                    sampleConsole.setCharBackground( x, y, Doryen::Color::lerp( lightGround, darkGround,
+//                                                                                0.9f * d / dijkstraDist ),
+//                                                     TCOD_BKGND_SET );
+//                }
+//            }
+//        }
+//
+//        for ( int i = 0; i < dijkstra->size( ); i++ )
+//        {
+//            int x, y;
+//            dijkstra->get( i, &x, &y );
+//            sampleConsole.setCharBackground( x, y, lightGround, TCOD_BKGND_SET );
+//        }
     }
 
     // move the creature
@@ -1004,7 +1017,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( busy <= 0.0f )
     {
         busy = 0.2f;
-        if ( usingAstar )
+        if ( usingAstar && AStar->findPath( ))
         {
             if ( !AStar->isEmpty( ))
             {
@@ -1027,67 +1040,48 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
         else
         {
-            if ( !dijkstra->isEmpty( ))
-            {
-                sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-                dijkstra->walk( &playerX, &playerY );
-                sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-                recalculatePath = true;
-            }
+//            if ( !dijkstra->isEmpty( ))
+//            {
+//                sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+//                dijkstra->walk( &playerX, &playerY );
+//                sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+//                recalculatePath = true;
+//            }
         }
     }
 
     if (( key->c == 'I' || key->c == 'i' ) && destinationY > 0 )
     {
         // destination move north
-        sampleConsole.putChar( destinationX, destinationY, oldChar, TCOD_BKGND_NONE );
         destinationY--;
-        oldChar = sampleConsole.getChar( destinationX, destinationY );
+        recalculatePath = true;
         sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        if ( smap[ destinationY ][ destinationX ] == ' ' )
-        {
-            recalculatePath = true;
-        }
     }
     else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
     {
         // destination move south
-        sampleConsole.putChar( destinationX, destinationY, oldChar, TCOD_BKGND_NONE );
         destinationY++;
-        oldChar = sampleConsole.getChar( destinationX, destinationY );
+        recalculatePath = true;
         sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        if ( smap[ destinationY ][ destinationX ] == ' ' )
-        {
-            recalculatePath = true;
-        }
     }
     else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
     {
         // destination move west
-        sampleConsole.putChar( destinationX, destinationY, oldChar, TCOD_BKGND_NONE );
         destinationX--;
-        oldChar = sampleConsole.getChar( destinationX, destinationY );
+        recalculatePath = true;
         sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        if ( smap[ destinationY ][ destinationX ] == ' ' )
-        {
-            recalculatePath = true;
-        }
     }
     else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
     {
         // destination move east
-        sampleConsole.putChar( destinationX, destinationY, oldChar, TCOD_BKGND_NONE );
         destinationX++;
-        oldChar = sampleConsole.getChar( destinationX, destinationY );
+        recalculatePath = true;
         sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        if ( smap[ destinationY ][ destinationX ] == ' ' )
-        {
-            recalculatePath = true;
-        }
     }
     else if ( key->vk == TCODK_TAB )
     {
         usingAstar = !usingAstar;
+
         if ( usingAstar )
         {
             sampleConsole.print( 1, 4, "Using : A*      " );
@@ -1096,6 +1090,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         {
             sampleConsole.print( 1, 4, "Using : Dijkstra" );
         }
+
         recalculatePath = true;
     }
 
@@ -1105,15 +1100,11 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( mouseX >= 0 && mouseX < SAMPLE_SCREEN_WIDTH && mouseY >= 0 && mouseY < SAMPLE_SCREEN_HEIGHT &&
          ( destinationX != mouseX || destinationY != mouseY ))
     {
-        sampleConsole.putChar( destinationX, destinationY, oldChar, TCOD_BKGND_NONE );
         destinationX = mouseX;
         destinationY = mouseY;
-        oldChar = sampleConsole.getChar( destinationX, destinationY );
+
+        recalculatePath = true;
         sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        if ( smap[ destinationY ][ destinationX ] == ' ' )
-        {
-            recalculatePath = true;
-        }
     }
 }
 

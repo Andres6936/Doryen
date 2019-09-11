@@ -54,6 +54,8 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
         // Abbreviation of Node
         using Node = Doryen::Algorithms::Node;
 
+        currentSolutionNode = nullptr;
+
         start = new Node(originX, originY);
         goal = new Node(destinationX, destinationY);
 
@@ -70,7 +72,7 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
         while (state == SearchState::SEARCHING)
         {
-            if (openList.empty() || cancelRequest)
+            if ( openList.empty( ))
             {
                 state = SearchState ::FAILED;
                 freeAllNodes( );
@@ -127,6 +129,8 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
                 // coordenadas en una estructura de datos apropiada destinada
                 // a esta tarea.
 
+                // delete nodes that aren't needed for the solution.
+                freeUnusedNodes( );
                 // Limpiamos la estructura de datos.
                 pointList.clear( );
 
@@ -145,12 +149,6 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
                         break;
                     }
                 }
-
-                // Una vez obtenido lo que queriamos (obtener una lista de
-                // los puntos desde el origen {start} hasta el final {goal})
-                // debemos de liberar la memoria para ser utilizada en una
-                // nueva busqueda en caso de ser necessario.
-                freeAllNodes( );
 
                 return;
             }
@@ -171,6 +169,13 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
 
                 if (! successorsAdded)
                 {
+                    for ( Node *succesor: successors )
+                    {
+                        delete succesor;
+                    }
+
+                    successors.clear( );
+
                     delete node;
 
                     freeAllNodes( );
@@ -349,21 +354,62 @@ void TCODPath::freeAllNodes( )
 
     closedList.clear( );
 
-    for ( Doryen::Algorithms::Node *node: successors )
+    delete goal;
+}
+
+void TCODPath::freeUnusedNodes( )
+{
+    for ( Doryen::Algorithms::Node *node: openList )
     {
-        delete node;
+        if ( !node->child )
+        {
+            delete node;
+        }
     }
 
-    successors.clear( );
+    openList.clear( );
 
-    delete goal;
+    for ( Doryen::Algorithms::Node *node: closedList )
+    {
+        if ( !node->child )
+        {
+            delete node;
+        }
+    }
+
+    closedList.clear( );
+}
+
+void TCODPath::freeSolutionNodes( )
+{
+    Doryen::Algorithms::Node *node = start;
+
+    if ( start->child )
+    {
+        do
+        {
+            Doryen::Algorithms::Node *del = node;
+
+            node = node->child;
+
+            delete del;
+        }
+        while ( node != goal );
+
+        delete goal;
+    }
+    else
+    {
+        delete start;
+        delete goal;
+    }
 }
 
 bool TCODPath::findPath( )
 {
     if ( state == SearchState::SUCCEEDED )
     {
-        return false;
+        return true;
     }
     else
     {
