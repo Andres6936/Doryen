@@ -49,5 +49,6 @@
 
 #include "Exceptions/Exception.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
+#include "Algorithms/Pathfinding/AStar.hpp"
 
 #endif

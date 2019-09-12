@@ -33,7 +33,7 @@
 #include "Cell.hpp"
 #include "fov.h"
 
-class TCODPath;
+class AStar;
 
 namespace Doryen
 {

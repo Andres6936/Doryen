@@ -854,7 +854,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static Doryen::Color darkGround( 50, 50, 150 );
     static Doryen::Color lightGround( 200, 180, 50 );
 
-    static TCODPath *AStar = nullptr;
+    static Doryen::Algorithms::Pathfinding::AStar *AStar = nullptr;
 
     static bool usingAstar = true;
 
@@ -887,7 +887,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             }
         }
 
-        AStar = new TCODPath( *map );
+        AStar = new Doryen::Algorithms::Pathfinding::AStar( *map );
         //dijkstra = new TCODDijkstra( map );
     }
 
