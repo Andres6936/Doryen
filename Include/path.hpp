@@ -111,8 +111,6 @@ private:
 
     Doryen::Algorithms::Node *currentSolutionNode = nullptr;
 
-    bool cancelRequest = false;
-
     /**
      * This method is called on two occasions:
      * 1. When a search fails.
@@ -172,6 +170,11 @@ public :
      */
     void compute( int originX, int originY, int destinationX, int destinationY );
 
+    /**
+     * @brief Free the solution nodes.
+     *
+     * This is done to clean up all used Node memory when you are done with the search.
+     */
     void freeSolutionNodes( );
 
     /**

@@ -150,6 +150,9 @@ void TCODPath::compute( int originX, int originY, int destinationX, int destinat
                     }
                 }
 
+                // delete nodes that are needed for the solution.
+                freeSolutionNodes( );
+
                 return;
             }
             else // Not Goal

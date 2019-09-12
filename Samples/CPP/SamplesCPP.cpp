@@ -891,34 +891,6 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         //dijkstra = new TCODDijkstra( map );
     }
 
-    if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-
-        // we draw the foreground only the first time.
-        // during the player movement, only the @ is redrawn.
-        // the rest impacts only the background color
-        // draw the help text & player @
-        sampleConsole.clear( );
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-        sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-        sampleConsole.print( 1, 1, "IJKL / mouse :\nmove destination\nTAB : A*/dijkstra" );
-        sampleConsole.print( 1, 4, "Using : A*" );
-        // draw windows
-        for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-        {
-            for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-            {
-                if ( smap[ y ][ x ] == '=' )
-                {
-                    sampleConsole.putChar( x, y, TCOD_CHAR_DHLINE, TCOD_BKGND_NONE );
-                }
-            }
-        }
-        recalculatePath = true;
-    }
-
     if ( recalculatePath )
     {
         if ( usingAstar )
@@ -926,7 +898,6 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             if ( smap[ destinationY ][ destinationX ] == ' ' )
             {
                 AStar->compute( playerX, playerY, destinationX, destinationY );
-                AStar->freeSolutionNodes( );
             }
         }
         else
@@ -950,16 +921,21 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         recalculatePath = false;
         busy = 0.2f;
     }
+
+    sampleConsole.clear( );
+
     // draw the dungeon
     for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
     {
         for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
         {
-            bool wall = smap[ y ][ x ] == '#';
-
-            if ( wall )
+            if ( smap[ y ][ x ] == '#' )
             {
                 sampleConsole.setCharBackground( x, y, darkWall, TCOD_BKGND_SET );
+            }
+            else if ( smap[ y ][ x ] == '=' )
+            {
+                sampleConsole.putChar( x, y, TCOD_CHAR_DHLINE, TCOD_BKGND_NONE );
             }
             else
             {
@@ -967,6 +943,15 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             }
         }
     }
+
+    sampleConsole.setDefaultForeground( Doryen::Color::white );
+
+    sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+    sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+
+    sampleConsole.print( 1, 1, "IJKL / mouse :\nmove destination\nTAB : A*/dijkstra" );
+    sampleConsole.print( 1, 4, "Using : A*" );
+
     // draw the path
     if ( usingAstar && AStar->findPath( ))
     {
