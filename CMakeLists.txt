@@ -42,6 +42,13 @@ ELSEIF (UNIX)
     SET(LIB_DIR linux)
     SET(ZLIB_DIR linux)
 
+    # Reference: 10.1. Simple Boolean Logic {Craig Scott - Professional CMake}
+    IF ($<CONFIG:Debug>)
+        # Support to Coverage Metrics {gcov} only in
+        # mode of Debug configuration
+        SET(CMAKE_CXX_FLAGS "--coverage")
+    ENDIF ()
+
 ENDIF ()
 
 #Linux uses system libraries
