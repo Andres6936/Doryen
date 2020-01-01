@@ -75,20 +75,24 @@ typedef struct {
 	bool savept; /* is this object a savepoint (no free in destructor) */	
 } TCOD_lex_t;
 
-TCODLIB_API TCOD_lex_t *TCOD_lex_new_intern();
-TCODLIB_API TCOD_lex_t *TCOD_lex_new(const char **symbols, const char **keywords, const char *simpleComment, 
+TCOD_lex_t *TCOD_lex_new_intern();
+
+TCOD_lex_t *TCOD_lex_new(const char **symbols, const char **keywords, const char *simpleComment,
 		const char *commentStart, const char *commentStop, const char *javadocCommentStart, const char *stringDelim, int flags);
-TCODLIB_API void TCOD_lex_delete(TCOD_lex_t *lex);
 
-TCODLIB_API bool TCOD_lex_set_data_file(TCOD_lex_t *lex,const char *filename);
+void TCOD_lex_delete(TCOD_lex_t *lex);
 
-TCODLIB_API int TCOD_lex_parse(TCOD_lex_t *lex);
+bool TCOD_lex_set_data_file(TCOD_lex_t *lex,const char *filename);
+
+int TCOD_lex_parse(TCOD_lex_t *lex);
 
 
-TCODLIB_API void TCOD_lex_savepoint(TCOD_lex_t *lex,TCOD_lex_t *savept);
-TCODLIB_API void TCOD_lex_restore(TCOD_lex_t *lex,TCOD_lex_t *savept);
-TCODLIB_API char *TCOD_lex_get_last_error();
+void TCOD_lex_savepoint(TCOD_lex_t *lex,TCOD_lex_t *savept);
 
-TCODLIB_API int TCOD_lex_hextoint(char c);
+void TCOD_lex_restore(TCOD_lex_t *lex,TCOD_lex_t *savept);
+
+char *TCOD_lex_get_last_error();
+
+int TCOD_lex_hextoint(char c);
 
 #endif

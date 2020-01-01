@@ -189,7 +189,7 @@ void TCOD_fatal(const char *fmt, ...);
 void TCOD_fatal_nopar(const char *msg);
 
 /* Platform non public methods */
-TCODLIB_API void TCOD_sys_startup();
+void TCOD_sys_startup();
 bool TCOD_sys_init(int w,int h, char_t *buf, char_t *oldbuf, bool fullscreen);
 void TCOD_sys_set_custom_font(const char *font_name,int nb_ch, int nb_cv,int flags);
 void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY);
@@ -199,7 +199,7 @@ void *TCOD_sys_create_bitmap(int width, int height, TCOD_color_t *buf);
 void TCOD_sys_delete_bitmap(void *bitmap);
 void TCOD_sys_console_to_bitmap(void *bitmap, int console_width, int console_height, char_t *console_buffer, char_t *prev_console_buffer);
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval);
-TCODLIB_API void *TCOD_sys_get_surface(int width, int height, bool alpha);
+void *TCOD_sys_get_surface(int width, int height, bool alpha);
 void TCOD_sys_save_fps();
 void TCOD_sys_restore_fps();
 
@@ -214,7 +214,7 @@ void TCOD_sys_set_window_title(const char *title);
 void TCOD_sys_term();
 
 /* image manipulation */
-TCODLIB_API void *TCOD_sys_load_image(const char *filename);
+void *TCOD_sys_load_image(const char *filename);
 void TCOD_sys_get_image_size(const void *image, int *w,int *h);
 TCOD_color_t TCOD_sys_get_image_pixel(const void *image,int x, int y);
 int TCOD_sys_get_image_alpha(const void *image,int x, int y);

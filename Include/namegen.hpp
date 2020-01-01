@@ -38,7 +38,7 @@
  @PageTitle Name generator
  @PageDesc This tool allows to generate random names out of custom made syllable sets.
  */
-class TCODLIB_API TCODNamegen {
+class TCODNamegen {
 	public:
 		/**
 		@PageName namegen_init

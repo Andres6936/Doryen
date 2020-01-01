@@ -30,7 +30,7 @@
 
 #include "mouse_types.h"
 
-class TCODLIB_API TCODMouse {
+class TCODMouse {
 public :
 	/**
 	@PageName mouse

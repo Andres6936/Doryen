@@ -25,12 +25,12 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class TCODLIB_API TCODImage {
+class TCODImage {
 public:
 
-    friend class TCODLIB_API TCODSystem;
+    friend class TCODSystem;
 
-    friend class TCODLIB_API TCODZip;
+    friend class TCODZip;
 
     void *data;
     bool deleteData;

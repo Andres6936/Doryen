@@ -35,7 +35,7 @@
 
 The code using the heightmap toolkit can be automatically generated with the heightmap tool (hmtool) included in the libtcod package.
  */
-class TCODLIB_API TCODHeightMap {
+class TCODHeightMap {
 public :
 	int w,h;
 	float *values;

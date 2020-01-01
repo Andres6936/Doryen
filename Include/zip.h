@@ -30,33 +30,53 @@
 
 typedef void *TCOD_zip_t;
 
-TCODLIB_API TCOD_zip_t TCOD_zip_new();
-TCODLIB_API void TCOD_zip_delete(TCOD_zip_t zip);
+TCOD_zip_t TCOD_zip_new();
+
+void TCOD_zip_delete(TCOD_zip_t zip);
 
 /* output interface */
-TCODLIB_API void TCOD_zip_put_char(TCOD_zip_t zip, char val);
-TCODLIB_API void TCOD_zip_put_int(TCOD_zip_t zip, int val);
-TCODLIB_API void TCOD_zip_put_float(TCOD_zip_t zip, float val);
-TCODLIB_API void TCOD_zip_put_string(TCOD_zip_t zip, const char *val);
-TCODLIB_API void TCOD_zip_put_color(TCOD_zip_t zip, const TCOD_color_t val);
-TCODLIB_API void TCOD_zip_put_image(TCOD_zip_t zip, const TCOD_image_t val);
-TCODLIB_API void TCOD_zip_put_console(TCOD_zip_t zip, const TCOD_console_t val);
-TCODLIB_API void TCOD_zip_put_data(TCOD_zip_t zip, int nbBytes, const void *data);
-TCODLIB_API uint32 TCOD_zip_get_current_bytes(TCOD_zip_t zip);
-TCODLIB_API int TCOD_zip_save_to_file(TCOD_zip_t zip, const char *filename);
+void TCOD_zip_put_char(TCOD_zip_t zip, char val);
+
+void TCOD_zip_put_int(TCOD_zip_t zip, int val);
+
+void TCOD_zip_put_float(TCOD_zip_t zip, float val);
+
+void TCOD_zip_put_string(TCOD_zip_t zip, const char *val);
+
+void TCOD_zip_put_color(TCOD_zip_t zip, const TCOD_color_t val);
+
+void TCOD_zip_put_image(TCOD_zip_t zip, const TCOD_image_t val);
+
+void TCOD_zip_put_console(TCOD_zip_t zip, const TCOD_console_t val);
+
+void TCOD_zip_put_data(TCOD_zip_t zip, int nbBytes, const void *data);
+
+uint32 TCOD_zip_get_current_bytes(TCOD_zip_t zip);
+
+int TCOD_zip_save_to_file(TCOD_zip_t zip, const char *filename);
 
 /* input interface */
-TCODLIB_API int TCOD_zip_load_from_file(TCOD_zip_t zip, const char *filename);
-TCODLIB_API char TCOD_zip_get_char(TCOD_zip_t zip);
-TCODLIB_API int TCOD_zip_get_int(TCOD_zip_t zip);
-TCODLIB_API float TCOD_zip_get_float(TCOD_zip_t zip);
-TCODLIB_API const char *TCOD_zip_get_string(TCOD_zip_t zip);
-TCODLIB_API TCOD_color_t TCOD_zip_get_color(TCOD_zip_t zip);
-TCODLIB_API TCOD_image_t TCOD_zip_get_image(TCOD_zip_t zip);
-TCODLIB_API TCOD_console_t TCOD_zip_get_console(TCOD_zip_t zip);
-TCODLIB_API int TCOD_zip_get_data(TCOD_zip_t zip, int nbBytes, void *data);
-TCODLIB_API uint32 TCOD_zip_get_remaining_bytes(TCOD_zip_t zip);
-TCODLIB_API void TCOD_zip_skip_bytes(TCOD_zip_t zip, uint32 nbBytes);
+int TCOD_zip_load_from_file(TCOD_zip_t zip, const char *filename);
+
+char TCOD_zip_get_char(TCOD_zip_t zip);
+
+int TCOD_zip_get_int(TCOD_zip_t zip);
+
+float TCOD_zip_get_float(TCOD_zip_t zip);
+
+const char *TCOD_zip_get_string(TCOD_zip_t zip);
+
+TCOD_color_t TCOD_zip_get_color(TCOD_zip_t zip);
+
+TCOD_image_t TCOD_zip_get_image(TCOD_zip_t zip);
+
+TCOD_console_t TCOD_zip_get_console(TCOD_zip_t zip);
+
+int TCOD_zip_get_data(TCOD_zip_t zip, int nbBytes, void *data);
+
+uint32 TCOD_zip_get_remaining_bytes(TCOD_zip_t zip);
+
+void TCOD_zip_skip_bytes(TCOD_zip_t zip, uint32 nbBytes);
 
 #endif
 

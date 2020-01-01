@@ -30,7 +30,7 @@
 
 class TCODBsp;
 
-class TCODLIB_API ITCODBspCallback {
+class ITCODBspCallback {
 public :
 	virtual ~ITCODBspCallback() {}
 	virtual bool visitNode(TCODBsp *node, void *userData) = 0;
@@ -43,7 +43,7 @@ public :
  @PageDesc This toolkit allows to create and manipulate 2D Binary Space Partition trees. They can be used to split a rectangular region into non overlapping sub-regions.
  */
 
-class TCODLIB_API TCODBsp : public TCODTree {
+class TCODBsp : public TCODTree {
 public :
 	int x,y,w,h; // 
 	int position; // position of splitting

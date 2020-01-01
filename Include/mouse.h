@@ -30,6 +30,6 @@
 
 #include "mouse_types.h"
 
-TCODLIB_API TCOD_mouse_t TCOD_mouse_get_status();
+TCOD_mouse_t TCOD_mouse_get_status();
 
 #endif

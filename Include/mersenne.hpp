@@ -80,7 +80,7 @@ Python already has great builtin random generators. But some parts of the Doryen
 .NET already has great builtin random generators. But some parts of the Doryen library (noise, heightmap, ...) uses RNG as parameters. If you intend to use those functions, you must provide a RNG created with the library.
  */
 
-class TCODLIB_API TCODRandom {
+class TCODRandom {
 	public :
 		/**
 		@PageName random_init
@@ -390,9 +390,9 @@ In these cases, the selected mean will appear with the lowest frequency.
 		inline int diceRoll (const char * s) { return TCOD_random_dice_roll(data,TCOD_random_dice_new(s)); }
 
 	protected :
-		friend class TCODLIB_API TCODNoise;
-		friend class TCODLIB_API TCODHeightMap;
-		friend class TCODLIB_API TCODNamegen;
+		friend class TCODNoise;
+		friend class TCODHeightMap;
+		friend class TCODNamegen;
 		friend class TCODNameGenerator;	// Used for SWIG interface, does NOT need TCODLIB_API
 		TCOD_random_t data;
 };

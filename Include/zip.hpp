@@ -39,7 +39,7 @@
 	* put data in the buffer, then save it to a file,
 	* load a file into the buffer, then get data from it.
  */
-class TCODLIB_API TCODZip {
+class TCODZip {
 public :
 
 	/**

@@ -65,7 +65,7 @@
 		<tr><td>wavelet</td><td>53</td><td>32</td><td>14</td><td>X</td></tr>
 	</table>
  */
-class TCODLIB_API TCODNoise {
+class TCODNoise {
 	public :
 		/**
 		@PageName noise_init
@@ -316,7 +316,7 @@ float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, 
 		float getTurbulence(float *f, float octaves, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
 	protected :
-		friend class TCODLIB_API TCODHeightMap;
+		friend class TCODHeightMap;
 		TCOD_noise_t data;
 };
 

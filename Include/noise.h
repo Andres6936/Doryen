@@ -40,17 +40,23 @@ typedef enum {
 #include "noise_defaults.h"
 
 /* create a new noise object */
-TCODLIB_API TCOD_noise_t TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_random_t random);
+TCOD_noise_t TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_random_t random);
 
 /* simplified API */
-TCODLIB_API void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type);
-TCODLIB_API float TCOD_noise_get_ex (TCOD_noise_t noise, float *f, TCOD_noise_type_t type);
-TCODLIB_API float TCOD_noise_get_fbm_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
-TCODLIB_API float TCOD_noise_get_turbulence_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
-TCODLIB_API float TCOD_noise_get (TCOD_noise_t noise, float *f);
-TCODLIB_API float TCOD_noise_get_fbm (TCOD_noise_t noise, float *f, float octaves);
-TCODLIB_API float TCOD_noise_get_turbulence (TCOD_noise_t noise, float *f, float octaves);
+void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type);
+
+float TCOD_noise_get_ex (TCOD_noise_t noise, float *f, TCOD_noise_type_t type);
+
+float TCOD_noise_get_fbm_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
+
+float TCOD_noise_get_turbulence_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
+
+float TCOD_noise_get (TCOD_noise_t noise, float *f);
+
+float TCOD_noise_get_fbm (TCOD_noise_t noise, float *f, float octaves);
+
+float TCOD_noise_get_turbulence (TCOD_noise_t noise, float *f, float octaves);
 /* delete the noise object */
-TCODLIB_API void TCOD_noise_delete(TCOD_noise_t noise);
+void TCOD_noise_delete(TCOD_noise_t noise);
 
 #endif

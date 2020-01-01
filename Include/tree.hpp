@@ -28,7 +28,7 @@
 #ifndef _TCOD_TREE_HPP
 #define _TCOD_TREE_HPP
 
-class TCODLIB_API TCODTree {
+class TCODTree {
 public :
 	TCODTree *next;
 	TCODTree *father;
