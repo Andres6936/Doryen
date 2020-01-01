@@ -27,7 +27,7 @@ SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circul
         noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
         tree_c.c zip_c.c png/lodepng.c SystemSDL.c SystemSDLImagePNG.c)
 
-SET(LIBTCOD_CPP_SRC bresenham.cpp bsp.cpp Color.cpp Console.cpp fov.cpp heightmap.cpp image.cpp mersenne.cpp
+SET(LIBTCOD_CPP_SRC Bresenham.cpp bsp.cpp Color.cpp Console.cpp fov.cpp heightmap.cpp image.cpp mersenne.cpp
         mouse.cpp namegen.cpp noise.cpp path.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
         FOV/CircularRaycasting.cpp Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp)
 

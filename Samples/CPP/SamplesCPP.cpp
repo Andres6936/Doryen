@@ -15,7 +15,7 @@
 #include "SampleRenderer.hpp"
 #include "LineListener.hpp"
 #include "BspListener.hpp"
-#include "bresenham.hpp"
+#include "Algorithms/Drawing/Bresenham.hpp"
 
 // a sample has a name and a rendering function
 typedef struct
@@ -274,7 +274,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     // render the line
 	RenderLine listener;
 
-    Doryen::Line objLine = Doryen::Line( );
+	Doryen::Algorithms::Line objLine = Doryen::Algorithms::Line();
 
 	objLine.line(xo, yo, xd, yd, listener);
 

@@ -1,7 +1,7 @@
 #include "FOV/CircularRaycasting.hpp"
 
 #include <algorithm>
-#include <bresenham.hpp>
+#include <Algorithms/Drawing/Bresenham.hpp>
 
 void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
                                              int playerY, int maxRadius, bool ligthWalls )
@@ -79,7 +79,7 @@ void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
     bool blocked = false;
     bool end = false;
 
-    Doryen::Line line = Doryen::Line( );
+	Algorithms::Line line = Algorithms::Line();
     line.init( xo, yo, xd, yd );
 
     int offset = curX + map.width * curY;

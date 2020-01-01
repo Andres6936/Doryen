@@ -37,7 +37,6 @@
 #include "Renderer/Sdl.hpp"
 #include "mersenne.hpp"
 #include "mouse.hpp"
-#include "bresenham.hpp"
 #include "noise.hpp"
 #include "fov.hpp"
 #include "path.hpp"
@@ -50,5 +49,6 @@
 #include "Exceptions/Exception.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
 #include "Algorithms/Pathfinding/AStar.hpp"
+#include "Algorithms/Drawing/Bresenham.hpp"
 
 #endif

@@ -4,9 +4,8 @@
 #include <libtcod.hpp>
 
 #include "SampleRenderer.hpp"
-#include "bresenham.hpp"
 
-class RenderLine : public Doryen::LineListener
+class RenderLine : public Doryen::Algorithms::LineListener
 {
 
 public :

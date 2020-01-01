@@ -1,4 +1,5 @@
 #include "Frost.hpp"
+#include "Algorithms/Drawing/Bresenham.hpp"
 
 Frost::Frost( int x, int y, FrostManager *nFrostManager ) : x( x ), y( y ), manager( nFrostManager )
 {
@@ -86,7 +87,7 @@ bool Frost::update( float elapsed )
         int cury = besty;
 
         // frosting
-        Doryen::Line objLine = Doryen::Line( );
+        Doryen::Algorithms::Line objLine = Doryen::Algorithms::Line();
         objLine.init( curx, cury, rx, ry );
         objLine.step( &curx, &cury );
 

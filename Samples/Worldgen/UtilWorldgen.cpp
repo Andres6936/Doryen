@@ -30,6 +30,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "Main.hpp"
+#include "Algorithms/Drawing/Bresenham.hpp"
 
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
@@ -623,7 +624,7 @@ void WorldGenerator::generateRivers() {
             }
         }
 
-        Doryen::Line objLine = Doryen::Line( );
+		Doryen::Algorithms::Line objLine = Doryen::Algorithms::Line();
         objLine.init( bestx, besty, rx, ry );
 
         int len = 3,cx=bestx,cy=besty;

@@ -25,12 +25,12 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <bresenham.hpp>
+#include <Algorithms/Drawing/Bresenham.hpp>
 
 #include "libtcod.hpp"
 
 // ********** bresenham line drawing **********
-void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
+void Doryen::Algorithms::Line::init(int xFrom, int yFrom, int xTo, int yTo)
 {
     origx = xFrom;
     origy = yFrom;
@@ -39,7 +39,7 @@ void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
     deltax = xTo - xFrom;
     deltay = yTo - yFrom;
 
-    if ( deltax > 0 )
+    if (deltax > 0)
     {
         stepx = 1;
     }
@@ -81,11 +81,11 @@ void Doryen::Line::init( int xFrom, int yFrom, int xTo, int yTo )
     }
 }
 
-bool Doryen::Line::step( int *xCur, int *yCur )
+bool Doryen::Algorithms::Line::step(int* xCur, int* yCur)
 {
-    if ( stepx * deltax > stepy * deltay )
+    if (stepx * deltax > stepy * deltay)
     {
-        if ( origx == destx )
+        if (origx == destx)
         {
             return true;
         }
@@ -122,25 +122,25 @@ bool Doryen::Line::step( int *xCur, int *yCur )
     return false;
 }
 
-bool Doryen::Line::line(int xFrom, int yFrom, int xTo, int yTo, LineListener& plistener)
+bool Doryen::Algorithms::Line::line(int xFrom, int yFrom, int xTo, int yTo, Doryen::Algorithms::LineListener& plistener)
 {
-	static Doryen::Line lineTemp = Doryen::Line();
+    static Doryen::Algorithms::Line lineTemp = Doryen::Algorithms::Line();
 
-	lineTemp.init(xFrom, yFrom, xTo, yTo);
+    lineTemp.init(xFrom, yFrom, xTo, yTo);
 
 
-	while (!lineTemp.step(&xFrom, &yFrom))
-	{
-		if (!plistener.drawPoint(xFrom, yFrom))
-		{
-			return false;
-		}
+    while (!lineTemp.step(&xFrom, &yFrom))
+    {
+        if (!plistener.drawPoint(xFrom, yFrom))
+        {
+            return false;
+        }
     }
 
     return true;
 }
 
-Doryen::Line::Line( )
+Doryen::Algorithms::Line::Line()
 {
     stepx = 0;
     stepy = 0;
