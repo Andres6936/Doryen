@@ -4,13 +4,14 @@
 #include <libtcod.hpp>
 
 #include "SampleRenderer.hpp"
+#include "bresenham.hpp"
 
-class LineListener : public TCODLineListener
+class RenderLine : public Doryen::LineListener
 {
 
 public :
 
-    bool putPoint( int x, int y );
+	bool drawPoint(int x, int y) override;
 };
 
 

@@ -122,21 +122,19 @@ bool Doryen::Line::step( int *xCur, int *yCur )
     return false;
 }
 
-static TCODLineListener *listener = NULL;
-
-bool Doryen::Line::line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener )
+bool Doryen::Line::line(int xFrom, int yFrom, int xTo, int yTo, LineListener& plistener)
 {
-    static Doryen::Line lineTemp = Doryen::Line( );
+	static Doryen::Line lineTemp = Doryen::Line();
 
-    lineTemp.init( xFrom, yFrom, xTo, yTo );
+	lineTemp.init(xFrom, yFrom, xTo, yTo);
 
 
-    while ( !lineTemp.step( &xFrom, &yFrom ))
-    {
-        if ( !plistener->putPoint( xFrom, yFrom ))
-        {
-            return false;
-        }
+	while (!lineTemp.step(&xFrom, &yFrom))
+	{
+		if (!plistener.drawPoint(xFrom, yFrom))
+		{
+			return false;
+		}
     }
 
     return true;

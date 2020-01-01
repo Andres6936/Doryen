@@ -15,6 +15,7 @@
 #include "SampleRenderer.hpp"
 #include "LineListener.hpp"
 #include "BspListener.hpp"
+#include "bresenham.hpp"
 
 // a sample has a name and a rendering function
 typedef struct
@@ -271,11 +272,11 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     int yd = ( int ) ( SAMPLE_SCREEN_HEIGHT / 2 - sinAngle * SAMPLE_SCREEN_WIDTH / 2 );
 
     // render the line
-    LineListener listener;
+	RenderLine listener;
 
     Doryen::Line objLine = Doryen::Line( );
 
-    objLine.line( xo, yo, xd, yd, &listener );
+	objLine.line(xo, yo, xd, yd, listener);
 
     // print the current flag
     sampleConsole.print( 2, 2, "%s (ENTER to change)", flagNames[ bkFlag & 0xff ] );

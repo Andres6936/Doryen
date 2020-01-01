@@ -28,27 +28,31 @@
 #ifndef _TCOD_BRESENHAM_HPP
 #define _TCOD_BRESENHAM_HPP
 
-class TCODLineListener
-{
-public :
-    virtual bool putPoint( int x, int y ) = 0;
-
-    virtual ~TCODLineListener( )
-    { }
-};
-
 namespace Doryen
 {
 
-    /**
-     * @brief This toolkit is a very simple and lightweight implementation of the
-     * bresenham line drawing algorithm. It allows you to follow straight paths
-     * on your map very easily.
-     */
-    class Line
-    {
+	class LineListener
+	{
 
-    private:
+	public :
+
+		virtual bool drawPoint(int x, int y) = 0;
+
+		virtual ~LineListener()
+		{
+
+		};
+	};
+
+	/**
+	 * @brief This toolkit is a very simple and lightweight implementation of the
+	 * bresenham line drawing algorithm. It allows you to follow straight paths
+	 * on your map very easily.
+	 */
+	class Line
+	{
+
+	private:
 
         int stepx;
         int stepy;
@@ -93,23 +97,23 @@ namespace Doryen
          */
         bool step( int *xCur, int *yCur );
 
-        /**
-         * @brief Callback-based function.
-         *
-         * The function returns false if the line has been interrupted by the
-         * callback (it returned false before the last point).
-         *
-         * @param xFrom Coordinates of the line's starting point.
-         * @param yFrom Coordinates of the line's starting point.
-         * @param xTo Coordinates of the line's ending point.
-         * @param yTo Coordinates of the line's ending point.
-         *
-         * @param plistener Callback called for each line's point.
-         * The function stops if the callback returns false.
-         *
-         * @return
-         */
-        bool line( int xFrom, int yFrom, int xTo, int yTo, TCODLineListener *plistener );
+		/**
+		 * @brief Callback-based function.
+		 *
+		 * The function returns false if the line has been interrupted by the
+		 * callback (it returned false before the last point).
+		 *
+		 * @param xFrom Coordinates of the line's starting point.
+		 * @param yFrom Coordinates of the line's starting point.
+		 * @param xTo Coordinates of the line's ending point.
+		 * @param yTo Coordinates of the line's ending point.
+		 *
+		 * @param plistener Callback called for each line's point.
+		 * The function stops if the callback returns false.
+		 *
+		 * @return
+		 */
+		bool line(int xFrom, int yFrom, int xTo, int yTo, LineListener& plistener);
     };
 }
 
