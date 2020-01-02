@@ -472,8 +472,8 @@ void TCODHeightMap::rainErosion(int nbDrops, float erosionCoef, float agregation
 {
 	while (nbDrops > 0)
 	{
-		int curx = TCOD_random_get_int(rnd, 0, this->w - 1);
-		int cury = TCOD_random_get_int(rnd, 0, this->h - 1);
+		int curx = TCOD_random_get_int(rnd->data, 0, this->w - 1);
+		int cury = TCOD_random_get_int(rnd->data, 0, this->h - 1);
 
 		static int dx[8] = { -1, 0, 1, -1, 1, -1, 0, 1 };
 		static int dy[8] = { -1, -1, -1, 0, 0, 1, 1, 1 };
