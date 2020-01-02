@@ -29,7 +29,7 @@
 
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 
-TCODHeightMap::TCODHeightMap(int w, int h)
+Doryen::Heightmap::Heightmap(int w, int h)
 {
 	this->w = w;
 	this->h = h;
@@ -44,9 +44,9 @@ TCODHeightMap::TCODHeightMap(int w, int h)
 	}
 }
 
-TCODHeightMap::~TCODHeightMap() = default;
+Doryen::Heightmap::~Heightmap() = default;
 
-void TCODHeightMap::clear()
+void Doryen::Heightmap::clear()
 {
 	// std::fill(values.cbegin(), values.cend(), 0.0f);
 
@@ -56,7 +56,7 @@ void TCODHeightMap::clear()
 	}
 }
 
-void TCODHeightMap::normalize(float newMin, float newMax)
+void Doryen::Heightmap::normalize(float newMin, float newMax)
 {
 	float curmin = getMin();
 	float curmax = getMax();
@@ -79,13 +79,13 @@ void TCODHeightMap::normalize(float newMin, float newMax)
 	}
 }
 
-void TCODHeightMap::getMinMax(float* min, float* max) const
+void Doryen::Heightmap::getMinMax(float* min, float* max) const
 {
 	*min = getMin();
 	*max = getMax();
 }
 
-void TCODHeightMap::addHill(float hx, float hy, float hradius, float height)
+void Doryen::Heightmap::addHill(float hx, float hy, float hradius, float height)
 {
 	float hradius2 = hradius * hradius;
 	float coef = height / hradius2;
@@ -112,7 +112,7 @@ void TCODHeightMap::addHill(float hx, float hy, float hradius, float height)
 	}
 }
 
-void TCODHeightMap::digHill(float hx, float hy, float hradius, float height)
+void Doryen::Heightmap::digHill(float hx, float hy, float hradius, float height)
 {
 	float hradius2 = hradius * hradius;
 	float coef = height / hradius2;
@@ -154,7 +154,7 @@ void TCODHeightMap::digHill(float hx, float hy, float hradius, float height)
 	}
 }
 
-void TCODHeightMap::copy(const TCODHeightMap* source)
+void Doryen::Heightmap::copy(const Heightmap* source)
 {
 	if (source->w != this->w || source->h != this->h)
 	{
@@ -168,7 +168,8 @@ void TCODHeightMap::copy(const TCODHeightMap* source)
 	}
 }
 
-void TCODHeightMap::addFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
+void
+Doryen::Heightmap::addFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
 		float scale)
 {
 	float xcoef = mulx / (float)this->w;
@@ -205,7 +206,8 @@ void TCODHeightMap::addFbm(TCODNoise* noise, float mulx, float muly, float addx,
 }
 
 void
-TCODHeightMap::scaleFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
+Doryen::Heightmap::scaleFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves,
+		float delta,
 		float scale)
 {
 	float xcoef = mulx / this->w;
@@ -229,7 +231,7 @@ TCODHeightMap::scaleFbm(TCODNoise* noise, float mulx, float muly, float addx, fl
 	}
 }
 
-float TCODHeightMap::getInterpolatedValue(float x, float y) const
+float Doryen::Heightmap::getInterpolatedValue(float x, float y) const
 {
 	int ix = (int)x;
 	int iy = (int)y;
@@ -253,7 +255,7 @@ float TCODHeightMap::getInterpolatedValue(float x, float y) const
 	}
 }
 
-void TCODHeightMap::getNormal(float x, float y, float n[3], float waterLevel) const
+void Doryen::Heightmap::getNormal(float x, float y, float n[3], float waterLevel) const
 {
 	float h0, hx, hy, invlen; /* map heights at x,y x+1,y and x,y+1 */
 	n[0] = 0.0f;
@@ -291,7 +293,7 @@ void TCODHeightMap::getNormal(float x, float y, float n[3], float waterLevel) co
 }
 
 void
-TCODHeightMap::digBezier(int px[4], int py[4], float startRadius, float startDepth, float endRadius, float endDepth)
+Doryen::Heightmap::digBezier(int px[4], int py[4], float startRadius, float startDepth, float endRadius, float endDepth)
 {
 	int xFrom = px[0];
 	int yFrom = py[0];
@@ -316,7 +318,7 @@ TCODHeightMap::digBezier(int px[4], int py[4], float startRadius, float startDep
 	}
 }
 
-bool TCODHeightMap::hasLandOnBorder(float seaLevel) const
+bool Doryen::Heightmap::hasLandOnBorder(float seaLevel) const
 {
 	for (int x = 0; x < this->w; x++)
 	{
@@ -339,12 +341,12 @@ bool TCODHeightMap::hasLandOnBorder(float seaLevel) const
 	return false;
 }
 
-void TCODHeightMap::islandify(float seaLevel, TCODRandom* rnd)
+void Doryen::Heightmap::islandify(float seaLevel, TCODRandom* rnd)
 {
 	// NOTE: Without implementation in Libtcod 1.5.1
 }
 
-void TCODHeightMap::add(float f)
+void Doryen::Heightmap::add(float f)
 {
 	for (int i = 0; i < w * h; ++i)
 	{
@@ -352,7 +354,7 @@ void TCODHeightMap::add(float f)
 	}
 }
 
-int TCODHeightMap::countCells(float min, float max) const
+int Doryen::Heightmap::countCells(float min, float max) const
 {
 	int count = 0;
 
@@ -367,7 +369,7 @@ int TCODHeightMap::countCells(float min, float max) const
 	return count;
 }
 
-void TCODHeightMap::scale(float f)
+void Doryen::Heightmap::scale(float f)
 {
 	for (int i = 0; i < w * h; ++i)
 	{
@@ -375,7 +377,7 @@ void TCODHeightMap::scale(float f)
 	}
 }
 
-void TCODHeightMap::clamp(float min, float max)
+void Doryen::Heightmap::clamp(float min, float max)
 {
 	for (int i = 0; i < w * h; ++i)
 	{
@@ -383,7 +385,7 @@ void TCODHeightMap::clamp(float min, float max)
 	}
 }
 
-void TCODHeightMap::lerp(const TCODHeightMap* a, const TCODHeightMap* b, float coef)
+void Doryen::Heightmap::lerp(const Heightmap* a, const Heightmap* b, float coef)
 {
 	if (a->w != b->w || a->h != b->h)
 	{
@@ -401,7 +403,7 @@ void TCODHeightMap::lerp(const TCODHeightMap* a, const TCODHeightMap* b, float c
 	}
 }
 
-void TCODHeightMap::add(const TCODHeightMap* a, const TCODHeightMap* b)
+void Doryen::Heightmap::add(const Heightmap* a, const Heightmap* b)
 {
 	if (a->w != b->w || a->h != b->h)
 	{
@@ -419,7 +421,7 @@ void TCODHeightMap::add(const TCODHeightMap* a, const TCODHeightMap* b)
 	}
 }
 
-void TCODHeightMap::multiply(const TCODHeightMap* a, const TCODHeightMap* b)
+void Doryen::Heightmap::multiply(const Heightmap* a, const Heightmap* b)
 {
 	if (a->w != b->w || a->h != b->h)
 	{
@@ -437,7 +439,7 @@ void TCODHeightMap::multiply(const TCODHeightMap* a, const TCODHeightMap* b)
 	}
 }
 
-float TCODHeightMap::getSlope(int x, int y) const
+float Doryen::Heightmap::getSlope(int x, int y) const
 {
 	static int dix[8] = { -1, 0, 1, -1, 1, -1, 0, 1 };
 	static int diy[8] = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -468,7 +470,7 @@ float TCODHeightMap::getSlope(int x, int y) const
 	return (float)std::atan2(maxdy + mindy, 1.0f);
 }
 
-void TCODHeightMap::rainErosion(int nbDrops, float erosionCoef, float agregationCoef, TCODRandom* rnd)
+void Doryen::Heightmap::rainErosion(int nbDrops, float erosionCoef, float agregationCoef, TCODRandom* rnd)
 {
 	while (nbDrops > 0)
 	{
@@ -522,7 +524,8 @@ void TCODHeightMap::rainErosion(int nbDrops, float erosionCoef, float agregation
 	}
 }
 
-void TCODHeightMap::kernelTransform(int kernelSize, const int* dx, const int* dy, const float* weight, float minLevel,
+void
+Doryen::Heightmap::kernelTransform(int kernelSize, const int* dx, const int* dy, const float* weight, float minLevel,
 		float maxLevel)
 {
 	for (int x = 0; x < this->w; x++)
@@ -556,7 +559,7 @@ void TCODHeightMap::kernelTransform(int kernelSize, const int* dx, const int* dy
 	}
 }
 
-void TCODHeightMap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd)
+void Doryen::Heightmap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd)
 {
 	class Point : public Doryen::Math::Point2D
 	{
@@ -616,7 +619,7 @@ void TCODHeightMap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCOD
 	}
 }
 
-float TCODHeightMap::getMin() const
+float Doryen::Heightmap::getMin() const
 {
 	//std::max(values.cbegin(), values.cend());
 
@@ -633,7 +636,7 @@ float TCODHeightMap::getMin() const
 	return min;
 }
 
-float TCODHeightMap::getMax() const
+float Doryen::Heightmap::getMax() const
 {
 	//std::max(values.cbegin(), values.cend());
 

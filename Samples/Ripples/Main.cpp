@@ -24,6 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "Main.hpp"
+#include "heightmap.hpp"
 
 TCODNoise noise2d(2);
 TCODNoise noise3d(3);
@@ -78,27 +79,29 @@ void render() {
     Doryen::Console::root->print( 3, 49, "Click in water to trigger ripples" );
 }
 
-int main (int argc, char *argv[]) {
+int main (int argc, char *argv[])
+{
 	// initialize the game window
-    Doryen::Console console = Doryen::Console( );
-    console.initRoot( CON_W, CON_H, "Water ripples v"VERSION, false, TCOD_RENDERER_SDL );
-    Doryen::Platform::setFps( 25 );
+	Doryen::Console console = Doryen::Console();
+	console.initRoot(CON_W, CON_H, "Water ripples v"VERSION, false, TCOD_RENDERER_SDL);
+	Doryen::Platform::setFps(25);
 	TCODMouse::showCursor(true);
-	
-	bool endCredits=false;
-	
+
+	bool endCredits = false;
+
 	// create a 2d noise
-	TCODHeightMap hm(CON_W*2,CON_H*2);
-	hm.addFbm(&noise2d,3.0f,3.0f,0,0,7.0f,1.0f,0.5f);
+	Doryen::Heightmap hm(CON_W * 2, CON_H * 2);
+	hm.addFbm(&noise2d, 3.0f, 3.0f, 0, 0, 7.0f, 1.0f, 0.5f);
 	hm.normalize();
 	// apply a color map to create a ground image
-    Doryen::Color::genMap( mapGradient, MAX_COLOR_KEY, keyColor, keyIndex );
-	ground=new TCODImage(CON_W*2,CON_H*2);
-	ground2=new TCODImage(CON_W*2,CON_H*2);
-    // create a Doryen::Map defining water zones. Walkable = water
-    Doryen::Map waterMap( CON_W * 2, CON_H * 2 );
+	Doryen::Color::genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
+	ground = new TCODImage(CON_W * 2, CON_H * 2);
+	ground2 = new TCODImage(CON_W * 2, CON_H * 2);
+	// create a Doryen::Map defining water zones. Walkable = water
+	Doryen::Map waterMap(CON_W * 2, CON_H * 2);
 
-	for (int x=0; x < CON_W*2;x++) {
+	for (int x = 0; x < CON_W * 2; x++)
+	{
 		for (int y=0; y < CON_H*2;y++) {
 			float h=hm.getValue(x,y);
 			bool isWater=h < sandHeight; 

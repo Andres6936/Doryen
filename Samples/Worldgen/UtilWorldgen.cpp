@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include "Main.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
+#include "heightmap.hpp"
 
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
@@ -394,7 +395,7 @@ static const int oppdir[9] = { 0, 8, 7, 6, 5, 4, 3, 2, 1 };
 
 void WorldGenerator::erodeMap()
 {
-	TCODHeightMap newMap(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap newMap(HM_WIDTH, HM_HEIGHT);
 	for (int i = 5; i != 0; i--)
 	{
 		// compute flow and slope maps
@@ -919,7 +920,7 @@ void WorldGenerator::smoothPrecipitations()
 
 	// better quality polishing blur using a 5x5 kernel
 	// faster than TCODHeightmap kernelTransform function
-	TCODHeightMap temphm(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap temphm(HM_WIDTH, HM_HEIGHT);
 	temphm.copy(precipitation);
 	for (int i = 4; i != 0; i--)
 	{

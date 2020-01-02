@@ -313,11 +313,13 @@ float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, 
 			# 2d perlin turbulence
 			value = libtcod.noise_get_turbulence(noise2d,[0.5,0.7],32.0,libtcod.NOISE_PERLIN)
 		*/
-		float getTurbulence(float *f, float octaves, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		float getTurbulence(float* f, float octaves, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
-	protected :
-		friend class TCODHeightMap;
-		TCOD_noise_t data;
+protected :
+	friend class TCODHeightMap;
+
+public:
+	TCOD_noise_t data;
 };
 
 #endif

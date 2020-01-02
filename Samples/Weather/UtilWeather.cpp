@@ -26,6 +26,7 @@
 
 #include <math.h>
 #include "Main.hpp"
+#include "heightmap.hpp"
 
 #define OCTAVES 7.0f
 #define SCALE 2.0f
@@ -40,14 +41,15 @@
 #define RAIN_MED_PROB 400
 #define RAIN_MAX_PROB 10
 
-void Weather::init(int width, int height) {
-	map = new TCODHeightMap(width+2,height+2);
+void Weather::init(int width, int height)
+{
+	map = new Doryen::Heightmap(width + 2, height + 2);
 	// TODO : would be better with a 3d noise and slowly varying z
 	// but you can notice the difference only when time is accelerated
-	map->addFbm(&noise2d,SCALE,SCALE,0.0f,0.0f,OCTAVES,0.5f,0.5f);
-	dx=dy=noisex=noisey=20000.0f;
-	indicatorDelta=0.0f;
-	changeFactor=1.0f;
+	map->addFbm(&noise2d, SCALE, SCALE, 0.0f, 0.0f, OCTAVES, 0.5f, 0.5f);
+	dx = dy = noisex = noisey = 20000.0f;
+	indicatorDelta = 0.0f;
+	changeFactor = 1.0f;
 	update(0.1);
 }
 

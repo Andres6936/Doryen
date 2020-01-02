@@ -1,3 +1,5 @@
+#include "heightmap.hpp"
+
 /*
 * Copyright (c) 2010 Jice
 * All rights reserved.
@@ -27,25 +29,33 @@
 class Weather {
 public :
 	void init(int width, int height);
+
 	void update(float elapsed);
+
 	float getCloud(int x, int y); // 0.0 : dark cloud, 1.0 : no cloud
 	float getLightning(int x, int y); // 0.0 : no lightning. 1.0 : full lightning light
 	bool hasRainDrop(); // call for each cell on the map
 	// when scrolling the map on the game side
 	void move(int dx, int dy);
+
 	// description of current weather
 	const char *getWeather();
 
-    const Doryen::Color &getAmbientLightColor( )
-    { return ambientColor; }
+	const Doryen::Color &getAmbientLightColor( )
+	{ return ambientColor; }
+
 	// timeInSecond : between 0 and 3600*24
 	void calculateAmbient(float timeInSeconds);
+
 	// how fast the weather is changing. 0 : never changes, 1 : default > 1 : faster...
 	void setChangeFactor(float f) { changeFactor = f; }
+
 	// 0 : bad weather. 1 : good weather
 	float getIndicator() { return indicator; }
-	// to alter the weather 
+
+	// to alter the weather
 	float getIndicatorDelta() { return indicatorDelta; }
+
 	void setIndicatorDelta(float v) { indicatorDelta=CLAMP(-1.0f,1.0f,v); }
 protected :
 	typedef struct {
@@ -58,10 +68,10 @@ protected :
 
 	float indicator; // 0 : bad, 1 : good
 	float indicatorDelta;
-	float noisex,noisey; // position in the noise space
-	float dx,dy; // sub cell cloud map position
+	float noisex, noisey; // position in the noise space
+	float dx, dy; // sub cell cloud map position
 	float changeFactor;
-	TCODHeightMap *map;
-	TCODList<lightning_t> lightnings;
-    Doryen::Color ambientColor;
+	Doryen::Heightmap* map;
+	TCODList <lightning_t> lightnings;
+	Doryen::Color ambientColor;
 };

@@ -25,6 +25,7 @@
 */
 
 #include "MapData.hpp"
+#include "heightmap.hpp"
 
 // size of the heightmap
 constexpr int HM_WIDTH = 400;
@@ -74,22 +75,22 @@ public :
 	/**
 	 * World height map (0.0 - 1.0) .
 	 */
-	TCODHeightMap* heightmap = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap* heightmap = new Doryen::Heightmap(HM_WIDTH, HM_HEIGHT);
 
 	/**
 	 * Height map without erosion.
 	 */
-	TCODHeightMap* heightmapWithoutErosion = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap* heightmapWithoutErosion = new Doryen::Heightmap(HM_WIDTH, HM_HEIGHT);
 
 	/**
 	 * Temperature map (in °C).
 	 */
-	TCODHeightMap* temperature = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap* temperature = new Doryen::Heightmap(HM_WIDTH, HM_HEIGHT);
 
 	/**
 	 * Precipitation map (0.0 - 1.0).
 	 */
-	TCODHeightMap* precipitation = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+	Doryen::Heightmap* precipitation = new Doryen::Heightmap(HM_WIDTH, HM_HEIGHT);
 
 	/**
 	 * Biome map.
