@@ -30,10 +30,14 @@
 
 class TCODBsp;
 
-class ITCODBspCallback {
+class ITCODBspCallback
+{
 public :
-	virtual ~ITCODBspCallback() {}
-	virtual bool visitNode(TCODBsp *node, void *userData) = 0;
+	virtual ~ITCODBspCallback()
+	{
+	}
+
+	virtual bool visitNode(TCODBsp* node, void* userData) = 0;
 };
 
 /**
@@ -43,13 +47,14 @@ public :
  @PageDesc This toolkit allows to create and manipulate 2D Binary Space Partition trees. They can be used to split a rectangular region into non overlapping sub-regions.
  */
 
-class TCODBsp : public TCODTree {
+class TCODBsp : public TCODTree
+{
 public :
-	int x,y,w,h; // 
+	int x, y, w, h; //
 	int position; // position of splitting
 	bool horizontal; // horizontal splitting ?
 	uint8 level; // level in the tree 
-	
+
 	/**
 	@PageName bsp_init
 	@PageFather bsp
@@ -65,8 +70,13 @@ public :
 	@CEx TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
 	@PyEx my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
 	*/
-	TCODBsp() : level(0) {}
-	TCODBsp(int x,int y,int w, int h) : x(x),y(y),w(w),h(h),level(0) {}
+	TCODBsp() : level(0)
+	{
+	}
+
+	TCODBsp(int x, int y, int w, int h) : x(x), y(y), w(w), h(h), level(0)
+	{
+	}
 
 	/**
 	@PageName bsp_init
@@ -178,7 +188,7 @@ public :
 		my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
 		libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
 	*/
-	void splitRecursive(TCODRandom *randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
+	void splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
 
 	/**
 	@PageName bsp_resize
@@ -209,7 +219,7 @@ You can use it if you changed the nodes size and position while using the BSP tr
 		# ... do something with the tree here 
 		libtcod.bsp_resize(my_bsp,0,0,50,50)
 	*/
-	void resize(int x,int y, int w, int h);
+	void resize(int x, int y, int w, int h);
 
 	/**
 	@PageName bsp_read
@@ -272,14 +282,19 @@ You can use it if you changed the nodes size and position while using the BSP tr
 		TCODBsp TCODBsp::getFather()
 	@Param node	In the C version, the node reference.
 	*/
-	TCODBsp *getLeft() const {
-		return (TCODBsp *)sons;
+	TCODBsp* getLeft() const
+	{
+		return (TCODBsp*)sons;
 	}
-	TCODBsp *getRight() const {
-		return sons ? (TCODBsp *)(sons->next) : NULL;
+
+	TCODBsp* getRight() const
+	{
+		return sons ? (TCODBsp*)(sons->next) : NULL;
 	}
-	TCODBsp *getFather() const {
-		return (TCODBsp *)father;
+
+	TCODBsp* getFather() const
+	{
+		return (TCODBsp*)father;
 	}
 
 	/**
@@ -291,7 +306,10 @@ You can use it if you changed the nodes size and position while using the BSP tr
 	@Py bsp_is_leaf(node)
 	@C# bool TCODBsp::isLeaf()
 	*/
-	bool isLeaf() const { return sons == NULL ; }
+	bool isLeaf() const
+	{
+		return sons == NULL;
+	}
 
 	/**
 	@PageName bsp_read
@@ -317,7 +335,7 @@ You can use it if you changed the nodes size and position while using the BSP tr
 	@Param node	In the C version, the node reference.
 	@Param cx,cy	Map cell coordinates.
 	*/
-	TCODBsp *findNode(int x, int y);
+	TCODBsp* findNode(int x, int y);
 
 	/**
 	@PageName bsp_traverse
@@ -393,13 +411,18 @@ You can use it if you changed the nodes size and position while using the BSP tr
 			return True
 		libtcod.bsp_traverse_post_order(my_bsp,my_callback)
 	*/
-	bool traversePreOrder(ITCODBspCallback *listener, void *userData);
-	bool traverseInOrder(ITCODBspCallback *listener, void *userData);
-	bool traversePostOrder(ITCODBspCallback *listener, void *userData);
-	bool traverseLevelOrder(ITCODBspCallback *listener, void *userData);
-	bool traverseInvertedLevelOrder(ITCODBspCallback *listener, void *userData);
+	bool traversePreOrder(ITCODBspCallback* listener, void* userData);
+
+	bool traverseInOrder(ITCODBspCallback* listener, void* userData);
+
+	bool traversePostOrder(ITCODBspCallback* listener, void* userData);
+
+	bool traverseLevelOrder(ITCODBspCallback* listener, void* userData);
+
+	bool traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData);
+
 protected :
-	TCODBsp(TCODBsp *father, bool left);
+	TCODBsp(TCODBsp* father, bool left);
 
 };
 
