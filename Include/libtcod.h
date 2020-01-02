@@ -164,7 +164,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "lex.h"
 #include "parser.h"
 #include "tree.h"
-#include "bsp.h"
 #include "heightmap.h"
 #include "zip.h"
 #include "namegen.h"

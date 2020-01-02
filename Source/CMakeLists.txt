@@ -21,7 +21,7 @@ ELSEIF (UNIX)
 
 ENDIF ()
 
-SET(LIBTCOD_C_SRC bsp_c.c color_c.c console_c.c fov_c.c
+SET(LIBTCOD_C_SRC color_c.c console_c.c fov_c.c
         fov_diamond_raycasting.c fov_permissive2.c
         fov_restrictive.c heightmap_c.c image_c.c lex_c.c list_c.c mersenne_c.c namegen_c.c
         noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
