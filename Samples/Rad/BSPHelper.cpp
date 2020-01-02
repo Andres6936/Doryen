@@ -28,6 +28,7 @@
 #include "libtcod.hpp"
 #include "BSPHelper.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "BinarySpacePartition.hpp"
 
 BspHelper::BspHelper() {
 	bspDepth=8;
@@ -99,7 +100,7 @@ void BspHelper::hline_right( Doryen::Map *map, int x, int y )
 	}
 }
 
-bool BspHelper::visitNode(Doryen::BinarySpacePartition* node, void* userData)
+bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
 {
 	Doryen::Map* map = (Doryen::Map*)userData;
 	if (node->isLeaf())
@@ -145,8 +146,8 @@ bool BspHelper::visitNode(Doryen::BinarySpacePartition* node, void* userData)
 	{
 //printf("lvl %d %dx%d %dx%d\n",node->level, node->x,node->y,node->w,node->h);
 		// resize the node to fit its sons
-		Doryen::BinarySpacePartition* left = node->getLeft();
-		Doryen::BinarySpacePartition* right = node->getRight();
+		Doryen::Algorithms::BinarySpacePartition* left = node->getLeft();
+		Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
 		node->x = MIN(left->x, right->x);
 		node->y = MIN(left->y, right->y);
 		node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
@@ -197,7 +198,8 @@ bool BspHelper::visitNode(Doryen::BinarySpacePartition* node, void* userData)
 
 void BspHelper::createBspDungeon( Doryen::Map *map, TCODRandom *rng )
 {
-	Doryen::BinarySpacePartition* bsp = new Doryen::BinarySpacePartition(0, 0, map->getWidth(), map->getHeight());
+	Doryen::Algorithms::BinarySpacePartition* bsp = new Doryen::Algorithms::BinarySpacePartition(0, 0, map->getWidth(),
+			map->getHeight());
 	map->clear(false, false); // fill with walls
 	// create the BSP tree
 	bsp->splitRecursive(rng, bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,

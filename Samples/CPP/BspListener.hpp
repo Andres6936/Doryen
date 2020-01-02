@@ -16,10 +16,10 @@ typedef char map_t[SAMPLE_SCREEN_WIDTH][SAMPLE_SCREEN_HEIGHT];
 
 // the class building the dungeon from the bsp nodes
 //#include <stdio.h>
-class BspListener : public Doryen::ITCODBspCallback
+class BspListener : public Doryen::Algorithms::ITCODBspCallback
 {
 public :
-    bool visitNode(Doryen::BinarySpacePartition* node, void* userData)
+    bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
     {
         map_t* map = (map_t*)userData;
         if (node->isLeaf())
@@ -66,8 +66,8 @@ public :
         {
 //printf("lvl %d %dx%d %dx%d\n",node->level, node->x,node->y,node->w,node->h);
             // resize the node to fit its sons
-            Doryen::BinarySpacePartition* left = node->getLeft();
-            Doryen::BinarySpacePartition* right = node->getRight();
+            Doryen::Algorithms::BinarySpacePartition* left = node->getLeft();
+            Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
             node->x = MIN(left->x, right->x);
             node->y = MIN(left->y, right->y);
             node->w = MAX(left->x + left->w, right->x + right->w) - node->x;

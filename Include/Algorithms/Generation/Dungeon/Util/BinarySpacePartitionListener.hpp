@@ -3,20 +3,23 @@
 
 namespace Doryen
 {
-
-	class BinarySpacePartition;
-
-	class ITCODBspCallback
+	namespace Algorithms
 	{
 
-	public :
+		class BinarySpacePartition;
 
-		virtual ~ITCODBspCallback()
+		class ITCODBspCallback
 		{
-		}
 
-		virtual bool visitNode(BinarySpacePartition* node, void* userData) = 0;
-	};
+		public :
+
+			virtual ~ITCODBspCallback()
+			{
+			}
+
+			virtual bool visitNode(BinarySpacePartition* node, void* userData) = 0;
+		};
+	}
 }
 
 #endif //LIBTCOD_BINARYSPACEPARTITIONLISTENER_HPP

@@ -24,10 +24,13 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "libtcod.hpp"
+
+#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 #include "Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp"
 
-Doryen::BinarySpacePartition::BinarySpacePartition(BinarySpacePartition* father, bool left)
+Doryen::Algorithms::BinarySpacePartition::BinarySpacePartition(BinarySpacePartition* father, bool left)
 {
 	if (father->horizontal)
 	{
@@ -46,12 +49,12 @@ Doryen::BinarySpacePartition::BinarySpacePartition(BinarySpacePartition* father,
 	level=father->level+1;
 }
 
-Doryen::BinarySpacePartition::~BinarySpacePartition()
+Doryen::Algorithms::BinarySpacePartition::~BinarySpacePartition()
 {
 	removeSons();
 }
 
-bool Doryen::BinarySpacePartition::traversePreOrder(ITCODBspCallback* listener, void* userData)
+bool Doryen::Algorithms::BinarySpacePartition::traversePreOrder(ITCODBspCallback* listener, void* userData)
 {
 	if (!listener->visitNode(this, userData))
 	{ return false; }
@@ -62,7 +65,7 @@ bool Doryen::BinarySpacePartition::traversePreOrder(ITCODBspCallback* listener, 
 	return true;
 }
 
-bool Doryen::BinarySpacePartition::traverseInOrder(ITCODBspCallback* listener, void* userData)
+bool Doryen::Algorithms::BinarySpacePartition::traverseInOrder(ITCODBspCallback* listener, void* userData)
 {
 	if (getLeft() && !getLeft()->traverseInOrder(listener, userData))
 	{ return false; }
@@ -73,7 +76,7 @@ bool Doryen::BinarySpacePartition::traverseInOrder(ITCODBspCallback* listener, v
 	return true;
 }
 
-bool Doryen::BinarySpacePartition::traversePostOrder(ITCODBspCallback* listener, void* userData)
+bool Doryen::Algorithms::BinarySpacePartition::traversePostOrder(ITCODBspCallback* listener, void* userData)
 {
 	if (getLeft() && !getLeft()->traversePostOrder(listener, userData))
 	{ return false; }
@@ -84,7 +87,7 @@ bool Doryen::BinarySpacePartition::traversePostOrder(ITCODBspCallback* listener,
 	return true;
 }
 
-bool Doryen::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* listener, void* userData)
+bool Doryen::Algorithms::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* listener, void* userData)
 {
 	TCODList <BinarySpacePartition*> stack;
 	stack.push(this);
@@ -102,7 +105,7 @@ bool Doryen::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* listener
 	return true;
 }
 
-bool Doryen::BinarySpacePartition::traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData)
+bool Doryen::Algorithms::BinarySpacePartition::traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData)
 {
 	TCODList <BinarySpacePartition*> stack1;
 	TCODList <BinarySpacePartition*> stack2;
@@ -126,7 +129,7 @@ bool Doryen::BinarySpacePartition::traverseInvertedLevelOrder(ITCODBspCallback* 
 	return true;
 }
 
-void Doryen::BinarySpacePartition::removeSons()
+void Doryen::Algorithms::BinarySpacePartition::removeSons()
 {
 	BinarySpacePartition* node = (BinarySpacePartition*)sons;
 	while (node)
@@ -139,7 +142,7 @@ void Doryen::BinarySpacePartition::removeSons()
 	sons = NULL;
 }
 
-void Doryen::BinarySpacePartition::splitOnce(bool horizontal, int position)
+void Doryen::Algorithms::BinarySpacePartition::splitOnce(bool horizontal, int position)
 {
 	this->horizontal = horizontal;
 	this->position = position;
@@ -147,7 +150,8 @@ void Doryen::BinarySpacePartition::splitOnce(bool horizontal, int position)
 	addSon(new BinarySpacePartition(this, false));
 }
 
-void Doryen::BinarySpacePartition::splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize,
+void
+Doryen::Algorithms::BinarySpacePartition::splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize,
 		float maxHRatio, float maxVRatio)
 {
 	if (nb == 0 || (w < 2 * minHSize && h < 2 * minVSize))
@@ -174,7 +178,7 @@ void Doryen::BinarySpacePartition::splitRecursive(TCODRandom* randomizer, int nb
 	getRight()->splitRecursive(randomizer,nb-1,minHSize,minVSize,maxHRatio,maxVRatio);
 }
 
-void Doryen::BinarySpacePartition::resize(int x, int y, int w, int h)
+void Doryen::Algorithms::BinarySpacePartition::resize(int x, int y, int w, int h)
 {
 	this->x = x;
 	this->y = y;
@@ -195,12 +199,12 @@ void Doryen::BinarySpacePartition::resize(int x, int y, int w, int h)
 	}
 }
 
-bool Doryen::BinarySpacePartition::contains(int px, int py) const
+bool Doryen::Algorithms::BinarySpacePartition::contains(int px, int py) const
 {
 	return (px >= x && py >= y && px < x + w && py < y + h);
 }
 
-Doryen::BinarySpacePartition* Doryen::BinarySpacePartition::findNode(int px, int py)
+Doryen::Algorithms::BinarySpacePartition* Doryen::Algorithms::BinarySpacePartition::findNode(int px, int py)
 {
 	if (!contains(px, py))
 	{ return NULL; }

@@ -1,4 +1,6 @@
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "BinarySpacePartition.hpp"
+#include "BinarySpacePartitionListener.hpp"
 
 /*
 * Umbra
@@ -27,7 +29,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class BspHelper : public Doryen::ITCODBspCallback
+class BspHelper : public Doryen::Algorithms::ITCODBspCallback
 {
 public :
 	BspHelper();
@@ -40,7 +42,7 @@ public :
 	void createBspDungeon(Doryen::Map* map, TCODRandom* rng);
 
 	// libtcod bsp callback stuff
-	bool visitNode(Doryen::BinarySpacePartition* node, void* userData);
+	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData);
 private :
 	void vline( Doryen::Map *map, int x, int y1, int y2 );
 
