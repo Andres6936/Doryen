@@ -25,8 +25,9 @@
 */
 
 // size of the heightmap
-#define HM_WIDTH 400
-#define HM_HEIGHT 400
+constexpr int HM_WIDTH = 400;
+
+constexpr int HM_HEIGHT = 400;
 
 // biome and climate list. based on Whittaker Biome Diagram
 enum EClimate
@@ -57,16 +58,20 @@ class WorldGenerator
 public :
 	// altitude->color map
 	Doryen::Color mapGradient[256];
+
 	// world height map (0.0 - 1.0)
-	TCODHeightMap* hm;
+	TCODHeightMap* hm = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
 	// height map without erosion
-	TCODHeightMap* hm2;
+	TCODHeightMap* hm2 = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+
 	// complete world map (not shaded)
 	TCODImage* worldmap;
-	// temperature map (in �C)
-	TCODHeightMap* temperature;
+
+	// temperature map (in °C)
+	TCODHeightMap* temperature = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
 	// precipitation map (0.0 - 1.0)
-	TCODHeightMap* precipitation;
+	TCODHeightMap* precipitation = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+
 	// biome map
 	EBiome* biomeMap;
 

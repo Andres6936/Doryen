@@ -40,7 +40,7 @@ TCODHeightMap::TCODHeightMap(int w, int h)
 
 	for (int i = 0; i < w * h; ++i)
 	{
-		values[i] = 0.0f;
+		values.push_back(0.0f);
 	}
 }
 

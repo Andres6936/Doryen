@@ -1003,14 +1003,13 @@ void WorldGenerator::generate(TCODRandom *wRng) {
 	if ( wRng == NULL ) wRng=TCODRandom::getInstance();
 	wgRng = wRng;
 	noise=new TCODNoise(2,wgRng);
-	hm=new TCODHeightMap(HM_WIDTH,HM_HEIGHT);
-	hm2=new TCODHeightMap(HM_WIDTH,HM_HEIGHT);
+
 	worldmap = new TCODImage(HM_WIDTH,HM_HEIGHT);
 	worldint = new float[HM_WIDTH*HM_HEIGHT];
-	temperature =  new TCODHeightMap(HM_WIDTH,HM_HEIGHT);
-	precipitation = new TCODHeightMap(HM_WIDTH,HM_HEIGHT);
+
 	biomeMap = new EBiome[HM_WIDTH*HM_HEIGHT];
 	mapData = new map_data_t[HM_WIDTH*HM_HEIGHT];
+
 	memset(mapData,0,sizeof(map_data_t)*HM_WIDTH*HM_HEIGHT);
     float t1 = Doryen::Platform::getElapsedSeconds( );
 	DBG(("Initialization... %g\n", t1-t0 ));
