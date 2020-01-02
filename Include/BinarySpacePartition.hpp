@@ -312,7 +312,8 @@ namespace Doryen
 		 * You can know if a node is a leaf (not splitted,
 		 * no sons) with this function
 		 *
-		 * @return
+		 * @return True if the node never has been splitted,
+		 * false in otherwise.
 		 */
 		bool isLeaf() const
 		{
@@ -320,29 +321,27 @@ namespace Doryen
 		}
 
 		/**
-		@PageName bsp_read
-		@FuncTitle Check if a cell is inside a node
-		@FuncDesc You can check if a map cell is inside a node.
-		@Cpp bool TCODBsp::contains(int cx, int cy) const
-		@C bool TCOD_bsp_contains(TCOD_bsp_t *node, int cx, int cy)
-		@Py bsp_contains(node, cx, cy)
-		@C# bool TCODBsp::contains(int x, int y)
-		@Param node	In the C version, the node reference.
-		@Param cx,cy	Map cell coordinates.
-		*/
+		 * @brief Check if a cell is inside a node.
+		 *
+		 * You can check if a map cell is inside a node.
+		 *
+		 * @param x Map cell coordinate in x.
+		 * @param y Map cell coordinate in y.
+		 * @return
+		 */
 		bool contains(int x, int y) const;
 
 		/**
-		@PageName bsp_read
-		@FuncTitle Getting the node containing a cell
-		@FuncDesc You can search the tree for the smallest node containing a map cell. If the cell is outside the tree, the function returns NULL :
-		@Cpp TCODBsp *TCODBsp::findNode(int cx, int cy)
-		@C TCOD_bsp_t * TCOD_bsp_find_node(TCOD_bsp_t *node, int cx, int cy)
-		@Py bsp_find_node(node, cx, cy)
-		@C# TCODBsp TCODBsp::findNode(int x, int y)
-		@Param node	In the C version, the node reference.
-		@Param cx,cy	Map cell coordinates.
-		*/
+		 * Getting the node containing a cell.
+		 *
+		 * You can search the tree for the smallest node
+		 * containing a map cell. If the cell is outside
+		 * the tree, the function returns NULL.
+		 *
+		 * @param x Map cell coordinate in x.
+		 * @param y Map cell coordinate in y.
+		 * @return Node that contain the cell.
+		 */
 		BinarySpacePartition* findNode(int x, int y);
 
 		/**
