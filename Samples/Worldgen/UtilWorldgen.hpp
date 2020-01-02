@@ -24,6 +24,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "MapData.hpp"
+
 // size of the heightmap
 constexpr int HM_WIDTH = 400;
 
@@ -56,28 +58,62 @@ class WorldGenerator
 {
 
 public :
-	// altitude->color map
+
+	/**
+	 * Altitude->color map.
+	 */
 	Doryen::Color mapGradient[256];
 
-	// world height map (0.0 - 1.0)
-	TCODHeightMap* hm = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
-	// height map without erosion
-	TCODHeightMap* hm2 = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+	/**
+	 * Complete world map (not shaded).
+	 */
+	TCODImage* imageWorldmap = new TCODImage(HM_WIDTH, HM_HEIGHT);
 
-	// complete world map (not shaded)
-	TCODImage* worldmap;
+	/**
+	 * World height map (0.0 - 1.0) .
+	 */
+	TCODHeightMap* heightmap = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
 
-	// temperature map (in °C)
+	/**
+	 * Height map without erosion.
+	 */
+	TCODHeightMap* heightmapWithoutErosion = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
+
+	/**
+	 * Temperature map (in °C).
+	 */
 	TCODHeightMap* temperature = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
-	// precipitation map (0.0 - 1.0)
+
+	/**
+	 * Precipitation map (0.0 - 1.0).
+	 */
 	TCODHeightMap* precipitation = new TCODHeightMap(HM_WIDTH, HM_HEIGHT);
 
-	// biome map
-	EBiome* biomeMap;
+	/**
+	 * Biome map.
+	 */
+	EBiome* biomeMap = new EBiome[HM_WIDTH * HM_HEIGHT];
+
+	/**
+	 * Map data.
+	 */
+	MapData* mapData = new MapData[HM_WIDTH * HM_HEIGHT];
+
+	/**
+	 * World light intensity map (shadow map)
+	 */
+	float* worldint = new float[HM_WIDTH * HM_HEIGHT];
+
+	// Destructor
+
+	virtual ~WorldGenerator();
+
+	// Methods
 
 	void generate(TCODRandom* wRng);
 
 	// getters
+
 	int getWidth() const;
 
 	int getHeight() const;
@@ -125,27 +161,8 @@ protected :
 	float clouds[HM_WIDTH][HM_HEIGHT];
 	float cloudDx; // horizontal offset for smooth scrolling
 	float cloudTotalDx;
-	// world light intensity map (shadow map)
-	float* worldint;
-	typedef struct
-	{
-		float slope;
-		// number of cells flowing into this cell
-		uint32 area;
-		// direction of lowest neighbour
-		uint8 flowDir;
-		// inverse flow direction
-		uint8 upDir;
-		uint8 inFlags; // incoming flows
-		uint8 riverId;
-		int riverLength;
-	} map_data_t;
-	map_data_t* mapData;
-	typedef struct
-	{
-		TCODList <int> coords;
-		TCODList <int> strength;
-	} river_t;
+
+
 	TCODRandom* wgRng;
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);

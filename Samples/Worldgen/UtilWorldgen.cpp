@@ -169,7 +169,7 @@ int WorldGenerator::getHeight() const
 
 float WorldGenerator::getAltitude(int x, int y) const
 {
-	return hm->getValue(x, y);
+	return heightmap->getValue(x, y);
 }
 
 float WorldGenerator::getRealAltitude(float x, float y) const
@@ -214,12 +214,12 @@ EBiome WorldGenerator::getBiome(float x, float y) const
 
 float WorldGenerator::getInterpolatedAltitude(float x, float y) const
 {
-	return hm->getInterpolatedValue(x, y);
+	return heightmap->getInterpolatedValue(x, y);
 }
 
 void WorldGenerator::getInterpolatedNormal(float x, float y, float n[3]) const
 {
-	return hm2->getNormal(x, y, n, sandHeight);
+	return heightmapWithoutErosion->getNormal(x, y, n, sandHeight);
 }
 
 float WorldGenerator::getSandHeight() const
@@ -241,7 +241,7 @@ void WorldGenerator::addHill(int nbHill, float baseRadius, float radiusVar, floa
 		float radius = wgRng->getFloat(hillMinRadius, hillMaxRadius);
 		int xh = wgRng->getInt(0, HM_WIDTH - 1);
 		int yh = wgRng->getInt(0, HM_HEIGHT - 1);
-		hm->addHill((float)xh, (float)yh, radius, height);
+		heightmap->addHill((float)xh, (float)yh, radius, height);
 	}
 }
 
@@ -257,7 +257,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			int ih = (int)(h * 255);
 			ih = CLAMP(0, 255, ih);
 			heightcount[ih]++;
@@ -277,7 +277,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			if (h > newWaterLevel)
 			{
 				h = waterLevel + (h - newWaterLevel) * landCoef;
@@ -286,7 +286,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 			{
 				h = h * waterCoef;
 			}
-			hm->setValue(x, y, h);
+			heightmap->setValue(x, y, h);
 		}
 	}
 #ifndef NDEBUG
@@ -300,14 +300,14 @@ void WorldGenerator::buildBaseMap()
 {
 	float t0 = Doryen::Platform::getElapsedSeconds();
 	addHill(600, 16.0 * HM_WIDTH / 200, 0.7, 0.3);
-	hm->normalize();
+	heightmap->normalize();
 	float t1 = Doryen::Platform::getElapsedSeconds();
 	DBG(("  Hills... %g\n", t1 - t0));
 	t0 = t1;
 
-	hm->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
-	hm->normalize();
-	hm2->copy(hm);
+	heightmap->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
+	heightmap->normalize();
+	heightmapWithoutErosion->copy(heightmap);
 	t1 = Doryen::Platform::getElapsedSeconds();
 	DBG(("  Fbm... %g\n", t1 - t0));
 	t0 = t1;
@@ -319,12 +319,12 @@ void WorldGenerator::buildBaseMap()
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			if (h >= sandHeight)
 			{
 				float coef = (h - sandHeight) / (1.0f - sandHeight);
 				h = sandHeight + coef * coef * coef * (1.0f - sandHeight);
-				hm->setValue(x, y, h);
+				heightmap->setValue(x, y, h);
 			}
 		}
 	}
@@ -334,7 +334,7 @@ void WorldGenerator::buildBaseMap()
 
 
 	// we use a custom erosion algo
-	//hm->rainErosion(15000*HM_WIDTH/400,0.03,0.01,wgRng);
+	//heightmap->rainErosion(15000*HM_WIDTH/400,0.03,0.01,wgRng);
 	//t1=Doryen::Platform::getElapsedSeconds();
 	//DBG(("  Erosion... %g\n", t1-t0 ));
 	//t0=t1;
@@ -367,9 +367,10 @@ void WorldGenerator::smoothMap()
 #ifndef NDEBUG
 	float t0 = Doryen::Platform::getElapsedSeconds();
 #endif
-	hm->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight, -1000, 1000);
-	hm2->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight, -1000, 1000);
-	hm->normalize();
+	heightmap->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight, -1000, 1000);
+	heightmapWithoutErosion->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight,
+			-1000, 1000);
+	heightmap->normalize();
 #ifndef NDEBUG
 	float t1 = Doryen::Platform::getElapsedSeconds();
 	DBG(("  Blur... %g\n", t1 - t0));
@@ -397,12 +398,12 @@ void WorldGenerator::erodeMap()
 	for (int i = 5; i != 0; i--)
 	{
 		// compute flow and slope maps
-		map_data_t* md = mapData;
+		MapData* md = mapData;
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
 			for (int x = 0; x < HM_WIDTH; x++)
 			{
-				float h = hm->getValue(x, y);
+				float h = heightmap->getValue(x, y);
 				float hmin = h, hmax = h;
 				int minDir = 0, maxDir = 0;
 				for (int i = 1; i < 9; i++)
@@ -411,7 +412,7 @@ void WorldGenerator::erodeMap()
 					int iy = y + diry[i];
 					if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 					{
-						float h2 = hm->getValue(ix, iy);
+						float h2 = heightmap->getValue(ix, iy);
 						if (h2 < hmin)
 						{
 							hmin = h2;
@@ -425,7 +426,6 @@ void WorldGenerator::erodeMap()
 					}
 				}
 				md->flowDir = minDir;
-				md->upDir = maxDir;
 				float slope = hmin - h; // this is negative
 				slope *= dircoef[minDir];
 				md->slope = slope;
@@ -442,16 +442,16 @@ void WorldGenerator::erodeMap()
 				bool end = false;
 				int ix = x, iy = y;
 				uint8 oldFlow = md->flowDir;
-				map_data_t* md2 = md;
+				MapData* md2 = md;
 				while (!end)
 				{
-					float h = hm->getValue(ix, iy);
+					float h = heightmap->getValue(ix, iy);
 					if (h < sandHeight - 0.01f)
 					{ break; }
 					if (md2->flowDir == oppdir[oldFlow])
 					{
 						h += SEDIMENTATION_FACTOR * sediment;
-						hm->setValue(ix, iy, h);
+						heightmap->setValue(ix, iy, h);
 						end = true;
 					}
 					else
@@ -460,7 +460,7 @@ void WorldGenerator::erodeMap()
 						h += precipitation->getValue(ix, iy) * EROSION_FACTOR * md2->slope;
 						h = MAX(h, sandHeight);
 						sediment -= md2->slope;
-						hm->setValue(ix, iy, h);
+						heightmap->setValue(ix, iy, h);
 						oldFlow = md2->flowDir;
 						ix += dirx[oldFlow];
 						iy += diry[oldFlow];
@@ -478,7 +478,7 @@ void WorldGenerator::erodeMap()
 		{
 			for (int y = 0; y < HM_HEIGHT; y++)
 			{
-				float h = hm->getValue(x, y);
+				float h = heightmap->getValue(x, y);
 				if (h < sandHeight - 0.01f || h >= MAX_EROSION_ALT)
 				{
 					newMap.setValue(x, y, h);
@@ -492,7 +492,7 @@ void WorldGenerator::erodeMap()
 					int iy = y + diry[i];
 					if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 					{
-						float ih = hm->getValue(ix, iy);
+						float ih = heightmap->getValue(ix, iy);
 						if (ih < h)
 						{
 							if (i == 1 || i == 3 || i == 6 || i == 8)
@@ -519,7 +519,7 @@ void WorldGenerator::erodeMap()
 				newMap.setValue(x, y, h + dh);
 			}
 		}
-		hm->copy(&newMap);
+		heightmap->copy(&newMap);
 	}
 
 }
@@ -585,7 +585,7 @@ float WorldGenerator::getMapIntensity(float worldX, float worldY, float lightDir
 
 Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 {
-	return getInterpolatedColor(worldmap, worldX, worldY);
+	return getInterpolatedColor(imageWorldmap, worldX, worldY);
 }
 
 Doryen::Color WorldGenerator::getInterpolatedColor(TCODImage* img, float x, float y)
@@ -657,7 +657,7 @@ void WorldGenerator::generateRivers()
 	// get a random point near the coast
 	sx = wgRng->getInt(0, HM_WIDTH - 1);
 	sy = wgRng->getInt(HM_HEIGHT / 5, 4 * HM_HEIGHT / 5);
-	float h = hm->getValue(sx, sy);
+	float h = heightmap->getValue(sx, sy);
 	while (h < sandHeight - 0.02 || h >= sandHeight)
 	{
 		sx++;
@@ -668,7 +668,7 @@ void WorldGenerator::generateRivers()
 			if (sy == HM_HEIGHT)
 			{ sy = 0; }
 		}
-		h = hm->getValue(sx, sy);
+		h = heightmap->getValue(sx, sy);
 	}
 	TCODList <int> tree;
 	TCODList <int> randPt;
@@ -681,7 +681,7 @@ void WorldGenerator::generateRivers()
 		int rx = wgRng->getInt(sx - 200, sx + 200);
 		int ry = wgRng->getInt(sy - 200, sy + 200);
 //	    if ( IN_RECTANGLE(rx,ry,HM_WIDTH,HM_HEIGHT) ) {
-//	        float h=hm->getValue(rx,ry);
+//	        float h=heightmap->getValue(rx,ry);
 //	        if ( h >= sandHeight ) {
 		randPt.push(rx + ry * HM_WIDTH);
 //	        }
@@ -711,7 +711,7 @@ void WorldGenerator::generateRivers()
 		objLine.init(bestx, besty, rx, ry);
 
 		int len = 3, cx = bestx, cy = besty;
-		map_data_t* md = &mapData[cx + cy * HM_WIDTH];
+		MapData* md = &mapData[cx + cy * HM_WIDTH];
 		if (md->riverId == riverId)
 		{ md->riverId = 0; }
 		do
@@ -719,7 +719,7 @@ void WorldGenerator::generateRivers()
 			md = &mapData[cx + cy * HM_WIDTH];
 			if (md->riverId > 0)
 			{ return; }
-			float h = hm->getValue(cx, cy);
+			float h = heightmap->getValue(cx, cy);
 			if (h >= sandHeight)
 			{
 				md->riverId = riverId;
@@ -788,7 +788,7 @@ void WorldGenerator::computePrecipitations()
 			int endy = (diry == -1 ? -1 : HM_HEIGHT);
 			for (int y = starty; y != endy; y += diry)
 			{
-				float h = hm->getValue(x, y);
+				float h = heightmap->getValue(x, y);
 				if (h < sandHeight)
 				{
 					waterAmount += waterAdd;
@@ -797,9 +797,9 @@ void WorldGenerator::computePrecipitations()
 				{
 					float slope;
 					if ((unsigned)(y + diry) < (unsigned)HM_HEIGHT)
-					{ slope = hm->getValue(x, y + diry) - h; }
+					{ slope = heightmap->getValue(x, y + diry) - h; }
 					else
-					{ slope = h - hm->getValue(x, y - diry); }
+					{ slope = h - heightmap->getValue(x, y - diry); }
 					if (slope >= 0.0f)
 					{
 						float precip = waterAmount * (basePrecip + slope * slopeCoef);
@@ -827,7 +827,7 @@ void WorldGenerator::computePrecipitations()
 			int endx = (dirx == -1 ? -1 : HM_WIDTH);
 			for (int x = startx; x != endx; x += dirx)
 			{
-				float h = hm->getValue(x, y);
+				float h = heightmap->getValue(x, y);
 				if (h < sandHeight)
 				{
 					waterAmount += waterAdd;
@@ -836,9 +836,9 @@ void WorldGenerator::computePrecipitations()
 				{
 					float slope;
 					if ((unsigned)(x + dirx) < (unsigned)HM_WIDTH)
-					{ slope = hm->getValue(x + dirx, y) - h; }
+					{ slope = heightmap->getValue(x + dirx, y) - h; }
 					else
-					{ slope = h - hm->getValue(x - dirx, y); }
+					{ slope = h - heightmap->getValue(x - dirx, y); }
 					if (slope >= 0.0f)
 					{
 						float precip = waterAmount * (basePrecip + slope * slopeCoef);
@@ -989,7 +989,7 @@ void WorldGenerator::computeTemperaturesAndBiomes()
 		latTemp = -30 + latTemp * 60;
 		for (int x = 0; x < HM_WIDTH; x++)
 		{
-			float h0 = hm->getValue(x, y);
+			float h0 = heightmap->getValue(x, y);
 			float h = h0 - sandHeight;
 			if (h < 0.0f)
 			{ h *= waterCoef; }
@@ -1067,12 +1067,12 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 void WorldGenerator::computeColors()
 {
 	// alter map color using temperature & precipitation maps
-	map_data_t* md = mapData;
+	MapData* md = mapData;
 	for (int y = 0; y < HM_HEIGHT; y++)
 	{
 		for (int x = 0; x < HM_WIDTH; x++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			float temp = temperature->getValue(x, y);
 			EBiome biome = biomeMap[x + y * HM_WIDTH];
 			Doryen::Color c;
@@ -1088,29 +1088,29 @@ void WorldGenerator::computeColors()
 			temp += 10 * (clouds[HM_WIDTH - 1 - x][HM_HEIGHT - 1 - y]); // cheap 2D noise ;)
 			if (temp < -10.0f && h < sandHeight)
 			{
-				worldmap->putPixel(x, y,
+				imageWorldmap->putPixel(x, y,
 						Doryen::Color::lerp(Doryen::Color::white, c,
 								0.3f));
 			}
 			else if (temp < -8.0f && h < sandHeight)
 			{
-				worldmap->putPixel(x, y,
+				imageWorldmap->putPixel(x, y,
 						Doryen::Color::lerp(Doryen::Color::white, c,
 								0.3f + 0.7f * (10.0f +
 											   temp) /
 									   2.0f));
 			}
 			else if (temp < -2.0f && h >= sandHeight)
-			{ worldmap->putPixel(x, y, Doryen::Color::white); }
+			{ imageWorldmap->putPixel(x, y, Doryen::Color::white); }
 			else if (temp < 2.0f && h >= sandHeight)
 			{
 				//Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
 				c = Doryen::Color::lerp(Doryen::Color::white, c, (temp + 2) / 4.0f);
-				worldmap->putPixel(x, y, c);
+				imageWorldmap->putPixel(x, y, c);
 			}
 			else
 			{
-				worldmap->putPixel(x, y, c);
+				imageWorldmap->putPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1123,9 +1123,9 @@ void WorldGenerator::computeColors()
 		{
 			if (md->riverId > 0)
 			{
-				Doryen::Color c = worldmap->getPixel(x, y);
+				Doryen::Color c = imageWorldmap->getPixel(x, y);
 				c = Doryen::Color::lerp(c, Doryen::Color::blue, 0.3f);
-				worldmap->putPixel(x, y, c);
+				imageWorldmap->putPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1145,7 +1145,7 @@ void WorldGenerator::computeColors()
 				int iy = y + dy[i];
 				if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 				{
-					Doryen::Color c = worldmap->getPixel(ix, iy);
+					Doryen::Color c = imageWorldmap->getPixel(ix, iy);
 					r += coef[i] * c.r;
 					g += coef[i] * c.g;
 					b += coef[i] * c.b;
@@ -1155,10 +1155,10 @@ void WorldGenerator::computeColors()
 			r /= count;
 			g /= count;
 			b /= count;
-			worldmap->putPixel(x, y, Doryen::Color(r, g, b));
+			imageWorldmap->putPixel(x, y, Doryen::Color(r, g, b));
 		}
 	}
-	drawCoasts(worldmap);
+	drawCoasts(imageWorldmap);
 }
 
 void WorldGenerator::generate(TCODRandom* wRng)
@@ -1172,13 +1172,6 @@ void WorldGenerator::generate(TCODRandom* wRng)
 	wgRng = wRng;
 	noise = new TCODNoise(2, wgRng);
 
-	worldmap = new TCODImage(HM_WIDTH, HM_HEIGHT);
-	worldint = new float[HM_WIDTH * HM_HEIGHT];
-
-	biomeMap = new EBiome[HM_WIDTH * HM_HEIGHT];
-	mapData = new map_data_t[HM_WIDTH * HM_HEIGHT];
-
-	memset(mapData, 0, sizeof(map_data_t) * HM_WIDTH * HM_HEIGHT);
 	float t1 = Doryen::Platform::getElapsedSeconds();
 	DBG(("Initialization... %g\n", t1 - t0));
 	t0 = t1;
@@ -1240,8 +1233,8 @@ void WorldGenerator::drawCoasts(TCODImage* img)
 	{
 		for (int y = 0; y < HM_HEIGHT - 1; y++)
 		{
-			float h = hm->getValue(x, y);
-			float h2 = hm->getValue(x + 1, y);
+			float h = heightmap->getValue(x, y);
+			float h2 = heightmap->getValue(x + 1, y);
 			if ((h < sandHeight && h2 >= sandHeight)
 				|| (h2 < sandHeight && h >= sandHeight))
 			{
@@ -1249,8 +1242,8 @@ void WorldGenerator::drawCoasts(TCODImage* img)
 			}
 			else
 			{
-				h = hm->getValue(x, y);
-				h2 = hm->getValue(x, y + 1);
+				h = heightmap->getValue(x, y);
+				h2 = heightmap->getValue(x, y + 1);
 				if ((h < sandHeight && h2 >= sandHeight)
 					|| (h2 < sandHeight && h >= sandHeight))
 				{
@@ -1302,7 +1295,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
 			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
@@ -1366,7 +1359,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
 			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
@@ -1411,7 +1404,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
 			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
@@ -1461,7 +1454,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float h = hm->getValue(x, y);
+			float h = heightmap->getValue(x, y);
 			int ialt = (int)(h * 256);
 			ialt = CLAMP(0, 255, ialt);
 			img.putPixel(x, y, altGradient[ialt]);
@@ -1478,4 +1471,17 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 		}
 	}
 	img.save(filename);
+}
+
+WorldGenerator::~WorldGenerator()
+{
+	delete imageWorldmap;
+	delete heightmap;
+	delete heightmapWithoutErosion;
+	delete temperature;
+	delete precipitation;
+
+	delete[] biomeMap;
+	delete[] mapData;
+	delete[] worldint;
 }
