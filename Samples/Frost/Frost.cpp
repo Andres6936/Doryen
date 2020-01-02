@@ -120,7 +120,7 @@ bool Frost::update( float elapsed )
     return true;
 }
 
-void Frost::render(Doryen::TCODImage* img)
+void Frost::render(Doryen::Image* img)
 {
 	int w, h;
 

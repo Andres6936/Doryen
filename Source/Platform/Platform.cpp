@@ -99,9 +99,9 @@ void Doryen::Platform::getFullscreenOffsets( int *offx, int *offy )
 	TCOD_sys_get_fullscreen_offsets(offx,offy);
 }
 
-void Doryen::Platform::updateChar( int asciiCode, int fontx, int fonty, const TCODImage *img, int x, int y )
+void Doryen::Platform::updateChar(int asciiCode, int fontx, int fonty, const Image* img, int x, int y)
 {
-	TCOD_sys_update_char(asciiCode,fontx,fonty,img->data,x,y);
+	TCOD_sys_update_char(asciiCode, fontx, fonty, img->data, x, y);
 }
 
 void Doryen::Platform::getCharSize( int *w, int *h )

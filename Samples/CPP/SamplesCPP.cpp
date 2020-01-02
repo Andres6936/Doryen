@@ -297,33 +297,33 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         FBM_WAVELET, TURBULENCE_WAVELET
     }; // which function we render
     static const char *funcName[] = {
-            "1 : perlin noise       ",
-            "2 : simplex noise      ",
-            "3 : wavelet noise      ",
-            "4 : perlin fbm         ",
-            "5 : perlin turbulence  ",
-            "6 : simplex fbm        ",
-            "7 : simplex turbulence ",
-            "8 : wavelet fbm        ",
-            "9 : wavelet turbulence ",
-    };
-    static int func = PERLIN;
-    static TCODNoise *noise = NULL;
-    static float dx = 0.0f, dy = 0.0f;
-    static float octaves = 4.0f;
-    static float hurst = TCOD_NOISE_DEFAULT_HURST;
+			"1 : perlin noise       ",
+			"2 : simplex noise      ",
+			"3 : wavelet noise      ",
+			"4 : perlin fbm         ",
+			"5 : perlin turbulence  ",
+			"6 : simplex fbm        ",
+			"7 : simplex turbulence ",
+			"8 : wavelet fbm        ",
+			"9 : wavelet turbulence ",
+	};
+	static int func = PERLIN;
+	static TCODNoise* noise = NULL;
+	static float dx = 0.0f, dy = 0.0f;
+	static float octaves = 4.0f;
+	static float hurst = TCOD_NOISE_DEFAULT_HURST;
 	static float lacunarity = TCOD_NOISE_DEFAULT_LACUNARITY;
-	static Doryen::TCODImage* img = NULL;
+	static Doryen::Image* img = NULL;
 	static float zoom = 3.0f;
-    if ( !noise )
-    {
+	if (!noise)
+	{
 		noise = new TCODNoise(2, hurst, lacunarity);
-		img = new Doryen::TCODImage(SAMPLE_SCREEN_WIDTH * 2, SAMPLE_SCREEN_HEIGHT * 2);
-    }
-    if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-    }
+		img = new Doryen::Image(SAMPLE_SCREEN_WIDTH * 2, SAMPLE_SCREEN_HEIGHT * 2);
+	}
+	if (first)
+	{
+		Doryen::Platform::setFps(30); // fps limited to 30
+	}
 
     // texture animation
     dx += 0.01f;
@@ -725,17 +725,17 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-	static Doryen::TCODImage* img = NULL, * circle = NULL;
+	static Doryen::Image* img = NULL, * circle = NULL;
 	static Doryen::Color blue(0, 0, 255);
-    static Doryen::Color green( 0, 255, 0 );
-    if ( img == NULL )
-    {
-		img = new Doryen::TCODImage("Data/img/skull.png");
+	static Doryen::Color green(0, 255, 0);
+	if (img == NULL)
+	{
+		img = new Doryen::Image("Data/img/skull.png");
 		img->setKeyColor(Doryen::Color::black);
-		circle = new Doryen::TCODImage("Data/img/circle.png");
-    }
-    if ( first )
-    {
+		circle = new Doryen::Image("Data/img/circle.png");
+	}
+	if (first)
+	{
         Doryen::Platform::setFps( 30 ); // fps limited to 30
     }
     sampleConsole.setDefaultBackground( Doryen::Color::black );

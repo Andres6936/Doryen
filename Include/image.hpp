@@ -31,7 +31,7 @@ namespace Doryen
 	/**
 	 * This toolkit contains some image manipulation utilities.
 	 */
-	class TCODImage
+	class Image
 	{
 
 	public:
@@ -49,7 +49,7 @@ namespace Doryen
 		 * @param width Width of imagen.
 		 * @param height Height of imagen.
 		 */
-		TCODImage(int width, int height);
+		Image(int width, int height);
 
 		/**
 		 * Loading a .bmp or .png image.
@@ -63,7 +63,7 @@ namespace Doryen
 		 *
 		 * @param filename
 		 */
-		explicit TCODImage(const char* filename);
+		explicit Image(const char* filename);
 
 		/**
 		 * Creating an image from a console.
@@ -79,7 +79,7 @@ namespace Doryen
 		 *
 		 * @param console The console to convert.
 		 */
-		explicit TCODImage(const Console* console);
+		explicit Image(const Console* console);
 
 		/**
 		 * Refreshing an image created from a console.
@@ -429,11 +429,11 @@ namespace Doryen
 		*/
 		void blit2x(Console* dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1) const;
 
-		explicit TCODImage(TCOD_image_t img) : data(img), deleteData(false)
+		explicit Image(TCOD_image_t img) : data(img), deleteData(false)
 		{
 		}
 
-		virtual ~TCODImage();
+		virtual ~Image();
 	};
 }
 

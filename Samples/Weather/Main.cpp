@@ -33,7 +33,7 @@ Weather weather;
 float dayTime=6*3600.0f; // starts at 6.00am
 Doryen::Color lightningColor(220, 220, 255);
 
-Doryen::TCODImage* ground;
+Doryen::Image* ground;
                      
 void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
 	if (k.c=='+') {
@@ -62,7 +62,7 @@ const char *getDaytime() {
 
 void render()
 {
-	static Doryen::TCODImage img(CON_W * 2, CON_H * 2);
+	static Doryen::Image img(CON_W * 2, CON_H * 2);
 	for (int x = 0; x < CON_W * 2; x++)
 	{
 		for (int y = 0; y < CON_H * 2; y++)
@@ -137,7 +137,7 @@ int main (int argc, char *argv[])
 	Doryen::Platform::setFps(25);
 
 	weather.init(CON_W * 2, CON_H * 2);
-	ground = new Doryen::TCODImage(CON_W * 2, CON_H * 2);
+	ground = new Doryen::Image(CON_W * 2, CON_H * 2);
 	// generate some good locking ground
 	Doryen::Color colors[] = {
 			Doryen::Color(40, 117, 0), // grass

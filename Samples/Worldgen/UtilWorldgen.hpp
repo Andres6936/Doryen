@@ -70,7 +70,7 @@ public :
 	/**
 	 * Complete world map (not shaded).
 	 */
-	Doryen::TCODImage* imageWorldmap = new Doryen::TCODImage(HM_WIDTH, HM_HEIGHT);
+	Doryen::Image* imageWorldmap = new Doryen::Image(HM_WIDTH, HM_HEIGHT);
 
 	/**
 	 * World height map (0.0 - 1.0) .
@@ -207,7 +207,7 @@ private:
 	// get sun light intensity on a point of the map
 	float getMapIntensity(float worldX, float worldY, float lightDir[3]);
 
-	Doryen::Color getInterpolatedColor(Doryen::TCODImage* img, float x, float y);
+	Doryen::Color getInterpolatedColor(Doryen::Image* img, float x, float y);
 
 	float getInterpolatedFloat(float* arr, float x, float y, int width, int height);
 
@@ -225,7 +225,7 @@ private:
 
 	void computeColors();
 
-	void drawCoasts(Doryen::TCODImage* img);
+	void drawCoasts(Doryen::Image* img);
 
 	EClimate getClimateFromTemp(float temp);
 };

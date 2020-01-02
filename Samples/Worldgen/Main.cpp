@@ -80,7 +80,7 @@ Doryen::Color getMapShadedColor(float worldX, float worldY, bool clouds)
 void render()
 {
 	// subcell resolution image
-	static Doryen::TCODImage map(WIDTH * 2, HEIGHT * 2);
+	static Doryen::Image map(WIDTH * 2, HEIGHT * 2);
 	// compute the map image
 	for (int px = 0; px < 2 * WIDTH; px++)
 	{

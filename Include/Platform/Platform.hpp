@@ -444,7 +444,7 @@ namespace Doryen
         @Param img image containing the new character bitmap
         @Param x,y position in pixels of the top-left corner of the character in the image
         */
-        static void updateChar( int asciiCode, int fontx, int fonty, const TCODImage *img, int x, int y );
+		static void updateChar(int asciiCode, int fontx, int fonty, const Image* img, int x, int y);
 
         /**
         @PageName system_misc

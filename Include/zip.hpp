@@ -139,7 +139,7 @@ public :
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
 	@Param val	An image to store in the buffer
 	*/
-	void putImage(const Doryen::TCODImage* val);
+	void putImage(const Doryen::Image* val);
 
     /**
     @PageName zip_put
@@ -266,7 +266,7 @@ public :
 	@C TCOD_image_t TCOD_zip_get_image(TCOD_zip_t zip)
 	@Param zip	In the C version, the buffer handler, returned by the constructor.
 	*/
-	Doryen::TCODImage* getImage();
+	Doryen::Image* getImage();
 
     /**
     @PageName zip_load

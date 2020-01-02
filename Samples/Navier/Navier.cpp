@@ -49,7 +49,7 @@ float u[SIZE],v[SIZE], u_prev[SIZE], v_prev[SIZE];
 // density maps (current and previous)
 float dens[SIZE], dens_prev[SIZE];
 
-Doryen::TCODImage img(WIDTHx2, HEIGHTx2);
+Doryen::Image img(WIDTHx2, HEIGHTx2);
 
 float visc=1E-6f;
 float diff=1E-5f;

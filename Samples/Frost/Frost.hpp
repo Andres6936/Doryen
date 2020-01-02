@@ -54,7 +54,7 @@ public:
 
     bool update( float elapsed );
 
-    void render(Doryen::TCODImage* img);
+    void render(Doryen::Image* img);
 };
 
 #endif //LIBTCOD_FROST_HPP

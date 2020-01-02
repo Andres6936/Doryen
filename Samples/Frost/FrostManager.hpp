@@ -30,7 +30,7 @@ private:
 
     std::vector <Frost> frost;
 
-    Doryen::TCODImage* img;
+    Doryen::Image* img;
 
 public :
 
