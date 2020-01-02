@@ -31,28 +31,8 @@
 
 #define GET_VALUE(hm,x,y) (hm)->values[(x)+(y)*(hm)->w]
 
-TCOD_heightmap_t *TCOD_heightmap_new(int w,int h) {
-	TCOD_heightmap_t *hm=(TCOD_heightmap_t *)malloc(sizeof(TCOD_heightmap_t));
-	hm->values = (float *)calloc(sizeof(float),w*h);
-	hm->w=w;
-	hm->h=h;
-	return hm;
-}
-void TCOD_heightmap_delete(TCOD_heightmap_t *hm) {
-	free(hm->values);
-	free(hm);
-}
-
 void TCOD_heightmap_clear(TCOD_heightmap_t *hm) {
 	memset(hm->values,0,hm->w*hm->h*sizeof(float));
-}
-
-float TCOD_heightmap_get_value(const TCOD_heightmap_t *hm, int x, int y) {
-	return GET_VALUE(hm,x,y);
-}
-
-void TCOD_heightmap_set_value(TCOD_heightmap_t *hm, int x, int y, float value) {
-	GET_VALUE(hm,x,y)=value;
 }
 
 void TCOD_heightmap_get_minmax(const TCOD_heightmap_t *hm, float *min, float *max) {

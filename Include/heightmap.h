@@ -32,15 +32,7 @@ typedef struct {
 	float *values;
 } TCOD_heightmap_t;
 
-TCOD_heightmap_t *TCOD_heightmap_new(int w,int h);
-
-void TCOD_heightmap_delete(TCOD_heightmap_t *hm);
-
-float TCOD_heightmap_get_value(const TCOD_heightmap_t *hm, int x, int y);
-
 float TCOD_heightmap_get_interpolated_value(const TCOD_heightmap_t *hm, float x, float y);
-
-void TCOD_heightmap_set_value(TCOD_heightmap_t *hm, int x, int y, float value);
 
 float TCOD_heightmap_get_slope(const TCOD_heightmap_t *hm, int x, int y);
 
