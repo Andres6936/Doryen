@@ -28,7 +28,6 @@
 #include "libtcod.hpp"
 #include "BSPHelper.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include "BinarySpacePartition.hpp"
 
 BspHelper::BspHelper() {
 	bspDepth=8;

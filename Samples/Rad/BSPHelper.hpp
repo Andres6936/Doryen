@@ -1,6 +1,4 @@
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include "BinarySpacePartition.hpp"
-#include "BinarySpacePartitionListener.hpp"
 
 /*
 * Umbra

@@ -24,10 +24,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include <math.h>
-#include <heightmap.hpp>
 
-#include "libtcod.hpp"
+#include <heightmap.hpp>
 
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 
@@ -37,14 +35,25 @@ TCODHeightMap::TCODHeightMap(int w, int h)
 	this->h = h;
 
 	values.reserve(w * h);
-	std::fill(values.cbegin(), values.cend(), 0.0f);
+
+	// std::fill(values.cbegin(), values.cend(), 0.0f);
+
+	for (int i = 0; i < w * h; ++i)
+	{
+		values[i] = 0.0f;
+	}
 }
 
 TCODHeightMap::~TCODHeightMap() = default;
 
 void TCODHeightMap::clear()
 {
-	std::fill(values.cbegin(), values.cend(), 0.0f);
+	// std::fill(values.cbegin(), values.cend(), 0.0f);
+
+	for (int i = 0; i < w * h; ++i)
+	{
+		values[i] = 0.0f;
+	}
 }
 
 void TCODHeightMap::normalize(float newMin, float newMax)
@@ -177,11 +186,9 @@ void TCODHeightMap::addFbm(TCODNoise* noise, float mulx, float muly, float addx,
 
 		for (int y = 0; y < this->h; y++)
 		{
-			float value;
-
 			f[1] = (y + addy) * ycoef;
 
-			value = delta + TCOD_noise_get_fbm(noise, f, octaves) * scale;
+			float value = delta + TCOD_noise_get_fbm(noise->data, f, octaves) * scale;
 
 			this->values[offset] += value;
 
@@ -214,7 +221,7 @@ TCODHeightMap::scaleFbm(TCODNoise* noise, float mulx, float muly, float addx, fl
 		{
 			f[1] = (y + addy) * ycoef;
 
-			this->values[offset] *= (delta + TCOD_noise_get_fbm(noise, f, octaves) * scale);
+			this->values[offset] *= (delta + TCOD_noise_get_fbm(noise->data, f, octaves) * scale);
 
 			offset += this->w;
 		}
@@ -612,7 +619,7 @@ float TCODHeightMap::getMin() const
 {
 	//std::max(values.cbegin(), values.cend());
 
-	float min = values.at(0);
+	float min = values[0];
 
 	for (float f : values)
 	{
@@ -629,7 +636,7 @@ float TCODHeightMap::getMax() const
 {
 	//std::max(values.cbegin(), values.cend());
 
-	float max = values.at(0);
+	float max = values[0];
 
 	for (float f : values)
 	{

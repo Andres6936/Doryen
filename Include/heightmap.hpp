@@ -27,6 +27,7 @@
 #ifndef _TCOD_HEIGHTMAP_HPP
 #define _TCOD_HEIGHTMAP_HPP
 
+#include "libtcod.hpp"
 #include <vector>
 
 /**
