@@ -517,14 +517,95 @@ void TCODHeightMap::rainErosion(int nbDrops, float erosionCoef, float agregation
 void TCODHeightMap::kernelTransform(int kernelSize, const int* dx, const int* dy, const float* weight, float minLevel,
 		float maxLevel)
 {
-	TCOD_heightmap_t hm = { w, h, values };
-	TCOD_heightmap_kernel_transform(&hm, kernelSize, dx, dy, weight, minLevel, maxLevel);
+	for (int x = 0; x < this->w; x++)
+	{
+		int offset = x;
+
+		for (int y = 0; y < this->h; y++)
+		{
+			if (this->values[offset] >= minLevel && this->values[offset] <= maxLevel)
+			{
+				float val = 0.0f;
+				float totalWeight = 0.0f;
+				int i;
+
+				for (i = 0; i < kernelSize; i++)
+				{
+					int nx = x + dx[i];
+					int ny = y + dy[i];
+					if (nx >= 0 && nx < this->w && ny >= 0 && ny < this->h)
+					{
+						val += weight[i] * values[nx + this->w * ny];
+						totalWeight += weight[i];
+					}
+				}
+
+				this->values[offset] = val / totalWeight;
+			}
+
+			offset += this->w;
+		}
+	}
 }
 
 void TCODHeightMap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd)
 {
-	TCOD_heightmap_t hm = { w, h, values };
-	TCOD_heightmap_add_voronoi(&hm, nbPoints, nbCoef, coef, rnd->data);
+	class Point : public Doryen::Math::Point2D
+	{
+
+	public:
+
+		float dist = 0;
+
+	};
+
+	std::vector <Point> pt;
+	pt.reserve(nbPoints);
+
+	if (nbPoints <= 0)
+	{ return; }
+
+	for (int i = 0; i < nbPoints; i++)
+	{
+		pt[i].x = TCOD_random_get_int(rnd, 0, this->w - 1);
+		pt[i].y = TCOD_random_get_int(rnd, 0, this->h - 1);
+	}
+
+	for (int x = 0; x < this->w; x++)
+	{
+		int offset = x;
+
+		for (int y = 0; y < this->h; y++)
+		{
+			// Calculate distance to voronoi points
+			for (int i = 0; i < nbPoints; i++)
+			{
+				pt[i].dist = (float)(pt[i].x - x) * (pt[i].x - x) + (pt[i].y - y) * (pt[i].y - y);
+			}
+
+			for (int i = 0; i < nbCoef; i++)
+			{
+				// Get closest point
+				float minDist = 1E8f;
+				int idx = -1, j;
+
+				for (j = 0; j < nbPoints; j++)
+				{
+					if (pt[j].dist < minDist)
+					{
+						idx = j;
+						minDist = pt[j].dist;
+					}
+				}
+
+				this->values[offset] += coef[i] * pt[idx].dist;
+
+				pt[idx].dist = 1E8f;
+			}
+
+			offset += this->w;
+		}
+	}
 }
 
 float TCODHeightMap::getMin() const
