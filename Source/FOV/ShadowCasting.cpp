@@ -19,7 +19,7 @@ void Doryen::ShadowRayCasting::operator()(Doryen::Map& map, int playerX, int pla
 
 	int radiusDouble = maxRadius * maxRadius;
 
-	static int mult[4][8] = {
+	static const int mult[4][8] = {
 			{ 1, 0, 0,  -1, -1, 0,  0,  1 },
 			{ 0, 1, -1, 0,  0,  -1, 1,  0 },
 			{ 0, 1, 1,  0,  0,  -1, -1, 0 },
@@ -41,13 +41,16 @@ void Doryen::ShadowRayCasting::castLight(Doryen::Map& map, int cx, int cy, int r
 		int r2, int xx, int xy, int yx, int yy, int id, bool light_walls)
 {
 	float new_start = 0.0f;
+
 	if (start < end)
 	{ return; }
+
 	for (int j = row; j < radius + 1; j++)
 	{
 		int dx = -j - 1;
 		int dy = -j;
 		bool blocked = false;
+
 		while (dx <= 0)
 		{
 			int X, Y;
@@ -61,15 +64,18 @@ void Doryen::ShadowRayCasting::castLight(Doryen::Map& map, int cx, int cy, int r
 				offset = X + Y * map.width;
 				l_slope = (dx - 0.5f) / (dy + 0.5f);
 				r_slope = (dx + 0.5f) / (dy - 0.5f);
+
 				if (start < r_slope)
 				{ continue; }
 				else if (end > l_slope)
 				{ break; }
+
 				if (dx * dx + dy * dy <= r2
 					&& (light_walls || map.cells[offset].transparent))
 				{
-					map.cells[offset].fov = 1;
+					map.cells[offset].fov = true;
 				}
+
 				if (blocked)
 				{
 					if (!map.cells[offset].transparent)
@@ -88,7 +94,11 @@ void Doryen::ShadowRayCasting::castLight(Doryen::Map& map, int cx, int cy, int r
 					if (!map.cells[offset].transparent && j < radius)
 					{
 						blocked = true;
-						castLight(map, cx, cy, j + 1, start, l_slope, radius, r2, xx, xy, yx, yy, id + 1, light_walls);
+
+						castLight(map, cx, cy, j + 1, start,
+								l_slope, radius, r2, xx, xy, yx, yy,
+								id + 1, light_walls);
+
 						new_start = r_slope;
 					}
 				}
