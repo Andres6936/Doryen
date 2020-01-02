@@ -38,17 +38,9 @@ typedef struct {
 
 typedef bool (*TCOD_bsp_callback_t)(TCOD_bsp_t *node, void *userData);
 
-TCOD_bsp_t *TCOD_bsp_new();
-
-TCOD_bsp_t *TCOD_bsp_new_with_size(int x,int y,int w, int h);
-
-void TCOD_bsp_delete(TCOD_bsp_t *node);
-
 TCOD_bsp_t * TCOD_bsp_left(TCOD_bsp_t *node);
 
 TCOD_bsp_t * TCOD_bsp_right(TCOD_bsp_t *node);
-
-TCOD_bsp_t * TCOD_bsp_father(TCOD_bsp_t *node);
 
 bool TCOD_bsp_is_leaf(TCOD_bsp_t *node);
 
@@ -57,10 +49,6 @@ bool TCOD_bsp_traverse_pre_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener,
 bool TCOD_bsp_traverse_in_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData);
 
 bool TCOD_bsp_traverse_post_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData);
-
-bool TCOD_bsp_traverse_level_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData);
-
-bool TCOD_bsp_traverse_inverted_level_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData);
 
 bool TCOD_bsp_contains(TCOD_bsp_t *node, int x, int y);
 

@@ -27,19 +27,6 @@
 #include <stdlib.h>
 #include "libtcod.h"
 
-TCOD_bsp_t *TCOD_bsp_new() {
-	return (TCOD_bsp_t *)calloc(sizeof(TCOD_bsp_t),1);
-}
-
-TCOD_bsp_t *TCOD_bsp_new_with_size(int x,int y,int w, int h) {
-	TCOD_bsp_t *bsp=(TCOD_bsp_t *)calloc(sizeof(TCOD_bsp_t),1);
-	bsp->x=x;
-	bsp->y=y;
-	bsp->w=w;
-	bsp->h=h;
-	return bsp;
-}
-
 TCOD_bsp_t * TCOD_bsp_left(TCOD_bsp_t *node) {
 	return (TCOD_bsp_t *)node->tree.sons;
 }
@@ -48,17 +35,8 @@ TCOD_bsp_t * TCOD_bsp_right(TCOD_bsp_t *node) {
 	return node->tree.sons ? (TCOD_bsp_t *)node->tree.sons->next : NULL;
 }
 
-TCOD_bsp_t * TCOD_bsp_father(TCOD_bsp_t *node) {
-	return (TCOD_bsp_t *)node->tree.father;
-}
-
 bool TCOD_bsp_is_leaf(TCOD_bsp_t *node) {
 	return node->tree.sons==NULL;
-}
-
-void TCOD_bsp_delete(TCOD_bsp_t *node) {
-	TCOD_bsp_remove_sons(node);
-	free(node);
 }
 
 static TCOD_bsp_t *TCOD_bsp_new_intern(TCOD_bsp_t *father, bool left) {
@@ -96,47 +74,6 @@ bool TCOD_bsp_traverse_post_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener
 	if ( TCOD_bsp_left(node) && !TCOD_bsp_traverse_post_order(TCOD_bsp_left(node),listener,userData)) return false;
 	if ( TCOD_bsp_right(node) && !TCOD_bsp_traverse_post_order(TCOD_bsp_right(node),listener,userData)) return false;
 	if (!listener(node,userData)) return false;
-	return true;
-}
-
-bool TCOD_bsp_traverse_level_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData) {
-	TCOD_list_t stack=TCOD_list_new();
-	TCOD_list_push(stack,node);
-	while ( ! TCOD_list_is_empty(stack) ) {
-		TCOD_bsp_t *node=(TCOD_bsp_t *)TCOD_list_get(stack,0);
-		TCOD_list_remove(stack,node);
-		if ( TCOD_bsp_left(node) ) TCOD_list_push(stack,TCOD_bsp_left(node));
-		if ( TCOD_bsp_right(node) ) TCOD_list_push(stack,TCOD_bsp_right(node));
-		if (!listener(node,userData)) {
-			TCOD_list_delete(stack);
-			return false;
-		}
-	}
-	TCOD_list_delete(stack);
-	return true;
-}
-
-bool TCOD_bsp_traverse_inverted_level_order(TCOD_bsp_t *node, TCOD_bsp_callback_t listener, void *userData) {
-	TCOD_list_t stack1=TCOD_list_new();
-	TCOD_list_t stack2=TCOD_list_new();
-	TCOD_list_push(stack1,node);
-	while ( ! TCOD_list_is_empty(stack1) ) {
-		TCOD_bsp_t *node=(TCOD_bsp_t *)TCOD_list_get(stack1,0);
-		TCOD_list_push(stack2,node);
-		TCOD_list_remove(stack1,node);
-		if ( TCOD_bsp_left(node) ) TCOD_list_push(stack1,TCOD_bsp_left(node));
-		if ( TCOD_bsp_right(node) ) TCOD_list_push(stack1,TCOD_bsp_right(node));
-	}
-	while ( ! TCOD_list_is_empty(stack2) ) {
-		TCOD_bsp_t *node=(TCOD_bsp_t *)TCOD_list_pop(stack2);
-		if (!listener(node,userData)) {
-			TCOD_list_delete(stack1);
-			TCOD_list_delete(stack2);
-			return false;
-		}
-	}
-	TCOD_list_delete(stack1);
-	TCOD_list_delete(stack2);
 	return true;
 }
 

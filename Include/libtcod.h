@@ -159,7 +159,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "mouse.h"
 #include "sys.h"
 #include "mersenne.h"
-#include "bresenham.h"
 #include "noise.h"
 #include "fov.h"
 #include "lex.h"
