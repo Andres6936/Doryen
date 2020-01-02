@@ -42,7 +42,7 @@
 #include "path.hpp"
 #include "tree.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include "heightmap.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"
 

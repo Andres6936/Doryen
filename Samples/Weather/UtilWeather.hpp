@@ -1,4 +1,4 @@
-#include "heightmap.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
 
 /*
 * Copyright (c) 2010 Jice

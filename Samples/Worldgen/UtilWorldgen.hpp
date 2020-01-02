@@ -25,7 +25,7 @@
 */
 
 #include "MapData.hpp"
-#include "heightmap.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
 
 // size of the heightmap
 constexpr int HM_WIDTH = 400;

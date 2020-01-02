@@ -26,7 +26,7 @@
 
 #include <math.h>
 #include "Main.hpp"
-#include "heightmap.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
 
 #define OCTAVES 7.0f
 #define SCALE 2.0f

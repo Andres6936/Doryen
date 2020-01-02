@@ -31,7 +31,7 @@
 #include <stdio.h>
 #include "Main.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
-#include "heightmap.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
 
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
