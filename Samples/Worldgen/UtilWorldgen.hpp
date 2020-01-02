@@ -59,6 +59,8 @@ class WorldGenerator
 
 public :
 
+	// Fields
+
 	/**
 	 * Altitude->color map.
 	 */
@@ -100,9 +102,24 @@ public :
 	MapData* mapData = new MapData[HM_WIDTH * HM_HEIGHT];
 
 	/**
-	 * World light intensity map (shadow map)
+	 * Random Generation.
+	 */
+	TCODRandom* wgRng = TCODRandom::getInstance();
+
+	/**
+	 * World light intensity map (shadow map).
 	 */
 	float* worldint = new float[HM_WIDTH * HM_HEIGHT];
+
+	/**
+	 * Horizontal offset for smooth scrolling.
+	 */
+	float cloudDx = 0.0f;
+
+	/**
+	 * Horizontal offset for smooth scrolling.
+	 */
+	float cloudTotalDx = 0.0f;
 
 	// Destructor
 
@@ -159,11 +176,6 @@ protected :
 	TCODNoise* noise;
 	// cloud thickness
 	float clouds[HM_WIDTH][HM_HEIGHT];
-	float cloudDx; // horizontal offset for smooth scrolling
-	float cloudTotalDx;
-
-
-	TCODRandom* wgRng;
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);
 
