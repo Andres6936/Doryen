@@ -171,7 +171,6 @@ public :
 	void savePrecipitationMap(const char* filename = NULL);
 
 protected :
-	friend class RiverPathCbk;
 
 	TCODNoise* noise;
 	// cloud thickness
