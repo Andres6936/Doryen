@@ -39,6 +39,17 @@ namespace Doryen
 	 *
 	 * They can be used to split a rectangular region into
 	 * non overlapping sub-regions.
+	 *
+	 * Reading information from the tree.
+	 *
+	 * Once you have built a BSP tree, you can retrieve information
+	 * from any node. The node gives you free access to next fields.
+	 * @
+	 * @li x, y, w and h that is region covered by this node.
+	 * @li position If this node is not a leaf, splitting position.
+	 * @li horizontal If this node is not a leaf, splitting orientation.
+	 * @li Level in the BSP tree (0 for the root, 1 for the root's sons, ...).
+	 *
 	 */
 	class BinarySpacePartition : public Tree
 	{
@@ -245,93 +256,67 @@ namespace Doryen
 		void resize(int x, int y, int w, int h);
 
 		/**
-		@PageName bsp_read
-		@PageFather bsp
-		@PageTitle Reading information from the tree
-		@FuncDesc Once you have built a BSP tree, you can retrieve information from any node. The node gives you free access to its fields :
-		@Cpp
-			class TCODBsp {
-			public :
-				int x,y,w,h; //
-				int position; // position of splitting
-				bool horizontal; // horizontal splitting ?
-				uint8 level; // level in the tree
-				...
-			}
-		@C
-			typedef struct {
-				int x,y,w,h;
-				int position;
-				bool horizontal;
-				uint8 level;
-				...
-			} TCOD_bsp_t;
-		@C#
-			class TCODBsp
-			{
-			  public int x { get; set; }
-			  public int y { get; set; }
-			  public int h { get; set; }
-			  public int w { get; set; }
-			  public int position { get; set; }
-			  public bool horizontal { get; set; }
-			  public byte level { get; set; }
-			}
-		@Param x,y,w,h	Rectangular region covered by this node.
-		@Param position	If this node is not a leaf, splitting position.
-		@Param horizontal	If this node is not a leaf, splitting orientation.
-		@Param level	Level in the BSP tree (0 for the root, 1 for the root's sons, ...).
-		*/
-
-		/**
-		@PageName bsp_read
-		@FuncTitle Navigate in the tree
-		@FuncDesc You can navigate from a node to its sons or its parent using one of those functions. Each function returns NULL if the corresponding node does not exists (if the node is not splitted for getLeft and getRight, and if the node is the root node for getFather).
-		@Cpp
-			TCODBsp *TCODBsp::getLeft() const
-			TCODBsp *TCODBsp::getRight() const
-			TCODBsp *TCODBsp::getFather() const
-		@C
-			TCOD_bsp_t * TCOD_bsp_left(TCOD_bsp_t *node)
-			TCOD_bsp_t * TCOD_bsp_right(TCOD_bsp_t *node)
-			TCOD_bsp_t * TCOD_bsp_father(TCOD_bsp_t *node)
-		@Py
-			bsp_left(node)
-			bsp_right(node)
-			bsp_father(node)
-		@C#
-			TCODBsp TCODBsp::getLeft()
-			TCODBsp TCODBsp::getRight()
-			TCODBsp TCODBsp::getFather()
-		@Param node	In the C version, the node reference.
-		*/
+		 * Navigate in the tree.
+		 *
+		 * You can navigate from a node to its sons or its
+		 * parent using one of those functions. Each function
+		 * returns NULL if the corresponding node does not
+		 * exists (if the node is not splitted for getLeft
+		 * and getRight, and if the node is the root node
+		 * for getFather).
+		 *
+		 * @return The son node to the left.
+		 */
 		BinarySpacePartition* getLeft() const
 		{
 			return (BinarySpacePartition*)sons;
 		}
 
+		/**
+		 * Navigate in the tree.
+		 *
+		 * You can navigate from a node to its sons or its
+		 * parent using one of those functions. Each function
+		 * returns NULL if the corresponding node does not
+		 * exists (if the node is not splitted for getLeft
+		 * and getRight, and if the node is the root node
+		 * for getFather).
+		 *
+		 * @return The son node to the rigth.
+		 */
 		BinarySpacePartition* getRight() const
 		{
 			return sons ? (BinarySpacePartition*)(sons->next) : NULL;
 		}
 
+		/**
+		 * Navigate in the tree.
+		 *
+		 * You can navigate from a node to its sons or its
+		 * parent using one of those functions. Each function
+		 * returns NULL if the corresponding node does not
+		 * exists (if the node is not splitted for getLeft
+		 * and getRight, and if the node is the root node
+		 * for getFather).
+		 *
+		 * @return The father node.
+		 */
 		BinarySpacePartition* getFather() const
 		{
 			return (BinarySpacePartition*)father;
 		}
 
 		/**
-		@PageName bsp_read
-		@FuncTitle Checking if a node is a leaf
-		@FuncDesc You can know if a node is a leaf (not splitted, no sons) with this function :
-		@Cpp bool TCODBsp::isLeaf() const
-		@C bool TCOD_bsp_is_leaf(TCOD_bsp_t *node)
-		@Py bsp_is_leaf(node)
-		@C# bool TCODBsp::isLeaf()
-		*/
+		 * Checking if a node is a leaf.
+		 *
+		 * You can know if a node is a leaf (not splitted,
+		 * no sons) with this function
+		 *
+		 * @return
+		 */
 		bool isLeaf() const
 		{
-			return sons == NULL;
+			return sons == nullptr;
 		}
 
 		/**
