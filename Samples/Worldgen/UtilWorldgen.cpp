@@ -291,7 +291,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 	}
 #ifndef NDEBUG
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Landmass... %g\n", t1 - t0));
+	printf("  Landmass... %g\n", t1 - t0);
 #endif
 }
 
@@ -302,14 +302,14 @@ void WorldGenerator::buildBaseMap()
 	addHill(600, 16.0 * HM_WIDTH / 200, 0.7, 0.3);
 	heightmap->normalize();
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Hills... %g\n", t1 - t0));
+	printf("  Hills... %g\n", t1 - t0);
 	t0 = t1;
 
 	heightmap->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
 	heightmap->normalize();
 	heightmapWithoutErosion->copy(heightmap);
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Fbm... %g\n", t1 - t0));
+	printf("  Fbm... %g\n", t1 - t0);
 	t0 = t1;
 
 	setLandMass(0.6f, sandHeight);
@@ -329,7 +329,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Flatten plains... %g\n", t1 - t0));
+	printf("  Flatten plains... %g\n", t1 - t0);
 	t0 = t1;
 
 
@@ -351,7 +351,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Init clouds... %g\n", t1 - t0));
+	printf("  Init clouds... %g\n", t1 - t0);
 	t0 = t1;
 }
 
@@ -373,7 +373,7 @@ void WorldGenerator::smoothMap()
 	heightmap->normalize();
 #ifndef NDEBUG
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Blur... %g\n", t1 - t0));
+	printf("  Blur... %g\n", t1 - t0);
 #endif
 }
 
@@ -470,7 +470,7 @@ void WorldGenerator::erodeMap()
 				md++;
 			}
 		}
-		DBG(("  Erosion pass %d\n", i));
+		printf("  Erosion pass %d\n", i);
 
 		// mudslides (smoothing)
 		float sandCoef = 1.0f / (1.0f - sandHeight);
@@ -812,7 +812,7 @@ void WorldGenerator::computePrecipitations()
 		}
 	}
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  North/south winds... %g\n", t1 - t0));
+	printf("  North/south winds... %g\n", t1 - t0);
 	t0 = t1;
 
 	// east/west winds
@@ -851,7 +851,7 @@ void WorldGenerator::computePrecipitations()
 		}
 	}
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  East/west winds... %g\n", t1 - t0));
+	printf("  East/west winds... %g\n", t1 - t0);
 	t0 = t1;
 
 	float min, max;
@@ -874,7 +874,7 @@ void WorldGenerator::computePrecipitations()
 		}
 	}
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  latitude... %g\n", t1 - t0));
+	printf("  latitude... %g\n", t1 - t0);
 	t0 = t1;
 
 	// very fast blur by scaling down and up
@@ -964,12 +964,12 @@ void WorldGenerator::smoothPrecipitations()
 	precipitation->copy(&temphm);
 
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Blur... %g\n", t1 - t0));
+	printf("  Blur... %g\n", t1 - t0);
 	t0 = t1;
 
 	precipitation->normalize();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("  Normalization... %g\n", t1 - t0));
+	printf("  Normalization... %g\n", t1 - t0);
 	t0 = t1;
 
 }
@@ -1009,7 +1009,7 @@ void WorldGenerator::computeTemperaturesAndBiomes()
 	}
 	float min, max;
 	temperature->getMinMax(&min, &max);
-	DBG(("Temperatures min/max: %g / %g\n", min, max));
+	printf("Temperatures min/max: %g / %g\n", min, max);
 }
 
 Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
@@ -1173,27 +1173,27 @@ void WorldGenerator::generate(TCODRandom* wRng)
 	noise = new TCODNoise(2, wgRng);
 
 	float t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Initialization... %g\n", t1 - t0));
+	printf("Initialization... %g\n", t1 - t0);
 	t0 = t1;
 
 	buildBaseMap();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Heightmap construction... %g\n", t1 - t0));
+	printf("Heightmap construction... %g\n", t1 - t0);
 	t0 = t1;
 
 	computePrecipitations();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Precipitation map... %g\n", t1 - t0));
+	printf("Precipitation map... %g\n", t1 - t0);
 	t0 = t1;
 
 	erodeMap();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Erosion... %g\n", t1 - t0));
+	printf("Erosion... %g\n", t1 - t0);
 	t0 = t1;
 
 	smoothMap();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Smooth... %g\n", t1 - t0));
+	printf("Smooth... %g\n", t1 - t0);
 	t0 = t1;
 
 	setLandMass(0.6f, sandHeight);
@@ -1204,26 +1204,26 @@ void WorldGenerator::generate(TCODRandom* wRng)
 		generateRivers();
 	}
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Rivers... %g\n", t1 - t0));
+	printf("Rivers... %g\n", t1 - t0);
 	t0 = t1;
 
 	smoothPrecipitations();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Smooth precipitations... %g\n", t1 - t0));
+	printf("Smooth precipitations... %g\n", t1 - t0);
 	t0 = t1;
 
 	computeTemperaturesAndBiomes();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Temperature map... %g\n", t1 - t0));
+	printf("Temperature map... %g\n", t1 - t0);
 	t0 = t1;
 
 	computeColors();
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("Color map... %g\n", t1 - t0));
+	printf("Color map... %g\n", t1 - t0);
 	t0 = t1;
 
 	t1 = Doryen::Platform::getElapsedSeconds();
-	DBG(("TOTAL TIME... %g\n", t1 - t00));
+	printf("TOTAL TIME... %g\n", t1 - t00);
 }
 
 void WorldGenerator::drawCoasts(TCODImage* img)
