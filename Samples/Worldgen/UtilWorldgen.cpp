@@ -775,7 +775,9 @@ void WorldGenerator::computePrecipitations()
 	static const float waterAdd = 0.03f;
 	static const float slopeCoef = 2.0f;
 	static const float basePrecip = 0.01f; // precipitation coef when slope == 0
-	float t0 = Doryen::Platform::getElapsedSeconds();
+
+	float timeStart = Doryen::Platform::getElapsedSeconds();
+
 	// north/south winds
 	for (int diry = -1; diry <= 1; diry += 2)
 	{
@@ -811,9 +813,11 @@ void WorldGenerator::computePrecipitations()
 			}
 		}
 	}
-	float t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  North/south winds... %g\n", t1 - t0);
-	t0 = t1;
+
+	float timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tNorth/south winds... %g\n", timeEnd - timeStart);
+
+	timeStart = timeEnd;
 
 	// east/west winds
 	for (int dirx = -1; dirx <= 1; dirx += 2)
@@ -850,9 +854,9 @@ void WorldGenerator::computePrecipitations()
 			}
 		}
 	}
-	t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  East/west winds... %g\n", t1 - t0);
-	t0 = t1;
+	timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tEast/west winds... %g\n", timeEnd - timeStart);
+	timeStart = timeEnd;
 
 	float min, max;
 	precipitation->getMinMax(&min, &max);
@@ -873,9 +877,9 @@ void WorldGenerator::computePrecipitations()
 			precipitation->setValue(x, y, precip);
 		}
 	}
-	t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  latitude... %g\n", t1 - t0);
-	t0 = t1;
+	timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tlatitude... %g\n", timeEnd - timeStart);
+	timeStart = timeEnd;
 
 	// very fast blur by scaling down and up
 	static const int factor = 8;
@@ -883,6 +887,7 @@ void WorldGenerator::computePrecipitations()
 	static const int smallHeight = (HM_HEIGHT + factor - 1) / factor;
 	float* lowResMap = new float[smallWidth * smallHeight];
 	memset(lowResMap, 0, sizeof(float) * smallWidth * smallHeight);
+
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
@@ -893,7 +898,9 @@ void WorldGenerator::computePrecipitations()
 			lowResMap[ix + iy * smallWidth] += v;
 		}
 	}
+
 	float coef = 1.0f / factor;
+
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
@@ -902,9 +909,8 @@ void WorldGenerator::computePrecipitations()
 			precipitation->setValue(x, y, v);
 		}
 	}
+
 	delete[] lowResMap;
-
-
 }
 
 void WorldGenerator::smoothPrecipitations()
