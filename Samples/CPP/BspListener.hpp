@@ -3,7 +3,7 @@
 
 #include "libtcod.hpp"
 #include "SampleRenderer.hpp"
-#include "bsp.hpp"
+#include "BinarySpacePartition.hpp"
 
 static int bspDepth = 8;
 

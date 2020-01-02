@@ -1,4 +1,4 @@
-#include "bsp.hpp"
+#include "BinarySpacePartition.hpp"
 
 /*
 * Umbra

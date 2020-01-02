@@ -34,73 +34,77 @@ namespace Doryen
 {
 
 	/**
-		 @PageName bsp
-		 @PageCategory Roguelike toolkits
-		 @PageTitle BSP toolkit
-		 @PageDesc This toolkit allows to create and manipulate 2D Binary Space Partition trees. They can be used to split a rectangular region into non overlapping sub-regions.
-		 */
-
+	 * @brief This toolkit allows to create and manipulate
+	 * 2D Binary Space Partition trees.
+	 *
+	 * They can be used to split a rectangular region into
+	 * non overlapping sub-regions.
+	 */
 	class BinarySpacePartition : public Tree
 	{
 
 	public :
 
-		int x, y, w, h; //
-		int position; // position of splitting
-		bool horizontal; // horizontal splitting ?
-		uint8 level; // level in the tree
+		int x = 0;
+		int y = 0;
+		int w = 0;
+		int h = 0;
+
+		int position = 0; // position of splitting
+		bool horizontal = false; // horizontal splitting ?
+		uint8 level = 0; // level in the tree
 
 		/**
-		@PageName bsp_init
-		@PageFather bsp
-		@PageTitle Creating a BSP tree
-		@FuncTitle Creating the root node
-		@FuncDesc First, you have to create the root node of the tree. This node encompasses the whole rectangular region.
-		@Cpp TCODBsp::TCODBsp(int x,int y,int w, int h)
-		@C TCOD_bsp_t *TCOD_bsp_new_with_size(int x,int y,int w, int h)
-		@Py bsp_new_with_size(x,y,w, h)
-		@C# TCODBsp::TCODBsp(int x, int y, int w, int h)
-		@Param x,y,w,h	Top left corner position and size of the rectangular region covered by the BSP tree.
-		@CppEx TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-		@CEx TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-		@PyEx my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-		*/
+		 * @brief Creating a BSP tree
+		 *
+		 * Creating the root node
+		 *
+		 * First, you have to create the root node of the tree.
+		 * This node encompasses the whole rectangular region.
+		 *
+		 */
 		BinarySpacePartition() : level(0)
 		{
 		}
 
+		/**
+		 * @brief Creating a BSP tree
+		 *
+		 * Creating the root node
+		 *
+		 * First, you have to create the root node of the tree.
+		 *
+		 * @example BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * This node encompasses the whole rectangular region.
+		 *
+		 * @param x Top left corner in coordinate x.
+		 * @param y Top left corner in coordinate y.
+		 * @param w Width of the rectangular region covered by the BSP tree.
+		 * @param h Height of the rectangular region covered by the BSP tree.
+		 */
 		BinarySpacePartition(int x, int y, int w, int h) : x(x), y(y), w(w), h(h), level(0)
 		{
 		}
 
 		/**
-		@PageName bsp_init
-		@FuncTitle Deleting a part of the tree
-		@FuncDesc You can delete a part of the tree, releasing resources for all sub nodes with :
-		@Cpp void TCODBsp::removeSons()
-		@C void TCOD_bsp_remove_sons(TCOD_bsp_t *node)
-		@Py bsp_remove_sons(node)
-		@C# TCODBsp::removeSons()
-		@Param node	In the C version, the node reference.
-		@CppEx
-			TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-			// create a tree
-			myBSP->splitRecursive(NULL,4,5,5,1.5f,1.5f);
-			// clear it (keep only the root)
-			myBSP->removeSons();
-			// and rebuild another random tree
-			myBSP->splitRecursive(NULL,4,5,5,1.5f,1.5f);
-		@CEx
-			TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-			TCOD_bsp_split_recursive(my_bsp,NULL,4,5,5,1.5f,1.5f);
-			TCOD_bsp_remove_sons(my_bsp);
-			TCOD_bsp_split_recursive(my_bsp,NULL,4,5,5,1.5f,1.5f);
-		@PyEx
-			my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-			libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
-			libtcod.bsp_remove_sons(my_bsp)
-			libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
-		*/
+		 * You can delete a part of the tree, releasing resources for all sub nodes.
+		 *
+		 * @code
+		 *
+		 * BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * // Create a tree
+		 * bsp.splitRecursive(NULL, 4, 5, 5, 1.5f, 1.5f);
+		 *
+		 * // Clear it (keep only the root)
+		 * bsp.removeSons();
+		 *
+		 * // And rebuild another random tree
+		 * bsp.splitRecursive(NULL, 4, 5, 5, 1.5f, 1.5f);
+		 *
+		 * @endcode
+		 */
 		void removeSons();
 
 		/**

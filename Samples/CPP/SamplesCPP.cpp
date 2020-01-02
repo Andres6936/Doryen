@@ -16,7 +16,7 @@
 #include "LineListener.hpp"
 #include "BspListener.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
-#include "bsp.hpp"
+#include "BinarySpacePartition.hpp"
 
 // a sample has a name and a rendering function
 typedef struct

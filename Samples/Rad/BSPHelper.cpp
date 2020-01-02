@@ -27,7 +27,7 @@
 
 #include "libtcod.hpp"
 #include "BSPHelper.hpp"
-#include "bsp.hpp"
+#include "BinarySpacePartition.hpp"
 
 BspHelper::BspHelper() {
 	bspDepth=8;
