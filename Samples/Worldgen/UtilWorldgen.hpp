@@ -29,61 +29,74 @@
 #define HM_HEIGHT 400
 
 // biome and climate list. based on Whittaker Biome Diagram
-enum EClimate {
-    ARTIC_ALPINE,
-    COLD,
-    TEMPERATE,
-    WARM,
-    TROPICAL,
-    NB_CLIMATES
+enum EClimate
+{
+	ARTIC_ALPINE,
+	COLD,
+	TEMPERATE,
+	WARM,
+	TROPICAL,
+	NB_CLIMATES
 };
 
 // grassland : might be either grassland, shrubland or woodland depending on the vegetation level
 // savanna : might be either savanna or thorn forest depending on the vegetation level
-enum EBiome {TUNDRA,
-    COLD_DESERT, GRASSLAND, BOREAL_FOREST,
-    TEMPERATE_FOREST, TROPICAL_MONTANE_FOREST,
-    HOT_DESERT, SAVANNA, TROPICAL_DRY_FOREST, TROPICAL_EVERGREEN_FOREST,
-    THORN_FOREST,
-    NB_BIOMES
-    };
+enum EBiome
+{
+	TUNDRA,
+	COLD_DESERT, GRASSLAND, BOREAL_FOREST,
+	TEMPERATE_FOREST, TROPICAL_MONTANE_FOREST,
+	HOT_DESERT, SAVANNA, TROPICAL_DRY_FOREST, TROPICAL_EVERGREEN_FOREST,
+	THORN_FOREST,
+	NB_BIOMES
+};
 
-class WorldGenerator {
+class WorldGenerator
+{
+
 public :
 	// altitude->color map
-    Doryen::Color mapGradient[256];
+	Doryen::Color mapGradient[256];
 	// world height map (0.0 - 1.0)
-	TCODHeightMap *hm;
+	TCODHeightMap* hm;
 	// height map without erosion
-	TCODHeightMap *hm2;
+	TCODHeightMap* hm2;
 	// complete world map (not shaded)
-	TCODImage *worldmap;
+	TCODImage* worldmap;
 	// temperature map (in �C)
-	TCODHeightMap *temperature;
+	TCODHeightMap* temperature;
 	// precipitation map (0.0 - 1.0)
-	TCODHeightMap *precipitation;
+	TCODHeightMap* precipitation;
 	// biome map
-	EBiome *biomeMap;
+	EBiome* biomeMap;
 
-	void generate(TCODRandom *wRng);
+	void generate(TCODRandom* wRng);
 
 	// getters
 	int getWidth() const;
+
 	int getHeight() const;
+
 	float getAltitude(int x, int y) const; // heightmap. between 0 and 1
 	float getInterpolatedAltitude(float x, float y) const;
+
 	float getSandHeight() const;
+
 	bool isOnSea(float x, float y) const;
+
 	float getCloudThickness(float x, float y) const;
+
 	void getInterpolatedNormal(float x, float y, float n[3]) const;
 
-    Doryen::Color getInterpolatedColor( float worldX, float worldY );
+	Doryen::Color getInterpolatedColor(float worldX, float worldY);
+
 	float getInterpolatedIntensity(float worldX, float worldY);
 
 	// update
 	void updateClouds(float elapsedTime);
+
 	void computeSunLight(float lightDir[3]);
-	
+
 	// data
 	float getRealAltitude(float x, float y) const; // altitude in meters
 	float getPrecipitations(float x, float y) const; // in centimeter/m�/year
@@ -91,20 +104,26 @@ public :
 	EBiome getBiome(float x, float y) const;
 
 	// map generators
-	void saveBiomeMap(const char *filename = NULL);
-	void saveAltitudeMap(const char *filename = NULL);
-	void saveTemperatureMap(const char *filename = NULL);
-	void savePrecipitationMap(const char *filename = NULL);
+	void saveBiomeMap(const char* filename = NULL);
+
+	void saveAltitudeMap(const char* filename = NULL);
+
+	void saveTemperatureMap(const char* filename = NULL);
+
+	void savePrecipitationMap(const char* filename = NULL);
+
 protected :
-    friend class RiverPathCbk;
-	TCODNoise *noise;
+	friend class RiverPathCbk;
+
+	TCODNoise* noise;
 	// cloud thickness
 	float clouds[HM_WIDTH][HM_HEIGHT];
 	float cloudDx; // horizontal offset for smooth scrolling
 	float cloudTotalDx;
 	// world light intensity map (shadow map)
-	float *worldint;
-	typedef struct {
+	float* worldint;
+	typedef struct
+	{
 		float slope;
 		// number of cells flowing into this cell
 		uint32 area;
@@ -116,34 +135,50 @@ protected :
 		uint8 riverId;
 		int riverLength;
 	} map_data_t;
-	map_data_t * mapData;
-	typedef struct {
-	    TCODList<int> coords;
-	    TCODList<int> strength;
+	map_data_t* mapData;
+	typedef struct
+	{
+		TCODList <int> coords;
+		TCODList <int> strength;
 	} river_t;
-	TCODList<river_t *> rivers;
-	TCODRandom *wgRng;
+	TCODList <river_t*> rivers;
+	TCODRandom* wgRng;
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);
-	void buildBaseMap();
-	void erodeMap();
-	void smoothMap();
-	// compute the ground color from the heightmap
-    Doryen::Color getMapColor( float h );
-	// get sun light intensity on a point of the map
-	float getMapIntensity(float worldX,float worldY, float lightDir[3]);
 
-    Doryen::Color getInterpolatedColor( TCODImage *img, float x, float y );
-	float getInterpolatedFloat(float *arr,float x,float y, int width, int height);
+	void buildBaseMap();
+
+	void erodeMap();
+
+	void smoothMap();
+
+	// compute the ground color from the heightmap
+	Doryen::Color getMapColor(float h);
+
+	// get sun light intensity on a point of the map
+	float getMapIntensity(float worldX, float worldY, float lightDir[3]);
+
+	Doryen::Color getInterpolatedColor(TCODImage* img, float x, float y);
+
+	float getInterpolatedFloat(float* arr, float x, float y, int width, int height);
+
 	void generateRivers();
-	void smoothPrecipitations() ;
+
+	void smoothPrecipitations();
+
 	int getRiverStrength(int riverId);
+
 	void setLandMass(float percent, float waterLevel);
+
 	void computeTemperaturesAndBiomes();
 
-    Doryen::Color getBiomeColor( EBiome biome, int x, int y );
+	Doryen::Color getBiomeColor(EBiome biome, int x, int y);
+
 	void computePrecipitations();
+
 	void computeColors();
-	void drawCoasts(TCODImage *img);
+
+	void drawCoasts(TCODImage* img);
+
 	EClimate getClimateFromTemp(float temp);
 };

@@ -132,12 +132,15 @@ int main(int argc, char* argv[])
 	TCOD_mouse_t mouse;
 
 	bool endCredits = false;
+
 	// generate the world with all data (rain, temperature and so on...)
 	worldGen.generate(NULL);
+
 	// compute light intensity on ground (depends on light direction and ground slope)
 	static float lightDir[3] = {
 			1.0f, 1.0f, 0.0f
 	};
+
 	worldGen.computeSunLight(lightDir);
 
 	while (!console.isWindowClosed())
