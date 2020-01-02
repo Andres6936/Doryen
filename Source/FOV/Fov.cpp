@@ -30,7 +30,7 @@
 #include <FOV/Permissive.hpp>
 #include <FOV/Restrictive.hpp>
 #include <FOV/ShadowCasting.hpp>
-#include <fov.hpp>
+#include <FOV/Fov.hpp>
 
 
 #include "libtcod.hpp"

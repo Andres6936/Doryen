@@ -29,7 +29,7 @@
 #define _TCOD_PATH_HPP
 
 
-#include <fov.hpp>
+#include <FOV/Fov.hpp>
 
 class ITCODPathCallback
 {

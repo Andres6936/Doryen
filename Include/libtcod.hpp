@@ -38,7 +38,7 @@
 #include "mersenne.hpp"
 #include "mouse.hpp"
 #include "noise.hpp"
-#include "fov.hpp"
+#include "FOV/Fov.hpp"
 #include "path.hpp"
 #include "tree.hpp"
 #include "bsp.hpp"

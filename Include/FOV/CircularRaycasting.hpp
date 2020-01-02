@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <fov.hpp>
+#include <FOV/Fov.hpp>
 
 namespace Doryen
 {

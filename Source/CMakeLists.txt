@@ -27,9 +27,10 @@ SET(LIBTCOD_C_SRC bresenham_c.c bsp_c.c color_c.c console_c.c fov_c.c fov_circul
         noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
         tree_c.c zip_c.c png/lodepng.c SystemSDL.c SystemSDLImagePNG.c)
 
-SET(LIBTCOD_CPP_SRC Algorithms/Drawing/Bresenham.cpp bsp.cpp Color.cpp Console.cpp fov.cpp heightmap.cpp image.cpp mersenne.cpp
+SET(LIBTCOD_CPP_SRC Algorithms/Drawing/Bresenham.cpp bsp.cpp Color.cpp Console.cpp FOV/Fov.cpp heightmap.cpp image.cpp mersenne.cpp
         mouse.cpp namegen.cpp noise.cpp path.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
-        FOV/CircularRaycasting.cpp Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp)
+        FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp FOV/ShadowCasting.cpp
+        Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp)
 
 SET(LIBTCOD_GUI_SRC gui/button.cpp gui/container.cpp gui/flatlist.cpp gui/hbox.cpp gui/image.cpp gui/label.cpp gui/radiobutton.cpp
         gui/slider.cpp gui/statusbar.cpp gui/textbox.cpp gui/togglebutton.cpp gui/toolbar.cpp gui/vbox.cpp gui/widget.cpp)

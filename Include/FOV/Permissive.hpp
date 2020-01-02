@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_PERMISSIVE_HPP
 #define LIBTCOD_PERMISSIVE_HPP
 
-#include <fov.hpp>
+#include <FOV/Fov.hpp>
 
 namespace Doryen
 {
