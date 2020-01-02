@@ -16,6 +16,7 @@
 #include "LineListener.hpp"
 #include "BspListener.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
+#include "bsp.hpp"
 
 // a sample has a name and a rendering function
 typedef struct
@@ -1097,8 +1098,8 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 
 void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static TCODBsp *bsp = NULL;
-    static bool generate = true;
+	static Doryen::BinarySpacePartition* bsp = NULL;
+	static bool generate = true;
     static bool refresh = false;
     static map_t map;
     static Doryen::Color darkWall( 0, 0, 100 );
@@ -1110,7 +1111,7 @@ void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         if ( !bsp )
         {
             // create the bsp
-            bsp = new TCODBsp( 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
+			bsp = new Doryen::BinarySpacePartition(0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
         }
         else
         {

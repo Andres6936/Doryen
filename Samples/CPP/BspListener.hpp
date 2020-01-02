@@ -3,6 +3,7 @@
 
 #include "libtcod.hpp"
 #include "SampleRenderer.hpp"
+#include "bsp.hpp"
 
 static int bspDepth = 8;
 
@@ -15,20 +16,20 @@ typedef char map_t[SAMPLE_SCREEN_WIDTH][SAMPLE_SCREEN_HEIGHT];
 
 // the class building the dungeon from the bsp nodes
 //#include <stdio.h>
-class BspListener : public ITCODBspCallback
+class BspListener : public Doryen::ITCODBspCallback
 {
 public :
-    bool visitNode( TCODBsp *node, void *userData )
+    bool visitNode(Doryen::BinarySpacePartition* node, void* userData)
     {
-        map_t *map = ( map_t * ) userData;
-        if ( node->isLeaf( ))
+        map_t* map = (map_t*)userData;
+        if (node->isLeaf())
         {
             // calculate the room size
             int minx = node->x + 1;
             int maxx = node->x + node->w - 1;
             int miny = node->y + 1;
             int maxy = node->y + node->h - 1;
-            if ( !roomWalls )
+            if (!roomWalls)
             {
                 if ( minx > 1 )
                 { minx--; }
@@ -65,17 +66,17 @@ public :
         {
 //printf("lvl %d %dx%d %dx%d\n",node->level, node->x,node->y,node->w,node->h);
             // resize the node to fit its sons
-            TCODBsp *left = node->getLeft( );
-            TCODBsp *right = node->getRight( );
-            node->x = MIN( left->x, right->x );
-            node->y = MIN( left->y, right->y );
-            node->w = MAX( left->x + left->w, right->x + right->w ) - node->x;
-            node->h = MAX( left->y + left->h, right->y + right->h ) - node->y;
+            Doryen::BinarySpacePartition* left = node->getLeft();
+            Doryen::BinarySpacePartition* right = node->getRight();
+            node->x = MIN(left->x, right->x);
+            node->y = MIN(left->y, right->y);
+            node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
+            node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
             // create a corridor between the two lower nodes
-            if ( node->horizontal )
+            if (node->horizontal)
             {
                 // vertical corridor
-                if ( left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x )
+                if (left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x)
                 {
                     // no overlapping zone. we need a Z shaped corridor
                     int x1 = TCODRandom::getInstance( )->getInt( left->x, left->x + left->w - 1 );

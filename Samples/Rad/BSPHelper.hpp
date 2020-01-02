@@ -1,3 +1,5 @@
+#include "bsp.hpp"
+
 /*
 * Umbra
 * Copyright (c) 2009, 2010 Mingos, Jice
@@ -25,27 +27,30 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class BspHelper : public ITCODBspCallback {
+class BspHelper : public Doryen::ITCODBspCallback
+{
 public :
 	BspHelper();
+
 	int bspDepth;
 	int minRoomSize;
-	bool randomRoom; 
+	bool randomRoom;
 	bool roomWalls;
 
-    void createBspDungeon( Doryen::Map *map, TCODRandom *rng );
+	void createBspDungeon(Doryen::Map* map, TCODRandom* rng);
+
 	// libtcod bsp callback stuff
-	bool visitNode(TCODBsp *node, void *userData);
+	bool visitNode(Doryen::BinarySpacePartition* node, void* userData);
 private :
-    void vline( Doryen::Map *map, int x, int y1, int y2 );
+	void vline( Doryen::Map *map, int x, int y1, int y2 );
 
-    void vline_up( Doryen::Map *map, int x, int y );
+	void vline_up( Doryen::Map *map, int x, int y );
 
-    void vline_down( Doryen::Map *map, int x, int y );
+	void vline_down( Doryen::Map *map, int x, int y );
 
-    void hline( Doryen::Map *map, int x1, int y, int x2 );
+	void hline( Doryen::Map *map, int x1, int y, int x2 );
 
-    void hline_left( Doryen::Map *map, int x, int y );
+	void hline_left( Doryen::Map *map, int x, int y );
 
-    void hline_right( Doryen::Map *map, int x, int y );
+	void hline_right( Doryen::Map *map, int x, int y );
 };

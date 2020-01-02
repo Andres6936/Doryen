@@ -27,6 +27,7 @@
 
 #include "libtcod.hpp"
 #include "BSPHelper.hpp"
+#include "bsp.hpp"
 
 BspHelper::BspHelper() {
 	bspDepth=8;
@@ -98,17 +99,22 @@ void BspHelper::hline_right( Doryen::Map *map, int x, int y )
 	}
 }
 
-bool BspHelper::visitNode(TCODBsp *node, void *userData) {
-    Doryen::Map *map = ( Doryen::Map * ) userData;
-	if ( node->isLeaf() ) {
+bool BspHelper::visitNode(Doryen::BinarySpacePartition* node, void* userData)
+{
+	Doryen::Map* map = (Doryen::Map*)userData;
+	if (node->isLeaf())
+	{
 		// calculate the room size
-		int minx = node->x+1;
-		int maxx = node->x+node->w-1;
-		int miny = node->y+1;
-		int maxy = node->y+node->h-1;
-		if (! roomWalls ) {
-			if ( minx > 1 ) minx--;
-			if ( miny > 1 ) miny--;
+		int minx = node->x + 1;
+		int maxx = node->x + node->w - 1;
+		int miny = node->y + 1;
+		int maxy = node->y + node->h - 1;
+		if (!roomWalls)
+		{
+			if (minx > 1)
+			{ minx--; }
+			if (miny > 1)
+			{ miny--; }
 		}
 		if (maxx == map->getWidth()-1 ) maxx--;
 		if (maxy == map->getHeight()-1 ) maxy--;
@@ -135,21 +141,24 @@ bool BspHelper::visitNode(TCODBsp *node, void *userData) {
 				map->setProperties(x,y,true,true);
 			}
 		}
-	} else {
+	} else
+	{
 //printf("lvl %d %dx%d %dx%d\n",node->level, node->x,node->y,node->w,node->h);
 		// resize the node to fit its sons
-		TCODBsp *left=node->getLeft();
-		TCODBsp *right=node->getRight();
-		node->x=MIN(left->x,right->x);
-		node->y=MIN(left->y,right->y);
-		node->w=MAX(left->x+left->w,right->x+right->w)-node->x;
-		node->h=MAX(left->y+left->h,right->y+right->h)-node->y;
+		Doryen::BinarySpacePartition* left = node->getLeft();
+		Doryen::BinarySpacePartition* right = node->getRight();
+		node->x = MIN(left->x, right->x);
+		node->y = MIN(left->y, right->y);
+		node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
+		node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
 		// create a corridor between the two lower nodes
-		if (node->horizontal) {
+		if (node->horizontal)
+		{
 			// vertical corridor
-			if ( left->x+left->w -1 < right->x || right->x+right->w-1 < left->x ) {
+			if (left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x)
+			{
 				// no overlapping zone. we need a Z shaped corridor
-				int x1=TCODRandom::getInstance()->getInt(left->x,left->x+left->w-1);
+				int x1 = TCODRandom::getInstance()->getInt(left->x, left->x + left->w - 1);
 				int x2=TCODRandom::getInstance()->getInt(right->x,right->x+right->w-1);
 				int y=TCODRandom::getInstance()->getInt(left->y+left->h,right->y);
 				vline_up(map,x1,y-1);
@@ -188,11 +197,12 @@ bool BspHelper::visitNode(TCODBsp *node, void *userData) {
 
 void BspHelper::createBspDungeon( Doryen::Map *map, TCODRandom *rng )
 {
-	TCODBsp *bsp = new TCODBsp(0,0,map->getWidth(),map->getHeight());
-	map->clear(false,false); // fill with walls
+	Doryen::BinarySpacePartition* bsp = new Doryen::BinarySpacePartition(0, 0, map->getWidth(), map->getHeight());
+	map->clear(false, false); // fill with walls
 	// create the BSP tree
-	bsp->splitRecursive(rng,bspDepth,minRoomSize+(roomWalls?1:0),minRoomSize+(roomWalls?1:0),1.5f,1.5f);
+	bsp->splitRecursive(rng, bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,
+			1.5f);
 	// carve rooms and corridors
-	bsp->traverseInvertedLevelOrder(this,map);	
+	bsp->traverseInvertedLevelOrder(this, map);
 }
 

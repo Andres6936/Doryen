@@ -28,21 +28,30 @@
 #ifndef _TCOD_TREE_HPP
 #define _TCOD_TREE_HPP
 
-class TCODTree {
-public :
-	TCODTree *next;
-	TCODTree *father;
-	TCODTree *sons;
+class Tree
+{
 
-	TCODTree() : next(NULL),father(NULL),sons(NULL){}
-	void addSon(TCODTree *data) {
-		data->father=this;
-		TCODTree *lastson = sons;
-		while ( lastson && lastson->next ) lastson=lastson->next;
-		if ( lastson ) {
-			lastson->next=data;
-		} else {
-			sons=data;
+public :
+
+	Tree* next = nullptr;
+	Tree* father = nullptr;
+	Tree* sons = nullptr;
+
+	Tree() = default;
+
+	void addSon(Tree* data)
+	{
+		data->father = this;
+		Tree* lastson = sons;
+		while (lastson && lastson->next)
+		{ lastson = lastson->next; }
+		if (lastson)
+		{
+			lastson->next = data;
+		}
+		else
+		{
+			sons = data;
 		}
 	}
 
