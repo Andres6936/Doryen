@@ -26,16 +26,20 @@
 */
 
 #include <FOV/CircularRaycasting.hpp>
+#include <FOV/DiamondRayCasting.hpp>
+#include <FOV/Permissive.hpp>
+#include <FOV/Restrictive.hpp>
+#include <FOV/ShadowCasting.hpp>
 #include <fov.hpp>
 
 
 #include "libtcod.hpp"
 #include "fov_types.h"
 
-Doryen::Map::Map( )
+Doryen::Map::Map()
 {
-    width = 0;
-    height = 0;
+	width = 0;
+	height = 0;
     nbcells = 0;
     cells = nullptr;
 }
@@ -128,53 +132,77 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
         circularRaycasting( *this, x, y, maxRadius, light_walls );
     }
     else if ( algo == FOV_DIAMOND )
-    {
+	{
+		Doryen::DiamondRayCasting diamondRayCasting;
 
-    }
+		diamondRayCasting(*this, x, y, maxRadius, light_walls);
+	}
     else if ( algo == FOV_SHADOW )
-    {
+	{
+		Doryen::ShadowRayCasting shadowRayCasting;
 
-    }
+		shadowRayCasting(*this, x, y, maxRadius, light_walls);
+	}
     else if ( algo == FOV_PERMISSIVE_0 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 0);
+	}
     else if ( algo == FOV_PERMISSIVE_1 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 1);
+	}
     else if ( algo == FOV_PERMISSIVE_2 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 2);
+	}
     else if ( algo == FOV_PERMISSIVE_3 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 3);
+	}
     else if ( algo == FOV_PERMISSIVE_4 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 4);
+	}
     else if ( algo == FOV_PERMISSIVE_5 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 5);
+	}
     else if ( algo == FOV_PERMISSIVE_6 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 6);
+	}
     else if ( algo == FOV_PERMISSIVE_7 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 7);
+	}
     else if ( algo == FOV_PERMISSIVE_8 )
-    {
+	{
+		Doryen::Permissive permissive;
 
-    }
+		permissive(*this, x, y, maxRadius, light_walls, 8);
+	}
     else if ( algo == FOV_RESTRICTIVE )
-    {
+	{
+		Doryen::Restrictive restrictive;
 
-    }
+		restrictive(*this, x, y, maxRadius, light_walls);
+	}
     else
     {
         // Throw Error
