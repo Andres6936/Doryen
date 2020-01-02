@@ -1,6 +1,6 @@
 #include "Frost.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
-#include "image.hpp"
+#include "Image/Image.hpp"
 
 Frost::Frost( int x, int y, FrostManager *nFrostManager ) : x( x ), y( y ), manager( nFrostManager )
 {

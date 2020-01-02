@@ -32,7 +32,7 @@
 #include "list.hpp"
 #include "Color.hpp"
 #include "Console.hpp"
-#include "image.hpp"
+#include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
 #include "mersenne.hpp"
 #include "mouse.hpp"
