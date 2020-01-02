@@ -141,7 +141,6 @@ protected :
 		TCODList <int> coords;
 		TCODList <int> strength;
 	} river_t;
-	TCODList <river_t*> rivers;
 	TCODRandom* wgRng;
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);
@@ -165,8 +164,6 @@ protected :
 	void generateRivers();
 
 	void smoothPrecipitations();
-
-	int getRiverStrength(int riverId);
 
 	void setLandMass(float percent, float waterLevel);
 

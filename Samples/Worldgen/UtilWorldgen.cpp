@@ -559,19 +559,6 @@ void WorldGenerator::updateClouds(float elapsedTime) {
     }
 }
 
-class RiverPathCbk : public ITCODPathCallback {
-public:
-    float getWalkCost( int xFrom, int yFrom, int xTo, int yTo, void *userData ) const {
-        WorldGenerator *world = (WorldGenerator *)userData;
-        float h1=world->hm->getValue(xFrom,yFrom);
-        float h2=world->hm->getValue(xTo,yTo);
-        if ( h2 < sandHeight ) return 0.0f;
-//        float f[2] = {xFrom*10.0f/HM_WIDTH,yFrom*10.0f/HM_HEIGHT};
-//        return (1.0f+h2-h1)*10+5*(1.0f+noise2d.getSimplex(f));
-        return (0.01f+h2-h1)*100;
-    }
-};
-
 void WorldGenerator::generateRivers() {
     static int riverId=0;
 	// the source
@@ -650,79 +637,6 @@ void WorldGenerator::generateRivers() {
     }
 }
 
-
-/*
-void WorldGenerator::generateRivers() {
-    static int riverId=0;
-	// the source
-	int sx,sy;
-	// the destination
-	int dx,dy;
-	// get a random point near the coast
-	sx = wgRng->getInt(0,HM_WIDTH-1);
-	sy = wgRng->getInt(HM_HEIGHT/5,4*HM_HEIGHT/5);
-	float h = hm->getValue(sx,sy);
-	map_data_t *md=&mapData[sx+sy*HM_WIDTH];
-	while ( md->riverId == 0 && (h <  sandHeight - 0.02 || h >= sandHeight) ) {
-		sx++;
-		if ( sx == HM_WIDTH ) {
-			sx=0;
-			sy++;
-			if ( sy == HM_HEIGHT ) sy=0;
-		}
-		h = hm->getValue(sx,sy);
-		md=&mapData[sx+sy*HM_WIDTH];
-	}
-	riverId++;
-	dx = sx;
-	dy = sy;
-	DBG( ("source : %d %d\n",sx,sy));
-	// travel down to the see
-	// get the hiwest point around current position
-	bool deadEnd=false;
-	int len=0;
-	river_t *river=new river_t();
-	rivers.push(river);
-	int maxlen=HM_WIDTH,lastdx=1,lastdy=1;
-	do {
-        int coord = sx + sy*HM_WIDTH;
-	    map_data_t *md=&mapData[coord];
-	    if ( md->riverId != 0 ) {
-	        river_t *joined = rivers.get(md->riverId-1);
-	        int i=0;
-	        while (joined->coords.get(i) != coord ) i++;
-	        while ( i < joined->coords.size() ) {
-	            int newStrength=joined->strength.get(i)+1;
-	            joined->strength.set(newStrength,i);
-	            i++;
-	        }
-	        break;
-	    }
-        md->riverId = riverId;
-        md->riverLength = len++;
-        river->coords.push(coord);
-        river->strength.push(1);
-		if ( md->upDir != 0 ) {
-		    lastdx=dirx[md->upDir];
-			sx += lastdx;
-			lastdy=diry[md->upDir];
-			sy += lastdy;
-			deadEnd=false;
-		} else if ( deadEnd ) {
-		    break;
-		} else {
-			sx += lastdx;
-			sy += lastdy;
-			if ( ! IN_RECTANGLE(sx,sy,HM_WIDTH,HM_HEIGHT ) ) break;
-			deadEnd=true;
-		}
-		h=hm->getValue(sx,sy);
-		maxlen--;
-	} while ( maxlen > 0 && h <= snowHeight);
-
-}
-*/
-
 EClimate WorldGenerator::getClimateFromTemp(float temp) {
     if ( temp <= -5 ) return ARTIC_ALPINE;
     if ( temp <= 5 ) return COLD;
@@ -746,12 +660,6 @@ float WorldGenerator::getInterpolatedFloat(float *arr,float x,float y, int width
 	float iN = (1.0f-dx)*iNW + dx*iNE;
 	float iS = (1.0f-dx)*iSW + dx*iSE;
 	return (1.0f-dy)*iN + dy * iS;
-}
-
-int WorldGenerator::getRiverStrength(int riverId) {
-    //river_t *river = rivers.get(riverId-1);
-    //return river->strength.get(river->strength.size()-1);
-    return 2;
 }
 
 void WorldGenerator::computePrecipitations() {
@@ -1048,20 +956,7 @@ void WorldGenerator::computeColors() {
 			md++;
 		}
 	}
-	// draw rivers
-    /*
-    for (river_t **it=rivers.begin(); it != rivers.end(); it++) {
-        for (int i=0; i < (*it)->coords.size(); i++ ) {
-            int coord = (*it)->coords.get(i);
-            int strength = (*it)->strength.get(i);
-            int x = coord % HM_WIDTH;
-            int y = coord / HM_WIDTH;
-            Doryen::Color c= worldmap->getPixel(x,y);
-            c = Doryen::Color::lerp(c,Doryen::Color::blue,(float)(strength)/5.0f);
-            worldmap->putPixel(x,y,c);
-        }
-    }
-    */
+
 	md=mapData;
 	for (int y=0; y < HM_HEIGHT; y++) {
         for (int x=0; x < HM_WIDTH; x++) {
