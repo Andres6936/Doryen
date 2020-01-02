@@ -191,6 +191,9 @@ private:
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);
 
+	/**
+	 * Function building the heightmap.
+	 */
 	void buildBaseMap();
 
 	void erodeMap();

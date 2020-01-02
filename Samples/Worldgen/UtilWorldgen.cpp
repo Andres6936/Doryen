@@ -295,26 +295,28 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 #endif
 }
 
-// function building the heightmap
 void WorldGenerator::buildBaseMap()
 {
-	float t0 = Doryen::Platform::getElapsedSeconds();
+	float timeStart = Doryen::Platform::getElapsedSeconds();
+
 	addHill(600, 16.0 * HM_WIDTH / 200, 0.7, 0.3);
 	heightmap->normalize();
-	float t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  Hills... %g\n", t1 - t0);
-	t0 = t1;
+	float timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tHills... %g\n", timeEnd - timeStart);
+
+	timeStart = timeEnd;
 
 	heightmap->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
 	heightmap->normalize();
 	heightmapWithoutErosion->copy(heightmap);
-	t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  Fbm... %g\n", t1 - t0);
-	t0 = t1;
+	timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tFbm... %g\n", timeEnd - timeStart);
+
+	timeStart = timeEnd;
 
 	setLandMass(0.6f, sandHeight);
 
-	// fix land/mountain ratio using x^3 curve above sea level
+	// Fix land/mountain ratio using x^3 curve above sea level
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
@@ -328,31 +330,29 @@ void WorldGenerator::buildBaseMap()
 			}
 		}
 	}
-	t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  Flatten plains... %g\n", t1 - t0);
-	t0 = t1;
+
+	timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tFlatten plains... %g\n", timeEnd - timeStart);
+
+	timeStart = timeEnd;
 
 
-	// we use a custom erosion algo
-	//heightmap->rainErosion(15000*HM_WIDTH/400,0.03,0.01,wgRng);
-	//t1=Doryen::Platform::getElapsedSeconds();
-	//DBG(("  Erosion... %g\n", t1-t0 ));
-	//t0=t1;
-	// compute clouds
+	// Compute Clouds.
 	float f[2];
+
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
 		f[0] = 6.0f * ((float)(x) / HM_WIDTH);
+
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
 			f[1] = 6.0f * ((float)(y) / HM_HEIGHT);
-			// clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbmSimplex(f,4.0f));
 			clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f, 4.0f, TCOD_NOISE_SIMPLEX));
 		}
 	}
-	t1 = Doryen::Platform::getElapsedSeconds();
-	printf("  Init clouds... %g\n", t1 - t0);
-	t0 = t1;
+
+	timeEnd = Doryen::Platform::getElapsedSeconds();
+	printf("\tInit clouds... %g\n", timeEnd - timeStart);
 }
 
 // function blurring the heightmap
