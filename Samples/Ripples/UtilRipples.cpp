@@ -125,17 +125,22 @@ bool RippleManager::updateRipples(float elapsed) {
 	return updated;
 }
 
-void RippleManager::renderRipples(const TCODImage *ground, TCODImage *groundWithRipples) {
-    float elCoef = Doryen::Platform::getElapsedSeconds( ) * 2.0f;
-	for ( int x = 1; x < width-1; x++ ) {
-		for ( int y = 1; y < height-1; y++ ) {
-			if ( getData(x,y) != NO_WATER ) {
-				float xOffset=(getData(x-1,y)-getData(x+1,y));
-				float yOffset=(getData(x,y-1)-getData(x,y+1));
-				float f[3]={x,y,elCoef};
-				xOffset+=noise3d.get(f, TCOD_NOISE_SIMPLEX)*0.3f;
-				if ( ABS(xOffset) < 250 && ABS(yOffset) < 250 ) {
-                    Doryen::Color col = ground->getPixel( x + ( int ) ( xOffset ), y + ( int ) ( yOffset ));
+void RippleManager::renderRipples(const Doryen::TCODImage* ground, Doryen::TCODImage* groundWithRipples)
+{
+	float elCoef = Doryen::Platform::getElapsedSeconds() * 2.0f;
+	for (int x = 1; x < width - 1; x++)
+	{
+		for (int y = 1; y < height - 1; y++)
+		{
+			if (getData(x, y) != NO_WATER)
+			{
+				float xOffset = (getData(x - 1, y) - getData(x + 1, y));
+				float yOffset = (getData(x, y - 1) - getData(x, y + 1));
+				float f[3] = { x, y, elCoef };
+				xOffset += noise3d.get(f, TCOD_NOISE_SIMPLEX) * 0.3f;
+				if (ABS(xOffset) < 250 && ABS(yOffset) < 250)
+				{
+					Doryen::Color col = ground->getPixel(x + (int)(xOffset), y + (int)(yOffset));
                     col = col + Doryen::Color::white * xOffset * 0.1f;
 					groundWithRipples->putPixel(x,y,col);
 				}

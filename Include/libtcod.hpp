@@ -33,7 +33,6 @@
 #include "Color.hpp"
 #include "Console.hpp"
 #include "image.hpp"
-#include "Platform/Platform.hpp"
 #include "Renderer/Sdl.hpp"
 #include "mersenne.hpp"
 #include "mouse.hpp"
@@ -41,14 +40,15 @@
 #include "FOV/Fov.hpp"
 #include "path.hpp"
 #include "tree.hpp"
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include "Algorithms/Generation/Heightmap.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"
 
+#include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
 #include "Algorithms/Pathfinding/AStar.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
+#include "Algorithms/Generation/Heightmap.hpp"
+#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 #endif

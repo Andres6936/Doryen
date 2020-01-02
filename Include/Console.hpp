@@ -51,14 +51,6 @@ namespace Doryen
     class Console
     {
 
-    protected :
-
-        friend class TCODImage;
-
-        friend class TCODZip;
-
-        friend class TCODText;
-
     private:
 
         bool windowClose;

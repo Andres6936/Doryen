@@ -1,5 +1,6 @@
 #include "Frost.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
+#include "image.hpp"
 
 Frost::Frost( int x, int y, FrostManager *nFrostManager ) : x( x ), y( y ), manager( nFrostManager )
 {
@@ -119,17 +120,17 @@ bool Frost::update( float elapsed )
     return true;
 }
 
-void Frost::render( TCODImage *img )
+void Frost::render(Doryen::TCODImage* img)
 {
-    int w, h;
+	int w, h;
 
-    img->getSize( &w, &h );
+	img->getSize(&w, &h);
 
-    for ( int cx = x - RANGE; cx <= x + RANGE; cx++ )
-    {
-        if (( unsigned ) cx < ( unsigned ) w )
-        {
-            for ( int cy = y - RANGE; cy <= y + RANGE; cy++ )
+	for (int cx = x - RANGE; cx <= x + RANGE; cx++)
+	{
+		if ((unsigned)cx < (unsigned)w)
+		{
+			for (int cy = y - RANGE; cy <= y + RANGE; cy++)
             {
                 if (( unsigned ) cy < ( unsigned ) h )
                 {

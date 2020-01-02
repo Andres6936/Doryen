@@ -28,8 +28,9 @@
 
 TCODNoise noise2d(2);
 TCODNoise noise3d(3);
-RippleManager *rippleManager;
-TCODImage *ground, *ground2;
+RippleManager* rippleManager;
+
+Doryen::TCODImage* ground, * ground2;
 
 Doryen::Color mapGradient[256];
 #define MAX_COLOR_KEY 8
@@ -95,18 +96,19 @@ int main (int argc, char *argv[])
 	hm.normalize();
 	// apply a color map to create a ground image
 	Doryen::Color::genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
-	ground = new TCODImage(CON_W * 2, CON_H * 2);
-	ground2 = new TCODImage(CON_W * 2, CON_H * 2);
+	ground = new Doryen::TCODImage(CON_W * 2, CON_H * 2);
+	ground2 = new Doryen::TCODImage(CON_W * 2, CON_H * 2);
 	// create a Doryen::Map defining water zones. Walkable = water
 	Doryen::Map waterMap(CON_W * 2, CON_H * 2);
 
 	for (int x = 0; x < CON_W * 2; x++)
 	{
-		for (int y=0; y < CON_H*2;y++) {
-			float h=hm.getValue(x,y);
-			bool isWater=h < sandHeight; 
-			waterMap.setProperties(x,y,isWater,isWater);
-			int ih=(int)(h*256);
+		for (int y = 0; y < CON_H * 2; y++)
+		{
+			float h = hm.getValue(x, y);
+			bool isWater = h < sandHeight;
+			waterMap.setProperties(x, y, isWater, isWater);
+			int ih = (int)(h * 256);
 			ih=CLAMP(0,255,ih);
 			ground->putPixel(x,y,mapGradient[ih]);
 		}

@@ -31,8 +31,9 @@ TCODNoise noise1d(1);
 TCODNoise noise2d(2);
 Weather weather;
 float dayTime=6*3600.0f; // starts at 6.00am
-Doryen::Color lightningColor( 220, 220, 255 );
-TCODImage *ground;
+Doryen::Color lightningColor(220, 220, 255);
+
+Doryen::TCODImage* ground;
                      
 void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
 	if (k.c=='+') {
@@ -59,17 +60,20 @@ const char *getDaytime() {
 	return buf;
 }
 
-void render() {
-	static TCODImage img(CON_W*2,CON_H*2);
-	for (int x=0; x < CON_W*2; x++) {
-		for (int y=0; y < CON_H*2; y++) {
+void render()
+{
+	static Doryen::TCODImage img(CON_W * 2, CON_H * 2);
+	for (int x = 0; x < CON_W * 2; x++)
+	{
+		for (int y = 0; y < CON_H * 2; y++)
+		{
 			// we don't use color operation to avoid 0-255 clamping at every step
 			// sort of poor man's HDR...
-			int r=0,g=0,b=0;
-			
+			int r = 0, g = 0, b = 0;
+
 			// default ground color
-            Doryen::Color groundCol = ground->getPixel( x, y );
-			
+			Doryen::Color groundCol = ground->getPixel(x, y);
+
 			// take cloud shadow into account
 			float cloudCoef = weather.getCloud(x,y);
 			r += (int)(cloudCoef * weather.getAmbientLightColor().r);
@@ -124,23 +128,24 @@ void render() {
                                   weather.getIndicatorDelta( ));
 }
 
-int main (int argc, char *argv[]) {
+int main (int argc, char *argv[])
+{
 	// initialize the game window
-    Doryen::Console console = Doryen::Console( );
-    console.initRoot( CON_W, CON_H, "Weather system v"VERSION, false, TCOD_RENDERER_SDL );
+	Doryen::Console console = Doryen::Console();
+	console.initRoot(CON_W, CON_H, "Weather system v"VERSION, false, TCOD_RENDERER_SDL);
 	TCODMouse::showCursor(true);
-    Doryen::Platform::setFps( 25 );
-	
-	weather.init(CON_W*2,CON_H*2);
-	ground = new TCODImage(CON_W*2,CON_H*2);
+	Doryen::Platform::setFps(25);
+
+	weather.init(CON_W * 2, CON_H * 2);
+	ground = new Doryen::TCODImage(CON_W * 2, CON_H * 2);
 	// generate some good locking ground
-    Doryen::Color colors[] = {
-            Doryen::Color( 40, 117, 0 ), // grass
-            Doryen::Color( 69, 125, 0 ), // sparse grass
-            Doryen::Color( 110, 125, 0 ), // withered grass
-            Doryen::Color( 150, 143, 92 ), // dried grass
-            Doryen::Color( 133, 115, 71 ), // bare ground
-            Doryen::Color( 111, 100, 73 ) // dirt
+	Doryen::Color colors[] = {
+			Doryen::Color(40, 117, 0), // grass
+			Doryen::Color(69, 125, 0), // sparse grass
+			Doryen::Color(110, 125, 0), // withered grass
+			Doryen::Color(150, 143, 92), // dried grass
+			Doryen::Color(133, 115, 71), // bare ground
+			Doryen::Color(111, 100, 73) // dirt
 	};
 	int keys[] = {
 		0,51,102,153,204,255

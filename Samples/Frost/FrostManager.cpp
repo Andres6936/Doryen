@@ -8,7 +8,7 @@ FrostManager::FrostManager( int width, int height )
 
     grid = new float[width * height];
 
-    img = new TCODImage( width, height );
+    img = new Doryen::TCODImage(width, height);
 }
 
 FrostManager::~FrostManager( )

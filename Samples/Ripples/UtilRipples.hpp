@@ -31,16 +31,25 @@ struct WaterZone {
 	bool isActive; // not to use CPU is there are no ripples
 };
 
-class RippleManager {
+class RippleManager
+{
 public :
-    RippleManager( Doryen::Map *waterMap );
+	RippleManager(Doryen::Map* waterMap);
+
 	void startRipple(int dungeonx, int dungeony);
+
 	bool updateRipples(float elapsed);
-	void renderRipples(const TCODImage *ground, TCODImage *groundWithRipples);
+
+	void renderRipples(const Doryen::TCODImage* ground, Doryen::TCODImage* groundWithRipples);
+
 protected :
-	int width,height;
+	int width, height;
 	WaterZone zone;
 
-    void init( Doryen::Map *waterMap );
-	float getData(int x, int y) const { return zone.data[x+y*width]; }
+	void init(Doryen::Map* waterMap);
+
+	float getData(int x, int y) const
+	{
+		return zone.data[x + y * width];
+	}
 };

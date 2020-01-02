@@ -589,7 +589,7 @@ Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 	return getInterpolatedColor(imageWorldmap, worldX, worldY);
 }
 
-Doryen::Color WorldGenerator::getInterpolatedColor(TCODImage* img, float x, float y)
+Doryen::Color WorldGenerator::getInterpolatedColor(Doryen::TCODImage* img, float x, float y)
 {
 	int w, h;
 	img->getSize(&w, &h);
@@ -1243,7 +1243,7 @@ void WorldGenerator::generate(TCODRandom* wRng)
 	printf("TOTAL TIME... %g\n", timeEnd - timeTotalStart);
 }
 
-void WorldGenerator::drawCoasts(TCODImage* img)
+void WorldGenerator::drawCoasts(Doryen::TCODImage* img)
 {
 	// detect coasts
 	for (int x = 0; x < HM_WIDTH - 1; x++)
@@ -1273,7 +1273,7 @@ void WorldGenerator::drawCoasts(TCODImage* img)
 
 void WorldGenerator::saveBiomeMap(const char* filename)
 {
-	static TCODImage* legend = NULL;
+	static Doryen::TCODImage* legend = NULL;
 	static int legendHeight, legendWidth;
 	static const Doryen::Color biomeColors[] = {
 			// TUNDRA,
@@ -1301,12 +1301,12 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	};
 	if (legend == NULL)
 	{
-		legend = new TCODImage("Data/img/legend_biome.png");
+		legend = new Doryen::TCODImage("Data/img/legend_biome.png");
 		legend->getSize(&legendWidth, &legendHeight);
 	}
 	if (filename == NULL)
 	{ filename = "world_biome.png"; }
-	TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	// draw biome map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -1357,18 +1357,18 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 {
 	static Doryen::Color tempGradient[256];
 
-	static TCODImage* legend = NULL;
+	static Doryen::TCODImage* legend = NULL;
 	static int legendHeight, legendWidth;
 	if (legend == NULL)
 	{
-		legend = new TCODImage("Data/img/legend_temperature.png");
+		legend = new Doryen::TCODImage("Data/img/legend_temperature.png");
 		legend->getSize(&legendWidth, &legendHeight);
 		Doryen::Color::genMap(tempGradient, MAX_TEMP_KEY, tempKeyColor, tempIndexes);
 	}
 
 	if (filename == NULL)
 	{ filename = "world_temperature.png"; }
-	TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	float minTemp, maxTemp;
 	temperature->getMinMax(&minTemp, &maxTemp);
 	// render temperature map
@@ -1405,17 +1405,17 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 
 void WorldGenerator::savePrecipitationMap(const char* filename)
 {
-	static TCODImage* legend = NULL;
+	static Doryen::TCODImage* legend = NULL;
 	static int legendHeight, legendWidth;
 	if (legend == NULL)
 	{
-		legend = new TCODImage("Data/img/legend_precipitation.png");
+		legend = new Doryen::TCODImage("Data/img/legend_precipitation.png");
 		legend->getSize(&legendWidth, &legendHeight);
 	}
 
 	if (filename == NULL)
 	{ filename = "world_precipitation.png"; }
-	TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::TCODImage img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	// render precipitation map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -1454,18 +1454,18 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 {
 	static Doryen::Color altGradient[256];
 
-	static TCODImage* legend = NULL;
+	static Doryen::TCODImage* legend = NULL;
 	static int legendHeight, legendWidth;
 	if (legend == NULL)
 	{
-		legend = new TCODImage("Data/img/legend_altitude.png");
+		legend = new Doryen::TCODImage("Data/img/legend_altitude.png");
 		legend->getSize(&legendWidth, &legendHeight);
 		Doryen::Color::genMap(altGradient, MAX_ALT_KEY, altColors, altIndexes);
 	}
 
 	if (filename == NULL)
 	{ filename = "world_altitude.png"; }
-	TCODImage img(HM_WIDTH + legendWidth, MAX(HM_HEIGHT, legendHeight));
+	Doryen::TCODImage img(HM_WIDTH + legendWidth, MAX(HM_HEIGHT, legendHeight));
 	// render altitude map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{

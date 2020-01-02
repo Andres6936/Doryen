@@ -17,6 +17,7 @@
 #include "BspListener.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "image.hpp"
 
 // a sample has a name and a rendering function
 typedef struct
@@ -311,13 +312,13 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     static float dx = 0.0f, dy = 0.0f;
     static float octaves = 4.0f;
     static float hurst = TCOD_NOISE_DEFAULT_HURST;
-    static float lacunarity = TCOD_NOISE_DEFAULT_LACUNARITY;
-    static TCODImage *img = NULL;
-    static float zoom = 3.0f;
+	static float lacunarity = TCOD_NOISE_DEFAULT_LACUNARITY;
+	static Doryen::TCODImage* img = NULL;
+	static float zoom = 3.0f;
     if ( !noise )
     {
-        noise = new TCODNoise( 2, hurst, lacunarity );
-        img = new TCODImage( SAMPLE_SCREEN_WIDTH * 2, SAMPLE_SCREEN_HEIGHT * 2 );
+		noise = new TCODNoise(2, hurst, lacunarity);
+		img = new Doryen::TCODImage(SAMPLE_SCREEN_WIDTH * 2, SAMPLE_SCREEN_HEIGHT * 2);
     }
     if ( first )
     {
@@ -724,14 +725,14 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static TCODImage *img = NULL, *circle = NULL;
-    static Doryen::Color blue( 0, 0, 255 );
+	static Doryen::TCODImage* img = NULL, * circle = NULL;
+	static Doryen::Color blue(0, 0, 255);
     static Doryen::Color green( 0, 255, 0 );
     if ( img == NULL )
     {
-        img = new TCODImage( "Data/img/skull.png" );
-        img->setKeyColor( Doryen::Color::black );
-        circle = new TCODImage( "Data/img/circle.png" );
+		img = new Doryen::TCODImage("Data/img/skull.png");
+		img->setKeyColor(Doryen::Color::black);
+		circle = new Doryen::TCODImage("Data/img/circle.png");
     }
     if ( first )
     {
