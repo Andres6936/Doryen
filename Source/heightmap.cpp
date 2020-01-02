@@ -81,7 +81,8 @@ void TCODHeightMap::normalize(float newMin, float newMax)
 
 void TCODHeightMap::getMinMax(float* min, float* max) const
 {
-	// Without usage
+	*min = getMin();
+	*max = getMax();
 }
 
 void TCODHeightMap::addHill(float hx, float hy, float hradius, float height)
