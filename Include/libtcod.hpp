@@ -41,7 +41,7 @@
 #include "FOV/Fov.hpp"
 #include "path.hpp"
 #include "tree.hpp"
-#include "BinarySpacePartition.hpp"
+#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 #include "heightmap.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"

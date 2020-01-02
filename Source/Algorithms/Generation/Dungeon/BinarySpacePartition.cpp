@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "libtcod.hpp"
-#include "BinarySpacePartitionListener.hpp"
+#include "Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp"
 
 Doryen::BinarySpacePartition::BinarySpacePartition(BinarySpacePartition* father, bool left)
 {

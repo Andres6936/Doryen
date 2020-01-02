@@ -28,7 +28,7 @@
 #ifndef _TCOD_BSP_HPP
 #define _TCOD_BSP_HPP
 
-#include <BinarySpacePartitionListener.hpp>
+#include <Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp>
 
 namespace Doryen
 {
