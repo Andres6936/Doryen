@@ -108,117 +108,140 @@ namespace Doryen
 		void removeSons();
 
 		/**
-		@PageName bsp_init
-		@FuncTitle deleting the tree
-		@FuncDesc You can also completely delete the tree, including the root node to release every resource used :
-		@Cpp void TCODBsp::~TCODBsp()
-		@C void TCOD_bsp_delete(TCOD_bsp_t *node)
-		@Py bsp_delete(node)
-		@C# void TCODBsp::Dispose()
-		@Param node	In the C version, the node reference.
-		@CppEx
-			TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-			// create a tree
-			myBSP->splitRecursive(NULL,4,5,5,1.5f,1.5f);
-			// use the tree ...
-			// delete the tree
-			delete myBSP;
-		@CEx
-			TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-			TCOD_bsp_split_recursive(my_bsp,NULL,4,5,5,1.5f,1.5f);
-			// use the tree ...
-			TCOD_bsp_delete(my_bsp);
-		@PyEx
-			my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-			libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
-			# use the tree ...
-			libtcod.bsp_delete(my_bsp)
-		*/
+		 * You can also completely delete the tree, including
+		 * the root node to release every resource used.
+		 *
+		 * @code
+		 *
+		 * BinarySpacePartition *bsp = new BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * // Create a tree
+		 * bsp->splitRecursive(NULL, 4, 5, 5, 1.5f, 1.5f);
+		 *
+		 * // Use the tree ...
+		 *
+		 * // Delete the tree
+		 * delete bsp;
+		 *
+		 * @endcode
+		 */
 		virtual ~BinarySpacePartition();
 
 		/**
-		@PageName bsp_split
-		@PageFather bsp
-		@PageTitle Splitting the tree
-		@FuncTitle Splitting a node once
-		@FuncDesc Once you have the root node, you can split it into two smaller non-overlapping nodes.
-		@Cpp void TCODBsp::splitOnce(bool horizontal, int position)
-		@C void TCOD_bsp_split_once(TCOD_bsp_t *node, bool horizontal, int position)
-		@Py bsp_split_once(node, horizontal, position)
-		@C# void TCODBsp::splitOnce(bool horizontal, int position)
-		@Param node	In the C version, the root node created with TCOD_bsp_new_with_size, or a node obtained by splitting.
-		@Param horizontal	If true, the node will be splitted horizontally, else, vertically.
-		@Param position	Coordinate of the splitting position.
-			If horizontal is true, x <= position < x+w
-			Else, y <= position < y+h
-		@CppEx
-			TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-			myBSP->splitOnce(true,20); // horizontal split into two nodes : (0,0,50,20) and (0,20,50,30)
-		@CEx
-			TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-			TCOD_bsp_split_once(my_bsp,false,20); // vertical split into two nodes : (0,0,20,50) and (20,0,30,50)
-		@PyEx
-			my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-			libtcod.bsp_split_once(my_bsp,False,20) # vertical split into two nodes : (0,0,20,50) and (20,0,30,50)
-		*/
+		 * Splitting the tree.
+		 *
+		 * Splitting a node once.
+		 *
+		 * Once you have the root node, you can split it
+		 * into two smaller non-overlapping nodes.
+		 *
+		 * @param horizontal If true, the node will be splitted horizontally, else, vertically.
+		 * @param position Coordinate of the splitting position.
+		 *
+		 * If horizontal is true, x <= position < x + w
+		 * Else, y <= position < y + h
+		 *
+		 * @code
+		 *
+		 * BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * bsp.splitOnce(true, 20) // Horizontal split into two nodes : (0,0,50,20) and (0,20,50,30)
+		 *
+		 * @endcode
+		 *
+		 * Other example:
+		 *
+		 * @code
+		 *
+		 * BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * bsp.splitOnce(false, 20) // Vertical split into two nodes : (0,0,20,50) and (20,0,30,50)
+		 *
+		 * @endcode
+		 */
 		void splitOnce(bool horizontal, int position);
 
 		/**
-		@PageName bsp_split
-		@FuncTitle Recursively splitting a node
-		@FuncDesc You can also recursively split the bsp. At each step, a random orientation (horizontal/vertical) and position are choosen :
-		@Cpp void TCODBsp::splitRecursive(TCODRandom *randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
-		@C void TCOD_bsp_split_recursive(TCOD_bsp_t *node, TCOD_random_t randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio)
-		@Py bsp_split_recursive(node, randomizer, nb, minHSize, minVSize, maxHRatio, maxVRatio)
-		@C# void TCODBsp::splitRecursive(TCODRandom randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio)
-		@Param node	In the C version, the root node created with TCOD_bsp_new_with_size, or a node obtained by splitting.
-		@Param randomizer	The random number generator to use. Use NULL for the default one.
-		@Param nb	Number of recursion levels.
-		@Param minHSize, minVSize	minimum values of w and h for a node. A node is splitted only if the resulting sub-nodes are bigger than minHSize x minVSize
-		@Param maxHRatio, maxVRation	maximum values of w/h and h/w for a node. If a node does not conform, the splitting orientation is forced to reduce either the w/h or the h/w ratio. Use values near 1.0 to promote square nodes.
-		@CppEx
-			// Do a 4 levels BSP tree (the region is splitted into a maximum of 2*2*2*2 sub-regions).
-			TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-			myBSP->splitRecursive(NULL,4,5,5,1.5f,1.5f);
-		@CEx
-			TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-			TCOD_bsp_split_recursive(my_bsp,NULL,4,5,5,1.5f,1.5f);
-		@PyEx
-			my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-			libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
-		*/
+		 * Recursively splitting a node
+		 *
+		 * You can also recursively split the BinarySpacePartition. At each step,
+		 * a random orientation (horizontal/vertical) and position.
+		 *
+		 * @note A node is splitted only if the resulting
+		 * sub-nodes are bigger than minHSize x minVSize.
+		 *
+		 * @note If a node does not conform, the splitting
+		 * orientation is forced to reduce either the w/h
+		 * or the h/w ratio. Use values near 1.0 in maxHRatio
+		 * and maxVRatio to promote square nodes.
+		 *
+		 * @param randomizer The random number generator to use. Use NULL for the default one.
+		 * @param nb Number of recursion levels.
+		 * @param minHSize minimum width value for a node.
+		 * @param minVSize minimum height value for a node.
+		 * @param maxHRatio maximum width value for a node.
+		 * @param maxVRatio maximum height value for a node.
+		 *
+		 * @example
+		 *
+		 * @code
+		 *
+		 * // Do a 4 levels BSP tree (the region is splitted into a
+		 * // maximum of 2*2 * 2*2 sub-regions).
+		 * BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * bsp.splitRecursive(NULL, 4, 5, 5, 1.5f, 1.5f);
+		 *
+		 * @endcode
+		 */
 		void
 		splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
 
 		/**
-		@PageName bsp_resize
-		@PageTitle Resizing a tree
-		@PageFather bsp
-		@FuncDesc This operation resets the size of the tree nodes without changing the splitting data (orientation/position). It should be called with the initial region size or a bigger size, else some splitting position may be out of the region.
-	You can use it if you changed the nodes size and position while using the BSP tree, which happens typically when you use the tree to build a dungeon. You create rooms inside the tree leafs, then shrink the leaf to fit the room size. Calling resize on the root node with the original region size allows you to reset all nodes to their original size.
-		@Cpp void TCODBsp::resize(int x,int y, int w, int h)
-		@C void TCOD_bsp_resize(TCOD_bsp_t *node, int x,int y, int w, int h)
-		@Py bsp_resize(node,  x,y, w, h)
-		@C# void TCODBsp::resize(int x, int y, int w, int h)
-		@Param node	In the C version, the root node created with TCOD_bsp_new_with_size, or a node obtained by splitting.
-		@Param x,y,w,h	New position and size of the node. The original rectangular area covered by the node should be included in the new one to ensure that every splitting edge stay inside its node.
-		@CppEx
-			// We create a BSP, do some processing that will modify the x,y,w,h fields of the tree nodes, then reset all the nodes to their original size.
-			TCODBsp *myBSP = new TCODBsp(0,0,50,50);
-			myBSP->splitRecursive(NULL,4,5,5,1.5f,1.5f);
-			// ... do something with the tree here
-			myBSP->resize(0,0,50,50);
-		@CEx
-			TCOD_bsp_t *my_bsp=TCOD_bsp_new_with_size(0,0,50,50);
-			TCOD_bsp_split_recursive(my_bsp,NULL,4,5,5,1.5f,1.5f);
-			// ... do something with the tree here
-			TCOD_bsp_resize(my_bsp,0,0,50,50);
-		@PyEx
-			my_bsp=libtcod.bsp_new_with_size(0,0,50,50)
-			libtcod.bsp_split_recursive(my_bsp,0,4,5,5,1.5,1.5)
-			# ... do something with the tree here
-			libtcod.bsp_resize(my_bsp,0,0,50,50)
-		*/
+		 * Resizing a tree.
+		 *
+		 * This operation resets the size of the tree nodes
+		 * without changing the splitting data
+		 * (orientation/position). It should be called with
+		 * the initial region size or a bigger size, else
+		 * some splitting position may be out of the region.
+		 *
+		 * You can use it if you changed the nodes size and
+		 * position while using the BSP tree, which happens
+		 * typically when you use the tree to build a dungeon.
+		 *
+		 * You create rooms inside the tree leafs, then
+		 * shrink the leaf to fit the room size.
+		 * Calling resize on the root node with the
+		 * original region size allows you to reset all
+		 * nodes to their original size.
+		 *
+		 * @note The original rectangular area covered by the
+		 * node should be included in the new one to ensure
+		 * that every splitting edge stay inside its node.
+		 *
+		 * @param x New coordinate in x of the node.
+		 * @param y New coordinate in x of the node.
+		 * @param w New width of the node.
+		 * @param h New height of the node.
+		 *
+		 * @example
+		 *
+		 * @code
+		 *
+		 * // We create a BSP, do some processing that will modify
+		 * // the x, y, w, h fields of the tree nodes, then
+		 * // reset all the nodes to their original size.
+		 * BinarySpacePartition bsp = BinarySpacePartition(0, 0, 50, 50);
+		 *
+		 * bsp.splitRecursive(NULL, 4, 5, 5, 1.5f, 1.5f);
+		 *
+		 * // ... do something with the tree here
+		 *
+		 * bsp.resize(0,0,50,50);
+		 *
+		 * @endcode
+		 */
 		void resize(int x, int y, int w, int h);
 
 		/**
