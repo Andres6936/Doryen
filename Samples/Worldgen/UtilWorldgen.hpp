@@ -107,6 +107,11 @@ public :
 	TCODRandom* wgRng = TCODRandom::getInstance();
 
 	/**
+	 * Noise.
+	 */
+	TCODNoise* noise;
+
+	/**
 	 * World light intensity map (shadow map).
 	 */
 	float* worldint = new float[HM_WIDTH * HM_HEIGHT];
@@ -121,6 +126,11 @@ public :
 	 */
 	float cloudTotalDx = 0.0f;
 
+	/**
+	 * Cloud thickness.
+	 */
+	float clouds[HM_WIDTH][HM_HEIGHT];
+
 	// Destructor
 
 	virtual ~WorldGenerator();
@@ -129,52 +139,55 @@ public :
 
 	void generate(TCODRandom* wRng);
 
-	// getters
+	bool isOnSea(float x, float y) const;
+
+	// Getters
 
 	int getWidth() const;
 
 	int getHeight() const;
 
 	float getAltitude(int x, int y) const; // heightmap. between 0 and 1
+
 	float getInterpolatedAltitude(float x, float y) const;
 
 	float getSandHeight() const;
 
-	bool isOnSea(float x, float y) const;
-
 	float getCloudThickness(float x, float y) const;
+
+	float getInterpolatedIntensity(float worldX, float worldY);
 
 	void getInterpolatedNormal(float x, float y, float n[3]) const;
 
 	Doryen::Color getInterpolatedColor(float worldX, float worldY);
 
-	float getInterpolatedIntensity(float worldX, float worldY);
+	// Update Methods
 
-	// update
 	void updateClouds(float elapsedTime);
 
 	void computeSunLight(float lightDir[3]);
 
-	// data
+	// Data
+
 	float getRealAltitude(float x, float y) const; // altitude in meters
-	float getPrecipitations(float x, float y) const; // in centimeter/m�/year
-	float getTemperature(float x, float y) const; // in �C
+
+	float getPrecipitations(float x, float y) const; // in centimeter/m3/year
+
+	float getTemperature(float x, float y) const; // in °C
+
 	EBiome getBiome(float x, float y) const;
 
-	// map generators
-	void saveBiomeMap(const char* filename = NULL);
+	// Map Generators
 
-	void saveAltitudeMap(const char* filename = NULL);
+	void saveBiomeMap(const char* filename = nullptr);
 
-	void saveTemperatureMap(const char* filename = NULL);
+	void saveAltitudeMap(const char* filename = nullptr);
 
-	void savePrecipitationMap(const char* filename = NULL);
+	void saveTemperatureMap(const char* filename = nullptr);
 
-protected :
+	void savePrecipitationMap(const char* filename = nullptr);
 
-	TCODNoise* noise;
-	// cloud thickness
-	float clouds[HM_WIDTH][HM_HEIGHT];
+private:
 
 	void addHill(int nbHill, float baseRadius, float radiusVar, float height);
 
