@@ -27,6 +27,8 @@
 #ifndef _TCOD_HEIGHTMAP_HPP
 #define _TCOD_HEIGHTMAP_HPP
 
+#include <vector>
+
 /**
  * @brief This toolkit allows to create a 2D grid of float
  * values using various algorithms.
@@ -40,8 +42,10 @@ class TCODHeightMap
 
 public :
 
-	int w, h;
-	float* values;
+	int h = 0;
+	int w = 0;
+
+	std::vector <float> values;
 
 	/**
 	 * Note that whereas most other modules use opaque structs,
@@ -448,6 +452,10 @@ public :
 	@Param min, max	The min and max values are returned in these variables.
 	*/
 	void getMinMax(float* min, float* max) const;
+
+	float getMin() const;
+
+	float getMax() const;
 
 //	void heatErosion(int nbPass,float minSlope,float erosionCoef,float sedimentationCoef,TCODRandom *rnd);
 //	void midPointDeplacement(TCODRandom *rnd);
