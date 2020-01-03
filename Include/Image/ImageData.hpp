@@ -33,7 +33,9 @@ namespace Doryen
 
 	public:
 
-		ImageData(const std::string& filename);
+		ImageData() = default;
+
+		explicit ImageData(const std::string& filename);
 
 		static bool isTypeImageBMP(const std::string& filename);
 

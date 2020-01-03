@@ -36,7 +36,9 @@
 #endif
 
 #include "Image/PNG/LodePNG.hpp"
-#include "Image/PNG/State.hpp"
+
+extern "C"
+{
 
 #include "libtcod.h"
 #include "libtcod_int.h"
@@ -67,100 +69,112 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	/* get file size */
 	FILE* fops = fopen(filename, "rb");
 
-    if ( !fops )
-    {
-        readFile = false;
-    }
-    else
-    {
-        fseek( fops, 0, SEEK_END );
-        filesize = ftell( fops );
-        fseek( fops, 0, SEEK_SET );
-        /* allocate buffer */
-        png = ( unsigned char * ) malloc( sizeof( unsigned char ) * filesize );
-        /* read from file */
-        if ( fread( png, sizeof( unsigned char ), filesize, fops ) != filesize )
-        {
-            fclose( fops );
-            free( png );
-            readFile = false;
-        }
-        else
-        {
-            pngsize = filesize;
-            fclose( fops );
-            readFile = true;
-        }
-    }
+	if (!fops)
+	{
+		readFile = false;
+	}
+	else
+	{
+		fseek(fops, 0, SEEK_END);
+		filesize = ftell(fops);
+		fseek(fops, 0, SEEK_SET);
+		/* allocate buffer */
+		png = (unsigned char*)malloc(sizeof(unsigned char) * filesize);
+		/* read from file */
+		if (fread(png, sizeof(unsigned char), filesize, fops) != filesize)
+		{
+			fclose(fops);
+			free(png);
+			readFile = false;
+		}
+		else
+		{
+			pngsize = filesize;
+			fclose(fops);
+			readFile = true;
+		}
+	}
 
 	/*optionally customize the state*/
-    if ( !readFile )
-    { return NULL; }
+	if (!readFile)
+	{ return NULL; }
 
-    lodepng_inspect(&width,&height,&state, png, pngsize);
-	bpp=lodepng_get_bpp(&state.info_png.color);
+	lodepng_inspect(&width, &height, &state, png, pngsize);
+	bpp = lodepng_get_bpp(&state.info_png.color);
 
-	if ( bpp == 24 ) {
+	if (bpp == 24)
+	{
 		/* don't convert to 32 bits because libtcod's 24bits renderer is faster */
-		state.info_raw.colortype=LCT_RGB;
-	} else if (  bpp != 24 && bpp != 32 ) { 
+		state.info_raw.colortype = LCT_RGB;
+	}
+	else if (bpp != 24 && bpp != 32)
+	{
 		/* paletted png. convert to 24 bits */
-		state.info_raw.colortype=LCT_RGB;
-		state.info_raw.bitdepth=8;
-		bpp=24;
+		state.info_raw.colortype = LCT_RGB;
+		state.info_raw.bitdepth = 8;
+		bpp = 24;
 	}
 	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
 	free(png);
-	if(error) {
+	if (error)
+	{
 		printf("error %u: %s\n", error, lodepng_error_text(error));
 		lodepng_state_cleanup(&state);
 		return NULL;
 	}
-		
+
 	/* create the SDL surface */
-    bitmap = ( TCOD_sys_get_surface( width, height, bpp == 32 ));
-	source=image;
-	rowsize=width*bpp/8;
-	for (y=0; y<  height; y++ ) {
-		Uint8 *row_pointer=(Uint8 *)(bitmap->pixels) + y * bitmap->pitch;
-		memcpy(row_pointer,source,rowsize);
-		source+=rowsize;
+	bitmap = static_cast<SDL_Surface*>(TCOD_sys_get_surface(width, height, bpp == 32));
+	source = image;
+	rowsize = width * bpp / 8;
+	for (y = 0; y < height; y++)
+	{
+		Uint8* row_pointer = (Uint8*)(bitmap->pixels) + y * bitmap->pitch;
+		memcpy(row_pointer, source, rowsize);
+		source += rowsize;
 	}
 
 	lodepng_state_cleanup(&state);
-	free(image);	
+	free(image);
 	return bitmap;
 }
 
-void TCOD_sys_write_png(const SDL_Surface *surf, const char *filename) {
-	unsigned char *image, *dest=(unsigned char *)malloc(surf->h*surf->w*3*sizeof(char));
-	int x,y;
-	unsigned char *buf;
+void TCOD_sys_write_png(const SDL_Surface* surf, const char* filename)
+{
+	unsigned char* image, * dest = (unsigned char*)malloc(surf->h * surf->w * 3 * sizeof(char));
+	int x, y;
+	unsigned char* buf;
 	size_t size;
 	int error;
 	/* SDL uses 32bits format without alpha layer for screen. convert it to 24 bits */
-	image=dest;
-	for (y=0; y<  surf->h; y++ ) {
-		for (x=0; x < surf->w; x++ ) {
-			Uint8 *pixel=(Uint8 *)(surf->pixels) + y * surf->pitch + x * surf->format->BytesPerPixel;
-			*dest++=*((pixel)+surf->format->Rshift/8);
-			*dest++=*((pixel)+surf->format->Gshift/8);
-			*dest++=*((pixel)+surf->format->Bshift/8);
+	image = dest;
+	for (y = 0; y < surf->h; y++)
+	{
+		for (x = 0; x < surf->w; x++)
+		{
+			Uint8* pixel = (Uint8*)(surf->pixels) + y * surf->pitch + x * surf->format->BytesPerPixel;
+			*dest++ = *((pixel) + surf->format->Rshift / 8);
+			*dest++ = *((pixel) + surf->format->Gshift / 8);
+			*dest++ = *((pixel) + surf->format->Bshift / 8);
 		}
 	}
-	error=lodepng_encode_memory(&buf,&size,image,surf->w,surf->h,LCT_RGB,8);
+	error = lodepng_encode_memory(&buf, &size, image, surf->w, surf->h, LCT_RGB, 8);
 	free(image);
-	if ( ! error ) {
-        FILE *fops = fopen( filename, "wb" );
-        if ( !fops )
-        {
-            // Throw error
-        }
-        fwrite( buf, sizeof( unsigned char ), size, fops );
-        fclose( fops );
+	if (!error)
+	{
+		FILE* fops = fopen(filename, "wb");
+		if (!fops)
+		{
+			// Throw error
+		}
+		fwrite(buf, sizeof(unsigned char), size, fops);
+		fclose(fops);
 		free(buf);
-	} else {
+	}
+	else
+	{
 		printf("error %u: %s\n", error, lodepng_error_text(error));
 	}
 }
 
+} // End Extern C

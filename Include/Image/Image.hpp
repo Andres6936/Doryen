@@ -433,8 +433,17 @@ namespace Doryen
 		*/
 		void blit2x(Console* dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1) const;
 
-		explicit Image(TCOD_image_t img) : data(img), deleteData(false)
+		Image(TCOD_image_t img, ImageData imageData)
 		{
+			this->data = img;
+			this->deleteData = false;
+			this->imageData = imageData;
+		}
+
+		explicit Image(TCOD_image_t img)
+		{
+			this->data = img;
+			this->deleteData = false;
 		}
 
 		virtual ~Image();
