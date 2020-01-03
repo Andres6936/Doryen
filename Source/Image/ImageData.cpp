@@ -37,7 +37,7 @@ bool Doryen::ImageData::isTypeImageBMP(const std::string& filename)
 
 bool Doryen::ImageData::isTypeImagePNG(const std::string& filename)
 {
-	std::array <char, 8> magicNumber = { -119, 80, 78, 71, 13, 10, 26, 10 };
+	std::array <unsigned char, 8> magicNumber = { 137, 80, 78, 71, 13, 10, 26, 10 };
 	// Open file in mode of only read in mode binary
 	std::ifstream stream(filename, std::ios::in | std::ios::binary);
 
