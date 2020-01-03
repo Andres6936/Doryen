@@ -98,7 +98,8 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	if (!readFile)
 	{ return NULL; }
 
-	lodepng_inspect(&width, &height, &state, png, pngsize);
+	state.inspect(&width, &height, png, pngsize);
+
 	bpp = lodepng_get_bpp(&state.info_png.color);
 
 	if (bpp == 24)

@@ -61,6 +61,32 @@ unsigned int LodePNGState::inspect(unsigned* w, unsigned* h, const unsigned char
 		}
 	}
 
+	if (info_png.compression_method != 0)
+	{
+		// error: only compression method 0 is
+		// allowed in the specification
+		error = 32;
+		return error;
+	}
+	else if (info_png.filter_method != 0)
+	{
+		// error: only filter method 0 is allowed
+		// in the specification
+		error = 33;
+		return error;
+	}
+	else if (info_png.interlace_method > 1)
+	{
+		// error: only interlace methods 0 and
+		// 1 exist in the specification
+		error = 34;
+		return error;
+	}
+
+	error = checkColorValidity(
+			info_png.color.colortype,
+			info_png.color.bitdepth);
+
 	return error;
 }
 
@@ -87,4 +113,47 @@ unsigned LodePNGState::crc32(const unsigned char* buffer, size_t length)
 	}
 
 	return c ^ 0xffffffffL;
+}
+
+unsigned int LodePNGState::checkColorValidity(LodePNGColorType colortype,
+		unsigned bd)
+{
+	switch (colortype)
+	{
+	case LodePNGColorType::LCT_GREY:
+
+		if (!(bd == 1 || bd == 2 || bd == 4 || bd == 8 || bd == 16))
+		{ return 37; }
+		break; /*grey*/
+
+	case LodePNGColorType::LCT_RGB:
+		if (!(bd == 8 || bd == 16))
+		{ return 37; }
+		break; /*RGB*/
+
+	case LodePNGColorType::LCT_PALETTE:
+
+		if (!(bd == 1 || bd == 2 || bd == 4 || bd == 8))
+		{ return 37; }
+		break; /*palette*/
+
+	case LodePNGColorType::LCT_GREY_ALPHA:
+
+		if (!(bd == 8 || bd == 16))
+		{ return 37; }
+		break; /*grey + alpha*/
+
+	case LodePNGColorType::LCT_RGBA:
+
+		if (!(bd == 8 || bd == 16))
+		{ return 37; }
+		break; /*RGBA*/
+
+	default:
+
+		return 31;
+	}
+
+	// allowed color type / bits combination
+	return 0;
 }

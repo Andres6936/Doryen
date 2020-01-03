@@ -40,6 +40,8 @@ public:
 	 */
 	unsigned int inspect(unsigned* w, unsigned* h, const unsigned char* in, size_t insize);
 
+private:
+
 	static unsigned read32BitInt(const unsigned char* buffer);
 
 	/**
@@ -48,6 +50,8 @@ public:
 	 * @return the CRC of the bytes bufffer[0..length-1].
 	 */
 	static unsigned crc32(const unsigned char* buffer, size_t length);
+
+	static unsigned int checkColorValidity(LodePNGColorType colortype, unsigned bd);
 
 };
 
