@@ -30,18 +30,23 @@
 #elif defined(TCOD_SDL2)
 #include <SDL2/SDL.h>
 #else
+
 #include <SDL/SDL.h>
+
 #endif
-#include "png/lodepng.h"
+
+#include "Image/PNG/LodePNG.hpp"
 #include "libtcod.h"
 #include "libtcod_int.h"
 
-bool TCOD_sys_check_png(const char *filename) {
-	static uint8 magic_number[]={137, 80, 78, 71, 13, 10, 26, 10};
-	return TCOD_sys_check_magic_number(filename,sizeof(magic_number),magic_number);
+bool TCOD_sys_check_png(const char* filename)
+{
+	static uint8 magic_number[] = { 137, 80, 78, 71, 13, 10, 26, 10 };
+	return TCOD_sys_check_magic_number(filename, sizeof(magic_number), magic_number);
 }
 
-SDL_Surface *TCOD_sys_read_png(const char *filename) {
+SDL_Surface* TCOD_sys_read_png(const char* filename)
+{
 	unsigned error;
 	unsigned char* image;
 	unsigned width, height, y, bpp;
