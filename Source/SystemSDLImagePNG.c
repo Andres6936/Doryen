@@ -36,6 +36,8 @@
 #endif
 
 #include "Image/PNG/LodePNG.hpp"
+#include "Image/PNG/State.hpp"
+
 #include "libtcod.h"
 #include "libtcod_int.h"
 
@@ -52,18 +54,18 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	unsigned width, height, y, bpp;
 	unsigned char* png;
 	size_t pngsize;
-	LodePNGState state;
-	SDL_Surface *bitmap;
-	unsigned char *source;
+	SDL_Surface* bitmap;
+	unsigned char* source;
 	unsigned int rowsize;
+	LodePNGState state;
 
 	lodepng_state_init(&state);
 
-    bool readFile = false;
+	bool readFile = false;
 
-    uint32 filesize;
-    /* get file size */
-    FILE *fops = fopen( filename, "rb" );
+	uint32 filesize;
+	/* get file size */
+	FILE* fops = fopen(filename, "rb");
 
     if ( !fops )
     {
