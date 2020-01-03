@@ -2,7 +2,7 @@
 #define LIBTCOD_FILTERSTRATEGY_HPP
 
 /*automatically use color type with less bits per pixel if losslessly possible. Default: AUTO*/
-typedef enum LodePNGFilterStrategy
+enum LodePNGFilterStrategy
 {
 	LFS_HEURISTIC, /*official PNG heuristic*/
 	LFS_ZERO, /*every filter at zero*/

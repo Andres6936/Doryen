@@ -2,7 +2,7 @@
 #define LIBTCOD_AUTOCONVERT_HPP
 
 /*automatically use color type with less bits per pixel if losslessly possible. Default: LAC_AUTO*/
-typedef enum LodePNGAutoConvert
+enum LodePNGAutoConvert
 {
 	LAC_NO, /*use color type user requested*/
 	LAC_ALPHA, /*use color type user requested, but if only opaque pixels and RGBA or grey+alpha, use RGB or grey*/

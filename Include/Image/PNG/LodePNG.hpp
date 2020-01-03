@@ -29,6 +29,7 @@ freely, subject to the following restrictions:
 #include <string.h> /*for size_t*/
 
 #include "Image/PNG/Info.hpp"
+#include "Image/PNG/Time.hpp"
 #include "Image/PNG/State.hpp"
 #include "Image/PNG/ColorType.hpp"
 #include "Image/PNG/ColorMode.hpp"
@@ -364,16 +365,6 @@ size_t lodepng_get_raw_size(unsigned w, unsigned h, const LodePNGColorMode* colo
 
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
 
-/*The information of a Time chunk in PNG.*/
-typedef struct LodePNGTime
-{
-	unsigned year;    /*2 bytes used (0-65535)*/
-	unsigned month;   /*1-12*/
-	unsigned day;     /*1-31*/
-	unsigned hour;    /*0-23*/
-	unsigned minute;  /*0-59*/
-	unsigned second;  /*0-60 (to allow for leap seconds)*/
-} LodePNGTime;
 
 #endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
 

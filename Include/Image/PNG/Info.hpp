@@ -1,6 +1,9 @@
 #ifndef LIBTCOD_INFO_HPP
 #define LIBTCOD_INFO_HPP
 
+#include "Image/PNG/ColorMode.hpp"
+#include "Image/PNG/Time.hpp"
+
 /*Information about the PNG image, except pixels, width and height.*/
 class LodePNGInfo
 {
