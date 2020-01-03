@@ -51,7 +51,7 @@ bool Doryen::ImageData::isTypeImagePNG(const std::string& filename)
 
 		for (int i = 0; i < magicNumber.size(); ++i)
 		{
-			if (buffer[i] != magicNumber[i])
+			if ((unsigned)buffer[i] != magicNumber[i])
 			{
 				// No is a PNG
 				return false;
