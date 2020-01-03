@@ -44,14 +44,16 @@ bool Doryen::ImageData::isTypeImagePNG(const std::string& filename)
 	if (stream.is_open())
 	{
 		// Create a buffer with a size equals to of magicNumber
-		char buffer[magicNumber.size()];
+		unsigned char buffer[magicNumber.size()];
 
-		stream.read(buffer, magicNumber.size());
+		// Is neccessary the cast for get the correct
+		// magic number from of buffer
+		stream.read((char*)buffer, magicNumber.size());
 		stream.close();
 
 		for (int i = 0; i < magicNumber.size(); ++i)
 		{
-			if ((unsigned)buffer[i] != magicNumber[i])
+			if (buffer[i] != magicNumber[i])
 			{
 				// No is a PNG
 				return false;
