@@ -16,7 +16,7 @@ public:
 	LodePNGEncoderSettings encoder; /*the encoding settings*/
 	LodePNGColorMode info_raw; /*specifies the format in which you would like to get the raw pixel buffer*/
 	LodePNGInfo info_png; /*info of the PNG image obtained after decoding*/
-	unsigned error;
+	unsigned error = 1;
 
 	LodePNGState() = default;
 

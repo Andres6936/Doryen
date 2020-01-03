@@ -59,9 +59,8 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	SDL_Surface* bitmap;
 	unsigned char* source;
 	unsigned int rowsize;
-	LodePNGState state;
 
-	lodepng_state_init(&state);
+	LodePNGState state;
 
 	bool readFile = false;
 

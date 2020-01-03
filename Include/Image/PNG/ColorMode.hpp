@@ -14,8 +14,8 @@ class LodePNGColorMode
 public:
 
 	/*header (IHDR)*/
-	LodePNGColorType colortype; /*color type, see PNG standard or documentation further in this header file*/
-	unsigned bitdepth;  /*bits per sample, see PNG standard or documentation further in this header file*/
+	LodePNGColorType colortype = LodePNGColorType::LCT_RGBA; /*color type, see PNG standard or documentation further in this header file*/
+	unsigned bitdepth = 8;  /*bits per sample, see PNG standard or documentation further in this header file*/
 
 	/*
 	palette (PLTE and tRNS)
@@ -30,8 +30,8 @@ public:
 
 	The palette is only supported for color type 3.
 	*/
-	unsigned char* palette; /*palette in RGBARGBA... order*/
-	size_t palettesize; /*palette size in number of colors (amount of bytes is 4 * palettesize)*/
+	unsigned char* palette = nullptr; /*palette in RGBARGBA... order*/
+	size_t palettesize = 0; /*palette size in number of colors (amount of bytes is 4 * palettesize)*/
 
 	/*
 	transparent color key (tRNS)
@@ -44,10 +44,10 @@ public:
 
 	The color key is only supported for color types 0 and 2.
 	*/
-	unsigned key_defined; /*is a transparent color key given? 0 = false, 1 = true*/
-	unsigned key_r;       /*red/greyscale component of color key*/
-	unsigned key_g;       /*green component of color key*/
-	unsigned key_b;       /*blue component of color key*/
+	unsigned key_defined = 0; /*is a transparent color key given? 0 = false, 1 = true*/
+	unsigned key_r = 0;       /*red/greyscale component of color key*/
+	unsigned key_g = 0;       /*green component of color key*/
+	unsigned key_b = 0;       /*blue component of color key*/
 };
 
 #endif //LIBTCOD_COLORMODE_HPP

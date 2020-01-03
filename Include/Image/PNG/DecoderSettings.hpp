@@ -12,13 +12,30 @@ class LodePNGDecoderSettings
 
 public:
 
-	LodePNGDecompressSettings zlibsettings; /*in here is the setting to ignore Adler32 checksums*/
+	/**
+	 * in here is the setting to ignore Adler32 checksums
+	 */
+	LodePNGDecompressSettings zlibsettings;
 
-	unsigned ignore_crc; /*ignore CRC checksums*/
-	unsigned color_convert; /*whether to convert the PNG to the color type you want. Default: yes*/
-	unsigned read_text_chunks; /*if false but remember_unknown_chunks is true, they're stored in the unknown chunks*/
-	/*store all bytes from unknown chunks in the LodePNGInfo (off by default, useful for a png editor)*/
-	unsigned remember_unknown_chunks;
+	/**
+	 * ignore CRC checksums
+	 */
+	unsigned ignore_crc = 0;
+
+	/**
+	 * whether to convert the PNG to the color type you want. Default: yes
+	 */
+	unsigned color_convert = 1;
+
+	/**
+	 * if false but remember_unknown_chunks is true, they're stored in the unknown chunks
+	 */
+	unsigned read_text_chunks = 1;
+
+	/**
+	 * store all bytes from unknown chunks in the LodePNGInfo (off by default, useful for a png editor)
+	 */
+	unsigned remember_unknown_chunks = 0;
 };
 
 #endif //LIBTCOD_DECODERSETTINGS_HPP

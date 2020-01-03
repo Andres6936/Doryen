@@ -402,14 +402,9 @@ unsigned lodepng_convert(unsigned char* out, const unsigned char* in,
 #ifdef LODEPNG_COMPILE_DECODER
 
 
-
-void lodepng_decoder_settings_init(LodePNGDecoderSettings* settings);
-
 #endif /*LODEPNG_COMPILE_DECODER*/
 
 #ifdef LODEPNG_COMPILE_ENCODER
-
-void lodepng_encoder_settings_init(LodePNGEncoderSettings* settings);
 
 #endif /*LODEPNG_COMPILE_ENCODER*/
 

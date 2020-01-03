@@ -3132,7 +3132,6 @@ unsigned lodepng_add_itext(LodePNGInfo* info, const char* key, const char* langt
 
 void lodepng_info_init(LodePNGInfo* info)
 {
-	lodepng_color_mode_init(&info->color);
 	info->interlace_method = 0;
 	info->compression_method = 0;
 	info->filter_method = 0;
@@ -5002,31 +5001,12 @@ unsigned lodepng_decode24_file(unsigned char** out, unsigned* w, unsigned* h, co
 
 #endif /*LODEPNG_COMPILE_DISK*/
 
-void lodepng_decoder_settings_init(LodePNGDecoderSettings* settings)
-{
-	settings->color_convert = 1;
-#ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-	settings->read_text_chunks = 1;
-	settings->remember_unknown_chunks = 0;
-#endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
-	settings->ignore_crc = 0;
-	lodepng_decompress_settings_init(&settings->zlibsettings);
-}
-
 #endif /*LODEPNG_COMPILE_DECODER*/
 
 #if defined(LODEPNG_COMPILE_DECODER) || defined(LODEPNG_COMPILE_ENCODER)
 
 void lodepng_state_init(LodePNGState* state)
 {
-#ifdef LODEPNG_COMPILE_DECODER
-	lodepng_decoder_settings_init(&state->decoder);
-#endif /*LODEPNG_COMPILE_DECODER*/
-#ifdef LODEPNG_COMPILE_ENCODER
-	lodepng_encoder_settings_init(&state->encoder);
-#endif /*LODEPNG_COMPILE_ENCODER*/
-	lodepng_color_mode_init(&state->info_raw);
-	lodepng_info_init(&state->info_png);
 	state->error = 1;
 }
 
@@ -6091,19 +6071,6 @@ unsigned lodepng_encode24_file(const char* filename, const unsigned char* image,
 }
 
 #endif /*LODEPNG_COMPILE_DISK*/
-
-void lodepng_encoder_settings_init(LodePNGEncoderSettings* settings)
-{
-	lodepng_compress_settings_init(&settings->zlibsettings);
-	settings->filter_strategy = LFS_HEURISTIC;
-	settings->auto_convert = LAC_AUTO;
-	settings->force_palette = 0;
-	settings->predefined_filters = 0;
-#ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-	settings->add_id = 0;
-	settings->text_compression = 1;
-#endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
-}
 
 #endif /*LODEPNG_COMPILE_ENCODER*/
 #endif /*LODEPNG_COMPILE_PNG*/
