@@ -25,6 +25,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "Image/ImageData.hpp"
+
 namespace Doryen
 {
 
@@ -35,6 +37,8 @@ namespace Doryen
 	{
 
 	public:
+
+		ImageData imageData;
 
 		void* data;
 

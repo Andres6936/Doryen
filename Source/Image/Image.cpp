@@ -28,6 +28,8 @@
 #include "libtcod.hpp"
 #include "libtcod.h"
 
+#include "Image/ImageData.hpp"
+
 Doryen::Image::Image(const char* filename) : deleteData(true)
 {
 	data = (void*)TCOD_image_load(filename);
