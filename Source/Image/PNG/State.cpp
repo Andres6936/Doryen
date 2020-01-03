@@ -157,3 +157,10 @@ unsigned int LodePNGState::checkColorValidity(LodePNGColorType colortype,
 	// allowed color type / bits combination
 	return 0;
 }
+
+unsigned LodePNGState::getBitsPerPixel()
+{
+	// calculate bits per pixel out of colortype
+	// and bitdepth
+	return info_png.color.getBitsPerPixel();
+}

@@ -100,7 +100,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 
 	state.inspect(&width, &height, png, pngsize);
 
-	bpp = lodepng_get_bpp(&state.info_png.color);
+	bpp = state.getBitsPerPixel();
 
 	if (bpp == 24)
 	{
@@ -114,8 +114,10 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 		state.info_raw.bitdepth = 8;
 		bpp = 24;
 	}
+
 	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
 	free(png);
+
 	if (error)
 	{
 		printf("error %u: %s\n", error, lodepng_error_text(error));

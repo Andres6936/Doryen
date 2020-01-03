@@ -55,6 +55,13 @@ public:
 	// Methods
 
 	void cleanup();
+
+	unsigned getBitsPerPixel();
+
+private:
+
+	static unsigned getNumberColorChannels(LodePNGColorType colortype);
+
 };
 
 #endif //LIBTCOD_COLORMODE_HPP

@@ -40,6 +40,14 @@ public:
 	 */
 	unsigned int inspect(unsigned* w, unsigned* h, const unsigned char* in, size_t insize);
 
+	/**
+	 * Get the total amount of bits per pixel, based on
+	 * colortype and bitdepth in the struct
+	 *
+	 * @return total amount of bits per pixel
+	 */
+	unsigned getBitsPerPixel();
+
 private:
 
 	static unsigned read32BitInt(const unsigned char* buffer);
