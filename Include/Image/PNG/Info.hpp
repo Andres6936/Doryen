@@ -84,6 +84,12 @@ public:
 	size_t unknown_chunks_size[3] = { 0 }; /*size in bytes of the unknown chunks, given for protection*/
 
 	LodePNGInfo();
+
+	// Methods
+
+	void init();
+
+	void cleanup();
 };
 
 #endif //LIBTCOD_INFO_HPP

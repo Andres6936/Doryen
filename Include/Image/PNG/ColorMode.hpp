@@ -1,6 +1,7 @@
 #ifndef LIBTCOD_COLORMODE_HPP
 #define LIBTCOD_COLORMODE_HPP
 
+#include <cstddef>
 #include "Image/PNG/ColorType.hpp"
 
 /*
@@ -48,6 +49,12 @@ public:
 	unsigned key_r = 0;       /*red/greyscale component of color key*/
 	unsigned key_g = 0;       /*green component of color key*/
 	unsigned key_b = 0;       /*blue component of color key*/
+
+	LodePNGColorMode() = default;
+
+	// Methods
+
+	void cleanup();
 };
 
 #endif //LIBTCOD_COLORMODE_HPP
