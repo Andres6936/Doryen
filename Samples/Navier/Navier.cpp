@@ -25,6 +25,7 @@
 */
 #include <stdio.h>
 #include <math.h>
+#include <iostream>
 #include "Navier.hpp"
 
 // gas simulation
@@ -282,8 +283,8 @@ void render() {
 int main (int argc, char *argv[]) {
 	// initialize the game window
     Doryen::Console console = Doryen::Console( );
-    console.initRoot( WIDTH, HEIGHT, "pyromancer flame spell v"VERSION, false, TCOD_RENDERER_SDL );
-    Doryen::Platform::setFps( 25 );
+	console.initRoot(WIDTH, HEIGHT, "pyromancer flame spell v 0.1.0", false, TCOD_RENDERER_SDL);
+	Doryen::Platform::setFps(25);
 	TCODMouse::showCursor(true);
 	
 	bool endCredits=false;
