@@ -2,6 +2,9 @@
 #define LIBTCOD_INFO_HPP
 
 #include <cstddef>
+#include <string>
+#include <map>
+
 #include "Image/PNG/ColorMode.hpp"
 #include "Image/PNG/Time.hpp"
 
@@ -49,6 +52,8 @@ public:
 	size_t text_num = 0; /*the amount of texts in these char** buffers (there may be more texts in itext)*/
 	char** text_keys = nullptr; /*the keyword of a text chunk (e.g. "Comment")*/
 	char** text_strings = nullptr; /*the actual text*/
+
+	std::map <std::string, std::string> text;
 
 	/*
 	international text chunks (iTXt)

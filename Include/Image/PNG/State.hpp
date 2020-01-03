@@ -1,6 +1,9 @@
 #ifndef LIBTCOD_STATE_HPP
 #define LIBTCOD_STATE_HPP
 
+#include <string>
+#include <vector>
+
 #include "Image/PNG/Info.hpp"
 #include "Image/PNG/ColorMode.hpp"
 #include "Image/PNG/DecoderSettings.hpp"
@@ -41,6 +44,14 @@ public:
 	unsigned int inspect(unsigned* w, unsigned* h, const unsigned char* in, size_t insize);
 
 	/**
+	 * Same as lodepng_decode_memory, but uses a LodePNGState
+	 * to allow custom settings and getting much more information
+	 * about the PNG image and color mode.
+	 */
+	unsigned int decode(unsigned char** out, unsigned* w, unsigned* h,
+			const unsigned char* in, size_t insize);
+
+	/**
 	 * Get the total amount of bits per pixel, based on
 	 * colortype and bitdepth in the struct
 	 *
@@ -60,6 +71,21 @@ private:
 	static unsigned crc32(const unsigned char* buffer, size_t length);
 
 	static unsigned int checkColorValidity(LodePNGColorType colortype, unsigned bd);
+
+	/**
+	 * read a PNG, the result will be in the same color type as
+	 * the PNG (hence "generic")
+	 */
+	void decodeGeneric(unsigned char** out, unsigned* w, unsigned* h,
+			const unsigned char* in, size_t insize);
+
+	/**
+	 * check if the type is the given type
+	 */
+	static bool isChunkTypeEqualsTo(const unsigned char* chunk,
+			const std::string& type);
+
+	unsigned addText(const std::vector <char>& key, const std::vector <char>& str);
 
 };
 

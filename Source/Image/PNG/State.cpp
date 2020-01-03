@@ -164,3 +164,417 @@ unsigned LodePNGState::getBitsPerPixel()
 	// and bitdepth
 	return info_png.color.getBitsPerPixel();
 }
+
+unsigned int LodePNGState::decode(unsigned char** out, unsigned* w,
+		unsigned* h, const unsigned char* in, size_t insize)
+{
+	*out = nullptr;
+
+	decodeGeneric(out, w, h, in, insize);
+
+	return 0;
+}
+
+void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
+		unsigned* h, const unsigned char* in, size_t insize)
+{
+	bool IEDN = false;
+
+	// the data from idat chunks
+	std::vector <unsigned char> idat;
+
+	// for unknown chunk order
+	unsigned unknown = 0;
+	// 1 = after IHDR, 2 = after PLTE, 3 = after IDAT
+	unsigned critial_pos = 1;
+
+	// provide some proper output values if error will happen
+	*out = nullptr;
+
+	error = inspect(w, h, in, insize);
+
+	if (error)
+	{
+		return;
+	}
+
+	// first byte of the first chunk after the header
+	const unsigned char* chunk = &in[33];
+
+	// loop through the chunks, ignoring unknown chunks
+	// and stopping at IEND chunk. IDAT data is put at
+	// the start of the in buffer
+	while (!IEDN && !error)
+	{
+		if ((size_t)((chunk - in) + 12) > insize || chunk < in)
+		{
+			// error: size of the in buffer too small
+			// to contain next chunk
+			error = 30;
+			return;
+		}
+
+		// length of the data of the chunk, excluding the length
+		// bytes, chunk type and CRC bytes
+		unsigned chunkLength = read32BitInt(&chunk[0]);
+
+		if (chunkLength > 2'147'483'647)
+		{
+			// error: chunk length larger than the max PNG chunk size
+			error = 63;
+			return;
+		}
+
+		if ((size_t)((chunk - in) + chunkLength + 12) > insize ||
+			(chunk + chunkLength + 12) < in)
+		{
+			// error: size of the in buffer too small to
+			// contain next chunk
+			error = 64;
+			return;
+		}
+
+		// the data in the chunk
+		const unsigned char* data = &chunk[8];
+
+		// IDAT chunk, containing compressed image data
+		if (isChunkTypeEqualsTo(chunk, "IDAT"))
+		{
+			idat.reserve(chunkLength);
+
+			for (int i = 0; i < chunkLength; ++i)
+			{
+				idat.push_back(data[i]);
+			}
+
+			critial_pos = 3;
+		}
+		else if (isChunkTypeEqualsTo(chunk, "IEND"))
+		{
+			// IEND chunk
+			IEDN = true;
+		}
+		else if (isChunkTypeEqualsTo(chunk, "PLTE"))
+		{
+			// palette chunk (PLTE)
+			if (info_png.color.palette)
+			{
+				delete[] info_png.color.palette;
+			}
+
+			info_png.color.palettesize = chunkLength / 3;
+
+			try
+			{
+				info_png.color.palette = new unsigned char
+				[4 * info_png.color.palettesize];
+			}
+			catch (std::bad_alloc& exception)
+			{
+				info_png.color.palettesize = 0;
+
+				// Alloc fail
+				error = 83;
+				return;
+			}
+
+			if (info_png.color.palettesize > 256)
+			{
+				// error: palette too big
+				error = 38;
+				return;
+			}
+
+			unsigned pos = 0;
+
+			for (int i = 0; i < info_png.color.palettesize; ++i)
+			{
+				info_png.color.palette[4 * i + 0] = data[pos++]; // R
+				info_png.color.palette[4 * i + 1] = data[pos++]; // G
+				info_png.color.palette[4 * i + 2] = data[pos++]; // B
+				info_png.color.palette[4 * i + 3] = 255; // Alpha
+			}
+
+			critial_pos = 2;
+		}
+		else if (isChunkTypeEqualsTo(chunk, "tRNS"))
+		{
+			// palette transparency chunk (tRNS)
+			if (info_png.color.colortype == LodePNGColorType::LCT_PALETTE)
+			{
+				if (chunkLength > info_png.color.palettesize)
+				{
+					// error: more alpha values given than
+					// there are palette entries
+					error = 38;
+					return;
+				}
+
+				for (int i = 0; i < chunkLength; ++i)
+				{
+					info_png.color.palette[4 * i + 3] = data[i];
+				}
+			}
+			else if (info_png.color.colortype == LodePNGColorType::LCT_GREY)
+			{
+				if (chunkLength != 2)
+				{
+					// error: this chunk must be 2 bytes
+					// for greyscale image
+					error = 30;
+					return;
+				}
+
+				info_png.color.key_defined = 1;
+
+				info_png.color.key_r = 256 * data[0] + data[1];
+				info_png.color.key_g = 256 * data[0] + data[1];
+				info_png.color.key_b = 256 * data[0] + data[1];
+			}
+			else if (info_png.color.colortype == LodePNGColorType::LCT_RGB)
+			{
+				if (chunkLength != 6)
+				{
+					// error: this chunk must be 6 bytes for RGB image
+					error = 41;
+					return;
+				}
+
+				info_png.color.key_defined = 1;
+
+				info_png.color.key_r = 256 * data[0] + data[1];
+				info_png.color.key_g = 256 * data[2] + data[3];
+				info_png.color.key_b = 256 * data[4] + data[5];
+			}
+			else
+			{
+				// error: tRNS chunk not allowed for other color models
+				error = 42;
+				return;
+			}
+		}
+		else if (isChunkTypeEqualsTo(chunk, "bKGD"))
+		{
+			if (info_png.color.colortype == LodePNGColorType::LCT_PALETTE)
+			{
+				if (chunkLength != 1)
+				{
+					// error: this chunk must be 1 byte for
+					// indexed color image
+					error = 43;
+					return;
+				}
+
+				info_png.background_defined = 1;
+
+				info_png.background_r = data[0];
+				info_png.background_g = data[0];
+				info_png.background_b = data[0];
+			}
+			else if (info_png.color.colortype == LodePNGColorType::LCT_GREY ||
+					 info_png.color.colortype == LodePNGColorType::LCT_GREY_ALPHA)
+			{
+				if (chunkLength != 2)
+				{
+					// error: this chunk must be 2 bytes for
+					// greyscale image
+					error = 44;
+					return;
+				}
+
+				info_png.background_defined = 1;
+
+				info_png.background_r = 256 * data[0] + data[1];
+				info_png.background_g = 256 * data[0] + data[1];
+				info_png.background_b = 256 * data[0] + data[1];
+			}
+			else if (info_png.color.colortype == LodePNGColorType::LCT_RGB ||
+					 info_png.color.colortype == LodePNGColorType::LCT_RGBA)
+			{
+				if (chunkLength != 6)
+				{
+					// error: this chunk must be 6 bytes for
+					// greyscale image
+					error = 45;
+					return;
+				}
+
+				info_png.background_defined = 1;
+
+				info_png.background_r = 256 * data[0] + data[1];
+				info_png.background_g = 256 * data[2] + data[3];
+				info_png.background_b = 256 * data[4] + data[5];
+			}
+		}
+		else if (isChunkTypeEqualsTo(chunk, "tEXt"))
+		{
+			// text chunk (tEXt)
+			if (decoder.read_text_chunks)
+			{
+				std::vector <char> key;
+				std::vector <char> str;
+
+				// not really a while loop, only used to break on error
+				while (!error)
+				{
+					unsigned length = 0;
+
+					while (length < chunkLength && data[length] != 0)
+					{
+						length++;
+					}
+
+					if (length + 1 >= chunkLength)
+					{
+						// error, end reached, no null terminator?
+						error = 75;
+						return;
+					}
+
+					key.reserve(length + 1);
+
+					for (int i = 0; i < length; ++i)
+					{
+						key.push_back(data[i]);
+					}
+
+					// Insert a null to end
+					key.insert(key.end() + 1, 0);
+
+					unsigned stringBegin = length + 1;
+
+					if (stringBegin > chunkLength)
+					{
+						// error, end reached, no null terminator?
+						error = 75;
+						return;
+					}
+
+					length = chunkLength - stringBegin;
+
+					str.reserve(length);
+
+					for (int i = 0; i < length; ++i)
+					{
+						str.push_back(data[stringBegin + i]);
+					}
+
+					// Insert a null to end
+					str.insert(str.end() + 1, 0);
+
+					addText(key, str);
+
+					break;
+				}
+			}
+		}
+		else if (isChunkTypeEqualsTo(chunk, "zTXt"))
+		{
+			// compressed text chunk (zTXt)
+			if (decoder.read_text_chunks)
+			{
+				std::vector <unsigned char> decoded;
+				std::vector <char> key;
+
+				// not really a while loop, only used to break on error
+				while (!error)
+				{
+					unsigned length = 0;
+
+					for (length = 0; length < chunkLength && data[length] != 0; length++)
+					{
+
+					}
+
+					if (length + 2 >= chunkLength)
+					{
+						// error, end reached, no null terminator?
+						error = 75;
+						return;
+					}
+
+					key.reserve(length + 1);
+
+					for (int i = 0; i < length; ++i)
+					{
+						key.push_back(data[i]);
+					}
+
+					// Insert a null to end
+					key.insert(key.end() + 1, 0);
+
+					if (data[length + 1] != 0)
+					{
+						// the 0 byte indicating compression
+						// must be 0
+						error = 72;
+						return;
+					}
+
+					unsigned stringBegin = length + 2;
+
+					if (stringBegin > chunkLength)
+					{
+						// error, end reached, no null terminator?
+						error = 75;
+						return;
+					}
+
+					length = chunkLength - stringBegin;
+
+					// TODO: ZLib Decompress
+
+					break;
+				}
+			}
+		}
+		else if (isChunkTypeEqualsTo(chunk, "iTXt"))
+		{
+			if (decoder.read_text_chunks)
+			{
+				// TODO: Implemented
+			}
+		}
+		else if (isChunkTypeEqualsTo(chunk, "tIME"))
+		{
+
+		}
+	}
+}
+
+bool LodePNGState::isChunkTypeEqualsTo(const unsigned char* chunk,
+		const std::string& type)
+{
+	if (type.size() != 4)
+	{
+		return false;
+	}
+
+	return (chunk[4] == type[0] && chunk[5] == type[1] &&
+			chunk[6] == type[2] && chunk[7] == type[3]);
+}
+
+unsigned LodePNGState::addText(const std::vector <char>& key,
+		const std::vector <char>& str)
+{
+	std::string tempKey;
+	std::string tempStr;
+
+	tempKey.reserve(key.size());
+
+	for (char c : key)
+	{
+		tempKey.push_back(c);
+	}
+
+	tempStr.reserve(str.size());
+
+	for (char c : str)
+	{
+		tempStr.push_back(c);
+	}
+
+	info_png.text[tempKey] = tempStr;
+
+	return 0;
+}
