@@ -106,7 +106,7 @@ private:
 	 */
 	unsigned convert(unsigned char* out, const unsigned char* in,
 			LodePNGColorMode* mode_out, LodePNGColorMode* mode_in,
-			unsigned w, unsigned h)
+			unsigned w, unsigned h);
 
 };
 
