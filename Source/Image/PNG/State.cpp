@@ -184,7 +184,7 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 	std::vector <unsigned char> idat;
 
 	// for unknown chunk order
-	unsigned unknown = 0;
+	bool unknown = false;
 	// 1 = after IHDR, 2 = after PLTE, 3 = after IDAT
 	unsigned critial_pos = 1;
 
@@ -438,9 +438,6 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 						key.push_back(data[i]);
 					}
 
-					// Insert a null to end
-					key.insert(key.end() + 1, 0);
-
 					unsigned stringBegin = length + 1;
 
 					if (stringBegin > chunkLength)
@@ -458,9 +455,6 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 					{
 						str.push_back(data[stringBegin + i]);
 					}
-
-					// Insert a null to end
-					str.insert(str.end() + 1, 0);
 
 					addText(key, str);
 
@@ -537,8 +531,69 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 		}
 		else if (isChunkTypeEqualsTo(chunk, "tIME"))
 		{
+			if (chunkLength != 7)
+			{
+				// error: invalid tIME chunk size
+				error = 73;
+				return;
+			}
 
+			info_png.time_defined = 1;
+			info_png.time.year = 256 * data[0] + data[1];
+			info_png.time.month = data[2];
+			info_png.time.day = data[3];
+			info_png.time.hour = data[4];
+			info_png.time.minute = data[5];
+			info_png.time.second = data[6];
 		}
+		else if (isChunkTypeEqualsTo(chunk, "pHYs"))
+		{
+			if (chunkLength != 9)
+			{
+				// error: invalid pHYs chunk size
+				error = 74;
+				return;
+			}
+
+			info_png.phys_defined = 1;
+			info_png.phys_x = 16777216 * data[0] + 65536 * data[1] + 256 * data[2] + data[3];
+			info_png.phys_y = 16777216 * data[4] + 65536 * data[5] + 256 * data[6] + data[7];
+			info_png.phys_unit = data[8];
+		}
+		else
+		{
+			// it's not an implemented chunk type, so
+			// ignore it: skip over the data
+			if (!isChunkAncillary(chunk))
+			{
+				// error: unknown critical chunk (5th bit of first byte of chunk type is 0)
+				error = 69;
+				return;
+			}
+
+			unknown = true;
+
+			if (decoder.remember_unknown_chunks)
+			{
+				// TODO: Implemented
+			}
+		}
+
+		// check CRC if wanted, only on known chunk types
+		if (decoder.ignore_crc && !unknown)
+		{
+			// TODO: Implemented
+		}
+
+		if (!IEDN)
+		{
+			// TODO: Implemented
+		}
+	}
+
+	if (error)
+	{
+		// TODO: Implememnted
 	}
 }
 
@@ -577,4 +632,9 @@ unsigned LodePNGState::addText(const std::vector <char>& key,
 	info_png.text[tempKey] = tempStr;
 
 	return 0;
+}
+
+bool LodePNGState::isChunkAncillary(const unsigned char* chunk)
+{
+	return ((chunk[4] & 32) != 0);
 }

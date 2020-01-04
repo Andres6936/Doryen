@@ -85,6 +85,12 @@ private:
 	static bool isChunkTypeEqualsTo(const unsigned char* chunk,
 			const std::string& type);
 
+	/**
+	 * 0: it's one of the critical chunk types, 1:
+	 * it's an ancillary chunk (see PNG standard)
+	 */
+	static bool isChunkAncillary(const unsigned char* chunk);
+
 	unsigned addText(const std::vector <char>& key, const std::vector <char>& str);
 
 };
