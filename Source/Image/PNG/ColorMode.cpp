@@ -1,3 +1,4 @@
+#include <new>
 #include "Image/PNG/ColorMode.hpp"
 
 void LodePNGColorMode::cleanup()
@@ -35,4 +36,58 @@ unsigned LodePNGColorMode::getNumberColorChannels(LodePNGColorType colortype)
 	}
 
 	return 0; /*unexisting color type*/
+}
+
+bool LodePNGColorMode::isEquals(const LodePNGColorMode& other)
+{
+	if (this->colortype != other.colortype ||
+		this->bitdepth != other.bitdepth ||
+		this->key_defined != other.key_defined ||
+		this->palettesize != other.palettesize)
+	{
+		return false;
+	}
+
+	if (this->key_defined)
+	{
+		if (this->key_r != other.key_r ||
+			this->key_g != other.key_g ||
+			this->key_b != other.key_b)
+		{
+			return false;
+		}
+	}
+
+	for (int i = 0; i < this->palettesize * 4; ++i)
+	{
+		if (this->palette[i] != other.palette[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void LodePNGColorMode::copy(const LodePNGColorMode& other)
+{
+	this->cleanup();
+
+	// Hack?
+	*this = other;
+
+	if (other.palette)
+	{
+		this->palette = new unsigned char[other.palettesize * 4];
+
+		for (int i = 0; i < other.palettesize * 4; ++i)
+		{
+			this->palette[i] = other.palette[i];
+		}
+	}
+}
+
+unsigned int LodePNGColorMode::getRawSize(unsigned int w, unsigned int h)
+{
+	return (w * h * getBitsPerPixel() + 7) / 8;
 }

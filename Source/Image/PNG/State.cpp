@@ -172,7 +172,58 @@ unsigned int LodePNGState::decode(unsigned char** out, unsigned* w,
 
 	decodeGeneric(out, w, h, in, insize);
 
-	return 0;
+	if (error)
+	{
+		return error;
+	}
+
+	if (!decoder.color_convert || info_raw.isEquals(info_png.color))
+	{
+		// Same color type, no copying or converting of data needed
+		// Store the info_png color settings on the info_raw so that
+		// the info_raw still reflects what colortype the raw image
+		// has to the end user
+
+		if (!decoder.color_convert)
+		{
+			info_raw.copy(info_png.color);
+		}
+	}
+	else
+	{
+		// color conversion needed; sort of copy of the data
+		unsigned char* data = *out;
+
+		// TODO: check if this works according to the statement
+		//  in the documentation: "The converter can convert
+		//  from greyscale input color type, to 8-bit greyscale
+		//  or greyscale with alpha
+		if (!(info_raw.colortype == LodePNGColorType::LCT_RGB ||
+			  info_raw.colortype == LodePNGColorType::LCT_RGBA) &&
+			!(info_raw.bitdepth == 8))
+		{
+			// unsupported color mode conversion
+			return 56;
+		}
+
+		unsigned int outsize = info_raw.getRawSize(*w, *h);
+
+		try
+		{
+			*out = new unsigned char[outsize];
+		}
+		catch (std::bad_alloc& exception)
+		{
+			// error: Alloc fail
+			error = 83;
+		}
+
+		convert(*out, data, &info_raw, &info_png.color, *w, *h);
+
+		delete[] data;
+	}
+
+	return error;
 }
 
 void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
@@ -637,4 +688,10 @@ unsigned LodePNGState::addText(const std::vector <char>& key,
 bool LodePNGState::isChunkAncillary(const unsigned char* chunk)
 {
 	return ((chunk[4] & 32) != 0);
+}
+
+unsigned LodePNGState::convert(unsigned char* out, const unsigned char* in, LodePNGColorMode* mode_out,
+		LodePNGColorMode* mode_in, unsigned w, unsigned h)
+{
+	return 0;
 }

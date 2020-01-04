@@ -93,6 +93,21 @@ private:
 
 	unsigned addText(const std::vector <char>& key, const std::vector <char>& str);
 
+	/**
+	 * Converts raw buffer from one color type to another color
+	 * type, based on LodePNGColorMode structs to describe the
+	 * input and output color type. See the reference manual at
+	 * the end of this header file to see which color conversions
+	 * are supported.
+	 * return value = LodePNG error code (0 if all went ok, an
+	 * error if the conversion isn't supported) The out buffer
+	 * must have size (w * h * bpp + 7) / 8, where bpp is the
+	 * bits per pixel of the output color type (lodepng_get_bpp)
+	 */
+	unsigned convert(unsigned char* out, const unsigned char* in,
+			LodePNGColorMode* mode_out, LodePNGColorMode* mode_in,
+			unsigned w, unsigned h)
+
 };
 
 #endif //LIBTCOD_STATE_HPP

@@ -52,11 +52,19 @@ public:
 
 	LodePNGColorMode() = default;
 
+	// Getters
+
+	unsigned int getRawSize(unsigned int w, unsigned int h);
+
 	// Methods
 
 	void cleanup();
 
 	unsigned getBitsPerPixel();
+
+	bool isEquals(const LodePNGColorMode& other);
+
+	void copy(const LodePNGColorMode& other);
 
 private:
 
