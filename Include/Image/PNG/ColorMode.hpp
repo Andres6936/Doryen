@@ -54,6 +54,10 @@ public:
 
 	// Getters
 
+	/**
+	 * @return The byte size of a raw image buffer with
+	 * given width, height and color mode
+	 */
 	unsigned int getRawSize(unsigned int w, unsigned int h);
 
 	// Methods

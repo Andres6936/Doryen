@@ -116,7 +116,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	}
 
 	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
-	//error = state.decode(&image, &width, &height, png, pngsize);
+	error = state.decode(&image, &width, &height, png, pngsize);
 
 	free(png);
 
