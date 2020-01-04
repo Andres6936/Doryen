@@ -638,7 +638,13 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 
 		if (!IEDN)
 		{
-			// TODO: Implemented
+			// get the length of the data of the chunk. Total
+			// chunk length has 12 bytes more.
+			unsigned totalChunkLength = read32BitInt(&chunk[0]) + 12;
+
+			// iterate to next chunks. don't use on IEND chunk, as there
+			// is no next chunk then
+			chunk = &chunk[totalChunkLength];
 		}
 	}
 
