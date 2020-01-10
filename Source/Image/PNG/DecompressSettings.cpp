@@ -167,3 +167,12 @@ unsigned LodePNGDecompressSettings::inflateNoCompression(
 
 	return 0;
 }
+
+unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
+		std::vector <unsigned char>& out,
+		std::vector <unsigned char>& in,
+		size_t* bp, size_t* pos, unsigned btype)
+{
+	// inflate a block with dynamic of fixed Huffman tree
+	return 0;
+}

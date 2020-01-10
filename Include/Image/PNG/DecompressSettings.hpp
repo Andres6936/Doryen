@@ -49,6 +49,10 @@ private:
 
 	static unsigned inflateNoCompression(std::vector <unsigned char>& out,
 			std::vector <unsigned char>& in, size_t* bp, size_t* pos);
+
+	static unsigned inflateHuffmanBlock(std::vector <unsigned char>& out,
+			std::vector <unsigned char>& in, size_t* bp, size_t* pos,
+			unsigned btype);
 };
 
 #endif //LIBTCOD_DECOMPRESSSETTINGS_HPP
