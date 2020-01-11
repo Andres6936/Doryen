@@ -4290,8 +4290,12 @@ static unsigned unfilter(unsigned char* out, const unsigned char* in, unsigned w
 		size_t inindex = (1 + linebytes) * y; /*the extra filterbyte added to each row*/
 		unsigned char filterType = in[inindex];
 
-		CERROR_TRY_RETURN(
-				unfilterScanline(&out[outindex], &in[inindex + 1], prevline, bytewidth, filterType, linebytes));
+		{
+			unsigned error = unfilterScanline(&out[outindex], &in[inindex + 1], prevline, bytewidth, filterType,
+					linebytes);
+			if (error)
+			{ return error; }
+		};
 
 		prevline = &out[outindex];
 	}

@@ -1,3 +1,4 @@
+#include <vector>
 #include "Image/PNG/Info.hpp"
 
 LodePNGInfo::LodePNGInfo()
@@ -68,5 +69,217 @@ void LodePNGInfo::cleanup()
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		delete[] unknown_chunks_data[i];
+	}
+}
+
+unsigned LodePNGInfo::postProcessScanlines(
+		std::vector <unsigned char>& out,
+		std::vector <unsigned char>& in,
+		unsigned w, unsigned h)
+{
+	// This function converts the filtered-padded-interlaced
+	// data into pure 2D image buffer with the PNG's colortype.
+
+	//  Steps:
+
+	//  *) if no Adam7: 1) unfilter 2) remove padding bits
+	//  (= posible extra bits per scanline if bpp < 8)
+
+	//  *) if adam7: 1) 7x unfilter 2) 7x remove padding
+	//  bits 3) Adam7_deinterlace
+
+	// NOTE: the in buffer will be overwritten with intermediate data!
+
+	unsigned bpp = this->color.getBitsPerPixel();
+
+	if (bpp == 0)
+	{
+		// error: invalid colortype
+		return 31;
+	}
+
+	if (interlace_method == 0)
+	{
+		if (bpp < 8 && w * bpp != ((w * bpp + 7) / 8) * 8)
+		{
+
+		}
+	}
+}
+
+unsigned LodePNGInfo::unfilter(
+		std::vector <unsigned char>& out,
+		std::vector <unsigned char>& in,
+		unsigned w, unsigned h, unsigned bpp)
+{
+	// For PNG filter method 0 this function unfilters a
+	// single image (e.g. without interlacing this is called
+	// once, with Adam7 seven times) out must have enough
+	// bytes allocated already, in must have the
+	// scanlines + 1 filtertype byte per scanline
+	// w and h are image dimensions or dimensions of reduced
+	// image, bpp is bits per pixel in and out are allowed
+	// to be the same memory address (but aren't the same
+	// size since in has the extra filter bytes)
+
+	// bytewidth is used for filtering, is 1 when
+	// bpp < 8, number of bytes per pixel otherwise
+	size_t bytewidth = (bpp + 7) / 8;
+	size_t linebytes = (w * bpp + 7) / 8;
+
+	std::vector <unsigned char> prevline;
+
+	for (int y = 0; y < h; ++y)
+	{
+		size_t outindex = linebytes * y;
+
+		// the extra filterbyte added to each row
+		size_t inindex = (1 + linebytes) * y;
+
+		unsigned char filterType = in[inindex];
+
+		out.erase(out.begin(), out.begin() + outindex);
+		in.erase(in.begin(), in.begin() + inindex + 1);
+
+		unsigned error = unfilterScanline(
+				out, in, prevline, bytewidth, filterType,
+				linebytes);
+
+		if (error)
+		{
+			return error;
+		}
+
+		prevline = out;
+	}
+
+	return 0;
+}
+
+unsigned LodePNGInfo::unfilterScanline(
+		std::vector <unsigned char>& recon,
+		const std::vector <unsigned char>& scanline,
+		const std::vector <unsigned char>& precon,
+		size_t bytewidth, unsigned char filterType, size_t length)
+{
+	// For PNG filter method 0
+	//  unfilter a PNG image scanline by scanline.
+	//  when the pixels are smaller than 1 byte,
+	//  the filter works byte per byte (bytewidth = 1)
+	//  precon is the previous unfiltered scanline, recon
+	//  the result, scanline the current one
+	//  the incoming scanlines do NOT include the
+	//  filtertype byte, that one is given in the
+	//  parameter filterType instead
+	//  recon and scanline MAY be the same memory
+	//  address! precon must be disjoint.
+
+	switch (filterType)
+	{
+	case 0:
+
+		for (unsigned i = 0; i < length; i++)
+		{ recon.push_back(scanline[i]); }
+
+		break;
+	case 1:
+
+		for (unsigned i = 0; i < bytewidth; i++)
+		{ recon.push_back(scanline[i]); }
+
+		for (unsigned i = bytewidth; i < length; i++)
+		{ recon.push_back(scanline[i] + recon[i - bytewidth]); }
+
+		break;
+	case 2:
+
+		if (!precon.empty())
+		{
+			for (unsigned i = 0; i < length; i++)
+			{ recon.push_back(scanline[i] + precon[i]); }
+		}
+		else
+		{
+			for (unsigned i = 0; i < length; i++)
+			{ recon.push_back(scanline[i]); }
+		}
+
+		break;
+
+	case 3:
+
+		if (!precon.empty())
+		{
+			for (unsigned i = 0; i < bytewidth; i++)
+			{ recon.push_back(scanline[i] + precon[i] / 2); }
+
+			for (unsigned i = bytewidth; i < length; i++)
+			{ recon.push_back(scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2)); }
+		}
+		else
+		{
+			for (unsigned i = 0; i < bytewidth; i++)
+			{ recon.push_back(scanline[i]); }
+
+			for (unsigned i = bytewidth; i < length; i++)
+			{ recon.push_back(scanline[i] + recon[i - bytewidth] / 2); }
+		}
+
+		break;
+
+	case 4:
+
+		if (!precon.empty())
+		{
+			for (unsigned i = 0; i < bytewidth; i++)
+			{
+				recon.push_back(scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
+			}
+			for (unsigned i = bytewidth; i < length; i++)
+			{
+				recon.push_back(scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+			}
+		}
+		else
+		{
+			for (unsigned i = 0; i < bytewidth; i++)
+			{
+				recon.push_back(scanline[i]);
+			}
+			for (unsigned i = bytewidth; i < length; i++)
+			{
+				// paethPredictor(recon[i - bytewidth], 0, 0) is
+				// always recon[i - bytewidth]
+				recon.push_back(scanline[i] + recon[i - bytewidth]);
+			}
+		}
+
+		break;
+
+	default:
+
+		return 36; /*error: unexisting filter type given*/
+	}
+
+	return 0;
+}
+
+unsigned char LodePNGInfo::paethPredictor(short a, short b, short c)
+{
+	auto pa = (short)std::abs(b - c);
+	auto pb = (short)std::abs(a - c);
+	auto pc = (short)std::abs(a + b - c - c);
+
+	if (pc < pa && pc < pb)
+	{
+		return (unsigned char)c;
+	}
+	else if (pb < pa)
+	{
+		return (unsigned char)b;
+	}
+	else
+	{
+		return (unsigned char)a;
 	}
 }

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <string>
 #include <map>
+#include <vector>
 
 #include "Image/PNG/ColorMode.hpp"
 #include "Image/PNG/Time.hpp"
@@ -95,6 +96,36 @@ public:
 	void init();
 
 	void cleanup();
+
+	/**
+	 * out must be buffer big enough to contain full
+	 * image, and in must contain the full decompressed
+	 * data from the IDAT chunks (with filter index
+	 * bytes and possible padding bits)
+	 *
+	 * @return value is error
+	 */
+	unsigned postProcessScanlines(std::vector <unsigned char>& out,
+			std::vector <unsigned char>& in,
+			unsigned w, unsigned h);
+
+private:
+
+	unsigned unfilter(std::vector <unsigned char>& out,
+			std::vector <unsigned char>& in,
+			unsigned w, unsigned h, unsigned bpp);
+
+	unsigned unfilterScanline(std::vector <unsigned char>& recon,
+			const std::vector <unsigned char>& scanline, const std::vector <unsigned char>& precon,
+			size_t bytewidth, unsigned char filterType, size_t length);
+
+	/**
+	 * Paeth predicter, used by PNG filter type 4
+	 * The parameters are of type short, but should come
+	 * from unsigned chars, the shorts are only needed
+	 * to make the paeth calculation correct.
+	 */
+	static unsigned char paethPredictor(short a, short b, short c);
 };
 
 #endif //LIBTCOD_INFO_HPP

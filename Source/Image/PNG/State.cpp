@@ -650,8 +650,6 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 
 	if (error)
 	{
-		// TODO: Implememnted
-
 		std::vector <unsigned char> scanlines;
 
 		//maximum final image length is already reserved
@@ -662,6 +660,22 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 
 		// decompress with the Zlib decompressor
 		error = decoder.zlibsettings.zlibDecompress(scanlines, length, idat);
+
+		if (!error)
+		{
+			std::vector <unsigned char> outv;
+
+			outv.resize(info_png.color.getRawSize(*w, *h), 0);
+
+			error = info_png.postProcessScanlines(outv, scanlines, *w, *h);
+
+			for (int i = 0; i < outv.size(); ++i)
+			{
+				*out[i] = outv[i];
+			}
+
+			*out[outv.size() + 1] = '\0';
+		}
 	}
 }
 
