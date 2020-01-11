@@ -32,7 +32,7 @@ public:
 	 * must be 0, or, *out must be a valid buffer and *outsize its
 	 * size in bytes. out must be freed by user after usage.
 	 */
-	unsigned zlibDecompress(std::vector <unsigned char>& out,
+	static unsigned zlibDecompress(std::vector <unsigned char>& out,
 			unsigned int outsize, std::vector <unsigned char>& in);
 
 private:
@@ -41,8 +41,8 @@ private:
 	 * Inflate a buffer. Inflate is the decompression step of
 	 * deflate. Out buffer must be freed after use.
 	 */
-	unsigned inflate(std::vector <unsigned char>& out,
-			unsigned int outsize, std::vector <unsigned char>& in);
+	static unsigned int inflate(std::vector <unsigned char>& out,
+			std::vector <unsigned char>& in);
 
 	static unsigned char readBitFromStream(size_t* bitpointer,
 			std::vector <unsigned char>& bitstream);

@@ -33,7 +33,8 @@ SET(LIBTCOD_CPP_SRC Algorithms/Drawing/Bresenham.cpp Algorithms/Generation/Dunge
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp FOV/ShadowCasting.cpp
         Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
         Image/PNG/LodePNG.cpp Image/PNG/Info.cpp Image/PNG/State.cpp
-        Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp SystemSDLImagePNG.cpp)
+        Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp Image/PNG/HuffmanTree.cpp
+        SystemSDLImagePNG.cpp)
 
 SET(LIBTCOD_GUI_SRC gui/button.cpp gui/container.cpp gui/flatlist.cpp gui/hbox.cpp gui/Image.cpp gui/label.cpp gui/radiobutton.cpp
         gui/slider.cpp gui/statusbar.cpp gui/textbox.cpp gui/togglebutton.cpp gui/toolbar.cpp gui/vbox.cpp gui/widget.cpp)

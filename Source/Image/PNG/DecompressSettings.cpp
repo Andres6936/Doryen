@@ -1,4 +1,5 @@
 #include "Image/PNG/DecompressSettings.hpp"
+#include "Image/PNG/HuffmanTree.hpp"
 
 unsigned
 LodePNGDecompressSettings::zlibDecompress(std::vector <unsigned char>& out,
@@ -42,13 +43,12 @@ LodePNGDecompressSettings::zlibDecompress(std::vector <unsigned char>& out,
 	in.erase(in.begin());
 	in.erase(in.begin());
 
-	unsigned error = inflate(out, outsize, in);
+	unsigned error = inflate(out, in);
 
-	return 0;
+	return error;
 }
 
-unsigned LodePNGDecompressSettings::inflate(std::vector <unsigned char>& out, unsigned int outsize,
-		std::vector <unsigned char>& in)
+unsigned int LodePNGDecompressSettings::inflate(std::vector <unsigned char>& out, std::vector <unsigned char>& in)
 {
 	std::vector <unsigned char> v = out;
 
@@ -174,5 +174,29 @@ unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
 		size_t* bp, size_t* pos, unsigned btype)
 {
 	// inflate a block with dynamic of fixed Huffman tree
-	return 0;
+
+	unsigned error = 0;
+
+	// the huffman tree for literal and length codes
+	HuffmanTree tree_ll;
+	// the huffman tree for distance codes
+	HuffmanTree tree_d;
+
+	size_t inbitlength = in.size() * 8;
+
+	if (btype == 1)
+	{
+
+	}
+	else if (btype == 2)
+	{
+
+	}
+
+	while (!error)
+	{
+
+	}
+
+	return error;
 }
