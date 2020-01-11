@@ -43,6 +43,14 @@ public:
 	static void getTreeInflateFixed(
 			HuffmanTree& tree_ll, HuffmanTree& tree_d);
 
+	/**
+	 * get the tree of a deflated block with dynamic tree,
+	 * the tree itself is also Huffman compressed with a known tree
+	 */
+	static void getTreeInflateDynamic(
+			HuffmanTree* tree_ll, HuffmanTree* tree_d,
+			const std::vector <unsigned>& in, size_t* bp);
+
 private:
 
 	/**

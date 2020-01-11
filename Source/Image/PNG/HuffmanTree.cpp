@@ -184,3 +184,10 @@ void HuffmanTree::makeTreeMultiDimensional()
 		}
 	}
 }
+
+void HuffmanTree::getTreeInflateDynamic(
+		HuffmanTree* tree_ll, HuffmanTree* tree_d,
+		const std::vector <unsigned>& in, size_t* bp)
+{
+
+}
