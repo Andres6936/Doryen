@@ -40,7 +40,8 @@ public:
 	 * get the tree of a deflated block with fixed
 	 * tree, as specified in the deflate specification.
 	 */
-	void getTreeInflateFixed(HuffmanTree& tree_ll, HuffmanTree& tree_d);
+	static void getTreeInflateFixed(
+			HuffmanTree& tree_ll, HuffmanTree& tree_d);
 
 private:
 

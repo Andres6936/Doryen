@@ -186,7 +186,7 @@ unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
 
 	if (btype == 1)
 	{
-
+		HuffmanTree::getTreeInflateFixed(tree_ll, tree_d);
 	}
 	else if (btype == 2)
 	{
