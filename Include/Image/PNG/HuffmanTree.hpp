@@ -32,8 +32,7 @@ private:
 	 * are stored, out of this the huffman tree of the dynamic
 	 * huffman tree lengths is generated
 	 */
-	static constexpr short CLCL_ORDER[NUM_CODE_LENGTH_CODES] =
-			{ 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
+	static short CLCL_ORDER[NUM_CODE_LENGTH_CODES];
 
 public:
 

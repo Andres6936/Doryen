@@ -1,5 +1,12 @@
 #include "Image/PNG/HuffmanTree.hpp"
 
+// Static Members
+
+short HuffmanTree::CLCL_ORDER[NUM_CODE_LENGTH_CODES] =
+		{ 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
+
+// Methods
+
 void HuffmanTree::getTreeInflateFixed(
 		HuffmanTree& tree_ll,
 		HuffmanTree& tree_d)
