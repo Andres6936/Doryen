@@ -1,3 +1,4 @@
+#include <Image/PNG/Adler32.hpp>
 #include "Image/PNG/DecompressSettings.hpp"
 #include "Image/PNG/HuffmanTree.hpp"
 
@@ -66,6 +67,35 @@ LodePNGDecompressSettings::zlibDecompress(std::vector <unsigned char>& out,
 	in.erase(in.begin());
 
 	unsigned error = inflate(out, in);
+
+	if (error)
+	{
+		return error;
+	}
+
+	if (!ignore_adler32)
+	{
+		std::vector <unsigned char> copy = in;
+
+		unsigned end = copy.size() - 4;
+
+		for (int i = 0; i < end; ++i)
+		{
+			copy.erase(copy.begin());
+		}
+
+		unsigned ADLER32 = read32BitInt(copy);
+
+		Adler32 adler32 = Adler32(out);
+
+		unsigned checksum = adler32.getChecksum();
+
+		if (checksum != ADLER32)
+		{
+			// error, adler checksum not correct, data must be corrupted
+			return 58;
+		}
+	}
 
 	return error;
 }
@@ -238,7 +268,7 @@ unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
 			(*pos)++;
 		}
 		else if (code_ll >= FIRST_LENGTH_CODE_INDEX &&
-				 code_ll <= LAST_LENGTH_CODE_INDEX)
+				code_ll <= LAST_LENGTH_CODE_INDEX)
 		{
 			// part 1: get length base
 			size_t length = LENGTHBASE[code_ll - FIRST_LENGTH_CODE_INDEX];
@@ -383,4 +413,10 @@ unsigned LodePNGDecompressSettings::readBitsFromStream(
 	}
 
 	return result;
+}
+
+unsigned LodePNGDecompressSettings::read32BitInt(
+		const std::vector <unsigned char>& buffer)
+{
+	return buffer[0] << 24 | buffer[1] << 16 | buffer[2] << 8 | buffer[3];
 }

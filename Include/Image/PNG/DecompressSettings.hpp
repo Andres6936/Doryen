@@ -64,7 +64,7 @@ public:
 	 * must be 0, or, *out must be a valid buffer and *outsize its
 	 * size in bytes. out must be freed by user after usage.
 	 */
-	static unsigned zlibDecompress(std::vector <unsigned char>& out,
+	unsigned zlibDecompress(std::vector <unsigned char>& out,
 			unsigned int outsize, std::vector <unsigned char>& in);
 
 private:
@@ -90,6 +90,8 @@ private:
 			size_t* bitpointer,
 			const std::vector <unsigned char>& bitstream,
 			size_t nbits);
+
+	static unsigned read32BitInt(const std::vector <unsigned char>& buffer);
 };
 
 #endif //LIBTCOD_DECOMPRESSSETTINGS_HPP
