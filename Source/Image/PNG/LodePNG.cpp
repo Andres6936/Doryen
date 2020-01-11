@@ -1022,7 +1022,7 @@ static unsigned huffmanDecodeSymbol(const unsigned char* in, size_t* bp,
     decode the symbol from the tree. The "readBitFromStream" code is inlined in
     the expression below because this is the biggest bottleneck while decoding
     */
-		ct = codetree->tree2d[(treepos << 1) + READBIT(*bp, in)];
+		ct = codetree->tree2d[(treepos << 1) + ((in[*bp >> 3] >> (*bp & 0x7)) & (unsigned char)1)];
 		(*bp)++;
 		if (ct < codetree->numcodes)
 		{
@@ -1031,7 +1031,8 @@ static unsigned huffmanDecodeSymbol(const unsigned char* in, size_t* bp,
 		else
 		{ treepos = ct - codetree->numcodes; } /*symbol not yet decoded, instead move tree position*/
 
-		if (treepos >= codetree->numcodes) return (unsigned)(-1); /*error: it appeared outside the codetree*/
+		if (treepos >= codetree->numcodes)
+		{ return (unsigned)(-1); } /*error: it appeared outside the codetree*/
 	}
 }
 

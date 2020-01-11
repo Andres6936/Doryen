@@ -70,7 +70,7 @@ public:
 	 */
 	static void getTreeInflateDynamic(
 			HuffmanTree* tree_ll, HuffmanTree* tree_d,
-			const std::vector <unsigned>& in, size_t* bp);
+			const std::vector <unsigned char>& in, size_t* bp);
 
 private:
 
@@ -93,8 +93,16 @@ private:
 
 	static unsigned readBitsFromStream(
 			size_t* bitpointer,
-			const std::vector <unsigned>& bitstream,
+			const std::vector <unsigned char>& bitstream,
 			size_t nbits);
+
+	/**
+	 * @return the code, or (unsigned)(-1) if error happened
+	 * inbitlength is the length of the complete buffer, in
+	 * bits (so its byte length times 8)
+	 */
+	unsigned huffmanDecodeSymbol(const std::vector <unsigned char>& in,
+			size_t* bp, size_t inbitlength);
 
 };
 

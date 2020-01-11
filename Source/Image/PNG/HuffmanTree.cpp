@@ -191,8 +191,12 @@ void HuffmanTree::makeTreeMultiDimensional()
 
 void HuffmanTree::getTreeInflateDynamic(
 		HuffmanTree* tree_ll, HuffmanTree* tree_d,
-		const std::vector <unsigned>& in, size_t* bp)
+		const std::vector <unsigned char>& in, size_t* bp)
 {
+	// make sure that length values that aren't
+	// filled in will be 0, or a wrong tree will
+	// be generated
+
 	if ((*bp) >> 3 >= in.size() - 2)
 	{
 		// TODO: Throw Exception
@@ -296,9 +300,39 @@ void HuffmanTree::getTreeInflateDynamic(
 
 		unsigned i = 0;
 
+		size_t inbitlength = in.size() * 8;
+
 		while (i < HLIT + HDIST)
 		{
-			// TODO: Implemente huffmanDecodeSymbol
+			unsigned code = tree_cl.huffmanDecodeSymbol(in, bp, inbitlength);
+
+			// a length code
+			if (code <= 15)
+			{
+
+			}
+				// repeat previous
+			else if (code == 16)
+			{
+
+			}
+				// repeat "0" 3-10 times
+			else if (code == 17)
+			{
+
+			}
+				// repeat "0" 11-138 times
+			else if (code == 18)
+			{
+
+			}
+				// if(code == (unsigned)(-1)) --
+				// huffmanDecodeSymbol returns (unsigned)(-1) in
+				// case of error
+			else
+			{
+
+			}
 		}
 	}
 
@@ -306,7 +340,7 @@ void HuffmanTree::getTreeInflateDynamic(
 
 unsigned HuffmanTree::readBitsFromStream(
 		size_t* bitpointer,
-		const std::vector <unsigned>& bitstream,
+		const std::vector <unsigned char>& bitstream,
 		size_t nbits)
 {
 	unsigned result = 0;
@@ -320,4 +354,48 @@ unsigned HuffmanTree::readBitsFromStream(
 	}
 
 	return result;
+}
+
+unsigned HuffmanTree::huffmanDecodeSymbol(
+		const std::vector <unsigned char>& in,
+		size_t* bp, size_t inbitlength)
+{
+	unsigned treepos = 0;
+
+	while (true)
+	{
+		if (*bp >= inbitlength)
+		{
+			// TODO: error: end of input memory reached
+			//  without endcode
+			return (unsigned)(-1);
+		}
+
+		// decode the symbol from the tree.
+
+		// The "readBitFromStream" code is inlined in the
+		// expression below because this is the biggest
+		// bottleneck while decoding
+
+		unsigned ct = this->tree2d[(treepos << 1) + ((in[*bp >> 3] >> (*bp & 0x7)) & (unsigned char)1)];
+
+		(*bp)++;
+
+		if (ct < this->numcodes)
+		{
+			// the symbol is decoded, return it
+			return ct;
+		}
+		else
+		{
+			// symbol not yet decoded, instead move tree position
+			treepos = ct - this->numcodes;
+		}
+
+		if (treepos >= this->numcodes)
+		{
+			// TODO: error: it appeared outside the codetree
+			return (unsigned)(-1);
+		}
+	}
 }
