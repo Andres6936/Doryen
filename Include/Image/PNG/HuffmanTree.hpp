@@ -14,6 +14,27 @@ private:
 	 */
 	static constexpr short NUM_DEFLATE_CODE_SYMBOLS = 288;
 
+	/**
+	 * the code length codes. 0-15: code
+	 * lengths, 16: copy previous 3-6 times,
+	 * 17: 3-10 zeros, 18: 11-138 zeros
+	 */
+	static constexpr short NUM_CODE_LENGTH_CODES = 19;
+
+	/**
+	 * the distance codes have their own symbols,
+	 * 30 used, 2 unused
+	 */
+	static constexpr short NUM_DISTANCE_SYMBOLS = 32;
+
+	/**
+	 * the order in which "code length alphabet code lengths"
+	 * are stored, out of this the huffman tree of the dynamic
+	 * huffman tree lengths is generated
+	 */
+	static constexpr short CLCL_ORDER[NUM_CODE_LENGTH_CODES] =
+			{ 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
+
 public:
 
 	std::vector <unsigned> tree2d;
@@ -69,6 +90,11 @@ private:
 	void makeTreeDimensional();
 
 	void makeTreeMultiDimensional();
+
+	static unsigned readBitsFromStream(
+			size_t* bitpointer,
+			const std::vector <unsigned>& bitstream,
+			size_t nbits);
 
 };
 
