@@ -32,6 +32,14 @@ private:
 	 */
 	static const unsigned DISTANCEBASE[30];
 
+	/**
+	 * the order in which "code length alphabet code
+	 * lengths" are stored, out of this the huffman
+	 * tree of the dynamic huffman tree lengths
+	 * is generated
+	 */
+	static const unsigned DISTANCEEXTRA[30];
+
 public:
 
 	/**

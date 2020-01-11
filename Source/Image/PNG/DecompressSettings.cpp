@@ -17,6 +17,10 @@ const unsigned LodePNGDecompressSettings::DISTANCEBASE[30] =
 		  257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145,
 		  8193, 12289, 16385, 24577 };
 
+const unsigned LodePNGDecompressSettings::DISTANCEEXTRA[30] =
+		{ 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8,
+		  8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13 };
+
 // Methods
 
 unsigned
@@ -283,6 +287,74 @@ unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
 			unsigned distance = DISTANCEBASE[code_d];
 
 			// part 4: get extra bits from distance
+			size_t numextrabits_d = DISTANCEEXTRA[code_d];
+
+			if (*bp >= inbitlength)
+			{
+				// error, bit pointer will jump past memory
+				error = 51;
+				return error;
+			}
+
+			distance += readBitsFromStream(bp, in, numextrabits_d);
+
+			// part 5: fill in all the out[n] values
+			// based on the length and dist
+
+			size_t start = (*pos);
+
+			if (distance > start)
+			{
+				// error: too long backward distance
+				error = 52;
+				return error;
+			}
+
+			size_t backward = start - distance;
+
+			if ((*pos) + length >= out.size())
+			{
+				// reserve more space at once
+				out.resize(((*pos) + length) * 2);
+			}
+
+			for (int forward = 0; forward < length; forward++)
+			{
+				out[(*pos)] = out[backward];
+				(*pos)++;
+				backward++;
+
+				if (backward >= start)
+				{
+					backward = start - distance;
+				}
+			}
+		}
+		else if (code_ll == 256)
+		{
+			// end code, break the loop
+			break;
+		}
+		else
+		{
+			// if(code == (unsigned)(-1))
+			// huffmanDecodeSymbol returns (unsigned)(-1)
+			// in case of error
+
+
+			// return error code 10 or 11 depending on
+			// the situation that happened in huffmanDecodeSymbol
+			// (10=no endcode, 11=wrong jump outside of tree)
+			if ((*bp) > in.size() * 8)
+			{
+				error = 10;
+			}
+			else
+			{
+				error = 11;
+			}
+
+			break;
 		}
 	}
 
