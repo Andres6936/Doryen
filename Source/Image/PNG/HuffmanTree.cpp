@@ -5,6 +5,7 @@ void HuffmanTree::getTreeInflateFixed(
 		HuffmanTree& tree_d)
 {
 	tree_ll.generateFixedLitLenTree();
+	tree_d.generateFixedDistanceTree();
 }
 
 void HuffmanTree::generateFixedLitLenTree()
@@ -42,6 +43,27 @@ void HuffmanTree::generateFixedLitLenTree()
 		this->lengths.push_back(8);
 	}
 
+	makeTreeDimensional();
+
+	makeTreeMultiDimensional();
+}
+
+void HuffmanTree::generateFixedDistanceTree()
+{
+	this->lengths.reserve(NUM_DEFLATE_CODE_SYMBOLS);
+
+	for (int i = 0; i < NUM_DEFLATE_CODE_SYMBOLS; ++i)
+	{
+		this->lengths.push_back(5);
+	}
+
+	makeTreeDimensional();
+
+	makeTreeMultiDimensional();
+}
+
+void HuffmanTree::makeTreeDimensional()
+{
 	// Second step for the generateFixedLitLenTree function.
 	// numcodes, lengths and maxbitlen must already be filled
 	// in correctly.
@@ -61,7 +83,7 @@ void HuffmanTree::generateFixedLitLenTree()
 	}
 
 	// step 2: generate the nextcode values
-	for (unsigned bits = 0; bits < NUM_DEFLATE_CODE_SYMBOLS; bits++)
+	for (unsigned bits = 1; bits <= this->maxbitlen; bits++)
 	{
 		nextcode[bits] = (nextcode[bits - 1] + blcount[bits - 1]) << 1;
 	}
@@ -74,7 +96,10 @@ void HuffmanTree::generateFixedLitLenTree()
 			this->tree1d[n] = nextcode[this->lengths[n]]++;
 		}
 	}
+}
 
+void HuffmanTree::makeTreeMultiDimensional()
+{
 	// the tree representation used by the decoder.
 	this->tree2d.reserve(NUM_DEFLATE_CODE_SYMBOLS * 2);
 

@@ -51,6 +51,16 @@ private:
 	 */
 	void generateFixedLitLenTree();
 
+	/**
+	 * get the distance code tree of a deflated block wit
+	 * fixed tree, as specified in the deflate specification
+	 */
+	void generateFixedDistanceTree();
+
+	void makeTreeDimensional();
+
+	void makeTreeMultiDimensional();
+
 };
 
 
