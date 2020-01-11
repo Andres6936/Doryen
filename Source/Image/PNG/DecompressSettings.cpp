@@ -110,7 +110,7 @@ unsigned int LodePNGDecompressSettings::inflate(std::vector <unsigned char>& out
 		}
 		else
 		{
-			// TODO: Implemented Huffman Block
+			error = inflateHuffmanBlock(out, in, &bp, &pos, BTYPE);
 		}
 
 		if (error)
@@ -118,6 +118,9 @@ unsigned int LodePNGDecompressSettings::inflate(std::vector <unsigned char>& out
 			return error;
 		}
 	}
+
+	// Only now we know the true size of out, resize it to that
+	out.resize(pos);
 
 	return error;
 }
