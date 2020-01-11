@@ -222,7 +222,7 @@ void HuffmanTree::getTreeInflateDynamic(
 	// Unlike the spec, the value 4 is added to it here already
 	unsigned HCLEN = readBitsFromStream(bp, in, 4) + 4;
 
-	bool error = false;
+	unsigned error = 0;
 
 	while (!error)
 	{
@@ -316,33 +316,214 @@ void HuffmanTree::getTreeInflateDynamic(
 			// a length code
 			if (code <= 15)
 			{
+				if (i < HLIT)
+				{
+					bitlen_ll[i] = code;
+				}
+				else
+				{
+					bitlen_d[i - HLIT] = code;
+				}
 
+				i++;
 			}
 				// repeat previous
 			else if (code == 16)
 			{
+				// read in the 2 bits that indicate
+				// repeat length (3-6)
+				unsigned replength = 3;
 
+				if (*bp >= inbitlength)
+				{
+					// TODO: error, bit pointer jumps past memory
+					return;
+				}
+
+				if (i == 0)
+				{
+					// TODO: can't repeat previous if i is 0
+					return;
+				}
+
+				replength += readBitsFromStream(bp, in, 2);
+
+				unsigned value = 0;
+
+				if (i < HLIT + 1)
+				{
+					value = bitlen_ll[i - 1];
+				}
+				else
+				{
+					value = bitlen_d[i - HLIT - 1];
+				}
+
+				for (int n = 0; n < replength; ++n)
+				{
+					if (i >= HLIT + HDIST)
+					{
+						// TODO: error: i is larger than
+						//  the amount of codes
+						return;
+					}
+
+					if (i < HLIT)
+					{
+						bitlen_ll[i] = value;
+					}
+					else
+					{
+						bitlen_d[i - HLIT] = value;
+					}
+
+					i++;
+				}
 			}
 				// repeat "0" 3-10 times
 			else if (code == 17)
 			{
+				unsigned replength = 3;
 
+				if (*bp >= inbitlength)
+				{
+					// TODO: error, bit pointer jumps past memory
+					return;
+				}
+
+				replength += readBitsFromStream(bp, in, 3);
+
+				// repeat this value in the next lengths
+				for (int n = 0; n < replength; n++)
+				{
+					if (i >= HLIT + HDIST)
+					{
+						// TODO: error: i is larger than the
+						//  amount of codes
+					}
+
+					if (i < HLIT)
+					{
+						bitlen_ll[i] = 0;
+					}
+					else
+					{
+						bitlen_d[i - HLIT] = 0;
+					}
+
+					i++;
+				}
 			}
 				// repeat "0" 11-138 times
 			else if (code == 18)
 			{
+				// read in the bits that indicate repeat length
+				unsigned replength = 11;
 
+				if (*bp >= inbitlength)
+				{
+					// TODO: error, bit pointer jumps past memory
+					return;
+				}
+
+				replength += readBitsFromStream(bp, in, 7);
+
+				// repeat this value in the next lengths*/
+				for (int n = 0; n < replength; n++)
+				{
+					if (i >= HLIT + HDIST)
+					{
+						// TODO: error: i is larger than the
+						//  amount of codes
+					}
+
+					if (i < HLIT)
+					{
+						bitlen_ll[i] = 0;
+					}
+					else
+					{
+						bitlen_d[i - HLIT] = 0;
+					}
+
+					i++;
+				}
 			}
-				// if(code == (unsigned)(-1)) --
-				// huffmanDecodeSymbol returns (unsigned)(-1) in
-				// case of error
 			else
 			{
+				// huffmanDecodeSymbol returns (unsigned)(-1) in
+				// case of error
+				if (code == (unsigned)(-1))
+				{
+					// return error code 10 or 11 depending on
+					// the situation that happened in
+					// huffmanDecodeSymbol (10=no endcode,
+					// 11=wrong jump outside of tree)
 
+					if ((*bp) > inbitlength)
+					{
+						error = 10;
+					}
+					else
+					{
+						error = 11;
+					}
+				}
+				else
+				{
+					// unexisting code, this can never happen
+					error = 16;
+				}
+
+				break;
 			}
 		}
-	}
 
+		if (error)
+		{
+			break;
+		}
+
+		if (bitlen_ll[256] == 0)
+		{
+			// TODO: the length of the end code 256
+			//  must be larger than 0
+			return;
+		}
+
+		// now we've finally got HLIT and HDIST, so generate
+		// the code trees, and the function is done
+
+		tree_ll->numcodes = NUM_DEFLATE_CODE_SYMBOLS;
+		tree_ll->maxbitlen = 15;
+		tree_ll->lengths.clear();
+		tree_ll->lengths.reserve(tree_ll->numcodes);
+
+		for (int j = 0; j < tree_ll->numcodes; ++j)
+		{
+			tree_ll->lengths.push_back(bitlen_ll[j]);
+		}
+
+		tree_ll->makeTreeDimensional();
+		tree_ll->makeTreeMultiDimensional();
+
+		// Another tree {tree_d}
+
+		tree_d->numcodes = NUM_DISTANCE_SYMBOLS;
+		tree_d->maxbitlen = 15;
+		tree_d->lengths.clear();
+		tree_d->lengths.reserve(tree_d->numcodes);
+
+		for (int j = 0; j < tree_d->numcodes; ++j)
+		{
+			tree_d->lengths.push_back(bitlen_d[j]);
+		}
+
+		tree_d->makeTreeDimensional();
+		tree_d->makeTreeMultiDimensional();
+
+		break;
+	}
 }
 
 unsigned HuffmanTree::readBitsFromStream(
