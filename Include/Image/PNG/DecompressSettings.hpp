@@ -8,6 +8,30 @@
 class LodePNGDecompressSettings
 {
 
+private:
+
+	static constexpr short FIRST_LENGTH_CODE_INDEX = 257;
+
+	static constexpr short LAST_LENGTH_CODE_INDEX = 285;
+
+	/**
+	 * the base lengths represented by codes 257-285
+	 */
+	static const unsigned LENGTHBASE[29];
+
+	/**
+	 * the extra bits used by codes 257-285 (added
+	 * to base length)
+	 */
+	static const unsigned LENGTHEXTRA[29];
+
+	/**
+	 * the base backwards distances (the bits of
+	 * distance codes appear after length codes
+	 * and use their own huffman tree)
+	 */
+	static const unsigned DISTANCEBASE[30];
+
 public:
 
 	/**
@@ -53,6 +77,11 @@ private:
 	static unsigned inflateHuffmanBlock(std::vector <unsigned char>& out,
 			std::vector <unsigned char>& in, size_t* bp, size_t* pos,
 			unsigned btype);
+
+	static unsigned readBitsFromStream(
+			size_t* bitpointer,
+			const std::vector <unsigned char>& bitstream,
+			size_t nbits);
 };
 
 #endif //LIBTCOD_DECOMPRESSSETTINGS_HPP

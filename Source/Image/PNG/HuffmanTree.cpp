@@ -2,7 +2,7 @@
 
 // Static Members
 
-short HuffmanTree::CLCL_ORDER[NUM_CODE_LENGTH_CODES] =
+unsigned HuffmanTree::CLCL_ORDER[NUM_CODE_LENGTH_CODES] =
 		{ 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15 };
 
 // Methods
@@ -197,7 +197,7 @@ void HuffmanTree::makeTreeMultiDimensional()
 }
 
 void HuffmanTree::getTreeInflateDynamic(
-		HuffmanTree* tree_ll, HuffmanTree* tree_d,
+		HuffmanTree& tree_ll, HuffmanTree& tree_d,
 		const std::vector <unsigned char>& in, size_t* bp)
 {
 	// make sure that length values that aren't
@@ -494,33 +494,33 @@ void HuffmanTree::getTreeInflateDynamic(
 		// now we've finally got HLIT and HDIST, so generate
 		// the code trees, and the function is done
 
-		tree_ll->numcodes = NUM_DEFLATE_CODE_SYMBOLS;
-		tree_ll->maxbitlen = 15;
-		tree_ll->lengths.clear();
-		tree_ll->lengths.reserve(tree_ll->numcodes);
+		tree_ll.numcodes = NUM_DEFLATE_CODE_SYMBOLS;
+		tree_ll.maxbitlen = 15;
+		tree_ll.lengths.clear();
+		tree_ll.lengths.reserve(tree_ll.numcodes);
 
-		for (int j = 0; j < tree_ll->numcodes; ++j)
+		for (int j = 0; j < tree_ll.numcodes; ++j)
 		{
-			tree_ll->lengths.push_back(bitlen_ll[j]);
+			tree_ll.lengths.push_back(bitlen_ll[j]);
 		}
 
-		tree_ll->makeTreeDimensional();
-		tree_ll->makeTreeMultiDimensional();
+		tree_ll.makeTreeDimensional();
+		tree_ll.makeTreeMultiDimensional();
 
 		// Another tree {tree_d}
 
-		tree_d->numcodes = NUM_DISTANCE_SYMBOLS;
-		tree_d->maxbitlen = 15;
-		tree_d->lengths.clear();
-		tree_d->lengths.reserve(tree_d->numcodes);
+		tree_d.numcodes = NUM_DISTANCE_SYMBOLS;
+		tree_d.maxbitlen = 15;
+		tree_d.lengths.clear();
+		tree_d.lengths.reserve(tree_d.numcodes);
 
-		for (int j = 0; j < tree_d->numcodes; ++j)
+		for (int j = 0; j < tree_d.numcodes; ++j)
 		{
-			tree_d->lengths.push_back(bitlen_d[j]);
+			tree_d.lengths.push_back(bitlen_d[j]);
 		}
 
-		tree_d->makeTreeDimensional();
-		tree_d->makeTreeMultiDimensional();
+		tree_d.makeTreeDimensional();
+		tree_d.makeTreeMultiDimensional();
 
 		break;
 	}

@@ -1,6 +1,24 @@
 #include "Image/PNG/DecompressSettings.hpp"
 #include "Image/PNG/HuffmanTree.hpp"
 
+// Static Members
+
+const unsigned LodePNGDecompressSettings::LENGTHBASE[29] =
+		{ 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23,
+		  27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163,
+		  195, 227, 258 };
+
+const unsigned LodePNGDecompressSettings::LENGTHEXTRA[29] =
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
+		  4, 4, 4, 4, 5, 5, 5, 5, 0 };
+
+const unsigned LodePNGDecompressSettings::DISTANCEBASE[30] =
+		{ 1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193,
+		  257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145,
+		  8193, 12289, 16385, 24577 };
+
+// Methods
+
 unsigned
 LodePNGDecompressSettings::zlibDecompress(std::vector <unsigned char>& out,
 		unsigned int outsize, std::vector <unsigned char>& in)
@@ -190,13 +208,104 @@ unsigned LodePNGDecompressSettings::inflateHuffmanBlock(
 	}
 	else if (btype == 2)
 	{
-
+		HuffmanTree::getTreeInflateDynamic(tree_ll, tree_d, in, bp);
 	}
 
+	// decode all symbols until end reached, breaks at end code
 	while (!error)
 	{
+		// code_ll is literal, length or end code
+		unsigned code_ll = tree_ll.huffmanDecodeSymbol(in, bp, inbitlength);
 
+		// literal symbol
+		if (code_ll <= 255)
+		{
+			if ((*pos) >= out.size())
+			{
+				// reserve more space at once
+				out.resize(((*pos) + 1) * 2);
+			}
+
+			out[(*pos)] = (unsigned char)code_ll;
+
+			(*pos)++;
+		}
+		else if (code_ll >= FIRST_LENGTH_CODE_INDEX &&
+				 code_ll <= LAST_LENGTH_CODE_INDEX)
+		{
+			// part 1: get length base
+			size_t length = LENGTHBASE[code_ll - FIRST_LENGTH_CODE_INDEX];
+
+			// part 2: get extra bits and add the
+			// value of that to length
+			size_t numextrabits_l = LENGTHEXTRA[code_ll - FIRST_LENGTH_CODE_INDEX];
+
+			if (*bp >= inbitlength)
+			{
+				// error, bit pointer will jump past memory
+				error = 51;
+				return error;
+			}
+
+			length += readBitsFromStream(bp, in, numextrabits_l);
+
+			//part 3: get distance code
+			unsigned code_d = tree_d.huffmanDecodeSymbol(in, bp, inbitlength);
+
+			if (code_d > 29)
+			{
+				// huffmanDecodeSymbol returns (unsigned)(-1)
+				// in case of error
+				if (code_ll == (unsigned)(-1))
+				{
+					// return error code 10 or 11 depending
+					// on the situation that happened in
+					// huffmanDecodeSymbol (10=no endcode,
+					// 11=wrong jump outside of tree)
+					if ((*bp) > in.size() * 8)
+					{
+						error = 10;
+					}
+					else
+					{
+						error = 11;
+					}
+				}
+				else
+				{
+					// error: invalid distance code (30-31 are never used)
+					error = 18;
+				}
+
+				break;
+			}
+
+			unsigned distance = DISTANCEBASE[code_d];
+
+			// part 4: get extra bits from distance
+		}
 	}
 
+	// Shrink the vector for save space.
+	out.shrink_to_fit();
+
 	return error;
+}
+
+unsigned LodePNGDecompressSettings::readBitsFromStream(
+		size_t* bitpointer,
+		const std::vector <unsigned char>& bitstream,
+		size_t nbits)
+{
+	unsigned result = 0;
+
+	for (int i = 0; i < nbits; ++i)
+	{
+		result += (unsigned)((bitstream[*bitpointer >> 3] >>
+														  (*bitpointer & 0x7)) & (unsigned char)1) << i;
+
+		(*bitpointer)++;
+	}
+
+	return result;
 }

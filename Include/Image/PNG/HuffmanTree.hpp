@@ -32,7 +32,7 @@ private:
 	 * are stored, out of this the huffman tree of the dynamic
 	 * huffman tree lengths is generated
 	 */
-	static short CLCL_ORDER[NUM_CODE_LENGTH_CODES];
+	static unsigned CLCL_ORDER[NUM_CODE_LENGTH_CODES];
 
 public:
 
@@ -68,8 +68,16 @@ public:
 	 * the tree itself is also Huffman compressed with a known tree
 	 */
 	static void getTreeInflateDynamic(
-			HuffmanTree* tree_ll, HuffmanTree* tree_d,
+			HuffmanTree& tree_ll, HuffmanTree& tree_d,
 			const std::vector <unsigned char>& in, size_t* bp);
+
+	/**
+	 * @return the code, or (unsigned)(-1) if error happened
+	 * inbitlength is the length of the complete buffer, in
+	 * bits (so its byte length times 8)
+	 */
+	unsigned huffmanDecodeSymbol(const std::vector <unsigned char>& in,
+			size_t* bp, size_t inbitlength);
 
 private:
 
@@ -94,15 +102,6 @@ private:
 			size_t* bitpointer,
 			const std::vector <unsigned char>& bitstream,
 			size_t nbits);
-
-	/**
-	 * @return the code, or (unsigned)(-1) if error happened
-	 * inbitlength is the length of the complete buffer, in
-	 * bits (so its byte length times 8)
-	 */
-	unsigned huffmanDecodeSymbol(const std::vector <unsigned char>& in,
-			size_t* bp, size_t inbitlength);
-
 };
 
 
