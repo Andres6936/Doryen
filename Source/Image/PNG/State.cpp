@@ -607,8 +607,8 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 			}
 
 			info_png.phys_defined = 1;
-			info_png.phys_x = 16777216 * data[0] + 65536 * data[1] + 256 * data[2] + data[3];
-			info_png.phys_y = 16777216 * data[4] + 65536 * data[5] + 256 * data[6] + data[7];
+			info_png.phys_x = 16'777'216 * data[0] + 65'536 * data[1] + 256 * data[2] + data[3];
+			info_png.phys_y = 16'777'216 * data[4] + 65'536 * data[5] + 256 * data[6] + data[7];
 			info_png.phys_unit = data[8];
 		}
 		else
@@ -631,7 +631,7 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 		}
 
 		// check CRC if wanted, only on known chunk types
-		if (decoder.ignore_crc && !unknown)
+		if (!decoder.ignore_crc && !unknown)
 		{
 			// TODO: Implemented
 		}
@@ -648,7 +648,7 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 		}
 	}
 
-	if (error)
+	if (!error)
 	{
 		std::vector <unsigned char> scanlines;
 

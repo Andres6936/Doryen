@@ -75,13 +75,13 @@ void HuffmanTree::makeTreeDimensional()
 	// numcodes, lengths and maxbitlen must already be filled
 	// in correctly.
 
-	this->tree1d.reserve(this->numcodes);
+	this->tree1d.resize(this->numcodes, 0);
 
 	std::vector <unsigned> blcount;
 	std::vector <unsigned> nextcode;
 
-	blcount.reserve(this->maxbitlen + 1);
-	nextcode.reserve(this->maxbitlen + 1);
+	blcount.resize(this->maxbitlen + 1, 0);
+	nextcode.resize(this->maxbitlen + 1, 0);
 
 	// step 1: count number of instances of each code length
 	for (unsigned bits = 0; bits < this->numcodes; bits++)
@@ -107,9 +107,6 @@ void HuffmanTree::makeTreeDimensional()
 
 void HuffmanTree::makeTreeMultiDimensional()
 {
-	// the tree representation used by the decoder.
-	this->tree2d.reserve(this->numcodes * 2);
-
 	// convert tree1d[] to tree2d[][]. In the 2D array, a value of
 	// 32767 means uninited, a value >= numcodes is an address to
 	// another bit, a value < numcodes is a code.
@@ -126,11 +123,9 @@ void HuffmanTree::makeTreeMultiDimensional()
 	// There is only memory for such good tree currently, if there are
 	// more nodes (due to too long length codes), error 55 will happen.
 
-	for (unsigned n = 0; n < this->numcodes * 2; n++)
-	{
-		// 32'767 here means the tree2d isn't filled there yet
-		this->tree2d.push_back(32'767);
-	}
+	// the tree representation used by the decoder.
+	// 32'767 here means the tree2d isn't filled there yet
+	this->tree2d.resize(this->numcodes * 2, 32'767);
 
 	// position in the tree (1 of the numcodes columns)
 	unsigned treepos = 0;
@@ -224,6 +219,8 @@ void HuffmanTree::getTreeInflateDynamic(
 
 	unsigned error = 0;
 
+	size_t inbitlength = in.size() * 8;
+
 	while (!error)
 	{
 		// read the code length codes out of 3 * (amount of
@@ -246,12 +243,7 @@ void HuffmanTree::getTreeInflateDynamic(
 		// tree for compressed huffman trees)
 		HuffmanTree tree_cl;
 
-		bitlen_cl.reserve(NUM_CODE_LENGTH_CODES);
-
-		for (int i = 0; i < NUM_CODE_LENGTH_CODES; ++i)
-		{
-			bitlen_cl.push_back(0);
-		}
+		bitlen_cl.resize(NUM_CODE_LENGTH_CODES, 0);
 
 		for (int i = 0; i < NUM_CODE_LENGTH_CODES; ++i)
 		{
@@ -306,8 +298,6 @@ void HuffmanTree::getTreeInflateDynamic(
 		// and dist codes
 
 		unsigned i = 0;
-
-		size_t inbitlength = in.size() * 8;
 
 		while (i < HLIT + HDIST)
 		{
