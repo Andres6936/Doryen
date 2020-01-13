@@ -4415,7 +4415,11 @@ static unsigned postProcessScanlines(unsigned char* out, unsigned char* in,
 		}
 			/*we can immediatly filter into the out buffer, no other steps needed*/
 		else
-		CERROR_TRY_RETURN(unfilter(out, in, w, h, bpp));
+		{
+			unsigned error = unfilter(out, in, w, h, bpp);
+			if (error)
+			{ return error; }
+		};
 	}
 	else /*interlace_method is 1 (Adam7)*/
 	{

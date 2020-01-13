@@ -104,6 +104,15 @@ unsigned LodePNGInfo::postProcessScanlines(
 		{
 
 		}
+		else
+		{
+			unsigned error = unfilter(out, in, w, h, bpp);
+
+			if (error)
+			{
+				return error;
+			}
+		}
 	}
 }
 
@@ -131,18 +140,16 @@ unsigned LodePNGInfo::unfilter(
 
 	for (int y = 0; y < h; ++y)
 	{
-		size_t outindex = linebytes * y;
+		unsigned outindex = linebytes * y;
 
 		// the extra filterbyte added to each row
-		size_t inindex = (1 + linebytes) * y;
+		unsigned inindex = (1 + linebytes) * y;
 
 		unsigned char filterType = in[inindex];
 
-		out.erase(out.begin(), out.begin() + outindex);
-		in.erase(in.begin(), in.begin() + inindex + 1);
-
 		unsigned error = unfilterScanline(
-				out, in, prevline, bytewidth, filterType,
+				out, outindex, in, inindex + 1, prevline,
+				bytewidth, filterType,
 				linebytes);
 
 		if (error)
@@ -150,7 +157,13 @@ unsigned LodePNGInfo::unfilter(
 			return error;
 		}
 
-		prevline = out;
+		prevline.clear();
+		prevline.resize(out.size() - outindex);
+
+		for (unsigned i = outindex; i < out.size(); ++i)
+		{
+			prevline[i - outindex] = out[outindex];
+		}
 	}
 
 	return 0;
@@ -158,7 +171,9 @@ unsigned LodePNGInfo::unfilter(
 
 unsigned LodePNGInfo::unfilterScanline(
 		std::vector <unsigned char>& recon,
+		unsigned outindex,
 		const std::vector <unsigned char>& scanline,
+		unsigned inindex,
 		const std::vector <unsigned char>& precon,
 		size_t bytewidth, unsigned char filterType, size_t length)
 {
@@ -174,34 +189,51 @@ unsigned LodePNGInfo::unfilterScanline(
 	//  recon and scanline MAY be the same memory
 	//  address! precon must be disjoint.
 
+	unsigned index = 0;
+
 	switch (filterType)
 	{
 	case 0:
 
-		for (unsigned i = 0; i < length; i++)
-		{ recon.push_back(scanline[i]); }
+		for (unsigned i = outindex; i < outindex + length; i++)
+		{
+			recon[i] = scanline[index + inindex];
+			index++;
+		}
 
 		break;
 	case 1:
 
-		for (unsigned i = 0; i < bytewidth; i++)
-		{ recon.push_back(scanline[i]); }
+		for (unsigned i = outindex; i < outindex + bytewidth; i++)
+		{
+			recon[i] = scanline[index + inindex];
+			index++;
+		}
 
-		for (unsigned i = bytewidth; i < length; i++)
-		{ recon.push_back(scanline[i] + recon[i - bytewidth]); }
+		for (unsigned i = bytewidth + outindex; i < outindex + length; i++)
+		{
+			recon[i] = scanline[index + inindex] + recon[i - bytewidth];
+			index++;
+		}
 
 		break;
 	case 2:
 
 		if (!precon.empty())
 		{
-			for (unsigned i = 0; i < length; i++)
-			{ recon.push_back(scanline[i] + precon[i]); }
+			for (unsigned i = outindex; i < outindex + length; i++)
+			{
+				recon[i] = scanline[index + inindex] + precon[i - outindex];
+				index++;
+			}
 		}
 		else
 		{
-			for (unsigned i = 0; i < length; i++)
-			{ recon.push_back(scanline[i]); }
+			for (unsigned i = outindex; i < outindex + length; i++)
+			{
+				recon[i] = scanline[index + inindex];
+				index++;
+			}
 		}
 
 		break;
@@ -210,19 +242,31 @@ unsigned LodePNGInfo::unfilterScanline(
 
 		if (!precon.empty())
 		{
-			for (unsigned i = 0; i < bytewidth; i++)
-			{ recon.push_back(scanline[i] + precon[i] / 2); }
+			for (unsigned i = outindex; i < outindex + bytewidth; i++)
+			{
+				recon[i] = scanline[index + inindex] + precon[i - outindex] / 2;
+				index++;
+			}
 
-			for (unsigned i = bytewidth; i < length; i++)
-			{ recon.push_back(scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2)); }
+			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
+			{
+				recon[i] = scanline[index + inindex] + ((recon[i - bytewidth] + precon[i - outindex]) / 2);
+				index++;
+			}
 		}
 		else
 		{
-			for (unsigned i = 0; i < bytewidth; i++)
-			{ recon.push_back(scanline[i]); }
+			for (unsigned i = outindex; i < outindex + bytewidth; i++)
+			{
+				recon[i] = scanline[index + inindex];
+				index++;
+			}
 
-			for (unsigned i = bytewidth; i < length; i++)
-			{ recon.push_back(scanline[i] + recon[i - bytewidth] / 2); }
+			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
+			{
+				recon[i] = scanline[index + inindex] + recon[i - bytewidth] / 2;
+				index++;
+			}
 		}
 
 		break;
@@ -231,26 +275,37 @@ unsigned LodePNGInfo::unfilterScanline(
 
 		if (!precon.empty())
 		{
-			for (unsigned i = 0; i < bytewidth; i++)
+			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
-				recon.push_back(scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
+				//paethPredictor(0, precon[i], 0) is always precon[i]
+				recon[i] = (scanline[index + inindex] + precon[i]);
+				index++;
 			}
-			for (unsigned i = bytewidth; i < length; i++)
+
+			index = 0;
+
+			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
 			{
-				recon.push_back(scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+				recon[i] = (scanline[index + inindex] +
+							paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+				index++;
 			}
 		}
 		else
 		{
-			for (unsigned i = 0; i < bytewidth; i++)
+			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
-				recon.push_back(scanline[i]);
+				recon[i] = scanline[index + inindex];
+				index++;
 			}
-			for (unsigned i = bytewidth; i < length; i++)
+
+			index = 0;
+
+			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
 			{
 				// paethPredictor(recon[i - bytewidth], 0, 0) is
 				// always recon[i - bytewidth]
-				recon.push_back(scanline[i] + recon[i - bytewidth]);
+				recon[i] = (scanline[index + inindex] + recon[i - bytewidth]);
 			}
 		}
 

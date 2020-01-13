@@ -115,15 +115,15 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 		bpp = 24;
 	}
 
-	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
-	//error = state.decode(&image, &width, &height, png, pngsize);
+//	 error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
+	error = state.decode(&image, &width, &height, png, pngsize);
 
 	free(png);
 
 	if (error)
 	{
 		printf("error %u: %s\n", error, lodepng_error_text(error));
-		lodepng_state_cleanup(&state);
+		//lodepng_state_cleanup(&state);
 		return NULL;
 	}
 
@@ -138,7 +138,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 		source += rowsize;
 	}
 
-	lodepng_state_cleanup(&state);
+	//lodepng_state_cleanup(&state);
 	free(image);
 	return bitmap;
 }
