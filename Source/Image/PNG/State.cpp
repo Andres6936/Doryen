@@ -165,11 +165,10 @@ unsigned LodePNGState::getBitsPerPixel()
 	return info_png.color.getBitsPerPixel();
 }
 
-unsigned int LodePNGState::decode(unsigned char** out, unsigned* w,
+unsigned int LodePNGState::decode(
+		std::vector <unsigned char>& out, unsigned* w,
 		unsigned* h, const unsigned char* in, size_t insize)
 {
-	*out = nullptr;
-
 	decodeGeneric(out, w, h, in, insize);
 
 	if (error)
@@ -191,9 +190,6 @@ unsigned int LodePNGState::decode(unsigned char** out, unsigned* w,
 	}
 	else
 	{
-		// color conversion needed; sort of copy of the data
-		unsigned char* data = *out;
-
 		// TODO: check if this works according to the statement
 		//  in the documentation: "The converter can convert
 		//  from greyscale input color type, to 8-bit greyscale
@@ -208,25 +204,22 @@ unsigned int LodePNGState::decode(unsigned char** out, unsigned* w,
 
 		unsigned int outsize = info_raw.getRawSize(*w, *h);
 
-		try
-		{
-			*out = new unsigned char[outsize];
-		}
-		catch (std::bad_alloc& exception)
-		{
-			// error: Alloc fail
-			error = 83;
-		}
+		// color conversion needed; sort of copy of the data
+		std::vector <unsigned char> data = out;
 
-		convert(*out, data, &info_raw, &info_png.color, *w, *h);
+		data.resize(outsize, 0);
 
-		delete[] data;
+		out.clear();
+		out.resize(outsize, 0);
+
+		convert(out, data, &info_raw, &info_png.color, *w, *h);
 	}
 
 	return error;
 }
 
-void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
+void LodePNGState::decodeGeneric(
+		std::vector <unsigned char>& out, unsigned* w,
 		unsigned* h, const unsigned char* in, size_t insize)
 {
 	bool IEDN = false;
@@ -240,7 +233,6 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 	unsigned critial_pos = 1;
 
 	// provide some proper output values if error will happen
-	*out = nullptr;
 
 	error = inspect(w, h, in, insize);
 
@@ -669,11 +661,11 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 
 			error = info_png.postProcessScanlines(outv, scanlines, *w, *h);
 
-			*out = new unsigned char[outv.size()];
+			out.reserve(outv.size());
 
 			for (int i = 0; i < outv.size(); ++i)
 			{
-				(*out)[i] = outv[i];
+				out.push_back(outv[i]);
 			}
 		}
 	}
@@ -721,8 +713,12 @@ bool LodePNGState::isChunkAncillary(const unsigned char* chunk)
 	return ((chunk[4] & 32) != 0);
 }
 
-unsigned LodePNGState::convert(unsigned char* out, const unsigned char* in, LodePNGColorMode* mode_out,
-		LodePNGColorMode* mode_in, unsigned w, unsigned h)
+unsigned LodePNGState::convert(
+		std::vector <unsigned char>& out,
+		const std::vector <unsigned char>& in,
+		LodePNGColorMode* mode_out,
+		LodePNGColorMode* mode_in,
+		unsigned w, unsigned h)
 {
 	return 0;
 }

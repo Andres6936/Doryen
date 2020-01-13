@@ -52,7 +52,6 @@ bool TCOD_sys_check_png(const char* filename)
 SDL_Surface* TCOD_sys_read_png(const char* filename)
 {
 	size_t pngsize;
-	unsigned char* source;
 
 	bool readFile = false;
 
@@ -114,11 +113,11 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 		bpp = 24;
 	}
 
-	// Without reserve
-	unsigned char* image;
+	// Where the imagen be saved
+	std::vector <unsigned char> image;
 
 //	unsigned error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
-	unsigned error = state.decode(&image, &width, &height, png, pngsize);
+	unsigned error = state.decode(image, &width, &height, png, pngsize);
 
 	free(png);
 
@@ -131,7 +130,15 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 
 	/* create the SDL surface */
 	SDL_Surface* bitmap = static_cast<SDL_Surface*>(TCOD_sys_get_surface(width, height, bpp == 32));
-	source = image;
+
+	// Reserve
+	unsigned char* source = new unsigned char[image.size()];
+
+	for (int i = 0; i < image.size(); ++i)
+	{
+		source[i] = image[i];
+	}
+
 	unsigned int rowsize = width * bpp / 8;
 
 	for (unsigned y = 0; y < height; y++)
@@ -142,7 +149,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	}
 
 	//lodepng_state_cleanup(&state);
-	free(image);
+
 	return bitmap;
 }
 

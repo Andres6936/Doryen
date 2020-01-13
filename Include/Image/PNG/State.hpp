@@ -48,7 +48,7 @@ public:
 	 * to allow custom settings and getting much more information
 	 * about the PNG image and color mode.
 	 */
-	unsigned int decode(unsigned char** out, unsigned* w, unsigned* h,
+	unsigned int decode(std::vector <unsigned char>& out, unsigned* w, unsigned* h,
 			const unsigned char* in, size_t insize);
 
 	/**
@@ -76,7 +76,7 @@ private:
 	 * read a PNG, the result will be in the same color type as
 	 * the PNG (hence "generic")
 	 */
-	void decodeGeneric(unsigned char** out, unsigned* w, unsigned* h,
+	void decodeGeneric(std::vector <unsigned char>& out, unsigned* w, unsigned* h,
 			const unsigned char* in, size_t insize);
 
 	/**
@@ -104,7 +104,7 @@ private:
 	 * must have size (w * h * bpp + 7) / 8, where bpp is the
 	 * bits per pixel of the output color type (lodepng_get_bpp)
 	 */
-	unsigned convert(unsigned char* out, const unsigned char* in,
+	unsigned convert(std::vector <unsigned char>& out, const std::vector <unsigned char>& in,
 			LodePNGColorMode* mode_out, LodePNGColorMode* mode_in,
 			unsigned w, unsigned h);
 
