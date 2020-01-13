@@ -133,7 +133,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 
 	for (unsigned y = 0; y < height; y++)
 	{
-		Uint8* row_pointer = (Uint8*)(bitmap->pixels) + y * bitmap->pitch;
+		auto row_pointer = (unsigned char*)bitmap->pixels + (y * bitmap->pitch);
 		memcpy(row_pointer, source, rowsize);
 		source += rowsize;
 	}
