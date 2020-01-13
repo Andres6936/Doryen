@@ -669,12 +669,12 @@ void LodePNGState::decodeGeneric(unsigned char** out, unsigned* w,
 
 			error = info_png.postProcessScanlines(outv, scanlines, *w, *h);
 
+			*out = new unsigned char[outv.size()];
+
 			for (int i = 0; i < outv.size(); ++i)
 			{
-				*out[i] = outv[i];
+				(*out)[i] = outv[i];
 			}
-
-			*out[outv.size() + 1] = '\0';
 		}
 	}
 }
