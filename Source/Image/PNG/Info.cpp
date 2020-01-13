@@ -165,9 +165,12 @@ unsigned LodePNGInfo::unfilter(
 		prevline.clear();
 		prevline.resize(out.size() - outindex);
 
+		unsigned index = 0;
+
 		for (unsigned i = outindex; i < prevline.size(); ++i)
 		{
-			prevline[i - outindex] = out[outindex];
+			prevline[i - outindex] = out[outindex + index];
+			index++;
 		}
 	}
 
@@ -242,10 +245,20 @@ unsigned LodePNGInfo::unfilterScanline(
 
 		if (!precon.empty())
 		{
+			std::cout << "Precon" << "\n";
+
+			for (unsigned i = 0; i < length; i++)
+			{
+				std::cout << (unsigned)precon[i] << " ";
+			}
+
+			std::cout << "\n";
+
 			for (unsigned i = outindex; i < outindex + length; i++)
 			{
 				recon[i] = scanline[index + inindex] + precon[i - outindex];
-				std::cout << (unsigned)scanline[index + inindex] + precon[i - outindex];
+				std::cout << (unsigned)scanline[index + inindex] << "|" << (unsigned)precon[i - outindex] << " ";
+				//std::cout << (unsigned)scanline[index + inindex] + precon[i - outindex];
 				index++;
 			}
 		}

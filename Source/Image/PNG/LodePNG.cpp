@@ -4251,10 +4251,20 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 
 		if (precon)
 		{
+			std::cout << "Precon" << "\n";
+
+			for (unsigned j = 0; j < length; j++)
+			{
+				std::cout << (unsigned)precon[j] << " ";
+			}
+
+			std::cout << "\n";
+
 			for (i = 0; i < length; i++)
 			{
 				recon[i] = scanline[i] + precon[i];
-				std::cout << (unsigned)scanline[i] + precon[i];
+				std::cout << (unsigned)scanline[i] << "|" << (unsigned)precon[i] << " ";
+				//std::cout << (unsigned)scanline[i] + precon[i];
 			}
 		}
 		else
