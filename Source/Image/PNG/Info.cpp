@@ -1,5 +1,4 @@
 #include <vector>
-#include <iostream>
 #include "Image/PNG/Info.hpp"
 
 LodePNGInfo::LodePNGInfo()
@@ -228,24 +227,11 @@ unsigned LodePNGInfo::unfilterScanline(
 
 	case 2:
 
-		std::cout << "Case 2" << "\n";
-
 		if (!precon.empty())
 		{
-			std::cout << "Precon" << "\n";
-
-			for (unsigned i = 0; i < length; i++)
-			{
-				std::cout << (unsigned)precon[i] << " ";
-			}
-
-			std::cout << "\n";
-
 			for (unsigned i = outindex; i < outindex + length; i++)
 			{
 				recon[i] = scanline[index + inindex] + precon[i - outindex];
-				std::cout << (unsigned)scanline[index + inindex] << "|" << (unsigned)precon[i - outindex] << " ";
-				//std::cout << (unsigned)scanline[index + inindex] + precon[i - outindex];
 				index++;
 			}
 		}
@@ -254,34 +240,25 @@ unsigned LodePNGInfo::unfilterScanline(
 			for (unsigned i = outindex; i < outindex + length; i++)
 			{
 				recon[i] = scanline[index + inindex];
-				std::cout << (unsigned)scanline[index + inindex];
 				index++;
 			}
 		}
 
-		std::cout << "\n\n";
-
 		break;
 
 	case 3:
-
-		std::cout << "Case 3" << "\n";
 
 		if (!precon.empty())
 		{
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				recon[i] = scanline[index + inindex] + precon[i - outindex] / 2;
-				std::cout << (unsigned)scanline[index + inindex] + precon[i - outindex] / 2;
 				index++;
 			}
-
-			std::cout << "\n";
 
 			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
 			{
 				recon[i] = scanline[index + inindex] + ((recon[i - bytewidth] + precon[i - outindex]) / 2);
-				std::cout << (unsigned)scanline[index + inindex] + ((recon[i - bytewidth] + precon[i - outindex]) / 2);
 				index++;
 			}
 		}
@@ -290,51 +267,28 @@ unsigned LodePNGInfo::unfilterScanline(
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				recon[i] = scanline[index + inindex];
-				std::cout << (unsigned)scanline[index + inindex];
 				index++;
 			}
-
-			std::cout << "\n";
 
 			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
 			{
 				recon[i] = scanline[index + inindex] + recon[i - bytewidth] / 2;
-				std::cout << (unsigned)scanline[index + inindex] + recon[i - bytewidth] / 2;
 				index++;
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 
 	case 4:
 
-		std::cout << "Case 4" << "\n";
-
 		if (!precon.empty())
 		{
-			std::cout << "If" << "\n";
-
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				//paethPredictor(0, precon[i], 0) is always precon[i]
 				recon[i] = (scanline[index + inindex] + precon[i - outindex]);
 				index++;
-
-				std::cout << (unsigned)recon[i];
 			}
-
-			std::cout << "\n\n";
-
-			std::cout << "Precon:" << "\n";
-
-			for (unsigned char j : precon)
-			{
-				std::cout << (unsigned)j;
-			}
-
-			std::cout << "\n";
 
 			index = 0;
 
@@ -347,25 +301,14 @@ unsigned LodePNGInfo::unfilterScanline(
 								 precon[i],
 								 precon[i - bytewidth]));
 
-				std::cout << " S:" << (unsigned)scanline[index + inindex + bytewidth];
-				std::cout << " R:" << (unsigned)recon[i - bytewidth + outindex];
-				std::cout << " P:" << (unsigned)precon[i];
-				std::cout << " Z:" << (unsigned)precon[i - bytewidth];
-
-//				std::cout << " R:" << (unsigned) recon[i] << "|P:" << (unsigned) paethPredictor(recon[i - bytewidth], precon[i - outindex],
-//									precon[i - bytewidth - outindex]);
-
 				index++;
 			}
 		}
 		else
 		{
-			std::cout << "Else" << "\n";
-
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				recon[i] = scanline[index + inindex];
-				std::cout << (unsigned)scanline[index + inindex];
 				index++;
 			}
 
@@ -376,12 +319,9 @@ unsigned LodePNGInfo::unfilterScanline(
 				// paethPredictor(recon[i - bytewidth], 0, 0) is
 				// always recon[i - bytewidth]
 				recon[i] = (scanline[index + inindex + bytewidth] + recon[i - bytewidth]);
-				std::cout << (unsigned)(scanline[index + inindex + bytewidth] + recon[i - bytewidth]);
 				index++;
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 
