@@ -51,22 +51,17 @@ bool TCOD_sys_check_png(const char* filename)
 
 SDL_Surface* TCOD_sys_read_png(const char* filename)
 {
-	unsigned error;
-	unsigned char* image;
-	unsigned width, height, y, bpp;
-	unsigned char* png;
 	size_t pngsize;
-	SDL_Surface* bitmap;
 	unsigned char* source;
-	unsigned int rowsize;
 
 	LodePNGState state;
 
 	bool readFile = false;
 
-	uint32 filesize;
 	/* get file size */
 	FILE* fops = fopen(filename, "rb");
+
+	unsigned char* png;
 
 	if (!fops)
 	{
@@ -75,10 +70,12 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	else
 	{
 		fseek(fops, 0, SEEK_END);
-		filesize = ftell(fops);
+		uint32 filesize = ftell(fops);
 		fseek(fops, 0, SEEK_SET);
-		/* allocate buffer */
-		png = (unsigned char*)malloc(sizeof(unsigned char) * filesize);
+
+		// allocate buffer
+		png = new unsigned char[filesize];
+
 		/* read from file */
 		if (fread(png, sizeof(unsigned char), filesize, fops) != filesize)
 		{
@@ -98,9 +95,11 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	if (!readFile)
 	{ return NULL; }
 
+	unsigned width, height;
+
 	state.inspect(&width, &height, png, pngsize);
 
-	bpp = state.getBitsPerPixel();
+	unsigned bpp = state.getBitsPerPixel();
 
 	if (bpp == 24)
 	{
@@ -115,8 +114,11 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 		bpp = 24;
 	}
 
+	// Without reserve
+	unsigned char* image;
+
 //	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
-	error = state.decode(&image, &width, &height, png, pngsize);
+	unsigned error = state.decode(&image, &width, &height, png, pngsize);
 
 	free(png);
 
@@ -128,10 +130,11 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	}
 
 	/* create the SDL surface */
-	bitmap = static_cast<SDL_Surface*>(TCOD_sys_get_surface(width, height, bpp == 32));
+	SDL_Surface* bitmap = static_cast<SDL_Surface*>(TCOD_sys_get_surface(width, height, bpp == 32));
 	source = image;
-	rowsize = width * bpp / 8;
-	for (y = 0; y < height; y++)
+	unsigned int rowsize = width * bpp / 8;
+
+	for (unsigned y = 0; y < height; y++)
 	{
 		Uint8* row_pointer = (Uint8*)(bitmap->pixels) + y * bitmap->pitch;
 		memcpy(row_pointer, source, rowsize);
