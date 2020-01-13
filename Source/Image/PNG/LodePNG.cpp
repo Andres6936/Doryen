@@ -36,7 +36,6 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 #ifdef LODEPNG_COMPILE_CPP
 
 #include <fstream>
-#include <iostream>
 
 #endif /*LODEPNG_COMPILE_CPP*/
 
@@ -4234,24 +4233,11 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 		break;
 	case 2:
 
-		std::cout << "Case 2" << "\n";
-
 		if (precon)
 		{
-			std::cout << "Precon" << "\n";
-
-			for (unsigned j = 0; j < length; j++)
-			{
-				std::cout << (unsigned)precon[j] << " ";
-			}
-
-			std::cout << "\n";
-
 			for (i = 0; i < length; i++)
 			{
 				recon[i] = scanline[i] + precon[i];
-				std::cout << (unsigned)scanline[i] << "|" << (unsigned)precon[i] << " ";
-				//std::cout << (unsigned)scanline[i] + precon[i];
 			}
 		}
 		else
@@ -4259,32 +4245,23 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 			for (i = 0; i < length; i++)
 			{
 				recon[i] = scanline[i];
-				std::cout << (unsigned)scanline[i];
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 
 	case 3:
-
-		std::cout << "Case 3" << "\n";
 
 		if (precon)
 		{
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = scanline[i] + precon[i] / 2;
-				std::cout << (unsigned)scanline[i] + precon[i] / 2;
 			}
-
-			std::cout << "\n";
 
 			for (i = bytewidth; i < length; i++)
 			{
 				recon[i] = scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2);
-				std::cout << (unsigned)scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2);
 			}
 		}
 		else
@@ -4292,77 +4269,42 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = scanline[i];
-				std::cout << (unsigned)scanline[i];
 			}
-
-			std::cout << "\n";
 
 			for (i = bytewidth; i < length; i++)
 			{
 				recon[i] = scanline[i] + recon[i - bytewidth] / 2;
-				std::cout << (unsigned)scanline[i] + recon[i - bytewidth] / 2;
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	case 4:
 
-		std::cout << "Case 4" << "\n";
-
 		if (precon)
 		{
-			std::cout << "If" << "\n";
-
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = (scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
-				std::cout << (unsigned)recon[i];
 			}
-
-			std::cout << "\n\n";
-
-			std::cout << "Precon:" << "\n";
-
-			for (int j = 0; j < length; ++j)
-			{
-				std::cout << (unsigned)precon[j];
-			}
-
-			std::cout << "\n";
 
 			for (i = bytewidth; i < length; i++)
 			{
 				recon[i] = (scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
-
-				std::cout << " S:" << (unsigned)scanline[i];
-				std::cout << " R:" << (unsigned)recon[i - bytewidth];
-				std::cout << " P:" << (unsigned)precon[i];
-				std::cout << " Z:" << (unsigned)precon[i - bytewidth];
-
-				//std::cout << " R:" << (unsigned) recon[i] << "|P:" << (unsigned) paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]);
 			}
 		}
 		else
 		{
-			std::cout << "Else" << "\n";
-
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = scanline[i];
-				std::cout << (unsigned)scanline[i];
 			}
 
 			for (i = bytewidth; i < length; i++)
 			{
 				/*paethPredictor(recon[i - bytewidth], 0, 0) is always recon[i - bytewidth]*/
 				recon[i] = (scanline[i] + recon[i - bytewidth]);
-				std::cout << (unsigned)(scanline[i] + recon[i - bytewidth]);
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	default:
