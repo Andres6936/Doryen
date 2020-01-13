@@ -73,11 +73,11 @@ Doryen::ImageData::ImageData(const std::string& filename)
 {
 	if (isTypeImageBMP(filename))
 	{
-
+		readImageBMP(filename);
 	}
 	else if (isTypeImagePNG(filename))
 	{
-
+		readImagePNG(filename);
 	}
 }
 
