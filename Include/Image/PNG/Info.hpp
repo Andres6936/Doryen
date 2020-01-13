@@ -116,9 +116,9 @@ private:
 			unsigned w, unsigned h, unsigned bpp);
 
 	static unsigned unfilterScanline(std::vector <unsigned char>& recon,
-			unsigned outindex,
+			const unsigned int outindex,
 			const std::vector <unsigned char>& scanline,
-			unsigned inindex,
+			const unsigned int inindex,
 			const std::vector <unsigned char>& precon,
 			size_t bytewidth, unsigned char filterType, size_t length);
 
