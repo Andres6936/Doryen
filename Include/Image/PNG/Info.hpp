@@ -112,8 +112,8 @@ public:
 private:
 
 	static unsigned unfilter(std::vector <unsigned char>& out,
-			std::vector <unsigned char>& in,
-			unsigned w, unsigned h, unsigned bpp);
+			const std::vector <unsigned char>& in,
+			const unsigned int w, const unsigned int h, const unsigned int bpp);
 
 	static unsigned unfilterScanline(std::vector <unsigned char>& recon,
 			const unsigned int outindex,

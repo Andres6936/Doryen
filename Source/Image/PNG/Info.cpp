@@ -120,8 +120,10 @@ unsigned LodePNGInfo::postProcessScanlines(
 
 unsigned LodePNGInfo::unfilter(
 		std::vector <unsigned char>& out,
-		std::vector <unsigned char>& in,
-		unsigned w, unsigned h, unsigned bpp)
+		const std::vector <unsigned char>& in,
+		const unsigned int w,
+		const unsigned int h,
+		const unsigned int bpp)
 {
 	// For PNG filter method 0 this function unfilters a
 	// single image (e.g. without interlacing this is called
