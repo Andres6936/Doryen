@@ -54,8 +54,6 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	size_t pngsize;
 	unsigned char* source;
 
-	LodePNGState state;
-
 	bool readFile = false;
 
 	/* get file size */
@@ -97,6 +95,8 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 
 	unsigned width, height;
 
+	LodePNGState state;
+
 	state.inspect(&width, &height, png, pngsize);
 
 	unsigned bpp = state.getBitsPerPixel();
@@ -117,7 +117,7 @@ SDL_Surface* TCOD_sys_read_png(const char* filename)
 	// Without reserve
 	unsigned char* image;
 
-//	error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
+//	unsigned error = lodepng_decode(&image, &width, &height, &state, png, pngsize);
 	unsigned error = state.decode(&image, &width, &height, png, pngsize);
 
 	free(png);
