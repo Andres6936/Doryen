@@ -203,39 +203,26 @@ unsigned LodePNGInfo::unfilterScanline(
 	{
 	case 0:
 
-		std::cout << "Case 0" << "\n";
-
 		for (unsigned i = outindex; i < outindex + length; i++)
 		{
 			recon[i] = scanline[index + inindex];
-			std::cout << (unsigned)scanline[index + inindex];
 			index++;
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	case 1:
 
-		std::cout << "Case 1" << "\n";
-
 		for (unsigned i = outindex; i < outindex + bytewidth; i++)
 		{
 			recon[i] = scanline[index + inindex];
-			std::cout << (unsigned)scanline[index + inindex];
 			index++;
 		}
-
-		std::cout << "\n";
 
 		for (unsigned i = bytewidth + outindex; i < outindex + length; i++)
 		{
 			recon[i] = scanline[index + inindex] + recon[i - bytewidth];
-			std::cout << (unsigned)scanline[index + inindex] + recon[i - bytewidth];
 			index++;
 		}
-
-		std::cout << "\n\n";
 
 		break;
 
