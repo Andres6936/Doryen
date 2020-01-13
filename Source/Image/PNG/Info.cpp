@@ -310,30 +310,22 @@ unsigned LodePNGInfo::unfilterScanline(
 
 	case 4:
 
-		std::cout << "Case 4" << "\n";
-
 		if (!precon.empty())
 		{
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				//paethPredictor(0, precon[i], 0) is always precon[i]
 				recon[i] = (scanline[index + inindex] + precon[i - outindex]);
-				std::cout << (unsigned)(scanline[index + inindex] + precon[i - outindex]);
 				index++;
 			}
-
-			std::cout << "\n";
 
 			index = 0;
 
 			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
 			{
-				recon[i] = (scanline[index + inindex] +
+				recon[i] = (scanline[index + inindex + bytewidth] +
 							paethPredictor(recon[i - bytewidth], precon[i - outindex],
 									precon[i - bytewidth - outindex]));
-				std::cout << (unsigned)(scanline[index + inindex] +
-										paethPredictor(recon[i - bytewidth], precon[i - outindex],
-												precon[i - bytewidth - outindex]));
 				index++;
 			}
 		}
@@ -346,8 +338,6 @@ unsigned LodePNGInfo::unfilterScanline(
 				index++;
 			}
 
-			std::cout << "\n";
-
 			index = 0;
 
 			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
@@ -359,8 +349,6 @@ unsigned LodePNGInfo::unfilterScanline(
 				index++;
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 

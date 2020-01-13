@@ -4309,22 +4309,16 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 		break;
 	case 4:
 
-		std::cout << "Case 4" << "\n";
-
 		if (precon)
 		{
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = (scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
-				std::cout << (unsigned)(scanline[i] + precon[i]);
 			}
-
-			std::cout << "\n";
 
 			for (i = bytewidth; i < length; i++)
 			{
 				recon[i] = (scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
-				std::cout << (unsigned)(scanline[i] + precon[i]);
 			}
 		}
 		else
@@ -4335,8 +4329,6 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 				std::cout << (unsigned)scanline[i];
 			}
 
-			std::cout << "\n";
-
 			for (i = bytewidth; i < length; i++)
 			{
 				/*paethPredictor(recon[i - bytewidth], 0, 0) is always recon[i - bytewidth]*/
@@ -4344,8 +4336,6 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 				std::cout << (unsigned)(scanline[i] + recon[i - bytewidth]);
 			}
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	default:
