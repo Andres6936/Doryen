@@ -344,7 +344,7 @@ unsigned LodePNGInfo::unfilterScanline(
 			{
 				// paethPredictor(recon[i - bytewidth], 0, 0) is
 				// always recon[i - bytewidth]
-				recon[i] = (scanline[index + inindex] + recon[i - bytewidth]);
+				recon[i] = (scanline[index + inindex + bytewidth] + recon[i - bytewidth]);
 				std::cout << (unsigned)(scanline[index + inindex] + recon[i - bytewidth]);
 				index++;
 			}
