@@ -36,6 +36,7 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 #ifdef LODEPNG_COMPILE_CPP
 
 #include <fstream>
+#include <iostream>
 
 #endif /*LODEPNG_COMPILE_CPP*/
 
@@ -638,7 +639,8 @@ static unsigned HuffmanTree_make2DTree(HuffmanTree* tree)
 					treepos = nodefilled;
 				}
 			}
-			else treepos = tree->tree2d[2 * treepos + bit] - tree->numcodes;
+			else
+			{ treepos = tree->tree2d[2 * treepos + bit] - tree->numcodes; }
 		}
 	}
 
@@ -678,7 +680,8 @@ static unsigned HuffmanTree_makeFromLengths2(HuffmanTree* tree)
 	if (!error)
 	{
 		/*step 1: count number of instances of each code length*/
-		for (bits = 0; bits < tree->numcodes; bits++) blcount.data[tree->lengths[bits]]++;
+		for (bits = 0; bits < tree->numcodes; bits++)
+		{ blcount.data[tree->lengths[bits]]++; }
 		/*step 2: generate the nextcode values*/
 		for (bits = 1; bits <= tree->maxbitlen; bits++)
 		{
@@ -687,15 +690,18 @@ static unsigned HuffmanTree_makeFromLengths2(HuffmanTree* tree)
 		/*step 3: generate all the codes*/
 		for (n = 0; n < tree->numcodes; n++)
 		{
-			if (tree->lengths[n] != 0) tree->tree1d[n] = nextcode.data[tree->lengths[n]]++;
+			if (tree->lengths[n] != 0)
+			{ tree->tree1d[n] = nextcode.data[tree->lengths[n]]++; }
 		}
 	}
 
 	uivector_cleanup(&blcount);
 	uivector_cleanup(&nextcode);
 
-	if (!error) return HuffmanTree_make2DTree(tree);
-	else return error;
+	if (!error)
+	{ return HuffmanTree_make2DTree(tree); }
+	else
+	{ return error; }
 }
 
 /*
@@ -919,7 +925,8 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
 			for (i = 0; i < numpresent - 1; i++)
 			{
 				Coin* coin = &coins[i];
-				for (j = 0; j < coin->symbols.size; j++) lengths[coin->symbols.data[j]]++;
+				for (j = 0; j < coin->symbols.size; j++)
+				{ lengths[coin->symbols.data[j]]++; }
 			}
 		}
 
@@ -1364,12 +1371,15 @@ static unsigned inflateNoCompression(ucvector* out, const unsigned char* in, siz
 
 	if ((*pos) + LEN >= out->size)
 	{
-		if (!ucvector_resize(out, (*pos) + LEN)) return 83; /*alloc fail*/
+		if (!ucvector_resize(out, (*pos) + LEN))
+		{ return 83; } /*alloc fail*/
 	}
 
 	/*read the literal data: LEN bytes are now stored in the out buffer*/
-	if (p + LEN > inlength) return 23; /*error: reading outside of in buffer*/
-	for (n = 0; n < LEN; n++) out->data[(*pos)++] = in[p++];
+	if (p + LEN > inlength)
+	{ return 23; } /*error: reading outside of in buffer*/
+	for (n = 0; n < LEN; n++)
+	{ out->data[(*pos)++] = in[p++]; }
 
 	(*bp) = p * 8;
 
@@ -1409,7 +1419,8 @@ static unsigned lodepng_inflatev(ucvector* out,
 		else
 		{ error = inflateHuffmanBlock(out, in, &bp, &pos, insize, BTYPE); } /*compression, BTYPE 01 or 10*/
 
-		if (error) return error;
+		if (error)
+		{ return error; }
 	}
 
 	/*Only now we know the true size of out, resize it to that*/
@@ -2696,7 +2707,8 @@ unsigned lodepng_chunk_append(unsigned char** out, size_t* outlength, const unsi
 	(*outlength) = new_length;
 	chunk_start = &(*out)[new_length - total_chunk_length];
 
-	for (i = 0; i < total_chunk_length; i++) chunk_start[i] = chunk[i];
+	for (i = 0; i < total_chunk_length; i++)
+	{ chunk_start[i] = chunk[i]; }
 
 	return 0;
 }
@@ -2726,7 +2738,8 @@ unsigned lodepng_chunk_create(unsigned char** out, size_t* outlength, unsigned l
 	chunk[7] = type[3];
 
 	/*3: the data*/
-	for (i = 0; i < length; i++) chunk[8 + i] = data[i];
+	for (i = 0; i < length; i++)
+	{ chunk[8 + i] = data[i]; }
 
 	/*4: CRC (of the chunkname characters and the data)*/
 	lodepng_chunk_generate_crc(chunk);
@@ -4199,53 +4212,82 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 	switch (filterType)
 	{
 	case 0:
+
+		std::cout << "Case 0" << "\n";
+
 		for (i = 0; i < length; i++)
-		{ recon[i] = scanline[i]; }
+		{
+			recon[i] = scanline[i];
+			std::cout << (unsigned)scanline[i];
+		}
+
+		std::cout << "\n\n";
+
 		break;
 	case 1:
+
+		std::cout << "Case 1" << "\n";
+
 		for (i = 0; i < bytewidth; i++)
-		{ recon[i] = scanline[i]; }
+		{
+			recon[i] = scanline[i];
+			std::cout << (unsigned)scanline[i];
+		}
+
+		std::cout << "\n";
+
 		for (i = bytewidth; i < length; i++)
-		{ recon[i] = scanline[i] + recon[i - bytewidth]; }
+		{
+			recon[i] = scanline[i] + recon[i - bytewidth];
+			std::cout << (unsigned)scanline[i] + recon[i - bytewidth];
+		}
+
+		std::cout << "\n\n";
+
 		break;
 	case 2:
+
+		std::cout << "Case 2" << "\n";
+
 		if (precon)
 		{
 			for (i = 0; i < length; i++)
-			{ recon[i] = scanline[i] + precon[i]; }
-		}
-		else
-		{
-			for (i = 0; i < length; i++)
-			{ recon[i] = scanline[i]; }
-		}
-		break;
-	case 3:
-		if (precon)
-		{
-			for (i = 0; i < bytewidth; i++)
-			{ recon[i] = scanline[i] + precon[i] / 2; }
-			for (i = bytewidth; i < length; i++)
-			{ recon[i] = scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2); }
-		}
-		else
-		{
-			for (i = 0; i < bytewidth; i++)
-			{ recon[i] = scanline[i]; }
-			for (i = bytewidth; i < length; i++)
-			{ recon[i] = scanline[i] + recon[i - bytewidth] / 2; }
-		}
-		break;
-	case 4:
-		if (precon)
-		{
-			for (i = 0; i < bytewidth; i++)
 			{
-				recon[i] = (scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
+				recon[i] = scanline[i] + precon[i];
+				std::cout << (unsigned)scanline[i] + precon[i];
 			}
+		}
+		else
+		{
+			for (i = 0; i < length; i++)
+			{
+				recon[i] = scanline[i];
+				std::cout << (unsigned)scanline[i];
+			}
+		}
+
+		std::cout << "\n\n";
+
+		break;
+
+	case 3:
+
+		std::cout << "Case 3" << "\n";
+
+		if (precon)
+		{
+			for (i = 0; i < bytewidth; i++)
+			{
+				recon[i] = scanline[i] + precon[i] / 2;
+				std::cout << (unsigned)scanline[i] + precon[i] / 2;
+			}
+
+			std::cout << "\n";
+
 			for (i = bytewidth; i < length; i++)
 			{
-				recon[i] = (scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+				recon[i] = scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2);
+				std::cout << (unsigned)scanline[i] + ((recon[i - bytewidth] + precon[i]) / 2);
 			}
 		}
 		else
@@ -4253,13 +4295,61 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = scanline[i];
+				std::cout << (unsigned)scanline[i];
 			}
+
+			std::cout << "\n";
+
+			for (i = bytewidth; i < length; i++)
+			{
+				recon[i] = scanline[i] + recon[i - bytewidth] / 2;
+				std::cout << (unsigned)scanline[i] + recon[i - bytewidth] / 2;
+			}
+		}
+
+		std::cout << "\n\n";
+
+		break;
+	case 4:
+
+		std::cout << "Case 4" << "\n";
+
+		if (precon)
+		{
+			for (i = 0; i < bytewidth; i++)
+			{
+				recon[i] = (scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
+				std::cout << (unsigned)(scanline[i] + precon[i]);
+			}
+
+			std::cout << "\n";
+
+			for (i = bytewidth; i < length; i++)
+			{
+				recon[i] = (scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+				std::cout << (unsigned)(scanline[i] + precon[i]);
+			}
+		}
+		else
+		{
+			for (i = 0; i < bytewidth; i++)
+			{
+				recon[i] = scanline[i];
+				std::cout << (unsigned)scanline[i];
+			}
+
+			std::cout << "\n";
+
 			for (i = bytewidth; i < length; i++)
 			{
 				/*paethPredictor(recon[i - bytewidth], 0, 0) is always recon[i - bytewidth]*/
 				recon[i] = (scanline[i] + recon[i - bytewidth]);
+				std::cout << (unsigned)(scanline[i] + recon[i - bytewidth]);
 			}
 		}
+
+		std::cout << "\n\n";
+
 		break;
 	default:
 		return 36; /*error: unexisting filter type given*/
