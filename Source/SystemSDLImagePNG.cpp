@@ -35,6 +35,8 @@
 
 #endif
 
+#include <fstream>
+
 #include "Image/PNG/LodePNG.hpp"
 
 extern "C"
@@ -51,46 +53,34 @@ bool TCOD_sys_check_png(const char* filename)
 
 SDL_Surface* TCOD_sys_read_png(const char* filename)
 {
-	size_t pngsize;
+	size_t pngsize = 0;
 
-	bool readFile = false;
+	std::ifstream stream;
 
-	/* get file size */
-	FILE* fops = fopen(filename, "rb");
+	// Open file in mode of only read and mode of read binary
+	stream.open(filename, std::ifstream::binary);
 
 	unsigned char* png;
 
-	if (!fops)
+	if (stream.is_open())
 	{
-		readFile = false;
-	}
-	else
-	{
-		fseek(fops, 0, SEEK_END);
-		uint32 filesize = ftell(fops);
-		fseek(fops, 0, SEEK_SET);
+		// Retrieves the file size of the open file
+		stream.seekg(0, std::ifstream::end);
+		unsigned int filesize = stream.tellg();
+		stream.seekg(0, std::ifstream::beg);
+
+		pngsize = filesize;
 
 		// allocate buffer
 		png = new unsigned char[filesize];
 
-		/* read from file */
-		if (fread(png, sizeof(unsigned char), filesize, fops) != filesize)
-		{
-			fclose(fops);
-			free(png);
-			readFile = false;
-		}
-		else
-		{
-			pngsize = filesize;
-			fclose(fops);
-			readFile = true;
-		}
+		stream.read((char*)png, filesize);
+		stream.close();
 	}
-
-	/*optionally customize the state*/
-	if (!readFile)
-	{ return NULL; }
+	else
+	{
+		// TODO: Throw Exception
+	}
 
 	unsigned width, height;
 
