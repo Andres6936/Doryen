@@ -167,7 +167,7 @@ unsigned LodePNGInfo::unfilter(
 
 		unsigned index = 0;
 
-		for (unsigned i = outindex; i < prevline.size(); ++i)
+		for (unsigned i = outindex; i < out.size(); ++i)
 		{
 			prevline[i - outindex] = out[outindex + index];
 			index++;
@@ -310,27 +310,58 @@ unsigned LodePNGInfo::unfilterScanline(
 
 	case 4:
 
+		std::cout << "Case 4" << "\n";
+
 		if (!precon.empty())
 		{
+			std::cout << "If" << "\n";
+
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				//paethPredictor(0, precon[i], 0) is always precon[i]
 				recon[i] = (scanline[index + inindex] + precon[i - outindex]);
 				index++;
+
+				std::cout << (unsigned)recon[i];
 			}
+
+			std::cout << "\n\n";
+
+			std::cout << "Precon:" << "\n";
+
+			for (unsigned char j : precon)
+			{
+				std::cout << (unsigned)j;
+			}
+
+			std::cout << "\n";
 
 			index = 0;
 
-			for (unsigned i = outindex + bytewidth; i < outindex + length; i++)
+			for (unsigned i = bytewidth; i < length; i++)
 			{
-				recon[i] = (scanline[index + inindex + bytewidth] +
-							paethPredictor(recon[i - bytewidth], precon[i - outindex],
-									precon[i - bytewidth - outindex]));
+				recon[i + outindex] =
+						(scanline[index + inindex + bytewidth] +
+						 paethPredictor(
+								 recon[i - bytewidth + outindex],
+								 precon[i],
+								 precon[i - bytewidth]));
+
+				std::cout << " S:" << (unsigned)scanline[index + inindex + bytewidth];
+				std::cout << " R:" << (unsigned)recon[i - bytewidth + outindex];
+				std::cout << " P:" << (unsigned)precon[i];
+				std::cout << " Z:" << (unsigned)precon[i - bytewidth];
+
+//				std::cout << " R:" << (unsigned) recon[i] << "|P:" << (unsigned) paethPredictor(recon[i - bytewidth], precon[i - outindex],
+//									precon[i - bytewidth - outindex]);
+
 				index++;
 			}
 		}
 		else
 		{
+			std::cout << "Else" << "\n";
+
 			for (unsigned i = outindex; i < outindex + bytewidth; i++)
 			{
 				recon[i] = scanline[index + inindex];
@@ -345,10 +376,12 @@ unsigned LodePNGInfo::unfilterScanline(
 				// paethPredictor(recon[i - bytewidth], 0, 0) is
 				// always recon[i - bytewidth]
 				recon[i] = (scanline[index + inindex + bytewidth] + recon[i - bytewidth]);
-				std::cout << (unsigned)(scanline[index + inindex] + recon[i - bytewidth]);
+				std::cout << (unsigned)(scanline[index + inindex + bytewidth] + recon[i - bytewidth]);
 				index++;
 			}
 		}
+
+		std::cout << "\n\n";
 
 		break;
 

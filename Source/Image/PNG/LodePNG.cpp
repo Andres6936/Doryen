@@ -4309,20 +4309,45 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 		break;
 	case 4:
 
+		std::cout << "Case 4" << "\n";
+
 		if (precon)
 		{
+			std::cout << "If" << "\n";
+
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = (scanline[i] + precon[i]); /*paethPredictor(0, precon[i], 0) is always precon[i]*/
+				std::cout << (unsigned)recon[i];
 			}
+
+			std::cout << "\n\n";
+
+			std::cout << "Precon:" << "\n";
+
+			for (int j = 0; j < length; ++j)
+			{
+				std::cout << (unsigned)precon[j];
+			}
+
+			std::cout << "\n";
 
 			for (i = bytewidth; i < length; i++)
 			{
 				recon[i] = (scanline[i] + paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]));
+
+				std::cout << " S:" << (unsigned)scanline[i];
+				std::cout << " R:" << (unsigned)recon[i - bytewidth];
+				std::cout << " P:" << (unsigned)precon[i];
+				std::cout << " Z:" << (unsigned)precon[i - bytewidth];
+
+				//std::cout << " R:" << (unsigned) recon[i] << "|P:" << (unsigned) paethPredictor(recon[i - bytewidth], precon[i], precon[i - bytewidth]);
 			}
 		}
 		else
 		{
+			std::cout << "Else" << "\n";
+
 			for (i = 0; i < bytewidth; i++)
 			{
 				recon[i] = scanline[i];
@@ -4336,6 +4361,8 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 				std::cout << (unsigned)(scanline[i] + recon[i - bytewidth]);
 			}
 		}
+
+		std::cout << "\n\n";
 
 		break;
 	default:
