@@ -111,11 +111,11 @@ public:
 
 private:
 
-	unsigned unfilter(std::vector <unsigned char>& out,
+	static unsigned unfilter(std::vector <unsigned char>& out,
 			std::vector <unsigned char>& in,
 			unsigned w, unsigned h, unsigned bpp);
 
-	unsigned unfilterScanline(std::vector <unsigned char>& recon,
+	static unsigned unfilterScanline(std::vector <unsigned char>& recon,
 			unsigned outindex,
 			const std::vector <unsigned char>& scanline,
 			unsigned inindex,

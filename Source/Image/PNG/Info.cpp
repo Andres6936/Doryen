@@ -114,6 +114,8 @@ unsigned LodePNGInfo::postProcessScanlines(
 			}
 		}
 	}
+
+	return 0;
 }
 
 unsigned LodePNGInfo::unfilter(
