@@ -4213,36 +4213,23 @@ static unsigned unfilterScanline(unsigned char* recon, const unsigned char* scan
 	{
 	case 0:
 
-		std::cout << "Case 0" << "\n";
-
 		for (i = 0; i < length; i++)
 		{
 			recon[i] = scanline[i];
-			std::cout << (unsigned)scanline[i];
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	case 1:
 
-		std::cout << "Case 1" << "\n";
-
 		for (i = 0; i < bytewidth; i++)
 		{
 			recon[i] = scanline[i];
-			std::cout << (unsigned)scanline[i];
 		}
-
-		std::cout << "\n";
 
 		for (i = bytewidth; i < length; i++)
 		{
 			recon[i] = scanline[i] + recon[i - bytewidth];
-			std::cout << (unsigned)scanline[i] + recon[i - bytewidth];
 		}
-
-		std::cout << "\n\n";
 
 		break;
 	case 2:
