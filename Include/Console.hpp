@@ -63,13 +63,7 @@ namespace Doryen
 
 		bool windowClose = false;
 
-		Renderer* renderer = new Renderer();
-
-		std::vector <bool> ascii_updated;
-
-		std::vector <bool> first_draw;
-
-		std::vector <TCOD_color_t> charcols;
+		Renderer* renderer = new SDL();
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 

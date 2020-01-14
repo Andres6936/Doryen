@@ -41,3 +41,21 @@ const std::array <int, 256> Doryen::Renderer::init_ascii_to_tcod =
 		};
 
 // Methods
+
+void Doryen::Renderer::clearAndResizeASCII(unsigned size)
+{
+	ascii_updated.clear();
+	ascii_updated.resize(size, false);
+}
+
+void Doryen::Renderer::clearAndResizeFirstDraw(unsigned size)
+{
+	first_draw.clear();
+	first_draw.resize(size, true);
+}
+
+void Doryen::Renderer::clearAndResizeCharcols(unsigned size)
+{
+	charcols.clear();
+	charcols.resize(size);
+}

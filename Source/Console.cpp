@@ -313,14 +313,9 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 			TCOD_ctx.ascii_to_tcod[i] = Renderer::init_ascii_to_tcod[i];
 		}
 
-		ascii_updated.clear();
-		ascii_updated.resize(TCOD_ctx.max_font_chars, false);
-
-		first_draw.clear();
-		first_draw.resize(TCOD_ctx.max_font_chars, true);
-
-		charcols.clear();
-		charcols.resize(TCOD_ctx.max_font_chars);
+		renderer->clearAndResizeASCII(TCOD_ctx.max_font_chars);
+		renderer->clearAndResizeFirstDraw(TCOD_ctx.max_font_chars);
+		renderer->clearAndResizeCharcols(TCOD_ctx.max_font_chars);
 	}
 }
 

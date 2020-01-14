@@ -12,6 +12,12 @@ namespace Doryen
 
 	private:
 
+		std::vector <bool> ascii_updated;
+
+		std::vector <bool> first_draw;
+
+		std::vector <TCOD_color_t> charcols;
+
 	public:
 
 		// Constructs
@@ -25,6 +31,12 @@ namespace Doryen
 		static const std::array <int, 256> init_ascii_to_tcod;
 
 		// Methods
+
+		void clearAndResizeASCII(unsigned size);
+
+		void clearAndResizeFirstDraw(unsigned size);
+
+		void clearAndResizeCharcols(unsigned size);
 	};
 }
 
