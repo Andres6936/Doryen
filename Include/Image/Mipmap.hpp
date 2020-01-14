@@ -11,15 +11,19 @@ namespace Doryen
 
 	public:
 
-		int width;
-		int height;
+		unsigned int width = 0;
+		unsigned int height = 0;
 
-		float fwidth;
-		float fheight;
+		float fwidth = 0.0f;
+		float fheight = 0.0f;
 
 		std::vector <Color> buf;
 
-		bool dirty;
+		bool dirty = false;
+
+		static unsigned int getLevels(
+				unsigned int width,
+				unsigned int height);
 	};
 }
 

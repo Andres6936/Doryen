@@ -33,6 +33,8 @@
 Doryen::Image::Image(int width, int height) : deleteData(true)
 {
 	data = (void*)TCOD_image_new(width, height);
+
+	imageData = ImageData(width, height);
 }
 
 Doryen::Image::Image(const char* filename) : deleteData(true)

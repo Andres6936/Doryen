@@ -272,3 +272,35 @@ SDL_Surface* Doryen::ImageData::createNewSurface(
 	}
 	return bitmap;
 }
+
+Doryen::ImageData::ImageData(
+		unsigned int width,
+		unsigned int heigth)
+{
+	mipmaps.resize(Mipmap::getLevels(width, heigth));
+
+	// Access to first element and resize the buffer of colors.
+	mipmaps.at(0).buf.resize(width * heigth);
+
+	for (int i = 0; i < width * heigth; ++i)
+	{
+		mipmaps.at(0).buf[i] = Color::black;
+	}
+
+	float fw = (float)width;
+	float fh = (float)heigth;
+
+	for (Mipmap& mipmap : mipmaps)
+	{
+		mipmap.width = width;
+		mipmap.height = heigth;
+		mipmap.fwidth = fw;
+		mipmap.fheight = fh;
+
+		width >>= 1;
+		heigth >>= 1;
+
+		fw *= 0.5f;
+		fh *= 0.5f;
+	}
+}

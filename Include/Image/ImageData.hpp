@@ -17,8 +17,6 @@ namespace Doryen
 
 		SDL_Surface* systemImage = nullptr;
 
-		int nb_mipmaps;
-
 		std::vector <Mipmap> mipmaps;
 
 		Color key_color;
@@ -34,6 +32,8 @@ namespace Doryen
 	public:
 
 		ImageData() = default;
+
+		ImageData(unsigned int width, unsigned int heigth);
 
 		explicit ImageData(const std::string& filename);
 
