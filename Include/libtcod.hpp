@@ -38,7 +38,6 @@
 #include "mouse.hpp"
 #include "noise.hpp"
 #include "FOV/Fov.hpp"
-#include "path.hpp"
 #include "tree.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"

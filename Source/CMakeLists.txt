@@ -29,7 +29,7 @@ SET(LIBTCOD_C_SRC color_c.c console_c.c fov_c.c
 
 SET(LIBTCOD_CPP_SRC Algorithms/Drawing/Bresenham.cpp Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Color.cpp
         Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp Image/Mipmap.cpp
-        mersenne.cpp mouse.cpp namegen.cpp noise.cpp path.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
+        mersenne.cpp mouse.cpp namegen.cpp noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp FOV/ShadowCasting.cpp
         Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
         Image/PNG/LodePNG.cpp Image/PNG/Info.cpp Image/PNG/State.cpp
