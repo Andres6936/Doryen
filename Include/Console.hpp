@@ -31,6 +31,8 @@
 #include <vector>
 #include <array>
 
+#include "Renderer/Renderer.hpp"
+#include "Renderer/Sdl.hpp"
 #include "Color.hpp"
 
 #include "libtcod.h"
@@ -61,13 +63,13 @@ namespace Doryen
 
 		bool windowClose = false;
 
-		static std::vector <bool> ascii_updated;
+		Renderer* renderer = new Renderer();
 
-		static std::vector <bool> first_draw;
+		std::vector <bool> ascii_updated;
 
-		static std::vector <TCOD_color_t> charcols;
+		std::vector <bool> first_draw;
 
-		static std::array <int, 256> init_ascii_to_tcod;
+		std::vector <TCOD_color_t> charcols;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
@@ -147,30 +149,30 @@ namespace Doryen
         initRoot( int w, int h, const char *title, bool fullscreen = false,
                   TCOD_renderer_t renderer = TCOD_RENDERER_SDL );
 
-        /**
-         * This function allows you to use a bitmap font (png or bmp) with custom
-         * character size or layout.
-         *
-         * It should be called before initializing the root console with initRoot.
-         * Once this function is called, you can define your own custom mappings
-         * using mapping functions.
-         *
-         * @param fontFile Name of a .bmp or .png file containing the font.
-         * @param flags Used to define the characters layout in the bitmap and the font type :
-         *
-         * 1- TCOD_FONT_LAYOUT_ASCII_INCOL : characters in ASCII order, code 0-15 in the first column. <br>
-         * 2- TCOD_FONT_LAYOUT_ASCII_INROW : characters in ASCII order, code 0-15 in the first row <br>
-         * 3- TCOD_FONT_LAYOUT_TCOD : simplified layout. <br>
-         * 4- TCOD_FONT_TYPE_GREYSCALE : create an anti-aliased font from a greyscale bitmap. <br>
-         *
-         * @param nbCharHoriz Number of characters in the font.
-         * @param nbCharVertic Number of characters in the font.
-         *
-         * @note If set to 0 nbCharHoriz or nbCharVertic, there are deduced from
-         * the font layout flag.
-         */
-        static void setCustomFont( const char *fontFile, int flags = TCOD_FONT_LAYOUT_ASCII_INCOL, int nbCharHoriz = 0,
-                                   int nbCharVertic = 0 );
+		/**
+		 * This function allows you to use a bitmap font (png or bmp) with custom
+		 * character size or layout.
+		 *
+		 * It should be called before initializing the root console with initRoot.
+		 * Once this function is called, you can define your own custom mappings
+		 * using mapping functions.
+		 *
+		 * @param fontFile Name of a .bmp or .png file containing the font.
+		 * @param flags Used to define the characters layout in the bitmap and the font type :
+		 *
+		 * 1- TCOD_FONT_LAYOUT_ASCII_INCOL : characters in ASCII order, code 0-15 in the first column. <br>
+		 * 2- TCOD_FONT_LAYOUT_ASCII_INROW : characters in ASCII order, code 0-15 in the first row <br>
+		 * 3- TCOD_FONT_LAYOUT_TCOD : simplified layout. <br>
+		 * 4- TCOD_FONT_TYPE_GREYSCALE : create an anti-aliased font from a greyscale bitmap. <br>
+		 *
+		 * @param nbCharHoriz Number of characters in the font.
+		 * @param nbCharVertic Number of characters in the font.
+		 *
+		 * @note If set to 0 nbCharHoriz or nbCharVertic, there are deduced from
+		 * the font layout flag.
+		 */
+		void setCustomFont(const char* fontFile, int flags = TCOD_FONT_LAYOUT_ASCII_INCOL, int nbCharHoriz = 0,
+				int nbCharVertic = 0);
 
         /**
          * @return returns true if the current mode is fullscreen.

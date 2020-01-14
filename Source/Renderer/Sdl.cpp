@@ -1,14 +1,23 @@
 #include "Renderer/Sdl.hpp"
 
-void Doryen::SDL::setFps( const short value )
+// Construct
+
+Doryen::SDL::SDL() : Renderer()
 {
-    if ( value == 0 )
-    {
-        minimunFrameLength = 0;
-    }
-    else
-    {
-        minimunFrameLength = 1000 / value;
+
+}
+
+// Methods
+
+void Doryen::SDL::setFps(const short value)
+{
+	if (value == 0)
+	{
+		minimunFrameLength = 0;
+	}
+	else
+	{
+		minimunFrameLength = 1000 / value;
     }
 }
 

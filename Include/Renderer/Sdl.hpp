@@ -1,23 +1,24 @@
 #ifndef LIBTCOD_SDL_HPP
 #define LIBTCOD_SDL_HPP
 
+#include "Renderer/Renderer.hpp"
 #include <SDL/SDL.h>
 
 namespace Doryen
 {
-    class SDL
-    {
+	class SDL : public Renderer
+	{
 
-    private:
+	private:
 
-        /**
-         * Minimum length for a frame (when fps are limited)
-         */
-        int minimunFrameLength = 0;
+		/**
+		 * Minimum length for a frame (when fps are limited)
+		 */
+		int minimunFrameLength = 0;
 
-        /**
-         * Minimum length for a frame (when fps are limited)
-         */
+		/**
+		 * Minimum length for a frame (when fps are limited)
+		 */
         int minimunFrameLengthBackup = 0;
 
         /**
@@ -25,27 +26,35 @@ namespace Doryen
          */
         float lastFrameLength = 0.0f;
 
-        /**
-         * Number of frames in the last second.
-         */
-        short framePerSecond = 0;
+		/**
+		 * Number of frames in the last second.
+		 */
+		short framePerSecond = 0;
 
-        /**
-         * Current number of frames.
-         */
-        short currentFramePerSecond = 0;
+		/**
+		 * Current number of frames.
+		 */
+		short currentFramePerSecond = 0;
 
-    public:
+	public:
 
-        void setFps( short value );
+		// Construct
 
-        short getFps( ) const;
+		SDL();
 
-        float getLasFrameLength( ) const;
+		~SDL() override = default;
 
-        void sleepMilli( int milliseconds );
+		// Methods
 
-        int getElapsedMilli( ) const;
+		void setFps(short value);
+
+		short getFps() const;
+
+		float getLasFrameLength() const;
+
+		void sleepMilli(int milliseconds);
+
+		int getElapsedMilli() const;
 
         float getElapsedSeconds( ) const;
     };

@@ -1415,35 +1415,36 @@ int main( int argc, char *argv[] )
             printf( "-renderer <num> : set renderer. 0 : GLSL 1 : OPENGL 2 : SDL\n" );
             exit( 0 );
         }
-        else
-        {
-            // ignore parameter
-        }
-    }
+		else
+		{
+			// ignore parameter
+		}
+	}
 
-    if ( fontFlags == 0 )
-    { fontFlags = fontNewFlags; }
+	if (fontFlags == 0)
+	{ fontFlags = fontNewFlags; }
 
-    Doryen::Console::setCustomFont( font, fontFlags, nbCharHoriz, nbCharVertic );
 
-    if ( fullscreenWidth > 0 )
-    {
-        Doryen::Platform::forceFullscreenResolution( fullscreenWidth, fullscreenHeight );
-    }
+	if (fullscreenWidth > 0)
+	{
+		Doryen::Platform::forceFullscreenResolution(fullscreenWidth, fullscreenHeight);
+	}
 
-    Doryen::Console console = Doryen::Console( );
+	Doryen::Console console = Doryen::Console();
 
-    console.initRoot( 80, 50, "libtcod C++ sample", fullscreen, renderer );
+	console.setCustomFont(font, fontFlags, nbCharHoriz, nbCharVertic);
 
-    while ( !console.isWindowClosed( ))
-    {
-        if ( !creditsEnd )
-        {
-            creditsEnd = Doryen::Console::renderCredits( 60, 43, false );
-        }
+	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
 
-        // print the list of samples
-        for ( int i = 0; i < nbSamples; i++ )
+	while (!console.isWindowClosed())
+	{
+		if (!creditsEnd)
+		{
+			creditsEnd = Doryen::Console::renderCredits(60, 43, false);
+		}
+
+		// print the list of samples
+		for (int i = 0; i < nbSamples; i++)
         {
             if ( i == curSample )
             {
