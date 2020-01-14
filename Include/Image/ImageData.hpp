@@ -40,6 +40,8 @@ namespace Doryen
 		static bool isTypeImageBMP(const std::string& filename);
 
 		static bool isTypeImagePNG(const std::string& filename);
+
+		static SDL_Surface* createNewSurface(unsigned int width, unsigned int height, bool alpha);
 	};
 }
 
