@@ -75,13 +75,6 @@ TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_
 TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse);
 
 /* filesystem stuff */
-bool TCOD_sys_create_directory(const char *path);
-
-bool TCOD_sys_delete_file(const char *path);
-
-bool TCOD_sys_delete_directory(const char *path);
-
-bool TCOD_sys_is_directory(const char *path);
 
 TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern);
 
@@ -91,45 +84,9 @@ void TCOD_sys_clipboard_set(const char *value);
 
 char *TCOD_sys_clipboard_get();
 
-/* thread stuff */
-typedef void *TCOD_thread_t;
 typedef void *TCOD_semaphore_t;
 typedef void *TCOD_mutex_t;
-typedef void *TCOD_cond_t;
-/* threads */
-TCOD_thread_t TCOD_thread_new(int (*func)(void *), void *data);
 
-void TCOD_thread_delete(TCOD_thread_t th);
-
-int TCOD_sys_get_num_cores();
-
-void TCOD_thread_wait(TCOD_thread_t th);
-/* mutex */
-TCOD_mutex_t TCOD_mutex_new();
-
-void TCOD_mutex_in(TCOD_mutex_t mut);
-
-void TCOD_mutex_out(TCOD_mutex_t mut);
-
-void TCOD_mutex_delete(TCOD_mutex_t mut);
-/* semaphore */
-TCOD_semaphore_t TCOD_semaphore_new(int initVal);
-
-void TCOD_semaphore_lock(TCOD_semaphore_t sem);
-
-void TCOD_semaphore_unlock(TCOD_semaphore_t sem);
-
-void TCOD_semaphore_delete( TCOD_semaphore_t sem);
-/* condition */
-TCOD_cond_t TCOD_condition_new();
-
-void TCOD_condition_signal(TCOD_cond_t sem);
-
-void TCOD_condition_broadcast(TCOD_cond_t sem);
-
-void TCOD_condition_wait(TCOD_cond_t sem, TCOD_mutex_t mut);
-
-void TCOD_condition_delete( TCOD_cond_t sem);
 /* dynamic library */
 typedef void *TCOD_library_t;
 

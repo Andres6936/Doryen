@@ -199,172 +199,73 @@ namespace Doryen
         @Lua tcod.system.saveScreenshot(filename)
         @Param filename Name of the file. If NULL, a filename is automatically generated with the form "./screenshotNNN.png", NNN being the first free number (if a file named screenshot000.png already exist, screenshot001.png will be used, and so on...).
         */
-        static void saveScreenshot( const char *filename );
+		static void saveScreenshot(const char* filename);
 
-        /**
-        @PageName system_filesystem
-        @PageFather system
-        @PageTitle Filesystem utilities
-        @PageDesc Those are a few function that cannot be easily implemented in a portable way in C/C++. They have no python wrapper since python provides its own builtin functions. All those functions return false if an error occured.
-        @FuncTitle Create a directory
-        @Cpp static bool TCODSystem::createDirectory(const char *path)
-        @C bool TCOD_sys_create_directory(const char *path)
-        @Param path Directory path. The immediate father directory (<path>/..) must exist and be writable.
-        */
-        static bool createDirectory( const char *path );
+		/**
+		@PageName system_filesystem
+		@FuncTitle List files in a directory
+		@FuncDesc To get the list of entries in a directory (including sub-directories, except . and ..).
+			The returned list is allocated by the function and must be deleted by you. All the const char * inside must be also freed with TCODList::clearAndDelete.
+		@Cpp static TCODList TCODSystem::getDirectoryContent(const char *path, const char *pattern)
+		@C TCOD_list_t TCOD_sys_get_directory_content(const char *path)
+		@Param path a directory
+		@Param pattern If NULL or empty, returns all directory entries. Else returns only entries matching the pattern. The pattern is NOT a regular expression. It can only handle one '*' wildcard. Examples : *.png, saveGame*, font*.png
+		*/
+		static TCOD_list_t getDirectoryContent(const char* path, const char* pattern);
 
-        /**
-        @PageName system_filesystem
-        @FuncTitle Delete an empty directory
-        @Cpp static bool TCODSystem::deleteDirectory(const char *path)
-        @C bool TCOD_sys_delete_directory(const char *path)
-        @Param path directory path. This directory must exist, be writable and empty
-        */
-        static bool deleteDirectory( const char *path );
+		/**
+		@PageName system_sdlcbk
+		@PageFather system
+		@PageTitle Draw custom graphics on top of the root console
+		@PageDesc You can register a callback that will be called after the libtcod rendering phase, but before the screen buffer is swapped. This callback receives the screen SDL_Surface reference.
+			This makes it possible to use any SDL drawing functions (including openGL) on top of the libtcod console.
+		@FuncTitle Render custom graphics
+		@FuncDesc To disable the custom renderer, call the same method with a NULL parameter.
+			Note that to keep libtcod from requiring the SDL headers, the callback parameter is a void pointer. You have to include SDL headers and cast it to SDL_Surface in your code.
+		@Cpp
+			class TCODLIB_API ITCODSDLRenderer {
+			public :
+				virtual void render(void *sdlSurface) = 0;
+			};
+			static void TCODSystem::registerSDLRenderer(ITCODSDLRenderer *callback);
+		@C
+			typedef void (*SDL_renderer_t) (void *sdl_surface);
+			void TCOD_sys_register_SDL_renderer(SDL_renderer_t callback)
+		@Py
+			def renderer ( sdl_surface ) : ...
+			TCOD_sys_register_SDL_renderer( callback )
+		@Param callback The renderer to call before swapping the screen buffer. If NULL, custom rendering is disabled
+		@CppEx
+			class MyRenderer : public ITCODSDLRenderer {
+			public :
+				void render(void *sdlSurface) {
+					SDL_Surface *s = (SDL_Surface *)sdlSurface;
+					... draw something on s
+				}
+			};
+			TCODSystem::registerSDLRenderer(new MyRenderer());
+		@CEx
+			void my_renderer( void *sdl_surface ) {
+				SDL_Surface *s = (SDL_Surface *)sdl_surface;
+				... draw something on s
+			}
+			TCOD_sys_register_SDL_renderer(my_renderer);
+		@Py
+			def my_renderer(sdl_surface) :
+				... draw something on sdl_surface using pygame
+			libtcod.sys_register_SDL_renderer(my_renderer)
+		*/
+		static void registerSDLRenderer(ITCODSDLRenderer* renderer);
 
-        /**
-        @PageName system_filesystem
-        @FuncTitle Delete a file
-        @Cpp static bool TCODSystem::deleteFile(const char *path)
-        @C bool TCOD_sys_delete_file(const char *path)
-        @Param path File path. This file must exist and be writable.
-        */
-        static bool deleteFile( const char *path );
-
-        /**
-        @PageName system_filesystem
-        @FuncTitle Check if a path is a directory
-        @Cpp static bool TCODSystem::isDirectory(const char *path)
-        @C bool TCOD_sys_is_directory(const char *path)
-        @Param path a path to check
-        */
-        static bool isDirectory( const char *path );
-
-        /**
-        @PageName system_filesystem
-        @FuncTitle List files in a directory
-        @FuncDesc To get the list of entries in a directory (including sub-directories, except . and ..).
-            The returned list is allocated by the function and must be deleted by you. All the const char * inside must be also freed with TCODList::clearAndDelete.
-        @Cpp static TCODList TCODSystem::getDirectoryContent(const char *path, const char *pattern)
-        @C TCOD_list_t TCOD_sys_get_directory_content(const char *path)
-        @Param path a directory
-        @Param pattern If NULL or empty, returns all directory entries. Else returns only entries matching the pattern. The pattern is NOT a regular expression. It can only handle one '*' wildcard. Examples : *.png, saveGame*, font*.png
-        */
-        static TCOD_list_t getDirectoryContent( const char *path, const char *pattern );
-
-        /**
-        @PageName system_filesystem
-        @FuncTitle Check if a given file exists
-        @FuncDesc In order to check whether a given file exists in the filesystem. Useful for detecting errors caused by missing files.
-        @Cpp static bool TCODSystem::fileExists(const char *filename, ...)
-        @C bool TCOD_sys_file_exists(const char * filename, ...)
-        @Param filename the file name, using printf-like formatting
-        @Param ... optional arguments for filename formatting
-        @CppEx
-            if (!TCODSystem::fileExists("myfile.%s","txt")) {
-                fprintf(stderr,"no such file!");
-            }
-        @CEx
-            if (!TCOD_sys_file_exists("myfile.%s","txt")) {
-                fprintf(stderr,"no such file!");
-            }
-        */
-        static bool fileExists( const char *filename, ... );
-
-        /**
-        @PageName system_filesystem
-        @FuncTitle Read the content of a file into memory
-        @FuncDesc This is a portable function to read the content of a file from disk or from the application apk (android).
-            buf must be freed with free(buf).
-        @Cpp static bool TCODSystem::readFile(const char *filename, unsigned char **buf, uint32 *size)
-        @C bool TCOD_sys_read_file(const char *filename, unsigned char **buf, uint32 *size)
-        @Param filename the file name
-        @Param buf a buffer to be allocated and filled with the file content
-        @Param size the size of the allocated buffer.
-        @CppEx
-            unsigned char *buf;
-            uint32 size;
-            if (TCODSystem::readFile("myfile.dat",&buf,&size)) {
-                // do something with buf
-                free(buf);
-            }
-        @CEx
-            if (TCOD_sys_read_file("myfile.dat",&buf,&size)) {
-                // do something with buf
-                free(buf);
-            }
-        */
-        static bool readFile( const char *filename, unsigned char **buf, uint32 *size );
-
-        /**
-        @PageName system_filesystem
-        @FuncTitle Write the content of a memory buffer to a file
-        @FuncDesc This is a portable function to write some data to a file.
-        @Cpp static bool TCODSystem::writeFile(const char *filename, unsigned char *buf, uint32 size)
-        @C bool TCOD_sys_write_file(const char *filename, unsigned char *buf, uint32 size)
-        @Param filename the file name
-        @Param buf a buffer containing the data to write
-        @Param size the number of bytes to write.
-        @CppEx
-            TCODSystem::writeFile("myfile.dat",buf,size));
-        @CEx
-            TCOD_sys_write_file("myfile.dat",buf,size));
-        */
-        static bool writeFile( const char *filename, unsigned char *buf, uint32 size );
-
-        /**
-        @PageName system_sdlcbk
-        @PageFather system
-        @PageTitle Draw custom graphics on top of the root console
-        @PageDesc You can register a callback that will be called after the libtcod rendering phase, but before the screen buffer is swapped. This callback receives the screen SDL_Surface reference.
-            This makes it possible to use any SDL drawing functions (including openGL) on top of the libtcod console.
-        @FuncTitle Render custom graphics
-        @FuncDesc To disable the custom renderer, call the same method with a NULL parameter.
-            Note that to keep libtcod from requiring the SDL headers, the callback parameter is a void pointer. You have to include SDL headers and cast it to SDL_Surface in your code.
-        @Cpp
-            class TCODLIB_API ITCODSDLRenderer {
-            public :
-                virtual void render(void *sdlSurface) = 0;
-            };
-            static void TCODSystem::registerSDLRenderer(ITCODSDLRenderer *callback);
-        @C
-            typedef void (*SDL_renderer_t) (void *sdl_surface);
-            void TCOD_sys_register_SDL_renderer(SDL_renderer_t callback)
-        @Py
-            def renderer ( sdl_surface ) : ...
-            TCOD_sys_register_SDL_renderer( callback )
-        @Param callback The renderer to call before swapping the screen buffer. If NULL, custom rendering is disabled
-        @CppEx
-            class MyRenderer : public ITCODSDLRenderer {
-            public :
-                void render(void *sdlSurface) {
-                    SDL_Surface *s = (SDL_Surface *)sdlSurface;
-                    ... draw something on s
-                }
-            };
-            TCODSystem::registerSDLRenderer(new MyRenderer());
-        @CEx
-            void my_renderer( void *sdl_surface ) {
-                SDL_Surface *s = (SDL_Surface *)sdl_surface;
-                ... draw something on s
-            }
-            TCOD_sys_register_SDL_renderer(my_renderer);
-        @Py
-            def my_renderer(sdl_surface) :
-                ... draw something on sdl_surface using pygame
-            libtcod.sys_register_SDL_renderer(my_renderer)
-        */
-        static void registerSDLRenderer( ITCODSDLRenderer *renderer );
-
-        /**
-        @PageName system_sdlcbk
-        @FuncTitle Managing screen redraw
-        @FuncDesc libtcod is not aware of the part of the screen your SDL renderer has updated. If no change occured in the console, it won't redraw them except if you tell him to do so with this function
-        @Cpp void TCODConsole::setDirty(int x, int y, int w, int h)
-        @C void TCOD_console_set_dirty(int x, int y, int w, int h)
-        @Py TCOD_console_set_dirty(x, y, w, h)
-        @Param x,y,w,h Part of the root console you want to redraw even if nothing has changed in the console back/fore/char.
-        */
+		/**
+		@PageName system_sdlcbk
+		@FuncTitle Managing screen redraw
+		@FuncDesc libtcod is not aware of the part of the screen your SDL renderer has updated. If no change occured in the console, it won't redraw them except if you tell him to do so with this function
+		@Cpp void TCODConsole::setDirty(int x, int y, int w, int h)
+		@C void TCOD_console_set_dirty(int x, int y, int w, int h)
+		@Py TCOD_console_set_dirty(x, y, w, h)
+		@Param x,y,w,h Part of the root console you want to redraw even if nothing has changed in the console back/fore/char.
+		*/
 
         /**
         @PageName system_misc
@@ -462,74 +363,17 @@ namespace Doryen
         */
         static void setRenderer( TCOD_renderer_t renderer );
 
-        /**
-        @PageName system_misc
-        @FuncTitle Get the current internal renderer
-        @Cpp static TCOD_renderer_t TCODSystem::getRenderer()
-        @C TCOD_renderer_t TCOD_sys_get_renderer()
-        @Py sys_get_renderer()
-        @C# static TCODRendererType TCODSystem::getRenderer();
-        */
-        static TCOD_renderer_t getRenderer( );
+		/**
+		@PageName system_misc
+		@FuncTitle Get the current internal renderer
+		@Cpp static TCOD_renderer_t TCODSystem::getRenderer()
+		@C TCOD_renderer_t TCOD_sys_get_renderer()
+		@Py sys_get_renderer()
+		@C# static TCODRendererType TCODSystem::getRenderer();
+		*/
+		static TCOD_renderer_t getRenderer();
 
-        /**
-        @PageName system_clipboard
-        @PageTitle Clipboard integration
-        @PageDesc With these functions, you can copy data in your OS' clipboard from the game or retrieve data from the clipboard.
-        @PageFather system
-        @FuncTitle Copy data to the clipboard
-        @Cpp static void TCODSystem::setClipboard(const char *value)
-        @C void TCOD_sys_clipboard_set(const char *value)
-        @Param value Text to copy in the clipboard
-        */
-        static void setClipboard( const char *value );
-
-        /**
-        @PageName system_clipboard
-        @FuncTitle Paste data from the clipboard
-        @Cpp static char *TCODSystem::getClipboard()
-        @C char *TCOD_sys_clipboard_get()
-        */
-        static char *getClipboard( );
-
-        // thread stuff
-        static int getNumCores( );
-
-        static TCOD_thread_t newThread( int (*func)( void * ), void *data );
-
-        static void deleteThread( TCOD_thread_t th );
-
-        static void waitThread( TCOD_thread_t th );
-
-        // mutex
-        static TCOD_mutex_t newMutex( );
-
-        static void mutexIn( TCOD_mutex_t mut );
-
-        static void mutexOut( TCOD_mutex_t mut );
-
-        static void deleteMutex( TCOD_mutex_t mut );
-
-        // semaphore
-        static TCOD_semaphore_t newSemaphore( int initVal );
-
-        static void lockSemaphore( TCOD_semaphore_t sem );
-
-        static void unlockSemaphore( TCOD_semaphore_t sem );
-
-        static void deleteSemaphore( TCOD_semaphore_t sem );
-
-        // condition
-        static TCOD_cond_t newCondition( );
-
-        static void signalCondition( TCOD_cond_t sem );
-
-        static void broadcastCondition( TCOD_cond_t sem );
-
-        static void waitCondition( TCOD_cond_t sem, TCOD_mutex_t mut );
-
-        static void deleteCondition( TCOD_cond_t sem );
-    };
+	};
 }
 
 #endif
