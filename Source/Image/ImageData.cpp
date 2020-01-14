@@ -86,16 +86,16 @@ Doryen::ImageData::ImageData(const std::string& filename)
 
 void Doryen::ImageData::readImageBMP(const std::string& filename)
 {
-	systemImage = SDL_LoadBMP(filename.c_str());
+	representation = SDL_LoadBMP(filename.c_str());
 
-	if (systemImage == nullptr)
+	if (representation == nullptr)
 	{
 		// Throw Error
 		std::cout << SDL_GetError() << "\n";
 	}
 
 	// Convert low color images to 24 bits
-	if (systemImage->format->BytesPerPixel != 3)
+	if (representation->format->BytesPerPixel != 3)
 	{
 		unsigned int rmask = 0;
 		unsigned int gmask = 0;
@@ -115,9 +115,9 @@ void Doryen::ImageData::readImageBMP(const std::string& filename)
 		}
 
 		SDL_Surface* temp = SDL_CreateRGBSurface(SDL_SWSURFACE,
-				systemImage->w, systemImage->h,
+				representation->w, representation->h,
 				24, rmask, gmask, bmask, 0);
-		SDL_BlitSurface(systemImage, nullptr, temp, nullptr);
+		SDL_BlitSurface(representation, nullptr, temp, nullptr);
 		SDL_FreeSurface(temp);
 	}
 }
@@ -189,7 +189,7 @@ void Doryen::ImageData::readImagePNG(const std::string& filename)
 	}
 
 	/* create the SDL surface */
-	this->systemImage = createNewSurface(width, height, bpp == 32);
+	this->representation = createNewSurface(width, height, bpp == 32);
 
 	// Reserve
 	unsigned char* source = new unsigned char[image.size()];
@@ -203,7 +203,7 @@ void Doryen::ImageData::readImagePNG(const std::string& filename)
 
 	for (unsigned y = 0; y < height; y++)
 	{
-		auto row_pointer = (unsigned char*)this->systemImage->pixels + (y * this->systemImage->pitch);
+		auto row_pointer = (unsigned char*)this->representation->pixels + (y * this->representation->pitch);
 		memcpy(row_pointer, source, rowsize);
 		source += rowsize;
 	}
@@ -312,11 +312,16 @@ void Doryen::ImageData::createBitmapFrom(const Console& console)
 	unsigned int w = console.getWidth();
 	unsigned int h = console.getHeight();
 
-	systemImage = createNewSurface(w, h, false);
+	representation = createNewSurface(w, h, false);
 
 	Color fadingColor = console.getFadingColor();
 
 	int fade = console.getFade();
 
 	// TODO: Implemented (Imposible, is needed use charmap)
+}
+
+SDL_Surface* Doryen::ImageData::getRepresentation() const
+{
+	return representation;
 }

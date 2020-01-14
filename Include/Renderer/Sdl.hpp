@@ -36,6 +36,12 @@ namespace Doryen
 		 */
 		short currentFramePerSecond = 0;
 
+		SDL_Surface* charmap = nullptr;
+
+		// Methods
+
+		void findResolution();
+
 	public:
 
 		// Construct
@@ -45,6 +51,10 @@ namespace Doryen
 		~SDL() override = default;
 
 		// Methods
+
+		void onRenderer() override;
+
+		void loadFont() override;
 
 		void setFps(short value);
 

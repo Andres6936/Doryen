@@ -16,7 +16,7 @@ namespace Doryen
 
 	private:
 
-		SDL_Surface* systemImage = nullptr;
+		SDL_Surface* representation = nullptr;
 
 		std::vector <Mipmap> mipmaps;
 
@@ -45,6 +45,10 @@ namespace Doryen
 		static SDL_Surface* createNewSurface(unsigned int width, unsigned int height, bool alpha);
 
 		void createBitmapFrom(const Console& console);
+
+		// Getter
+
+		SDL_Surface* getRepresentation() const;
 	};
 }
 

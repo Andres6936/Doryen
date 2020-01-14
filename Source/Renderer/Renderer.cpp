@@ -3,7 +3,9 @@
 
 // Static Members
 
-const std::array <int, 256> Doryen::Renderer::init_ascii_to_tcod =
+bool Doryen::Renderer::hasInstanceActive = false;
+
+const std::array <int, 256> Doryen::Renderer::layoutAsciiCode =
 
 		{
 				// ASCII 0 to 15
@@ -42,20 +44,161 @@ const std::array <int, 256> Doryen::Renderer::init_ascii_to_tcod =
 
 // Methods
 
-void Doryen::Renderer::clearAndResizeASCII(unsigned size)
+void Doryen::Renderer::createTablesOfCharacteres()
 {
-	ascii_updated.clear();
-	ascii_updated.resize(size, false);
+	if (getFontCharHorizontalSize() * getFontCharVerticalSize() != getMaxFontChars())
+	{
+		setMaxFontChars(getFontCharHorizontalSize() * getFontCharVerticalSize());
+	}
+
+	characterUpdated.clear();
+	characterUpdated.resize(getMaxFontChars(), false);
+
+	characterDrawed.clear();
+	characterDrawed.resize(getMaxFontChars(), true);
+
+	characterColor.clear();
+	characterColor.resize(getMaxFontChars());
+
+	layoutCharacteres.clear();
+	layoutCharacteres.resize(getMaxFontChars(), 0);
+
+	for (int i = 0; i < layoutCharacteres.size(); ++i)
+	{
+		layoutCharacteres[i] = layoutAsciiCode[i];
+	}
 }
 
-void Doryen::Renderer::clearAndResizeFirstDraw(unsigned size)
+void Doryen::Renderer::setFontfile(const std::string& _fontfile)
 {
-	first_draw.clear();
-	first_draw.resize(size, true);
+	fontfile = _fontfile;
 }
 
-void Doryen::Renderer::clearAndResizeCharcols(unsigned size)
+unsigned int Doryen::Renderer::getFontCharHorizontalSize() const
 {
-	charcols.clear();
-	charcols.resize(size);
+	return fontCharHorizontalSize;
+}
+
+unsigned int Doryen::Renderer::getFontCharVerticalSize() const
+{
+	return fontCharVerticalSize;
+}
+
+void Doryen::Renderer::setFontWidth(unsigned int _fontWidth)
+{
+	fontWidth = _fontWidth;
+}
+
+void Doryen::Renderer::setFontHeigth(unsigned int _fontHeigth)
+{
+	fontHeigth = _fontHeigth;
+}
+
+unsigned int Doryen::Renderer::getMaxFontChars() const
+{
+	return maxFontChars;
+}
+
+void Doryen::Renderer::setMaxFontChars(unsigned int _maxFontChars)
+{
+	maxFontChars = _maxFontChars;
+}
+
+bool Doryen::Renderer::isFontHasDoryenLayout() const
+{
+	return fontHasDoryenLayout;
+}
+
+unsigned int Doryen::Renderer::getFontWidth() const
+{
+	return fontWidth;
+}
+
+unsigned int Doryen::Renderer::getFontHeigth() const
+{
+	return fontHeigth;
+}
+
+bool Doryen::Renderer::isFontHasRowLayout() const
+{
+	return fontHasRowLayout;
+}
+
+void Doryen::Renderer::changeFontKeyColor(const Doryen::Color& _color)
+{
+	fontKeyColor.r = _color.r;
+	fontKeyColor.g = _color.g;
+	fontKeyColor.b = _color.b;
+	fontKeyColor.a = _color.a;
+}
+
+bool Doryen::Renderer::isFontGrayscale() const
+{
+	return fontGrayscale;
+}
+
+const Doryen::Color& Doryen::Renderer::getFontKeyColor() const
+{
+	return fontKeyColor;
+}
+
+bool Doryen::Renderer::isCharacterColored(unsigned index) const
+{
+	return colored[index];
+}
+
+void Doryen::Renderer::setCharacterColored(const unsigned index, bool isColored)
+{
+	colored[index] = isColored;
+}
+
+void Doryen::Renderer::fillCharacterColorWith(const Doryen::Color& _color)
+{
+	for (Color& c : characterColor)
+	{
+		c = _color;
+	}
+}
+
+void Doryen::Renderer::fillCharacterDrawedWith(const bool isDrawed)
+{
+	for (bool&& b : characterDrawed)
+	{
+		b = isDrawed;
+	}
+}
+
+void Doryen::Renderer::checkTableOfCharacteres()
+{
+	if (getFontCharHorizontalSize() * getFontCharVerticalSize() != getMaxFontChars())
+	{
+		setMaxFontChars(getFontCharHorizontalSize() * getFontCharVerticalSize());
+
+		characterUpdated.clear();
+		characterUpdated.resize(getMaxFontChars(), false);
+
+		characterDrawed.clear();
+		characterDrawed.resize(getMaxFontChars(), true);
+
+		characterColor.clear();
+		characterColor.resize(getMaxFontChars());
+
+		layoutCharacteres.clear();
+		layoutCharacteres.resize(getMaxFontChars(), 0);
+
+		for (int i = 0; i < layoutCharacteres.size(); ++i)
+		{
+			layoutCharacteres[i] = layoutAsciiCode[i];
+		}
+	}
+}
+
+void Doryen::Renderer::setLayoutCharacter(unsigned index, unsigned code)
+{
+	layoutCharacteres[index] = code;
+}
+
+bool Doryen::Renderer::isFullscreen() const
+{
+	return fullscreen;
 }

@@ -3,20 +3,54 @@
 
 #include <vector>
 #include <array>
-#include <Color.h>
+
+#include "Color.h"
+#include "Color.hpp"
 
 namespace Doryen
 {
 	class Renderer
 	{
 
+		// Private for common class, public for inheritance class
+	protected:
+
+		static bool hasInstanceActive;
+
+		std::string fontfile = "Terminal.png";
+
 	private:
 
-		std::vector <bool> ascii_updated;
+		unsigned maxFontChars = 256;
 
-		std::vector <bool> first_draw;
+		unsigned fontCharHorizontalSize = 16;
+		unsigned fontCharVerticalSize = 16;
 
-		std::vector <TCOD_color_t> charcols;
+		unsigned fontWidth = 0;
+		unsigned fontHeigth = 0;
+
+		bool fontHasDoryenLayout = false;
+
+		bool fontHasRowLayout = false;
+
+		bool fontGrayscale = false;
+
+		bool fullscreen = false;
+
+		/**
+		 * whether each character in the font is a colored tile
+		 */
+		std::vector <bool> colored;
+
+		std::vector <bool> characterUpdated;
+
+		std::vector <bool> characterDrawed;
+
+		std::vector <int> layoutCharacteres;
+
+		std::vector <Color> characterColor;
+
+		Color fontKeyColor = Color(0, 0, 0);
 
 	public:
 
@@ -28,15 +62,66 @@ namespace Doryen
 
 		// Static members
 
-		static const std::array <int, 256> init_ascii_to_tcod;
+		/**
+		 * Convert ASCII code to Doryen layout position
+		 */
+		static const std::array <int, 256> layoutAsciiCode;
 
-		// Methods
+		// Methods Default
 
-		void clearAndResizeASCII(unsigned size);
+		void createTablesOfCharacteres();
 
-		void clearAndResizeFirstDraw(unsigned size);
+		void checkTableOfCharacteres();
 
-		void clearAndResizeCharcols(unsigned size);
+		void changeFontKeyColor(const Color& _color);
+
+		void fillCharacterDrawedWith(const bool isDrawed);
+
+		void fillCharacterColorWith(const Color& _color);
+
+		// Getters
+
+		bool isFontHasDoryenLayout() const;
+
+		bool isFontHasRowLayout() const;
+
+		bool isFontGrayscale() const;
+
+		bool isCharacterColored(unsigned index) const;
+
+		bool isFullscreen() const;
+
+		unsigned int getMaxFontChars() const;
+
+		unsigned int getFontCharHorizontalSize() const;
+
+		unsigned int getFontCharVerticalSize() const;
+
+		unsigned int getFontWidth() const;
+
+		unsigned int getFontHeigth() const;
+
+		const Color& getFontKeyColor() const;
+
+		// Setters
+
+		void setMaxFontChars(unsigned int _maxFontChars);
+
+		void setFontWidth(unsigned int _fontWidth);
+
+		void setFontHeigth(unsigned int _fontHeigth);
+
+		void setFontfile(const std::string& _fontfile);
+
+		void setCharacterColored(unsigned index, bool isColored);
+
+		void setLayoutCharacter(unsigned index, unsigned code);
+
+		// Methods Pures
+
+		virtual void onRenderer() = 0;
+
+		virtual void loadFont() = 0;
 	};
 }
 
