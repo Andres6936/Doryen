@@ -1548,16 +1548,6 @@ int main( int argc, char *argv[] )
 #else
             } else if ( key.vk == TCODK_PRINTSCREEN ) {
 #endif
-            if ( key.lalt )
-            {
-                // ALT-PrintScreen : save to .asc format
-                Doryen::Console::root->saveApf( "Samples.apf" );
-            }
-            else
-            {
-                // save screenshot
-                Doryen::Platform::saveScreenshot( NULL );
-            }
         }
         else if ( key.vk == TCODK_F1 )
         {

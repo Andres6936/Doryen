@@ -56,7 +56,7 @@ namespace Doryen
 
 	private:
 
-		bool windowClose;
+		bool windowClose = false;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
@@ -1127,162 +1127,92 @@ namespace Doryen
         */
         static void disableKeyboardRepeat( );
 
-        /**
-        @PageName console_keycode_t
-        @PageTitle 	Key codes
-        @PageFather console_input
-        @PageDesc TCOD_keycode_t is a libtcod specific code representing a key on the keyboard.
-            For python, replace TCODK by KEY: libtcod.KEY_NONE. C# and Lua, the value is in parenthesis. Possible values are :
-            When no key was pressed (see checkForKeypress) : TCOD_NONE (NoKey)
-            Special keys :
-            TCODK_ESCAPE (Escape)
-            TCODK_BACKSPACE (Backspace)
-            TCODK_TAB (Tab)
-            TCODK_ENTER (Enter)
-            TCODK_SHIFT (Shift)
-            TCODK_CONTROL (Control)
-            TCODK_ALT (Alt)
-            TCODK_PAUSE (Pause)
-            TCODK_CAPSLOCK (CapsLock)
-            TCODK_PAGEUP (PageUp)
-            TCODK_PAGEDOWN (PageDown)
-            TCODK_END (End)
-            TCODK_HOME (Home)
-            TCODK_UP (Up)
-            TCODK_LEFT (Left)
-            TCODK_RIGHT (Right)
-            TCODK_DOWN (Down)
-            TCODK_PRINTSCREEN (Printscreen)
-            TCODK_INSERT (Insert)
-            TCODK_DELETE (Delete)
-            TCODK_LWIN (Lwin)
-            TCODK_RWIN (Rwin)
-            TCODK_APPS (Apps)
-            TCODK_KPADD (KeypadAdd)
-            TCODK_KPSUB (KeypadSubtract)
-            TCODK_KPDIV (KeypadDivide)
-            TCODK_KPMUL (KeypadMultiply)
-            TCODK_KPDEC (KeypadDecimal)
-            TCODK_KPENTER (KeypadEnter)
-            TCODK_F1 (F1)
-            TCODK_F2 (F2)
-            TCODK_F3 (F3)
-            TCODK_F4 (F4)
-            TCODK_F5 (F5)
-            TCODK_F6 (F6)
-            TCODK_F7 (F7)
-            TCODK_F8 (F8)
-            TCODK_F9 (F9)
-            TCODK_F10 (F10)
-            TCODK_F11 (F11)
-            TCODK_F12 (F12)
-            TCODK_NUMLOCK (Numlock)
-            TCODK_SCROLLLOCK (Scrolllock)
-            TCODK_SPACE (Space)
+		/**
+		@PageName console_keycode_t
+		@PageTitle 	Key codes
+		@PageFather console_input
+		@PageDesc TCOD_keycode_t is a libtcod specific code representing a key on the keyboard.
+			For python, replace TCODK by KEY: libtcod.KEY_NONE. C# and Lua, the value is in parenthesis. Possible values are :
+			When no key was pressed (see checkForKeypress) : TCOD_NONE (NoKey)
+			Special keys :
+			TCODK_ESCAPE (Escape)
+			TCODK_BACKSPACE (Backspace)
+			TCODK_TAB (Tab)
+			TCODK_ENTER (Enter)
+			TCODK_SHIFT (Shift)
+			TCODK_CONTROL (Control)
+			TCODK_ALT (Alt)
+			TCODK_PAUSE (Pause)
+			TCODK_CAPSLOCK (CapsLock)
+			TCODK_PAGEUP (PageUp)
+			TCODK_PAGEDOWN (PageDown)
+			TCODK_END (End)
+			TCODK_HOME (Home)
+			TCODK_UP (Up)
+			TCODK_LEFT (Left)
+			TCODK_RIGHT (Right)
+			TCODK_DOWN (Down)
+			TCODK_PRINTSCREEN (Printscreen)
+			TCODK_INSERT (Insert)
+			TCODK_DELETE (Delete)
+			TCODK_LWIN (Lwin)
+			TCODK_RWIN (Rwin)
+			TCODK_APPS (Apps)
+			TCODK_KPADD (KeypadAdd)
+			TCODK_KPSUB (KeypadSubtract)
+			TCODK_KPDIV (KeypadDivide)
+			TCODK_KPMUL (KeypadMultiply)
+			TCODK_KPDEC (KeypadDecimal)
+			TCODK_KPENTER (KeypadEnter)
+			TCODK_F1 (F1)
+			TCODK_F2 (F2)
+			TCODK_F3 (F3)
+			TCODK_F4 (F4)
+			TCODK_F5 (F5)
+			TCODK_F6 (F6)
+			TCODK_F7 (F7)
+			TCODK_F8 (F8)
+			TCODK_F9 (F9)
+			TCODK_F10 (F10)
+			TCODK_F11 (F11)
+			TCODK_F12 (F12)
+			TCODK_NUMLOCK (Numlock)
+			TCODK_SCROLLLOCK (Scrolllock)
+			TCODK_SPACE (Space)
 
-            numeric keys :
+			numeric keys :
 
-            TCODK_0 (Zero)
-            TCODK_1 (One)
-            TCODK_2 (Two)
-            TCODK_3 (Three)
-            TCODK_4 (Four)
-            TCODK_5 (Five)
-            TCODK_6 (Six)
-            TCODK_7 (Seven)
-            TCODK_8 (Eight)
-            TCODK_9 (Nine)
-            TCODK_KP0 (KeypadZero)
-            TCODK_KP1 (KeypadOne)
-            TCODK_KP2 (KeypadTwo)
-            TCODK_KP3 (KeypadThree)
-            TCODK_KP4 (KeypadFour)
-            TCODK_KP5 (KeypadFive)
-            TCODK_KP6 (KeypadSix)
-            TCODK_KP7 (KeypadSeven)
-            TCODK_KP8 (KeypadEight)
-            TCODK_KP9 (KeypadNine)
+			TCODK_0 (Zero)
+			TCODK_1 (One)
+			TCODK_2 (Two)
+			TCODK_3 (Three)
+			TCODK_4 (Four)
+			TCODK_5 (Five)
+			TCODK_6 (Six)
+			TCODK_7 (Seven)
+			TCODK_8 (Eight)
+			TCODK_9 (Nine)
+			TCODK_KP0 (KeypadZero)
+			TCODK_KP1 (KeypadOne)
+			TCODK_KP2 (KeypadTwo)
+			TCODK_KP3 (KeypadThree)
+			TCODK_KP4 (KeypadFour)
+			TCODK_KP5 (KeypadFive)
+			TCODK_KP6 (KeypadSix)
+			TCODK_KP7 (KeypadSeven)
+			TCODK_KP8 (KeypadEight)
+			TCODK_KP9 (KeypadNine)
 
-            Any other (printable) key :
+			Any other (printable) key :
 
-            TCODK_CHAR (Char)
+			TCODK_CHAR (Char)
 
-            Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
-        */
+			Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
+		*/
 
 
 
-        /**
-        @PageName console_offscreen
-        @FuncTitle Loading an offscreen console from a .asc file
-        @FuncDesc You can load data from a file created with Ascii Paint with this function. When needed, the console will be resized to fit the file size. The function returns false if it couldn't read the file.
-        @Cpp bool TCODConsole::loadAsc(const char *filename)
-        @C bool TCOD_console_load_asc(TCOD_console_t con, const char *filename)
-        @Param con in the C and Python versions, the offscreen console handler
-        @Param filename path to the .asc file created with Ascii Paint
-        @CppEx
-            // Creating a 40x20 offscreen console
-            TCODConsole *offscreenConsole = new TCODConsole(40,20);
-            // possibly resizing it and filling it with data from the .asc file
-            offscreenConsole->loadAsc("myfile.asc");
-        @CEx
-            TCOD_console_t offscreen_console = TCOD_console_new(40,20);
-            TCOD_console_load_asc(offscreen_console,"myfile.asc");
-        */
-        bool loadAsc( const char *filename );
-
-        /**
-        @PageName console_offscreen
-        @FuncTitle Loading an offscreen console from a .apf file
-        @FuncDesc You can load data from a file created with Ascii Paint with this function. When needed, the console will be resized to fit the file size. The function returns false if it couldn't read the file.
-        @Cpp bool TCODConsole::loadApf(const char *filename)
-        @C bool TCOD_console_load_apf(TCOD_console_t con, const char *filename)
-        @Param con in the C and Python versions, the offscreen console handler
-
-        @Param filename path to the .apf file created with Ascii Paint
-
-        @CppEx
-            // Creating a 40x20 offscreen console
-            TCODConsole *offscreenConsole = new TCODConsole(40,20);
-            // possibly resizing it and filling it with data from the .apf file
-            offscreenConsole->loadApf("myfile.apf");
-        @CEx
-            TCOD_console_t offscreen_console = TCOD_console_new(40,20);
-            TCOD_console_load_apf(offscreen_console,"myfile.asc");
-        */
-        bool loadApf( const char *filename );
-
-        /**
-        @PageName console_offscreen
-        @FuncTitle Saving a console to a .asc file
-        @FuncDesc You can save data from a console to Ascii Paint format with this function. The function returns false if it couldn't write the file. This is the only ASC function that works also with the root console !
-        @Cpp bool TCODConsole::saveAsc(const char *filename) const
-        @C bool TCOD_console_save_asc(TCOD_console_t con, const char *filename)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param filename path to the .asc file to be created
-        @CppEx
-            console->saveAsc("myfile.asc");
-        @CEx
-            TCOD_console_save_asc(console,"myfile.asc");
-        */
-        bool saveAsc( const char *filename ) const;
-
-        /**
-        @PageName console_offscreen
-        @FuncTitle Saving a console to a .apf file
-        @FuncDesc You can save data from a console to Ascii Paint format with this function. The function returns false if it couldn't write the file. This is the only ASC function that works also with the root console !
-        @Cpp bool TCODConsole::saveApf(const char *filename) const
-        @C bool TCOD_console_save_apf(TCOD_console_t con, const char *filename)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param filename path to the .apf file to be created
-        @CppEx
-            console->saveApf("myfile.apf");
-        @CEx
-            TCOD_console_save_apf(console,"myfile.apf");
-        */
-        bool saveApf( const char *filename ) const;
-
-        /**
+		/**
         @PageName console_offscreen
         @FuncTitle Blitting a console on another one
         @FuncDesc This function allows you to blit a rectangular area of the source console at a specific position on a destination console. It can also simulate alpha transparency with the fade parameter.

@@ -77,9 +77,6 @@ TCOD_alignment_t TCOD_console_get_alignment(TCOD_console_t con);
 void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...);
 
 
-int TCOD_console_print_rect_ex(TCOD_console_t con,int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...);
-
-
 void TCOD_console_rect(TCOD_console_t con,int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag);
 
 void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag);
@@ -126,12 +123,6 @@ bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
 /* ASCII paint file support */
 
 
-bool TCOD_console_load_apf(TCOD_console_t con, const char *filename);
-
-bool TCOD_console_save_asc(TCOD_console_t con, const char *filename);
-
-bool TCOD_console_save_apf(TCOD_console_t con, const char *filename);
-
 TCOD_console_t TCOD_console_new(int w, int h);
 
 int TCOD_console_get_width(TCOD_console_t con);
@@ -141,8 +132,6 @@ int TCOD_console_get_height(TCOD_console_t con);
 void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col);
 
 void TCOD_console_blit(TCOD_console_t src,int xSrc, int ySrc, int wSrc, int hSrc, TCOD_console_t dst, int xDst, int yDst, float foreground_alpha, float background_alpha);
-
-void TCOD_console_delete(TCOD_console_t console);
 
 void TCOD_console_credits();
 
