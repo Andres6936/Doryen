@@ -44,9 +44,12 @@ Doryen::Image::Image(const char* filename) : deleteData(true)
 	imageData = ImageData(filename);
 }
 
-Doryen::Image::Image(const Doryen::Console* con)
+Doryen::Image::Image(const Console& console)
 {
-	data = (void*)TCOD_image_from_console(con->data);
+//	data = (void*)TCOD_image_from_console(console->data);
+
+	imageData = ImageData();
+	imageData.createBitmapFrom(console);
 }
 
 void Doryen::Image::clear(const Doryen::Color col)

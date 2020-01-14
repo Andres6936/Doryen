@@ -304,3 +304,17 @@ Doryen::ImageData::ImageData(
 		fh *= 0.5f;
 	}
 }
+
+void Doryen::ImageData::createBitmapFrom(const Console& console)
+{
+	unsigned int w = console.getWidth();
+	unsigned int h = console.getHeight();
+
+	systemImage = createNewSurface(w, h, false);
+
+	Color fadingColor = console.getFadingColor();
+
+	int fade = console.getFade();
+
+	// TODO: Implemented (Imposible, is needed use charmap)
+}

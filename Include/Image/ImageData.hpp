@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL/SDL.h>
 #include <Color.hpp>
+#include <Console.hpp>
 
 #include "Image/Mipmap.hpp"
 
@@ -42,6 +43,8 @@ namespace Doryen
 		static bool isTypeImagePNG(const std::string& filename);
 
 		static SDL_Surface* createNewSurface(unsigned int width, unsigned int height, bool alpha);
+
+		void createBitmapFrom(const Console& console);
 	};
 }
 

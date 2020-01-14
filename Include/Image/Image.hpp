@@ -83,7 +83,7 @@ namespace Doryen
 		 *
 		 * @param console The console to convert.
 		 */
-		explicit Image(const Console* console);
+		explicit Image(const Console& console);
 
 		/**
 		 * Refreshing an image created from a console.
