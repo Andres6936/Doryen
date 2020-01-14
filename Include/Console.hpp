@@ -28,60 +28,64 @@
 #ifndef _TCOD_CONSOLE_HPP
 #define _TCOD_CONSOLE_HPP
 
+#include "Color.hpp"
+
+#include "libtcod.h"
 #include "console_types.h"
 
 namespace Doryen
 {
-    /**
-     * The console emulator handles the rendering of the game screen and the
-     * keyboard input.
-     *
-     * The instaces of Console class are called offscreen consoles, this you
-     * allow draw on secondary consoles as you would do with the
-     * root console. You can then blit those secondary consoles on the root
-     * console. This allows you to use local coordinate space while rendering
-     * a portion of the final screen, and easily move components of the screen
-     * without modifying the rendering functions.
-     *
-     * You can create as many off-screen consoles as you want by using
-     * instances. You can draw on them as you would do with the root console,
-     * but you cannot flush them to the screen. Else, you can blit them on other
-     * consoles, including the root console.
-     */
-    class Console
-    {
+	/**
+	 * The console emulator handles the rendering of the game screen and the
+	 * keyboard input.
+	 *
+	 * The instaces of Console class are called offscreen consoles, this you
+	 * allow draw on secondary consoles as you would do with the
+	 * root console. You can then blit those secondary consoles on the root
+	 * console. This allows you to use local coordinate space while rendering
+	 * a portion of the final screen, and easily move components of the screen
+	 * without modifying the rendering functions.
+	 *
+	 * You can create as many off-screen consoles as you want by using
+	 * instances. You can draw on them as you would do with the root console,
+	 * but you cannot flush them to the screen. Else, you can blit them on other
+	 * consoles, including the root console.
+	 */
+	class Console
+	{
 
-    private:
+	private:
 
-        bool windowClose;
+		bool windowClose;
 
-        Doryen::Color controlBackground[TCOD_COLCTRL_NUMBER];
+		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
-        Doryen::Color controlForeground[TCOD_COLCTRL_NUMBER];
+		Color controlForeground[TCOD_COLCTRL_NUMBER];
 
-    public :
+	public :
 
-        TCOD_console_t data;
+		TCOD_console_t data;
 
-        static Console *root;
+		static Console* root;
 
-        explicit Console( TCOD_console_t con ) : data( con )
-        { }
+		explicit Console(TCOD_console_t con) : data(con)
+		{
+		}
 
-        /**
-         * Create an offscreen console.
-         *
-         * @note The size of offscreen console is 80x25 default.
-         */
-        Console( );
+		/**
+		 * Create an offscreen console.
+		 *
+		 * @note The size of offscreen console is 80x25 default.
+		 */
+		Console();
 
 
-        /**
-         * Create an offscreen console.
-         *
-         * @param w width of console. w > 0.
-         * @param h height of console. h > 0.
-         */
+		/**
+		 * Create an offscreen console.
+		 *
+		 * @param w width of console. w > 0.
+		 * @param h height of console. h > 0.
+		 */
         Console( int w, int h );
 
         /**

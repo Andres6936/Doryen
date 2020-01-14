@@ -1,6 +1,8 @@
 #include <array>
 #include <fstream>
 #include <iostream>
+
+#include <Console.hpp>
 #include <Image/PNG/State.hpp>
 #include "Image/ImageData.hpp"
 
