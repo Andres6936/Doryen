@@ -30,19 +30,21 @@
 
 #include "Image/ImageData.hpp"
 
-Doryen::Image::Image(const char* filename) : deleteData(true)
-{
-	data = (void*)TCOD_image_load(filename);
-}
-
 Doryen::Image::Image(int width, int height) : deleteData(true)
 {
 	data = (void*)TCOD_image_new(width, height);
 }
 
+Doryen::Image::Image(const char* filename) : deleteData(true)
+{
+	data = (void*)TCOD_image_load(filename);
+
+	imageData = ImageData(filename);
+}
+
 Doryen::Image::Image(const Doryen::Console* con)
 {
-	data=(void *)TCOD_image_from_console(con->data);
+	data = (void*)TCOD_image_from_console(con->data);
 }
 
 void Doryen::Image::clear(const Doryen::Color col)
