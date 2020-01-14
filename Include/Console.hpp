@@ -28,6 +28,9 @@
 #ifndef _TCOD_CONSOLE_HPP
 #define _TCOD_CONSOLE_HPP
 
+#include <vector>
+#include <array>
+
 #include "Color.hpp"
 
 #include "libtcod.h"
@@ -57,6 +60,14 @@ namespace Doryen
 	private:
 
 		bool windowClose = false;
+
+		static std::vector <bool> ascii_updated;
+
+		static std::vector <bool> first_draw;
+
+		static std::vector <TCOD_color_t> charcols;
+
+		static std::array <int, 256> init_ascii_to_tcod;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 

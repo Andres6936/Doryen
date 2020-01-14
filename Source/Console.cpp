@@ -31,533 +31,645 @@
 #include "libtcod.hpp"
 #include "libtcod_int.h"
 
+// Static Members
+
 Doryen::Console* Doryen::Console::root = nullptr;
+
+std::vector <bool> Doryen::Console::ascii_updated;
+
+std::vector <bool> Doryen::Console::first_draw;
+
+std::vector <TCOD_color_t> Doryen::Console::charcols;
+
+std::array <int, 256> Doryen::Console::init_ascii_to_tcod =
+
+		{
+				// ASCII 0 to 15
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 77, 0, 0, 0, 0, 0,
+				// ASCII 16 to 31
+				71, 70, 72, 0, 0, 0, 0, 0, 64, 65, 67, 66, 0, 73, 68, 69,
+				//  ASCII 32 to 47
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+				// ASCII 48 to 63
+				16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+				// ASCII 64 to 79
+				32, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+				// ASCII 80 to 95
+				111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 33, 34, 35, 36, 37,
+				// ASCII 96 to 111
+				38, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142,
+				// ASCII 112 to 127
+				143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 39, 40, 41, 42, 0,
+				// ASCII 128 to 143
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				// ASCII 144 to 159
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				// ASCII 160 to 175
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				// ASCII 176 to 191
+				43, 44, 45, 46, 49, 0, 0, 0, 0, 81, 78, 87, 88, 0, 0, 55,
+				// ASCII 192 to 207
+				53, 50, 52, 51, 47, 48, 0, 0, 85, 86, 82, 84, 83, 79, 80, 0,
+				// ASCII 208 to 223
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 54, 0, 0, 0, 0, 0,
+				// ASCII 224 to 239
+				74, 75, 57, 58, 59, 60, 61, 62, 63, 0, 0, 0, 0, 0, 0, 0,
+				// ASCII 240 to 255
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		};
+
+// Constructs
 
 Doryen::Console::Console()
 {
 	TCOD_console_data_t* console = new TCOD_console_data_t;
 
-    console->w = 80;
-    console->h = 25;
+	console->w = 80;
+	console->h = 25;
 
-    console->fore = TCOD_white;
-    console->back = TCOD_black;
-    console->fade = 255;
-    console->buf = new char_t[console->w * console->h];
-    console->oldbuf = new char_t[console->w * console->h];
-    console->bkgnd_flag = TCOD_BKGND_NONE;
-    console->alignment = TCOD_LEFT;
+	console->fore = TCOD_white;
+	console->back = TCOD_black;
+	console->fade = 255;
+	console->buf = new char_t[console->w * console->h];
+	console->oldbuf = new char_t[console->w * console->h];
+	console->bkgnd_flag = TCOD_BKGND_NONE;
+	console->alignment = TCOD_LEFT;
 
-    for ( int j = 0; j < console->w * console->h; j++ )
-    {
-        console->buf[ j ].c = ' ';
-        console->buf[ j ].cf = -1;
-    }
+	for (int j = 0; j < console->w * console->h; j++)
+	{
+		console->buf[j].c = ' ';
+		console->buf[j].cf = -1;
+	}
 
-    windowClose = false;
+	windowClose = false;
 
-    for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
-    {
-        controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
-        controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
-    }
+	for (int i = 0; i < TCOD_COLCTRL_NUMBER; i++)
+	{
+		controlBackground[i] = Doryen::Color(0, 0, 0); // Black
+		controlForeground[i] = Doryen::Color(255, 255, 255); // White
+	}
 
-    data = console;
+	data = console;
 }
 
-Doryen::Console::Console( int w, int h )
+Doryen::Console::Console(int w, int h)
 {
-    if ( w > 0 && h > 0 )
-    {
-        TCOD_console_data_t *console = new TCOD_console_data_t;
+	if (w > 0 && h > 0)
+	{
+		TCOD_console_data_t* console = new TCOD_console_data_t;
 
-        console->w = w;
-        console->h = h;
+		console->w = w;
+		console->h = h;
 
-        console->fore = TCOD_white;
-        console->back = TCOD_black;
-        console->fade = 255;
-        console->buf = new char_t[console->w * console->h];
-        console->oldbuf = new char_t[console->w * console->h];
-        console->bkgnd_flag = TCOD_BKGND_NONE;
-        console->alignment = TCOD_LEFT;
+		console->fore = TCOD_white;
+		console->back = TCOD_black;
+		console->fade = 255;
+		console->buf = new char_t[console->w * console->h];
+		console->oldbuf = new char_t[console->w * console->h];
+		console->bkgnd_flag = TCOD_BKGND_NONE;
+		console->alignment = TCOD_LEFT;
 
-        for ( int j = 0; j < console->w * console->h; j++ )
-        {
-            console->buf[ j ].c = ' ';
-            console->buf[ j ].cf = -1;
-        }
+		for (int j = 0; j < console->w * console->h; j++)
+		{
+			console->buf[j].c = ' ';
+			console->buf[j].cf = -1;
+		}
 
-        windowClose = false;
+		windowClose = false;
 
-        for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
-        {
-            controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
-            controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
-        }
+		for (int i = 0; i < TCOD_COLCTRL_NUMBER; i++)
+		{
+			controlBackground[i] = Doryen::Color(0, 0, 0); // Black
+			controlForeground[i] = Doryen::Color(255, 255, 255); // White
+		}
 
-        data = console;
-    }
-    else
-    {
-        // Throw Error
-    }
+		data = console;
+	}
+	else
+	{
+		// Throw Error
+	}
 }
 
-Doryen::Console::Console( const char *filename )
+Doryen::Console::Console(const char* filename)
 {
-    if ( filename == nullptr )
-    {
-        // Throw Error
-    }
+	if (filename == nullptr)
+	{
+		// Throw Error
+	}
 
-    FILE *file;
+	FILE* file;
 
-    file = fopen( filename, "rb" );
+	file = fopen(filename, "rb");
 
-    if ( file == nullptr )
-    {
-        // Throw Error
-    }
+	if (file == nullptr)
+	{
+		// Throw Error
+	}
 
-    float version;
+	float version;
 
-    fscanf( file, "Dorpy Version: %g", &version );
+	fscanf(file, "Dorpy Version: %g", &version);
 
-    int width;
-    int height;
+	int width;
+	int height;
 
-    fscanf( file, "%i %i", &width, &height );
+	fscanf(file, "%i %i", &width, &height);
 
-    if ( width < 0 || height < 0 )
-    {
-        // Throw Error
-    }
+	if (width < 0 || height < 0)
+	{
+		// Throw Error
+	}
 
-    TCOD_console_data_t *console = new TCOD_console_data_t;
+	TCOD_console_data_t* console = new TCOD_console_data_t;
 
-    console->w = width;
-    console->h = height;
+	console->w = width;
+	console->h = height;
 
-    console->fore = TCOD_white;
-    console->back = TCOD_black;
-    console->fade = 255;
-    console->buf = new char_t[console->w * console->h];
-    console->oldbuf = new char_t[console->w * console->h];
-    console->bkgnd_flag = TCOD_BKGND_NONE;
-    console->alignment = TCOD_LEFT;
+	console->fore = TCOD_white;
+	console->back = TCOD_black;
+	console->fade = 255;
+	console->buf = new char_t[console->w * console->h];
+	console->oldbuf = new char_t[console->w * console->h];
+	console->bkgnd_flag = TCOD_BKGND_NONE;
+	console->alignment = TCOD_LEFT;
 
-    windowClose = false;
+	windowClose = false;
 
-    for ( int i = 0; i < TCOD_COLCTRL_NUMBER; i++ )
-    {
-        controlBackground[ i ] = Doryen::Color( 0, 0, 0 ); // Black
-        controlForeground[ i ] = Doryen::Color( 255, 255, 255 ); // White
-    }
+	for (int i = 0; i < TCOD_COLCTRL_NUMBER; i++)
+	{
+		controlBackground[i] = Doryen::Color(0, 0, 0); // Black
+		controlForeground[i] = Doryen::Color(255, 255, 255); // White
+	}
 
-    if ( strstr( filename, ".asc" ))
-    {
-        while ( fgetc( file ) != '#' )
-        {
-            for ( int x = 0; x < width; x++ )
-            {
-                for ( int y = 0; y < height; y++ )
-                {
-                    TCOD_color_t foreground;
-                    TCOD_color_t background;
+	if (strstr(filename, ".asc"))
+	{
+		while (fgetc(file) != '#')
+		{
+			for (int x = 0; x < width; x++)
+			{
+				for (int y = 0; y < height; y++)
+				{
+					TCOD_color_t foreground;
+					TCOD_color_t background;
 
-                    int c = fgetc( file );
+					int c = fgetc(file);
 
-                    foreground.r = fgetc( file );
-                    foreground.g = fgetc( file );
-                    foreground.b = fgetc( file );
+					foreground.r = fgetc(file);
+					foreground.g = fgetc(file);
+					foreground.b = fgetc(file);
 
-                    background.r = fgetc( file );
-                    background.g = fgetc( file );
-                    background.b = fgetc( file );
+					background.r = fgetc(file);
+					background.g = fgetc(file);
+					background.b = fgetc(file);
 
-                    // Skip solid/walkable info
-                    if ( version >= 0.3f )
-                    {
-                        fgetc( file );
-                        fgetc( file );
-                    }
+					// Skip solid/walkable info
+					if (version >= 0.3f)
+					{
+						fgetc(file);
+						fgetc(file);
+					}
 
-                    if ( c < 0 || c > TCOD_ctx.max_font_chars )
-                    {
-                        // Throw Error
-                    }
+					if (c < 0 || c > TCOD_ctx.max_font_chars)
+					{
+						// Throw Error
+					}
 
-                    int offset = y * console->w + x;
+					int offset = y * console->w + x;
 
-                    console->buf[ offset ].c = c;
-                    console->buf[ offset ].cf = TCOD_ctx.ascii_to_tcod[ c ];
-                    console->buf[ offset ].fore = foreground;
-                    console->buf[ offset ].back = background;
-                }
-            }
-        }
-    }
-    else
-    {
-        // Not implement.
-    }
+					console->buf[offset].c = c;
+					console->buf[offset].cf = TCOD_ctx.ascii_to_tcod[c];
+					console->buf[offset].fore = foreground;
+					console->buf[offset].back = background;
+				}
+			}
+		}
+	}
+	else
+	{
+		// Not implement.
+	}
 
-    data = console;
+	data = console;
 
-    fclose( file );
+	fclose(file);
 }
 
-Doryen::Console::~Console( )
+Doryen::Console::~Console()
 {
-    // TCOD_console_delete(data);
+	// TCOD_console_delete(data);
 }
 
-void Doryen::Console::initRoot( int w, int h, const char *title, bool fullscreen, TCOD_renderer_t renderer )
+void Doryen::Console::initRoot(int w, int h, const char* title, bool fullscreen, TCOD_renderer_t renderer)
 {
-    Doryen::Console *con = new Doryen::Console( );
+	Doryen::Console* con = new Doryen::Console();
 
-    if ( w > 0 && h > 0 )
-    {
-        TCOD_console_data_t *console = new TCOD_console_data_t;
+	if (w > 0 && h > 0)
+	{
+		TCOD_console_data_t* console = new TCOD_console_data_t;
 
-        console->w = w;
-        console->h = h;
+		console->w = w;
+		console->h = h;
 
-        TCOD_ctx.root = console;
-        TCOD_ctx.renderer = renderer;
+		TCOD_ctx.root = console;
+		TCOD_ctx.renderer = renderer;
 
-        console->fore = TCOD_white;
-        console->back = TCOD_black;
-        console->fade = 255;
-        console->buf = new char_t[console->w * console->h];
-        console->oldbuf = new char_t[console->w * console->h];
-        console->bkgnd_flag = TCOD_BKGND_NONE;
-        console->alignment = TCOD_LEFT;
+		console->fore = TCOD_white;
+		console->back = TCOD_black;
+		console->fade = 255;
+		console->buf = new char_t[console->w * console->h];
+		console->oldbuf = new char_t[console->w * console->h];
+		console->bkgnd_flag = TCOD_BKGND_NONE;
+		console->alignment = TCOD_LEFT;
 
-        for ( int j = 0; j < console->w * console->h; j++ )
-        {
-            console->buf[ j ].c = ' ';
-            console->buf[ j ].cf = -1;
-        }
+		for (int j = 0; j < console->w * console->h; j++)
+		{
+			console->buf[j].c = ' ';
+			console->buf[j].cf = -1;
+		}
 
-        if ( !TCOD_sys_init( console->w, console->h, console->buf,
-                             console->oldbuf, fullscreen ))
-        {
-            // Throw Error
-        }
+		if (!TCOD_sys_init(console->w, console->h, console->buf,
+				console->oldbuf, fullscreen))
+		{
+			// Throw Error
+		}
 
-        TCOD_sys_set_window_title( title );
+		TCOD_sys_set_window_title(title);
 
-        con->data = console;
+		con->data = console;
 
-        root = con;
-    }
-    else
-    {
-        // Throw Error
-    }
+		root = con;
+	}
+	else
+	{
+		// Throw Error
+	}
 }
 
-void Doryen::Console::setCustomFont( const char *fontFile, int flags, int nbCharHoriz, int nbCharVertic )
+void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)
 {
-	TCOD_console_set_custom_font(fontFile,flags,nbCharHoriz,nbCharVertic);
+	std::strcpy(TCOD_ctx.font_file, fontFile);
+
+	// if layout not defined, assume ASCII_INCOL
+	if (flags == 0 || flags == TCOD_FONT_TYPE_GREYSCALE)
+	{
+		flags |= TCOD_FONT_LAYOUT_ASCII_INCOL;
+	}
+
+	TCOD_ctx.font_in_row = ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) != 0);
+	TCOD_ctx.font_greyscale = ((flags & TCOD_FONT_TYPE_GREYSCALE) != 0);
+	TCOD_ctx.font_tcod_layout = ((flags & TCOD_FONT_LAYOUT_TCOD) != 0);
+
+	if (nbCharHoriz > 0)
+	{
+		TCOD_ctx.fontNbCharHoriz = nbCharHoriz;
+		TCOD_ctx.fontNbCharVertic = nbCharVertic;
+	}
+	else
+	{
+		if ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) || (flags & TCOD_FONT_LAYOUT_ASCII_INCOL))
+		{
+			TCOD_ctx.fontNbCharHoriz = 16;
+			TCOD_ctx.fontNbCharVertic = 16;
+		}
+		else
+		{
+			TCOD_ctx.fontNbCharHoriz = 32;
+			TCOD_ctx.fontNbCharVertic = 8;
+		}
+	}
+
+	if (TCOD_ctx.font_tcod_layout)
+	{
+		TCOD_ctx.font_in_row = true;
+	}
+
+	if (TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic != TCOD_ctx.max_font_chars)
+	{
+		TCOD_ctx.max_font_chars = TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic;
+
+		delete[] TCOD_ctx.ascii_to_tcod;
+		TCOD_ctx.ascii_to_tcod = new int[TCOD_ctx.max_font_chars];
+
+		for (int i = 0; i < init_ascii_to_tcod.size(); ++i)
+		{
+			TCOD_ctx.ascii_to_tcod[i] = init_ascii_to_tcod[i];
+		}
+
+		ascii_updated.clear();
+		ascii_updated.resize(TCOD_ctx.max_font_chars, false);
+
+		charcols.clear();
+		charcols.resize(TCOD_ctx.max_font_chars);
+
+		first_draw.clear();
+		first_draw.resize(TCOD_ctx.max_font_chars, true);
+	}
 }
 
-void Doryen::Console::setDirty( int x, int y, int w, int h )
+void Doryen::Console::setDirty(int x, int y, int w, int h)
 {
-	TCOD_console_set_dirty(x,y,w,h);
+	TCOD_console_set_dirty(x, y, w, h);
 }
 
-TCOD_key_t Doryen::Console::checkForKeypress( int flags )
+TCOD_key_t Doryen::Console::checkForKeypress(int flags)
 {
 	return TCOD_sys_check_for_keypress(flags);
 }
 
-TCOD_key_t Doryen::Console::waitForKeypress( bool flush )
+TCOD_key_t Doryen::Console::waitForKeypress(bool flush)
 {
 	return TCOD_sys_wait_for_keypress(flush);
 }
 
-bool Doryen::Console::isWindowClosed( )
+bool Doryen::Console::isWindowClosed()
 {
 	return TCOD_console_is_window_closed() != 0;
 }
 
-int Doryen::Console::getWidth( ) const
+int Doryen::Console::getWidth() const
 {
 	return TCOD_console_get_width(data);
 }
 
-int Doryen::Console::getHeight( ) const
+int Doryen::Console::getHeight() const
 {
 	return TCOD_console_get_height(data);
 }
 
-void Doryen::Console::setColorControl( TCOD_colctrl_t con, const Doryen::Color &fore, const Doryen::Color &back )
+void Doryen::Console::setColorControl(TCOD_colctrl_t con, const Doryen::Color& fore, const Doryen::Color& back)
 {
-	TCOD_color_t b={back.r,back.g,back.b},f={fore.r,fore.g,fore.b};
-	TCOD_console_set_color_control(con,f,b);
+	TCOD_color_t b = { back.r, back.g, back.b }, f = { fore.r, fore.g, fore.b };
+	TCOD_console_set_color_control(con, f, b);
 }
 
-Doryen::Color Doryen::Console::getDefaultBackground( ) const
+Doryen::Color Doryen::Console::getDefaultBackground() const
 {
-    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
-    TCOD_color_t c = tempConsole->back;
+	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
+	TCOD_color_t c = tempConsole->back;
 
-    return Doryen::Color( c.r, c.g, c.b );
+	return Doryen::Color(c.r, c.g, c.b);
 }
 
-Doryen::Color Doryen::Console::getDefaultForeground( ) const
+Doryen::Color Doryen::Console::getDefaultForeground() const
 {
-    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
-    TCOD_color_t c = tempConsole->fore;
+	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
+	TCOD_color_t c = tempConsole->fore;
 
-    return Doryen::Color( c.r, c.g, c.b );
+	return Doryen::Color(c.r, c.g, c.b);
 }
 
-void Doryen::Console::setDefaultBackground( Doryen::Color back )
+void Doryen::Console::setDefaultBackground(Doryen::Color back)
 {
-    TCOD_color_t background = { back.r, back.g, back.b };
+	TCOD_color_t background = { back.r, back.g, back.b };
 
-    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
-    tempConsole->back = background;
+	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
+	tempConsole->back = background;
 }
 
-void Doryen::Console::setDefaultForeground( Doryen::Color fore )
+void Doryen::Console::setDefaultForeground(Doryen::Color fore)
 {
-    TCOD_color_t foreground = { fore.r, fore.g, fore.b };
+	TCOD_color_t foreground = { fore.r, fore.g, fore.b };
 
-    TCOD_console_data_t *tempConsole = ( TCOD_console_data_t * ) data;
-    tempConsole->fore = foreground;
+	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
+	tempConsole->fore = foreground;
 }
 
-void Doryen::Console::setWindowTitle( const char *title )
+void Doryen::Console::setWindowTitle(const char* title)
 {
 	TCOD_sys_set_window_title(title);
 }
 
-void Doryen::Console::setFullscreen( bool fullscreen )
+void Doryen::Console::setFullscreen(bool fullscreen)
 {
 	TCOD_console_set_fullscreen(fullscreen);
 }
 
-bool Doryen::Console::isFullscreen( )
+bool Doryen::Console::isFullscreen()
 {
 	return TCOD_console_is_fullscreen() != 0;
 }
 
-void Doryen::Console::setBackgroundFlag( TCOD_bkgnd_flag_t bkgnd_flag )
+void Doryen::Console::setBackgroundFlag(TCOD_bkgnd_flag_t bkgnd_flag)
 {
-	TCOD_console_set_background_flag(data,bkgnd_flag);
+	TCOD_console_set_background_flag(data, bkgnd_flag);
 }
 
-TCOD_bkgnd_flag_t Doryen::Console::getBackgroundFlag( ) const
+TCOD_bkgnd_flag_t Doryen::Console::getBackgroundFlag() const
 {
 	return TCOD_console_get_background_flag(data);
 }
 
-void Doryen::Console::setAlignment( TCOD_alignment_t alignment )
+void Doryen::Console::setAlignment(TCOD_alignment_t alignment)
 {
-	TCOD_console_set_alignment(data,alignment);
+	TCOD_console_set_alignment(data, alignment);
 }
 
-TCOD_alignment_t Doryen::Console::getAlignment( ) const
+TCOD_alignment_t Doryen::Console::getAlignment() const
 {
 	return TCOD_console_get_alignment(data);
 }
 
-void Doryen::Console::blit( const Doryen::Console *srcCon, int xSrc, int ySrc, int wSrc, int hSrc,
-                            Doryen::Console *dstCon, int xDst, int yDst, float foreground_alpha,
-                            float background_alpha )
+void Doryen::Console::blit(const Doryen::Console* srcCon, int xSrc, int ySrc, int wSrc, int hSrc,
+		Doryen::Console* dstCon, int xDst, int yDst, float foreground_alpha,
+		float background_alpha)
 {
-	TCOD_console_blit(srcCon->data,xSrc,ySrc,wSrc,hSrc,dstCon->data,xDst,yDst,foreground_alpha, background_alpha);
+	TCOD_console_blit(srcCon->data, xSrc, ySrc, wSrc, hSrc, dstCon->data, xDst, yDst, foreground_alpha,
+			background_alpha);
 }
 
 
-void Doryen::Console::flush( )
+void Doryen::Console::flush()
 {
 	TCOD_console_flush();
 }
 
-void Doryen::Console::setFade( uint8 val, const Doryen::Color &fade )
+void Doryen::Console::setFade(uint8 val, const Doryen::Color& fade)
 {
-	TCOD_color_t f= {fade.r,fade.g,fade.b};
-	TCOD_console_set_fade(val,f);
+	TCOD_color_t f = { fade.r, fade.g, fade.b };
+	TCOD_console_set_fade(val, f);
 }
 
-uint8 Doryen::Console::getFade( )
+uint8 Doryen::Console::getFade()
 {
 	return TCOD_console_get_fade();
 }
 
-Doryen::Color Doryen::Console::getFadingColor( )
+Doryen::Color Doryen::Console::getFadingColor()
 {
-    TCOD_color_t temp = TCOD_console_get_fading_color( );
-    return Doryen::Color( temp.r, temp.g, temp.b );
+	TCOD_color_t temp = TCOD_console_get_fading_color();
+	return Doryen::Color(temp.r, temp.g, temp.b);
 }
 
-void Doryen::Console::putChar( int x, int y, int c, TCOD_bkgnd_flag_t flag )
+void Doryen::Console::putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_put_char(data,x,y,c,flag);
+	TCOD_console_put_char(data, x, y, c, flag);
 }
 
-void Doryen::Console::putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back )
+void Doryen::Console::putCharEx(int x, int y, int c, const Doryen::Color& fore, const Doryen::Color& back)
 {
-	TCOD_color_t f={fore.r,fore.g,fore.b};
-	TCOD_color_t b={back.r,back.g,back.b};
-	TCOD_console_put_char_ex(data,x,y,c,f,b);
+	TCOD_color_t f = { fore.r, fore.g, fore.b };
+	TCOD_color_t b = { back.r, back.g, back.b };
+	TCOD_console_put_char_ex(data, x, y, c, f, b);
 }
 
-void Doryen::Console::clear( )
+void Doryen::Console::clear()
 {
 	TCOD_console_clear(data);
 }
 
-Doryen::Color Doryen::Console::getCharBackground( int x, int y ) const
+Doryen::Color Doryen::Console::getCharBackground(int x, int y) const
 {
-    TCOD_color_t temp = TCOD_console_get_char_background( data, x, y );
-    return Doryen::Color( temp.r, temp.g, temp.b );
+	TCOD_color_t temp = TCOD_console_get_char_background(data, x, y);
+	return Doryen::Color(temp.r, temp.g, temp.b);
 }
 
-void Doryen::Console::setCharForeground( int x, int y, const Doryen::Color &col )
+void Doryen::Console::setCharForeground(int x, int y, const Doryen::Color& col)
 {
-	TCOD_color_t c={col.r,col.g,col.b};
-	TCOD_console_set_char_foreground(data,x,y,c);
+	TCOD_color_t c = { col.r, col.g, col.b };
+	TCOD_console_set_char_foreground(data, x, y, c);
 }
 
-Doryen::Color Doryen::Console::getCharForeground( int x, int y ) const
+Doryen::Color Doryen::Console::getCharForeground(int x, int y) const
 {
-    TCOD_color_t temp = TCOD_console_get_char_foreground( data, x, y );
-    return Doryen::Color( temp.r, temp.g, temp.b );
+	TCOD_color_t temp = TCOD_console_get_char_foreground(data, x, y);
+	return Doryen::Color(temp.r, temp.g, temp.b);
 }
 
-int Doryen::Console::getChar( int x, int y ) const
+int Doryen::Console::getChar(int x, int y) const
 {
-	return TCOD_console_get_char(data,x,y);
+	return TCOD_console_get_char(data, x, y);
 }
 
-void Doryen::Console::setCharBackground( int x, int y, const Doryen::Color &col, TCOD_bkgnd_flag_t flag )
+void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_color_t c={col.r,col.g,col.b};
-	TCOD_console_set_char_background(data,x,y,c,flag);
+	TCOD_color_t c = { col.r, col.g, col.b };
+	TCOD_console_set_char_background(data, x, y, c, flag);
 }
 
-void Doryen::Console::setChar( int x, int y, int c )
+void Doryen::Console::setChar(int x, int y, int c)
 {
-	TCOD_console_set_char(data,x,y,c);
+	TCOD_console_set_char(data, x, y, c);
 }
 
-void Doryen::Console::rect( int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag )
+void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_rect(data,x,y,rw,rh,clear,flag);
+	TCOD_console_rect(data, x, y, rw, rh, clear, flag);
 }
 
-void Doryen::Console::hline( int x, int y, int l, TCOD_bkgnd_flag_t flag )
+void Doryen::Console::hline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_hline(data,x,y,l,flag);
+	TCOD_console_hline(data, x, y, l, flag);
 }
 
-void Doryen::Console::vline( int x, int y, int l, TCOD_bkgnd_flag_t flag )
+void Doryen::Console::vline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_vline(data,x,y,l,flag);
+	TCOD_console_vline(data, x, y, l, flag);
 }
 
-void Doryen::Console::printFrame( int x, int y, int w, int h, bool empty, TCOD_bkgnd_flag_t flag, const char *fmt, ... )
+void Doryen::Console::printFrame(int x, int y, int w, int h, bool empty, TCOD_bkgnd_flag_t flag, const char* fmt, ...)
 {
-	if ( fmt ) {
+	if (fmt)
+	{
 		va_list ap;
-		va_start(ap,fmt);
-		TCOD_console_print_frame(data,x,y,w,h,empty,flag,TCOD_console_vsprint(fmt,ap));
+		va_start(ap, fmt);
+		TCOD_console_print_frame(data, x, y, w, h, empty, flag, TCOD_console_vsprint(fmt, ap));
 		va_end(ap);
-	} else {
-		TCOD_console_print_frame(data,x,y,w,h,empty,flag,NULL);
+	}
+	else
+	{
+		TCOD_console_print_frame(data, x, y, w, h, empty, flag, NULL);
 	}
 }
 
-void Doryen::Console::print( int x, int y, const char *fmt, ... )
+void Doryen::Console::print(int x, int y, const char* fmt, ...)
 {
 	va_list ap;
-	TCOD_console_data_t *dat=(TCOD_console_data_t *)data;
-	TCOD_IFNOT ( dat != NULL ) return;
-	va_start(ap,fmt);
-	TCOD_console_print_internal(data,x,y,0,0,dat->bkgnd_flag,dat->alignment,
-		TCOD_console_vsprint(fmt,ap),false,false);
+	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
+	TCOD_IFNOT (dat != NULL)
+	{ return; }
+	va_start(ap, fmt);
+	TCOD_console_print_internal(data, x, y, 0, 0, dat->bkgnd_flag, dat->alignment,
+			TCOD_console_vsprint(fmt, ap), false, false);
 	va_end(ap);
 }
 
-void Doryen::Console::printEx( int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ... )
+void Doryen::Console::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt, ...)
 {
 	va_list ap;
-	va_start(ap,fmt);
-	TCOD_console_print_internal(data,x,y,0,0,flag,alignment,TCOD_console_vsprint(fmt,ap),false,false);
+	va_start(ap, fmt);
+	TCOD_console_print_internal(data, x, y, 0, 0, flag, alignment, TCOD_console_vsprint(fmt, ap), false, false);
 	va_end(ap);
 }
 
-int Doryen::Console::printRect( int x, int y, int w, int h, const char *fmt, ... )
+int Doryen::Console::printRect(int x, int y, int w, int h, const char* fmt, ...)
 {
 	va_list ap;
-	TCOD_console_data_t *dat=(TCOD_console_data_t *)data;
-	TCOD_IFNOT ( dat != NULL ) return 0;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal(data,x,y,w,h,dat->bkgnd_flag,dat->alignment,TCOD_console_vsprint(fmt,ap),true,false);
-	va_end(ap);
-	return ret;
-}
-
-int Doryen::Console::printRectEx( int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
-                                  TCOD_alignment_t alignment, const char *fmt, ... )
-{
-	va_list ap;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal(data,x,y,w,h,flag,alignment,TCOD_console_vsprint(fmt,ap),true,false);
+	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
+	TCOD_IFNOT (dat != NULL)
+	{ return 0; }
+	va_start(ap, fmt);
+	int ret = TCOD_console_print_internal(data, x, y, w, h, dat->bkgnd_flag, dat->alignment,
+			TCOD_console_vsprint(fmt, ap), true, false);
 	va_end(ap);
 	return ret;
 }
 
-int Doryen::Console::getHeightRect( int x, int y, int w, int h, const char *fmt, ... )
+int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
+		TCOD_alignment_t alignment, const char* fmt, ...)
 {
 	va_list ap;
-	va_start(ap,fmt);
-	int ret = TCOD_console_print_internal(data,x,y,w,h,TCOD_BKGND_NONE,TCOD_LEFT,TCOD_console_vsprint(fmt,ap),true,true);
+	va_start(ap, fmt);
+	int ret = TCOD_console_print_internal(data, x, y, w, h, flag, alignment, TCOD_console_vsprint(fmt, ap), true,
+			false);
 	va_end(ap);
 	return ret;
 }
 
-void Doryen::Console::setKeyboardRepeat( int initialDelay, int interval )
+int Doryen::Console::getHeightRect(int x, int y, int w, int h, const char* fmt, ...)
 {
-	TCOD_console_set_keyboard_repeat(initialDelay,interval);
+	va_list ap;
+	va_start(ap, fmt);
+	int ret = TCOD_console_print_internal(data, x, y, w, h, TCOD_BKGND_NONE, TCOD_LEFT, TCOD_console_vsprint(fmt, ap),
+			true, true);
+	va_end(ap);
+	return ret;
 }
 
-void Doryen::Console::disableKeyboardRepeat( )
+void Doryen::Console::setKeyboardRepeat(int initialDelay, int interval)
+{
+	TCOD_console_set_keyboard_repeat(initialDelay, interval);
+}
+
+void Doryen::Console::disableKeyboardRepeat()
 {
 	TCOD_console_disable_keyboard_repeat();
 }
 
-bool Doryen::Console::isKeyPressed( TCOD_keycode_t key )
+bool Doryen::Console::isKeyPressed(TCOD_keycode_t key)
 {
 	return TCOD_console_is_key_pressed(key) != 0;
 }
 
-void Doryen::Console::setKeyColor( const Doryen::Color &col )
+void Doryen::Console::setKeyColor(const Doryen::Color& col)
 {
-	TCOD_color_t c={col.r,col.g,col.b};
-	TCOD_console_set_key_color(data,c);
+	TCOD_color_t c = { col.r, col.g, col.b };
+	TCOD_console_set_key_color(data, c);
 }
 
-void Doryen::Console::credits( )
+void Doryen::Console::credits()
 {
 	TCOD_console_credits();
 }
 
-void Doryen::Console::resetCredits( )
+void Doryen::Console::resetCredits()
 {
 	TCOD_console_credits_reset();
 }
 
-bool Doryen::Console::renderCredits( int x, int y, bool alpha )
+bool Doryen::Console::renderCredits(int x, int y, bool alpha)
 {
-	return TCOD_console_credits_render(x,y,alpha) != 0;
+	return TCOD_console_credits_render(x, y, alpha) != 0;
 }
 
 #ifndef NO_UNICODE
