@@ -25,17 +25,17 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
+
 #include "libtcod.hpp"
 #include "libtcod_int.h"
 
-Doryen::Console *Doryen::Console::root = NULL;
+Doryen::Console* Doryen::Console::root = nullptr;
 
-Doryen::Console::Console( )
+Doryen::Console::Console()
 {
-    TCOD_console_data_t *console = new TCOD_console_data_t;
+	TCOD_console_data_t* console = new TCOD_console_data_t;
 
     console->w = 80;
     console->h = 25;
