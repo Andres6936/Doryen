@@ -260,7 +260,7 @@ void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen
 			// Throw Error
 		}
 
-		TCOD_sys_set_window_title(title);
+		renderer->setWindowTitle(title);
 
 		con->data = console;
 

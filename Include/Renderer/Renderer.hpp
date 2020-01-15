@@ -4,6 +4,7 @@
 #include <vector>
 #include <array>
 
+#include "Char.hpp"
 #include "Color.h"
 #include "Color.hpp"
 
@@ -17,7 +18,9 @@ namespace Doryen
 
 		static bool hasInstanceActive;
 
-		std::string fontfile = "Terminal.png";
+		std::vector <Char> buffer;
+
+		std::vector <Char> oldBuffer;
 
 	private:
 
@@ -50,6 +53,8 @@ namespace Doryen
 		bool fontGrayscale = false;
 
 		bool fullscreen = false;
+
+		std::string fontfile = "Terminal.png";
 
 		/**
 		 * whether each character in the font is a colored tile
@@ -86,6 +91,8 @@ namespace Doryen
 		void createTablesOfCharacteres();
 
 		void checkTableOfCharacteres();
+
+		void createBuffer();
 
 		void changeFontKeyColor(const Color& _color);
 
@@ -127,6 +134,8 @@ namespace Doryen
 
 		unsigned int getFontHeigth() const;
 
+		const std::string& getFontfile() const;
+
 		const Color& getFontKeyColor() const;
 
 		// Setters
@@ -147,8 +156,6 @@ namespace Doryen
 
 		void setFontHeigth(unsigned int _fontHeigth);
 
-		void setFontfile(const std::string& _fontfile);
-
 		void setCharacterColored(unsigned index, bool isColored);
 
 		void setLayoutCharacter(unsigned index, unsigned code);
@@ -156,6 +163,8 @@ namespace Doryen
 		// Methods Pures
 
 		virtual void onRenderer() = 0;
+
+		virtual void setWindowTitle(const std::string& _title) = 0;
 
 		virtual void loadFont() = 0;
 	};

@@ -72,11 +72,6 @@ void Doryen::Renderer::createTablesOfCharacteres()
 	}
 }
 
-void Doryen::Renderer::setFontfile(const std::string& _fontfile)
-{
-	fontfile = _fontfile;
-}
-
 unsigned int Doryen::Renderer::getFontCharHorizontalSize() const
 {
 	return fontCharHorizontalSize;
@@ -263,3 +258,16 @@ unsigned int Doryen::Renderer::getActualFullscreenHeigth() const
 {
 	return actualFullscreenHeigth;
 }
+
+void Doryen::Renderer::createBuffer()
+{
+	buffer.resize(getWidth() * getHeigth());
+
+	oldBuffer.resize(getWidth() * getHeigth());
+}
+
+const std::string& Doryen::Renderer::getFontfile() const
+{
+	return fontfile;
+}
+

@@ -56,6 +56,8 @@ namespace Doryen
 
 		void onRenderer() override;
 
+		void setWindowTitle(const std::string& _title) override;
+
 		void loadFont() override;
 
 		// Setters

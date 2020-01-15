@@ -110,6 +110,10 @@ void Doryen::SDL::onRenderer()
 			loadFont();
 		}
 
+		// Create the buffer for render
+		// characteres in the console
+		createBuffer();
+
 		if (isFullscreen())
 		{
 			findResolution();
@@ -142,7 +146,7 @@ void Doryen::SDL::loadFont()
 
 	bool isTransparent = false;
 
-	Image image = Image(fontfile.c_str());
+	Image image = Image(getFontfile().c_str());
 
 	charmap = image.imageData.getRepresentation();
 
@@ -478,4 +482,9 @@ unsigned Doryen::SDL::getWidthInPixeles() const
 unsigned Doryen::SDL::getHeigthInPixeles() const
 {
 	return screen->h;
+}
+
+void Doryen::SDL::setWindowTitle(const std::string& _title)
+{
+	SDL_WM_SetCaption(_title.c_str(), nullptr);
 }
