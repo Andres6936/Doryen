@@ -175,6 +175,8 @@ namespace Doryen
 		virtual Key getKeyPressed() = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
+
+		virtual void setWindowInFullscreen() = 0;
 	};
 }
 

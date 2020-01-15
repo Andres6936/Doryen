@@ -67,6 +67,8 @@ namespace Doryen
 
 		void setWindowTitle(const std::string& _title) override;
 
+		void setWindowInFullscreen() override;
+
 		// Setters
 
 		void setFps(short value);
