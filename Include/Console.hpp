@@ -63,7 +63,7 @@ namespace Doryen
 
 		bool windowClose = false;
 
-		Renderer* renderer = new SDL();
+		static Renderer* renderer;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 

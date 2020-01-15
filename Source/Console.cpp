@@ -28,10 +28,13 @@
 #include <cstdio>
 #include <cstring>
 
+#include "Console.hpp"
 #include "libtcod.hpp"
 #include "libtcod_int.h"
 
 // Static Members
+
+Doryen::Renderer* Doryen::Console::renderer = new SDL();
 
 Doryen::Console* Doryen::Console::root = nullptr;
 
