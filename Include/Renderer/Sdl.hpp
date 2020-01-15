@@ -45,6 +45,8 @@ namespace Doryen
 
 		void findResolution();
 
+		static void convertToGenericEvent(SDL_Event& event, Key& key);
+
 	public:
 
 		// Construct
