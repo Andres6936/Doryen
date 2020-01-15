@@ -112,7 +112,7 @@ void Doryen::SDL::onRenderer()
 
 		if (isFullscreen())
 		{
-
+			findResolution();
 		}
 	}
 }
@@ -399,5 +399,54 @@ void Doryen::SDL::loadFont()
 
 void Doryen::SDL::findResolution()
 {
+	unsigned wantedw = 0;
 
+	unsigned wantedh = 0;
+
+	if (getFullscreenWidth() > getWidth() * getFontWidth())
+	{
+		wantedw = getFullscreenWidth();
+	}
+	else
+	{
+		wantedw = getWidth() * getFontWidth();
+	}
+
+	if (getFullscreenHeigth() > getHeigth() * getFontHeigth())
+	{
+		wantedh = getFullscreenHeigth();
+	}
+	else
+	{
+		wantedh = getHeigth() * getFontHeigth();
+	}
+
+	setActualFullscreenWidth(wantedw);
+	setActualFullscreenHeigth(wantedh);
+
+	SDL_Rect** modes = SDL_ListModes(nullptr, SDL_FULLSCREEN);
+
+	unsigned bestw = 999'999;
+
+	unsigned besth = 999'999;
+
+	if (modes != (SDL_Rect**)0 && modes != (SDL_Rect**)-1)
+	{
+		for (unsigned i = 0; modes[i]; ++i)
+		{
+			if (modes[i]->w >= wantedw && modes[i]->w <= bestw
+				&& modes[i]->h >= wantedh && modes[i]->h <= besth
+				&& SDL_VideoModeOK(modes[i]->w, modes[i]->h, 32, SDL_FULLSCREEN))
+			{
+				bestw = modes[i]->w;
+				besth = modes[i]->h;
+			}
+		}
+	}
+
+	if (bestw != 999'999)
+	{
+		setActualFullscreenWidth(bestw);
+		setActualFullscreenHeigth(besth);
+	}
 }

@@ -217,7 +217,7 @@ Doryen::Console::~Console()
 	// TCOD_console_delete(data);
 }
 
-void Doryen::Console::initRoot(int w, int h, const char* title, bool fullscreen, TCOD_renderer_t renderer)
+void Doryen::Console::initRoot(int w, int h, const char* title, bool fullscreen, TCOD_renderer_t _renderer)
 {
 	Doryen::Console* con = new Doryen::Console();
 
@@ -228,8 +228,11 @@ void Doryen::Console::initRoot(int w, int h, const char* title, bool fullscreen,
 		console->w = w;
 		console->h = h;
 
+		renderer->setWidth(w);
+		renderer->setHeigth(h);
+
 		TCOD_ctx.root = console;
-		TCOD_ctx.renderer = renderer;
+		TCOD_ctx.renderer = _renderer;
 
 		console->fore = TCOD_white;
 		console->back = TCOD_black;

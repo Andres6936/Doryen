@@ -124,7 +124,7 @@ namespace Doryen
          * @param h height size of the console (in characters).
          * @param title title of the window. It's not visible when you are in fullscreen.
          * @param fullscreen wether you start in windowed or fullscreen mode.
-         * @param renderer renderer to use. Possible values are :
+         * @param _renderer renderer to use. Possible values are :
          *
          *  1- TCOD_RENDERER_GLSL : works only on video cards with pixel shaders. <br>
          *  2- TCOD_RENDERER_OPENGL : works on all video cards supporting OpenGL 1.4 <br>
@@ -139,9 +139,9 @@ namespace Doryen
          * @note Whatever renderer you use, it can always be overriden by the player
          * through the libtcod.cfg file.
          */
-        void
-        initRoot( int w, int h, const char *title, bool fullscreen = false,
-                  TCOD_renderer_t renderer = TCOD_RENDERER_SDL );
+		void
+		initRoot(int w, int h, const char* title, bool fullscreen = false,
+				TCOD_renderer_t _renderer = TCOD_RENDERER_SDL);
 
 		/**
 		 * This function allows you to use a bitmap font (png or bmp) with custom

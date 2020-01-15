@@ -202,3 +202,43 @@ bool Doryen::Renderer::isFullscreen() const
 {
 	return fullscreen;
 }
+
+void Doryen::Renderer::setWidth(unsigned int _width)
+{
+	width = _width;
+}
+
+void Doryen::Renderer::setHeigth(unsigned int _heigth)
+{
+	heigth = _heigth;
+}
+
+unsigned int Doryen::Renderer::getWidth() const
+{
+	return width;
+}
+
+unsigned int Doryen::Renderer::getHeigth() const
+{
+	return heigth;
+}
+
+unsigned int Doryen::Renderer::getFullscreenWidth() const
+{
+	return fullscreenWidth;
+}
+
+unsigned int Doryen::Renderer::getFullscreenHeigth() const
+{
+	return fullscreenHeigth;
+}
+
+void Doryen::Renderer::setActualFullscreenWidth(unsigned int _actualFullscreenWidth)
+{
+	actualFullscreenWidth = _actualFullscreenWidth;
+}
+
+void Doryen::Renderer::setActualFullscreenHeigth(unsigned int _actualFullscreenHeigth)
+{
+	actualFullscreenHeigth = _actualFullscreenHeigth;
+}

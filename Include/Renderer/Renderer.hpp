@@ -21,13 +21,27 @@ namespace Doryen
 
 	private:
 
+		unsigned width = 0;
+
+		unsigned heigth = 0;
+
 		unsigned maxFontChars = 256;
 
 		unsigned fontCharHorizontalSize = 16;
+
 		unsigned fontCharVerticalSize = 16;
 
 		unsigned fontWidth = 0;
+
 		unsigned fontHeigth = 0;
+
+		unsigned fullscreenWidth = 0;
+
+		unsigned fullscreenHeigth = 0;
+
+		unsigned actualFullscreenWidth = 0;
+
+		unsigned actualFullscreenHeigth = 0;
 
 		bool fontHasDoryenLayout = false;
 
@@ -91,6 +105,14 @@ namespace Doryen
 
 		bool isFullscreen() const;
 
+		unsigned int getWidth() const;
+
+		unsigned int getHeigth() const;
+
+		unsigned int getFullscreenWidth() const;
+
+		unsigned int getFullscreenHeigth() const;
+
 		unsigned int getMaxFontChars() const;
 
 		unsigned int getFontCharHorizontalSize() const;
@@ -104,6 +126,14 @@ namespace Doryen
 		const Color& getFontKeyColor() const;
 
 		// Setters
+
+		void setWidth(unsigned int _width);
+
+		void setHeigth(unsigned int _heigth);
+
+		void setActualFullscreenWidth(unsigned int _actualFullscreenWidth);
+
+		void setActualFullscreenHeigth(unsigned int _actualFullscreenHeigth);
 
 		void setMaxFontChars(unsigned int _maxFontChars);
 

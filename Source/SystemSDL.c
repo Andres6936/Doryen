@@ -373,19 +373,36 @@ void TCOD_sys_set_custom_font(const char *fontFile,int nb_ch, int nb_cv, int fla
 }
 
 static void find_resolution() {
-#if SDL_VERSION_ATLEAST(2,0,0)	
+#if SDL_VERSION_ATLEAST(2, 0, 0)
 	SDL_DisplayMode wantedmode, closestmode;
 #else
-	SDL_Rect **modes;
+	SDL_Rect** modes;
 	int i;
 #endif
-	int bestw,besth,wantedw,wantedh;
-	wantedw=TCOD_ctx.fullscreen_width>TCOD_ctx.root->w*TCOD_ctx.font_width?TCOD_ctx.fullscreen_width:TCOD_ctx.root->w*TCOD_ctx.font_width;
-	wantedh=TCOD_ctx.fullscreen_height>TCOD_ctx.root->h*TCOD_ctx.font_height?TCOD_ctx.fullscreen_height:TCOD_ctx.root->h*TCOD_ctx.font_height;
-	TCOD_ctx.actual_fullscreen_width=wantedw;
-	TCOD_ctx.actual_fullscreen_height=wantedh;
+	int bestw, besth, wantedw, wantedh;
 
-#if SDL_VERSION_ATLEAST(2,0,0)
+	if (TCOD_ctx.fullscreen_width > TCOD_ctx.root->w * TCOD_ctx.font_width)
+	{
+		wantedw = TCOD_ctx.fullscreen_width;
+	}
+	else
+	{
+		wantedw = TCOD_ctx.root->w * TCOD_ctx.font_width;
+	}
+
+	if (TCOD_ctx.fullscreen_height > TCOD_ctx.root->h * TCOD_ctx.font_height)
+	{
+		wantedh = TCOD_ctx.fullscreen_height;
+	}
+	else
+	{
+		wantedh = TCOD_ctx.root->h * TCOD_ctx.font_height;
+	}
+
+	TCOD_ctx.actual_fullscreen_width = wantedw;
+	TCOD_ctx.actual_fullscreen_height = wantedh;
+
+#if SDL_VERSION_ATLEAST(2, 0, 0)
 	wantedmode.w = wantedw;
 	wantedmode.h = wantedh;
 	wantedmode.format = 0;  /* don't care for rest. */
