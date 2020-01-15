@@ -123,7 +123,7 @@ namespace Doryen
          * @param w width size of the console (in characters).
          * @param h height size of the console (in characters).
          * @param title title of the window. It's not visible when you are in fullscreen.
-         * @param fullscreen wether you start in windowed or fullscreen mode.
+         * @param _fullscreen wether you start in windowed or fullscreen mode.
          * @param _renderer renderer to use. Possible values are :
          *
          *  1- TCOD_RENDERER_GLSL : works only on video cards with pixel shaders. <br>
@@ -140,7 +140,7 @@ namespace Doryen
          * through the libtcod.cfg file.
          */
 		void
-		initRoot(int w, int h, const char* title, bool fullscreen = false,
+		initRoot(int w, int h, const char* title, bool _fullscreen = false,
 				TCOD_renderer_t _renderer = TCOD_RENDERER_SDL);
 
 		/**

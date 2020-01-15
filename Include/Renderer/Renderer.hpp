@@ -109,6 +109,10 @@ namespace Doryen
 
 		unsigned int getHeigth() const;
 
+		unsigned int getActualFullscreenWidth() const;
+
+		unsigned int getActualFullscreenHeigth() const;
+
 		unsigned int getFullscreenWidth() const;
 
 		unsigned int getFullscreenHeigth() const;
@@ -131,9 +135,11 @@ namespace Doryen
 
 		void setHeigth(unsigned int _heigth);
 
-		void setActualFullscreenWidth(unsigned int _actualFullscreenWidth);
+		void setFullscreen(bool _fullscreen);
 
-		void setActualFullscreenHeigth(unsigned int _actualFullscreenHeigth);
+		void setActualFullscreenWidth(unsigned int width);
+
+		void setActualFullscreenHeigth(unsigned int heigth);
 
 		void setMaxFontChars(unsigned int _maxFontChars);
 

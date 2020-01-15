@@ -113,7 +113,26 @@ void Doryen::SDL::onRenderer()
 		if (isFullscreen())
 		{
 			findResolution();
+
+			screen = SDL_SetVideoMode((int)getActualFullscreenWidth(), (int)getActualFullscreenHeigth(), 32,
+					SDL_FULLSCREEN);
+
+			setActualFullscreenWidth(getWidthInPixeles());
+			setActualFullscreenHeigth(getHeigthInPixeles());
+
+			SDL_FillRect(screen, nullptr, 0);
 		}
+			// No is fullscreen
+		else
+		{
+			screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
+		}
+
+		std::cout << "Using SDL Renderer.\n";
+
+		SDL_EnableUNICODE(1);
+
+		hasInstanceActive = true;
 	}
 }
 
@@ -449,4 +468,14 @@ void Doryen::SDL::findResolution()
 		setActualFullscreenWidth(bestw);
 		setActualFullscreenHeigth(besth);
 	}
+}
+
+unsigned Doryen::SDL::getWidthInPixeles() const
+{
+	return screen->w;
+}
+
+unsigned Doryen::SDL::getHeigthInPixeles() const
+{
+	return screen->h;
 }

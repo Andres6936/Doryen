@@ -36,6 +36,8 @@ namespace Doryen
 		 */
 		short currentFramePerSecond = 0;
 
+		SDL_Surface* screen = nullptr;
+
 		SDL_Surface* charmap = nullptr;
 
 		// Methods
@@ -56,7 +58,15 @@ namespace Doryen
 
 		void loadFont() override;
 
+		// Setters
+
 		void setFps(short value);
+
+		// Getters
+
+		unsigned getWidthInPixeles() const;
+
+		unsigned getHeigthInPixeles() const;
 
 		short getFps() const;
 
@@ -66,7 +76,7 @@ namespace Doryen
 
 		int getElapsedMilli() const;
 
-        float getElapsedSeconds( ) const;
+		float getElapsedSeconds() const;
     };
 }
 

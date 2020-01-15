@@ -63,6 +63,9 @@ void Doryen::Renderer::createTablesOfCharacteres()
 	layoutCharacteres.clear();
 	layoutCharacteres.resize(getMaxFontChars(), 0);
 
+	colored.clear();
+	colored.resize(getMaxFontChars(), false);
+
 	for (int i = 0; i < layoutCharacteres.size(); ++i)
 	{
 		layoutCharacteres[i] = layoutAsciiCode[i];
@@ -186,6 +189,9 @@ void Doryen::Renderer::checkTableOfCharacteres()
 		layoutCharacteres.clear();
 		layoutCharacteres.resize(getMaxFontChars(), 0);
 
+		colored.clear();
+		colored.resize(getMaxFontChars(), false);
+
 		for (int i = 0; i < layoutCharacteres.size(); ++i)
 		{
 			layoutCharacteres[i] = layoutAsciiCode[i];
@@ -233,12 +239,27 @@ unsigned int Doryen::Renderer::getFullscreenHeigth() const
 	return fullscreenHeigth;
 }
 
-void Doryen::Renderer::setActualFullscreenWidth(unsigned int _actualFullscreenWidth)
+void Doryen::Renderer::setActualFullscreenWidth(unsigned int width)
 {
-	actualFullscreenWidth = _actualFullscreenWidth;
+	actualFullscreenWidth = width;
 }
 
-void Doryen::Renderer::setActualFullscreenHeigth(unsigned int _actualFullscreenHeigth)
+void Doryen::Renderer::setActualFullscreenHeigth(unsigned int heigth)
 {
-	actualFullscreenHeigth = _actualFullscreenHeigth;
+	actualFullscreenHeigth = heigth;
+}
+
+void Doryen::Renderer::setFullscreen(bool _fullscreen)
+{
+	fullscreen = _fullscreen;
+}
+
+unsigned int Doryen::Renderer::getActualFullscreenWidth() const
+{
+	return actualFullscreenWidth;
+}
+
+unsigned int Doryen::Renderer::getActualFullscreenHeigth() const
+{
+	return actualFullscreenHeigth;
 }
