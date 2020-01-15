@@ -502,6 +502,8 @@ void Doryen::SDL::onExit()
 
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
+	// TODO: Support to CTRL + Any || ALT + Any || Shift + Any
+
 	SDL_Event event;
 
 	Key keyPressed;
@@ -547,12 +549,6 @@ Doryen::Key Doryen::SDL::getKeyPressed()
 		convertToGenericEvent(event, keyPressed);
 
 		keyPressed.setPressed(true);
-
-		std::cout << "KeyPressed Called. " << (int)keyPressed.getKeyCode() << "\n";
-
-		std::cout << "isAlt: " << keyPressed.isLeftAltPressed() << "\n";
-		std::cout << "isCtrl: " << keyPressed.isLeftCtrlPressed() << "\n";
-		std::cout << "isShift: " << keyPressed.isShift() << "\n";
 	}
 
 	return keyPressed;
