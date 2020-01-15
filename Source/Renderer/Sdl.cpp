@@ -502,53 +502,55 @@ void Doryen::SDL::onExit()
 
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
-	// TODO: Support to CTRL + Any || ALT + Any || Shift + Any
-
 	SDL_Event event;
 
 	Key keyPressed;
 
 	SDL_PumpEvents();
-	SDL_PollEvent(&event);
 
-	// Same that keyPressed
-	if (event.type == SDL_KEYDOWN)
+	while (SDL_PollEvent(&event))
 	{
-		SDL_KeyboardEvent* keyboard = &event.key;
+		// Same that keyPressed
+		if (event.type == SDL_KEYDOWN)
+		{
+			SDL_KeyboardEvent* keyboard = &event.key;
 
-		// Has been pressed CTRL, ALT of SHIFT ?
-		if (keyboard->keysym.sym == SDLK_LALT)
-		{
-			keyPressed.setKeyCode(KeyCode::ALT);
-			keyPressed.setRigthAltPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_RALT)
-		{
-			keyPressed.setKeyCode(KeyCode::ALT);
-			keyPressed.setLeftAltPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_LCTRL)
-		{
-			keyPressed.setKeyCode(KeyCode::CONTROL);
-			keyPressed.setLeftCtrlPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_RCTRL)
-		{
-			keyPressed.setKeyCode(KeyCode::CONTROL);
-			keyPressed.setRigthCtrlPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
-				 keyboard->keysym.sym == SDLK_RSHIFT)
-		{
-			keyPressed.setKeyCode(KeyCode::SHIFT);
-			keyPressed.setShift(true);
-		}
+			// Has been pressed CTRL, ALT of SHIFT ?
+			if (keyboard->keysym.sym == SDLK_LALT)
+			{
+				keyPressed.setKeyCode(KeyCode::ALT);
+				keyPressed.setRigthAltPressed(true);
+			}
+			else if (keyboard->keysym.sym == SDLK_RALT)
+			{
+				keyPressed.setKeyCode(KeyCode::ALT);
+				keyPressed.setLeftAltPressed(true);
+			}
+			else if (keyboard->keysym.sym == SDLK_LCTRL)
+			{
+				keyPressed.setKeyCode(KeyCode::CONTROL);
+				keyPressed.setLeftCtrlPressed(true);
+			}
+			else if (keyboard->keysym.sym == SDLK_RCTRL)
+			{
+				keyPressed.setKeyCode(KeyCode::CONTROL);
+				keyPressed.setRigthCtrlPressed(true);
+			}
+			else if (keyboard->keysym.sym == SDLK_LSHIFT ||
+					 keyboard->keysym.sym == SDLK_RSHIFT)
+			{
+				keyPressed.setKeyCode(KeyCode::SHIFT);
+				keyPressed.setShift(true);
+			}
 
-		// Convert the event of type SDL to a event of
-		// type Doryen (Generic)
-		convertToGenericEvent(event, keyPressed);
+			// Convert the event of type SDL to a event of
+			// type Doryen (Generic)
+			convertToGenericEvent(event, keyPressed);
 
-		keyPressed.setPressed(true);
+			keyPressed.setPressed(true);
+
+			std::cout << keyPressed.isShift() << "|" << (int)keyPressed.getKeyCode() << "\n";
+		}
 	}
 
 	return keyPressed;
