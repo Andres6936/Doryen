@@ -1061,7 +1061,7 @@ namespace Doryen
 		key = tcod.console.waitForKeypress(true)
 		if key.Character == 'i' then ... open inventory ... end
 	*/
-        static TCOD_key_t waitForKeypress( bool flush );
+		static bool isKeyPressed(KeyCode _key);
 
         /**
         @PageName console_non_blocking_input

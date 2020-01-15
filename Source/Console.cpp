@@ -363,9 +363,9 @@ Doryen::Key Doryen::Console::getKeyPressed()
 	return renderer->getKeyPressed();
 }
 
-TCOD_key_t Doryen::Console::waitForKeypress(bool flush)
+bool Doryen::Console::isKeyPressed(KeyCode _key)
 {
-	return TCOD_sys_wait_for_keypress(flush);
+	return renderer->getKeyPressed().getKeyCode() == _key;
 }
 
 bool Doryen::Console::isWindowClosed()
