@@ -394,9 +394,9 @@ void Doryen::Console::setDefaultForeground(Doryen::Color fore)
 	tempConsole->fore = foreground;
 }
 
-void Doryen::Console::setWindowTitle(const char* title)
+void Doryen::Console::setWindowTitle(const std::string& _title)
 {
-	TCOD_sys_set_window_title(title);
+	renderer->setWindowTitle(_title);
 }
 
 void Doryen::Console::setFullscreen(bool fullscreen)

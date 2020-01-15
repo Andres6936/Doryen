@@ -28,6 +28,7 @@
 #ifndef _TCOD_CONSOLE_HPP
 #define _TCOD_CONSOLE_HPP
 
+#include <string>
 #include <vector>
 #include <array>
 
@@ -184,14 +185,14 @@ namespace Doryen
          */
         static void setFullscreen( bool fullscreen );
 
-        /**
-         * Dynamically changes the title of the game window.
-         *
-         * @note Note that the window title is not visible while in fullscreen.
-         *
-         * @param title New title of the game window.
-         */
-        static void setWindowTitle( const char *title );
+		/**
+		 * Dynamically changes the title of the game window.
+		 *
+		 * @note Note that the window title is not visible while in fullscreen.
+		 *
+		 * @param _title New title of the game window.
+		 */
+		static void setWindowTitle(const std::string& _title);
 
         /**
          * When you start the program, this returns false. Once a "close window"
