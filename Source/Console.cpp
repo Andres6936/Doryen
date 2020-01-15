@@ -421,7 +421,7 @@ void Doryen::Console::setFullscreen(bool fullscreen)
 
 bool Doryen::Console::isFullscreen()
 {
-	return TCOD_console_is_fullscreen() != 0;
+	return renderer->isFullscreen();
 }
 
 void Doryen::Console::setBackgroundFlag(TCOD_bkgnd_flag_t bkgnd_flag)
