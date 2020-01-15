@@ -4,9 +4,10 @@
 #include <vector>
 #include <array>
 
-#include "Char.hpp"
 #include "Color.h"
+#include "Char.hpp"
 #include "Color.hpp"
+#include "Math/Point2D.hpp"
 
 namespace Doryen
 {
@@ -159,6 +160,8 @@ namespace Doryen
 		void setCharacterColored(unsigned index, bool isColored);
 
 		void setLayoutCharacter(unsigned index, unsigned code);
+
+		void setDirty(const Math::Point2D& _start, Math::Point2D& _end);
 
 		// Methods Pures
 

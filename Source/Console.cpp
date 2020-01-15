@@ -337,7 +337,25 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 
 void Doryen::Console::setDirty(int x, int y, int w, int h)
 {
-	TCOD_console_set_dirty(x, y, w, h);
+//	TCOD_console_set_dirty(x, y, w, h);
+
+	if (x < 0 || y < 0 || w < 0 || h < 0)
+	{
+		// Throw error
+		return;
+	}
+	else
+	{
+		using Point = Math::Point2D;
+
+		// Initial point
+		Point start = Point(x, y);
+
+		// End Point
+		Point end = Point(w, h);
+
+		renderer->setDirty(start, end);
+	}
 }
 
 TCOD_key_t Doryen::Console::checkForKeypress(int flags)

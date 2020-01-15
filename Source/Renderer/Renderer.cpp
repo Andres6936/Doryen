@@ -271,3 +271,35 @@ const std::string& Doryen::Renderer::getFontfile() const
 	return fontfile;
 }
 
+void Doryen::Renderer::setDirty(const Math::Point2D& _start, Math::Point2D& _end)
+{
+	// Primera comprobación: ¿Es el primer punto mayor a las coordenadas
+	// de la ventana principal?
+	if (_start.x > getWidth() || _start.y > getHeigth())
+	{
+		return;
+	}
+	else
+	{
+		// Segunda comprobación: ¿La suma de las coordendas x & y de
+		// ambos puntos (el ancho y alto) es mayor al ancho y alto de
+		// la ventana principal?
+		if (_start.x + _end.x > getWidth() ||
+			_start.y + _end.y > getHeigth())
+		{
+			_end.x = (int)getWidth() - _start.x;
+			_end.y = (int)getHeigth() - _start.y;
+		}
+
+		for (int x = _start.x; x < _start.x + _end.x; ++x)
+		{
+			for (int y = _start.y; y < _start.y + _end.y; ++y)
+			{
+				unsigned offset = x + getWidth() * y;
+
+				buffer[offset].setDirt(true);
+			}
+		}
+	}
+}
+
