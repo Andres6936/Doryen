@@ -217,7 +217,9 @@ Doryen::Console::Console(const char* filename)
 
 Doryen::Console::~Console()
 {
-	// TCOD_console_delete(data);
+	renderer->onExit();
+
+	delete renderer;
 }
 
 void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen, TCOD_renderer_t _renderer)
