@@ -68,6 +68,10 @@ namespace Doryen
 
 		static Renderer* renderer;
 
+		Color foreground = Color::white;
+
+		Color background = Color::black;
+
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
 		Color controlForeground[TCOD_COLCTRL_NUMBER];
@@ -702,31 +706,31 @@ namespace Doryen
 		*/
 		unsigned int getHeight() const;
 
-        /**
-        @PageName console_read
-        @FuncTitle Reading the default background color
-        @FuncDesc This function returns the default background color of a console.
-        @Cpp Doryen::TCODColor TCODConsole::getDefaultBackground() const
-        @C TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con)
-        @Py console_get_default_background(con)
-        @C# Doryen::TCODColor TCODConsole::getBackgroundColor()
-        @Lua Console:getBackgroundColor()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
-        Doryen::Color getDefaultBackground( ) const;
+		/**
+		@PageName console_read
+		@FuncTitle Reading the default background color
+		@FuncDesc This function returns the default background color of a console.
+		@Cpp Doryen::TCODColor TCODConsole::getDefaultBackground() const
+		@C TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con)
+		@Py console_get_default_background(con)
+		@C# Doryen::TCODColor TCODConsole::getBackgroundColor()
+		@Lua Console:getBackgroundColor()
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		*/
+		const Color& getDefaultBackground() const;
 
-        /**
-        @PageName console_read
-        @FuncTitle Reading the default foreground color
-        @FuncDesc This function returns the default foreground color of a console.
-        @Cpp Doryen::TCODColor TCODConsole::getDefaultForeground() const
-        @C TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con)
-        @Py console_get_default_foreground(con)
-        @C# Doryen::TCODColor TCODConsole::getForegroundColor()
-        @Lua Console:getForegroundColor()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
-        Doryen::Color getDefaultForeground( ) const;
+		/**
+		@PageName console_read
+		@FuncTitle Reading the default foreground color
+		@FuncDesc This function returns the default foreground color of a console.
+		@Cpp Doryen::TCODColor TCODConsole::getDefaultForeground() const
+		@C TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con)
+		@Py console_get_default_foreground(con)
+		@C# Doryen::TCODColor TCODConsole::getForegroundColor()
+		@Lua Console:getForegroundColor()
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		*/
+		const Color& getDefaultForeground() const;
 
         /**
         @PageName console_read

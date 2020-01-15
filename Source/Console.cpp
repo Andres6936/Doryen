@@ -383,20 +383,14 @@ unsigned int Doryen::Console::getHeight() const
 	return renderer->getHeigth();
 }
 
-Doryen::Color Doryen::Console::getDefaultBackground() const
+const Doryen::Color& Doryen::Console::getDefaultForeground() const
 {
-	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
-	TCOD_color_t c = tempConsole->back;
-
-	return Doryen::Color(c.r, c.g, c.b);
+	return foreground;
 }
 
-Doryen::Color Doryen::Console::getDefaultForeground() const
+const Doryen::Color& Doryen::Console::getDefaultBackground() const
 {
-	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
-	TCOD_color_t c = tempConsole->fore;
-
-	return Doryen::Color(c.r, c.g, c.b);
+	return background;
 }
 
 void Doryen::Console::setDefaultBackground(Doryen::Color back)
