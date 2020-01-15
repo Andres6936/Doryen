@@ -548,8 +548,6 @@ Doryen::Key Doryen::SDL::getKeyPressed()
 			convertToGenericEvent(event, keyPressed);
 
 			keyPressed.setPressed(true);
-
-			std::cout << keyPressed.isShift() << "|" << (int)keyPressed.getKeyCode() << "\n";
 		}
 	}
 
