@@ -373,14 +373,14 @@ bool Doryen::Console::isWindowClosed()
 	return TCOD_console_is_window_closed() != 0;
 }
 
-int Doryen::Console::getWidth() const
+unsigned int Doryen::Console::getWidth() const
 {
-	return TCOD_console_get_width(data);
+	return renderer->getWidth();
 }
 
-int Doryen::Console::getHeight() const
+unsigned int Doryen::Console::getHeight() const
 {
-	return TCOD_console_get_height(data);
+	return renderer->getHeigth();
 }
 
 void Doryen::Console::setColorControl(TCOD_colctrl_t con, const Doryen::Color& fore, const Doryen::Color& back)
