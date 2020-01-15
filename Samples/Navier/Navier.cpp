@@ -367,7 +367,7 @@ int main(int argc, char* argv[])
 		{
 			// switch fullscreen
 			if (!k.pressed)
-			{ Doryen::Console::setFullscreen(!Doryen::Console::isFullscreen()); }
+			{ Doryen::Console::setWindowInFullscreen(); }
 			k.vk = TCODK_NONE;
 		}
 		// update the game

@@ -189,7 +189,7 @@ namespace Doryen
          * @param fullscreen true to switch to fullscreen mode, false to
          * switch to windowed mode.
          */
-        static void setFullscreen( bool fullscreen );
+		static void setWindowInFullscreen();
 
 		/**
 		 * Dynamically changes the title of the game window.

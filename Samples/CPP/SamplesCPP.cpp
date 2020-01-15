@@ -1540,10 +1540,10 @@ int main( int argc, char *argv[] )
         }
         else if ( key.vk == TCODK_ENTER && key.lalt )
         {
-            // ALT-ENTER : switch fullscreen
-            Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( ));
+			// ALT-ENTER : switch fullscreen
+			Doryen::Console::setWindowInFullscreen();
 #ifdef TCOD_LINUX
-        }
+		}
         else if ( key.c == 'p' )
         {
 #else

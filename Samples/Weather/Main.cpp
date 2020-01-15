@@ -210,7 +210,7 @@ int main(int argc, char* argv[])
 				  keyPressed.getKeyCode() == Doryen::KeyCode::KP_ENTER))
 		{
 			// switch fullscreen
-			Doryen::Console::setFullscreen(!Doryen::Console::isFullscreen());
+			Doryen::Console::setWindowInFullscreen();
 		}
 		// update the game
 		update(Doryen::Platform::getLastFrameLength(), keyPressed, mouse);

@@ -130,7 +130,7 @@ int main (int argc, char *argv[])
 		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
 			// switch fullscreen
             if ( !k.pressed )
-            { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
+            { Doryen::Console::setWindowInFullscreen(); }
             k.vk=TCODK_NONE;
 		}
 		// update the game
