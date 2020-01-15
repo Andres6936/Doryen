@@ -564,126 +564,59 @@ namespace Doryen
             y <= y+h < console height
         @Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
         */
-        int getHeightRect( int x, int y, int w, int h, const char *fmt, ... );
-
-        /**
-        @PageName console_print
-        @FuncTitle Changing the colors while printing a string
-        @FuncDesc If you want to draw a string using different colors for each word, the basic solution is to call a string printing function several times, changing the default colors between each call.
-            The TCOD library offers a simpler way to do this, allowing you to draw a string using different colors in a single call. For this, you have to insert color control codes in your string.
-            A color control code is associated with a color set (a foreground color and a background color). If you insert this code in your string, the next characters will use the colors associated with the color control code.
-            There are 5 predefined color control codes :
-            For python, remove TCOD_ : libtcod.COLCTRL_1
-                TCOD_COLCTRL_1
-                TCOD_COLCTRL_2
-                TCOD_COLCTRL_3
-                TCOD_COLCTRL_4
-                TCOD_COLCTRL_5
-            To associate a color with a code, use setColorControl.
-            To go back to the console's default colors, insert in your string the color stop control code :
-                TCOD_COLCTRL_STOP
-
-            You can also use any color without assigning it to a control code, using the generic control codes :
-                TCOD_COLCTRL_FORE_RGB
-                TCOD_COLCTRL_BACK_RGB
-
-            Those controls respectively change the foreground and background color used to print the string characters. In the string, you must insert the r,g,b components of the color (between 1 and 255. The value 0 is forbidden because it represents the end of the string in C/C++) immediately after this code.
-        @Cpp static void TCODConsole::setColorControl(TCOD_colctrl_t con, const Doryen::TCODColor &fore, const Doryen::TCODColor &back)
-        @C void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_color_t fore, TCOD_color_t back)
-        @Py console_set_color_control(con,fore,back)
-        @C# Not supported directly, use getRGBColorControlString and getColorControlString.
-        @Lua Not supported
-        @Param con the color control TCOD_COLCTRL_x, 1<=x<=5
-        @Param fore foreground color when this control is activated
-        @Param back background color when this control is activated
-        @CppEx
-            // A string with a red over black word, using predefined color control codes
-            TCODConsole::setColorControl(TCOD_COLCTRL_1,Doryen::TCODColor::red,Doryen::TCODColor::black);
-            TCODConsole::root->print(1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
-            // A string with a red over black word, using generic color control codes
-            TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-                  TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-            // A string with a red over black word, using generic color control codes
-            TCODConsole::root->print(1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-                  TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-        @CEx
-            // A string with a red over black word, using predefined color control codes
-            TCOD_console_set_color_control(TCOD_COLCTRL_1,red,black);
-            TCOD_console_print(NULL,1,1,"String with a %cred%c word.",TCOD_COLCTRL_1,TCOD_COLCTRL_STOP);
-            // A string with a red word (over default background color), using generic color control codes
-            TCOD_console_print(NULL,1,1,"String with a %c%c%c%cred%c word.",
-                TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_STOP);
-            // A string with a red over black word, using generic color control codes
-            TCOD_console_print(NULL,1,1,"String with a %c%c%c%c%c%c%c%cred%c word.",
-                TCOD_COLCTRL_FORE_RGB,255,1,1,TCOD_COLCTRL_BACK_RGB,1,1,1,TCOD_COLCTRL_STOP);
-        @PyEx
-            # A string with a red over black word, using predefined color control codes
-            libtcod.console_set_color_control(libtcod.COLCTRL_1,litbcod.red,litbcod.black)
-            libtcod.console_print(0,1,1,"String with a %cred%c word."%(libtcod.COLCTRL_1,libtcod.COLCTRL_STOP))
-            # A string with a red word (over default background color), using generic color control codes
-            litbcod.console_print(0,1,1,"String with a %c%c%c%cred%c word."%(libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_STOP))
-            # A string with a red over black word, using generic color control codes
-            libtcod.console_print(0,1,1,"String with a %c%c%c%c%c%c%c%cred%c word."%
-                    (libtcod.COLCTRL_FORE_RGB,255,1,1,libtcod.COLCTRL_BACK_RGB,1,1,1,libtcod.COLCTRL_STOP))
-
-        @C#Ex
-            TCODConsole.root.print(1,1,String.Format("String with a {0}red{1} word.",
-                TCODConsole.getRGBColorControlString(ColorControlForeground,Doryen::TCODColor.red),
-                TCODConsole.getColorControlString(ColorControlStop));
-        */
-        static void setColorControl( TCOD_colctrl_t con, const Doryen::Color &fore, const Doryen::Color &back );
+		int getHeightRect(int x, int y, int w, int h, const char* fmt, ...);
 
 
-        /**
-        @PageName console_advanced
-        @PageFather console_draw
-        @PageTitle Advanced printing functions
-        @FuncTitle Filling a rectangle with the background color
-        @FuncDesc Fill a rectangle inside a console. For each cell in the rectangle :
-            * set the cell's background color to the console default background color
-            * if clear is true, set the cell's ASCII code to 32 (space)
-        @Cpp void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-        @C void TCOD_console_rect(TCOD_console_t con,int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag)
-        @Py console_rect(con,x,  y,  w, h, clear, flag=BKGND_DEFAULT)
-        @C#
-            void TCODConsole::rect(int x, int y, int w, int h, bool clear)
-            void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCODBackgroundFlag flag)
-        @Lua
-            Console:rect(x, y, w, h, clear)
-            Console:rect(x, y, w, h, clear, flag)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of rectangle upper-left corner in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param w,h size of the rectangle in the console.
-            x <= x+w < console width
-            y <= y+h < console height
-        @Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
-            If false, only the background color is modified
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        */
-        void rect( int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT );
+		/**
+		@PageName console_advanced
+		@PageFather console_draw
+		@PageTitle Advanced printing functions
+		@FuncTitle Filling a rectangle with the background color
+		@FuncDesc Fill a rectangle inside a console. For each cell in the rectangle :
+			* set the cell's background color to the console default background color
+			* if clear is true, set the cell's ASCII code to 32 (space)
+		@Cpp void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
+		@C void TCOD_console_rect(TCOD_console_t con,int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag)
+		@Py console_rect(con,x,  y,  w, h, clear, flag=BKGND_DEFAULT)
+		@C#
+			void TCODConsole::rect(int x, int y, int w, int h, bool clear)
+			void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCODBackgroundFlag flag)
+		@Lua
+			Console:rect(x, y, w, h, clear)
+			Console:rect(x, y, w, h, clear, flag)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y coordinates of rectangle upper-left corner in the console.
+			0 <= x < console width
+			0 <= y < console height
+		@Param w,h size of the rectangle in the console.
+			x <= x+w < console width
+			y <= y+h < console height
+		@Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
+			If false, only the background color is modified
+		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
+		*/
+		void rect(int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT);
 
-        /**
-        @PageName console_advanced
-        @FuncTitle Drawing an horizontal line
-        @FuncDesc Draws an horizontal line in the console, using ASCII code TCOD_CHAR_HLINE (196), and the console's default background/foreground colors.
-        @Cpp void TCODConsole::hline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-        @C void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
-        @Py console_hline(con,x,y,l,flag=BKGND_DEFAULT)
-        @C#
-            void TCODConsole::hline(int x,int y, int l)
-            void TCODConsole::hline(int x,int y, int l, TCODBackgroundFlag flag)
-        @Lua
-            Console:hline(x,y, l)
-            Console:hline(x,y, l, flag)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y Coordinates of the line's left end in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param l The length of the line in cells 1 <= l <= console width - x
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        */
+		/**
+		@PageName console_advanced
+		@FuncTitle Drawing an horizontal line
+		@FuncDesc Draws an horizontal line in the console, using ASCII code TCOD_CHAR_HLINE (196), and the console's default background/foreground colors.
+		@Cpp void TCODConsole::hline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
+		@C void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
+		@Py console_hline(con,x,y,l,flag=BKGND_DEFAULT)
+		@C#
+			void TCODConsole::hline(int x,int y, int l)
+			void TCODConsole::hline(int x,int y, int l, TCODBackgroundFlag flag)
+		@Lua
+			Console:hline(x,y, l)
+			Console:hline(x,y, l, flag)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y Coordinates of the line's left end in the console.
+			0 <= x < console width
+			0 <= y < console height
+		@Param l The length of the line in cells 1 <= l <= console width - x
+		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
+		*/
         void hline( int x, int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT );
 
         /**

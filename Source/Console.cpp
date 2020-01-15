@@ -383,12 +383,6 @@ unsigned int Doryen::Console::getHeight() const
 	return renderer->getHeigth();
 }
 
-void Doryen::Console::setColorControl(TCOD_colctrl_t con, const Doryen::Color& fore, const Doryen::Color& back)
-{
-	TCOD_color_t b = { back.r, back.g, back.b }, f = { fore.r, fore.g, fore.b };
-	TCOD_console_set_color_control(con, f, b);
-}
-
 Doryen::Color Doryen::Console::getDefaultBackground() const
 {
 	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
