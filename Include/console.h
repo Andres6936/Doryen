@@ -111,8 +111,6 @@ TCOD_color_t TCOD_console_get_fading_color();
 
 void TCOD_console_flush();
 
-void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_color_t fore, TCOD_color_t back);
-
 
 void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
 

@@ -63,12 +63,6 @@ TCOD_internal_context_t TCOD_ctx={
 static TCOD_color_t color_control_fore[TCOD_COLCTRL_NUMBER];
 static TCOD_color_t color_control_back[TCOD_COLCTRL_NUMBER];
 
-void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_color_t fore, TCOD_color_t back) {
-	TCOD_IFNOT(con >= TCOD_COLCTRL_1 && con <= TCOD_COLCTRL_NUMBER ) return;
-	color_control_fore[con-1]=fore;
-	color_control_back[con-1]=back;
-}
-
 void TCOD_fatal(const char *fmt, ...) {
 	va_list ap;
 	TCOD_sys_term();
