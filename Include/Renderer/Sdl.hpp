@@ -50,11 +50,13 @@ namespace Doryen
 
 		SDL();
 
-		~SDL() override = default;
+		~SDL() override;
 
 		// Methods
 
 		void onRenderer() override;
+
+		void onExit() override;
 
 		void setWindowTitle(const std::string& _title) override;
 

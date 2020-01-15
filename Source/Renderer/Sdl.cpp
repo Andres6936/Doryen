@@ -10,6 +10,12 @@ Doryen::SDL::SDL() : Renderer()
 
 }
 
+Doryen::SDL::~SDL()
+{
+	delete screen;
+	delete charmap;
+}
+
 // Methods
 
 void Doryen::SDL::setFps(const short value)
@@ -487,4 +493,9 @@ unsigned Doryen::SDL::getHeigthInPixeles() const
 void Doryen::SDL::setWindowTitle(const std::string& _title)
 {
 	SDL_WM_SetCaption(_title.c_str(), nullptr);
+}
+
+void Doryen::SDL::onExit()
+{
+	SDL_Quit();
 }

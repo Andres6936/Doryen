@@ -164,6 +164,8 @@ namespace Doryen
 
 		virtual void onRenderer() = 0;
 
+		virtual void onExit() = 0;
+
 		virtual void setWindowTitle(const std::string& _title) = 0;
 
 		virtual void loadFont() = 0;
