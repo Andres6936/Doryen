@@ -1,8 +1,9 @@
 #ifndef LIBTCOD_SDL_HPP
 #define LIBTCOD_SDL_HPP
 
-#include "Renderer/Renderer.hpp"
 #include <SDL/SDL.h>
+
+#include "Renderer/Renderer.hpp"
 
 namespace Doryen
 {
@@ -58,9 +59,11 @@ namespace Doryen
 
 		void onExit() override;
 
-		void setWindowTitle(const std::string& _title) override;
+		Key getKeyPressed() override;
 
 		void loadFont() override;
+
+		void setWindowTitle(const std::string& _title) override;
 
 		// Setters
 
