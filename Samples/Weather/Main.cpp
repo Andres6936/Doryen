@@ -176,16 +176,20 @@ int main (int argc, char *argv[])
     while ( !console.isWindowClosed( ))
     {
 		//	read keyboard
-        TCOD_key_t k = Doryen::Console::checkForKeypress( TCOD_KEY_PRESSED | TCOD_KEY_RELEASED );
-		TCOD_mouse_t mouse=TCODMouse::getStatus();
-		if ( k.vk == TCODK_PRINTSCREEN ) {
+		TCOD_key_t k = Doryen::Console::getKeyPressed(TCOD_KEY_PRESSED | TCOD_KEY_RELEASED);
+
+		TCOD_mouse_t mouse = TCODMouse::getStatus();
+		if (k.vk == TCODK_PRINTSCREEN)
+		{
 			// screenshot
-            if ( !k.pressed )
-            { Doryen::Platform::saveScreenshot( NULL ); }
-            k.vk=TCODK_NONE;
-		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
+			if (!k.pressed)
+			{ Doryen::Platform::saveScreenshot(NULL); }
+			k.vk = TCODK_NONE;
+		}
+		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
+		{
 			// switch fullscreen
-            if ( !k.pressed )
+			if (!k.pressed)
             { Doryen::Console::setFullscreen( !Doryen::Console::isFullscreen( )); }
             k.vk=TCODK_NONE;
 		}

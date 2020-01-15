@@ -14,7 +14,6 @@ namespace Doryen
 		CONTROL,
 		ALT,
 		PAUSE,
-		CAPSLOCK,
 		PAGE_UP,
 		PAGE_DOWN,
 		END,
@@ -24,11 +23,8 @@ namespace Doryen
 		RIGHT,
 		DOWN,
 		PRINT_SCREEN,
-		INSERT,
 		DELETE,
-		LWIN,
-		RWIN,
-		APPS,
+		SPACE,
 
 		K_0,
 		K_1,
@@ -71,10 +67,6 @@ namespace Doryen
 		F10,
 		F11,
 		F12,
-
-		NUMLOCK,
-		SCROLLLOCK,
-		SPACE,
 	};
 
 	/**

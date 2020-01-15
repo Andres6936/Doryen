@@ -517,23 +517,28 @@ Doryen::Key Doryen::SDL::getKeyPressed()
 		// Has been pressed CTRL, ALT of SHIFT ?
 		if (keyboard->keysym.sym == SDLK_LALT)
 		{
+			keyPressed.setKeyCode(KeyCode::ALT);
 			keyPressed.setRigthAltPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_RALT)
 		{
+			keyPressed.setKeyCode(KeyCode::ALT);
 			keyPressed.setLeftAltPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_LCTRL)
 		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
 			keyPressed.setLeftCtrlPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_RCTRL)
 		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
 			keyPressed.setRigthCtrlPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
 				 keyboard->keysym.sym == SDLK_RSHIFT)
 		{
+			keyPressed.setKeyCode(KeyCode::SHIFT);
 			keyPressed.setShift(true);
 		}
 
@@ -709,6 +714,14 @@ Doryen::Key Doryen::SDL::getKeyPressed()
 			keyPressed.setKeyCode(KeyCode::F12);
 			break;
 		}
+
+		keyPressed.setPressed(true);
+
+		std::cout << "KeyPressed Called. " << (int)keyPressed.getKeyCode() << "\n";
+
+		std::cout << "isAlt: " << keyPressed.isLeftAltPressed() << "\n";
+		std::cout << "isCtrl: " << keyPressed.isLeftCtrlPressed() << "\n";
+		std::cout << "isShift: " << keyPressed.isShift() << "\n";
 	}
 
 	return keyPressed;
