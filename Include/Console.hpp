@@ -412,60 +412,44 @@ namespace Doryen
         @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
         @Param alignment defines how the strings are printed on screen.
         */
-        void setAlignment( TCOD_alignment_t alignment );
+		void setAlignment(TCOD_alignment_t alignment);
 
-        /**
-        @PageName console_print
-        @FuncTitle Getting the default alignment
-        @FuncDesc This function returns the default alignment (see TCOD_alignment_t) for the console.
-            This default mode is used by several functions (print, printRect, ...).
-            Values for alignment : TCOD_LEFT, TCOD_CENTER, TCOD_RIGHT (in python, remove TCOD_ : libtcod.LEFT).
-            For C# and Lua : LeftAlignment, RightAlignment, CenterAlignment
-        @Cpp TCOD_alignment_t TCODConsole::getAlignment() const
-        @C TCOD_alignment_t TCOD_console_get_alignment(TCOD_console_t con)
-        @Py console_get_alignment(con)
-        @C# TCODAlignment TCODConsole::getAlignment()
-        @Lua Console:getAlignment()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
-        TCOD_alignment_t getAlignment( ) const;
+		/**
+		@PageName console_print
+		@FuncTitle Printing a string with default parameters
+		@FuncDesc This function print a string at a specific position using current default alignment, background flag, foreground and background colors.
+		@Cpp void TCODConsole::print(int x, int y, const char *fmt, ...)
+		@C void TCOD_console_print(TCOD_console_t con,int x, int y, const char *fmt, ...)
+		@Py console_print(con, x, y, fmt)
+		@C# void TCODConsole::print(int x, int y, string fmt)
+		@Lua Console:print(x, y, fmt)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y coordinate of the character in the console, depending on the default alignment for this console :
+			* TCOD_LEFT : leftmost character of the string
+			* TCOD_CENTER : center character of the string
+			* TCOD_RIGHT : rightmost character of the string
+		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
+		*/
+		void print(int x, int y, const char* fmt, ...);
 
-        /**
-        @PageName console_print
-        @FuncTitle Printing a string with default parameters
-        @FuncDesc This function print a string at a specific position using current default alignment, background flag, foreground and background colors.
-        @Cpp void TCODConsole::print(int x, int y, const char *fmt, ...)
-        @C void TCOD_console_print(TCOD_console_t con,int x, int y, const char *fmt, ...)
-        @Py console_print(con, x, y, fmt)
-        @C# void TCODConsole::print(int x, int y, string fmt)
-        @Lua Console:print(x, y, fmt)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinate of the character in the console, depending on the default alignment for this console :
-            * TCOD_LEFT : leftmost character of the string
-            * TCOD_CENTER : center character of the string
-            * TCOD_RIGHT : rightmost character of the string
-        @Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-        */
-        void print( int x, int y, const char *fmt, ... );
-
-        /**
-        @PageName console_print
-        @FuncTitle Printing a string with specific alignment and background mode
-        @FuncDesc This function print a string at a specific position using specific alignment and background flag, but default foreground and background colors.
-        @Cpp void TCODConsole::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-        @C void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-        @Py console_print_ex(con, x, y, flag, alignment, fmt)
-        @C# void TCODConsole::printEx(int x, int y, TCODBackgroundFlag flag, TCODAlignment alignment, string fmt)
-        @Lua Console::printEx(x, y, flag, alignment, fmt)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinate of the character in the console, depending on the alignment :
-            * TCOD_LEFT : leftmost character of the string
-            * TCOD_CENTER : center character of the string
-            * TCOD_RIGHT : rightmost character of the string
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        @Param alignment defines how the strings are printed on screen.
-        @Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-        */
+		/**
+		@PageName console_print
+		@FuncTitle Printing a string with specific alignment and background mode
+		@FuncDesc This function print a string at a specific position using specific alignment and background flag, but default foreground and background colors.
+		@Cpp void TCODConsole::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
+		@C void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
+		@Py console_print_ex(con, x, y, flag, alignment, fmt)
+		@C# void TCODConsole::printEx(int x, int y, TCODBackgroundFlag flag, TCODAlignment alignment, string fmt)
+		@Lua Console::printEx(x, y, flag, alignment, fmt)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y coordinate of the character in the console, depending on the alignment :
+			* TCOD_LEFT : leftmost character of the string
+			* TCOD_CENTER : center character of the string
+			* TCOD_RIGHT : rightmost character of the string
+		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
+		@Param alignment defines how the strings are printed on screen.
+		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
+		*/
         void printEx( int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ... );
 
         /**

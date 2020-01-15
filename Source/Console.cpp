@@ -429,11 +429,6 @@ void Doryen::Console::setAlignment(TCOD_alignment_t alignment)
 	TCOD_console_set_alignment(data, alignment);
 }
 
-TCOD_alignment_t Doryen::Console::getAlignment() const
-{
-	return TCOD_console_get_alignment(data);
-}
-
 void Doryen::Console::blit(const Doryen::Console* srcCon, int xSrc, int ySrc, int wSrc, int hSrc,
 		Doryen::Console* dstCon, int xDst, int yDst, float foreground_alpha,
 		float background_alpha)

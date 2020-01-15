@@ -124,12 +124,6 @@ void TCOD_console_set_alignment(TCOD_console_t con,TCOD_alignment_t alignment) {
 	dat->alignment=alignment;
 }
 
-TCOD_alignment_t TCOD_console_get_alignment(TCOD_console_t con) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return TCOD_LEFT;
-	return dat->alignment;
-}
-
 
 void TCOD_console_blit(TCOD_console_t srcCon,int xSrc, int ySrc, int wSrc, int hSrc,
 	TCOD_console_t dstCon, int xDst, int yDst, float foreground_alpha, float background_alpha) {
