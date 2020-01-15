@@ -1095,7 +1095,7 @@ namespace Doryen
             if key.KeyCode == tcod.NoKey then return end -- no key pressed
             if key.Character == 'i' then ... open inventory ... end
         */
-		static TCOD_key_t getKeyPressed(int flags = TCOD_KEY_RELEASED);
+		static Doryen::Key getKeyPressed();
 
         /**
         @PageName console_non_blocking_input

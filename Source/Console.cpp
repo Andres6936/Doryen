@@ -358,11 +358,9 @@ void Doryen::Console::setDirty(int x, int y, int w, int h)
 	}
 }
 
-TCOD_key_t Doryen::Console::getKeyPressed(int flags)
+Doryen::Key Doryen::Console::getKeyPressed()
 {
-	renderer->getKeyPressed();
-
-	return TCOD_sys_check_for_keypress(flags);
+	return renderer->getKeyPressed();
 }
 
 TCOD_key_t Doryen::Console::waitForKeypress(bool flush)

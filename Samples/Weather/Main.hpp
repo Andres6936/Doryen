@@ -26,8 +26,6 @@
 #include "libtcod.hpp"
 #include "UtilWeather.hpp"
 
-#define VERSION "0.1.0"
-
 // console size
 #define CON_W 80
 #define CON_H 50
