@@ -424,16 +424,6 @@ bool Doryen::Console::isFullscreen()
 	return renderer->isFullscreen();
 }
 
-void Doryen::Console::setBackgroundFlag(TCOD_bkgnd_flag_t bkgnd_flag)
-{
-	TCOD_console_set_background_flag(data, bkgnd_flag);
-}
-
-TCOD_bkgnd_flag_t Doryen::Console::getBackgroundFlag() const
-{
-	return TCOD_console_get_background_flag(data);
-}
-
 void Doryen::Console::setAlignment(TCOD_alignment_t alignment)
 {
 	TCOD_console_set_alignment(data, alignment);

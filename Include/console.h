@@ -65,10 +65,6 @@ void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_fl
 
 void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back);
 
-void TCOD_console_set_background_flag(TCOD_console_t con,TCOD_bkgnd_flag_t flag);
-
-TCOD_bkgnd_flag_t TCOD_console_get_background_flag(TCOD_console_t con);
-
 void TCOD_console_set_alignment(TCOD_console_t con,TCOD_alignment_t alignment);
 
 TCOD_alignment_t TCOD_console_get_alignment(TCOD_console_t con);

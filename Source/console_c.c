@@ -118,18 +118,6 @@ bool TCOD_console_is_fullscreen() {
 	return TCOD_ctx.fullscreen;
 }
 
-void TCOD_console_set_background_flag(TCOD_console_t con,TCOD_bkgnd_flag_t flag) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return;
-	dat->bkgnd_flag=flag;
-}
-
-TCOD_bkgnd_flag_t TCOD_console_get_background_flag(TCOD_console_t con) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return TCOD_BKGND_NONE;
-	return dat->bkgnd_flag;
-}
-
 void TCOD_console_set_alignment(TCOD_console_t con,TCOD_alignment_t alignment) {
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
 	TCOD_IFNOT ( dat != NULL ) return;

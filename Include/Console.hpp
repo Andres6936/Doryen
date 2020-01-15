@@ -397,38 +397,7 @@ namespace Doryen
             With lua, use tcod.None, ..., tcod.Default, BUT tcod.console.Alpha(value) and tcod.console.AddAlpha(value)
         */
 
-        /**
-        @PageName console_print
-        @PageTitle String drawing functions
-        @PageFather console_draw
-        @FuncTitle Setting the default background flag
-        @FuncDesc This function defines the background mode (see TCOD_bkgnd_flag_t) for the console.
-            This default mode is used by several functions (print, printRect, ...)
-        @Cpp void TCODConsole::setBackgroundFlag(TCOD_bkgnd_flag_t flag)
-        @C void TCOD_console_set_background_flag(TCOD_console_t con,TCOD_bkgnd_flag_t flag)
-        @Py console_set_background_flag(con, flag)
-        @C# void TCODConsole::setBackgroundFlag(TCODBackgroundFlag flag)
-        @Lua Console:setBackgroundFlag(flag)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        */
-        void setBackgroundFlag( TCOD_bkgnd_flag_t flag );
-
-        /**
-        @PageName console_print
-        @FuncTitle Getting the default background flag
-        @FuncDesc This function returns the background mode (see TCOD_bkgnd_flag_t) for the console.
-            This default mode is used by several functions (print, printRect, ...)
-        @Cpp TCOD_bkgnd_flag_t TCODConsole::getBackgroundFlag() const
-        @C TCOD_bkgnd_flag_t TCOD_console_get_background_flag(TCOD_console_t con)
-        @Py console_get_background_flag(con)
-        @C# TCODBackgroundFlag TCODConsole::getBackgroundFlag()
-        @Lua Console:getBackgroundFlag()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
-        TCOD_bkgnd_flag_t getBackgroundFlag( ) const;
-
-        /**
+		/**
         @PageName console_print
         @FuncTitle Setting the default alignment
         @FuncDesc This function defines the default alignment (see TCOD_alignment_t) for the console.
