@@ -64,6 +64,8 @@ namespace Doryen
 
 		bool windowClose = false;
 
+		bool isConsoleRoot = false;
+
 		static Renderer* renderer;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
