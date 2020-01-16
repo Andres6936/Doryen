@@ -749,7 +749,7 @@ void Doryen::SDL::draw()
 	// Bitmap point to screen
 	SDL_Surface* bitmap = screen;
 
-	bool trackChanges = (getOldFade() == getFade() && !oldBuffer.empty());
+	bool trackChanges = getOldFade() == getFade();
 
 	unsigned hdelta = 0;
 
