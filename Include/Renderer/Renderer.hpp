@@ -26,6 +26,11 @@ namespace Doryen
 
 	private:
 
+		/**
+		 *  Length of the last rendering loop
+		 */
+		float lastFrameLength = 0.0f;
+
 		unsigned width = 0;
 
 		unsigned heigth = 0;
@@ -48,6 +53,34 @@ namespace Doryen
 
 		unsigned actualFullscreenHeigth = 0;
 
+		unsigned SDLKey = 0;
+
+		unsigned RGBMask = 0;
+
+		unsigned nRGBMask = 0;
+
+		/**
+		 * Number of frames in the last second
+		 */
+		unsigned framePerSeconds = 0;
+
+		/**
+		 * Current number of frames
+		 */
+		unsigned currentFramePerSeconds = 0;
+
+		/**
+		 * Minimum length for a frame (when fps are limited)
+		 */
+		unsigned minimunFrameLength = 0;
+
+		/**
+		 * Used as reference of frame length
+		 */
+		unsigned minimunFrameLengthBackup = 0;
+
+		short fade = 255;
+
 		bool fontHasDoryenLayout = false;
 
 		bool fontHasRowLayout = false;
@@ -55,6 +88,8 @@ namespace Doryen
 		bool fontGrayscale = false;
 
 		bool fullscreen = false;
+
+		bool fontUpdated = false;
 
 		std::string fontfile = "Terminal.png";
 
@@ -72,6 +107,8 @@ namespace Doryen
 		std::vector <Color> characterColor;
 
 		Color fontKeyColor = Color(0, 0, 0);
+
+		Color fadingColor = Color(128, 128, 128);
 
 	public:
 
@@ -96,11 +133,20 @@ namespace Doryen
 
 		void createBuffer();
 
+		void clearCharacterUpdate();
+
+		void resizeCharacterUpdate(unsigned size);
+
 		void changeFontKeyColor(const Color& _color);
 
-		void fillCharacterDrawedWith(const bool isDrawed);
+		void fillCharacterDrawedWith(bool isDrawed);
 
 		void fillCharacterColorWith(const Color& _color);
+
+		/**
+		 * The content of buffer will be moved to oldBuffer
+		 */
+		void fillOldBuffer();
 
 		// Getters
 
@@ -112,7 +158,13 @@ namespace Doryen
 
 		bool isCharacterColored(unsigned index) const;
 
+		bool isCharacterDrawed(unsigned index) const;
+
 		bool isFullscreen() const;
+
+		bool isFontUpdated() const;
+
+		short getFade() const;
 
 		unsigned int getWidth() const;
 
@@ -136,11 +188,31 @@ namespace Doryen
 
 		unsigned int getFontHeigth() const;
 
+		unsigned int getSdlKey() const;
+
+		unsigned int getRgbMask() const;
+
+		unsigned int getNrgbMask() const;
+
+		unsigned int getFramePerSeconds() const;
+
+		unsigned int getCurrentFramePerSeconds() const;
+
+		unsigned int getMinimunFrameLength() const;
+
+		unsigned int getMinimunFrameLengthBackup() const;
+
 		const std::string& getFontfile() const;
+
+		const Color& getColorInCharacterColorAt(unsigned index) const;
+
+		const Color& getFadingColor() const;
 
 		const Color& getFontKeyColor() const;
 
 		// Setters
+
+		void setLastFrameLength(float _lastFrameLength);
 
 		void setWidth(unsigned int _width);
 
@@ -158,9 +230,23 @@ namespace Doryen
 
 		void setFontHeigth(unsigned int _fontHeigth);
 
+		void setSdlKey(unsigned int _sdlKey);
+
+		void setRgbMask(unsigned int _rgbMask);
+
+		void setNrgbMask(unsigned int _nRgbMask);
+
+		void setFramePerSeconds(unsigned int _framePerSeconds);
+
+		void setCurrentFramePerSeconds(unsigned int _currentFramePerSeconds);
+
 		void setCharacterColored(unsigned index, bool isColored);
 
+		void setCharacterDrawed(unsigned index, bool isDrawed);
+
 		void setLayoutCharacter(unsigned index, unsigned code);
+
+		void setColorInCharacterColorAt(unsigned index, const Color& _color);
 
 		void setDirty(const Math::Point2D& _start, Math::Point2D& _end);
 
@@ -169,6 +255,8 @@ namespace Doryen
 		virtual void onRenderer() = 0;
 
 		virtual void onExit() = 0;
+
+		virtual void draw() = 0;
 
 		virtual void loadFont() = 0;
 

@@ -61,6 +61,8 @@ namespace Doryen
 
 		void onExit() override;
 
+		void draw() override;
+
 		Key getKeyPressed() override;
 
 		void loadFont() override;

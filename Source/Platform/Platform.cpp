@@ -25,9 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.hpp"
-#include <stdio.h>
-#include <stdarg.h>
+#include "Platform/Platform.hpp"
 
 void Doryen::Platform::setFps( int val )
 {

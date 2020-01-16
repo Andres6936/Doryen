@@ -440,7 +440,9 @@ void Doryen::Console::blit(const Doryen::Console* srcCon, int xSrc, int ySrc, in
 
 void Doryen::Console::flush()
 {
-	TCOD_console_flush();
+	//TCOD_console_flush();
+
+	renderer->draw();
 }
 
 void Doryen::Console::setFade(uint8 val, const Doryen::Color& fade)

@@ -376,16 +376,18 @@ void Doryen::SDL::loadFont()
 
 	Color fontKeyColor = getFontKeyColor();
 
-	unsigned int SDLKey = SDL_MapRGB(charmap->format, fontKeyColor.r, fontKeyColor.g, fontKeyColor.b);
+	setSdlKey(SDL_MapRGB(charmap->format, fontKeyColor.r, fontKeyColor.g, fontKeyColor.b));
 
-	unsigned int RGBMask = charmap->format->Rmask | charmap->format->Gmask | charmap->format->Bmask;
+	setRgbMask(charmap->format->Rmask | charmap->format->Gmask | charmap->format->Bmask);
 
 	// Remove the alpha part
-	unsigned int nRGBMask = ~RGBMask;
+	setNrgbMask(~getRgbMask());
+
+	setSdlKey(getSdlKey() & getRgbMask());
 
 	if (charmap->format->BytesPerPixel == 3)
 	{
-		SDL_SetColorKey(charmap, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDLKey);
+		SDL_SetColorKey(charmap, SDL_SRCCOLORKEY | SDL_RLEACCEL, getSdlKey());
 	}
 
 	fillCharacterColorWith(getFontKeyColor());
@@ -740,4 +742,329 @@ void Doryen::SDL::setWindowInFullscreen()
 
 	// Neccessary for methods that not set the variable manually.
 	setFullscreen(true);
+}
+
+void Doryen::SDL::draw()
+{
+	static unsigned oldTime = 0;
+	static unsigned newTime = 0;
+	static unsigned elapsed = 0;
+
+	// Bitmap point to screen
+	SDL_Surface* bitmap = screen;
+
+	unsigned bpp = charmap->format->BytesPerPixel;
+
+	unsigned hdelta = 0;
+
+	if (bpp == 4)
+	{
+		hdelta = (charmap->pitch - getFontWidth() * bpp) / 4;
+	}
+	else
+	{
+		hdelta = (charmap->pitch - getFontWidth() * bpp);
+	}
+
+	static SDL_Surface* charmapBackup = nullptr;
+
+	if (charmapBackup == nullptr)
+	{
+		charmapBackup = ImageData::createNewSurface(charmap->w, charmap->h, true);
+		SDL_BlitSurface(charmap, nullptr, charmapBackup, nullptr);
+	}
+
+	unsigned index = 0;
+
+	for (int y = 0; y < getHeigth(); ++y)
+	{
+		for (int x = 0; x < getWidth(); ++x)
+		{
+			// Character to draw
+			Char c = buffer[index];
+
+			// Previous character drawed
+			Char oc = oldBuffer[index];
+
+			SDL_Rect sourceRect;
+			SDL_Rect destinRect;
+
+			bool changed = true;
+
+			if (changed)
+			{
+				Color b = c.getBackground();
+
+				destinRect.x = x * getFontWidth();
+				destinRect.y = y * getFontHeigth();
+
+				destinRect.w = getFontWidth();
+				destinRect.h = getFontHeigth();
+
+				// Draw Background
+				if (getFade() != 255)
+				{
+					short nr = (short)(b.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
+					short ng = (short)(b.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
+					short nb = (short)(b.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
+
+					c.setBackground(Color(nr, ng, nb));
+				}
+
+				unsigned int SDLBack = SDL_MapRGB(bitmap->format, b.r, b.g, b.b);
+
+				if (isFullscreen())
+				{
+
+				}
+
+				SDL_FillRect(bitmap, &destinRect, SDLBack);
+
+				if (c.getC() != ' ')
+				{
+					// Draw Foreground
+					Color f = c.getForeground();
+
+					if (getFade() != 255)
+					{
+						short nr = (short)(f.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
+						short ng = (short)(f.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
+						short nb = (short)(f.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
+
+						c.setBackground(Color(nr, ng, nb));
+					}
+
+					// Only draw character if foreground color != background color
+					if (!c.getBackground().equals(c.getForeground()))
+					{
+						if (charmap->format->Amask == 0 && f.equals(getFontKeyColor()))
+						{
+							// cannot draw with the key color...
+							if (f.r < 255)
+							{
+								c.setForeground(Color(f.r += 1, f.g, f.b));
+							}
+							else
+							{
+								c.setForeground(Color(f.r -= 1, f.g, f.b));
+							}
+						}
+
+						sourceRect.x = (c.getCf() % getFontCharHorizontalSize()) * getFontWidth();
+						sourceRect.y = (c.getCf() / getFontCharHorizontalSize()) * getFontHeigth();
+						sourceRect.w = getFontWidth();
+						sourceRect.h = getFontHeigth();
+
+						Color curtext = getColorInCharacterColorAt(c.getCf());
+
+						if (isCharacterDrawed(c.getCf()) || !curtext.equals(c.getForeground()))
+						{
+							// change the character color in the font
+							setCharacterDrawed(c.getCf(), false);
+
+							unsigned int SDLFore = SDL_MapRGB(charmap->format, f.r, f.g, f.b) & getRgbMask();
+							setColorInCharacterColorAt(c.getCf(), c.getForeground());
+
+							if (bpp == 4)
+							{
+								// 32 bits font : fill the whole character with foreground color
+								Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
+														sourceRect.y * charmap->pitch);
+
+								int h = getFontHeigth();
+
+								if (!isCharacterColored(c.getCf()))
+								{
+									while (h--)
+									{
+										int w = getFontWidth();
+
+										while (w--)
+										{
+											(*pix) &= getNrgbMask();
+											(*pix) |= SDLFore;
+											pix++;
+										}
+
+										pix += hdelta;
+									}
+								}
+								else
+								{
+									// Colored character : multiply color with foreground color
+									Uint32* pixorig = (Uint32*)(((Uint8*)charmapBackup->pixels) + sourceRect.x * bpp +
+																sourceRect.y * charmapBackup->pitch);
+
+									int hdeltaBackup = (int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
+
+									while (h > 0)
+									{
+										int w = (int)getFontWidth();
+
+										while (w > 0)
+										{
+											int r = (int)*((Uint8*)pixorig + charmapBackup->format->Rshift / 8);
+											int g = (int)*((Uint8*)pixorig + charmapBackup->format->Gshift / 8);
+											int b = (int)*((Uint8*)pixorig + charmapBackup->format->Bshift / 8);
+
+											// erase the color
+											(*pix) &= getNrgbMask();
+
+											r = r * f.r / 255;
+											g = g * f.g / 255;
+											b = b * f.b / 255;
+
+											// set the new color
+											(*pix) |= (r << charmap->format->Rshift) |
+													  (g << charmap->format->Gshift) |
+													  (b << charmap->format->Bshift);
+											w--;
+											pix++;
+											pixorig++;
+										}
+
+										h--;
+										pix += hdelta;
+										pixorig += hdeltaBackup;
+									}
+								}
+							}
+							else
+							{
+								// 24 bits font : fill only non key color pixels
+								Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
+														sourceRect.y * charmap->pitch);
+
+								int h = (int)getFontHeigth();
+
+								if (!isCharacterColored(c.getCf()))
+								{
+									while (h--)
+									{
+										int w = (int)getFontWidth();
+
+										while (w--)
+										{
+											if (((*pix) & getRgbMask()) != getSdlKey())
+											{
+												(*pix) &= getNrgbMask();
+												(*pix) |= SDLFore;
+											}
+
+											pix = (Uint32*)((Uint8*)pix + 3);
+										}
+
+										pix = (Uint32*)((Uint8*)pix + hdelta);
+									}
+								}
+								else
+								{
+									// Colored character : multiply color with foreground color
+									Uint32* pixorig = (Uint32*)((Uint8*)charmapBackup->pixels + sourceRect.x * 4 +
+																sourceRect.y * charmapBackup->pitch);
+
+									// CharmapBackup is always 32 bits
+									int hdelta_backup = (int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
+
+									while (h > 0)
+									{
+										int w = getFontWidth();
+
+										while (w > 0)
+										{
+											if (((*pixorig) & getRgbMask()) != getSdlKey())
+											{
+												int r = (int)(*((Uint8*)(pixorig) +
+																charmapBackup->format->Rshift / 8));
+												int g = (int)(*((Uint8*)(pixorig) +
+																charmapBackup->format->Gshift / 8));
+												int b = (int)(*((Uint8*)(pixorig) +
+																charmapBackup->format->Bshift / 8));
+
+												// erase the color
+												(*pix) &= getNrgbMask();
+
+												r = r * f.r / 255;
+												g = g * f.g / 255;
+												b = b * f.b / 255;
+
+												// set the new color
+												(*pix) |= (r << charmap->format->Rshift) |
+														  (g << charmap->format->Gshift) |
+														  (b << charmap->format->Bshift);
+											}
+
+											w--;
+
+											pix = (Uint32*)(((Uint8*)pix) + 3);
+											pixorig++;
+										}
+
+										h--;
+
+										pix = (Uint32*)(((Uint8*)pix) + hdelta);
+										pixorig += hdelta_backup;
+									}
+								}
+							}
+						}
+
+						SDL_BlitSurface(charmap, &sourceRect, bitmap, &destinRect);
+					}
+				}
+			}
+
+			// Continue with the next character
+			index++;
+		}
+	}
+
+	// TODO: Render Callback Function
+
+	SDL_Flip(screen);
+
+	if (isFontUpdated())
+	{
+		clearCharacterUpdate();
+		resizeCharacterUpdate(getMaxFontChars());
+	}
+
+	// Remember are static
+	oldTime = newTime;
+
+	newTime = SDL_GetTicks();
+
+	int frameTime = 0;
+	int timeToWait = 0;
+
+	if (newTime / 1000 != elapsed)
+	{
+		// Update FPS every second
+		setFramePerSeconds(getCurrentFramePerSeconds());
+		setCurrentFramePerSeconds(0);
+
+		elapsed = newTime / 1000;
+	}
+
+	// If too fast, wait
+	frameTime = (int)(newTime - oldTime);
+
+	setLastFrameLength((float)frameTime * 0.001f);
+
+	setCurrentFramePerSeconds(getCurrentFramePerSeconds() + 1);
+
+	timeToWait = (int)getMinimunFrameLength() - frameTime;
+
+	if (oldTime > 0 && timeToWait > 0)
+	{
+		SDL_Delay(timeToWait);
+
+		newTime = SDL_GetTicks();
+
+		frameTime = (int)(newTime - oldTime);
+	}
+
+	setLastFrameLength((float)frameTime * 0.001f);
+
+	fillOldBuffer();
 }

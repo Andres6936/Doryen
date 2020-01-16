@@ -303,3 +303,121 @@ void Doryen::Renderer::setDirty(const Math::Point2D& _start, Math::Point2D& _end
 	}
 }
 
+short Doryen::Renderer::getFade() const
+{
+	return fade;
+}
+
+const Doryen::Color& Doryen::Renderer::getFadingColor() const
+{
+	return fadingColor;
+}
+
+bool Doryen::Renderer::isCharacterDrawed(unsigned index) const
+{
+	return characterDrawed[index];
+}
+
+const Doryen::Color& Doryen::Renderer::getColorInCharacterColorAt(unsigned index) const
+{
+	return characterColor[index];
+}
+
+void Doryen::Renderer::setCharacterDrawed(unsigned index, bool isDrawed)
+{
+	characterDrawed[index] = isDrawed;
+}
+
+unsigned int Doryen::Renderer::getRgbMask() const
+{
+	return RGBMask;
+}
+
+void Doryen::Renderer::setRgbMask(unsigned int _rgbMask)
+{
+	RGBMask = _rgbMask;
+}
+
+unsigned int Doryen::Renderer::getNrgbMask() const
+{
+	return nRGBMask;
+}
+
+void Doryen::Renderer::setNrgbMask(unsigned int _nRgbMask)
+{
+	nRGBMask = _nRgbMask;
+}
+
+void Doryen::Renderer::setColorInCharacterColorAt(unsigned index, const Doryen::Color& _color)
+{
+	characterColor[index] = _color;
+}
+
+unsigned int Doryen::Renderer::getSdlKey() const
+{
+	return SDLKey;
+}
+
+void Doryen::Renderer::setSdlKey(unsigned int _sdlKey)
+{
+	SDLKey = _sdlKey;
+}
+
+bool Doryen::Renderer::isFontUpdated() const
+{
+	return fontUpdated;
+}
+
+void Doryen::Renderer::clearCharacterUpdate()
+{
+	characterUpdated.clear();
+}
+
+void Doryen::Renderer::resizeCharacterUpdate(unsigned size)
+{
+	characterUpdated.resize(size, false);
+}
+
+unsigned int Doryen::Renderer::getFramePerSeconds() const
+{
+	return framePerSeconds;
+}
+
+unsigned int Doryen::Renderer::getCurrentFramePerSeconds() const
+{
+	return currentFramePerSeconds;
+}
+
+void Doryen::Renderer::setFramePerSeconds(unsigned int _framePerSeconds)
+{
+	framePerSeconds = _framePerSeconds;
+}
+
+void Doryen::Renderer::setCurrentFramePerSeconds(unsigned int _currentFramePerSeconds)
+{
+	currentFramePerSeconds = _currentFramePerSeconds;
+}
+
+void Doryen::Renderer::setLastFrameLength(float _lastFrameLength)
+{
+	lastFrameLength = _lastFrameLength;
+}
+
+unsigned int Doryen::Renderer::getMinimunFrameLength() const
+{
+	return minimunFrameLength;
+}
+
+unsigned int Doryen::Renderer::getMinimunFrameLengthBackup() const
+{
+	return minimunFrameLengthBackup;
+}
+
+void Doryen::Renderer::fillOldBuffer()
+{
+	for (int i = 0; i < buffer.size(); ++i)
+	{
+		oldBuffer[i] = buffer[i];
+	}
+}
+
