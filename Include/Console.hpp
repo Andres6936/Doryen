@@ -768,7 +768,7 @@ namespace Doryen
                 tcod.console.flush()
             end
         */
-        static void setFade( uint8 fade, const Doryen::Color &fadingColor );
+		static void setFade(short val, const Doryen::Color& fade);
 
         /**
         @PageName console_fading

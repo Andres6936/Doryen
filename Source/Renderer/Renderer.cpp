@@ -441,3 +441,13 @@ void Doryen::Renderer::setAnyCharacterUpdated(bool _anyCharacterUpdated)
 	anyCharacterUpdated = _anyCharacterUpdated;
 }
 
+void Doryen::Renderer::setFade(short _fade)
+{
+	fade = _fade;
+}
+
+void Doryen::Renderer::setFadingColor(const Doryen::Color& _fadingColor)
+{
+	fadingColor = _fadingColor;
+}
+

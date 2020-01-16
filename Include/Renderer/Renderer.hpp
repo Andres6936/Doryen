@@ -26,14 +26,14 @@ namespace Doryen
 
 	private:
 
+		short fade = 255;
+
+		short oldFade = -1;
+
 		/**
 		 *  Length of the last rendering loop
 		 */
 		float lastFrameLength = 0.0f;
-
-		short fade = 255;
-
-		short oldFade = -1;
 
 		unsigned width = 0;
 
@@ -220,6 +220,8 @@ namespace Doryen
 
 		// Setters
 
+		void setFade(short _fade);
+
 		void setLastFrameLength(float _lastFrameLength);
 
 		void setOldFade(short _oldFade);
@@ -257,6 +259,8 @@ namespace Doryen
 		void setCharacterDrawed(unsigned index, bool isDrawed);
 
 		void setLayoutCharacter(unsigned index, unsigned code);
+
+		void setFadingColor(const Color& _fadingColor);
 
 		void setColorInCharacterColorAt(unsigned index, const Color& _color);
 
