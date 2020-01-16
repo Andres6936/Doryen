@@ -461,7 +461,49 @@ Doryen::Color Doryen::Console::getFadingColor()
 
 void Doryen::Console::putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_put_char(data, x, y, c, flag);
+	// Asserts
+	if (x < 0 || y < 0 || c < 0 || c > renderer->getMaxFontChars())
+	{
+		// Throw Error
+		return;
+	}
+
+	if (isConsoleRoot)
+	{
+		// Asserts
+		if (x > renderer->getWidth() || y > renderer->getHeigth())
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+			unsigned offset = y * renderer->getWidth() + x;
+
+			Char _char = Char(c, renderer->getCharacterInLayoutCharacteres(c), renderer->getForeground());
+
+			renderer->setCharacterInBufferAt(offset, _char);
+			// TODO: SetCharBackground
+		}
+	}
+	else
+	{
+		// Asserts
+		if (x > width || y > height)
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+			unsigned offset = y * width + x;
+
+			Char _char = Char(c, renderer->getCharacterInLayoutCharacteres(c), foreground);
+
+			buffer[offset] = _char;
+			// TODO: SetCharBackground
+		}
+	}
 }
 
 void Doryen::Console::putCharEx(int x, int y, int c, const Doryen::Color& fore, const Doryen::Color& back)

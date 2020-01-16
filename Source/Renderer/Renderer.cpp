@@ -451,3 +451,18 @@ void Doryen::Renderer::setFadingColor(const Doryen::Color& _fadingColor)
 	fadingColor = _fadingColor;
 }
 
+void Doryen::Renderer::setCharacterInBufferAt(unsigned index, const Char& _char)
+{
+	buffer[index] = _char;
+}
+
+const Doryen::Color& Doryen::Renderer::getForeground() const
+{
+	return foreground;
+}
+
+const Doryen::Color& Doryen::Renderer::getBackground() const
+{
+	return background;
+}
+

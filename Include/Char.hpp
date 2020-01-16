@@ -43,6 +43,10 @@ namespace Doryen
 
 	public:
 
+		// Construct
+
+		Char(int _c, int _cf, const Color& _foreground);
+
 		// Getters
 
 		bool isDirt() const;

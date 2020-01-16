@@ -62,11 +62,15 @@ namespace Doryen
 
 	private:
 
+		static Renderer* renderer;
+
 		bool windowClose = false;
 
 		bool isConsoleRoot = false;
 
-		static Renderer* renderer;
+		unsigned width = 0;
+
+		unsigned height = 0;
 
 		Color foreground = Color::white;
 
@@ -75,6 +79,10 @@ namespace Doryen
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
 		Color controlForeground[TCOD_COLCTRL_NUMBER];
+
+		std::vector <Char> buffer;
+
+		std::vector <Char> oldBuffer;
 
 	public :
 

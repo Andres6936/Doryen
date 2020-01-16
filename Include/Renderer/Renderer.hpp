@@ -110,6 +110,10 @@ namespace Doryen
 
 		std::vector <Color> characterColor;
 
+		Color foreground = Color(255, 255, 255);
+
+		Color background = Color(0, 0, 0);
+
 		Color fontKeyColor = Color(0, 0, 0);
 
 		Color fadingColor = Color(128, 128, 128);
@@ -214,6 +218,10 @@ namespace Doryen
 
 		const Color& getColorInCharacterColorAt(unsigned index) const;
 
+		const Color& getForeground() const;
+
+		const Color& getBackground() const;
+
 		const Color& getFadingColor() const;
 
 		const Color& getFontKeyColor() const;
@@ -253,6 +261,8 @@ namespace Doryen
 		void setFramePerSeconds(unsigned int _framePerSeconds);
 
 		void setCurrentFramePerSeconds(unsigned int _currentFramePerSeconds);
+
+		void setCharacterInBufferAt(unsigned index, const Char& _char);
 
 		void setCharacterColored(unsigned index, bool isColored);
 
