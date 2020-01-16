@@ -1059,6 +1059,8 @@ void Doryen::SDL::draw()
 
 	SDL_Flip(screen);
 
+	setOldFade(getFade());
+
 	if (isFontUpdated())
 	{
 		clearCharacterUpdate();

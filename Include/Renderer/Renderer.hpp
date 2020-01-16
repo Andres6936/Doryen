@@ -31,6 +31,10 @@ namespace Doryen
 		 */
 		float lastFrameLength = 0.0f;
 
+		short fade = 255;
+
+		short oldFade = -1;
+
 		unsigned width = 0;
 
 		unsigned heigth = 0;
@@ -78,10 +82,6 @@ namespace Doryen
 		 * Used as reference of frame length
 		 */
 		unsigned minimunFrameLengthBackup = 0;
-
-		short fade = 255;
-
-		short oldFade = -1;
 
 		bool fontHasDoryenLayout = false;
 
@@ -217,6 +217,8 @@ namespace Doryen
 		// Setters
 
 		void setLastFrameLength(float _lastFrameLength);
+
+		void setOldFade(short _oldFade);
 
 		void setWidth(unsigned int _width);
 

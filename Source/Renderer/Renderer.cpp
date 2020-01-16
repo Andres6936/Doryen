@@ -426,3 +426,8 @@ bool Doryen::Renderer::isCharacterUpdated(unsigned index) const
 	return characterUpdated[index];
 }
 
+void Doryen::Renderer::setOldFade(short _oldFade)
+{
+	oldFade = _oldFade;
+}
+
