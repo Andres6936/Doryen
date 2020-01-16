@@ -456,8 +456,7 @@ short Doryen::Console::getFade()
 
 Doryen::Color Doryen::Console::getFadingColor()
 {
-	TCOD_color_t temp = TCOD_console_get_fading_color();
-	return Doryen::Color(temp.r, temp.g, temp.b);
+	return renderer->getFadingColor();
 }
 
 void Doryen::Console::putChar(int x, int y, int c, TCOD_bkgnd_flag_t flag)
