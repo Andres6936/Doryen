@@ -297,23 +297,25 @@ namespace Doryen
          *
          * @see TCOD_bkgnd_flag_t
          */
-        void setCharBackground( int x, int y, const Doryen::Color &col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET );
+		void setCharBackground(int x, int y, const Doryen::Color& col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET);
 
-        /**
-        @PageName console_draw_basic
-        @FuncTitle Setting the foreground color of a cell
-        @FuncDesc This function modifies the foreground color of a cell, leaving other properties (background color and ASCII code) unchanged.
-        @Cpp void TCODConsole::setCharForeground(int x, int y, const Doryen::TCODColor &col)
-        @C void TCOD_console_set_char_foreground(TCOD_console_t con,int x, int y, TCOD_color_t col)
-        @Py console_set_char_foreground(con, x, y, col)
-        @C# void TCODConsole::setCharForeground(int x, int y, Doryen::TCODColor col)
-        @Lua Console:setCharForeground(x, y, col)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param col the foreground color to use. You can use color constants
-        */
+		void setCharBackground(int x, int y, const Doryen::Color& col, BackgroundFlag flag = BackgroundFlag::SET);
+
+		/**
+		@PageName console_draw_basic
+		@FuncTitle Setting the foreground color of a cell
+		@FuncDesc This function modifies the foreground color of a cell, leaving other properties (background color and ASCII code) unchanged.
+		@Cpp void TCODConsole::setCharForeground(int x, int y, const Doryen::TCODColor &col)
+		@C void TCOD_console_set_char_foreground(TCOD_console_t con,int x, int y, TCOD_color_t col)
+		@Py console_set_char_foreground(con, x, y, col)
+		@C# void TCODConsole::setCharForeground(int x, int y, Doryen::TCODColor col)
+		@Lua Console:setCharForeground(x, y, col)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y coordinates of the cell in the console.
+			0 <= x < console width
+			0 <= y < console height
+		@Param col the foreground color to use. You can use color constants
+		*/
         void setCharForeground( int x, int y, const Doryen::Color &col );
 
         /**

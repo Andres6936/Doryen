@@ -547,6 +547,43 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 	TCOD_console_set_char_background(data, x, y, c, flag);
 }
 
+void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, Doryen::BackgroundFlag flag)
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		return;
+	}
+
+	if (isConsoleRoot)
+	{
+		// Asserts
+		if (x > renderer->getWidth() || y > renderer->getHeigth())
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+
+		}
+	}
+	else
+	{
+		// Asserts
+		if (x > width || y > height)
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+
+		}
+	}
+}
+
 void Doryen::Console::setChar(int x, int y, int c)
 {
 	TCOD_console_set_char(data, x, y, c);
