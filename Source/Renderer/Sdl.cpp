@@ -749,9 +749,11 @@ void Doryen::SDL::draw()
 	// Bitmap point to screen
 	SDL_Surface* bitmap = screen;
 
-	unsigned bpp = charmap->format->BytesPerPixel;
+	bool trackChanges = (getOldFade() == getFade() && !oldBuffer.empty());
 
 	unsigned hdelta = 0;
+
+	unsigned bpp = charmap->format->BytesPerPixel;
 
 	if (bpp == 4)
 	{
@@ -793,6 +795,21 @@ void Doryen::SDL::draw()
 			character.setDirt(false);
 
 			bool changed = true;
+
+			if (trackChanges)
+			{
+				changed = false;
+
+				if (character.isDirt() ||
+					character.getC() != previousCharacter.getC() ||
+					character.getCf() != previousCharacter.getCf() ||
+					isCharacterUpdated(character.getC()) ||
+					!character.getBackground().equals(previousCharacter.getBackground()) ||
+					!character.getForeground().equals(previousCharacter.getForeground()))
+				{
+					changed = false;
+				}
+			}
 
 			if (changed)
 			{

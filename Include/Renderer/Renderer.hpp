@@ -81,6 +81,8 @@ namespace Doryen
 
 		short fade = 255;
 
+		short oldFade = -1;
+
 		bool fontHasDoryenLayout = false;
 
 		bool fontHasRowLayout = false;
@@ -160,11 +162,15 @@ namespace Doryen
 
 		bool isCharacterDrawed(unsigned index) const;
 
+		bool isCharacterUpdated(unsigned index) const;
+
 		bool isFullscreen() const;
 
 		bool isFontUpdated() const;
 
 		short getFade() const;
+
+		short getOldFade() const;
 
 		int getCharacterInLayoutCharacteres(unsigned index) const;
 

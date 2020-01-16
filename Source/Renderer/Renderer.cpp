@@ -416,3 +416,13 @@ int Doryen::Renderer::getCharacterInLayoutCharacteres(unsigned index) const
 	return layoutCharacteres[index];
 }
 
+short Doryen::Renderer::getOldFade() const
+{
+	return oldFade;
+}
+
+bool Doryen::Renderer::isCharacterUpdated(unsigned index) const
+{
+	return characterUpdated[index];
+}
+
