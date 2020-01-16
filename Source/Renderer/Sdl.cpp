@@ -1000,7 +1000,7 @@ void Doryen::SDL::draw()
 																sourceRect.y * charmapBackup->pitch);
 
 									// CharmapBackup is always 32 bits
-									int hdelta_backup = (int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
+									int hdeltaBackup = (int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
 
 									while (h > 0)
 									{
@@ -1039,7 +1039,7 @@ void Doryen::SDL::draw()
 										h--;
 
 										pix = (Uint32*)(((Uint8*)pix) + hdelta);
-										pixorig += hdelta_backup;
+										pixorig += hdeltaBackup;
 									}
 								}
 							}
