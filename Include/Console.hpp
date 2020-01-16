@@ -780,7 +780,7 @@ namespace Doryen
         @C# static byte TCODConsole::getFade()
         @Lua tcod.console.getFade()
         */
-        static uint8 getFade( );
+		static short getFade();
 
         /**
         @PageName console_fading

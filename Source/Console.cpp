@@ -449,9 +449,9 @@ void Doryen::Console::setFade(short val, const Doryen::Color& fade)
 	renderer->setFadingColor(fade);
 }
 
-uint8 Doryen::Console::getFade()
+short Doryen::Console::getFade()
 {
-	return TCOD_console_get_fade();
+	return renderer->getFade();
 }
 
 Doryen::Color Doryen::Console::getFadingColor()
