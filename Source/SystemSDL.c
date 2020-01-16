@@ -612,8 +612,10 @@ void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_he
 	int fade = (int)TCOD_console_get_fade();
 	bool track_changes = (oldFade == fade && prev_console_buffer);
 	Uint8 bpp = charmap->format->BytesPerPixel;
-	char_t* c = &console_buffer[0];
-	char_t* oc = &prev_console_buffer[0];
+
+	char_t* character = &console_buffer[0];
+	char_t* previuosCharacter = &prev_console_buffer[0];
+
 	int hdelta;
 	if (bpp == 4)
 	{
@@ -646,23 +648,24 @@ void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_he
 		{
 			SDL_Rect srcRect, dstRect;
 			bool changed = true;
-			if (c->cf == -1)
-			{ c->cf = TCOD_ctx.ascii_to_tcod[c->c]; }
+			if (character->cf == -1)
+			{ character->cf = TCOD_ctx.ascii_to_tcod[character->c]; }
 			if (track_changes)
 			{
 				changed = false;
-				if (c->dirt || ascii_updated[c->c] || c->back.r != oc->back.r || c->back.g != oc->back.g
-					|| c->back.b != oc->back.b || c->fore.r != oc->fore.r
-					|| c->fore.g != oc->fore.g || c->fore.b != oc->fore.b
-					|| c->c != oc->c || c->cf != oc->cf)
+				if (character->dirt || ascii_updated[character->c] || character->back.r != previuosCharacter->back.r ||
+					character->back.g != previuosCharacter->back.g
+					|| character->back.b != previuosCharacter->back.b || character->fore.r != previuosCharacter->fore.r
+					|| character->fore.g != previuosCharacter->fore.g || character->fore.b != previuosCharacter->fore.b
+					|| character->c != previuosCharacter->c || character->cf != previuosCharacter->cf)
 				{
 					changed = true;
 				}
 			}
-			c->dirt = 0;
+			character->dirt = 0;
 			if (changed)
 			{
-				TCOD_color_t b = c->back;
+				TCOD_color_t b = character->back;
 				dstRect.x = x * TCOD_ctx.font_width;
 				dstRect.y = y * TCOD_ctx.font_height;
 				dstRect.w = TCOD_ctx.font_width;
@@ -685,13 +688,13 @@ void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_he
 					dstRect.y += TCOD_ctx.fullscreen_offsety;
 				}
 				SDL_FillRect(bitmap, &dstRect, sdl_back);
-				if (c->c != ' ')
+				if (character->c != ' ')
 				{
 					/* draw foreground */
-					int ascii = c->cf;
+					int ascii = character->cf;
 					TCOD_color_t* curtext = &charcols[ascii];
 					bool first = first_draw[ascii];
-					TCOD_color_t f = c->fore;
+					TCOD_color_t f = character->fore;
 
 					if (fade != 255)
 					{
@@ -700,7 +703,7 @@ void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_he
 						f.b = ((int)f.b) * fade / 255 + ((int)fading_color.b) * (255 - fade) / 255;
 					}
 					/* only draw character if foreground color != background color */
-					if (ascii_updated[c->c] || f.r != b.r || f.g != b.g || f.b != b.b)
+					if (ascii_updated[character->c] || f.r != b.r || f.g != b.g || f.b != b.b)
 					{
 						if (charmap->format->Amask == 0
 							&& f.r == fontKeyCol.r && f.g == fontKeyCol.g && f.b == fontKeyCol.b)
@@ -850,8 +853,8 @@ void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_he
 					}
 				}
 			}
-			c++;
-			oc++;
+			character++;
+			previuosCharacter++;
 		}
 	}
 #ifdef USE_SDL_LOCKS

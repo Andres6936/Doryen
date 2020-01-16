@@ -777,19 +777,26 @@ void Doryen::SDL::draw()
 		for (int x = 0; x < getWidth(); ++x)
 		{
 			// Character to draw
-			Char c = buffer[index];
+			Char character = buffer[index];
 
 			// Previous character drawed
-			Char oc = oldBuffer[index];
+			Char previousCharacter = oldBuffer[index];
 
 			SDL_Rect sourceRect;
 			SDL_Rect destinRect;
+
+			if (character.getCf() == -1)
+			{
+				character.setCf(getCharacterInLayoutCharacteres(character.getC()));
+			}
+
+			character.setDirt(false);
 
 			bool changed = true;
 
 			if (changed)
 			{
-				Color b = c.getBackground();
+				Color background = character.getBackground();
 
 				destinRect.x = x * getFontWidth();
 				destinRect.y = y * getFontHeigth();
@@ -800,14 +807,14 @@ void Doryen::SDL::draw()
 				// Draw Background
 				if (getFade() != 255)
 				{
-					short nr = (short)(b.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
-					short ng = (short)(b.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
-					short nb = (short)(b.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
+					short nr = (short)(background.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
+					short ng = (short)(background.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
+					short nb = (short)(background.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
 
-					c.setBackground(Color(nr, ng, nb));
+					character.setBackground(Color(nr, ng, nb));
 				}
 
-				unsigned int SDLBack = SDL_MapRGB(bitmap->format, b.r, b.g, b.b);
+				unsigned int SDLBack = SDL_MapRGB(bitmap->format, background.r, background.g, background.b);
 
 				if (isFullscreen())
 				{
@@ -816,50 +823,55 @@ void Doryen::SDL::draw()
 
 				SDL_FillRect(bitmap, &destinRect, SDLBack);
 
-				if (c.getC() != ' ')
+				if (character.getC() != ' ')
 				{
 					// Draw Foreground
-					Color f = c.getForeground();
+					Color foreground = character.getForeground();
 
 					if (getFade() != 255)
 					{
-						short nr = (short)(f.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
-						short ng = (short)(f.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
-						short nb = (short)(f.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
+						short nr = (short)(foreground.r * getFade() / 255 +
+										   getFadingColor().r * (255 - getFade()) / 255);
+						short ng = (short)(foreground.g * getFade() / 255 +
+										   getFadingColor().g * (255 - getFade()) / 255);
+						short nb = (short)(foreground.b * getFade() / 255 +
+										   getFadingColor().b * (255 - getFade()) / 255);
 
-						c.setBackground(Color(nr, ng, nb));
+						character.setBackground(Color(nr, ng, nb));
 					}
 
 					// Only draw character if foreground color != background color
-					if (!c.getBackground().equals(c.getForeground()))
+					if (!character.getBackground().equals(character.getForeground()))
 					{
-						if (charmap->format->Amask == 0 && f.equals(getFontKeyColor()))
+						if (charmap->format->Amask == 0 && foreground.equals(getFontKeyColor()))
 						{
 							// cannot draw with the key color...
-							if (f.r < 255)
+							if (foreground.r < 255)
 							{
-								c.setForeground(Color(f.r += 1, f.g, f.b));
+								character.setForeground(Color(foreground.r += 1, foreground.g, foreground.b));
 							}
 							else
 							{
-								c.setForeground(Color(f.r -= 1, f.g, f.b));
+								character.setForeground(Color(foreground.r -= 1, foreground.g, foreground.b));
 							}
 						}
 
-						sourceRect.x = (c.getCf() % getFontCharHorizontalSize()) * getFontWidth();
-						sourceRect.y = (c.getCf() / getFontCharHorizontalSize()) * getFontHeigth();
+						sourceRect.x = (character.getCf() % getFontCharHorizontalSize()) * getFontWidth();
+						sourceRect.y = (character.getCf() / getFontCharHorizontalSize()) * getFontHeigth();
 						sourceRect.w = getFontWidth();
 						sourceRect.h = getFontHeigth();
 
-						Color curtext = getColorInCharacterColorAt(c.getCf());
+						Color curtext = getColorInCharacterColorAt(character.getCf());
 
-						if (isCharacterDrawed(c.getCf()) || !curtext.equals(c.getForeground()))
+						if (isCharacterDrawed(character.getCf()) || !curtext.equals(character.getForeground()))
 						{
 							// change the character color in the font
-							setCharacterDrawed(c.getCf(), false);
+							setCharacterDrawed(character.getCf(), false);
 
-							unsigned int SDLFore = SDL_MapRGB(charmap->format, f.r, f.g, f.b) & getRgbMask();
-							setColorInCharacterColorAt(c.getCf(), c.getForeground());
+							unsigned int SDLFore =
+									SDL_MapRGB(charmap->format, foreground.r, foreground.g, foreground.b) &
+									getRgbMask();
+							setColorInCharacterColorAt(character.getCf(), character.getForeground());
 
 							if (bpp == 4)
 							{
@@ -867,13 +879,13 @@ void Doryen::SDL::draw()
 								Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
 														sourceRect.y * charmap->pitch);
 
-								int h = getFontHeigth();
+								int h = (int)getFontHeigth();
 
-								if (!isCharacterColored(c.getCf()))
+								if (!isCharacterColored(character.getCf()))
 								{
 									while (h--)
 									{
-										int w = getFontWidth();
+										int w = (int)getFontWidth();
 
 										while (w--)
 										{
@@ -906,9 +918,9 @@ void Doryen::SDL::draw()
 											// erase the color
 											(*pix) &= getNrgbMask();
 
-											r = r * f.r / 255;
-											g = g * f.g / 255;
-											b = b * f.b / 255;
+											r = r * foreground.r / 255;
+											g = g * foreground.g / 255;
+											b = b * foreground.b / 255;
 
 											// set the new color
 											(*pix) |= (r << charmap->format->Rshift) |
@@ -933,7 +945,7 @@ void Doryen::SDL::draw()
 
 								int h = (int)getFontHeigth();
 
-								if (!isCharacterColored(c.getCf()))
+								if (!isCharacterColored(character.getCf()))
 								{
 									while (h--)
 									{
@@ -964,7 +976,7 @@ void Doryen::SDL::draw()
 
 									while (h > 0)
 									{
-										int w = getFontWidth();
+										int w = (int)getFontWidth();
 
 										while (w > 0)
 										{
@@ -980,9 +992,9 @@ void Doryen::SDL::draw()
 												// erase the color
 												(*pix) &= getNrgbMask();
 
-												r = r * f.r / 255;
-												g = g * f.g / 255;
-												b = b * f.b / 255;
+												r = r * foreground.r / 255;
+												g = g * foreground.g / 255;
+												b = b * foreground.b / 255;
 
 												// set the new color
 												(*pix) |= (r << charmap->format->Rshift) |

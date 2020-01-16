@@ -378,11 +378,6 @@ void Doryen::Renderer::resizeCharacterUpdate(unsigned size)
 	characterUpdated.resize(size, false);
 }
 
-unsigned int Doryen::Renderer::getFramePerSeconds() const
-{
-	return framePerSeconds;
-}
-
 unsigned int Doryen::Renderer::getCurrentFramePerSeconds() const
 {
 	return currentFramePerSeconds;
@@ -408,16 +403,16 @@ unsigned int Doryen::Renderer::getMinimunFrameLength() const
 	return minimunFrameLength;
 }
 
-unsigned int Doryen::Renderer::getMinimunFrameLengthBackup() const
-{
-	return minimunFrameLengthBackup;
-}
-
 void Doryen::Renderer::fillOldBuffer()
 {
 	for (int i = 0; i < buffer.size(); ++i)
 	{
 		oldBuffer[i] = buffer[i];
 	}
+}
+
+int Doryen::Renderer::getCharacterInLayoutCharacteres(unsigned index) const
+{
+	return layoutCharacteres[index];
 }
 

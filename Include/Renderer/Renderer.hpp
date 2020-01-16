@@ -166,6 +166,8 @@ namespace Doryen
 
 		short getFade() const;
 
+		int getCharacterInLayoutCharacteres(unsigned index) const;
+
 		unsigned int getWidth() const;
 
 		unsigned int getHeigth() const;
@@ -194,13 +196,9 @@ namespace Doryen
 
 		unsigned int getNrgbMask() const;
 
-		unsigned int getFramePerSeconds() const;
-
 		unsigned int getCurrentFramePerSeconds() const;
 
 		unsigned int getMinimunFrameLength() const;
-
-		unsigned int getMinimunFrameLengthBackup() const;
 
 		const std::string& getFontfile() const;
 
