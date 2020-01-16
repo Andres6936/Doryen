@@ -829,6 +829,9 @@ void Doryen::SDL::draw()
 					short nb = (short)(background.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
 
 					character.setBackground(Color(nr, ng, nb));
+
+					// Overwrite background variable with the new color
+					background = character.getBackground();
 				}
 
 				unsigned int SDLBack = SDL_MapRGB(bitmap->format, background.r, background.g, background.b);
