@@ -861,7 +861,8 @@ void Doryen::SDL::draw()
 					}
 
 					// Only draw character if foreground color != background color
-					if (!character.getBackground().equals(character.getForeground()))
+					if (isCharacterUpdated(character.getC()) ||
+						!character.getBackground().equals(character.getForeground()))
 					{
 						if (charmap->format->Amask == 0 && foreground.equals(getFontKeyColor()))
 						{
@@ -869,10 +870,16 @@ void Doryen::SDL::draw()
 							if (foreground.r < 255)
 							{
 								character.setForeground(Color(foreground.r += 1, foreground.g, foreground.b));
+
+								// Overwrite the variable
+								foreground = character.getForeground();
 							}
 							else
 							{
 								character.setForeground(Color(foreground.r -= 1, foreground.g, foreground.b));
+
+								// Overwrite the variable
+								foreground = character.getForeground();
 							}
 						}
 
