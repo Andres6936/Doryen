@@ -838,7 +838,7 @@ void Doryen::SDL::draw()
 
 				if (isFullscreen())
 				{
-
+					// TODO: Implemented
 				}
 
 				SDL_FillRect(bitmap, &destinRect, SDLBack);
