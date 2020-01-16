@@ -746,10 +746,6 @@ void Doryen::SDL::setWindowInFullscreen()
 
 void Doryen::SDL::draw()
 {
-	static unsigned oldTime = 0;
-	static unsigned newTime = 0;
-	static unsigned elapsed = 0;
-
 	// Bitmap point to screen
 	SDL_Surface* bitmap = screen;
 
@@ -1028,6 +1024,10 @@ void Doryen::SDL::draw()
 		clearCharacterUpdate();
 		resizeCharacterUpdate(getMaxFontChars());
 	}
+
+	static unsigned oldTime = 0;
+	static unsigned newTime = 0;
+	static unsigned elapsed = 0;
 
 	// Remember are static
 	oldTime = newTime;
