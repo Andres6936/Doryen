@@ -93,6 +93,8 @@ namespace Doryen
 
 		bool fontUpdated = false;
 
+		bool anyCharacterUpdated = false;
+
 		std::string fontfile = "Terminal.png";
 
 		/**
@@ -131,9 +133,9 @@ namespace Doryen
 
 		void createTablesOfCharacteres();
 
-		void checkTableOfCharacteres();
-
 		void createBuffer();
+
+		void checkTableOfCharacteres();
 
 		void clearCharacterUpdate();
 
@@ -167,6 +169,8 @@ namespace Doryen
 		bool isFullscreen() const;
 
 		bool isFontUpdated() const;
+
+		bool isAnyCharacterUpdated() const;
 
 		short getFade() const;
 
@@ -235,6 +239,8 @@ namespace Doryen
 		void setFontWidth(unsigned int _fontWidth);
 
 		void setFontHeigth(unsigned int _fontHeigth);
+
+		void setAnyCharacterUpdated(bool _anyCharacterUpdated);
 
 		void setSdlKey(unsigned int _sdlKey);
 

@@ -1061,6 +1061,14 @@ void Doryen::SDL::draw()
 
 	setOldFade(getFade());
 
+	if (isAnyCharacterUpdated())
+	{
+		clearCharacterUpdate();
+		resizeCharacterUpdate(getMaxFontChars());
+
+		setAnyCharacterUpdated(false);
+	}
+
 	if (isFontUpdated())
 	{
 		clearCharacterUpdate();

@@ -431,3 +431,13 @@ void Doryen::Renderer::setOldFade(short _oldFade)
 	oldFade = _oldFade;
 }
 
+bool Doryen::Renderer::isAnyCharacterUpdated() const
+{
+	return anyCharacterUpdated;
+}
+
+void Doryen::Renderer::setAnyCharacterUpdated(bool _anyCharacterUpdated)
+{
+	anyCharacterUpdated = _anyCharacterUpdated;
+}
+
