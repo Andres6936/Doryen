@@ -449,6 +449,7 @@ void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t
 	for (i=y; i< y+l; i++) TCOD_console_put_char(con,x,i,TCOD_CHAR_VLINE,flag);
 }
 
+
 char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	#define NB_BUFFERS 10
 	#define INITIAL_SIZE 512

@@ -625,40 +625,40 @@ namespace Doryen
         @Param l The length of the line in cells 1 <= l <= console height - y
         @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
         */
-        void vline( int x, int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT );
+		void vline(int x, int y, int l, BackgroundFlag flag = BackgroundFlag::DEFAULT);
 
-        /**
-        @PageName console_advanced
-        @FuncTitle Drawing a window frame
-        @FuncDesc This function calls the rect function using the supplied background mode flag, then draws a rectangle with the console's default foreground color. If fmt is not NULL, it is printed on the top of the rectangle, using inverted colors.
-        @Cpp void TCODConsole::printFrame(int x,int y,int w,int h, bool clear=true, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT, const char *fmt=NULL, ...)
-        @C void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool clear, TCOD_bkgnd_flag_t flag, const char *fmt, ...)
-        @Py console_print_frame(con,x, y, w, h, clear=True, flag=BKGND_DEFAULT, fmt=0)
-        @C#
-            void TCODConsole::printFrame(int x,int y, int w,int h)
-            void TCODConsole::printFrame(int x,int y, int w,int h, bool clear)
-            void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag)
-            void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag, string fmt)
-        @Lua
-            Console:printFrame(x,y, w,h)
-            Console:printFrame(x,y, w,h, clear)
-            Console:printFrame(x,y, w,h, clear, flag)
-            Console:printFrame(x,y, w,h, clear, flag, fmt)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y Coordinates of the rectangle's upper-left corner in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param w,h size of the rectangle in the console.
-            x <= x+w < console width
-            y <= y+h < console height
-        @Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
-            If false, only the background color is modified
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        @Param fmt if NULL, the funtion only draws a rectangle.
-            Else, printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string.
-        */
-        void printFrame( int x, int y, int w, int h, bool clear = true, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT,
-                         const char *fmt = NULL, ... );
+		/**
+		@PageName console_advanced
+		@FuncTitle Drawing a window frame
+		@FuncDesc This function calls the rect function using the supplied background mode flag, then draws a rectangle with the console's default foreground color. If fmt is not NULL, it is printed on the top of the rectangle, using inverted colors.
+		@Cpp void TCODConsole::printFrame(int x,int y,int w,int h, bool clear=true, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT, const char *fmt=NULL, ...)
+		@C void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool clear, TCOD_bkgnd_flag_t flag, const char *fmt, ...)
+		@Py console_print_frame(con,x, y, w, h, clear=True, flag=BKGND_DEFAULT, fmt=0)
+		@C#
+			void TCODConsole::printFrame(int x,int y, int w,int h)
+			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear)
+			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag)
+			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag, string fmt)
+		@Lua
+			Console:printFrame(x,y, w,h)
+			Console:printFrame(x,y, w,h, clear)
+			Console:printFrame(x,y, w,h, clear, flag)
+			Console:printFrame(x,y, w,h, clear, flag, fmt)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y Coordinates of the rectangle's upper-left corner in the console.
+			0 <= x < console width
+			0 <= y < console height
+		@Param w,h size of the rectangle in the console.
+			x <= x+w < console width
+			y <= y+h < console height
+		@Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
+			If false, only the background color is modified
+		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
+		@Param fmt if NULL, the funtion only draws a rectangle.
+			Else, printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string.
+		*/
+		void printFrame(int x, int y, int w, int h, bool clear = true, BackgroundFlag flag = BackgroundFlag::DEFAULT,
+				const std::string& name = "");
 
         /**
         @PageName console_read
@@ -1251,43 +1251,48 @@ namespace Doryen
         */
         void setKeyColor( const Doryen::Color &col );
 
-        /**
-        @PageName console_key_t
-        @PageTitle 	Keyboard event structure
-        @PageFather console_input
-        @PageDesc This structure contains information about a key pressed/released by the user.
-        @C
-            typedef struct {
-                TCOD_keycode_t vk;
-                char c;
-                bool pressed;
-                bool lalt;
-                bool lctrl;
-                bool ralt;
-                bool rctrl;
-                bool shift;
-            } TCOD_key_t;
-        @Lua
-            key.KeyCode
-            key.Character
-            key.Pressed
-            key.LeftAlt
-            key.LeftControl
-            key.RightAlt
-            key.RightControl
-            key.Shift
-        @Param vk An arbitrary value representing the physical key on the keyboard. Possible values are stored in the TCOD_keycode_t enum. If no key was pressed, the value is TCODK_NONE
-        @Param c If the key correspond to a printable character, the character is stored in this field. Else, this field contains 0.
-        @Param pressed true if the event is a key pressed, or false for a key released.
-        @Param lalt This field represents the status of the left Alt key : true => pressed, false => released.
-        @Param lctrl This field represents the status of the left Control key : true => pressed, false => released.
-        @Param ralt This field represents the status of the right Alt key : true => pressed, false => released.
-        @Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
-        @Param shift This field represents the status of the shift key : true => pressed, false => released.
-        */
+		/**
+		@PageName console_key_t
+		@PageTitle 	Keyboard event structure
+		@PageFather console_input
+		@PageDesc This structure contains information about a key pressed/released by the user.
+		@C
+			typedef struct {
+				TCOD_keycode_t vk;
+				char c;
+				bool pressed;
+				bool lalt;
+				bool lctrl;
+				bool ralt;
+				bool rctrl;
+				bool shift;
+			} TCOD_key_t;
+		@Lua
+			key.KeyCode
+			key.Character
+			key.Pressed
+			key.LeftAlt
+			key.LeftControl
+			key.RightAlt
+			key.RightControl
+			key.Shift
+		@Param vk An arbitrary value representing the physical key on the keyboard. Possible values are stored in the TCOD_keycode_t enum. If no key was pressed, the value is TCODK_NONE
+		@Param c If the key correspond to a printable character, the character is stored in this field. Else, this field contains 0.
+		@Param pressed true if the event is a key pressed, or false for a key released.
+		@Param lalt This field represents the status of the left Alt key : true => pressed, false => released.
+		@Param lctrl This field represents the status of the left Control key : true => pressed, false => released.
+		@Param ralt This field represents the status of the right Alt key : true => pressed, false => released.
+		@Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
+		@Param shift This field represents the status of the shift key : true => pressed, false => released.
+		*/
 
-        void setDirty( int x, int y, int w, int h );
-    };
+		void setDirty(int x, int y, int w, int h);
+
+	private:
+
+		void drawFrame(const Math::Point2D& start, const Math::Point2D& end, bool empty, BackgroundFlag flag);
+
+	};
 }
 
 

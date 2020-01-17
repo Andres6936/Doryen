@@ -864,24 +864,44 @@ void Doryen::Console::hline(int x, int y, int l, BackgroundFlag flag)
 	}
 }
 
-void Doryen::Console::vline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
+void Doryen::Console::vline(int x, int y, int l, BackgroundFlag flag)
 {
-	TCOD_console_vline(data, x, y, l, flag);
+	for (int i = y; i < y + l; ++i)
+	{
+		// Character 179 ASCII, see table ASCII.
+		putChar(x, i, 179, flag);
+	}
 }
 
-void Doryen::Console::printFrame(int x, int y, int w, int h, bool empty, TCOD_bkgnd_flag_t flag, const char* fmt, ...)
+void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty, BackgroundFlag flag)
 {
-	if (fmt)
+	putChar(start.x, start.y, 218, flag);
+	putChar(start.x + end.x - 1, start.y, 191, flag);
+	putChar(start.x, start.y + end.y - 1, 192, flag);
+	putChar(start.x + end.x - 1, start.y + end.y - 1, 217, flag);
+
+	hline(start.x + 1, start.y, end.x - 2, flag);
+	hline(start.x + 1, start.y + end.y - 1, end.x - 2, flag);
+
+	if (end.y > 2)
 	{
-		va_list ap;
-		va_start(ap, fmt);
-		TCOD_console_print_frame(data, x, y, w, h, empty, flag, TCOD_console_vsprint(fmt, ap));
-		va_end(ap);
+		vline(start.x, start.y + 1, end.y - 2, flag);
+		vline(start.x + end.x - 1, start.y + 1, end.y - 2, flag);
+
+		if (empty)
+		{
+			rect(start.x + 1, start.y + 1, end.x - 2, end.y - 2, true, flag);
+		}
 	}
-	else
-	{
-		TCOD_console_print_frame(data, x, y, w, h, empty, flag, NULL);
-	}
+}
+
+void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
+		Doryen::BackgroundFlag flag, const std::string& name)
+{
+	// Curly braces for create a Point directly.
+	drawFrame({ x, y }, { w, h }, clear, flag);
+
+	// TODO: Print name in center of frame
 }
 
 void Doryen::Console::print(int x, int y, const char* fmt, ...)

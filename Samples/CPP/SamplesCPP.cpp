@@ -146,8 +146,9 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     if ( !init )
     {
         init = true;
-        secondary.printFrame( 0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2, false, TCOD_BKGND_SET,
-                              "Offscreen console" );
+        secondary.printFrame(0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2, false,
+				Doryen::BackgroundFlag::SET,
+				"Offscreen console");
         secondary.printRectEx( SAMPLE_SCREEN_WIDTH / 4, 2, SAMPLE_SCREEN_WIDTH / 2 - 2, SAMPLE_SCREEN_HEIGHT / 2,
                                TCOD_BKGND_NONE, TCOD_CENTER,
                                "You can render to an offscreen console and blit in on another one, simulating alpha transparency." );

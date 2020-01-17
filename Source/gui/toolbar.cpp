@@ -69,7 +69,7 @@ void ToolBar::setName(const char *name) {
 void ToolBar::render() {
 	con->setDefaultBackground(back);
 	con->setDefaultForeground(fore);
-	con->printFrame(x,y,w,h,true,TCOD_BKGND_SET,name);
+	con->printFrame(x, y, w, h, true, Doryen::BackgroundFlag::SET, name);
 	Container::render();
 }
 
