@@ -66,22 +66,43 @@ namespace Doryen
 
 		bool windowClose = false;
 
+		/**
+		 * Only exist a root console during all execute of program.
+		 */
 		bool isConsoleRoot = false;
 
+		/**
+		 * Console width (in characters,not pixels).
+		 */
 		unsigned width = 0;
 
+		/**
+		 *  Console heigth (in characters,not pixels).
+		 */
 		unsigned height = 0;
 
+		/**
+		 * Foreground text.
+		 */
 		Color foreground = Color::white;
 
+		/**
+		 * Background text.
+		 */
 		Color background = Color::black;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 
 		Color controlForeground[TCOD_COLCTRL_NUMBER];
 
+		/**
+		 * Current console.
+		 */
 		std::vector <Char> buffer;
 
+		/**
+		 * Console for last frame.
+		 */
 		std::vector <Char> oldBuffer;
 
 	public :

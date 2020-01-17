@@ -466,3 +466,12 @@ const Doryen::Color& Doryen::Renderer::getBackground() const
 	return background;
 }
 
+const Doryen::Color& Doryen::Renderer::getBackgroundOfCharacterInBufferAt(unsigned index) const
+{
+	return buffer[index].getBackground();
+}
+
+void Doryen::Renderer::setBackgroundOfCharacterInBufferAt(unsigned index, const Doryen::Color& _color)
+{
+	buffer[index].setBackground(_color);
+}

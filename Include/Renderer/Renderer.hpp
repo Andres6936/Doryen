@@ -216,6 +216,8 @@ namespace Doryen
 
 		const std::string& getFontfile() const;
 
+		const Color& getBackgroundOfCharacterInBufferAt(unsigned index) const;
+
 		const Color& getColorInCharacterColorAt(unsigned index) const;
 
 		const Color& getForeground() const;
@@ -271,6 +273,8 @@ namespace Doryen
 		void setLayoutCharacter(unsigned index, unsigned code);
 
 		void setFadingColor(const Color& _fadingColor);
+
+		void setBackgroundOfCharacterInBufferAt(unsigned index, const Color& _color);
 
 		void setColorInCharacterColorAt(unsigned index, const Color& _color);
 

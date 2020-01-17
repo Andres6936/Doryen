@@ -566,7 +566,13 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 		}
 		else
 		{
+			unsigned index = x + renderer->getWidth() + y;
 
+			Color b = renderer->getBackgroundOfCharacterInBufferAt(index);
+
+			b.trasformColor(col, flag);
+
+			renderer->setBackgroundOfCharacterInBufferAt(index, b);
 		}
 	}
 	else
@@ -579,7 +585,11 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 		}
 		else
 		{
+			Color b = buffer[x + width * y].getBackground();
 
+			b.trasformColor(col, flag);
+
+			buffer[x + width * y].setBackground(b);
 		}
 	}
 }
