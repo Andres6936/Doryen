@@ -11,7 +11,7 @@ Image::~Image() {
 
 void Image::render() {
 	con->setDefaultBackground(back);
-	con->rect(x,y,w,h,TCOD_BKGND_SET);
+	con->rect(x, y, w, h, false, Doryen::BackgroundFlag::SET);
 }
 
 void Image::setBackgroundColor( const Doryen::Color col )

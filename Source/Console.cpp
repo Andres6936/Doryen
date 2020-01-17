@@ -775,7 +775,7 @@ void consoleClamp(const Point& start, const Point& end, Point& first, Point& sec
 	}
 }
 
-void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag)
+void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BackgroundFlag flag)
 {
 	// Asserts
 	if (x < 0 || y < 0 || rw < 0 || rh < 0)
@@ -806,7 +806,8 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					// TODO: Background
+					setCharBackground(cx, cy, renderer->getBackground(), flag);
+
 					if (clear)
 					{
 						unsigned index = cx + renderer->getWidth() * cy;
@@ -839,7 +840,8 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					// TODO: Background
+					setCharBackground(cx, cy, background, flag);
+
 					if (clear)
 					{
 						unsigned index = cx + width * cy;

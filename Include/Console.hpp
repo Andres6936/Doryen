@@ -581,7 +581,7 @@ namespace Doryen
 			If false, only the background color is modified
 		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
 		*/
-		void rect(int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT);
+		void rect(int x, int y, int rw, int rh, bool clear, BackgroundFlag flag = BackgroundFlag::DEFAULT);
 
 		/**
 		@PageName console_advanced

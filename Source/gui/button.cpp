@@ -35,15 +35,21 @@ void Button::setLabel(const char *newLabel) {
 	label=TCOD_strdup(newLabel);
 }
 
-void Button::render() {
+void Button::render()
+{
 	con->setDefaultBackground(mouseIn ? backFocus : back);
 	con->setDefaultForeground(mouseIn ? foreFocus : fore);
-	if ( w > 0 && h > 0 ) con->rect(x,y,w,h,true,TCOD_BKGND_SET);
-	if ( label ) {
-		if ( pressed && mouseIn ) {
-			con->printEx(x+w/2,y,TCOD_BKGND_NONE,TCOD_CENTER,"-%s-",label);
-		} else {
-			con->printEx(x+w/2,y,TCOD_BKGND_NONE,TCOD_CENTER,label);
+	if (w > 0 && h > 0)
+	{ con->rect(x, y, w, h, true, Doryen::BackgroundFlag::SET); }
+	if (label)
+	{
+		if (pressed && mouseIn)
+		{
+			con->printEx(x + w / 2, y, TCOD_BKGND_NONE, TCOD_CENTER, "-%s-", label);
+		}
+		else
+		{
+			con->printEx(x + w / 2, y, TCOD_BKGND_NONE, TCOD_CENTER, label);
 		}
 	}
 }

@@ -428,8 +428,8 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     // blit the noise image on the console with subcell resolution
     img->blit2x( &sampleConsole, 0, 0 );
     // draw a transparent rectangle
-    sampleConsole.setDefaultBackground( Doryen::Color::grey );
-    sampleConsole.rect( 2, 2, 23, ( func <= WAVELET ? 10 : 13 ), false, TCOD_BKGND_MULTIPLY );
+    sampleConsole.setDefaultBackground(Doryen::Color::grey);
+	sampleConsole.rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
     for ( int y = 2; y < 2 + ( func <= WAVELET ? 10 : 13 ); y++ )
     {
         for ( int x = 2; x < 2 + 23; x++ )
@@ -802,17 +802,17 @@ void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         // split the color channels of circle.png
         // the red channel
-        sampleConsole.setDefaultBackground( Doryen::Color::red );
-        sampleConsole.rect( 0, 3, 15, 15, false, TCOD_BKGND_SET );
-        circle->blitRect( &sampleConsole, 0, 3, -1, -1, TCOD_BKGND_MULTIPLY );
+		sampleConsole.setDefaultBackground(Doryen::Color::red);
+		sampleConsole.rect(0, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
+		circle->blitRect(&sampleConsole, 0, 3, -1, -1, TCOD_BKGND_MULTIPLY);
         // the green channel
-        sampleConsole.setDefaultBackground( green );
-        sampleConsole.rect( 15, 3, 15, 15, false, TCOD_BKGND_SET );
-        circle->blitRect( &sampleConsole, 15, 3, -1, -1, TCOD_BKGND_MULTIPLY );
+		sampleConsole.setDefaultBackground(green);
+		sampleConsole.rect(15, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
+		circle->blitRect(&sampleConsole, 15, 3, -1, -1, TCOD_BKGND_MULTIPLY);
         // the blue channel
-        sampleConsole.setDefaultBackground( blue );
-        sampleConsole.rect( 30, 3, 15, 15, false, TCOD_BKGND_SET );
-        circle->blitRect( &sampleConsole, 30, 3, -1, -1, TCOD_BKGND_MULTIPLY );
+		sampleConsole.setDefaultBackground(blue);
+		sampleConsole.rect(30, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
+		circle->blitRect(&sampleConsole, 30, 3, -1, -1, TCOD_BKGND_MULTIPLY);
     }
     else
     {
