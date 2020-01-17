@@ -772,17 +772,15 @@ void Doryen::SDL::draw()
 		SDL_BlitSurface(charmap, nullptr, charmapBackup, nullptr);
 	}
 
-	unsigned index = 0;
-
 	for (int y = 0; y < getHeigth(); ++y)
 	{
 		for (int x = 0; x < getWidth(); ++x)
 		{
 			// Character to draw
-			Char character = buffer[index];
+			Char character = buffer[x + getWidth() * y];
 
 			// Previous character drawed
-			Char previousCharacter = oldBuffer[index];
+			Char previousCharacter = oldBuffer[x + getWidth() * y];
 
 			SDL_Rect sourceRect;
 			SDL_Rect destinRect;
@@ -1054,10 +1052,7 @@ void Doryen::SDL::draw()
 			}
 
 			// Update the character
-			setCharacterInBufferAt(index, character);
-
-			// Continue with the next character
-			index++;
+			setCharacterInBufferAt(x + getWidth() * y, character);
 		}
 	}
 
