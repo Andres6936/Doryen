@@ -480,3 +480,13 @@ int Doryen::Renderer::getCharOfCharacterInBufferAt(unsigned index) const
 {
 	return buffer[index].getC();
 }
+
+void Doryen::Renderer::setForeground(const Doryen::Color& _foreground)
+{
+	foreground = _foreground;
+}
+
+void Doryen::Renderer::setBackground(const Doryen::Color& _background)
+{
+	background = _background;
+}

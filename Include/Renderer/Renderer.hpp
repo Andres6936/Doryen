@@ -274,6 +274,10 @@ namespace Doryen
 
 		void setLayoutCharacter(unsigned index, unsigned code);
 
+		void setForeground(const Color& _foreground);
+
+		void setBackground(const Color& _background);
+
 		void setFadingColor(const Color& _fadingColor);
 
 		void setBackgroundOfCharacterInBufferAt(unsigned index, const Color& _color);

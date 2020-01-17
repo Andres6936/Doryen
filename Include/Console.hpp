@@ -284,17 +284,17 @@ namespace Doryen
          *
          * @param back the new default background color for this console.
          */
-        void setDefaultBackground( Doryen::Color back );
+		void setDefaultBackground(const Color& back);
 
-        /**
-         * Changes the default foreground color for a console.
-         *
-         * The default foreground color is used by several drawing function
-         * like clear, putChar, ...
-         *
-         * @param fore the new default foreground color for this console.
-         */
-        void setDefaultForeground( Doryen::Color fore );
+		/**
+		 * Changes the default foreground color for a console.
+		 *
+		 * The default foreground color is used by several drawing function
+		 * like clear, putChar, ...
+		 *
+		 * @param fore the new default foreground color for this console.
+		 */
+		void setDefaultForeground(const Color& fore);
 
         /**
          * Modifies all cells of a console :

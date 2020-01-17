@@ -421,20 +421,28 @@ const Doryen::Color& Doryen::Console::getDefaultBackground() const
 	}
 }
 
-void Doryen::Console::setDefaultBackground(Doryen::Color back)
+void Doryen::Console::setDefaultBackground(const Color& back)
 {
-	TCOD_color_t background = { back.r, back.g, back.b };
-
-	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
-	tempConsole->back = background;
+	if (isConsoleRoot)
+	{
+		renderer->setBackground(back);
+	}
+	else
+	{
+		this->background = back;
+	}
 }
 
-void Doryen::Console::setDefaultForeground(Doryen::Color fore)
+void Doryen::Console::setDefaultForeground(const Color& fore)
 {
-	TCOD_color_t foreground = { fore.r, fore.g, fore.b };
-
-	TCOD_console_data_t* tempConsole = (TCOD_console_data_t*)data;
-	tempConsole->fore = foreground;
+	if (isConsoleRoot)
+	{
+		renderer->setForeground(fore);
+	}
+	else
+	{
+		this->foreground = fore;
+	}
 }
 
 void Doryen::Console::setWindowTitle(const std::string& _title)
