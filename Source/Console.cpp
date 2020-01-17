@@ -632,8 +632,25 @@ void Doryen::Console::setCharForeground(int x, int y, const Doryen::Color& col)
 
 Doryen::Color Doryen::Console::getCharForeground(int x, int y) const
 {
-	TCOD_color_t temp = TCOD_console_get_char_foreground(data, x, y);
-	return Doryen::Color(temp.r, temp.g, temp.b);
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned index = x + renderer->getWidth() * y;
+
+		return renderer->getForegroundOfCharacterInBufferAt(index);
+	}
+	else
+	{
+		unsigned index = x + width * y;
+
+		return buffer[index].getForeground();
+	}
 }
 
 int Doryen::Console::getChar(int x, int y) const

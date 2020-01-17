@@ -220,6 +220,8 @@ namespace Doryen
 
 		const std::string& getFontfile() const;
 
+		const Color& getForegroundOfCharacterInBufferAt(unsigned index) const;
+
 		const Color& getBackgroundOfCharacterInBufferAt(unsigned index) const;
 
 		const Color& getColorInCharacterColorAt(unsigned index) const;
