@@ -777,8 +777,6 @@ void consoleClamp(const Point& start, const Point& end, Point& first, Point& sec
 
 void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag)
 {
-	TCOD_console_rect(data, x, y, rw, rh, clear, flag);
-
 	// Asserts
 	if (x < 0 || y < 0 || rw < 0 || rh < 0)
 	{
