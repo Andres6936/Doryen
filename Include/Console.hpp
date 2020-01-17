@@ -603,7 +603,7 @@ namespace Doryen
 		@Param l The length of the line in cells 1 <= l <= console width - x
 		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
 		*/
-        void hline( int x, int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT );
+		void hline(int x, int y, int l, BackgroundFlag flag = BackgroundFlag::DEFAULT);
 
         /**
         @PageName console_advanced

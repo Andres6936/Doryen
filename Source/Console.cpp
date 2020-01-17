@@ -855,9 +855,13 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BackgroundF
 	}
 }
 
-void Doryen::Console::hline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
+void Doryen::Console::hline(int x, int y, int l, BackgroundFlag flag)
 {
-	TCOD_console_hline(data, x, y, l, flag);
+	for (int i = x; i < x + l; ++i)
+	{
+		// Character 196 ASCII, see table ASCII.
+		putChar(i, y, 196, flag);
+	}
 }
 
 void Doryen::Console::vline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
