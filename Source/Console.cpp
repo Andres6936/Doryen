@@ -557,12 +557,6 @@ int Doryen::Console::getChar(int x, int y) const
 	return TCOD_console_get_char(data, x, y);
 }
 
-void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, TCOD_bkgnd_flag_t flag)
-{
-	TCOD_color_t c = { col.r, col.g, col.b };
-	TCOD_console_set_char_background(data, x, y, c, flag);
-}
-
 void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, Doryen::BackgroundFlag flag)
 {
 	// Asserts

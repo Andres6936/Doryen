@@ -318,8 +318,6 @@ namespace Doryen
          *
          * @see TCOD_bkgnd_flag_t
          */
-		void setCharBackground(int x, int y, const Doryen::Color& col, TCOD_bkgnd_flag_t flag = TCOD_BKGND_SET);
-
 		void setCharBackground(int x, int y, const Doryen::Color& col, BackgroundFlag flag = BackgroundFlag::SET);
 
 		/**

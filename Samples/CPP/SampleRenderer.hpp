@@ -22,7 +22,10 @@ static bool sdl_callback_enabled = false;
 // the offscreen console in which the samples are rendered
 static Doryen::Console sampleConsole( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
 
-static int bkFlag = TCOD_BKGND_SET; // current blending mode
+/**
+ * current blending mode
+ */
+static Doryen::BackgroundFlag backFlag = Doryen::BackgroundFlag::SET;
 
 class SampleRenderer : public ITCODSDLRenderer
 {

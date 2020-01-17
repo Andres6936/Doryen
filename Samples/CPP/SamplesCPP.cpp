@@ -91,7 +91,7 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             float ycoef = ( float ) ( y ) / ( SAMPLE_SCREEN_HEIGHT - 1 );
             // get the current cell color
             Doryen::Color curColor = Doryen::Color::lerp( top, bottom, ycoef );
-            sampleConsole.setCharBackground( x, y, curColor, TCOD_BKGND_SET );
+            sampleConsole.setCharBackground(x, y, curColor, Doryen::BackgroundFlag::SET);
         }
     }
 
@@ -187,46 +187,97 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // line drawing sample
 // ***************************
 
+Doryen::BackgroundFlag switchBackgroundFlag(Doryen::BackgroundFlag flag)
+{
+	using namespace Doryen;
 
+	switch (flag)
+	{
+	case BackgroundFlag::NONE:
+		flag = BackgroundFlag::SET;
+		break;
+
+	case BackgroundFlag::SET:
+		flag = BackgroundFlag::MULTIPLY;
+		break;
+
+	case BackgroundFlag::MULTIPLY:
+		flag = BackgroundFlag::LIGHTEN;
+		break;
+
+	case BackgroundFlag::LIGHTEN:
+		flag = BackgroundFlag::DARKEN;
+		break;
+
+	case BackgroundFlag::DARKEN:
+		flag = BackgroundFlag::SCREEN;
+		break;
+
+	case BackgroundFlag::SCREEN:
+		flag = BackgroundFlag::COLOR_DODGE;
+		break;
+
+	case BackgroundFlag::COLOR_DODGE:
+		flag = BackgroundFlag::COLOR_BURN;
+		break;
+
+	case BackgroundFlag::COLOR_BURN:
+		flag = BackgroundFlag::ADD;
+		break;
+
+	case BackgroundFlag::ADD:
+		flag = BackgroundFlag::ADDA;
+		break;
+
+	case BackgroundFlag::ADDA:
+		flag = BackgroundFlag::BURN;
+		break;
+
+	case BackgroundFlag::BURN:
+		flag = BackgroundFlag::OVERLAY;
+		break;
+
+	case BackgroundFlag::OVERLAY:
+		flag = BackgroundFlag::ALPH;
+		break;
+
+	case BackgroundFlag::ALPH:
+		flag = BackgroundFlag::DEFAULT;
+		break;
+
+	case BackgroundFlag::DEFAULT:
+		flag = BackgroundFlag::NONE;
+		break;
+	}
+}
 
 void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
     static Doryen::Console bk( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // colored background
     static bool init = false;
     static const char *flagNames[] = {
-            "TCOD_BKGND_NONE",
-            "TCOD_BKGND_SET",
-            "TCOD_BKGND_MULTIPLY",
-            "TCOD_BKGND_LIGHTEN",
-            "TCOD_BKGND_DARKEN",
-            "TCOD_BKGND_SCREEN",
-            "TCOD_BKGND_COLOR_DODGE",
-            "TCOD_BKGND_COLOR_BURN",
-            "TCOD_BKGND_ADD",
-            "TCOD_BKGND_ADDALPHA",
-            "TCOD_BKGND_BURN",
-            "TCOD_BKGND_OVERLAY",
-            "TCOD_BKGND_ALPHA"
-    };
+			"TCOD_BKGND_NONE",
+			"TCOD_BKGND_SET",
+			"TCOD_BKGND_MULTIPLY",
+			"TCOD_BKGND_LIGHTEN",
+			"TCOD_BKGND_DARKEN",
+			"TCOD_BKGND_SCREEN",
+			"TCOD_BKGND_COLOR_DODGE",
+			"TCOD_BKGND_COLOR_BURN",
+			"TCOD_BKGND_ADD",
+			"TCOD_BKGND_ADDALPHA",
+			"TCOD_BKGND_BURN",
+			"TCOD_BKGND_OVERLAY",
+			"TCOD_BKGND_ALPHA",
+			"TCOD_BKGND_DEFAULT"
+	};
+
     if ( key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER )
     {
         // switch to the next blending mode
-        bkFlag++;
-        if (( bkFlag & 0xff ) > TCOD_BKGND_ALPH )
-        { bkFlag = TCOD_BKGND_NONE; }
+		switchBackgroundFlag(backFlag);
     }
-    if (( bkFlag & 0xff ) == TCOD_BKGND_ALPH )
-    {
-        // for the alpha mode, update alpha every frame
-        float alpha = ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) * 2 )) / 2.0f;
-        bkFlag = TCOD_BKGND_ALPHA( alpha );
-    }
-    else if (( bkFlag & 0xff ) == TCOD_BKGND_ADDA )
-    {
-        // for the add alpha mode, update alpha every frame
-        float alpha = ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) * 2 )) / 2.0f;
-        bkFlag = TCOD_BKGND_ADDALPHA( alpha );
-    }
+
     if ( !init )
     {
         // initialize the colored background
@@ -237,8 +288,8 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                 Doryen::Color col;
                 col.r = ( uint8 ) ( x * 255 / ( SAMPLE_SCREEN_WIDTH - 1 ));
                 col.g = ( uint8 ) (( x + y ) * 255 / ( SAMPLE_SCREEN_WIDTH - 1 + SAMPLE_SCREEN_HEIGHT - 1 ));
-                col.b = ( uint8 ) ( y * 255 / ( SAMPLE_SCREEN_HEIGHT - 1 ));
-                bk.setCharBackground( x, y, col, TCOD_BKGND_SET );
+				col.b = (uint8)(y * 255 / (SAMPLE_SCREEN_HEIGHT - 1));
+				bk.setCharBackground(x, y, col, Doryen::BackgroundFlag::SET);
             }
         }
         init = true;
@@ -254,15 +305,15 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     int recty = ( int ) (( SAMPLE_SCREEN_HEIGHT - 2 ) *
                          (( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ))) / 2.0f ));
     for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-    {
-        Doryen::Color col;
-        col.r = ( uint8 ) ( x * 255 / SAMPLE_SCREEN_WIDTH );
-        col.g = ( uint8 ) ( x * 255 / SAMPLE_SCREEN_WIDTH );
-        col.b = ( uint8 ) ( x * 255 / SAMPLE_SCREEN_WIDTH );
-        sampleConsole.setCharBackground( x, recty, col, ( TCOD_bkgnd_flag_t ) bkFlag );
-        sampleConsole.setCharBackground( x, recty + 1, col, ( TCOD_bkgnd_flag_t ) bkFlag );
-        sampleConsole.setCharBackground( x, recty + 2, col, ( TCOD_bkgnd_flag_t ) bkFlag );
-    }
+	{
+		Doryen::Color col;
+		col.r = (uint8)(x * 255 / SAMPLE_SCREEN_WIDTH);
+		col.g = (uint8)(x * 255 / SAMPLE_SCREEN_WIDTH);
+		col.b = (uint8)(x * 255 / SAMPLE_SCREEN_WIDTH);
+		sampleConsole.setCharBackground(x, recty, col, backFlag);
+		sampleConsole.setCharBackground(x, recty + 1, col, backFlag);
+		sampleConsole.setCharBackground(x, recty + 2, col, backFlag);
+	}
     // calculate the segment ends
     float angle = Doryen::Platform::getElapsedSeconds( ) * 2.0f;
     float cosAngle = cosf( angle );
@@ -280,7 +331,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 	objLine.line(xo, yo, xd, yd, listener);
 
     // print the current flag
-    sampleConsole.print( 2, 2, "%s (ENTER to change)", flagNames[ bkFlag & 0xff ] );
+	sampleConsole.print(2, 2, "%s (ENTER to change)", flagNames[(int)backFlag]);
 }
 
 // ***************************
@@ -607,7 +658,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             bool wall = smap[ y ][ x ] == '#';
             if ( !visible )
             {
-                sampleConsole.setCharBackground( x, y, wall ? darkWall : darkGround, TCOD_BKGND_SET );
+				sampleConsole.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
             }
             else
             {
@@ -641,7 +692,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                     }
                     light = base;
                 }
-                sampleConsole.setCharBackground( x, y, light, TCOD_BKGND_SET );
+				sampleConsole.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
             }
         }
     }
@@ -933,7 +984,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         {
             if ( smap[ y ][ x ] == '#' )
             {
-                sampleConsole.setCharBackground( x, y, darkWall, TCOD_BKGND_SET );
+				sampleConsole.setCharBackground(x, y, darkWall, Doryen::BackgroundFlag::SET);
             }
             else if ( smap[ y ][ x ] == '=' )
             {
@@ -941,7 +992,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 			}
 			else
 			{
-				sampleConsole.setCharBackground(x, y, darkGround, TCOD_BKGND_SET);
+				sampleConsole.setCharBackground(x, y, darkGround, Doryen::BackgroundFlag::SET);
 			}
 		}
 	}
@@ -965,7 +1016,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             {
                 point = AStar->getPoint2DAt( i );
 
-                sampleConsole.setCharBackground( point.x, point.y, lightGround, TCOD_BKGND_SET );
+				sampleConsole.setCharBackground(point.x, point.y, lightGround, Doryen::BackgroundFlag::SET);
             }
             catch ( Doryen::Exceptions::IllegalMethodCall &e )
             {
@@ -1148,7 +1199,7 @@ void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
         {
             bool wall = ( map[ x ][ y ] == '#' );
-            sampleConsole.setCharBackground( x, y, wall ? darkWall : darkGround, TCOD_BKGND_SET );
+			sampleConsole.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
         }
     }
     if ( key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER )
