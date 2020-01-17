@@ -370,7 +370,9 @@ bool Doryen::Console::isKeyPressed(KeyCode _key)
 
 bool Doryen::Console::isWindowClosed()
 {
-	return TCOD_console_is_window_closed() != 0;
+	//return TCOD_console_is_window_closed() != 0;
+
+	return false;
 }
 
 unsigned int Doryen::Console::getWidth() const
@@ -462,7 +464,7 @@ bool Doryen::Console::isFullscreen()
 
 void Doryen::Console::setAlignment(TCOD_alignment_t alignment)
 {
-	TCOD_console_set_alignment(data, alignment);
+	//TCOD_console_set_alignment(data, alignment);
 }
 
 void Doryen::Console::blit(const Doryen::Console* srcCon, int xSrc, int ySrc, int wSrc, int hSrc,
@@ -906,22 +908,22 @@ void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
 
 void Doryen::Console::print(int x, int y, const char* fmt, ...)
 {
-	va_list ap;
-	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
-	TCOD_IFNOT (dat != NULL)
-	{ return; }
-	va_start(ap, fmt);
-	TCOD_console_print_internal(data, x, y, 0, 0, dat->bkgnd_flag, dat->alignment,
-			TCOD_console_vsprint(fmt, ap), false, false);
-	va_end(ap);
+//	va_list ap;
+//	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
+//	TCOD_IFNOT (dat != NULL)
+//	{ return; }
+//	va_start(ap, fmt);
+//	TCOD_console_print_internal(data, x, y, 0, 0, dat->bkgnd_flag, dat->alignment,
+//			TCOD_console_vsprint(fmt, ap), false, false);
+//	va_end(ap);
 }
 
 void Doryen::Console::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt, ...)
 {
-	va_list ap;
-	va_start(ap, fmt);
-	TCOD_console_print_internal(data, x, y, 0, 0, flag, alignment, TCOD_console_vsprint(fmt, ap), false, false);
-	va_end(ap);
+//	va_list ap;
+//	va_start(ap, fmt);
+//	TCOD_console_print_internal(data, x, y, 0, 0, flag, alignment, TCOD_console_vsprint(fmt, ap), false, false);
+//	va_end(ap);
 }
 
 int Doryen::Console::printRect(int x, int y, int w, int h, const char* fmt, ...)
@@ -940,12 +942,14 @@ int Doryen::Console::printRect(int x, int y, int w, int h, const char* fmt, ...)
 int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
 		TCOD_alignment_t alignment, const char* fmt, ...)
 {
-	va_list ap;
-	va_start(ap, fmt);
-	int ret = TCOD_console_print_internal(data, x, y, w, h, flag, alignment, TCOD_console_vsprint(fmt, ap), true,
-			false);
-	va_end(ap);
-	return ret;
+//	va_list ap;
+//	va_start(ap, fmt);
+//	int ret = TCOD_console_print_internal(data, x, y, w, h, flag, alignment, TCOD_console_vsprint(fmt, ap), true,
+//			false);
+//	va_end(ap);
+//	return ret;
+
+	return 1;
 }
 
 int Doryen::Console::getHeightRect(int x, int y, int w, int h, const char* fmt, ...)
@@ -991,7 +995,9 @@ void Doryen::Console::resetCredits()
 
 bool Doryen::Console::renderCredits(int x, int y, bool alpha)
 {
-	return TCOD_console_credits_render(x, y, alpha) != 0;
+	//return TCOD_console_credits_render(x, y, alpha) != 0;
+
+	return true;
 }
 
 #ifndef NO_UNICODE
