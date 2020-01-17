@@ -1053,6 +1053,9 @@ void Doryen::SDL::draw()
 				}
 			}
 
+			// Update the character
+			setCharacterInBufferAt(index, character);
+
 			// Continue with the next character
 			index++;
 		}
