@@ -180,6 +180,8 @@ namespace Doryen
 
 		short getOldFade() const;
 
+		int getCharOfCharacterInBufferAt(unsigned index) const;
+
 		int getCharacterInLayoutCharacteres(unsigned index) const;
 
 		unsigned int getWidth() const;

@@ -475,3 +475,8 @@ void Doryen::Renderer::setBackgroundOfCharacterInBufferAt(unsigned index, const 
 {
 	buffer[index].setBackground(_color);
 }
+
+int Doryen::Renderer::getCharOfCharacterInBufferAt(unsigned index) const
+{
+	return buffer[index].getC();
+}
