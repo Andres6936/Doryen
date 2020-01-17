@@ -747,9 +747,112 @@ void Doryen::Console::setChar(int x, int y, int c)
 	}
 }
 
+using Point = Doryen::Math::Point2D;
+
+// Private function
+void consoleClamp(const Point& start, const Point& end, Point& first, Point& second)
+{
+	if (first.x + second.x > end.x)
+	{
+		second.x = end.x - first.x;
+	}
+
+	if (first.y + second.y > end.y)
+	{
+		second.y = end.y - first.y;
+	}
+
+	if (first.x < start.x)
+	{
+		second.x = second.x - start.x - first.x;
+		first.x = start.x;
+	}
+
+	if (first.y < start.y)
+	{
+		second.y = second.y - start.y - first.y;
+		first.y = start.y;
+	}
+}
+
 void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag)
 {
 	TCOD_console_rect(data, x, y, rw, rh, clear, flag);
+
+	// Asserts
+	if (x < 0 || y < 0 || rw < 0 || rh < 0)
+	{
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		// Asserts
+		if (x > renderer->getWidth() || y > renderer->getHeigth() ||
+			x + rw > renderer->getWidth() || y + rh > renderer->getHeigth())
+		{
+			throw "ExceptionIllegalArgument";
+		}
+		else
+		{
+			Point start = Point(0, 0);
+			Point end = Point((int)renderer->getWidth(), (int)renderer->getHeigth());
+
+			Point first = Point(x, y);
+			Point second = Point(rw, rh);
+
+			// Remember, pass for reference
+			consoleClamp(start, end, first, second);
+
+			for (int cx = first.x; cx < first.x + second.x; ++cx)
+			{
+				for (int cy = first.y; cy < first.y + second.y; ++cy)
+				{
+					// TODO: Background
+					if (clear)
+					{
+						unsigned index = cx + renderer->getWidth() * cy;
+
+						renderer->setCharOfCharacterInBufferAt(index, ' ');
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		// Asserts
+		if (x > width || y > height || x + rw > width || y + rh > height)
+		{
+			throw "ExceptionIllegalArgument";
+		}
+		else
+		{
+			Point start = Point(0, 0);
+			Point end = Point((int)width, (int)height);
+
+			Point first = Point(x, y);
+			Point second = Point(rw, rh);
+
+			// Remember, pass for reference
+			consoleClamp(start, end, first, second);
+
+			for (int cx = first.x; cx < first.x + second.x; ++cx)
+			{
+				for (int cy = first.y; cy < first.y + second.y; ++cy)
+				{
+					// TODO: Background
+					if (clear)
+					{
+						unsigned index = cx + width * cy;
+
+						buffer[index].setC(' ');
+						buffer[index].setCf(renderer->getCharacterInLayoutCharacteres(' '));
+					}
+				}
+			}
+		}
+	}
 }
 
 void Doryen::Console::hline(int x, int y, int l, TCOD_bkgnd_flag_t flag)
