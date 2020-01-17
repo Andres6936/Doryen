@@ -250,9 +250,16 @@ void Doryen::Color::trasformColor(const Doryen::Color& another, Doryen::Backgrou
 	{
 
 		// Noping
-	case BackgroundFlag::SET:
 	case BackgroundFlag::NONE:
 	case BackgroundFlag::DEFAULT:
+		break;
+
+	case BackgroundFlag::SET:
+
+		// Copy information color
+		this->r = another.r;
+		this->g = another.g;
+		this->b = another.b;
 		break;
 
 	case BackgroundFlag::MULTIPLY:
