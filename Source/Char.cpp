@@ -50,9 +50,3 @@ void Doryen::Char::setDirt(bool _dirt)
 	dirt = _dirt;
 }
 
-Doryen::Char::Char(int _c, int _cf, const Doryen::Color& _foreground)
-{
-	c = _c;
-	cf = _cf;
-	foreground = _foreground;
-}

@@ -45,7 +45,7 @@ namespace Doryen
 
 		// Construct
 
-		Char(int _c, int _cf, const Color& _foreground);
+		Char() = default;
 
 		// Getters
 

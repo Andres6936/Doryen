@@ -120,8 +120,8 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                 c = TCODRandom::getInstance( )->getInt( 'a', 'z' );
             }
 
-            sampleConsole.setDefaultForeground( col );
-            sampleConsole.putChar( x, y, c, TCOD_BKGND_NONE );
+            sampleConsole.setDefaultForeground(col);
+			sampleConsole.putChar(x, y, c, Doryen::BackgroundFlag::NONE);
         }
     }
     sampleConsole.setDefaultForeground( textColor );
@@ -553,8 +553,8 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sampleConsole.setDefaultForeground( Doryen::Color::white );
         sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
                              torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
-        sampleConsole.setDefaultForeground( Doryen::Color::black );
-        sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+		sampleConsole.setDefaultForeground(Doryen::Color::black);
+		sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
         // draw windows
         for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
         {
@@ -562,7 +562,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             {
                 if ( smap[ y ][ x ] == '=' )
                 {
-                    sampleConsole.putChar( x, y, TCOD_CHAR_DHLINE, TCOD_BKGND_NONE );
+					sampleConsole.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
                 }
             }
         }
@@ -650,10 +650,10 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         // player move north
         if ( smap[ playerY - 1 ][ playerX ] == ' ' )
         {
-            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-            playerY--;
-            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-            recomputeFov = true;
+			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+			playerY--;
+			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+			recomputeFov = true;
         }
     }
     else if ( key->c == 'K' || key->c == 'k' )
@@ -661,10 +661,10 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         // player move south
         if ( smap[ playerY + 1 ][ playerX ] == ' ' )
         {
-            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-            playerY++;
-            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-            recomputeFov = true;
+			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+			playerY++;
+			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+			recomputeFov = true;
         }
     }
     else if ( key->c == 'J' || key->c == 'j' )
@@ -672,10 +672,10 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         // player move west
         if ( smap[ playerY ][ playerX - 1 ] == ' ' )
         {
-            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-            playerX--;
-            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-            recomputeFov = true;
+			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+			playerX--;
+			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+			recomputeFov = true;
         }
     }
     else if ( key->c == 'L' || key->c == 'l' )
@@ -683,10 +683,10 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         // player move east
         if ( smap[ playerY ][ playerX + 1 ] == ' ' )
         {
-            sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
-            playerX++;
-            sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
-            recomputeFov = true;
+			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+			playerX++;
+			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+			recomputeFov = true;
         }
     }
     else if ( key->c == 'T' || key->c == 't' )
@@ -937,29 +937,29 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             }
             else if ( smap[ y ][ x ] == '=' )
             {
-                sampleConsole.putChar( x, y, TCOD_CHAR_DHLINE, TCOD_BKGND_NONE );
-            }
-            else
-            {
-                sampleConsole.setCharBackground( x, y, darkGround, TCOD_BKGND_SET );
-            }
-        }
-    }
+				sampleConsole.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
+			}
+			else
+			{
+				sampleConsole.setCharBackground(x, y, darkGround, TCOD_BKGND_SET);
+			}
+		}
+	}
 
-    sampleConsole.setDefaultForeground( Doryen::Color::white );
+	sampleConsole.setDefaultForeground(Doryen::Color::white);
 
-    sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
-    sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+	sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+	sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 
-    sampleConsole.print( 1, 1, "IJKL / mouse :\nmove destination\nTAB : A*/dijkstra" );
-    sampleConsole.print( 1, 4, "Using : A*" );
+	sampleConsole.print(1, 1, "IJKL / mouse :\nmove destination\nTAB : A*/dijkstra");
+	sampleConsole.print(1, 4, "Using : A*");
 
-    // draw the path
-    if ( usingAstar && AStar->findPath( ))
-    {
-        Doryen::Math::Point2D point;
+	// draw the path
+	if (usingAstar && AStar->findPath())
+	{
+		Doryen::Math::Point2D point;
 
-        for ( int i = 0; i < AStar->size( ); i++ )
+		for (int i = 0; i < AStar->size(); i++)
         {
             try
             {
@@ -1008,7 +1008,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         {
             if ( !AStar->isEmpty( ))
             {
-                sampleConsole.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+				sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
 
                 try
                 {
@@ -1017,7 +1017,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                     playerX = point.x;
                     playerY = point.y;
 
-                    sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+					sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
                 }
                 catch ( Doryen::Exceptions::IllegalMethodCall &e )
                 {
@@ -1041,29 +1041,29 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     {
         // destination move north
         destinationY--;
-        recalculatePath = true;
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+		recalculatePath = true;
+		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
     }
     else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
     {
         // destination move south
         destinationY++;
-        recalculatePath = true;
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+		recalculatePath = true;
+		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
     }
     else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
     {
         // destination move west
         destinationX--;
-        recalculatePath = true;
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+		recalculatePath = true;
+		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
     }
     else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
     {
         // destination move east
         destinationX++;
-        recalculatePath = true;
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+		recalculatePath = true;
+		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
     }
     else if ( key->vk == TCODK_TAB )
     {
@@ -1090,8 +1090,8 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         destinationX = mouseX;
         destinationY = mouseY;
 
-        recalculatePath = true;
-        sampleConsole.putChar( destinationX, destinationY, '+', TCOD_BKGND_NONE );
+		recalculatePath = true;
+		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
     }
 }
 
