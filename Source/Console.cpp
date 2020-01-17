@@ -487,7 +487,7 @@ void Doryen::Console::putChar(int x, int y, int c, BackgroundFlag flag)
 			_char.setForeground(renderer->getForeground());
 
 			Color b = renderer->getBackgroundOfCharacterInBufferAt(offset);
-			b.trasformColor(_char.getBackground(), flag);
+			b.trasformColor(renderer->getBackground(), flag);
 
 			_char.setBackground(b);
 
@@ -513,7 +513,7 @@ void Doryen::Console::putChar(int x, int y, int c, BackgroundFlag flag)
 			_char.setForeground(foreground);
 
 			Color b = buffer[offset].getBackground();
-			b.trasformColor(_char.getBackground(), flag);
+			b.trasformColor(background, flag);
 
 			_char.setBackground(b);
 
