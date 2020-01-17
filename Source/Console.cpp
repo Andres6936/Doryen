@@ -643,7 +643,7 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 		}
 		else
 		{
-			unsigned index = x + renderer->getWidth() + y;
+			unsigned index = x + renderer->getWidth() * y;
 
 			Color b = renderer->getBackgroundOfCharacterInBufferAt(index);
 
