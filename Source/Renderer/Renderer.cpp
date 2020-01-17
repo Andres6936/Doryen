@@ -490,3 +490,15 @@ void Doryen::Renderer::setBackground(const Doryen::Color& _background)
 {
 	background = _background;
 }
+
+void Doryen::Renderer::clearBuffer()
+{
+	for (Char& c : buffer)
+	{
+		c.setC(' ');
+		c.setCf(getCharacterInLayoutCharacteres(' '));
+		c.setForeground(foreground);
+		c.setBackground(background);
+		c.setDirt(false);
+	}
+}

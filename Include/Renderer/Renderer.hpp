@@ -143,6 +143,8 @@ namespace Doryen
 
 		void clearCharacterUpdate();
 
+		void clearBuffer();
+
 		void resizeCharacterUpdate(unsigned size);
 
 		void changeFontKeyColor(const Color& _color);

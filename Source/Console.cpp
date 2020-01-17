@@ -567,7 +567,21 @@ void Doryen::Console::putCharEx(int x, int y, int c, const Doryen::Color& fore, 
 
 void Doryen::Console::clear()
 {
-	TCOD_console_clear(data);
+	if (isConsoleRoot)
+	{
+		renderer->clearBuffer();
+	}
+	else
+	{
+		for (Char& c: buffer)
+		{
+			c.setC(' ');
+			c.setCf(renderer->getCharacterInLayoutCharacteres(' '));
+			c.setForeground(foreground);
+			c.setBackground(background);
+			c.setDirt(false);
+		}
+	}
 }
 
 Doryen::Color Doryen::Console::getCharBackground(int x, int y) const
