@@ -216,20 +216,20 @@ void render(Doryen::Console& console)
 
 }
 
-void move(int dx, int dy)
+void move(int dx, int dy, Doryen::Console& console)
 {
 	if (map->isWalkable(playerx + dx, playery + dy))
 	{
 		// restore the previous map char
-		Doryen::Console::root->setChar(playerx, playery, playerBack);
-		Doryen::Console::root->setChar(playerx + CON_WIDTH / 2, playery, playerBack);
+		console.setChar(playerx, playery, playerBack);
+		console.setChar(playerx + CON_WIDTH / 2, playery, playerBack);
 		// move the player
 		playerx += dx;
 		playery += dy;
-		playerBack = Doryen::Console::root->getChar(playerx, playery);
+		playerBack = console.getChar(playerx, playery);
 		// render the player
-		Doryen::Console::root->setChar(playerx, playery, '@');
-		Doryen::Console::root->setChar(playerx + CON_WIDTH / 2, playery, '@');
+		console.setChar(playerx, playery, '@');
+		console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 		// update the player's torch position
 		leftShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white);
 		rightShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white);
@@ -259,19 +259,19 @@ int main()
 			// move with arrows or numpad (2468)
 		case TCODK_KP8 :
 		case TCODK_UP :
-			move(0, -1);
+			move(0, -1, console);
 			break;
 		case TCODK_KP2 :
 		case TCODK_DOWN :
-			move(0, 1);
+			move(0, 1, console);
 			break;
 		case TCODK_KP4 :
 		case TCODK_LEFT :
-			move(-1, 0);
+			move(-1, 0, console);
 			break;
 		case TCODK_KP6 :
 		case TCODK_RIGHT :
-			move(1, 0);
+			move(1, 0, console);
 			break;
 		case TCODK_CHAR :
 			switch (k.c)
@@ -283,13 +283,13 @@ int main()
 			case 'A' :
 			case 'h':
 			case 'H' :
-				move(-1, 0);
+				move(-1, 0, console);
 				break;
 			case 's' :
 			case 'S' :
 			case 'j':
 			case 'J' :
-				move(0, 1);
+				move(0, 1, console);
 				break;
 			case 'z' :
 			case 'Z' :
@@ -297,13 +297,13 @@ int main()
 			case 'W' :
 			case 'k':
 			case 'K' :
-				move(0, -1);
+				move(0, -1, console);
 				break;
 			case 'd' :
 			case 'D' :
 			case 'l':
 			case 'L' :
-				move(1, 0);
+				move(1, 0, console);
 				break;
 			default:
 				break;
