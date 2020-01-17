@@ -25,10 +25,12 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
+#include <cmath>
 #include "libtcod.hpp"
 #include "BSPHelper.hpp"
 #include "RadShader.hpp"
+
+using namespace Doryen;
 
 #define CON_WIDTH 80
 #define CON_HEIGHT 50
@@ -243,9 +245,6 @@ int main()
 	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL);
 	console.setAlignment(TCOD_CENTER);
 
-	TCOD_key_t k = { TCODK_NONE, 0 };
-	TCOD_mouse_t mouse;
-
 	init(console);
 
 	while (!console.isWindowClosed())
@@ -253,68 +252,38 @@ int main()
 
 		render(console);
 		Doryen::Console::flush();
-		Doryen::Platform::checkForEvent((TCOD_event_t)TCOD_EVENT_KEY_PRESS, &k, &mouse);
-		switch (k.vk)
+
+		KeyCode key = Console::getKeyPressed().getKeyCode();
+
+		switch (key)
 		{
 			// move with arrows or numpad (2468)
-		case TCODK_KP8 :
-		case TCODK_UP :
+		case KeyCode::UP :
+
 			move(0, -1, console);
 			break;
-		case TCODK_KP2 :
-		case TCODK_DOWN :
+
+		case KeyCode::DOWN :
 			move(0, 1, console);
 			break;
-		case TCODK_KP4 :
-		case TCODK_LEFT :
+
+		case KeyCode::LEFT :
 			move(-1, 0, console);
 			break;
-		case TCODK_KP6 :
-		case TCODK_RIGHT :
+
+		case KeyCode::RIGHT :
 			move(1, 0, console);
 			break;
-		case TCODK_CHAR :
-			switch (k.c)
-			{
-				// move with vi keys (HJKL) or FPS keys (WSAD or ZQSD)
-			case 'q' :
-			case 'Q' :
-			case 'a' :
-			case 'A' :
-			case 'h':
-			case 'H' :
-				move(-1, 0, console);
-				break;
-			case 's' :
-			case 'S' :
-			case 'j':
-			case 'J' :
-				move(0, 1, console);
-				break;
-			case 'z' :
-			case 'Z' :
-			case 'w' :
-			case 'W' :
-			case 'k':
-			case 'K' :
-				move(0, -1, console);
-				break;
-			case 'd' :
-			case 'D' :
-			case 'l':
-			case 'L' :
-				move(1, 0, console);
-				break;
-			default:
-				break;
-			}
-			break;
-		case TCODK_PRINTSCREEN :
+
+		case KeyCode::PRINT_SCREEN :
+
 			Doryen::Platform::saveScreenshot(NULL);
 			break;
+
 		default:
 			break;
 		}
 	}
+
 	return 0;
 }
