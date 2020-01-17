@@ -857,7 +857,10 @@ void Doryen::SDL::draw()
 						short nb = (short)(foreground.b * getFade() / 255 +
 										   getFadingColor().b * (255 - getFade()) / 255);
 
-						character.setBackground(Color(nr, ng, nb));
+						character.setForeground(Color(nr, ng, nb));
+
+						// Overwrite foreground variable with the new color
+						foreground = character.getForeground();
 					}
 
 					// Only draw character if foreground color != background color
