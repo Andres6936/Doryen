@@ -399,12 +399,26 @@ unsigned int Doryen::Console::getHeight() const
 
 const Doryen::Color& Doryen::Console::getDefaultForeground() const
 {
-	return foreground;
+	if (isConsoleRoot)
+	{
+		return renderer->getForeground();
+	}
+	else
+	{
+		return foreground;
+	}
 }
 
 const Doryen::Color& Doryen::Console::getDefaultBackground() const
 {
-	return background;
+	if (isConsoleRoot)
+	{
+		return renderer->getBackground();
+	}
+	else
+	{
+		return background;
+	}
 }
 
 void Doryen::Console::setDefaultBackground(Doryen::Color back)
