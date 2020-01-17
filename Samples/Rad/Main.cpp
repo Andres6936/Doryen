@@ -34,49 +34,68 @@
 #define CON_HEIGHT 50
 
 #define MAP_WIDTH 39
-#define MAP_HEIGHT 50 
+#define MAP_HEIGHT 50
 
 #define LIGHT_RADIUS 10
 #define CELL_REFLECTIVITY 1.5
 #define CELL_SELF_ILLUMINATION 0.4
 
-Doryen::Map *map;
+Doryen::Map* map;
+
 BspHelper bsp;
-int playerx=0,playery=0,playerBack;
-Shader *leftShader=NULL;
-Shader *rightShader=NULL;
 
-Doryen::Color darkWall( 50, 50, 150 );
+int playerx = 0, playery = 0, playerBack;
 
-Doryen::Color lightWall( 130, 110, 50 );
+Shader* leftShader = NULL;
 
-Doryen::Color darkGround( 0, 0, 100 );
+Shader* rightShader = NULL;
 
-Doryen::Color lightGround( 200, 180, 50 );
+Doryen::Color darkWall(50, 50, 150);
+
+Doryen::Color lightWall(130, 110, 50);
+
+Doryen::Color darkGround(0, 0, 100);
+
+Doryen::Color lightGround(200, 180, 50);
+
 int torchIndex;
 
-float stdTime=0.0f;
-float radTime=0.0f;
-float stdLength=0.0f;
-float radLength=0.0f;
+float stdTime = 0.0f;
+
+float radTime = 0.0f;
+
+float stdLength = 0.0f;
+
+float radLength = 0.0f;
+
 int timeSecond;
-int framesCount=0;
+
+int framesCount = 0;
 
 // gamma correction lookup table
-bool enableGammaCorrection=true;
+bool enableGammaCorrection = true;
+
 int gammaLookup[256];
+
 #define GAMMA (1/2.2f)
-                                   
+
 // find the closest walkable position
-void findPos(int *x, int *y) {
-	for (; (*x) < MAP_WIDTH; (*x)++) {
-		for (; (*y)< MAP_HEIGHT; (*y)++) {
-			if ( map->isWalkable((*x),(*y)) ) return;
+void findPos(int* x, int* y)
+{
+	for (; (*x) < MAP_WIDTH; (*x)++)
+	{
+		for (; (*y) < MAP_HEIGHT; (*y)++)
+		{
+			if (map->isWalkable((*x), (*y)))
+			{ return; }
 		}
 	}
-	for (*x=0; (*x) < MAP_WIDTH; (*x)++) {
-		for (*y=0; (*y)< MAP_HEIGHT; (*y)++) {
-			if ( map->isWalkable((*x),(*y)) ) return;
+	for (*x = 0; (*x) < MAP_WIDTH; (*x)++)
+	{
+		for (*y = 0; (*y) < MAP_HEIGHT; (*y)++)
+		{
+			if (map->isWalkable((*x), (*y)))
+			{ return; }
 		}
 	}
 }
@@ -96,7 +115,7 @@ void init(Doryen::Console& console)
 	rightShader = new PhotonShader(CELL_REFLECTIVITY, CELL_SELF_ILLUMINATION, 3);
 
 	// put random lights
-	for (int i=0; i < 10; i++ )
+	for (int i = 0; i < 10; i++)
 	{
 		int lx = TCODRandom::getInstance()->getInt(1, MAP_WIDTH - 2);
 		int ly = TCODRandom::getInstance()->getInt(1, MAP_HEIGHT - 2);
@@ -122,16 +141,21 @@ void init(Doryen::Console& console)
 	rightShader->init(map);
 
 	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
-	
-	if (enableGammaCorrection) {
-		for (int i=0; i< 256; i++) {
-			float v=i/255.0f;
-			float correctedV = pow(v,GAMMA);
-			gammaLookup[i] = (int)(correctedV*255);
+
+	if (enableGammaCorrection)
+	{
+		for (int i = 0; i < 256; i++)
+		{
+			float v = i / 255.0f;
+			float correctedV = pow(v, GAMMA);
+			gammaLookup[i] = (int)(correctedV * 255);
 		}
-	} else {
-		for (int i=0; i< 256; i++) {
-			gammaLookup[i]=i;
+	}
+	else
+	{
+		for (int i = 0; i < 256; i++)
+		{
+			gammaLookup[i] = i;
 		}
 	}
 }
@@ -149,25 +173,30 @@ void render(Doryen::Console& console)
 	radTime += (rightEnd - leftEnd) * 0.001f;
 	if ((int)(start / 1000) != timeSecond)
 	{
-		timeSecond=start/1000;
-		stdLength=stdTime*1000/framesCount;
-		radLength=radTime*1000/framesCount;
-		stdTime=0.0f;
-		radTime=0.0f;
-		framesCount=0;
+		timeSecond = start / 1000;
+		stdLength = stdTime * 1000 / framesCount;
+		radLength = radTime * 1000 / framesCount;
+		stdTime = 0.0f;
+		radTime = 0.0f;
+		framesCount = 0;
 	}
-	
-	for (int x=0; x < MAP_WIDTH; x++) {
-		for (int y=0; y < MAP_HEIGHT; y++) {
-            Doryen::Color darkCol, lightCol;
+
+	for (int x = 0; x < MAP_WIDTH; x++)
+	{
+		for (int y = 0; y < MAP_HEIGHT; y++)
+		{
+			Doryen::Color darkCol, lightCol;
 			// get the cell dark and lit colors
-			if (map->isWalkable(x,y)) {
-				darkCol=darkGround;
-				lightCol=lightGround;
-			} else {
-				darkCol=darkWall;
-				lightCol=lightWall;
-			}			
+			if (map->isWalkable(x, y))
+			{
+				darkCol = darkGround;
+				lightCol = lightGround;
+			}
+			else
+			{
+				darkCol = darkWall;
+				lightCol = lightWall;
+			}
 			// render left map
 			// hack : for a better look, lights are white and we only use them as 
 			// a lerp coefficient between dark and light colors.
@@ -187,21 +216,23 @@ void render(Doryen::Console& console)
 
 }
 
-void move(int dx, int dy) {
-	if (map->isWalkable(playerx+dx,playery+dy)) {
+void move(int dx, int dy)
+{
+	if (map->isWalkable(playerx + dx, playery + dy))
+	{
 		// restore the previous map char
-        Doryen::Console::root->setChar( playerx, playery, playerBack );
-        Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, playerBack );
+		Doryen::Console::root->setChar(playerx, playery, playerBack);
+		Doryen::Console::root->setChar(playerx + CON_WIDTH / 2, playery, playerBack);
 		// move the player
-		playerx+=dx;
-		playery+=dy;
-        playerBack = Doryen::Console::root->getChar( playerx, playery );
+		playerx += dx;
+		playery += dy;
+		playerBack = Doryen::Console::root->getChar(playerx, playery);
 		// render the player
-        Doryen::Console::root->setChar( playerx, playery, '@' );
-        Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, '@' );
+		Doryen::Console::root->setChar(playerx, playery, '@');
+		Doryen::Console::root->setChar(playerx + CON_WIDTH / 2, playery, '@');
 		// update the player's torch position
-        leftShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
-        rightShader->updateLight( torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
+		leftShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white);
+		rightShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::white);
 	}
 }
 
@@ -245,18 +276,44 @@ int main()
 		case TCODK_CHAR :
 			switch (k.c)
 			{
-					// move with vi keys (HJKL) or FPS keys (WSAD or ZQSD)
-					case 'q' : case 'Q' : case 'a' : case 'A' : case 'h': case 'H' : move(-1,0);break;
-					case 's' : case 'S' : case 'j': case 'J' : move(0,1);break;
-					case 'z' : case 'Z' : case 'w' : case 'W' : case 'k': case 'K' : move(0,-1);break;
-					case 'd' : case 'D' : case 'l': case 'L' : move(1,0);break;
-					default:break;
-				}
+				// move with vi keys (HJKL) or FPS keys (WSAD or ZQSD)
+			case 'q' :
+			case 'Q' :
+			case 'a' :
+			case 'A' :
+			case 'h':
+			case 'H' :
+				move(-1, 0);
+				break;
+			case 's' :
+			case 'S' :
+			case 'j':
+			case 'J' :
+				move(0, 1);
+				break;
+			case 'z' :
+			case 'Z' :
+			case 'w' :
+			case 'W' :
+			case 'k':
+			case 'K' :
+				move(0, -1);
+				break;
+			case 'd' :
+			case 'D' :
+			case 'l':
+			case 'L' :
+				move(1, 0);
+				break;
+			default:
+				break;
+			}
 			break;
-            case TCODK_PRINTSCREEN :
-                Doryen::Platform::saveScreenshot( NULL );
-                break;
-			default:break;
+		case TCODK_PRINTSCREEN :
+			Doryen::Platform::saveScreenshot(NULL);
+			break;
+		default:
+			break;
 		}
 	}
 	return 0;
