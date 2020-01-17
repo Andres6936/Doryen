@@ -282,6 +282,8 @@ namespace Doryen
 
 		void setFadingColor(const Color& _fadingColor);
 
+		void setForegroundOfCharacterInBufferAt(unsigned index, const Color& _color);
+
 		void setBackgroundOfCharacterInBufferAt(unsigned index, const Color& _color);
 
 		void setColorInCharacterColorAt(unsigned index, const Color& _color);

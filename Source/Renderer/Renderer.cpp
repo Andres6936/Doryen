@@ -502,3 +502,8 @@ void Doryen::Renderer::clearBuffer()
 		c.setDirt(false);
 	}
 }
+
+void Doryen::Renderer::setForegroundOfCharacterInBufferAt(unsigned index, const Doryen::Color& _color)
+{
+	buffer[index].setForeground(_color);
+}
