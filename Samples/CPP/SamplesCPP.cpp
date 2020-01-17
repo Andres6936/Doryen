@@ -272,21 +272,23 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 			"TCOD_BKGND_DEFAULT"
 	};
 
-    if ( key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER )
-    {
-        // switch to the next blending mode
+	if (key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER)
+	{
+		// switch to the next blending mode
 		switchBackgroundFlag(backFlag);
-    }
+	}
 
-    if ( !init )
-    {
-        // initialize the colored background
-        for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-        {
-            for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-            {
-                Doryen::Color col;
-                col.r = ( uint8 ) ( x * 255 / ( SAMPLE_SCREEN_WIDTH - 1 ));
+	// TODO: Here, I break code, Fix. See Git
+
+	if (!init)
+	{
+		// initialize the colored background
+		for (int x = 0; x < SAMPLE_SCREEN_WIDTH; x++)
+		{
+			for (int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++)
+			{
+				Doryen::Color col;
+				col.r = (uint8)(x * 255 / (SAMPLE_SCREEN_WIDTH - 1));
                 col.g = ( uint8 ) (( x + y ) * 255 / ( SAMPLE_SCREEN_WIDTH - 1 + SAMPLE_SCREEN_HEIGHT - 1 ));
 				col.b = (uint8)(y * 255 / (SAMPLE_SCREEN_HEIGHT - 1));
 				bk.setCharBackground(x, y, col, Doryen::BackgroundFlag::SET);
