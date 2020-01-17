@@ -81,45 +81,47 @@ void findPos(int *x, int *y) {
 	}
 }
 
-void init() {
-    Doryen::Console::root->clear( );
+void init(Doryen::Console& console)
+{
+	console.clear();
 
 	// build the dungeon
-    map = new Doryen::Map( MAP_WIDTH, MAP_HEIGHT );
-	bsp.createBspDungeon(map,NULL);
+	map = new Doryen::Map(MAP_WIDTH, MAP_HEIGHT);
+	bsp.createBspDungeon(map, NULL);
 	// empty map
 	//map->clear(true,true);	
-	
+
 	// create shaders
-	leftShader=new StandardShader();
-	rightShader=new PhotonShader(CELL_REFLECTIVITY, CELL_SELF_ILLUMINATION, 3);
+	leftShader = new StandardShader();
+	rightShader = new PhotonShader(CELL_REFLECTIVITY, CELL_SELF_ILLUMINATION, 3);
 
 	// put random lights
-	for (int i=0; i < 10; i++ ) {
-		int lx=TCODRandom::getInstance()->getInt(1,MAP_WIDTH-2);
-		int ly=TCODRandom::getInstance()->getInt(1,MAP_HEIGHT-2);
-		findPos(&lx,&ly);
-        leftShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
-        rightShader->addLight( lx, ly, LIGHT_RADIUS, Doryen::Color::white );
-        Doryen::Console::root->setChar( lx, ly, '*' );
-        Doryen::Console::root->setChar( lx + CON_WIDTH / 2, ly, '*' );
-	}	
-	
+	for (int i=0; i < 10; i++ )
+	{
+		int lx = TCODRandom::getInstance()->getInt(1, MAP_WIDTH - 2);
+		int ly = TCODRandom::getInstance()->getInt(1, MAP_HEIGHT - 2);
+		findPos(&lx, &ly);
+		leftShader->addLight(lx, ly, LIGHT_RADIUS, Doryen::Color::white);
+		rightShader->addLight(lx, ly, LIGHT_RADIUS, Doryen::Color::white);
+		console.setChar(lx, ly, '*');
+		console.setChar(lx + CON_WIDTH / 2, ly, '*');
+	}
+
 	// find a starting position for the player
-	findPos(&playerx,&playery);
-    playerBack = Doryen::Console::root->getChar( playerx, playery );
-    Doryen::Console::root->setChar( playerx, playery, '@' );
-    Doryen::Console::root->setChar( playerx + CON_WIDTH / 2, playery, '@' );
+	findPos(&playerx, &playery);
+	playerBack = console.getChar(playerx, playery);
+	console.setChar(playerx, playery, '@');
+	console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 
 	// add the player's torch
-    torchIndex = leftShader->addLight( playerx, playery, 10, Doryen::Color::white );
-    rightShader->addLight( playerx, playery, LIGHT_RADIUS, Doryen::Color::white );
+	torchIndex = leftShader->addLight(playerx, playery, 10, Doryen::Color::white);
+	rightShader->addLight(playerx, playery, LIGHT_RADIUS, Doryen::Color::white);
 
 	// init shaders (must be done after adding lights for photon shader)
 	leftShader->init(map);
 	rightShader->init(map);
 
-    timeSecond = Doryen::Platform::getElapsedMilli( ) / 1000;
+	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
 	
 	if (enableGammaCorrection) {
 		for (int i=0; i< 256; i++) {
@@ -134,17 +136,19 @@ void init() {
 	}
 }
 
-void render() {
+void render(Doryen::Console& console)
+{
 	// compute lights
 	framesCount++;
-    uint32 start = Doryen::Platform::getElapsedMilli( );
+	uint32 start = Doryen::Platform::getElapsedMilli();
 	leftShader->compute();
-    uint32 leftEnd = Doryen::Platform::getElapsedMilli( );
+	uint32 leftEnd = Doryen::Platform::getElapsedMilli();
 	rightShader->compute();
-    uint32 rightEnd = Doryen::Platform::getElapsedMilli( );
-	stdTime+=(leftEnd-start)*0.001f;
-	radTime+=(rightEnd-leftEnd)*0.001f;
-	if ( (int)(start/1000) != timeSecond ) {
+	uint32 rightEnd = Doryen::Platform::getElapsedMilli();
+	stdTime += (leftEnd - start) * 0.001f;
+	radTime += (rightEnd - leftEnd) * 0.001f;
+	if ((int)(start / 1000) != timeSecond)
+	{
 		timeSecond=start/1000;
 		stdLength=stdTime*1000/framesCount;
 		radLength=radTime*1000/framesCount;
@@ -168,18 +172,18 @@ void render() {
 			// hack : for a better look, lights are white and we only use them as 
 			// a lerp coefficient between dark and light colors.
 			// a true light model would multiply the light color with the cell color 
-            Doryen::Color leftLight = leftShader->getLightColor( x, y );
-            Doryen::Color cellLeftCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ leftLight.r ] / 255.0f );
-            Doryen::Console::root->setCharBackground( x, y, cellLeftCol );
+			Doryen::Color leftLight = leftShader->getLightColor(x, y);
+			Doryen::Color cellLeftCol = Doryen::Color::lerp(darkCol, lightCol, gammaLookup[leftLight.r] / 255.0f);
+			console.setCharBackground(x, y, cellLeftCol);
 
 			// render right map
-            Doryen::Color rightLight = rightShader->getLightColor( x, y );
-            Doryen::Color cellRightCol = Doryen::Color::lerp( darkCol, lightCol, gammaLookup[ rightLight.r ] / 255.0f );
-            Doryen::Console::root->setCharBackground( x + CON_WIDTH / 2, y, cellRightCol );
+			Doryen::Color rightLight = rightShader->getLightColor(x, y);
+			Doryen::Color cellRightCol = Doryen::Color::lerp(darkCol, lightCol, gammaLookup[rightLight.r] / 255.0f);
+			console.setCharBackground(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}
-    Doryen::Console::root->print( CON_WIDTH / 4, 0, "Standard lighting %1.2fms", stdLength );
-    Doryen::Console::root->print( 3 * CON_WIDTH / 4, 0, "Photon reactor %1.2fms", radLength );
+	console.print(CON_WIDTH / 4, 0, "Standard lighting %1.2fms", stdLength);
+	console.print(3 * CON_WIDTH / 4, 0, "Photon reactor %1.2fms", radLength);
 
 }
 
@@ -201,27 +205,46 @@ void move(int dx, int dy) {
 	}
 }
 
-int main() {
-    Doryen::Console console = Doryen::Console( );
-    console.initRoot( 80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL );
-    Doryen::Console::root->setAlignment( TCOD_CENTER );
-	TCOD_key_t k = {TCODK_NONE,0};
+int main()
+{
+	Doryen::Console console = Doryen::Console();
+
+	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL);
+	console.setAlignment(TCOD_CENTER);
+
+	TCOD_key_t k = { TCODK_NONE, 0 };
 	TCOD_mouse_t mouse;
 
-	init();
-    while ( !console.isWindowClosed( ))
-    {
-		render();
-        Doryen::Console::flush( );
-        Doryen::Platform::checkForEvent(( TCOD_event_t ) TCOD_EVENT_KEY_PRESS, &k, &mouse );
-		switch(k.vk) {
+	init(console);
+
+	while (!console.isWindowClosed())
+	{
+
+		render(console);
+		Doryen::Console::flush();
+		Doryen::Platform::checkForEvent((TCOD_event_t)TCOD_EVENT_KEY_PRESS, &k, &mouse);
+		switch (k.vk)
+		{
 			// move with arrows or numpad (2468)
-			case TCODK_KP8 : case TCODK_UP : move(0,-1); break;
-			case TCODK_KP2 : case TCODK_DOWN : move(0,1); break;
-			case TCODK_KP4 : case TCODK_LEFT : move(-1,0); break;
-			case TCODK_KP6 : case TCODK_RIGHT : move(1,0); break;
-			case TCODK_CHAR :
-				switch(k.c) {
+		case TCODK_KP8 :
+		case TCODK_UP :
+			move(0, -1);
+			break;
+		case TCODK_KP2 :
+		case TCODK_DOWN :
+			move(0, 1);
+			break;
+		case TCODK_KP4 :
+		case TCODK_LEFT :
+			move(-1, 0);
+			break;
+		case TCODK_KP6 :
+		case TCODK_RIGHT :
+			move(1, 0);
+			break;
+		case TCODK_CHAR :
+			switch (k.c)
+			{
 					// move with vi keys (HJKL) or FPS keys (WSAD or ZQSD)
 					case 'q' : case 'Q' : case 'a' : case 'A' : case 'h': case 'H' : move(-1,0);break;
 					case 's' : case 'S' : case 'j': case 'J' : move(0,1);break;
