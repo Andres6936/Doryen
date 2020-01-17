@@ -512,3 +512,9 @@ const Doryen::Color& Doryen::Renderer::getForegroundOfCharacterInBufferAt(unsign
 {
 	return buffer[index].getForeground();
 }
+
+void Doryen::Renderer::setCharOfCharacterInBufferAt(unsigned index, int _char)
+{
+	buffer[index].setC(_char);
+	buffer[index].setCf(getCharacterInLayoutCharacteres(_char));
+}

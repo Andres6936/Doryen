@@ -725,7 +725,26 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 
 void Doryen::Console::setChar(int x, int y, int c)
 {
-	TCOD_console_set_char(data, x, y, c);
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned offset = x + renderer->getWidth() * y;
+
+		renderer->setCharOfCharacterInBufferAt(offset, c);
+	}
+	else
+	{
+		unsigned offset = x + width * y;
+
+		buffer[offset].setC(c);
+		buffer[offset].setCf(renderer->getCharacterInLayoutCharacteres(c));
+	}
 }
 
 void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag)
