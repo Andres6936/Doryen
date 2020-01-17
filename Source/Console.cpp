@@ -283,7 +283,7 @@ void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen
 
 void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)
 {
-	std::strcpy(TCOD_ctx.font_file, fontFile);
+	renderer->setFontfile(fontFile);
 
 	// if layout not defined, assume ASCII_INCOL
 	if (flags == 0 || flags == TCOD_FONT_TYPE_GREYSCALE)
@@ -291,47 +291,39 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 		flags |= TCOD_FONT_LAYOUT_ASCII_INCOL;
 	}
 
-	TCOD_ctx.font_in_row = ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) != 0);
-	TCOD_ctx.font_greyscale = ((flags & TCOD_FONT_TYPE_GREYSCALE) != 0);
-	TCOD_ctx.font_tcod_layout = ((flags & TCOD_FONT_LAYOUT_TCOD) != 0);
+	renderer->setFontHasRowLayout(((flags & TCOD_FONT_LAYOUT_ASCII_INROW) != 0));
+	renderer->setFontGrayscale((flags & TCOD_FONT_TYPE_GREYSCALE) != 0);
+	renderer->setFontHasDoryenLayout((flags & TCOD_FONT_LAYOUT_TCOD) != 0);
 
 	if (nbCharHoriz > 0)
 	{
-		TCOD_ctx.fontNbCharHoriz = nbCharHoriz;
-		TCOD_ctx.fontNbCharVertic = nbCharVertic;
+		renderer->setFontCharHorizontalSize(nbCharHoriz);
+		renderer->setFontCharVerticalSize(nbCharVertic);
 	}
 	else
 	{
 		if ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) || (flags & TCOD_FONT_LAYOUT_ASCII_INCOL))
 		{
-			TCOD_ctx.fontNbCharHoriz = 16;
-			TCOD_ctx.fontNbCharVertic = 16;
+			renderer->setFontCharHorizontalSize(16);
+			renderer->setFontCharVerticalSize(16);
 		}
 		else
 		{
-			TCOD_ctx.fontNbCharHoriz = 32;
-			TCOD_ctx.fontNbCharVertic = 8;
+			renderer->setFontCharHorizontalSize(32);
+			renderer->setFontCharVerticalSize(8);
 		}
 	}
 
-	if (TCOD_ctx.font_tcod_layout)
+	if (renderer->isFontHasDoryenLayout())
 	{
-		TCOD_ctx.font_in_row = true;
+		renderer->setFontHasRowLayout(true);
 	}
 
-	if (TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic != TCOD_ctx.max_font_chars)
+	if (renderer->getFontCharHorizontalSize() * renderer->getFontCharVerticalSize() != renderer->getMaxFontChars())
 	{
-		TCOD_ctx.max_font_chars = TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic;
+		renderer->setMaxFontChars(renderer->getFontCharHorizontalSize() * renderer->getFontCharVerticalSize());
 
-		delete[] TCOD_ctx.ascii_to_tcod;
-		TCOD_ctx.ascii_to_tcod = new int[TCOD_ctx.max_font_chars];
-
-		for (int i = 0; i < Renderer::layoutAsciiCode.size(); ++i)
-		{
-			TCOD_ctx.ascii_to_tcod[i] = Renderer::layoutAsciiCode[i];
-		}
-
-		//renderer->createTablesOfCharacteres(TCOD_ctx.max_font_chars);
+		renderer->checkTableOfCharacteres();
 	}
 }
 

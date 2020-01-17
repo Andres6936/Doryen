@@ -248,11 +248,21 @@ namespace Doryen
 
 		void setFullscreen(bool _fullscreen);
 
+		void setFontHasDoryenLayout(bool _fontHasDoryenLayout);
+
+		void setFontHasRowLayout(bool _fontHasRowLayout);
+
+		void setFontGrayscale(bool _fontGrayscale);
+
 		void setActualFullscreenWidth(unsigned int width);
 
 		void setActualFullscreenHeigth(unsigned int heigth);
 
 		void setMaxFontChars(unsigned int _maxFontChars);
+
+		void setFontCharHorizontalSize(unsigned int _fontCharHorizontalSize);
+
+		void setFontCharVerticalSize(unsigned int _fontCharVerticalSize);
 
 		void setFontWidth(unsigned int _fontWidth);
 
@@ -293,6 +303,8 @@ namespace Doryen
 		void setColorInCharacterColorAt(unsigned index, const Color& _color);
 
 		void setDirty(const Math::Point2D& _start, Math::Point2D& _end);
+
+		void setFontfile(const std::string& _fontfile);
 
 		// Methods Pures
 

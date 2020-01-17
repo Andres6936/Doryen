@@ -181,11 +181,11 @@ void Doryen::Renderer::checkTableOfCharacteres()
 		characterColor.clear();
 		characterColor.resize(getMaxFontChars());
 
-		layoutCharacteres.clear();
-		layoutCharacteres.resize(getMaxFontChars(), 0);
-
 		colored.clear();
 		colored.resize(getMaxFontChars(), false);
+
+		layoutCharacteres.clear();
+		layoutCharacteres.resize(getMaxFontChars(), 0);
 
 		for (int i = 0; i < layoutCharacteres.size(); ++i)
 		{
@@ -517,4 +517,34 @@ void Doryen::Renderer::setCharOfCharacterInBufferAt(unsigned index, int _char)
 {
 	buffer[index].setC(_char);
 	buffer[index].setCf(getCharacterInLayoutCharacteres(_char));
+}
+
+void Doryen::Renderer::setFontfile(const std::string& _fontfile)
+{
+	fontfile = _fontfile;
+}
+
+void Doryen::Renderer::setFontHasDoryenLayout(bool _fontHasDoryenLayout)
+{
+	fontHasDoryenLayout = _fontHasDoryenLayout;
+}
+
+void Doryen::Renderer::setFontHasRowLayout(bool _fontHasRowLayout)
+{
+	fontHasRowLayout = _fontHasRowLayout;
+}
+
+void Doryen::Renderer::setFontGrayscale(bool _fontGrayscale)
+{
+	fontGrayscale = _fontGrayscale;
+}
+
+void Doryen::Renderer::setFontCharHorizontalSize(unsigned int _fontCharHorizontalSize)
+{
+	fontCharHorizontalSize = _fontCharHorizontalSize;
+}
+
+void Doryen::Renderer::setFontCharVerticalSize(unsigned int _fontCharVerticalSize)
+{
+	fontCharVerticalSize = _fontCharVerticalSize;
 }
