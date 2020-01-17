@@ -375,12 +375,26 @@ bool Doryen::Console::isWindowClosed()
 
 unsigned int Doryen::Console::getWidth() const
 {
-	return renderer->getWidth();
+	if (isConsoleRoot)
+	{
+		return renderer->getWidth();
+	}
+	else
+	{
+		return width;
+	}
 }
 
 unsigned int Doryen::Console::getHeight() const
 {
-	return renderer->getHeigth();
+	if (isConsoleRoot)
+	{
+		return renderer->getHeigth();
+	}
+	else
+	{
+		return height;
+	}
 }
 
 const Doryen::Color& Doryen::Console::getDefaultForeground() const
