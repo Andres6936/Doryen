@@ -805,7 +805,7 @@ void Doryen::SDL::draw()
 					!character.getBackground().equals(previousCharacter.getBackground()) ||
 					!character.getForeground().equals(previousCharacter.getForeground()))
 				{
-					changed = false;
+					changed = true;
 				}
 			}
 
