@@ -54,22 +54,22 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
 	worldGen.updateClouds(elapsed);
 }
 
-Doryen::Color getMapShadedColor(float worldX, float worldY, bool clouds)
+Color getMapShadedColor(float worldX, float worldY, bool clouds)
 {
 	// sun color
-	static Doryen::Color sunCol(255, 255, 200);
+	static Color sunCol(255, 255, 200);
 	float wx = CLAMP(0.0f, worldGen.getWidth() - 1, worldX);
 	float wy = CLAMP(0.0f, worldGen.getHeight() - 1, worldY);
 	// apply cloud shadow
 	float cloudAmount = clouds ? worldGen.getCloudThickness(wx, wy) : 0.0f;
-	Doryen::Color col = worldGen.getInterpolatedColor(worldX, worldY);
+	Color col = worldGen.getInterpolatedColor(worldX, worldY);
 	// apply sun light
 	float intensity = worldGen.getInterpolatedIntensity(wx, wy);
 	intensity = MIN(intensity, 1.5f - cloudAmount);
 	int cr = (int)(intensity * (int)(col.r) * sunCol.r / 255);
 	int cg = (int)(intensity * (int)(col.g) * sunCol.g / 255);
 	int cb = (int)(intensity * (int)(col.b) * sunCol.b / 255);
-	Doryen::Color col2;
+	Color col2;
 	col2.r = CLAMP(0, 255, cr);
 	col2.g = CLAMP(0, 255, cg);
 	col2.b = CLAMP(0, 255, cb);
@@ -82,7 +82,7 @@ Doryen::Color getMapShadedColor(float worldX, float worldY, bool clouds)
 void render(Console& console)
 {
 	// subcell resolution image
-	static Doryen::Image map(WIDTH * 2, HEIGHT * 2);
+	static Image map(WIDTH * 2, HEIGHT * 2);
 	// compute the map image
 	for (int px = 0; px < 2 * WIDTH; px++)
 	{
@@ -94,9 +94,9 @@ void render(Console& console)
 			map.putPixel(px, py, getMapShadedColor(wx, wy, true));
 		}
 	}
-	map.blit2x(Doryen::Console::root, 0, 0);
+	map.blit2x(&console, 0, 0);
 
-	console.setDefaultForeground(Doryen::Color::white);
+	console.setDefaultForeground(Color::white);
 	static const char* biomeNames[] = {
 			"Tundra", "Cold desert", "Grassland", "Boreal forest",
 			"Temperate forest", "Tropical/Montane forest",
@@ -125,10 +125,10 @@ void render(Console& console)
 int main(int argc, char* argv[])
 {
 	// initialize the game window
-	Doryen::Console console = Doryen::Console();
+	Console console = Console();
 	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false, TCOD_RENDERER_SDL);
 
-	Doryen::Platform::setFps(25);
+	Platform::setFps(25);
 	TCODMouse::showCursor(true);
 
 	TCOD_key_t k = { TCODK_NONE, 0 };
@@ -149,36 +149,36 @@ int main(int argc, char* argv[])
 	while (!console.isWindowClosed())
 	{
 		//	read keyboard
-//		TCOD_key_t k=Doryen::Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
+//		TCOD_key_t k=Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
 //		TCOD_mouse_t mouse=TCODMouse::getStatus();
 
-		Doryen::Platform::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE), &k, &mouse);
+		Platform::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE), &k, &mouse);
 
 		if (k.vk == TCODK_PRINTSCREEN)
 		{
 			// screenshot
 			if (!k.pressed)
-			{ Doryen::Platform::saveScreenshot(NULL); }
+			{ Platform::saveScreenshot(NULL); }
 			k.vk = TCODK_NONE;
 		}
 		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
 		{
 			// switch fullscreen
 			if (!k.pressed)
-			{ Doryen::Console::setWindowInFullscreen(); }
+			{ Console::setWindowInFullscreen(); }
 			k.vk = TCODK_NONE;
 		}
 		// update the game
-		update(Doryen::Platform::getLastFrameLength(), k, mouse);
+		update(Platform::getLastFrameLength(), k, mouse);
 
 		// render the game screen
 		render(console);
 		// render libtcod credits
 		if (!endCredits)
-		{ endCredits = Doryen::Console::renderCredits(4, 4, true); }
+		{ endCredits = Console::renderCredits(4, 4, true); }
 
 		// flush updates to screen
-		Doryen::Console::flush();
+		Console::flush();
 	}
 	return 0;
 }
