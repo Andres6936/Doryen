@@ -25,6 +25,8 @@
 */
 #include "Main.hpp"
 
+using namespace Doryen;
+
 #define WIDTH 80
 #define HEIGHT 50
 
@@ -77,7 +79,7 @@ Doryen::Color getMapShadedColor(float worldX, float worldY, bool clouds)
 	return col2;
 }
 
-void render()
+void render(Console& console)
 {
 	// subcell resolution image
 	static Doryen::Image map(WIDTH * 2, HEIGHT * 2);
@@ -94,7 +96,7 @@ void render()
 	}
 	map.blit2x(Doryen::Console::root, 0, 0);
 
-	Doryen::Console::root->setDefaultForeground(Doryen::Color::white);
+	console.setDefaultForeground(Doryen::Color::white);
 	static const char* biomeNames[] = {
 			"Tundra", "Cold desert", "Grassland", "Boreal forest",
 			"Temperate forest", "Tropical/Montane forest",
@@ -104,13 +106,13 @@ void render()
 	if (worldGen.isOnSea(mx, my))
 	{
 		// some information are irrelevant on sea
-		Doryen::Console::root->print(5, 47, "Alt %5dm\n\nMove the mouse to scroll the map",
+		console.print(5, 47, "Alt %5dm\n\nMove the mouse to scroll the map",
 				(int)worldGen.getRealAltitude(mx, my)
 		);
 	}
 	else
 	{
-		Doryen::Console::root->print(5, 47,
+		console.print(5, 47,
 				"Alt %5dm  Prec %3dcm/sq. m/y  Temp %d deg C\nBiome : %s\nMove the mouse to scroll the map",
 				(int)worldGen.getRealAltitude(mx, my),
 				(int)worldGen.getPrecipitations(mx, my),
@@ -125,6 +127,7 @@ int main(int argc, char* argv[])
 	// initialize the game window
 	Doryen::Console console = Doryen::Console();
 	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false, TCOD_RENDERER_SDL);
+
 	Doryen::Platform::setFps(25);
 	TCODMouse::showCursor(true);
 
@@ -169,12 +172,13 @@ int main(int argc, char* argv[])
 		update(Doryen::Platform::getLastFrameLength(), k, mouse);
 
 		// render the game screen
-		render();
+		render(console);
 		// render libtcod credits
 		if (!endCredits)
 		{ endCredits = Doryen::Console::renderCredits(4, 4, true); }
+
 		// flush updates to screen
-		Doryen::Console::root->flush();
+		Doryen::Console::flush();
 	}
 	return 0;
 }
