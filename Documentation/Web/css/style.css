@@ -86,7 +86,7 @@ label.disabled {
   padding-top: 25px;
 }
 
-footer {
+#page-footer {
   padding: 10px 25px 10px 35px;
   background-color: royalblue;
   color: white;
@@ -100,7 +100,7 @@ Style the main navigation links by transforming the bulleted
 lists into a horizontal navigation bar by floating all of the list
 items so they fall on the same line
 */
-footer > ul{
+#page-footer > nav > ul{
   margin: 0;
   padding: 0;
   list-style: none;
@@ -112,7 +112,7 @@ each menu entry. We’re using the shorthand version of the margin rule, which
 reads top, right, bottom, left. Think of it like an analog clock; 12 is
 at the top, 3 is on the right, 6 is at the bottom, and 9 is on the left.
  */
-footer > ul > li{
+#page-footer > nav > ul > li{
   margin: 0 20px 0 0;
   padding: 0;
   display: inline;
@@ -121,7 +121,7 @@ footer > ul > li{
 /*
 Color marked important for avoid the overwrite of style.
  */
-footer > ul > li > a{
+#page-footer > nav > ul > li > a{
   color: #EEEEEE !important;
 }
 

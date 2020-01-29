@@ -3,37 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <title>Doryen Documentation</title>
+
     <script type="text/javascript" src="js/doctcod.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body role="document">
 
 <header>
     <p><span class="title1">Doryen</span><span class="title2">Documentation</span></p>
 </header>
 
-<div class="breadcrumb">
-    <div class="breadcrumbtext"><p>
-        you are here: <a onclick="link('index2.html')">Index</a><br>
-
-    </p></div>
+<div class="filter">
+    <input type="checkbox" id="chk_c" name="chk_c" onchange="enable('c',this.checked)" checked='checked'>
+    <label for='chk_c'> C </label>
+    <input type="checkbox" id="chk_cpp" name="chk_cpp" onchange="enable('cpp',this.checked)" checked='checked'>
+    <label for='chk_cpp'> C++ </label>
+    <input type="checkbox" id="chk_cs" name="chk_cs" onchange="enable('cs',this.checked)" checked='checked'>
+    <label for='chk_cs'> C# </label>
+    <input type="checkbox" id="chk_py" name="chk_py" onchange="enable('py',this.checked)" checked='checked'>
+    <label for='chk_py'> Py </label>
+    <input type="checkbox" id="chk_lua" name="chk_lua" onchange="enable('lua',this.checked)" checked='checked'>
+    <label for='chk_lua'>Lua </label>
 </div>
-<div class="filter"><input type="checkbox" id="chk_c" name="chk_c" onchange="enable('c',this.checked)"
-                           checked='checked'><label for='chk_c'> C </label><input type="checkbox" id="chk_cpp"
-                                                                                  name="chk_cpp"
-                                                                                  onchange="enable('cpp',this.checked)"
-                                                                                  checked='checked'><label
-        for='chk_cpp'> C++ </label><input type="checkbox" id="chk_cs" name="chk_cs" onchange="enable('cs',this.checked)"
-                                          checked='checked'><label for='chk_cs'> C# </label><input type="checkbox"
-                                                                                                   id="chk_py"
-                                                                                                   name="chk_py"
-                                                                                                   onchange="enable('py',this.checked)"
-                                                                                                   checked='checked'><label
-        for='chk_py'> Py </label><input type="checkbox" id="chk_lua" name="chk_lua"
-                                        onchange="enable('lua',this.checked)" checked='checked'><label for='chk_lua'>
-    Lua </label></div>
 
 <section role="main">
     <article class="maintext">
@@ -161,12 +156,14 @@
     </article>
 </section>
 
-<footer role="contentinfo">
+<footer id="page-footer" role="contentinfo">
     <p>Doryen 1.5.1, &copy; 2008, 2009, 2010, 2012 Jice & Mingos</p>
-    <ul>
-        <li><a href="/index.html">Index</a></li>
-        <li><a href="#">Forum</a></li>
-    </ul>
+    <nav role="navigation">
+        <ul>
+            <li><a href="/index.html">Index</a></li>
+            <li><a href="#">Forum</a></li>
+        </ul>
+    </nav>
 </footer>
 
 </body>
