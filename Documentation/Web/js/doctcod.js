@@ -14,8 +14,7 @@ function link(page) {
 	var chk_cs=document.getElementById("chk_cs");
 	var chk_py=document.getElementById("chk_py");
 	var chk_lua=document.getElementById("chk_lua");
-	var url=page+'?c='+chk_c.checked+'&cpp='+chk_cpp.checked+'&cs='+chk_cs.checked+'&py='+chk_py.checked+'&lua='+chk_lua.checked;
-	document.location=url;
+	document.location=page + '?c=' + chk_c.checked + '&cpp=' + chk_cpp.checked + '&cs=' + chk_cs.checked + '&py=' + chk_py.checked + '&lua=' + chk_lua.checked;
 }
 
 function getParam(name) {

@@ -52,29 +52,13 @@ p {
 }
 
 /* header region */
-div.header {
+header {
   margin: 50px 25px 25px 35px;
 }
 
 /* breadcrumb */
 div.breadcrumb {
   height: auto;
-  background-image: url('../img/breadcrumb.png');
-	background-repeat: repeat-x;
-	background-color: #194675;
-}
-
-/* main contents - with a gradient */
-div.main {
-  position: relative;
-  background-image: url('../img/gradient.png');
-	background-repeat: repeat-x;
-	width:100%;
-
-}
-
-/* footer */
-div.footer {
   background-image: url('../img/breadcrumb.png');
 	background-repeat: repeat-x;
 	background-color: #194675;
@@ -102,11 +86,43 @@ label.disabled {
   padding-top: 25px;
 }
 
-div.footer .footertext {
+footer {
   padding: 10px 25px 10px 35px;
-  color: #b1ce91;
+  background-color: royalblue;
+  color: white;
   font-size: 12px;
+  font-weight: bolder;
   text-align: center;
+}
+
+/*
+Style the main navigation links by transforming the bulleted
+lists into a horizontal navigation bar by floating all of the list
+items so they fall on the same line
+*/
+footer > ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+Add a little margin to the right side of each <li> so we get space between
+each menu entry. We’re using the shorthand version of the margin rule, which
+reads top, right, bottom, left. Think of it like an analog clock; 12 is
+at the top, 3 is on the right, 6 is at the bottom, and 9 is on the left.
+ */
+footer > ul > li{
+  margin: 0 20px 0 0;
+  padding: 0;
+  display: inline;
+}
+
+/*
+Color marked important for avoid the overwrite of style.
+ */
+footer > ul > li > a{
+  color: #EEEEEE !important;
 }
 
 /***********
@@ -147,7 +163,7 @@ div.footer .footertext {
  ***************/ 
 
 /* logo margin - to get rid of an unwanted space after the header div */
-.header p {
+header p {
   line-height: 0;
   margin: 0;
   padding: 0;
@@ -240,17 +256,6 @@ a:hover {
   color: #4e7195;
   text-decoration: underline;
   font-weight: bold;
-}
-
-.footertext a,
-.footertext a:active,
-.footertext a:visited,
-.footertext a:link {
-  color: #b1ce91;
-}
-
-.footertext a:hover {
-  color: #7fcb26;
 }
 
 /* code */
@@ -397,123 +402,72 @@ hr {
   color: teal;
 }
 
-/************************************ 
- * TABLE OF CONTENTS UNIQUE STYLING *
- ************************************/
- 
-div.toc,
-#toc {
+/* TABLE OF CONTENTS UNIQUE STYLING */
+
+/*
+The title of table of contents be must have a different styling.
+Background color is important for forced the overwrite of style of table.
+*/
+.table-contents-title{
+  background-color: royalblue !important;
+  color: white;
+  text-align: center;
+  font-weight: bolder;
+}
+
+#table-contents {
   font-size: 11px;
 }
 
-div.toc ul,
-#toc ul {
+#table-contents > ul{
   padding: 0;
   margin: 0;
 }
 
-div.toc li,
-#toc li {
+/*
+List style to none for deleted the bullet lists.
+Position relative, show the elements inside of it.
+Margin top to -1px, for avoid show the pixel extra caused for the border style.
+ */
+#table-contents ul > li{
   list-style: none;
   position: relative;
-  display: block;
-  width: 248px;
-  background-color: #b1ce91;
-  /* radius - not understood by IE8 and Opera 10.10, but still looks decent */
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px; /* correct CSS3 syntax, supported only by Opera 10.50+ and IE9 */
-  border: 1px solid #194675;
+  width: 250px;
+  background-color: white;
+  border: 1px solid #CCC;
   padding: 3px 5px;
   margin-top: -1px;
 }
 
-#toc li { width: 200px; } /* redefinition - should take precedence */
-
-/* in the sidebar, the elements will have a shadow */
-#sidebar div.toc li {
-  -moz-box-shadow: 3px 1px 4px rgba(0,0,0,.25);
-  -webkit-box-shadow: 3px 1px 4px rgba(0,0,0,.25);
-  box-shadow: 3px 1px 4px rgba(0,0,0,.25);
-}
-
-div.toc li:hover,
-#toc li:hover {
-  background-color: #7fcb26;
-}
-
-div.toc li ul,
-#toc li ul {
+/*
+Display none, hidden the elements of ul that find inside of li.
+Position absolute, avoid that the elements show overflow.
+Left to 100% and padding to 0, cause that the elements be show right of all.
+Top to 0, for align elements of way correct.
+ */
+#table-contents li > ul{
   display: none;
   position: absolute;
   left: 100%;
   top: 0;
   padding: 0;
-  margin: 0;
 }
 
-div.toc li:hover > ul,
-#toc li:hover > ul {
+#table-contents ul li > a{
+  color: black;
+}
+
+#table-contents li:hover{
+  background-color: royalblue;
+}
+
+/*
+Needed for show correct the elements inside of li.
+ */
+#table-contents li:hover > ul{
   display: block;
 }
 
-div.toc li ul li,
-#toc li ul li {
-  _display: inline; /* hack for IE6 */
-}
-
-/* SUBSUB Menu */
-
-div.toc li ul li ul,
-#toc li ul li ul {
-  display: none;
-}
-
-div.toc li ul li:hover > ul,
-#toc li ul li:hover > ul {
-  display: block;
-  left: 100%;
-  top: 0;
-}
-
-/* SUBSUBSUB Menu */
-
-div.toc li ul li ul li ul,
-#toc li ul li ul li ul {
-  display: none;
-}
-
-div.toc li ul li ul li:hover ul,
-#toc li ul li ul li:hover ul {
-  left: 100%;
-  top: 0;
-}
-
-/* list items with children will be marked as such */
-
-div.toc li.haschildren {
-  background-image: url('../img/haschildren.png');
-  background-position: 241px 2px;
-  background-repeat: no-repeat;
-}
-
-#toc li.haschildren {
-  background-image: url('../img/haschildren.png');
-  background-position: 193px 2px;
-  background-repeat: no-repeat;
-}
-
-div.toc li.haschildren a,
-#toc li.haschildren a {
-  padding-right: 28px;
-}
-
-/* category names have a different styling */
-
-div.toc li.cat, div.toc li.cat:hover,
-#toc li.cat, #toc li.cat:hover {
-  background-color: #194675;
-  color: #7fcb26;
-  text-align: center;
-  font-weight: bold;
+#table-contents li:hover > a{
+  color: white;
 }
