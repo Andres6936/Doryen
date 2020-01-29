@@ -4,70 +4,70 @@
 /******************************************************************/
 
 @font-face {
-	font-family: 'DroidSans';
-	font-weight: normal;
-	src: url('../font/DroidSans.eot');
-	src: local('Droid Sans Regular'), local('DroidSans'), url('../font/DroidSans.ttf') format('truetype');
+    font-family: 'DroidSans';
+    font-weight: normal;
+    src: url('../font/DroidSans.eot');
+    src: local('Droid Sans Regular'), local('DroidSans'), url('../font/DroidSans.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'DroidSans';
-	font-weight: bold;
-	src: url('../font/DroidSans-Bold.eot');
-	src: local('Droid Sans Bold'), local('DroidSans-Bold'), url('../font/DroidSans-Bold.ttf') format('truetype');
+    font-family: 'DroidSans';
+    font-weight: bold;
+    src: url('../font/DroidSans-Bold.eot');
+    src: local('Droid Sans Bold'), local('DroidSans-Bold'), url('../font/DroidSans-Bold.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'BitstreamVeraSansMono';
-	font-weight: normal;
-	src: url('../font/VeraMono.eot');
-	src: local('Bitstream Vera Sans Mono Roman'), local('BitstreamVeraSansMono-Roman'), url('../font/VeraMono.ttf') format('truetype');
+    font-family: 'BitstreamVeraSansMono';
+    font-weight: normal;
+    src: url('../font/VeraMono.eot');
+    src: local('Bitstream Vera Sans Mono Roman'), local('BitstreamVeraSansMono-Roman'), url('../font/VeraMono.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'BitstreamVeraSansMono';
-	font-weight: bold;
-	src: url('../font/VeraMono-Bold.eot');
-	src: local('Bitstream Vera Sans Mono Bold'), local('BitstreamVeraSansMono-Bold'), url('../font/VeraMono-Bold.ttf') format('truetype');
+    font-family: 'BitstreamVeraSansMono';
+    font-weight: bold;
+    src: url('../font/VeraMono-Bold.eot');
+    src: local('Bitstream Vera Sans Mono Bold'), local('BitstreamVeraSansMono-Bold'), url('../font/VeraMono-Bold.ttf') format('truetype');
 }
 
 /* Main Regions */
 
 body {
-  background-color: white;
-  font-family: DroidSans, verdana, sans-serif;
-  font-size: 14px;
-  color: black;
-  margin: 0;
-  height: 100%;
+    background-color: white;
+    font-family: DroidSans, verdana, sans-serif;
+    font-size: 14px;
+    color: black;
+    margin: 0;
+    height: 100%;
 }
 
 p {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  line-height: 150%;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 150%;
 }
 
 /* header region */
 #page-header {
-  margin: 50px 25px 25px 35px;
-  color: royalblue;
-  font-size: xx-large;
-  padding: 0;
+    margin: 50px 25px 25px 35px;
+    color: royalblue;
+    font-size: xx-large;
+    padding: 0;
 }
 
 section > article {
-  margin: 0 35px;
-  padding: 25px 0;
+    margin: 0 35px;
+    padding: 25px 0;
 }
 
 #page-footer {
-  padding: 10px 25px 10px 35px;
-  background-color: royalblue;
-  color: white;
-  font-size: 12px;
-  font-weight: bolder;
-  text-align: center;
+    padding: 10px 25px 10px 35px;
+    background-color: royalblue;
+    color: white;
+    font-size: 12px;
+    font-weight: bolder;
+    text-align: center;
 }
 
 /*
@@ -75,10 +75,10 @@ Style the main navigation links by transforming the bulleted
 lists into a horizontal navigation bar by floating all of the list
 items so they fall on the same line
 */
-#page-footer > nav > ul{
-  margin: 0;
-  padding: 0;
-  list-style: none;
+#page-footer > nav > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 /*
@@ -87,159 +87,176 @@ each menu entry. We’re using the shorthand version of the margin rule, which
 reads top, right, bottom, left. Think of it like an analog clock; 12 is
 at the top, 3 is on the right, 6 is at the bottom, and 9 is on the left.
  */
-#page-footer > nav > ul > li{
-  margin: 0 20px 0 0;
-  padding: 0;
-  display: inline;
+#page-footer > nav > ul > li {
+    margin: 0 20px 0 0;
+    padding: 0;
+    display: inline;
 }
 
 /*
 Color marked important for avoid the overwrite of style.
  */
-#page-footer > nav > ul > li > a{
-  color: #EEEEEE !important;
+#page-footer > nav > ul > li > a {
+    color: #EEEEEE !important;
 }
 
 /***************
  * text styles *
- ***************/ 
+ ***************/
 
 /* logo margin - to get rid of an unwanted space after the header div */
 header p {
-  line-height: 0;
-  margin: 0;
-  padding: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* main region text */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
-  margin-top: 1em;
-  margin-bottom: 1em;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
-h1 { font-size: 24px; }
-h2 { font-size: 22px; }
-h3 { font-size: 20px; }
-h4 { font-size: 18px; }
-h5 { font-size: 16px; }
-h6 { font-size: 14px; }
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+h6 {
+    font-size: 14px;
+}
 
 a, a:active, a:visited, a:link {
-  color: #194675;
-  text-decoration: none;
-  font-weight: bold;
-  cursor:pointer;
+    color: #194675;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 a:hover {
-  color: #4e7195;
-  text-decoration: underline;
-  font-weight: bold;
+    color: #4e7195;
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 /* code */
 div.code {
-  background-color: #b1ce91;
-  margin: 10px 25px;
-  font-family: BitstreamVeraSansMono, monospace;
-  color: #444444;
-  border-color: #194675;
-  border-width: 1px;
-  border-style: solid;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+    background-color: #b1ce91;
+    margin: 10px 25px;
+    font-family: BitstreamVeraSansMono, monospace;
+    color: #444444;
+    border-color: #194675;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 
 div.code p {
-  padding: 5px 20px;
+    padding: 5px 20px;
 }
 
 div.code p.c {
-  padding: 15px 5px 5px 60px;
-	background-image: url('../img/c.png');
-	background-position: 15px 5px;
-	background-repeat: no-repeat;
+    padding: 15px 5px 5px 60px;
+    background-image: url('../img/c.png');
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
 }
 
 div.code p.cpp {
-  padding: 15px 5px 5px 60px;
-	background-image: url('../img/cpp.png');
-	background-position: 15px 5px;
-	background-repeat: no-repeat;
+    padding: 15px 5px 5px 60px;
+    background-image: url('../img/cpp.png');
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
 }
 
 div.code p.cs {
-  padding: 15px 5px 5px 60px;
-	background-image: url('../img/cs.png');
-	background-position: 15px 5px;
-	background-repeat: no-repeat;
+    padding: 15px 5px 5px 60px;
+    background-image: url('../img/cs.png');
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
 }
 
 div.code p.py {
-  padding: 15px 5px 10px 60px;
-	background-image: url('../img/py.png');
-	background-position: 15px 5px;
-	background-repeat: no-repeat;
+    padding: 15px 5px 10px 60px;
+    background-image: url('../img/py.png');
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
 }
 
 div.code p.lua {
-  padding: 15px 5px 10px 60px;
-	background-image: url('../img/lua.png');
-	background-position: 15px 5px;
-	background-repeat: no-repeat;
+    padding: 15px 5px 10px 60px;
+    background-image: url('../img/lua.png');
+    background-position: 15px 5px;
+    background-repeat: no-repeat;
 }
 
 /* main region tables */
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 table td, table th {
-  padding: 5px;
+    padding: 5px;
 }
 
 table tr.hilite {
-  background-color: #b1ce91;
+    background-color: #b1ce91;
 }
 
 table.none {
-  border: 0;
+    border: 0;
 }
 
 table.param td {
-  border: 1px solid #000000;
+    border: 1px solid #000000;
 }
 
 table th {
-  background-color: #194675;
-  color: #7fcb26;
-  border: 1px solid #000000;
+    background-color: #194675;
+    color: #7fcb26;
+    border: 1px solid #000000;
 }
 
 /* color table specific stuff */
 
 table.color td {
-  width:100px;
-  text-align: center;
+    width: 100px;
+    text-align: center;
 }
 
 /* horizontal rule */
 
 hr {
-  background-color: #CCCCCC; /* non IE */
-  height: 6px;
-  width: 90%;
+    background-color: #CCCCCC; /* non IE */
+    height: 6px;
+    width: 90%;
     border-radius: 3px;
     border-color: white;
 }
 
 #sidebar hr {
-  background-color: #194675; /* non IE */
-  color: #194675; /* IE */
-  border: 2px solid  #7fcb26;
+    background-color: #194675; /* non IE */
+    color: #194675; /* IE */
+    border: 2px solid #7fcb26;
 }
 
 /***************
@@ -247,36 +264,36 @@ hr {
  ***************/
 
 .code-tcod {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .code-keyword {
-  font-weight: bold;
-  color: #0000a0;
+    font-weight: bold;
+    color: #0000a0;
 }
 
 .code-value {
-  color: fuchsia;
+    color: fuchsia;
 }
 
 .code-symbol {
-  color: red;
+    color: red;
 }
 
 .code-string {
-  color: blue;
+    color: blue;
 }
 
 .code-character {
-  color: #e0a020;
+    color: #e0a020;
 }
 
 .code-comment {
-  color: gray;
+    color: gray;
 }
 
 .code-preprocessor {
-  color: teal;
+    color: teal;
 }
 
 /* TABLE OF CONTENTS UNIQUE STYLING */
@@ -285,20 +302,20 @@ hr {
 The title of table of contents be must have a different styling.
 Background color is important for forced the overwrite of style of table.
 */
-.table-contents-title{
-  background-color: royalblue !important;
-  color: white;
-  text-align: center;
-  font-weight: bolder;
+.table-contents-title {
+    background-color: royalblue !important;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
 }
 
 #table-contents {
-  font-size: 11px;
+    font-size: 11px;
 }
 
-#table-contents > ul{
-  padding: 0;
-  margin: 0;
+#table-contents > ul {
+    padding: 0;
+    margin: 0;
 }
 
 /*
@@ -306,14 +323,14 @@ List style to none for deleted the bullet lists.
 Position relative, show the elements inside of it.
 Margin top to -1px, for avoid show the pixel extra caused for the border style.
  */
-#table-contents ul > li{
-  list-style: none;
-  position: relative;
-  width: 250px;
-  background-color: white;
-  border: 1px solid #CCC;
-  padding: 3px 5px;
-  margin-top: -1px;
+#table-contents ul > li {
+    list-style: none;
+    position: relative;
+    width: 250px;
+    background-color: white;
+    border: 1px solid #CCC;
+    padding: 3px 5px;
+    margin-top: -1px;
 }
 
 /*
@@ -322,29 +339,29 @@ Position absolute, avoid that the elements show overflow.
 Left to 100% and padding to 0, cause that the elements be show right of all.
 Top to 0, for align elements of way correct.
  */
-#table-contents li > ul{
-  display: none;
-  position: absolute;
-  left: 100%;
-  top: 0;
-  padding: 0;
+#table-contents li > ul {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    padding: 0;
 }
 
-#table-contents ul li > a{
-  color: black;
+#table-contents ul li > a {
+    color: black;
 }
 
-#table-contents li:hover{
-  background-color: royalblue;
+#table-contents li:hover {
+    background-color: royalblue;
 }
 
 /*
 Needed for show correct the elements inside of li.
  */
-#table-contents li:hover > ul{
-  display: block;
+#table-contents li:hover > ul {
+    display: block;
 }
 
-#table-contents li:hover > a{
-  color: white;
+#table-contents li:hover > a {
+    color: white;
 }
