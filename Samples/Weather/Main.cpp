@@ -27,6 +27,8 @@
 #include <cstdio>
 #include "Main.hpp"
 
+using namespace Doryen;
+
 TCODNoise noise1d(1);
 
 TCODNoise noise2d(2);
@@ -133,16 +135,16 @@ void render()
 		}
 	}
 	Doryen::Console::root->setDefaultForeground(Doryen::Color::white);
-	Doryen::Console::root->print(5, CON_H - 12, "TCOD's Weather system :\n"
-												"- wind with varying speed and direction\n"
-												"- rain\n"
-												"- lightnings\n"
-												"- day/night cycle\n"
-												"Day time : %s\n"
-												"Weather : %s\n\n"
-												"Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
-												"Accelerate time with ENTER", getDaytime(), weather.getWeather(),
-			weather.getIndicatorDelta());
+	Doryen::Console::root->print(5, CON_H - 12, format("TCOD's Weather system :\n"
+													   "- wind with varying speed and direction\n"
+													   "- rain\n"
+													   "- lightnings\n"
+													   "- day/night cycle\n"
+													   "Day time : {}\n"
+													   "Weather : {}\n\n"
+													   "Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
+													   "Accelerate time with ENTER", getDaytime(), weather.getWeather(),
+			weather.getIndicatorDelta()));
 }
 
 int main(int argc, char* argv[])
