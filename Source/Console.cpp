@@ -852,7 +852,7 @@ void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
 	// TODO: Print name in center of frame
 }
 
-void Doryen::Console::print(int x, int y, const char* fmt, ...)
+void Doryen::Console::print(int x, int y, const std::string& fmt)
 {
 //	va_list ap;
 //	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
@@ -862,6 +862,11 @@ void Doryen::Console::print(int x, int y, const char* fmt, ...)
 //	TCOD_console_print_internal(data, x, y, 0, 0, dat->bkgnd_flag, dat->alignment,
 //			TCOD_console_vsprint(fmt, ap), false, false);
 //	va_end(ap);
+
+	for (int i = 0; i < fmt.size(); ++i)
+	{
+		putChar(x + i, y, fmt[i]);
+	}
 }
 
 void Doryen::Console::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt, ...)

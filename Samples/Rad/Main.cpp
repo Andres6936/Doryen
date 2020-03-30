@@ -213,8 +213,8 @@ void render(Doryen::Console& console)
 			console.setCharBackground(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}
-	console.print(CON_WIDTH / 4, 0, "Standard lighting %1.2fms", stdLength);
-	console.print(3 * CON_WIDTH / 4, 0, "Photon reactor %1.2fms", radLength);
+	console.print(1, 0, format("Standard lighting {.2f}fms", stdLength));
+	console.print((CON_WIDTH / 2) + 1, 0, format("Photon reactor {.2f}fms", radLength));
 
 }
 

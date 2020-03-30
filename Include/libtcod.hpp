@@ -42,6 +42,7 @@
 #include "zip.hpp"
 #include "namegen.hpp"
 
+#include "Format/Flossy.hpp"
 #include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
