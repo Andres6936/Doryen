@@ -37,6 +37,15 @@ namespace Doryen
 
 		void readImagePNG(const std::string& filename);
 
+		/**
+		 * Verify that the parameters are greater or equal to 0
+		 * and lesser that width mipmaps.
+		 * @param _x Range between [0, width mipmaps)
+		 * @param _y Range between [0, height mipmaps)
+		 * @return True if the invariant are satisfied
+		 */
+		bool isInvariantSatisfied(int _x, int _y) const;
+
 	public:
 
 		ImageData() = default;
@@ -60,6 +69,8 @@ namespace Doryen
 		SDL_Surface* getRepresentation() const;
 
 		Size getSize() const;
+
+		Color getPixel(int x, int y) const;
 	};
 }
 

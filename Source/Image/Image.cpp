@@ -78,8 +78,7 @@ Doryen::Image::~Image()
 
 Doryen::Color Doryen::Image::getPixel(int x, int y) const
 {
-	TCOD_color_t c = TCOD_image_get_pixel(data, x, y);
-	return Doryen::Color(c.r, c.g, c.b);
+	return imageData.getPixel(x, y);
 }
 
 int Doryen::Image::getAlpha(int x, int y) const

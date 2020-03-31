@@ -17,9 +17,15 @@ namespace Doryen
 		float fwidth = 0.0f;
 		float fheight = 0.0f;
 
-		std::vector <Color> buf;
+		std::vector<Color> buf;
 
 		bool dirty = false;
+
+		// Methods
+
+		Color getColorAt(int _x, int _y) const;
+
+		// Static Methods
 
 		static unsigned int getLevels(
 				unsigned int width,

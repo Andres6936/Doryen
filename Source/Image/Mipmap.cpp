@@ -18,3 +18,8 @@ unsigned int Doryen::Mipmap::getLevels(
 
 	return levels;
 }
+
+Doryen::Color Doryen::Mipmap::getColorAt(int _x, int _y) const
+{
+	return buf[_x + _y * width];
+}

@@ -353,3 +353,67 @@ Doryen::ImageData::~ImageData()
 {
 	SDL_FreeSurface((SDL_Surface*)representation);
 }
+
+Doryen::Color Doryen::ImageData::getPixel(int x, int y) const
+{
+	if (representation == nullptr)
+	{
+		if (isInvariantSatisfied(x, y))
+		{
+			return mipmaps[0].getColorAt(x, y);
+		}
+		else
+		{
+			return Color::black;
+		}
+	}
+	else
+	{
+		// Verify invariant
+		if (x <= 0 or y <= 0 or
+			x >= representation->w or
+			y >= representation->h)
+		{
+			// Invariant not satisfied
+			return Color::black;
+		}
+
+		Uint8 bytesPerPixel = representation->format->BytesPerPixel;
+		// The address to the pixel we want to retrieve
+		Uint8* pixel = (Uint8*)representation->pixels + y *
+														representation->pitch + x * bytesPerPixel;
+
+		if (bytesPerPixel == 1)
+		{
+			if (representation->format->palette not_eq nullptr)
+			{
+				SDL_Color color = representation->format->palette->colors[(*pixel)];
+
+				return Color(color.r, color.g, color.b);
+			}
+			else
+			{
+				return Color::black;
+			}
+		}
+		else
+		{
+			Color _color;
+
+			_color.r = *((pixel) + representation->format->Rshift / 8);
+			_color.g = *((pixel) + representation->format->Gshift / 8);
+			_color.b = *((pixel) + representation->format->Bshift / 8);
+
+			return _color;
+		}
+	}
+}
+
+bool Doryen::ImageData::isInvariantSatisfied(int _x, int _y) const
+{
+	if (mipmaps.empty()) return false;
+
+	// Else, evaluate the condition
+	return _x >= 0 and _x < mipmaps[0].width and
+		   _y >= 0 and _y < mipmaps[0].height;
+}
