@@ -325,3 +325,26 @@ SDL_Surface* Doryen::ImageData::getRepresentation() const
 {
 	return representation;
 }
+
+Size Doryen::ImageData::getSize() const
+{
+	if (representation == nullptr)
+	{
+		if (mipmaps.empty())
+		{
+			return Size(0, 0);
+		}
+		else
+		{
+			Size size;
+			size.w = (int)mipmaps[0].width;
+			size.h = (int)mipmaps[0].height;
+
+			return size;
+		}
+	}
+	else
+	{
+		return Size(representation->w, representation->h);
+	}
+}

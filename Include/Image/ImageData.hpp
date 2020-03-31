@@ -4,13 +4,20 @@
 #include <vector>
 #include <string>
 #include <SDL/SDL.h>
-#include <Color.hpp>
-#include <Console.hpp>
 
+#include "Color.hpp"
+#include "Console.hpp"
 #include "Image/Mipmap.hpp"
+#include "Geometry/Size.hpp"
 
 namespace Doryen
 {
+
+	/**
+	 * Represent two things, a struct that content an representation
+	 * of an image or a vector that content a representation of pixels
+	 * that represent an image.
+	 */
 	class ImageData
 	{
 
@@ -18,11 +25,11 @@ namespace Doryen
 
 		SDL_Surface* representation = nullptr;
 
-		std::vector <Mipmap> mipmaps;
+		std::vector<Mipmap> mipmaps;
 
 		Color key_color;
 
-		bool has_key_color;
+		bool has_key_color = false;
 
 		// Methods
 
@@ -49,6 +56,8 @@ namespace Doryen
 		// Getter
 
 		SDL_Surface* getRepresentation() const;
+
+		Size getSize() const;
 	};
 }
 

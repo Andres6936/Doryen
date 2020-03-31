@@ -65,6 +65,11 @@ void Doryen::Image::getSize(int* w, int* h) const
 	TCOD_image_get_size(data, w, h);
 }
 
+Size Doryen::Image::getSize() const
+{
+	return imageData.getSize();
+}
+
 Doryen::Image::~Image()
 {
 	if (deleteData)
@@ -149,11 +154,11 @@ void Doryen::Image::vflip()
 	TCOD_image_vflip(data);
 }
 
+
 void Doryen::Image::scale(int neww, int newh)
 {
 	TCOD_image_scale(data, neww, newh);
 }
-
 
 void Doryen::Image::blit2x(Doryen::Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
 {

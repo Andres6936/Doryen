@@ -140,6 +140,8 @@ namespace Doryen
 		*/
 		void getSize(int* w, int* h) const;
 
+		Size getSize() const;
+
 		/**
 		@PageName image_read
 		@FuncTitle Getting the color of a pixel
