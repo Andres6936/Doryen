@@ -28,6 +28,7 @@
 #include "libtcod.hpp"
 #include "libtcod.h"
 
+#include "Image/Image.hpp"
 #include "Image/ImageData.hpp"
 
 Doryen::Image::Image(int width, int height) : deleteData(true)
