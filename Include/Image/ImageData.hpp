@@ -43,6 +43,8 @@ namespace Doryen
 
 		ImageData(unsigned int width, unsigned int heigth);
 
+		virtual ~ImageData();
+
 		explicit ImageData(const std::string& filename);
 
 		static bool isTypeImageBMP(const std::string& filename);

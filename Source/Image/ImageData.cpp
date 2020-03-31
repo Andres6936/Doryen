@@ -348,3 +348,8 @@ Size Doryen::ImageData::getSize() const
 		return Size(representation->w, representation->h);
 	}
 }
+
+Doryen::ImageData::~ImageData()
+{
+	SDL_FreeSurface((SDL_Surface*)representation);
+}
