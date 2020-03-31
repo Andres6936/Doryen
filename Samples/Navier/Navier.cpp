@@ -29,6 +29,8 @@
 
 #include "Navier.hpp"
 
+using namespace Doryen;
+
 // gas simulation
 // based on Jos Stam, "Real-Time Fluid Dynamics for Games". Proceedings of the Game Developer Conference, March 2003.
 // http://www.dgp.toronto.edu/people/stam/reality/Research/pub.html
@@ -53,7 +55,7 @@ float u[SIZE], v[SIZE], u_prev[SIZE], v_prev[SIZE];
 // density maps (current and previous)
 float dens[SIZE], dens_prev[SIZE];
 
-Doryen::Image img(WIDTHx2, HEIGHTx2);
+Image img(WIDTHx2, HEIGHTx2);
 
 float visc = 1E-6f;
 
@@ -249,22 +251,22 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, TCOD_key_t k, TCOD
 	stepDelay -= elapsed;
 	if (stepDelay < 0.0f)
 	{
-		if (Doryen::Console::isKeyPressed(TCODK_UP) && playery > 0)
+		if (Console::isKeyPressed(TCODK_UP) && playery > 0)
 		{
 			playery--;
 			vy -= force;
 		}
-		if (Doryen::Console::isKeyPressed(TCODK_DOWN) && playery < N / 2 - 1)
+		if (Console::isKeyPressed(TCODK_DOWN) && playery < N / 2 - 1)
 		{
 			playery++;
 			vx += force;
 		}
-		if (Doryen::Console::isKeyPressed(TCODK_LEFT) && playerx > 0)
+		if (Console::isKeyPressed(TCODK_LEFT) && playerx > 0)
 		{
 			playerx--;
 			vx -= force;
 		}
-		if (Doryen::Console::isKeyPressed(TCODK_RIGHT) && playerx < N / 2 - 1)
+		if (Console::isKeyPressed(TCODK_RIGHT) && playerx < N / 2 - 1)
 		{
 			playerx++;
 			vx += force;
@@ -316,30 +318,30 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
 
 void render()
 {
-	static Doryen::Color deepBlue = Doryen::Color::darkestFlame;
-	static Doryen::Color highBlue = Doryen::Color::lightestYellow;
+	static Color deepBlue = Color::darkestFlame;
+	static Color highBlue = Color::lightestYellow;
 	for (int x = 0; x <= N; x++)
 	{
 		for (int y = 0; y <= N; y++)
 		{
 			float coef = (float)(dens[IX(x, y)] / 128.0f);
 			coef = CLAMP(0.0f, 1.0f, coef);
-			img.putPixel(x, y, Doryen::Color::lerp(deepBlue, highBlue, coef));
+			img.putPixel(x, y, Color::lerp(deepBlue, highBlue, coef));
 		}
 	}
-	img.blit2x(Doryen::Console::root, 0, 0);
-	Doryen::Console::root->print(2, HEIGHT - 2, "%4d fps", Doryen::Platform::getFps());
-	Doryen::Console::root->setDefaultForeground(Doryen::Color::white);
-	Doryen::Console::root->putChar(playerx, playery, '@');
+	img.blit2x(Console::root, 0, 0);
+	Console::root->print(2, HEIGHT - 2, format("{4d} fps", Platform::getFps()));
+	Console::root->setDefaultForeground(Color::white);
+	Console::root->putChar(playerx, playery, '@');
 }
 
 int main(int argc, char* argv[])
 {
 	// Initialize the game window
-	Doryen::Console console = Doryen::Console();
+	Console console = Console();
 	console.initRoot(WIDTH, HEIGHT, "pyromancer flame spell v 0.1.0", false, TCOD_RENDERER_SDL);
 
-	Doryen::Platform::setFps(25);
+	Platform::setFps(25);
 	TCODMouse::showCursor(true);
 
 	bool endCredits = false;
@@ -350,7 +352,7 @@ int main(int argc, char* argv[])
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;
 
-		Doryen::Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
+		Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
 /*
 		v_prev[IX(N/2,0)] = 1.0f;
 		u_prev[IX(N/3,N/3)]=1.0f;
@@ -360,27 +362,27 @@ int main(int argc, char* argv[])
 		{
 			// screenshot
 			if (!k.pressed)
-			{ Doryen::Platform::saveScreenshot(nullptr); }
+			{ Platform::saveScreenshot(nullptr); }
 			k.vk = TCODK_NONE;
 		}
 		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
 		{
 			// switch fullscreen
 			if (!k.pressed)
-			{ Doryen::Console::setWindowInFullscreen(); }
+			{ Console::setWindowInFullscreen(); }
 			k.vk = TCODK_NONE;
 		}
 		// update the game
-		update(Doryen::Platform::getLastFrameLength(), k, mouse);
+		update(Platform::getLastFrameLength(), k, mouse);
 
 		// render the game screen
 		render();
-		Doryen::Console::root->print(5, 49, "Arrows to move, left mouse button to cast");
+		Console::root->print(5, 49, "Arrows to move, left mouse button to cast");
 		// render libtcod credits
 		if (!endCredits)
-		{ endCredits = Doryen::Console::renderCredits(4, 4, true); }
+		{ endCredits = Console::renderCredits(4, 4, true); }
 		// flush updates to screen
-		Doryen::Console::root->flush();
+		Console::root->flush();
 	}
 	return 0;
 }
