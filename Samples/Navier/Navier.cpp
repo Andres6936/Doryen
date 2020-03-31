@@ -25,8 +25,6 @@
 */
 
 #include <cmath>
-#include <iostream>
-
 #include "Navier.hpp"
 
 using namespace Doryen;
