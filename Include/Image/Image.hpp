@@ -38,6 +38,10 @@ namespace Doryen
 	class Image
 	{
 
+	private:
+
+		using Point = Geometry::Point2D<int>;
+
 	public:
 
 		ImageData imageData;
@@ -383,6 +387,9 @@ namespace Doryen
 		*/
 		void blit(Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET,
 				float scalex = 1.0f, float scaley = 1.0f, float angle = 0.0f) const;
+
+		void blit(Console& _console, const Point& _center, BackgroundFlag _flag,
+				float scaleX, float scaleY, float angle) const;
 
 		/**
 		@PageName image_blit

@@ -445,3 +445,13 @@ bool Doryen::ImageData::isCoordinateInsideRange(int _x, int _y) const
 		   _x < representation->w and
 		   _y < representation->h;
 }
+
+bool Doryen::ImageData::isHasKeyColor() const
+{
+	return hasKeyColor;
+}
+
+const Doryen::Color& Doryen::ImageData::getKeyColor() const
+{
+	return keyColor;
+}

@@ -27,9 +27,9 @@ namespace Doryen
 
 		std::vector<Mipmap> mipmaps;
 
-		Color key_color;
+		Color keyColor;
 
-		bool has_key_color = false;
+		bool hasKeyColor = false;
 
 		// Methods
 
@@ -74,11 +74,15 @@ namespace Doryen
 
 		// Getter
 
+		bool isHasKeyColor() const;
+
 		int getAlpha(int x, int y) const;
 
 		Size getSize() const;
 
 		Color getPixel(int x, int y) const;
+
+		const Color& getKeyColor() const;
 
 		SDL_Surface* getRepresentation() const;
 	};

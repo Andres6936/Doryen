@@ -29,21 +29,23 @@
 #include "Image/Image.hpp"
 #include "Image/ImageData.hpp"
 
-Doryen::Image::Image(int width, int height) : deleteData(true)
+using namespace Doryen;
+
+Image::Image(int width, int height) : deleteData(true)
 {
 	data = (void*)TCOD_image_new(width, height);
 
 	imageData = ImageData(width, height);
 }
 
-Doryen::Image::Image(const char* filename) : deleteData(true)
+Image::Image(const char* filename) : deleteData(true)
 {
 	data = (void*)TCOD_image_load(filename);
 
 	imageData = ImageData(filename);
 }
 
-Doryen::Image::Image(const Console& console)
+Image::Image(const Console& console)
 {
 //	data = (void*)TCOD_image_from_console(console->data);
 
@@ -51,7 +53,7 @@ Doryen::Image::Image(const Console& console)
 	imageData.createBitmapFrom(console);
 }
 
-void Doryen::Image::clear(const Doryen::Color col)
+void Image::clear(const Color col)
 {
 	TCOD_color_t ccol;
 	ccol.r = col.r;
@@ -60,46 +62,46 @@ void Doryen::Image::clear(const Doryen::Color col)
 	TCOD_image_clear(data, ccol);
 }
 
-void Doryen::Image::getSize(int* w, int* h) const
+void Image::getSize(int* w, int* h) const
 {
 	TCOD_image_get_size(data, w, h);
 }
 
-Size Doryen::Image::getSize() const
+Size Image::getSize() const
 {
 	return imageData.getSize();
 }
 
-Doryen::Image::~Image()
+Image::~Image()
 {
 	if (deleteData)
 	{ TCOD_image_delete(data); }
 }
 
-Doryen::Color Doryen::Image::getPixel(int x, int y) const
+Color Image::getPixel(int x, int y) const
 {
 	return imageData.getPixel(x, y);
 }
 
-int Doryen::Image::getAlpha(int x, int y) const
+int Image::getAlpha(int x, int y) const
 {
 	return imageData.getAlpha(x, y);
 }
 
-Doryen::Color Doryen::Image::getMipmapPixel(float x0, float y0, float x1, float y1)
+Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
 {
 	TCOD_color_t c = TCOD_image_get_mipmap_pixel(data, x0, y0, x1, y1);
-	return Doryen::Color(c.r, c.g, c.b);
+	return Color(c.r, c.g, c.b);
 }
 
-void Doryen::Image::putPixel(int x, int y, const Doryen::Color col)
+void Image::putPixel(int x, int y, const Color col)
 {
 	TCOD_color_t ccol = { col.r, col.g, col.b };
 	TCOD_image_put_pixel(data, x, y, ccol);
 }
 
 void
-Doryen::Image::blit(Doryen::Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex,
+Image::blit(Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex,
 		float scaley,
 		float angle) const
 {
@@ -107,59 +109,107 @@ Doryen::Image::blit(Doryen::Console* console, float x, float y, TCOD_bkgnd_flag_
 }
 
 void
-Doryen::Image::blitRect(Doryen::Console* console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) const
+Image::blitRect(Console* console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) const
 {
 	TCOD_image_blit_rect(data, console->data, x, y, w, h, bkgnd_flag);
 }
 
-void Doryen::Image::save(const char* filename) const
+void Image::save(const char* filename) const
 {
 	TCOD_image_save(data, filename);
 }
 
-void Doryen::Image::setKeyColor(const Doryen::Color keyColor)
+void Image::setKeyColor(const Color keyColor)
 {
 	TCOD_color_t ccol = { keyColor.r, keyColor.g, keyColor.b };
 	TCOD_image_set_key_color(data, ccol);
 }
 
-bool Doryen::Image::isPixelTransparent(int x, int y) const
+bool Image::isPixelTransparent(int x, int y) const
 {
 	return TCOD_image_is_pixel_transparent(data, x, y) != 0;
 }
 
-void Doryen::Image::refreshConsole(const Doryen::Console* console)
+void Image::refreshConsole(const Console* console)
 {
 	TCOD_image_refresh_console(data, console->data);
 }
 
-void Doryen::Image::invert()
+void Image::invert()
 {
 	TCOD_image_invert(data);
 }
 
-void Doryen::Image::hflip()
+void Image::hflip()
 {
 	TCOD_image_hflip(data);
 }
 
-void Doryen::Image::rotate90(int numRotations)
+void Image::rotate90(int numRotations)
 {
 	TCOD_image_rotate90(data, numRotations);
 }
 
-void Doryen::Image::vflip()
+void Image::vflip()
 {
 	TCOD_image_vflip(data);
 }
 
 
-void Doryen::Image::scale(int neww, int newh)
+void Image::scale(int neww, int newh)
 {
 	TCOD_image_scale(data, neww, newh);
 }
 
-void Doryen::Image::blit2x(Doryen::Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
+void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
 {
 	TCOD_image_blit_2x(data, dest->data, dx, dy, sx, sy, w, h);
+}
+
+void
+Image::blit(Console& _console,
+		const Point& _center,
+		BackgroundFlag _flag,
+		float scaleX, float scaleY, float angle) const
+{
+	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BackgroundFlag::NONE) return;
+
+	// Size of the image
+	Size size = imageData.getSize();
+
+	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
+	{
+		// Clip the image
+		int ix = (int)(_center.x - size.w * 0.5f);
+		int iy = (int)(_center.y - size.h * 0.5f);
+
+		int minX = std::max(ix, 0);
+		int minY = std::max(iy, 0);
+
+		int maxX = std::min(ix + size.w, (int)_console.getWidth());
+		int maxY = std::min(iy + size.h, (int)_console.getHeight());
+
+		int offX = 0;
+		int offY = 0;
+
+		if (ix < 0) offX = -ix;
+		if (iy < 0) offY = -iy;
+
+		for (int cx = minX; cx < maxX; cx++)
+		{
+			for (int cy = minY; cy < maxY; cy++)
+			{
+				Color color = imageData.getPixel(cx - minX + offX, cy - minY + offY);
+
+				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
+				{
+					_console.setCharBackground(cx, cy, color, _flag);
+				}
+			}
+		}
+	}
+	else
+	{
+		// TODO: Implemented
+	}
 }
