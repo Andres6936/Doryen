@@ -62,7 +62,7 @@ namespace Doryen
                  */
                 Doryen::Map map;
 
-                std::deque <Doryen::Math::Point2D> pointList;
+                std::deque<Doryen::Geometry::Point2D> pointList;
 
                 std::vector <Doryen::Algorithms::Node *> openList;
 
@@ -161,29 +161,29 @@ namespace Doryen
                  */
                 void reverse( );
 
-                /**
-                 * Once the path has been computed, you can get information about it using
-                 * of one those functions.
-                 *
-                 * You can read the current origin and destination cells with getOrigin/getDestination.
-                 *
-                 * @note Note that when you walk the path, the origin changes at each step.
-                 *
-                 * @param x The function returns the cell coordinates in these variables.
-                 * @param y The function returns the cell coordinates in these variables.
-                 */
-                Doryen::Math::Point2D getOriginPoint2D( ) const;
+				/**
+				 * Once the path has been computed, you can get information about it using
+				 * of one those functions.
+				 *
+				 * You can read the current origin and destination cells with getOrigin/getDestination.
+				 *
+				 * @note Note that when you walk the path, the origin changes at each step.
+				 *
+				 * @param x The function returns the cell coordinates in these variables.
+				 * @param y The function returns the cell coordinates in these variables.
+				 */
+				Doryen::Geometry::Point2D getOriginPoint2D() const;
 
-                /**
-                 * Once the path has been computed, you can get information about it using
-                 * of one those functions.
-                 *
-                 * You can read the current origin and destination cells with getOrigin/getDestination.
-                 *
-                 * @param x The function returns the cell coordinates in these variables.
-                 * @param y The function returns the cell coordinates in these variables.
-                 */
-                Doryen::Math::Point2D getDestinationPoint2D( ) const;
+				/**
+				 * Once the path has been computed, you can get information about it using
+				 * of one those functions.
+				 *
+				 * You can read the current origin and destination cells with getOrigin/getDestination.
+				 *
+				 * @param x The function returns the cell coordinates in these variables.
+				 * @param y The function returns the cell coordinates in these variables.
+				 */
+				Doryen::Geometry::Point2D getDestinationPoint2D() const;
 
                 /**
                  * @brief Getting the path length.
@@ -194,16 +194,16 @@ namespace Doryen
                  */
                 int size( ) const;
 
-                /**
-                 * @brief Read the path cells' coordinates.
-                 *
-                 * You can get the coordinates of each point along the path.
-                 *
-                 * @param index Step number. 0 <= index < path size.
-                 * @param x Address of the variables receiving the coordinates of the point.
-                 * @param y Address of the variables receiving the coordinates of the point.
-                 */
-                Doryen::Math::Point2D getPoint2DAt( int index );
+				/**
+				 * @brief Read the path cells' coordinates.
+				 *
+				 * You can get the coordinates of each point along the path.
+				 *
+				 * @param index Step number. 0 <= index < path size.
+				 * @param x Address of the variables receiving the coordinates of the point.
+				 * @param y Address of the variables receiving the coordinates of the point.
+				 */
+				Doryen::Geometry::Point2D getPoint2DAt(int index);
 
                 /**
                  * @brief Checking if the path is empty.
@@ -217,37 +217,37 @@ namespace Doryen
                  */
                 bool isEmpty( ) const;
 
-                /**
-                 * @brief Walking the path.
-                 *
-                 * You can walk the path and go to the next step.
-                 *
-                 * @note Note that walking the path consume one step (and decrease
-                 * the path size by one).
-                 *
-                 * The function returns false if recalculateWhenNeeded is false and
-                 * the next cell on the path is no longer walkable, or
-                 * if recalculateWhenNeeded is true, the next cell on the path is
-                 * no longer walkable and no other path has been found.
-                 *
-                 * @note recalculateWhenNeeded only applies to A*.
-                 *
-                 * @param x Address of the variables receiving the coordinates of
-                 * the next point.
-                 *
-                 * @param y Address of the variables receiving the coordinates of
-                 * the next point.
-                 *
-                 * @param recalculateWhenNeeded If the next point is no longer
-                 * walkable (another creature may be in the way), recalculate
-                 * a new path and walk it.
-                 *
-                 * @return false if recalculateWhenNeeded is false and the next
-                 * cell on the path is no longer walkable, or if recalculateWhenNeeded
-                 * is true, the next cell on the path is no longer walkable and
-                 * no other path has been found.
-                 */
-                Doryen::Math::Point2D walk( );
+				/**
+				 * @brief Walking the path.
+				 *
+				 * You can walk the path and go to the next step.
+				 *
+				 * @note Note that walking the path consume one step (and decrease
+				 * the path size by one).
+				 *
+				 * The function returns false if recalculateWhenNeeded is false and
+				 * the next cell on the path is no longer walkable, or
+				 * if recalculateWhenNeeded is true, the next cell on the path is
+				 * no longer walkable and no other path has been found.
+				 *
+				 * @note recalculateWhenNeeded only applies to A*.
+				 *
+				 * @param x Address of the variables receiving the coordinates of
+				 * the next point.
+				 *
+				 * @param y Address of the variables receiving the coordinates of
+				 * the next point.
+				 *
+				 * @param recalculateWhenNeeded If the next point is no longer
+				 * walkable (another creature may be in the way), recalculate
+				 * a new path and walk it.
+				 *
+				 * @return false if recalculateWhenNeeded is false and the next
+				 * cell on the path is no longer walkable, or if recalculateWhenNeeded
+				 * is true, the next cell on the path is no longer walkable and
+				 * no other path has been found.
+				 */
+				Doryen::Geometry::Point2D walk();
             };
         }
     }

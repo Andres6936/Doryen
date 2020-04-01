@@ -3,17 +3,17 @@
 
 namespace Doryen
 {
-    namespace Math
-    {
-        class Point2D
-        {
+    namespace Geometry
+	{
+		class Point2D
+		{
 
-        public:
+		public:
 
-            Point2D( )
-            {
-                x = 0;
-                y = 0;
+			Point2D()
+			{
+				x = 0;
+				y = 0;
             }
 
             Point2D( int X, int Y )

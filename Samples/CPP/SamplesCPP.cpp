@@ -1011,17 +1011,17 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 	// draw the path
 	if (usingAstar && AStar->findPath())
 	{
-		Doryen::Math::Point2D point;
+		Doryen::Geometry::Point2D point;
 
 		for (int i = 0; i < AStar->size(); i++)
-        {
-            try
-            {
-                point = AStar->getPoint2DAt( i );
+		{
+			try
+			{
+				point = AStar->getPoint2DAt(i);
 
 				sampleConsole.setCharBackground(point.x, point.y, lightGround, Doryen::BackgroundFlag::SET);
-            }
-            catch ( Doryen::Exceptions::IllegalMethodCall &e )
+			}
+			catch (Doryen::Exceptions::IllegalMethodCall& e)
             {
                 std::cout << e.showError( );
             }
@@ -1066,7 +1066,7 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 
                 try
                 {
-                    Doryen::Math::Point2D point = AStar->walk( );
+					Doryen::Geometry::Point2D point = AStar->walk();
 
                     playerX = point.x;
                     playerY = point.y;

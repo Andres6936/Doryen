@@ -109,7 +109,7 @@ void Doryen::Algorithms::Pathfinding::AStar::compute( int originX, int originY, 
 
                 while ( true )
                 {
-                    Doryen::Math::Point2D point( currentSolutionNode->x, currentSolutionNode->y );
+                    Doryen::Geometry::Point2D point(currentSolutionNode->x, currentSolutionNode->y);
 
                     pointList.push_back( point );
 
@@ -252,24 +252,24 @@ void Doryen::Algorithms::Pathfinding::AStar::compute( int originX, int originY, 
     }
 }
 
-Doryen::Math::Point2D Doryen::Algorithms::Pathfinding::AStar::walk( )
+Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::walk()
 {
-    if ( state != SearchState::SUCCEEDED )
-    {
-        throw Doryen::Exceptions::IllegalMethodCall(
-                "Illegal Method Call in Walk" );
-    }
-    else
-    {
-        // Recordemos, que nuestro vector de puntos {pointList}
-        // almacena los puntos de acuerdo a la siguiente estructura
+	if (state != SearchState::SUCCEEDED)
+	{
+		throw Doryen::Exceptions::IllegalMethodCall(
+				"Illegal Method Call in Walk");
+	}
+	else
+	{
+		// Recordemos, que nuestro vector de puntos {pointList}
+		// almacena los puntos de acuerdo a la siguiente estructura
         // Punto inicial -> Punto final
         // Por ende, es necesario obtener el primer elemento he ir
         // eliminandolo, con el fin de recorrer de forma lógica la
         // ruta.
 
         // Obtenemos el primer elemento
-        Doryen::Math::Point2D point = pointList.front( );
+		Doryen::Geometry::Point2D point = pointList.front();
         // Eliminamos el primer elemento
         pointList.pop_front( );
 
@@ -292,27 +292,27 @@ int Doryen::Algorithms::Pathfinding::AStar::size( ) const
     return pointList.size( );
 }
 
-Doryen::Math::Point2D Doryen::Algorithms::Pathfinding::AStar::getPoint2DAt( const int index )
+Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getPoint2DAt(const int index)
 {
-    if ( state != SearchState::SUCCEEDED )
-    {
-        throw Doryen::Exceptions::IllegalMethodCall(
-                "Illegal Method Call in getPoint2D" );
-    }
-    else
-    {
-        return pointList.at( index );
-    }
+	if (state != SearchState::SUCCEEDED)
+	{
+		throw Doryen::Exceptions::IllegalMethodCall(
+				"Illegal Method Call in getPoint2D");
+	}
+	else
+	{
+		return pointList.at(index);
+	}
 }
 
-Doryen::Math::Point2D Doryen::Algorithms::Pathfinding::AStar::getOriginPoint2D( ) const
+Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getOriginPoint2D() const
 {
-    return pointList.front( );
+	return pointList.front();
 }
 
-Doryen::Math::Point2D Doryen::Algorithms::Pathfinding::AStar::getDestinationPoint2D( ) const
+Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getDestinationPoint2D() const
 {
-    return pointList.back( );
+	return pointList.back();
 }
 
 void Doryen::Algorithms::Pathfinding::AStar::freeAllNodes( )

@@ -1290,7 +1290,7 @@ namespace Doryen
 
 	private:
 
-		void drawFrame(const Math::Point2D& start, const Math::Point2D& end, bool empty, BackgroundFlag flag);
+		void drawFrame(const Geometry::Point2D& start, const Geometry::Point2D& end, bool empty, BackgroundFlag flag);
 
 	};
 }
