@@ -46,6 +46,14 @@ namespace Doryen
 		 */
 		bool isInvariantSatisfied(int _x, int _y) const;
 
+		/**
+		 * Verify that the coordinate are inside the range
+		 * @param _x Range between [0, width)
+		 * @param _y Range between [0, height)
+		 * @return True if the invariant are satisfied
+		 */
+		bool isCoordinateInsideRange(int _x, int _y) const;
+
 	public:
 
 		ImageData() = default;
@@ -66,11 +74,13 @@ namespace Doryen
 
 		// Getter
 
-		SDL_Surface* getRepresentation() const;
+		int getAlpha(int x, int y) const;
 
 		Size getSize() const;
 
 		Color getPixel(int x, int y) const;
+
+		SDL_Surface* getRepresentation() const;
 	};
 }
 

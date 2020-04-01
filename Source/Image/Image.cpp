@@ -83,7 +83,7 @@ Doryen::Color Doryen::Image::getPixel(int x, int y) const
 
 int Doryen::Image::getAlpha(int x, int y) const
 {
-	return TCOD_image_get_alpha(data, x, y);
+	return imageData.getAlpha(x, y);
 }
 
 Doryen::Color Doryen::Image::getMipmapPixel(float x0, float y0, float x1, float y1)

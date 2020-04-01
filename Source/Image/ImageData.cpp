@@ -370,9 +370,7 @@ Doryen::Color Doryen::ImageData::getPixel(int x, int y) const
 	else
 	{
 		// Verify invariant
-		if (x <= 0 or y <= 0 or
-			x >= representation->w or
-			y >= representation->h)
+		if (not isCoordinateInsideRange(x, y))
 		{
 			// Invariant not satisfied
 			return Color::black;
@@ -416,4 +414,34 @@ bool Doryen::ImageData::isInvariantSatisfied(int _x, int _y) const
 	// Else, evaluate the condition
 	return _x >= 0 and _x < mipmaps[0].width and
 		   _y >= 0 and _y < mipmaps[0].height;
+}
+
+int Doryen::ImageData::getAlpha(int x, int y) const
+{
+	if (representation not_eq nullptr)
+	{
+		if (not isCoordinateInsideRange(x, y)) return 255;
+
+		Uint8 bytesPerPixel = representation->format->BytesPerPixel;
+
+		// If the image not have channel for alpha
+		// Assume that the channel alpha is 255
+		if (bytesPerPixel != 4) return 255;
+
+		Uint8* pixel = ((Uint8*)representation->pixels) + y *
+														  representation->pitch + x * bytesPerPixel;
+
+		return *((pixel) + representation->format->Ashift / 8);
+	}
+	else
+	{
+		return 255;
+	}
+}
+
+bool Doryen::ImageData::isCoordinateInsideRange(int _x, int _y) const
+{
+	return _x >= 0 and _y >= 0 and
+		   _x < representation->w and
+		   _y < representation->h;
 }
