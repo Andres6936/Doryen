@@ -5,27 +5,22 @@ namespace Doryen
 {
     namespace Geometry
 	{
+		template<typename T = int>
 		class Point2D
 		{
 
 		public:
 
-			Point2D()
+			Point2D(T _x, T _y)
 			{
-				x = 0;
-				y = 0;
-            }
+				x = _x;
+				y = _y;
+			}
 
-            Point2D( int X, int Y )
-            {
-                x = X;
-                y = Y;
-            }
+			T x;
+			T y;
 
-            int x;
-            int y;
-
-        };
+		};
     }
 }
 
