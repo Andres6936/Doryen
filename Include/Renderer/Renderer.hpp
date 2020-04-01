@@ -8,7 +8,7 @@
 #include "Char.hpp"
 #include "Color.hpp"
 #include "Event/Key.hpp"
-#include "Math/Point2D.hpp"
+#include "Geometry/Point2D.hpp"
 
 namespace Doryen
 {

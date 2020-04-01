@@ -5,7 +5,7 @@
 #include <deque>
 #include <algorithm>
 
-#include "Math/Point2D.hpp"
+#include "Geometry/Point2D.hpp"
 #include "Algorithms/Util/Node.hpp"
 #include "Algorithms/Enum/SearchState.hpp"
 
