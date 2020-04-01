@@ -29,6 +29,8 @@
 #include "Image/Image.hpp"
 #include "Image/ImageData.hpp"
 
+#include <cmath>
+
 using namespace Doryen;
 
 Image::Image(int width, int height) : deleteData(true)
@@ -170,7 +172,9 @@ void
 Image::blit(Console& _console,
 		const Point& _center,
 		BackgroundFlag _flag,
-		float scaleX, float scaleY, float angle) const
+		const float scaleX,
+		const float scaleY,
+		const float angle) const
 {
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BackgroundFlag::NONE) return;
 
@@ -210,6 +214,60 @@ Image::blit(Console& _console,
 	}
 	else
 	{
-		// TODO: Implemented
+		float iw = (float)size.w / 2 * scaleX;
+		float ih = (float)size.h / 2 * scaleY;
+
+		// Get the coordinates of the image corners in the console
+		float newXX = std::cos(angle);
+		float newXY = -std::sin(angle);
+
+		float newYX = newXY;
+		float newYY = -newXX;
+
+		// Point of floats
+		using Pointf = Geometry::Point2D<float>;
+
+		Pointf corner0;
+
+		corner0.x = _center.x - iw * newXX + ih * newYX;
+		corner0.y = _center.y - iw * newXY + ih * newYY;
+
+		Pointf corner1;
+
+		corner1.x = _center.x + iw * newXX + ih * newYX;
+		corner1.y = _center.y + iw * newXY + ih * newYY;
+
+		Pointf corner2;
+
+		corner2.x = _center.x + iw * newXX - ih * newYX;
+		corner2.y = _center.y + iw * newXY - ih * newYY;
+
+		Pointf corner3;
+
+		corner3.x = _center.x - iw * newXX - ih * newYX;
+		corner3.y = _center.y - iw * newXY - ih * newYY;
+
+		int rx = std::min(std::min(corner0.x, corner1.x), std::min(corner2.x, corner3.x));
+		int ry = std::min(std::min(corner0.y, corner1.y), std::min(corner2.y, corner3.y));
+		int rw = (int)std::max(std::max(corner0.x, corner1.x), std::max(corner2.x, corner3.x)) - rx;
+		int rh = (int)std::max(std::max(corner0.y, corner1.y), std::max(corner2.y, corner3.y)) - ry;
+
+		int cx;
+		int cy;
+
+		Point min;
+
+		min.x = std::max(rx, 0);
+		min.y = std::max(ry, 0);
+
+		Point max;
+
+		max.x = std::min(rx + rw, (int)_console.getWidth());
+		max.y = std::min(ry + rh, (int)_console.getHeight());
+
+		float invScaleX = 1.0f / scaleX;
+		float invScaleY = 1.0f / scaleY;
+
+		// TODO: Implement
 	}
 }

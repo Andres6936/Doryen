@@ -11,6 +11,12 @@ namespace Doryen
 
 		public:
 
+			Point2D()
+			{
+				x = T();
+				y = T();
+			}
+
 			Point2D(T _x, T _y)
 			{
 				x = _x;
