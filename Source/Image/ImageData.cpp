@@ -466,16 +466,55 @@ const Color& ImageData::getMipmapPixel(
 	{
 		if (mipmaps.empty())
 		{
-			throw std::runtime_error("MipmapsNotInitializedException");
+			initMipmaps();
 		}
 
-		int texelXSize;
-		int texelYSize;
-		int texelSize;
-		int texelX;
-		int texelY;
-		int curSize = 1;
+		int texelXSize = (int)(_point1.x - _point0.x);
+		int texelYSize = (int)(_point1.y - _point0.y);
+		int texelSize = 0;
+
+		if (texelXSize < texelYSize)
+		{
+			texelSize = texelYSize;
+		}
+		else
+		{
+			texelSize = texelXSize;
+		}
+
 		int mip = 0;
+		int curSize = 1;
+
+		const unsigned numberMipmaps = mipmaps.size();
+
+		while (mip < mipmaps.size() - 1 and curSize < texelSize)
+		{
+			++mip;
+			curSize <<= 1;
+		}
+
+		if (mip > 0) --mip;
+
+		int texelX = (int)(_point0.x * mipmaps[mip].width / mipmaps[0].fwidth);
+		int texelY = (int)(_point0.y * mipmaps[mip].height / mipmaps[0].fheight);
+
+		if (mipmaps[mip].buf.empty())
+		{
+			generateMip(mip);
+		}
+		else if (mipmaps[mip].dirty)
+		{
+			generateMip(mip);
+		}
+
+		if (texelX < 0 or texelY < 0 or
+			texelX > mipmaps[mip].width or
+			texelY > mipmaps[mip].height)
+		{
+			return Color::black;
+		}
+
+		return mipmaps[mip].buf[texelX + mipmaps[mip].width * texelY];
 	}
 	else
 	{
@@ -516,4 +555,55 @@ void ImageData::initMipmaps()
 	}
 
 	mipmaps[0].dirty = false;
+}
+
+void ImageData::generateMip(int _mip)
+{
+	const Mipmap& origin = mipmaps.at(0);
+	Mipmap& current = mipmaps.at(_mip);
+
+	if (current.buf.empty())
+	{
+		current.buf.resize(current.width * current.height);
+	}
+
+	current.dirty = false;
+
+	for (int x = 0; x < current.width; ++x)
+	{
+		for (int y = 0; y < current.height; ++y)
+		{
+
+			int count = 0;
+			// Component red
+			int r = 0;
+			// Component green
+			int g = 0;
+			// Component blue
+			int b = 0;
+
+			for (int sx = (x << _mip); sx < (x + 1) << _mip; ++sx)
+			{
+				for (int sy = (y << _mip); sy < (y + 1) << _mip; ++sy)
+				{
+					int offset = sx + origin.width * sy;
+					++count;
+
+					r += origin.buf.at(offset).r;
+					g += origin.buf.at(offset).g;
+					b += origin.buf.at(offset).b;
+				}
+			}
+
+			r /= count;
+			g /= count;
+			b /= count;
+
+			Color& color = current.buf.at(x + current.width * y);
+
+			color.r = (short)r;
+			color.g = (short)g;
+			color.b = (short)b;
+		}
+	}
 }

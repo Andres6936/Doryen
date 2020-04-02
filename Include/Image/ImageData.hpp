@@ -45,6 +45,8 @@ namespace Doryen
 
 		void initMipmaps();
 
+		void generateMip(int _mip);
+
 		/**
 		 * Verify that the parameters are greater or equal to 0
 		 * and lesser that width mipmaps.
