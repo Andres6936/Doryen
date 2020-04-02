@@ -171,7 +171,7 @@ void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) 
 void
 Image::blit(Console& _console,
 		const Point& _center,
-		BackgroundFlag _flag,
+		const BackgroundFlag _flag,
 		const float scaleX,
 		const float scaleY,
 		const float angle) const
@@ -252,9 +252,6 @@ Image::blit(Console& _console,
 		int rw = (int)std::max(std::max(corner0.x, corner1.x), std::max(corner2.x, corner3.x)) - rx;
 		int rh = (int)std::max(std::max(corner0.y, corner1.y), std::max(corner2.y, corner3.y)) - ry;
 
-		int cx;
-		int cy;
-
 		Point min;
 
 		min.x = std::max(rx, 0);
@@ -268,6 +265,28 @@ Image::blit(Console& _console,
 		float invScaleX = 1.0f / scaleX;
 		float invScaleY = 1.0f / scaleY;
 
-		// TODO: Implement
+		for (int cx = min.x; cx < max.x; ++cx)
+		{
+			for (int cy = min.y; cy < max.y; ++cy)
+			{
+				float ix = (iw + (float)(cx - _center.x) * newXX + (float)(cy - _center.y) * (-newYX)) * invScaleX;
+				float iy = (ih + (float)(cx - _center.x) * newXY - (float)(cy - _center.y) * newYY) * invScaleY;
+
+				Color color = imageData.getPixel((int)ix, (int)iy);
+
+				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
+				{
+					if (scaleX < 1.0f or scaleY < 1.0f)
+					{
+						Pointf _point0{ ix, iy };
+						Pointf _point1{ ix + 1.0f, iy + 1.0f };
+
+						color = imageData.getMipmapPixel(_point0, _point1);
+					}
+
+					_console.setCharBackground(cx, cy, color, _flag);
+				}
+			}
+		}
 	}
 }

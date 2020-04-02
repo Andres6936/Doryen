@@ -23,6 +23,12 @@ namespace Doryen
 
 	private:
 
+		// Definitions
+
+		using Pointf = Geometry::Point2D<float>;
+
+		// Fields
+
 		SDL_Surface* representation = nullptr;
 
 		std::vector<Mipmap> mipmaps;
@@ -36,6 +42,8 @@ namespace Doryen
 		void readImageBMP(const std::string& filename);
 
 		void readImagePNG(const std::string& filename);
+
+		void initMipmaps();
 
 		/**
 		 * Verify that the parameters are greater or equal to 0
@@ -83,6 +91,8 @@ namespace Doryen
 		Color getPixel(int x, int y) const;
 
 		const Color& getKeyColor() const;
+
+		const Color& getMipmapPixel(const Pointf& _point0, const Pointf& _point1) const;
 
 		SDL_Surface* getRepresentation() const;
 	};

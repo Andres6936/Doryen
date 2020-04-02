@@ -6,9 +6,11 @@
 #include <Image/PNG/State.hpp>
 #include "Image/ImageData.hpp"
 
-bool Doryen::ImageData::isTypeImageBMP(const std::string& filename)
+using namespace Doryen;
+
+bool ImageData::isTypeImageBMP(const std::string& filename)
 {
-	std::array <unsigned char, 2> magicNumber = { 0x42, 0x4d };
+	std::array<unsigned char, 2> magicNumber = { 0x42, 0x4d };
 	// Open file in mode of only read in mode binary
 	std::ifstream stream(filename, std::ios::in | std::ios::binary);
 
@@ -38,9 +40,9 @@ bool Doryen::ImageData::isTypeImageBMP(const std::string& filename)
 	}
 }
 
-bool Doryen::ImageData::isTypeImagePNG(const std::string& filename)
+bool ImageData::isTypeImagePNG(const std::string& filename)
 {
-	std::array <unsigned char, 8> magicNumber = { 137, 80, 78, 71, 13, 10, 26, 10 };
+	std::array<unsigned char, 8> magicNumber = { 137, 80, 78, 71, 13, 10, 26, 10 };
 	// Open file in mode of only read in mode binary
 	std::ifstream stream(filename, std::ios::in | std::ios::binary);
 
@@ -72,7 +74,7 @@ bool Doryen::ImageData::isTypeImagePNG(const std::string& filename)
 	}
 }
 
-Doryen::ImageData::ImageData(const std::string& filename)
+ImageData::ImageData(const std::string& filename)
 {
 	if (isTypeImageBMP(filename))
 	{
@@ -84,7 +86,7 @@ Doryen::ImageData::ImageData(const std::string& filename)
 	}
 }
 
-void Doryen::ImageData::readImageBMP(const std::string& filename)
+void ImageData::readImageBMP(const std::string& filename)
 {
 	representation = SDL_LoadBMP(filename.c_str());
 
@@ -122,7 +124,7 @@ void Doryen::ImageData::readImageBMP(const std::string& filename)
 	}
 }
 
-void Doryen::ImageData::readImagePNG(const std::string& filename)
+void ImageData::readImagePNG(const std::string& filename)
 {
 	size_t pngsize = 0;
 
@@ -209,7 +211,7 @@ void Doryen::ImageData::readImagePNG(const std::string& filename)
 	}
 }
 
-SDL_Surface* Doryen::ImageData::createNewSurface(
+SDL_Surface* ImageData::createNewSurface(
 		const unsigned int width,
 		const unsigned int height,
 		const bool alpha)
@@ -275,7 +277,7 @@ SDL_Surface* Doryen::ImageData::createNewSurface(
 	return bitmap;
 }
 
-Doryen::ImageData::ImageData(
+ImageData::ImageData(
 		unsigned int width,
 		unsigned int heigth)
 {
@@ -307,7 +309,7 @@ Doryen::ImageData::ImageData(
 	}
 }
 
-void Doryen::ImageData::createBitmapFrom(const Console& console)
+void ImageData::createBitmapFrom(const Console& console)
 {
 	unsigned int w = console.getWidth();
 	unsigned int h = console.getHeight();
@@ -321,12 +323,12 @@ void Doryen::ImageData::createBitmapFrom(const Console& console)
 	// TODO: Implemented (Imposible, is needed use charmap)
 }
 
-SDL_Surface* Doryen::ImageData::getRepresentation() const
+SDL_Surface* ImageData::getRepresentation() const
 {
 	return representation;
 }
 
-Size Doryen::ImageData::getSize() const
+Size ImageData::getSize() const
 {
 	if (representation == nullptr)
 	{
@@ -349,12 +351,12 @@ Size Doryen::ImageData::getSize() const
 	}
 }
 
-Doryen::ImageData::~ImageData()
+ImageData::~ImageData()
 {
 	SDL_FreeSurface((SDL_Surface*)representation);
 }
 
-Doryen::Color Doryen::ImageData::getPixel(int x, int y) const
+Color ImageData::getPixel(int x, int y) const
 {
 	if (representation == nullptr)
 	{
@@ -407,7 +409,7 @@ Doryen::Color Doryen::ImageData::getPixel(int x, int y) const
 	}
 }
 
-bool Doryen::ImageData::isInvariantSatisfied(int _x, int _y) const
+bool ImageData::isInvariantSatisfied(int _x, int _y) const
 {
 	if (mipmaps.empty()) return false;
 
@@ -416,7 +418,7 @@ bool Doryen::ImageData::isInvariantSatisfied(int _x, int _y) const
 		   _y >= 0 and _y < mipmaps[0].height;
 }
 
-int Doryen::ImageData::getAlpha(int x, int y) const
+int ImageData::getAlpha(int x, int y) const
 {
 	if (representation not_eq nullptr)
 	{
@@ -439,19 +441,79 @@ int Doryen::ImageData::getAlpha(int x, int y) const
 	}
 }
 
-bool Doryen::ImageData::isCoordinateInsideRange(int _x, int _y) const
+bool ImageData::isCoordinateInsideRange(int _x, int _y) const
 {
 	return _x >= 0 and _y >= 0 and
 		   _x < representation->w and
 		   _y < representation->h;
 }
 
-bool Doryen::ImageData::isHasKeyColor() const
+bool ImageData::isHasKeyColor() const
 {
 	return hasKeyColor;
 }
 
-const Doryen::Color& Doryen::ImageData::getKeyColor() const
+const Color& ImageData::getKeyColor() const
 {
 	return keyColor;
+}
+
+const Color& ImageData::getMipmapPixel(
+		const Pointf& _point0,
+		const Pointf& _point1) const
+{
+	if (representation not_eq nullptr)
+	{
+		if (mipmaps.empty())
+		{
+			throw std::runtime_error("MipmapsNotInitializedException");
+		}
+
+		int texelXSize;
+		int texelYSize;
+		int texelSize;
+		int texelX;
+		int texelY;
+		int curSize = 1;
+		int mip = 0;
+	}
+	else
+	{
+		return Color::black;
+	}
+}
+
+void ImageData::initMipmaps()
+{
+	Size size = getSize();
+	mipmaps.resize(Mipmap::getLevels(size.w, size.h));
+	mipmaps[0].buf.resize(size.w * size.h);
+
+	for (int x = 0; x < size.w; ++x)
+	{
+		for (int y = 0; y < size.h; ++y)
+		{
+			mipmaps[0].buf[x + size.w * y] = getPixel(x, y);
+		}
+	}
+
+	float fw = (float)size.w;
+	float fh = (float)size.h;
+
+	for (Mipmap& mipmap : mipmaps)
+	{
+		mipmap.width = size.w;
+		mipmap.height = size.h;
+		mipmap.fwidth = fw;
+		mipmap.fheight = fh;
+		mipmap.dirty = true;
+
+		size.w >>= 1;
+		size.h >>= 1;
+
+		fw *= 0.5f;
+		fh *= 0.5f;
+	}
+
+	mipmaps[0].dirty = false;
 }
