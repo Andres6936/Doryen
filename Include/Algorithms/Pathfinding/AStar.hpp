@@ -62,7 +62,7 @@ namespace Doryen
                  */
                 Doryen::Map map;
 
-                std::deque<Doryen::Geometry::Point2D> pointList;
+                std::deque<Doryen::Geometry::Point2D<>> pointList;
 
                 std::vector <Doryen::Algorithms::Node *> openList;
 
@@ -172,7 +172,7 @@ namespace Doryen
 				 * @param x The function returns the cell coordinates in these variables.
 				 * @param y The function returns the cell coordinates in these variables.
 				 */
-				Doryen::Geometry::Point2D getOriginPoint2D() const;
+				Doryen::Geometry::Point2D<> getOriginPoint2D() const;
 
 				/**
 				 * Once the path has been computed, you can get information about it using
@@ -183,7 +183,7 @@ namespace Doryen
 				 * @param x The function returns the cell coordinates in these variables.
 				 * @param y The function returns the cell coordinates in these variables.
 				 */
-				Doryen::Geometry::Point2D getDestinationPoint2D() const;
+				Doryen::Geometry::Point2D<> getDestinationPoint2D() const;
 
                 /**
                  * @brief Getting the path length.
@@ -203,7 +203,7 @@ namespace Doryen
 				 * @param x Address of the variables receiving the coordinates of the point.
 				 * @param y Address of the variables receiving the coordinates of the point.
 				 */
-				Doryen::Geometry::Point2D getPoint2DAt(int index);
+				Doryen::Geometry::Point2D<> getPoint2DAt(int index);
 
                 /**
                  * @brief Checking if the path is empty.
@@ -247,7 +247,7 @@ namespace Doryen
 				 * is true, the next cell on the path is no longer walkable and
 				 * no other path has been found.
 				 */
-				Doryen::Geometry::Point2D walk();
+				Doryen::Geometry::Point2D<> walk();
             };
         }
     }

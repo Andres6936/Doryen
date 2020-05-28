@@ -252,7 +252,7 @@ void Doryen::Algorithms::Pathfinding::AStar::compute( int originX, int originY, 
     }
 }
 
-Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::walk()
+Doryen::Geometry::Point2D<> Doryen::Algorithms::Pathfinding::AStar::walk()
 {
 	if (state != SearchState::SUCCEEDED)
 	{
@@ -292,7 +292,7 @@ int Doryen::Algorithms::Pathfinding::AStar::size( ) const
     return pointList.size( );
 }
 
-Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getPoint2DAt(const int index)
+Doryen::Geometry::Point2D<> Doryen::Algorithms::Pathfinding::AStar::getPoint2DAt(const int index)
 {
 	if (state != SearchState::SUCCEEDED)
 	{
@@ -305,12 +305,12 @@ Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getPoint2DAt(c
 	}
 }
 
-Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getOriginPoint2D() const
+Doryen::Geometry::Point2D<> Doryen::Algorithms::Pathfinding::AStar::getOriginPoint2D() const
 {
 	return pointList.front();
 }
 
-Doryen::Geometry::Point2D Doryen::Algorithms::Pathfinding::AStar::getDestinationPoint2D() const
+Doryen::Geometry::Point2D<> Doryen::Algorithms::Pathfinding::AStar::getDestinationPoint2D() const
 {
 	return pointList.back();
 }

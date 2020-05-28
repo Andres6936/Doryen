@@ -292,7 +292,7 @@ void Doryen::Console::setDirty(int x, int y, int w, int h)
 	}
 	else
 	{
-		using Point = Geometry::Point2D;
+		using Point = Geometry::Point2D<>;
 
 		// Initial point
 		Point start = Point(x, y);
@@ -695,7 +695,7 @@ void Doryen::Console::setChar(int x, int y, int c)
 	}
 }
 
-using Point = Doryen::Geometry::Point2D;
+using Point = Doryen::Geometry::Point2D<>;
 
 // Private function
 void consoleClamp(const Point& start, const Point& end, Point& first, Point& second)

@@ -271,7 +271,7 @@ const std::string& Doryen::Renderer::getFontfile() const
 	return fontfile;
 }
 
-void Doryen::Renderer::setDirty(const Geometry::Point2D& _start, Geometry::Point2D& _end)
+void Doryen::Renderer::setDirty(const Geometry::Point2D<>& _start, Geometry::Point2D<>& _end)
 {
 	// Primera comprobación: ¿Es el primer punto mayor a las coordenadas
 	// de la ventana principal?

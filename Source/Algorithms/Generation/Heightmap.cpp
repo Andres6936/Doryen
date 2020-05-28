@@ -561,7 +561,7 @@ Doryen::Heightmap::kernelTransform(int kernelSize, const int* dx, const int* dy,
 
 void Doryen::Heightmap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd)
 {
-	class Point : public Doryen::Geometry::Point2D
+	class Point : public Doryen::Geometry::Point2D<>
 	{
 
 	public:

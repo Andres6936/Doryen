@@ -391,7 +391,7 @@ namespace Doryen
 				float scalex = 1.0f, float scaley = 1.0f, float angle = 0.0f) const;
 
 		void blit(Console& _console, const Point& _center, BackgroundFlag _flag,
-				float scaleX, float scaleY, float angle) const;
+				float scaleX, float scaleY, float angle);
 
 		/**
 		@PageName image_blit

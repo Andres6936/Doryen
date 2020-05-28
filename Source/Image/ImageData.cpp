@@ -460,7 +460,7 @@ const Color& ImageData::getKeyColor() const
 
 const Color& ImageData::getMipmapPixel(
 		const Pointf& _point0,
-		const Pointf& _point1) const
+		const Pointf& _point1)
 {
 	if (representation not_eq nullptr)
 	{

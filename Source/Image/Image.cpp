@@ -296,7 +296,7 @@ Image::blit(Console& _console,
 		const BackgroundFlag _flag,
 		const float scaleX,
 		const float scaleY,
-		const float angle) const
+		const float angle)
 {
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BackgroundFlag::NONE) return;
 
