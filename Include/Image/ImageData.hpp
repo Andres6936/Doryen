@@ -70,7 +70,7 @@ namespace Doryen
 
 		ImageData(unsigned int width, unsigned int heigth);
 
-		virtual ~ImageData();
+//		virtual ~ImageData();
 
 		explicit ImageData(const std::string& filename);
 

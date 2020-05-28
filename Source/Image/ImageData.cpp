@@ -351,10 +351,10 @@ Size ImageData::getSize() const
 	}
 }
 
-ImageData::~ImageData()
-{
-	SDL_FreeSurface((SDL_Surface*)representation);
-}
+//ImageData::~ImageData()
+//{
+//	SDL_FreeSurface((SDL_Surface*)representation);
+//}
 
 Color ImageData::getPixel(int x, int y) const
 {
