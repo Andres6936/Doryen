@@ -122,29 +122,36 @@ namespace Doryen
         short r;
         short g;
         short b;
-        short a;
+		short a;
 
-        /**
-         * Creates an opaque sRGB color with the component red, green, and blue
-         * set to 0.
-         *
-         * Alpha is defaulted to 255.
-         */
-        Color( );
+		/**
+		 * Creates an opaque sRGB color with the component red, green, and blue
+		 * set to 0.
+		 *
+		 * Alpha is defaulted to 255.
+		 */
+		Color();
 
-        /**
-         * Creates an opaque sRGB color with the specified red, green, and blue
-         * values in the range (0 - 255).
-         *
-         * The actual color used in rendering depends on finding the best match
-         * given the color space available for a given output device.
-         *
-         * Alpha is defaulted to 255.
-         *
-         * @param r The red component.
-         * @param g The green component.
-         * @param b The blue component.
-         */
+		/**
+		 * Constructor copy, create an color from exist color.
+		 *
+		 * @param _rhs Color to copy.
+		 */
+		Color(const Color& _rhs);
+
+		/**
+		 * Creates an opaque sRGB color with the specified red, green, and blue
+		 * values in the range (0 - 255).
+		 *
+		 * The actual color used in rendering depends on finding the best match
+		 * given the color space available for a given output device.
+		 *
+		 * Alpha is defaulted to 255.
+		 *
+		 * @param r The red component.
+		 * @param g The green component.
+		 * @param b The blue component.
+		 */
         Color( short r, short g, short b );
 
         /**

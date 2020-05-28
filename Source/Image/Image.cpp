@@ -157,10 +157,117 @@ void Image::vflip()
 	TCOD_image_vflip(data);
 }
 
+float Image::calculateFractionalEdge(Color& _color,
+		const Color& leftTop, const float _weightLeft,
+		const Color& rightBottom, const float _weightRight) const
+{
+	_color.r += leftTop.r * _weightLeft + rightBottom.r * _weightRight;
+	_color.g += leftTop.g * _weightLeft + rightBottom.g * _weightRight;
+	_color.b += leftTop.b * _weightLeft + rightBottom.b * _weightRight;
+
+	return _weightLeft + _weightRight;
+}
+
+float Image::calculateCorners(Color& _color, const Color& pixel,
+		const float weightLeft, const float weightRight)
+{
+	_color.r += pixel.r * (weightLeft * weightRight);
+	_color.g += pixel.g * (weightLeft * weightRight);
+	_color.b += pixel.b * (weightLeft * weightRight);
+
+	return weightLeft * weightRight;
+}
 
 void Image::scale(int neww, int newh)
 {
 	TCOD_image_scale(data, neww, newh);
+
+	// The image will had the same size
+	// Not compute necessary
+	if (neww == 0 and newh == 0) return;
+
+	const Size newSize = Size(neww, newh);
+	const Size originalSize = getSize();
+
+	if (newSize < originalSize)
+	{
+		// Scale down image, using super-sampling
+		for (int py = 0; py < newSize.h; ++py)
+		{
+			float y0 = static_cast<float>(py * originalSize.h / newSize.h);
+			float y0floor = std::floor(y0);
+			float y0weight = 1.0f - (y0 - y0floor);
+			int iy0 = static_cast<int>(y0floor);
+
+			float y1 = static_cast<float>((py + 1) * originalSize.h / newSize.h);
+			float y1floor = std::floor(y1 - 0.000'01);
+			float y1weight = (y1 - y1floor);
+			int iy1 = static_cast<int>(y1floor);
+
+			for (int px = 0; px < newSize.h; ++px)
+			{
+				float x0 = static_cast<float>(px * originalSize.w / newSize.w);
+				float x0floor = std::floor(x0);
+				float x0weight = 1.0f - (x0 - x0floor);
+				int ix0 = static_cast<int>(x0floor);
+
+				float x1 = static_cast<float>((px + 1) * originalSize.w / newSize.w);
+				float x1floor = std::floor(x1 - 0.000'01);
+				float x1weight = (x1 - x1floor);
+				int ix1 = static_cast<int>(x1floor);
+
+				Color color = Color();
+				float sumWeight = 0.0f;
+
+				// Left and Right Fractional Edges
+				for (int srcy = y0 + 1; srcy < y1; ++srcy)
+				{
+					const Color left = imageData.getPixel(ix0, srcy);
+					const Color right = imageData.getPixel(ix1, srcy);
+
+					sumWeight += calculateFractionalEdge(color, left, x0weight, right, x1weight);
+				}
+
+				// Top and Bottom Fractional Edges
+				for (int srcx = x0 + 1; srcx < x1; ++srcx)
+				{
+					const Color top = imageData.getPixel(srcx, iy0);
+					const Color bottom = imageData.getPixel(srcx, iy1);
+
+					sumWeight += calculateFractionalEdge(color, top, y0weight, bottom, y1weight);
+				}
+
+				// Center
+				for (int srcy = y0 + 1; srcy < y1; ++srcy)
+				{
+					for (int srcx = x0 + 1; srcx < x1; ++srcx)
+					{
+						const Color pixel = getPixel(srcx, srcy);
+
+						color.r += pixel.r;
+						color.g += pixel.g;
+						color.b += pixel.b;
+
+						sumWeight += 1.0f;
+					}
+				}
+
+				// Corners
+				sumWeight += calculateCorners(color, getPixel(ix0, iy0), x0weight, y0weight);
+				sumWeight += calculateCorners(color, getPixel(ix0, iy1), x0weight, y1weight);
+				sumWeight += calculateCorners(color, getPixel(ix1, iy1), x1weight, y1weight);
+				sumWeight += calculateCorners(color, getPixel(ix1, iy0), x1weight, y0weight);
+
+				sumWeight = 1.0f / sumWeight;
+
+				color.r = color.r * sumWeight + 0.5f;
+				color.g = color.g * sumWeight + 0.5f;
+				color.b = color.b * sumWeight + 0.5f;
+
+				// TODO: setPixel(px, py, color)
+			}
+		}
+	}
 }
 
 void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) const

@@ -458,6 +458,15 @@ namespace Doryen
 		}
 
 		virtual ~Image();
+
+	private:
+
+		float calculateFractionalEdge(Color& _color,
+				const Color& leftTop, float _weightLeft,
+				const Color& rightBottom, float _weightRight) const;
+
+
+		float calculateCorners(Color& _color, const Color& pixel, float weightLeft, float weightRight);
 	};
 }
 

@@ -436,3 +436,11 @@ void Doryen::Color::add(const Doryen::Color& other)
 	this->g = std::min((short)255, g);
 	this->b = std::min((short)255, b);
 }
+
+Doryen::Color::Color(const Doryen::Color& _rhs)
+{
+	this->r = _rhs.r;
+	this->g = _rhs.g;
+	this->b = _rhs.b;
+	this->a = _rhs.a;
+}
