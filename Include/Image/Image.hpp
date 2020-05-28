@@ -259,6 +259,8 @@ namespace Doryen
 		*/
 		void putPixel(int x, int y, const Color col);
 
+		void setPixel(int x, int y, const Color& _color);
+
 		/**
 		@PageName image_update
 		@FuncTitle Scaling an image

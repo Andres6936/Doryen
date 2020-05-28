@@ -21,9 +21,15 @@ namespace Doryen
 
 		bool dirty = false;
 
-		// Methods
+		// Getter
 
 		Color getColorAt(int _x, int _y) const;
+
+		// Setter
+
+		void setDirty(bool _dirty);
+
+		void setColorAt(int _x, int _y, const Color& _color);
 
 		// Static Methods
 

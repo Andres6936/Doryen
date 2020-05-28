@@ -444,3 +444,11 @@ Doryen::Color::Color(const Doryen::Color& _rhs)
 	this->b = _rhs.b;
 	this->a = _rhs.a;
 }
+
+void Doryen::Color::operator=(const Doryen::Color& _rhs)
+{
+	this->r = _rhs.r;
+	this->g = _rhs.g;
+	this->b = _rhs.b;
+	this->a = _rhs.a;
+}

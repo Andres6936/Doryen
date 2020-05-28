@@ -97,6 +97,10 @@ namespace Doryen
 		const Color& getMipmapPixel(const Pointf& _point0, const Pointf& _point1) const;
 
 		SDL_Surface* getRepresentation() const;
+
+		// Setters
+
+		void setPixel(int x, int y, const Color& _color);
 	};
 }
 

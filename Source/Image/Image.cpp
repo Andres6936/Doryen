@@ -264,7 +264,7 @@ void Image::scale(int neww, int newh)
 				color.g = color.g * sumWeight + 0.5f;
 				color.b = color.b * sumWeight + 0.5f;
 
-				// TODO: setPixel(px, py, color)
+				setPixel(px, py, color);
 			}
 		}
 	}
@@ -396,4 +396,9 @@ Image::blit(Console& _console,
 			}
 		}
 	}
+}
+
+void Image::setPixel(int x, int y, const Color& _color)
+{
+	imageData.setPixel(x, y, _color);
 }

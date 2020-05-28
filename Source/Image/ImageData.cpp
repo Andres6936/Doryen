@@ -607,3 +607,28 @@ void ImageData::generateMip(int _mip)
 		}
 	}
 }
+
+void ImageData::setPixel(int x, int y, const Color& _color)
+{
+	if (representation not_eq nullptr)
+	{
+		if (mipmaps.empty())
+		{
+			initMipmaps();
+		}
+		else
+		{
+			if (x >= 0 and x < mipmaps.at(0).width and
+				y >= 0 and y < mipmaps.at(0).height)
+			{
+				mipmaps.at(0).setColorAt(x, y, _color);
+
+				// Skip the first mipmap
+				for (int i = 1; i < mipmaps.size(); ++i)
+				{
+					mipmaps[i].setDirty(true);
+				}
+			}
+		}
+	}
+}

@@ -23,3 +23,13 @@ Doryen::Color Doryen::Mipmap::getColorAt(int _x, int _y) const
 {
 	return buf[_x + _y * width];
 }
+
+void Doryen::Mipmap::setColorAt(int _x, int _y, const Doryen::Color& _color)
+{
+	buf[_x + _y * width] = _color;
+}
+
+void Doryen::Mipmap::setDirty(bool _dirty)
+{
+	dirty = _dirty;
+}

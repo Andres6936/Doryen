@@ -185,6 +185,10 @@ namespace Doryen
 		 */
 		void trasformColor(const Color& another, BackgroundFlag flag);
 
+		// Operators
+
+		void operator=(const Color& _rhs);
+
 		/**
 		@PageName color
 		@FuncTitle Multiply two colors
