@@ -180,6 +180,8 @@ float Image::calculateCorners(Color& _color, const Color& pixel,
 
 void Image::scale(int neww, int newh)
 {
+	// TODO: Is necessary resize the image
+
 	// The image will had the same size
 	// Not compute necessary
 	if (neww == 0 and newh == 0) return;
