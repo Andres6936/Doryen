@@ -268,6 +268,23 @@ void Image::scale(int neww, int newh)
 			}
 		}
 	}
+	else
+	{
+		// Scale up image, using nearest neighbour
+		for (int py = 0; py < newSize.h; ++py)
+		{
+			int srcY = py * originalSize.h / newSize.h;
+
+			for (int px = 0; px < newSize.w; ++px)
+			{
+				int srcX = px * originalSize.w / newSize.w;
+
+				setPixel(px, py, getPixel(srcX, srcY));
+			}
+		}
+	}
+
+
 }
 
 void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
