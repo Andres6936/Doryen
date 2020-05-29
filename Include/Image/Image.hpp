@@ -447,7 +447,7 @@ namespace Doryen
 		@Param dx,dy	Coordinate of the console cell where the upper left corner of the blitted image will be.
 		@Param sx,sy,w,h	Part of the image to blit. Use -1 in w and h to blit the whole image.
 		*/
-		void blit2x(Console* dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1) const;
+		void blit2x(Console& dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1) const;
 
 		Image(TCOD_image_t img, ImageData imageData)
 		{

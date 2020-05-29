@@ -314,10 +314,11 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
 	update_density(dens, dens_prev, u, v, diff, elapsed);
 }
 
-void render()
+void render(Console& root)
 {
 	static Color deepBlue = Color::darkestFlame;
 	static Color highBlue = Color::lightestYellow;
+
 	for (int x = 0; x <= N; x++)
 	{
 		for (int y = 0; y <= N; y++)
@@ -327,17 +328,19 @@ void render()
 			img.putPixel(x, y, Color::lerp(deepBlue, highBlue, coef));
 		}
 	}
-	img.blit2x(Console::root, 0, 0);
-	Console::root->print(2, HEIGHT - 2, format("{4d} fps", Platform::getFps()));
-	Console::root->setDefaultForeground(Color::white);
-	Console::root->putChar(playerx, playery, '@');
+
+	img.blit2x(root, 0, 0);
+
+	root.print(2, HEIGHT - 2, format("{4d} fps", Platform::getFps()));
+	root.setDefaultForeground(Color::white);
+	root.putChar(playerx, playery, '@');
 }
 
 int main(int argc, char* argv[])
 {
 	// Initialize the game window
 	Console console = Console();
-	console.initRoot(WIDTH, HEIGHT, "pyromancer flame spell v 0.1.0", false, TCOD_RENDERER_SDL);
+	console.initRoot(WIDTH, HEIGHT, "Pyromaniac Flame Spell", false, TCOD_RENDERER_SDL);
 
 	Platform::setFps(25);
 	TCODMouse::showCursor(true);
@@ -351,36 +354,43 @@ int main(int argc, char* argv[])
 		TCOD_mouse_t mouse;
 
 		Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
-/*
-		v_prev[IX(N/2,0)] = 1.0f;
-		u_prev[IX(N/3,N/3)]=1.0f;
-		dens_prev[IX(N/2,0)] = 128.0f;
-*/
+
 		if (k.vk == TCODK_PRINTSCREEN)
 		{
 			// screenshot
 			if (!k.pressed)
-			{ Platform::saveScreenshot(nullptr); }
+			{
+				Platform::saveScreenshot(nullptr);
+			}
+
 			k.vk = TCODK_NONE;
 		}
 		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
 		{
 			// switch fullscreen
 			if (!k.pressed)
-			{ Console::setWindowInFullscreen(); }
+			{
+				Console::setWindowInFullscreen();
+			}
+
 			k.vk = TCODK_NONE;
 		}
+
 		// update the game
 		update(Platform::getLastFrameLength(), k, mouse);
 
 		// render the game screen
-		render();
-		Console::root->print(5, 49, "Arrows to move, left mouse button to cast");
+		render(console);
+
+		console.print(5, 49, "Arrows to move, left mouse button to cast");
+
 		// render libtcod credits
 		if (!endCredits)
-		{ endCredits = Console::renderCredits(4, 4, true); }
+		{
+			endCredits = Console::renderCredits(4, 4, true);
+		}
+
 		// flush updates to screen
-		Console::root->flush();
+		console.flush();
 	}
-	return 0;
 }

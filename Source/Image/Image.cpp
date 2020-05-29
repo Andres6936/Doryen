@@ -287,9 +287,9 @@ void Image::scale(int neww, int newh)
 
 }
 
-void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
+void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) const
 {
-	TCOD_image_blit_2x(data, dest->data, dx, dy, sx, sy, w, h);
+	//TCOD_image_blit_2x(data, dest->data, dx, dy, sx, sy, w, h);
 
 	Point destination(dx, dy);
 	Point source(sx, sy);
@@ -300,8 +300,8 @@ void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) 
 	if (size.w == -1) size.w = imageSize.w;
 	if (size.h == -1) size.h = imageSize.h;
 
-	int maxX = destination.x + size.w / 2 <= dest->getWidth() ? size.w : (dest->getWidth() - destination.x) * 2;
-	int maxY = destination.y + size.h / 2 <= dest->getHeight() ? size.h : (dest->getHeight() - destination.y) * 2;
+	int maxX = destination.x + size.w / 2 <= dest.getWidth() ? size.w : (dest.getWidth() - destination.x) * 2;
+	int maxY = destination.y + size.h / 2 <= dest.getHeight() ? size.h : (dest.getHeight() - destination.y) * 2;
 
 	maxX += source.x;
 	maxY += source.y;
@@ -313,7 +313,7 @@ void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) 
 			int conX = destination.x + (cx - source.x) / 2;
 			int conY = destination.y + (cy - source.y) / 2;
 
-			Color consoleBackground = dest->getCharBackground(conX, conY);
+			Color consoleBackground = dest.getCharBackground(conX, conY);
 
 			std::array<Color, 4> grid;
 
@@ -359,22 +359,22 @@ void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) 
 			if (numberColors == 1)
 			{
 				// Single Color
-				dest->setCharBackground(conX, conY, cols.at(0), BackgroundFlag::SET);
-				dest->setChar(conX, conY, ' ');
+				dest.setCharBackground(conX, conY, cols.at(0), BackgroundFlag::SET);
+				dest.setChar(conX, conY, ' ');
 			}
 			else
 			{
 				if (ASCII >= 0)
 				{
-					dest->setDefaultBackground(cols.at(0));
-					dest->setDefaultForeground(cols.at(1));
-					dest->putChar(conX, conY, ASCII, BackgroundFlag::SET);
+					dest.setDefaultBackground(cols.at(0));
+					dest.setDefaultForeground(cols.at(1));
+					dest.putChar(conX, conY, ASCII, BackgroundFlag::SET);
 				}
 				else
 				{
-					dest->setDefaultBackground(cols.at(1));
-					dest->setDefaultForeground(cols.at(0));
-					dest->putChar(conX, conY, -ASCII, BackgroundFlag::SET);
+					dest.setDefaultBackground(cols.at(1));
+					dest.setDefaultForeground(cols.at(0));
+					dest.putChar(conX, conY, -ASCII, BackgroundFlag::SET);
 				}
 			}
 		}
