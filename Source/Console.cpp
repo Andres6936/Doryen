@@ -951,6 +951,11 @@ bool Doryen::Console::renderCredits(int x, int y, bool alpha)
 	return true;
 }
 
+float Doryen::Console::getLastFrameLength() const
+{
+	return renderer->getLastFrameLength();
+}
+
 #ifndef NO_UNICODE
 
 // ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP

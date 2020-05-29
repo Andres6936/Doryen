@@ -1288,6 +1288,8 @@ namespace Doryen
 
 		void setDirty(int x, int y, int w, int h);
 
+		float getLastFrameLength() const;
+
 	private:
 
 		void

@@ -160,6 +160,8 @@ namespace Doryen
 
 		// Getters
 
+		float getLastFrameLength() const;
+
 		bool isFontHasDoryenLayout() const;
 
 		bool isFontHasRowLayout() const;

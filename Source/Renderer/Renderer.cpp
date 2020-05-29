@@ -102,6 +102,11 @@ void Doryen::Renderer::setMaxFontChars(unsigned int _maxFontChars)
 	maxFontChars = _maxFontChars;
 }
 
+float Doryen::Renderer::getLastFrameLength() const
+{
+	return lastFrameLength;
+}
+
 bool Doryen::Renderer::isFontHasDoryenLayout() const
 {
 	return fontHasDoryenLayout;

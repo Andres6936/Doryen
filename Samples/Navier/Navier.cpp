@@ -367,7 +367,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(Platform::getLastFrameLength(), key, mouse);
+		update(console.getLastFrameLength(), key, mouse);
 
 		// render the game screen
 		render(console);
