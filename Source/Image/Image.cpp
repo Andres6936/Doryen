@@ -546,22 +546,37 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 			{
 				if (dist0i <= dist01)
 				{
-
+					// Merge 0 and i
+					palette.at(0) = Color::lerp(desired.at(counterOfColorsEquals), palette.at(0),
+							weight.at(0) / (1.0f + weight.at(0)));
+					weight.at(0) += 1;
 				}
 				else
 				{
-
+					// Merge 0 and 1
+					palette.at(0) = Color::lerp(palette.at(0), palette.at(1),
+							weight.at(1) / weight.at(0) + weight.at(1));
+					weight.at(0) += 1;
+					palette.at(1) = desired.at(counterOfColorsEquals);
+					flag = 1 << (counterOfColorsEquals - 1);
 				}
 			}
 			else
 			{
 				if (dist1i <= dist01)
 				{
-
+					palette.at(1) = Color::lerp(desired.at(counterOfColorsEquals), palette.at(1),
+							weight.at(1) / (1.0f + weight.at(1)));
+					weight.at(1) += 1;
+					flag |= 1 << (counterOfColorsEquals - 1);
 				}
 				else
 				{
-
+					palette.at(0) = Color::lerp(palette.at(0), palette.at(1),
+							weight.at(1) / (weight.at(0) + weight.at(1)));
+					weight.at(0) += 1;
+					palette.at(1) = desired.at(counterOfColorsEquals);
+					flag = 1 << (counterOfColorsEquals - 1);
 				}
 			}
 		}
