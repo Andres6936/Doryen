@@ -474,6 +474,8 @@ namespace Doryen
 		float calculateCorners(Color& _color, const Color& pixel, float weightLeft, float weightRight);
 
 		std::pair<int, int> getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette);
+
+		int distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs);
 	};
 }
 

@@ -712,6 +712,7 @@ void getPattern(TCOD_color_t desired[4], TCOD_color_t palette[2], int *nbCols, i
 			int dist0i = rgbdist(&desired[counterColorEquals], &palette[0]);
 			int dist1i = rgbdist(&desired[counterColorEquals], &palette[1]);
 			int dist01 = rgbdist(&palette[0], &palette[1]);
+
 			if (dist0i < dist1i)
 			{
 				if (dist0i <= dist01)

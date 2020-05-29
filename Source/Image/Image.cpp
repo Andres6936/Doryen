@@ -531,11 +531,39 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 		}
 		else if (desired.at(counterOfColorsEquals).equals(palette.at(1)))
 		{
-
+			flag |= 1 << (counterOfColorsEquals - 1);
+			weight.at(1) += 1;
 		}
 		else
 		{
+			// Bah, too many colors
+			// merge the two nearest
+			int dist0i = distanceBetweenTwoColor(desired.at(counterOfColorsEquals), palette.at(0));
+			int dist1i = distanceBetweenTwoColor(desired.at(counterOfColorsEquals), palette.at(1));
+			int dist01 = distanceBetweenTwoColor(palette.at(0), palette.at(1));
 
+			if (dist0i < dist1i)
+			{
+				if (dist0i <= dist01)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
+			else
+			{
+				if (dist1i <= dist01)
+				{
+
+				}
+				else
+				{
+
+				}
+			}
 		}
 
 		counterOfColorsEquals += 1;
@@ -546,4 +574,13 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 											 229, 231, -228, -226 };
 
 	return { numberColors, flagToASCII.at(flag) };
+}
+
+int Image::distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs)
+{
+	int dr = _lhs.r - _rhs.r;
+	int dg = _lhs.g - _rhs.g;
+	int db = _lhs.b - _rhs.b;
+
+	return dr * dr + dg * dg + db * db;
 }
