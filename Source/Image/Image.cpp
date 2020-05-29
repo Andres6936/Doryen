@@ -350,6 +350,33 @@ void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 
 			}
+
+			std::array<Color, 2> cols;
+
+			// Analyse color, pasteurize, get patter
+			auto [numberColors, ASCII] = getPattern(grid, cols);
+
+			if (numberColors == 1)
+			{
+				// Single Color
+				dest->setCharBackground(conX, conY, cols.at(0), BackgroundFlag::SET);
+				dest->setChar(conX, conY, ' ');
+			}
+			else
+			{
+				if (ASCII >= 0)
+				{
+					dest->setDefaultBackground(cols.at(0));
+					dest->setDefaultForeground(cols.at(1));
+					dest->putChar(conX, conY, ASCII, BackgroundFlag::SET);
+				}
+				else
+				{
+					dest->setDefaultBackground(cols.at(1));
+					dest->setDefaultForeground(cols.at(0));
+					dest->putChar(conX, conY, -ASCII, BackgroundFlag::SET);
+				}
+			}
 		}
 	}
 }
@@ -482,7 +509,7 @@ void Image::setPixel(int x, int y, const Color& _color)
 	imageData.setPixel(x, y, _color);
 }
 
-std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette)
+std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette) const
 {
 	// First colour trivial
 	palette.at(0) = desired.at(0);
@@ -591,7 +618,7 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 	return { numberColors, flagToASCII.at(flag) };
 }
 
-int Image::distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs)
+int Image::distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs) const
 {
 	int dr = _lhs.r - _rhs.r;
 	int dg = _lhs.g - _rhs.g;
