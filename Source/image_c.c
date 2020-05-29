@@ -659,76 +659,96 @@ void getPattern(TCOD_color_t desired[4], TCOD_color_t palette[2], int *nbCols, i
 		flag indicates which pixels uses foreground color (palette[1])
 	*/
 	static int flagToAscii[8] = {
-		0,
-		TCOD_CHAR_SUBP_NE,TCOD_CHAR_SUBP_SW,-TCOD_CHAR_SUBP_DIAG,TCOD_CHAR_SUBP_SE,
-		TCOD_CHAR_SUBP_E,-TCOD_CHAR_SUBP_N,-TCOD_CHAR_SUBP_NW
+			0,
+			TCOD_CHAR_SUBP_NE, TCOD_CHAR_SUBP_SW, -TCOD_CHAR_SUBP_DIAG, TCOD_CHAR_SUBP_SE,
+			TCOD_CHAR_SUBP_E, -TCOD_CHAR_SUBP_N, -TCOD_CHAR_SUBP_NW
 	};
 	int weight[2] = { 0, 0 };
-	int i;
+	int counterColorEquals;
 
 	/* First colour trivial. */
 	palette[0] = desired[0];
 
 	/* Ignore all duplicates... */
-	for (i = 1; i < 4; i++) {
-		if (desired[i].r != palette[0].r || desired[i].g != palette[0].g || desired[i].b != palette[0].b)
-		break;
+	for (counterColorEquals = 1; counterColorEquals < 4; counterColorEquals++)
+	{
+		if (desired[counterColorEquals].r != palette[0].r || desired[counterColorEquals].g != palette[0].g ||
+			desired[counterColorEquals].b != palette[0].b)
+			break;
 	}
 
 	/* All the same. */
-	if (i == 4) {
-		*nbCols=1;
+	if (counterColorEquals == 4)
+	{
+		*nbCols = 1;
 		return;
 	}
-	weight[0] = i;
+	weight[0] = counterColorEquals;
 
 	/* Found a second colour... */
-	palette[1] = desired[i];
+	palette[1] = desired[counterColorEquals];
 	weight[1] = 1;
-	flag |= 1<<(i-1);
+	flag |= 1 << (counterColorEquals - 1);
 	*nbCols = 2;
 	/* remaining colours */
-	i++;
-	while (i< 4) {
-		if (desired[i].r == palette[0].r && desired[i].g == palette[0].g && desired[i].b == palette[0].b) {
+	counterColorEquals++;
+	while (counterColorEquals < 4)
+	{
+		if (desired[counterColorEquals].r == palette[0].r && desired[counterColorEquals].g == palette[0].g &&
+			desired[counterColorEquals].b == palette[0].b)
+		{
 			weight[0]++;
-		} else if (desired[i].r == palette[1].r && desired[i].g == palette[1].g && desired[i].b == palette[1].b)  {
-			flag |= 1<<(i-1);
+		}
+		else if (desired[counterColorEquals].r == palette[1].r && desired[counterColorEquals].g == palette[1].g &&
+				 desired[counterColorEquals].b == palette[1].b)
+		{
+			flag |= 1 << (counterColorEquals - 1);
 			weight[1]++;
-		} else {
+		}
+		else
+		{
 			/* Bah, too many colours, */
 			/* merge the two nearest */
-			int dist0i=rgbdist(&desired[i], &palette[0]);
-			int dist1i=rgbdist(&desired[i], &palette[1]);
-			int dist01=rgbdist(&palette[0],&palette[1]);
-			if ( dist0i < dist1i ) {
-				if ( dist0i <= dist01 ) {
+			int dist0i = rgbdist(&desired[counterColorEquals], &palette[0]);
+			int dist1i = rgbdist(&desired[counterColorEquals], &palette[1]);
+			int dist01 = rgbdist(&palette[0], &palette[1]);
+			if (dist0i < dist1i)
+			{
+				if (dist0i <= dist01)
+				{
 					/* merge 0 and i */
-					palette[0]=TCOD_color_lerp(desired[i],palette[0],weight[0]/(1.0f+weight[0]));
+					palette[0] = TCOD_color_lerp(desired[counterColorEquals], palette[0],
+							weight[0] / (1.0f + weight[0]));
 					weight[0]++;
-				} else {
+				}
+				else
+				{
 					/* merge 0 and 1 */
-					palette[0]=TCOD_color_lerp(palette[0],palette[1],(float)(weight[1])/(weight[0]+weight[1]));
+					palette[0] = TCOD_color_lerp(palette[0], palette[1], (float)(weight[1]) / (weight[0] + weight[1]));
 					weight[0]++;
-					palette[1]=desired[i];
-					flag=1<<(i-1);
+					palette[1] = desired[counterColorEquals];
+					flag = 1 << (counterColorEquals - 1);
 				}
 			} else {
-				if ( dist1i <= dist01 ) {
+				if ( dist1i <= dist01 )
+				{
 					/* merge 1 and i */
-					palette[1]=TCOD_color_lerp(desired[i],palette[1],weight[1]/(1.0f+weight[1]));
+					palette[1] = TCOD_color_lerp(desired[counterColorEquals], palette[1],
+							weight[1] / (1.0f + weight[1]));
 					weight[1]++;
-					flag|=1<<(i-1);
-				} else {
+					flag |= 1 << (counterColorEquals - 1);
+				}
+				else
+				{
 					/* merge 0 and 1 */
-					palette[0]=TCOD_color_lerp(palette[0],palette[1],(float)(weight[1])/(weight[0]+weight[1]));
+					palette[0] = TCOD_color_lerp(palette[0], palette[1], (float)(weight[1]) / (weight[0] + weight[1]));
 					weight[0]++;
-					palette[1]=desired[i];
-					flag=1<<(i-1);
+					palette[1] = desired[counterColorEquals];
+					flag = 1 << (counterColorEquals - 1);
 				}
 			}
 		}
-		i++;
+		counterColorEquals++;
 	}
 	*ascii=flagToAscii[flag];
 }

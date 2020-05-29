@@ -290,6 +290,68 @@ void Image::scale(int neww, int newh)
 void Image::blit2x(Console* dest, int dx, int dy, int sx, int sy, int w, int h) const
 {
 	TCOD_image_blit_2x(data, dest->data, dx, dy, sx, sy, w, h);
+
+	Point destination(dx, dy);
+	Point source(sx, sy);
+	Size size(w, h);
+
+	Size imageSize = getSize();
+
+	if (size.w == -1) size.w = imageSize.w;
+	if (size.h == -1) size.h = imageSize.h;
+
+	int maxX = destination.x + size.w / 2 <= dest->getWidth() ? size.w : (dest->getWidth() - destination.x) * 2;
+	int maxY = destination.y + size.h / 2 <= dest->getHeight() ? size.h : (dest->getHeight() - destination.y) * 2;
+
+	maxX += source.x;
+	maxY += source.y;
+
+	for (int cx = source.x; cx < maxX; cx += 2)
+	{
+		for (int cy = source.y; cy < maxY; cy += 2)
+		{
+			int conX = destination.x + (cx - source.x) / 2;
+			int conY = destination.y + (cy - source.y) / 2;
+
+			Color consoleBackground = dest->getCharBackground(conX, conY);
+
+			std::array<Color, 4> grid;
+
+			grid.at(0) = getPixel(cx, cy);
+
+			if (imageData.getKeyColor().equals(grid.at(0)))
+			{
+				grid.at(0) = consoleBackground;
+			}
+
+			if (cx < maxX - 1)
+			{
+
+			}
+			else
+			{
+
+			}
+
+			if (cy < maxY - 1)
+			{
+
+			}
+			else
+			{
+
+			}
+
+			if (cx < maxX - 1 and cy < maxY - 1)
+			{
+
+			}
+			else
+			{
+
+			}
+		}
+	}
 }
 
 void
@@ -418,4 +480,70 @@ Image::blit(Console& _console,
 void Image::setPixel(int x, int y, const Color& _color)
 {
 	imageData.setPixel(x, y, _color);
+}
+
+std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette)
+{
+	// First colour trivial
+	palette.at(0) = desired.at(0);
+
+	int numberColors = 0;
+
+	int counterOfColorsEquals = 0;
+
+	// Ignore all duplicates
+	for (int i = 1; i < 4; ++i)
+	{
+		if (not desired.at(i).equals(palette.at(0)))
+		{
+			break;
+		}
+
+		counterOfColorsEquals += 1;
+	}
+
+	// All the same
+	if (counterOfColorsEquals == 4)
+	{
+		numberColors = 1;
+		return { numberColors, 0 };
+	}
+
+	std::array<int, 2> weight = { counterOfColorsEquals, 1 };
+
+	// Found a second color ...
+	palette.at(1) = desired.at(counterOfColorsEquals);
+
+	int flag = 0;
+
+	flag |= 1 << (counterOfColorsEquals - 1);
+
+	numberColors = 2;
+
+	// Remaining colors
+	counterOfColorsEquals += 1;
+
+	while (counterOfColorsEquals < 4)
+	{
+		if (desired.at(counterOfColorsEquals).equals(palette.at(0)))
+		{
+			weight.at(0) += 1;
+		}
+		else if (desired.at(counterOfColorsEquals).equals(palette.at(1)))
+		{
+
+		}
+		else
+		{
+
+		}
+
+		counterOfColorsEquals += 1;
+	}
+
+	// See the version of .c for the names and meanings
+	const std::array<int, 8> flagToASCII = { 0, 227, 232, -230,
+											 229, 231, -228, -226 };
+
+	return { numberColors, flagToASCII.at(flag) };
 }
