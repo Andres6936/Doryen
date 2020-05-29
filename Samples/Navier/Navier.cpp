@@ -241,7 +241,7 @@ void init()
 	memcpy(dens_prev, dens, sizeof(float) * SIZE);
 }
 
-void get_from_UI(float* d, float* u, float* v, float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
+void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, TCOD_mouse_t mouse)
 {
 	int i, j;
 	float vx = 0.0f, vy = 0.0f;
@@ -249,22 +249,22 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, TCOD_key_t k, TCOD
 	stepDelay -= elapsed;
 	if (stepDelay < 0.0f)
 	{
-		if (Console::isKeyPressed(TCODK_UP) && playery > 0)
+		if (k == KeyCode::UP and playery > 0)
 		{
 			playery--;
 			vy -= force;
 		}
-		if (Console::isKeyPressed(TCODK_DOWN) && playery < N / 2 - 1)
+		if (k == KeyCode::DOWN && playery < N / 2 - 1)
 		{
 			playery++;
 			vx += force;
 		}
-		if (Console::isKeyPressed(TCODK_LEFT) && playerx > 0)
+		if (k == KeyCode::LEFT && playerx > 0)
 		{
 			playerx--;
 			vx -= force;
 		}
-		if (Console::isKeyPressed(TCODK_RIGHT) && playerx < N / 2 - 1)
+		if (k == KeyCode::RIGHT && playerx < N / 2 - 1)
 		{
 			playerx++;
 			vx += force;
@@ -307,7 +307,7 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, TCOD_key_t k, TCOD
 
 }
 
-void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
+void update(float elapsed, KeyCode k, TCOD_mouse_t mouse)
 {
 	get_from_UI(dens_prev, u_prev, v_prev, elapsed, k, mouse);
 	update_velocity(u, v, u_prev, v_prev, visc, elapsed);
@@ -355,29 +355,19 @@ int main(int argc, char* argv[])
 
 		Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
 
-		if (k.vk == TCODK_PRINTSCREEN)
-		{
-			// screenshot
-			if (!k.pressed)
-			{
-				Platform::saveScreenshot(nullptr);
-			}
+		KeyCode key = Console::getKeyPressed().getKeyCode();
 
-			k.vk = TCODK_NONE;
+		if (key == KeyCode::PRINT_SCREEN)
+		{
+			Platform::saveScreenshot(nullptr);
 		}
-		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
+		else if (Console::getKeyPressed().isLeftAltPressed() and (key == KeyCode::ENTER))
 		{
-			// switch fullscreen
-			if (!k.pressed)
-			{
-				Console::setWindowInFullscreen();
-			}
-
-			k.vk = TCODK_NONE;
+			Console::setWindowInFullscreen();
 		}
 
 		// update the game
-		update(Platform::getLastFrameLength(), k, mouse);
+		update(Platform::getLastFrameLength(), key, mouse);
 
 		// render the game screen
 		render(console);
