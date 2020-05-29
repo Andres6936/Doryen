@@ -8,6 +8,7 @@
 #include "Char.hpp"
 #include "Color.hpp"
 #include "Event/Key.hpp"
+#include "Event/Mouse.hpp"
 #include "Geometry/Point2D.hpp"
 
 namespace Doryen
@@ -319,6 +320,8 @@ namespace Doryen
 		virtual void loadFont() = 0;
 
 		virtual Key getKeyPressed() = 0;
+
+		virtual Mouse getMouseEvent() = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
 

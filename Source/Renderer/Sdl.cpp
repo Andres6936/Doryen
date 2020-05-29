@@ -1119,3 +1119,8 @@ void Doryen::SDL::draw()
 
 	fillOldBuffer();
 }
+
+Doryen::Mouse Doryen::SDL::getMouseEvent()
+{
+	return Mouse();
+}

@@ -65,6 +65,8 @@ namespace Doryen
 
 		Key getKeyPressed() override;
 
+		Mouse getMouseEvent() override;
+
 		void loadFont() override;
 
 		void setWindowTitle(const std::string& _title) override;

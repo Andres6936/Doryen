@@ -1014,20 +1014,22 @@ namespace Doryen
             if key.KeyCode == tcod.NoKey then return end -- no key pressed
             if key.Character == 'i' then ... open inventory ... end
         */
-		static Doryen::Key getKeyPressed();
+		static Key getKeyPressed();
 
-        /**
-        @PageName console_non_blocking_input
-        @PageTitle Non blocking keyboard input
-        @PageFather console_input
-        @FuncDesc You can also get the status of any special key at any time with :
-        @Cpp static bool TCODConsole::isKeyPressed(TCOD_keycode_t key)
-        @C bool TCOD_console_is_key_pressed(TCOD_keycode_t key)
-        @Py console_is_key_pressed(key)
-        @C# static bool TCODConsole::isKeyPressed(TCODKeyCode key)
-        @Lua tcod.console.isKeyPressed(key)
-        @Param key Any key code defined in keycode_t except TCODK_CHAR (Char) and TCODK_NONE (NoKey)
-        */
+		static Mouse getMouseEvent();
+
+		/**
+		@PageName console_non_blocking_input
+		@PageTitle Non blocking keyboard input
+		@PageFather console_input
+		@FuncDesc You can also get the status of any special key at any time with :
+		@Cpp static bool TCODConsole::isKeyPressed(TCOD_keycode_t key)
+		@C bool TCOD_console_is_key_pressed(TCOD_keycode_t key)
+		@Py console_is_key_pressed(key)
+		@C# static bool TCODConsole::isKeyPressed(TCODKeyCode key)
+		@Lua tcod.console.isKeyPressed(key)
+		@Param key Any key code defined in keycode_t except TCODK_CHAR (Char) and TCODK_NONE (NoKey)
+		*/
         static bool isKeyPressed( TCOD_keycode_t key );
 
         /**

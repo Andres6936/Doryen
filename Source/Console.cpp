@@ -956,6 +956,11 @@ float Doryen::Console::getLastFrameLength() const
 	return renderer->getLastFrameLength();
 }
 
+Doryen::Mouse Doryen::Console::getMouseEvent()
+{
+	return renderer->getMouseEvent();
+}
+
 #ifndef NO_UNICODE
 
 // ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP
