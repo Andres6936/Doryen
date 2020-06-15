@@ -63,36 +63,36 @@ namespace Doryen
 
 		void draw() override;
 
-		Key getKeyPressed() override;
-
-		Mouse getMouseEvent() override;
-
 		void loadFont() override;
 
-		void setWindowTitle(const std::string& _title) override;
-
-		void setWindowInFullscreen() override;
+		void sleepMilli(int milliseconds);
 
 		// Setters
 
 		void setFps(short value);
 
+		void setWindowInFullscreen() override;
+
+		void setWindowTitle(const std::string& _title) override;
+
 		// Getters
+
+		short getFps() const;
+
+		int getElapsedMilli() const;
 
 		unsigned getWidthInPixeles() const;
 
 		unsigned getHeigthInPixeles() const;
 
-		short getFps() const;
-
 		float getLasFrameLength() const;
 
-		void sleepMilli(int milliseconds);
-
-		int getElapsedMilli() const;
-
 		float getElapsedSeconds() const;
-    };
+
+		Key getKeyPressed() override;
+
+		Mouse getMouseEvent() override;
+	};
 }
 
 #endif //LIBTCOD_SDL_HPP
