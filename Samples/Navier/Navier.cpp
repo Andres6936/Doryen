@@ -241,7 +241,7 @@ void init()
 	memcpy(dens_prev, dens, sizeof(float) * SIZE);
 }
 
-void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, TCOD_mouse_t mouse)
+void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, Mouse mouse)
 {
 	int i, j;
 	float vx = 0.0f, vy = 0.0f;
@@ -280,19 +280,19 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, TCOD_mo
 		u[i] = v[i] = d[i] = 0.0f;
 	}
 
-	if (!mouse.lbutton && !mouse.rbutton)
+	if (!mouse.isPressedLeftButton() && !mouse.isPressedRightButton())
 	{ return; }
 
-	i = mouse.cx * 2;
-	j = mouse.cy * 2;
+	i = mouse.getCx() * 2;
+	j = mouse.getCy() * 2;
 	if (i < 1 || i > N || j < 1 || j > N)
 	{ return; }
 
-	if (mouse.lbutton)
+	if (mouse.isPressedLeftButton())
 	{
 		float dx, dy, l;
-		dx = mouse.cx - playerx;
-		dy = mouse.cy - playery;
+		dx = mouse.getCx() - playerx;
+		dy = mouse.getCy() - playery;
 		l = sqrt(dx * dx + dy * dy);
 		if (l > 0)
 		{
@@ -307,7 +307,7 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, TCOD_mo
 
 }
 
-void update(float elapsed, KeyCode k, TCOD_mouse_t mouse)
+void update(float elapsed, KeyCode k, Mouse mouse)
 {
 	get_from_UI(dens_prev, u_prev, v_prev, elapsed, k, mouse);
 	update_velocity(u, v, u_prev, v_prev, visc, elapsed);
@@ -356,6 +356,7 @@ int main(int argc, char* argv[])
 		Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
 
 		KeyCode key = Console::getKeyPressed().getKeyCode();
+		Mouse m = Console::getMouseEvent();
 
 		if (key == KeyCode::PRINT_SCREEN)
 		{
@@ -367,7 +368,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(console.getLastFrameLength(), key, mouse);
+		update(console.getLastFrameLength(), key, m);
 
 		// render the game screen
 		render(console);

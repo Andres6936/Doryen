@@ -46,6 +46,12 @@ namespace Doryen
 
 		void addDy(int _dy);
 
+		bool isPressedLeftButton() const;
+
+		bool isPressedRightButton() const;
+
+		bool isPressedMiddleButton() const;
+
 		// Getters
 
 		int getX() const;

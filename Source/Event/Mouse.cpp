@@ -109,3 +109,18 @@ void Mouse::addDy(int _dy)
 {
 	dy += _dy;
 }
+
+bool Mouse::isPressedLeftButton() const
+{
+	return status == MouseCode::LEFT;
+}
+
+bool Mouse::isPressedRightButton() const
+{
+	return status == MouseCode::RIGHT;
+}
+
+bool Mouse::isPressedMiddleButton() const
+{
+	return status == MouseCode::MIDDLE;
+}
