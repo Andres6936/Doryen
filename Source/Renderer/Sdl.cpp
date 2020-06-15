@@ -1122,5 +1122,51 @@ void Doryen::SDL::draw()
 
 Doryen::Mouse Doryen::SDL::getMouseEvent()
 {
-	return Mouse();
+	SDL_Event event;
+
+	Mouse mouseEvent;
+
+	SDL_PumpEvents();
+
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_MOUSEMOTION)
+		{
+			SDL_MouseMotionEvent* mme = &event.motion;
+
+			mouseEvent.addDx(mme->xrel);
+			mouseEvent.addDy(mme->yrel);
+			mouseEvent.setX(mme->x);
+			mouseEvent.setY(mme->y);
+
+			const int charWidth = getFontWidth();
+			const int charHeight = getFontHeigth();
+
+			mouseEvent.setCx(mouseEvent.getX() / charWidth);
+			mouseEvent.setCy(mouseEvent.getY() / charHeight);
+			mouseEvent.setDcx(mouseEvent.getDx() / charWidth);
+			mouseEvent.setDcy(mouseEvent.getDy() / charHeight);
+		}
+		else if (event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			SDL_MouseButtonEvent* mev = &event.button;
+
+			switch (mev->button)
+			{
+			case SDL_BUTTON_LEFT :
+				mouseEvent.setStatus(MouseCode::LEFT);
+				break;
+
+			case SDL_BUTTON_MIDDLE :
+				mouseEvent.setStatus(MouseCode::MIDDLE);
+				break;
+
+			case SDL_BUTTON_RIGHT :
+				mouseEvent.setStatus(MouseCode::RIGHT);
+				break;
+			}
+		}
+	}
+
+	return mouseEvent;
 }

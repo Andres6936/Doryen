@@ -40,6 +40,52 @@ namespace Doryen
 
 	public:
 
+		// Methods
+
+		void addDx(int _dx);
+
+		void addDy(int _dy);
+
+		// Getters
+
+		int getX() const;
+
+		int getY() const;
+
+		int getDx() const;
+
+		int getDy() const;
+
+		int getCx() const;
+
+		int getCy() const;
+
+		int getDcx() const;
+
+		int getDcy() const;
+
+		MouseCode getStatus() const;
+
+		// Setters
+
+		void setX(int _x);
+
+		void setY(int _y);
+
+		void setDx(int _dx);
+
+		void setDy(int _dy);
+
+		void setCx(int _cx);
+
+		void setCy(int _cy);
+
+		void setDcx(int _dcx);
+
+		void setDcy(int _dcy);
+
+		void setStatus(MouseCode _status);
+
 	};
 }
 
