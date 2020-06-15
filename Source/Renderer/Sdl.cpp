@@ -496,53 +496,48 @@ void Doryen::SDL::onExit()
 
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
-	SDL_Event event;
-
 	Key keyPressed;
 
-	SDL_PumpEvents();
+	if (not eventPending) return keyPressed;
 
-	while (SDL_PollEvent(&event))
+	// Same that keyPressed
+	if (event.type == SDL_KEYDOWN)
 	{
-		// Same that keyPressed
-		if (event.type == SDL_KEYDOWN)
+		SDL_KeyboardEvent* keyboard = &event.key;
+
+		// Has been pressed CTRL, ALT of SHIFT ?
+		if (keyboard->keysym.sym == SDLK_LALT)
 		{
-			SDL_KeyboardEvent* keyboard = &event.key;
-
-			// Has been pressed CTRL, ALT of SHIFT ?
-			if (keyboard->keysym.sym == SDLK_LALT)
-			{
-				keyPressed.setKeyCode(KeyCode::ALT);
-				keyPressed.setRigthAltPressed(true);
-			}
-			else if (keyboard->keysym.sym == SDLK_RALT)
-			{
-				keyPressed.setKeyCode(KeyCode::ALT);
-				keyPressed.setLeftAltPressed(true);
-			}
-			else if (keyboard->keysym.sym == SDLK_LCTRL)
-			{
-				keyPressed.setKeyCode(KeyCode::CONTROL);
-				keyPressed.setLeftCtrlPressed(true);
-			}
-			else if (keyboard->keysym.sym == SDLK_RCTRL)
-			{
-				keyPressed.setKeyCode(KeyCode::CONTROL);
-				keyPressed.setRigthCtrlPressed(true);
-			}
-			else if (keyboard->keysym.sym == SDLK_LSHIFT ||
-					 keyboard->keysym.sym == SDLK_RSHIFT)
-			{
-				keyPressed.setKeyCode(KeyCode::SHIFT);
-				keyPressed.setShift(true);
-			}
-
-			// Convert the event of type SDL to a event of
-			// type Doryen (Generic)
-			convertToGenericEvent(event, keyPressed);
-
-			keyPressed.setPressed(true);
+			keyPressed.setKeyCode(KeyCode::ALT);
+			keyPressed.setRigthAltPressed(true);
 		}
+		else if (keyboard->keysym.sym == SDLK_RALT)
+		{
+			keyPressed.setKeyCode(KeyCode::ALT);
+			keyPressed.setLeftAltPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_LCTRL)
+		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
+			keyPressed.setLeftCtrlPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_RCTRL)
+		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
+			keyPressed.setRigthCtrlPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
+				 keyboard->keysym.sym == SDLK_RSHIFT)
+		{
+			keyPressed.setKeyCode(KeyCode::SHIFT);
+			keyPressed.setShift(true);
+		}
+
+		// Convert the event of type SDL to a event of
+		// type Doryen (Generic)
+		convertToGenericEvent(event, keyPressed);
+
+		keyPressed.setPressed(true);
 	}
 
 	return keyPressed;
@@ -1118,55 +1113,66 @@ void Doryen::SDL::draw()
 	setLastFrameLength((float)frameTime * 0.001f);
 
 	fillOldBuffer();
+
+	// Update the Queue of events
+	updateEventsQueue();
 }
 
 Doryen::Mouse Doryen::SDL::getMouseEvent()
 {
-	SDL_Event event;
-
 	Mouse mouseEvent;
 
-	SDL_PumpEvents();
+	if (not eventPending) return mouseEvent;
 
-	while (SDL_PollEvent(&event))
+	if (event.type == SDL_MOUSEMOTION)
 	{
-		if (event.type == SDL_MOUSEMOTION)
+		SDL_MouseMotionEvent* mme = &event.motion;
+
+		mouseEvent.addDx(mme->xrel);
+		mouseEvent.addDy(mme->yrel);
+		mouseEvent.setX(mme->x);
+		mouseEvent.setY(mme->y);
+
+		const int charWidth = getFontWidth();
+		const int charHeight = getFontHeigth();
+
+		mouseEvent.setCx(mouseEvent.getX() / charWidth);
+		mouseEvent.setCy(mouseEvent.getY() / charHeight);
+		mouseEvent.setDcx(mouseEvent.getDx() / charWidth);
+		mouseEvent.setDcy(mouseEvent.getDy() / charHeight);
+	}
+	else if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		SDL_MouseButtonEvent* mev = &event.button;
+
+		switch (mev->button)
 		{
-			SDL_MouseMotionEvent* mme = &event.motion;
+		case SDL_BUTTON_LEFT :
+			mouseEvent.setStatus(MouseCode::LEFT);
+			break;
 
-			mouseEvent.addDx(mme->xrel);
-			mouseEvent.addDy(mme->yrel);
-			mouseEvent.setX(mme->x);
-			mouseEvent.setY(mme->y);
+		case SDL_BUTTON_MIDDLE :
+			mouseEvent.setStatus(MouseCode::MIDDLE);
+			break;
 
-			const int charWidth = getFontWidth();
-			const int charHeight = getFontHeigth();
-
-			mouseEvent.setCx(mouseEvent.getX() / charWidth);
-			mouseEvent.setCy(mouseEvent.getY() / charHeight);
-			mouseEvent.setDcx(mouseEvent.getDx() / charWidth);
-			mouseEvent.setDcy(mouseEvent.getDy() / charHeight);
-		}
-		else if (event.type == SDL_MOUSEBUTTONDOWN)
-		{
-			SDL_MouseButtonEvent* mev = &event.button;
-
-			switch (mev->button)
-			{
-			case SDL_BUTTON_LEFT :
-				mouseEvent.setStatus(MouseCode::LEFT);
-				break;
-
-			case SDL_BUTTON_MIDDLE :
-				mouseEvent.setStatus(MouseCode::MIDDLE);
-				break;
-
-			case SDL_BUTTON_RIGHT :
-				mouseEvent.setStatus(MouseCode::RIGHT);
-				break;
-			}
+		case SDL_BUTTON_RIGHT :
+			mouseEvent.setStatus(MouseCode::RIGHT);
+			break;
 		}
 	}
 
 	return mouseEvent;
+}
+
+void Doryen::SDL::updateEventsQueue()
+{
+	SDL_PumpEvents();
+
+	// Polls for currently pending events,
+	// and returns true if there are any pending
+	// events, or false if there are none available.
+
+	// If 'event' is not NULL, the next event
+	// is removed from the queue and stored in that area.
+	eventPending = SDL_PollEvent(&event);
 }

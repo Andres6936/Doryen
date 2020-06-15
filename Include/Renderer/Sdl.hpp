@@ -12,6 +12,8 @@ namespace Doryen
 
 	private:
 
+		bool eventPending = false;
+
 		/**
 		 * Minimum length for a frame (when fps are limited)
 		 */
@@ -20,7 +22,7 @@ namespace Doryen
 		/**
 		 * Minimum length for a frame (when fps are limited)
 		 */
-        int minimunFrameLengthBackup = 0;
+		int minimunFrameLengthBackup = 0;
 
         /**
          * Length of the last rendering loop.
@@ -36,6 +38,8 @@ namespace Doryen
 		 * Current number of frames.
 		 */
 		short currentFramePerSecond = 0;
+
+		SDL_Event event;
 
 		SDL_Surface* screen = nullptr;
 
@@ -66,6 +70,8 @@ namespace Doryen
 		void loadFont() override;
 
 		void sleepMilli(int milliseconds);
+
+		void updateEventsQueue();
 
 		// Setters
 
