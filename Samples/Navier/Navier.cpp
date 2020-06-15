@@ -350,13 +350,8 @@ int main(int argc, char* argv[])
 
 	while (!console.isWindowClosed())
 	{
-		TCOD_key_t k;
-		TCOD_mouse_t mouse;
-
-		Platform::checkForEvent(TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse);
-
 		KeyCode key = Console::getKeyPressed().getKeyCode();
-		Mouse m = Console::getMouseEvent();
+		Mouse mouse = Console::getMouseEvent();
 
 		if (key == KeyCode::PRINT_SCREEN)
 		{
@@ -368,7 +363,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(console.getLastFrameLength(), key, m);
+		update(console.getLastFrameLength(), key, mouse);
 
 		// render the game screen
 		render(console);
