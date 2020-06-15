@@ -326,29 +326,44 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 			if (cx < maxX - 1)
 			{
+				grid.at(1) = getPixel(cx + 1, cy);
 
+				if (imageData.getKeyColor().equals(grid.at(1)))
+				{
+					grid.at(1) = consoleBackground;
+				}
 			}
 			else
 			{
-
+				grid.at(1) = consoleBackground;
 			}
 
 			if (cy < maxY - 1)
 			{
+				grid.at(2) = getPixel(cx, cy + 1);
 
+				if (imageData.getKeyColor().equals(grid.at(2)))
+				{
+					grid.at(2) = consoleBackground;
+				}
 			}
 			else
 			{
-
+				grid.at(2) = consoleBackground;
 			}
 
 			if (cx < maxX - 1 and cy < maxY - 1)
 			{
+				grid.at(3) = getPixel(cx + 1, cy + 1);
 
+				if (imageData.getKeyColor().equals(grid.at(3)))
+				{
+					grid.at(3) = consoleBackground;
+				}
 			}
 			else
 			{
-
+				grid.at(3) = consoleBackground;
 			}
 
 			std::array<Color, 2> cols;
