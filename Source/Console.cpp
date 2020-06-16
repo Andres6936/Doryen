@@ -1011,7 +1011,9 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 
 			if (dx >= destination.getWidth() or dy >= destination.getHeight()) continue;
 
-			destination.buffer.at(dy * destination.getWidth() + dx) = dstChar;
+			destination.setChar(dx, dy, dstChar.getC());
+			destination.setCharForeground(dx, dy, dstChar.getForeground());
+			destination.setCharBackground(dx, dy, dstChar.getBackground());
 		}
 	}
 }
