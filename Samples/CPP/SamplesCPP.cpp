@@ -134,34 +134,33 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                                "The Doryen library uses 24 bits colors, for both background and foreground." );
 }
 
-// ***************************
-// offscreen console sample
-// ***************************
 void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static Doryen::Console secondary( SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2 ); // second screen
-    static Doryen::Console screenshot( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // second screen
-    static bool init = false; // draw the secondary screen only the first time
-    static int counter = 0;
-    static int x = 0, y = 0; // secondary screen position
-    static int xdir = 1, ydir = 1; // movement direction
-    if ( !init )
-    {
-        init = true;
-        secondary.printFrame(0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2, false,
+	static Console secondary(SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2);
+	static Console screenshot(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
+
+	static bool init = false; // draw the secondary screen only the first time
+	static int counter = 0;
+	static int x = 0, y = 0; // secondary screen position
+	static int xdir = 1, ydir = 1; // movement direction
+
+	if (!init)
+	{
+		init = true;
+		secondary.printFrame(0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2, false,
 				Doryen::BackgroundFlag::SET,
 				"Offscreen console");
+
         secondary.printRectEx( SAMPLE_SCREEN_WIDTH / 4, 2, SAMPLE_SCREEN_WIDTH / 2 - 2, SAMPLE_SCREEN_HEIGHT / 2,
                                TCOD_BKGND_NONE, TCOD_CENTER,
                                "You can render to an offscreen console and blit in on another one, simulating alpha transparency." );
     }
     if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-        // get a "screenshot" of the current sample screen
-        Doryen::Console::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
-                               &screenshot, 0, 0 );
-    }
+	{
+		Platform::setFps(30); // fps limited to 30
+		// get a "screenshot" of the current sample screen
+		sampleConsole.blit({ 0, 0 }, screenshot, { 0, 0 });
+	}
     counter++;
     if ( counter % 20 == 0 )
     {
@@ -169,21 +168,19 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         x += xdir;
         y += ydir;
         if ( x == SAMPLE_SCREEN_WIDTH / 2 + 5 )
-        { xdir = -1; }
-        else if ( x == -5 )
-        { xdir = 1; }
-        if ( y == SAMPLE_SCREEN_HEIGHT / 2 + 5 )
-        { ydir = -1; }
-        else if ( y == -5 )
-        { ydir = 1; }
-    }
-    // restore the initial screen
-    Doryen::Console::blit( &screenshot, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT,
-                           &sampleConsole, 0, 0 );
-    // blit the overlapping screen
-    Doryen::Console::blit( &secondary, 0, 0, SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2,
-                           &sampleConsole, x, y, 1.0f, 0.75f );
+		{ xdir = -1; }
+		else if (x == -5)
+		{ xdir = 1; }
+		if (y == SAMPLE_SCREEN_HEIGHT / 2 + 5)
+		{ ydir = -1; }
+		else if (y == -5)
+		{ ydir = 1; }
+	}
 
+	// restore the initial screen
+	screenshot.blit({ 0, 0 }, sampleConsole, { 0, 0 });
+	// blit the overlapping screen
+	secondary.blit({ 0, 0 }, sampleConsole, { x, y }, 1.0f, 0.75f);
 }
 
 // ***************************
