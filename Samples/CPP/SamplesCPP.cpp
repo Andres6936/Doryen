@@ -164,23 +164,38 @@ void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     counter++;
     if ( counter % 20 == 0 )
     {
-        // move the secondary screen every 2 seconds
-        x += xdir;
-        y += ydir;
-        if ( x == SAMPLE_SCREEN_WIDTH / 2 + 5 )
-		{ xdir = -1; }
+		// move the secondary screen every 2 seconds
+		x += xdir;
+		y += ydir;
+
+		if (x == SAMPLE_SCREEN_WIDTH / 2 + 5)
+		{
+			xdir = -1;
+		}
 		else if (x == -5)
-		{ xdir = 1; }
+		{
+			xdir = 1;
+		}
+
 		if (y == SAMPLE_SCREEN_HEIGHT / 2 + 5)
-		{ ydir = -1; }
+		{
+			ydir = -1;
+		}
 		else if (y == -5)
-		{ ydir = 1; }
+		{
+			ydir = 1;
+		}
 	}
 
 	// restore the initial screen
 	screenshot.blit({ 0, 0 }, sampleConsole, { 0, 0 });
-	// blit the overlapping screen
-	secondary.blit({ 0, 0 }, sampleConsole, { x, y }, 1.0f, 0.75f);
+
+	// For avoid that program terminate
+	if (not(x < 0) and not(y < 0))
+	{
+		// blit the overlapping screen
+		secondary.blit({ 0, 0 }, sampleConsole, { x, y }, 1.0f, 0.75f);
+	}
 }
 
 // ***************************
