@@ -1524,9 +1524,11 @@ int main( int argc, char *argv[] )
 
 		// print the help message
 		console.setDefaultForeground(Doryen::Color::grey);
-		console.printEx(79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
-				(int)(Doryen::Platform::getLastFrameLength() * 1000),
-				Doryen::Platform::getFps());
+		console.print(50, 46,
+				format("last frame : {.2f} ms ({} fps)",
+						Platform::getLastFrameLength() * 1000,
+						Platform::getFps()));
+
 		console.printEx(79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
 				Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds());
 
