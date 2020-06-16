@@ -1531,9 +1531,13 @@ int main( int argc, char *argv[] )
 
 		console.print(50, 47,
 				format("elapsed : {>5d} ms {>4.2f}s",
-						Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds()));
+						Doryen::Platform::getElapsedMilli(),
+						Doryen::Platform::getElapsedSeconds()));
 
-		console.print(2, 47, format("{c}{c} : select a sample", (char)TCOD_CHAR_ARROW_N, (char)TCOD_CHAR_ARROW_S));
+		console.print(2, 47,
+				format("{c}{c} : select a sample",
+						(char)TCOD_CHAR_ARROW_N,
+						(char)TCOD_CHAR_ARROW_S));
 
 		if (Console::isFullscreen())
 		{
