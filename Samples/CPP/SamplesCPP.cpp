@@ -18,12 +18,14 @@
 #include "Algorithms/Drawing/Bresenham.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
+using namespace Doryen;
+
 // a sample has a name and a rendering function
 typedef struct
 {
-    char name[64];
+	char name[64];
 
-    void (*render)( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse );
+	void (* render)(bool first, TCOD_key_t* key, TCOD_mouse_t* mouse);
 } sample_t;
 
 // ***************************
@@ -1484,7 +1486,7 @@ int main( int argc, char *argv[] )
 		Doryen::Platform::forceFullscreenResolution(fullscreenWidth, fullscreenHeight);
 	}
 
-	Doryen::Console console = Doryen::Console();
+	Console console = Console();
 
 	console.setCustomFont(font, fontFlags, nbCharHoriz, nbCharVertic);
 
@@ -1494,83 +1496,83 @@ int main( int argc, char *argv[] )
 	{
 		if (!creditsEnd)
 		{
-			creditsEnd = Doryen::Console::renderCredits(60, 43, false);
+			creditsEnd = Console::renderCredits(60, 43, false);
 		}
 
 		// print the list of samples
 		for (int i = 0; i < nbSamples; i++)
         {
             if ( i == curSample )
-            {
-                // set colors for currently selected sample
-                Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
-                Doryen::Console::root->setDefaultBackground( Doryen::Color::lightBlue );
-            }
+			{
+				// set colors for currently selected sample
+				console.setDefaultForeground(Doryen::Color::white);
+				console.setDefaultBackground(Doryen::Color::lightBlue);
+			}
             else
-            {
-                // set colors for other samples
-                Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
-                Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
-            }
+			{
+				// set colors for other samples
+				console.setDefaultForeground(Doryen::Color::grey);
+				console.setDefaultBackground(Doryen::Color::black);
+			}
 
-            // print the sample name
-            Doryen::Console::root->printEx( 2, 46 - ( nbSamples - i ), TCOD_BKGND_SET, TCOD_LEFT, samples[ i ].name );
-        }
+			// print the sample name
+			console.printEx(2, 46 - (nbSamples - i), TCOD_BKGND_SET, TCOD_LEFT, samples[i].name);
+		}
 
-        // print the help message
-        Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
-        Doryen::Console::root->printEx( 79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
-                                        ( int ) ( Doryen::Platform::getLastFrameLength( ) * 1000 ),
-                                        Doryen::Platform::getFps( ));
-        Doryen::Console::root->printEx( 79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
-                                        Doryen::Platform::getElapsedMilli( ), Doryen::Platform::getElapsedSeconds( ));
-        Doryen::Console::root->print( 2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S );
-        Doryen::Console::root->print( 2, 48, "ALT-ENTER : switch to %s",
-                                      Doryen::Console::isFullscreen( ) ? "windowed mode  " : "fullscreen mode" );
+		// print the help message
+		console.setDefaultForeground(Doryen::Color::grey);
+		console.printEx(79, 46, TCOD_BKGND_NONE, TCOD_RIGHT, "last frame : %3d ms (%3d fps)",
+				(int)(Doryen::Platform::getLastFrameLength() * 1000),
+				Doryen::Platform::getFps());
+		console.printEx(79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
+				Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds());
+		console.print(2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S);
+		console.print(2, 48, "ALT-ENTER : switch to %s",
+				Doryen::Console::isFullscreen() ? "windowed mode  " : "fullscreen mode");
 
-        // render current sample
-        samples[ curSample ].render( first, &key, &mouse );
-        first = false;
+		// render current sample
+		samples[curSample].render(first, &key, &mouse);
+		first = false;
 
-        // blit the sample console on the root console
-        Doryen::Console::blit( &sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
-                               SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
-                               Doryen::Console::root, SAMPLE_SCREEN_X,
+		// blit the sample console on the root console
+		Doryen::Console::blit(&sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
+				SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
+				Doryen::Console::root, SAMPLE_SCREEN_X,
                                SAMPLE_SCREEN_Y // the destination console & position
         );
         // erase the renderer in debug mode (needed because the root console is not cleared each frame)
-        Doryen::Console::root->print( 1, 1, "        " );
+		console.print(1, 1, "        ");
 #ifndef NO_SDL_SAMPLE
-        if ( sdl_callback_enabled )
-        {
-            // we want libtcod to redraw the sample console even if nothing has changed in it
-            Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
-                                             SAMPLE_SCREEN_HEIGHT );
-        }
+		if (sdl_callback_enabled)
+		{
+			// we want libtcod to redraw the sample console even if nothing has changed in it
+			console.setDirty(SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
+					SAMPLE_SCREEN_HEIGHT);
+		}
 #endif
-        /* display renderer list and current renderer */
-        cur_renderer = Doryen::Platform::getRenderer( );
+		/* display renderer list and current renderer */
+		cur_renderer = Doryen::Platform::getRenderer();
 
-        Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
-        Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
-        Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS + 1 ), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :" );
+		console.setDefaultForeground(Doryen::Color::grey);
+		console.setDefaultBackground(Doryen::Color::black);
+		console.printEx(42, 46 - (TCOD_NB_RENDERERS + 1), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :");
 
-        for ( int i = 0; i < TCOD_NB_RENDERERS; i++ )
-        {
-            if ( i == cur_renderer )
-            {
-                /* set colors for current renderer */
-                Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
-                Doryen::Console::root->setDefaultBackground( Doryen::Color::lightBlue );
-            }
-            else
-            {
-                /* set colors for other renderer */
-                Doryen::Console::root->setDefaultForeground( Doryen::Color::grey );
-                Doryen::Console::root->setDefaultBackground( Doryen::Color::black );
-            }
-            Doryen::Console::root->printEx( 42, 46 - ( TCOD_NB_RENDERERS - i ), TCOD_BKGND_SET, TCOD_LEFT,
-                                            renderer_name[ i ] );
+		for (int i = 0; i < TCOD_NB_RENDERERS; i++)
+		{
+			if (i == cur_renderer)
+			{
+				/* set colors for current renderer */
+				console.setDefaultForeground(Doryen::Color::white);
+				console.setDefaultBackground(Doryen::Color::lightBlue);
+			}
+			else
+			{
+				/* set colors for other renderer */
+				console.setDefaultForeground(Doryen::Color::grey);
+				console.setDefaultBackground(Doryen::Color::black);
+			}
+			console.printEx(42, 46 - (TCOD_NB_RENDERERS - i), TCOD_BKGND_SET, TCOD_LEFT,
+					renderer_name[i]);
         }
 
         // update the game screen
