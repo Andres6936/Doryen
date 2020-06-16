@@ -946,11 +946,68 @@ Doryen::Mouse Doryen::Console::getMouseEvent()
 	return renderer->getMouseEvent();
 }
 
-#ifndef NO_UNICODE
+void
+Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, const Size& size, Doryen::Console& destination,
+		const Doryen::Geometry::Point2D<>& dest, float foregroundAlpha, float backgroundAlpha)
+{
+	for (int cx = source.x; cx < source.x + size.w; ++cx)
+	{
+		for (int cy = source.y; cy < source.y + size.h; ++cy)
+		{
+			const Char srcChar = buffer[cy * width + cx];
+			Char dstChar = srcChar;
 
-// ctrl = TCOD_COLCTRL_1...TCOD_COLCTRL_5 or TCOD_COLCTRL_STOP
-#define NB_BUFFERS 10
+			if (foregroundAlpha == 1.0f and backgroundAlpha == 1.0f)
+			{
+				dstChar = srcChar;
+			}
+			else
+			{
+				dstChar.setC(destination.getChar(dest.x, dest.y));
+				dstChar.setBackground(destination.getCharBackground(dest.x, dest.y));
+				dstChar.setForeground(destination.getCharForeground(dest.x, dest.y));
 
-#endif
+				dstChar.setBackground(Color::lerp(dstChar.getBackground(),
+						srcChar.getBackground(), backgroundAlpha));
 
+				if (srcChar.getC() == ' ')
+				{
+					dstChar.setForeground(Color::lerp(dstChar.getForeground(),
+							srcChar.getBackground(), backgroundAlpha));
+				}
+				else if (dstChar.getC() == ' ')
+				{
+					dstChar.setC(srcChar.getC());
+					dstChar.setCf(srcChar.getCf());
+					dstChar.setForeground(Color::lerp(dstChar.getBackground(),
+							srcChar.getForeground(), foregroundAlpha));
+				}
+				else if (dstChar.getC() == srcChar.getC())
+				{
+					dstChar.setForeground(Color::lerp(dstChar.getForeground(),
+							srcChar.getForeground(), foregroundAlpha));
+				}
+				else
+				{
+					if (foregroundAlpha < 0.5f)
+					{
+						dstChar.setForeground(Color::lerp(dstChar.getForeground(),
+								dstChar.getBackground(), foregroundAlpha * 2));
+					}
+					else
+					{
+						dstChar.setC(srcChar.getC());
+						dstChar.setCf(srcChar.getCf());
+						dstChar.setForeground(Color::lerp(dstChar.getBackground(),
+								srcChar.getForeground(), (foregroundAlpha - 0.5f) * 2));
+					}
+				}
+			}
 
+			int dx = cx - source.x + dest.x;
+			int dy = cy - source.y + dest.y;
+
+			destination.buffer.at(dy * destination.getWidth() + dx) = dstChar;
+		}
+	}
+}
