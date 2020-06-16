@@ -600,24 +600,24 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     }
     if ( first )
     {
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-        // we draw the foreground only the first time.
-        // during the player movement, only the @ is redrawn.
-        // the rest impacts only the background color
-        // draw the help text & player @
-        sampleConsole.clear( );
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
-                             torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
+		Doryen::Platform::setFps(30); // fps limited to 30
+		// we draw the foreground only the first time.
+		// during the player movement, only the @ is redrawn.
+		// the rest impacts only the background color
+		// draw the help text & player @
+		sampleConsole.clear();
+		sampleConsole.setDefaultForeground(Doryen::Color::white);
+		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
 		sampleConsole.setDefaultForeground(Doryen::Color::black);
 		sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-        // draw windows
-        for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-        {
-            for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-            {
-                if ( smap[ y ][ x ] == '=' )
-                {
+		// draw windows
+		for (int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++)
+		{
+			for (int x = 0; x < SAMPLE_SCREEN_WIDTH; x++)
+			{
+				if (smap[y][x] == '=')
+				{
 					sampleConsole.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
                 }
             }
@@ -746,33 +746,33 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
     }
     else if ( key->c == 'T' || key->c == 't' )
-    {
-        // enable/disable the torch fx
-        torch = !torch;
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
-                             torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
-        sampleConsole.setDefaultForeground( Doryen::Color::black );
-    }
+	{
+		// enable/disable the torch fx
+		torch = !torch;
+		sampleConsole.setDefaultForeground(Doryen::Color::white);
+		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+		sampleConsole.setDefaultForeground(Doryen::Color::black);
+	}
     else if ( key->c == 'W' || key->c == 'w' )
-    {
-        light_walls = !light_walls;
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
-                             torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
-        sampleConsole.setDefaultForeground( Doryen::Color::black );
-        recomputeFov = true;
-    }
+	{
+		light_walls = !light_walls;
+		sampleConsole.setDefaultForeground(Doryen::Color::white);
+		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+		sampleConsole.setDefaultForeground(Doryen::Color::black);
+		recomputeFov = true;
+	}
     else if ( key->c == '+' || key->c == '-' )
-    {
-        algonum += key->c == '+' ? 1 : -1;
-        algonum = CLAMP( 0, NB_FOV_ALGORITHMS - 1, algonum );
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.print( 1, 0, "IJKL : move around\nT : torch fx %s\nW : light walls %s\n+-: algo %s",
-                             torch ? "on " : "off", light_walls ? "on " : "off", algo_names[ algonum ] );
-        sampleConsole.setDefaultForeground( Doryen::Color::black );
-        recomputeFov = true;
-    }
+	{
+		algonum += key->c == '+' ? 1 : -1;
+		algonum = CLAMP(0, NB_FOV_ALGORITHMS - 1, algonum);
+		sampleConsole.setDefaultForeground(Doryen::Color::white);
+		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+		sampleConsole.setDefaultForeground(Doryen::Color::black);
+		recomputeFov = true;
+	}
 }
 
 // ***************************
