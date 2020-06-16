@@ -1529,8 +1529,9 @@ int main( int argc, char *argv[] )
 						console.getLastFrameLength() * 1000,
 						console.getFramePerSeconds()));
 
-		console.printEx(79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
-				Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds());
+		console.print(50, 47,
+				format("elapsed : {>5d} ms {>4.2f}s",
+						Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds()));
 
 		console.print(2, 47, format("{c}{c} : select a sample", (char)TCOD_CHAR_ARROW_N, (char)TCOD_CHAR_ARROW_S));
 
