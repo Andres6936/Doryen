@@ -1156,20 +1156,22 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 
 void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-	static Doryen::Algorithms::BinarySpacePartition* bsp = NULL;
+	static Algorithms::BinarySpacePartition* bsp = NULL;
 	static bool generate = true;
 	static bool refresh = false;
 	static map_t map;
-	static Doryen::Color darkWall(0, 0, 100);
-	static Doryen::Color darkGround(50, 50, 150);
+	static Color darkWall(0, 0, 100);
+	static Color darkGround(50, 50, 150);
 	static BspListener listener;
+
 	if (generate || refresh)
 	{
 		// dungeon generation
 		if (!bsp)
 		{
 			// create the bsp
-			bsp = new Doryen::Algorithms::BinarySpacePartition(0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
+			bsp = new Algorithms::BinarySpacePartition(
+					0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
 		}
         else
         {
