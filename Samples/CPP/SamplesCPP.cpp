@@ -1511,7 +1511,7 @@ int main( int argc, char *argv[] )
 				console.setDefaultForeground(Doryen::Color::white);
 				console.setDefaultBackground(Doryen::Color::lightBlue);
 			}
-            else
+			else
 			{
 				// set colors for other samples
 				console.setDefaultForeground(Doryen::Color::grey);
@@ -1519,7 +1519,7 @@ int main( int argc, char *argv[] )
 			}
 
 			// print the sample name
-			console.printEx(2, 46 - (nbSamples - i), TCOD_BKGND_SET, TCOD_LEFT, samples[i].name);
+			console.print(2, 46 - (nbSamples - i), samples[i].name);
 		}
 
 		// print the help message
