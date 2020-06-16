@@ -947,12 +947,12 @@ Doryen::Mouse Doryen::Console::getMouseEvent()
 }
 
 void
-Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, const Size& size, Doryen::Console& destination,
+Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console& destination,
 		const Doryen::Geometry::Point2D<>& dest, float foregroundAlpha, float backgroundAlpha)
 {
-	for (int cx = source.x; cx < source.x + size.w; ++cx)
+	for (int cx = source.x; cx < source.x + getWidth(); ++cx)
 	{
-		for (int cy = source.y; cy < source.y + size.h; ++cy)
+		for (int cy = source.y; cy < source.y + getHeight(); ++cy)
 		{
 			if (cx >= getWidth() or cy >= getHeight()) continue;
 

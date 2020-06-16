@@ -1546,12 +1546,9 @@ int main( int argc, char *argv[] )
 		first = false;
 
 		// blit the sample console on the root console
-		Doryen::Console::blit(&sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
-				SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
-				Doryen::Console::root, SAMPLE_SCREEN_X,
-				SAMPLE_SCREEN_Y // the destination console & position
-        );
-        // erase the renderer in debug mode (needed because the root console is not cleared each frame)
+		sampleConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
+
+		// erase the renderer in debug mode (needed because the root console is not cleared each frame)
 		console.print(1, 1, "        ");
 #ifndef NO_SDL_SAMPLE
 		if (sdl_callback_enabled)

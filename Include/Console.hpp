@@ -1239,7 +1239,7 @@ namespace Doryen
 		blit(const Console* src, int xSrc, int ySrc, int wSrc, int hSrc, Console* dst, int xDst, int yDst,
 				float foreground_alpha = 1.0f, float background_alpha = 1.0f);
 
-		void blit(const Geometry::Point2D<>& source, const Size& size, Console& destination,
+		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 
 
