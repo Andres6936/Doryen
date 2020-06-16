@@ -268,9 +268,10 @@ Doryen::BackgroundFlag switchBackgroundFlag(Doryen::BackgroundFlag flag)
 
 void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
-    static Doryen::Console bk( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT ); // colored background
-    static bool init = false;
-    static const char *flagNames[] = {
+	static Console bk(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT); // colored background
+	static bool init = false;
+
+	static const char* flagNames[] = {
 			"TCOD_BKGND_NONE",
 			"TCOD_BKGND_SET",
 			"TCOD_BKGND_MULTIPLY",
@@ -317,7 +318,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         sampleConsole.setDefaultForeground( Doryen::Color::white );
     }
     // blit the background
-    Doryen::Console::blit( &bk, 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT, &sampleConsole, 0, 0 );
+	bk.blit({ 0, 0 }, sampleConsole, { 0, 0 });
     // render the gradient
     int recty = ( int ) (( SAMPLE_SCREEN_HEIGHT - 2 ) *
                          (( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ))) / 2.0f ));
