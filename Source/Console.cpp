@@ -954,6 +954,8 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, const Size& siz
 	{
 		for (int cy = source.y; cy < source.y + size.h; ++cy)
 		{
+			if (cx >= getWidth() or cy >= getHeight()) continue;
+
 			const Char srcChar = buffer[cy * width + cx];
 			Char dstChar = srcChar;
 
@@ -1004,8 +1006,10 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, const Size& siz
 				}
 			}
 
-			int dx = cx - source.x + dest.x;
-			int dy = cy - source.y + dest.y;
+			const int dx = cx - source.x + dest.x;
+			const int dy = cy - source.y + dest.y;
+
+			if (dx >= destination.getWidth() or dy >= destination.getHeight()) continue;
 
 			destination.buffer.at(dy * destination.getWidth() + dx) = dstChar;
 		}
