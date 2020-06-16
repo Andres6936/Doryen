@@ -1190,17 +1190,17 @@ void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         refresh = false;
     }
     sampleConsole.clear( );
-    sampleConsole.setDefaultForeground( Doryen::Color::white );
-    sampleConsole.print( 1, 1,
-                         "ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth %d\n*/: room size %d\n1 : random room size %s",
-                         bspDepth, minRoomSize,
-                         randomRoom ? "ON" : "OFF" );
+    sampleConsole.setDefaultForeground(Doryen::Color::white);
+	sampleConsole.print(1, 1,
+			format("ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth {}\n*/: room size {}\n1 : random room size {}",
+					bspDepth, minRoomSize,
+					randomRoom ? "ON" : "OFF"));
 
     if ( randomRoom )
-    {
-        sampleConsole.print( 1, 6, "2 : room walls %s",
-                             roomWalls ? "ON" : "OFF" );
-    }
+	{
+		sampleConsole.print(1, 6, format("2 : room walls {}",
+				roomWalls ? "ON" : "OFF"));
+	}
     // render the level
     for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
     {
