@@ -1588,52 +1588,55 @@ int main( int argc, char *argv[] )
 			}
 			console.printEx(42, 46 - (TCOD_NB_RENDERERS - i), TCOD_BKGND_SET, TCOD_LEFT,
 					renderer_name[i]);
-        }
+		}
 
-        // update the game screen
-        Doryen::Console::flush( );
+		// update the game screen
+		Doryen::Console::flush();
 
-        // did the user hit a key ?
-        Doryen::Platform::checkForEvent(( TCOD_event_t ) ( TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE ), &key, &mouse );
-        if ( key.vk == TCODK_DOWN )
-        {
-            // down arrow : next sample
-            curSample = ( curSample + 1 ) % nbSamples;
-            first = true;
-        }
-        else if ( key.vk == TCODK_UP )
-        {
-            // up arrow : previous sample
-            curSample--;
-            if ( curSample < 0 )
-            { curSample = nbSamples - 1; }
-            first = true;
-        }
-        else if ( key.vk == TCODK_ENTER && key.lalt )
-        {
+		// did the user hit a key ?
+		Doryen::Platform::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE), &key, &mouse);
+
+		KeyCode _key = console.getKeyPressed().getKeyCode();
+
+		if (_key == KeyCode::DOWN)
+		{
+			// down arrow : next sample
+			curSample = (curSample + 1) % nbSamples;
+			first = true;
+		}
+		else if (_key == KeyCode::UP)
+		{
+			// up arrow : previous sample
+			curSample--;
+			if (curSample < 0)
+			{ curSample = nbSamples - 1; }
+			first = true;
+		}
+		else if (_key == KeyCode::ENTER and console.getKeyPressed().isLeftAltPressed())
+		{
 			// ALT-ENTER : switch fullscreen
 			Doryen::Console::setWindowInFullscreen();
 #ifdef TCOD_LINUX
 		}
-        else if ( key.c == 'p' )
-        {
+		else if (_key == KeyCode::PRINT_SCREEN)
+		{
 #else
-            } else if ( key.vk == TCODK_PRINTSCREEN ) {
+			} else if ( key.vk == TCODK_PRINTSCREEN ) {
 #endif
-        }
-        else if ( key.vk == TCODK_F1 )
-        {
-            // switch renderers with F1,F2,F3
-            Doryen::Platform::setRenderer( TCOD_RENDERER_GLSL );
-        }
-        else if ( key.vk == TCODK_F2 )
-        {
-            Doryen::Platform::setRenderer( TCOD_RENDERER_OPENGL );
-        }
-        else if ( key.vk == TCODK_F3 )
-        {
-            Doryen::Platform::setRenderer( TCOD_RENDERER_SDL );
-        }
+		}
+		else if (_key == KeyCode::F1)
+		{
+			// switch renderers with F1,F2,F3
+			Doryen::Platform::setRenderer(TCOD_RENDERER_GLSL);
+		}
+		else if (_key == KeyCode::F2)
+		{
+			Doryen::Platform::setRenderer(TCOD_RENDERER_OPENGL);
+		}
+		else if (_key == KeyCode::F3)
+		{
+			Doryen::Platform::setRenderer(TCOD_RENDERER_SDL);
+		}
     }
 
     return 0;
