@@ -851,26 +851,28 @@ void render_mouse( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     { rbut = !rbut; }
     if ( mouse->mbutton_pressed )
     { mbut = !mbut; }
-    sampleConsole.print( 1, 1,
-                         "Mouse position : %4dx%4d\n"
-                         "Mouse cell     : %4dx%4d\n"
-                         "Mouse movement : %4dx%4d\n"
-                         "Left button    : %s (toggle %s)\n"
-                         "Right button   : %s (toggle %s)\n"
-                         "Middle button  : %s (toggle %s)\n"
-                         "Wheel          : %s\n",
-                         mouse->x, mouse->y,
-                         mouse->cx, mouse->cy,
-                         mouse->dx, mouse->dy,
-                         mouse->lbutton ? " ON" : "OFF", lbut ? " ON" : "OFF",
-                         mouse->rbutton ? " ON" : "OFF", rbut ? " ON" : "OFF",
-                         mouse->mbutton ? " ON" : "OFF", mbut ? " ON" : "OFF",
-                         mouse->wheel_up ? "UP" : ( mouse->wheel_down ? "DOWN" : "" ));
-    sampleConsole.print( 1, 10, "1 : Hide cursor\n2 : Show cursor" );
-    if ( key->c == '1' )
-    { TCODMouse::showCursor( false ); }
-    else if ( key->c == '2' )
-    { TCODMouse::showCursor( true ); }
+    sampleConsole.print(1, 1,
+			format(
+					"Mouse position : {4d}x{4d}\n"
+					"Mouse cell     : {4d}x{4d}\n"
+					"Mouse movement : {4d}x{4d}\n"
+					"Left button    : {} (toggle {})\n"
+					"Right button   : {} (toggle {})\n"
+					"Middle button  : {} (toggle {})\n"
+					"Wheel          : {}\n",
+					mouse->x, mouse->y,
+					mouse->cx, mouse->cy,
+					mouse->dx, mouse->dy,
+					mouse->lbutton ? " ON" : "OFF", lbut ? " ON" : "OFF",
+					mouse->rbutton ? " ON" : "OFF", rbut ? " ON" : "OFF",
+					mouse->mbutton ? " ON" : "OFF", mbut ? " ON" : "OFF",
+					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : "")));
+
+	sampleConsole.print(1, 10, "1 : Hide cursor\n2 : Show cursor");
+	if (key->c == '1')
+	{ TCODMouse::showCursor(false); }
+	else if (key->c == '2')
+	{ TCODMouse::showCursor(true); }
 }
 
 // ***************************
