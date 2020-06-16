@@ -459,14 +459,14 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
     }
     // draw parameters
-    sampleConsole.setDefaultForeground( Doryen::Color::white );
-    sampleConsole.print( 2, 11, "Y/H : zoom (%2.1f)", zoom );
+    sampleConsole.setDefaultForeground(Doryen::Color::white);
+	sampleConsole.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
     if ( func > WAVELET )
-    {
-        sampleConsole.print( 2, 12, "E/D : hurst (%2.1f)", hurst );
-        sampleConsole.print( 2, 13, "R/F : lacunarity (%2.1f)", lacunarity );
-        sampleConsole.print( 2, 14, "T/G : octaves (%2.1f)", octaves );
-    }
+	{
+		sampleConsole.print(2, 12, format("E/D : hurst {2.1f}", hurst));
+		sampleConsole.print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
+		sampleConsole.print(2, 14, format("T/G : octaves {2.1f}", octaves));
+	}
     // handle keypress
     if ( key->vk == TCODK_NONE )
     { return; }
