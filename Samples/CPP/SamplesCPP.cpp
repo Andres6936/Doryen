@@ -326,17 +326,17 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
     int xo = ( int ) ( SAMPLE_SCREEN_WIDTH / 2 * ( 1 + cosAngle ));
     int yo = ( int ) ( SAMPLE_SCREEN_HEIGHT / 2 + sinAngle * SAMPLE_SCREEN_WIDTH / 2 );
     int xd = ( int ) ( SAMPLE_SCREEN_WIDTH / 2 * ( 1 - cosAngle ));
-    int yd = ( int ) ( SAMPLE_SCREEN_HEIGHT / 2 - sinAngle * SAMPLE_SCREEN_WIDTH / 2 );
+	int yd = (int)(SAMPLE_SCREEN_HEIGHT / 2 - sinAngle * SAMPLE_SCREEN_WIDTH / 2);
 
-    // render the line
+	// render the line
 	RenderLine listener;
 
 	Doryen::Algorithms::Line objLine = Doryen::Algorithms::Line();
 
 	objLine.line(xo, yo, xd, yd, listener);
 
-    // print the current flag
-	sampleConsole.print(2, 2, "%s (ENTER to change)", flagNames[(int)backFlag]);
+	// print the current flag
+	sampleConsole.print(2, 2, format("{} (ENTER to change)", flagNames[(int)backFlag]));
 }
 
 // ***************************
@@ -429,7 +429,7 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
         }
     }
     // blit the noise image on the console with subcell resolution
-    img->blit2x( &sampleConsole, 0, 0 );
+	img->blit2x(sampleConsole, 0, 0);
     // draw a transparent rectangle
     sampleConsole.setDefaultBackground(Doryen::Color::grey);
 	sampleConsole.rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
@@ -1193,6 +1193,7 @@ void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                          "ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth %d\n*/: room size %d\n1 : random room size %s",
                          bspDepth, minRoomSize,
                          randomRoom ? "ON" : "OFF" );
+
     if ( randomRoom )
     {
         sampleConsole.print( 1, 6, "2 : room walls %s",
@@ -1285,26 +1286,26 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 #ifndef TCOD_VISUAL_STUDIO
         char *nameToRemove = *( names.begin( ));
 #endif
-        names.remove( names.begin( ));
-        // for some reason, this crashes on MSVC...
+		names.remove(names.begin());
+		// for some reason, this crashes on MSVC...
 #ifndef TCOD_VISUAL_STUDIO
-        free( nameToRemove );
+		free(nameToRemove);
 #endif
-    }
+	}
 
-    sampleConsole.setDefaultBackground( Doryen::Color::lightBlue );
-    sampleConsole.clear( );
-    sampleConsole.setDefaultForeground( Doryen::Color::white );
-    sampleConsole.print( 1, 1, "%s\n\n+ : next generator\n- : prev generator",
-                         sets.get( curSet ));
-    for ( i = 0; i < names.size( ); i++ )
-    {
-        char *name = names.get( i );
-        if ( strlen( name ) < SAMPLE_SCREEN_WIDTH )
-        {
-            sampleConsole.printEx( SAMPLE_SCREEN_WIDTH - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name );
-        }
-    }
+	sampleConsole.setDefaultBackground(Doryen::Color::lightBlue);
+	sampleConsole.clear();
+	sampleConsole.setDefaultForeground(Doryen::Color::white);
+	sampleConsole.print(1, 1, format("{}\n\n+ : next generator\n- : prev generator", sets.get(curSet)));
+
+	for (i = 0; i < names.size(); i++)
+	{
+		char* name = names.get(i);
+		if (strlen(name) < SAMPLE_SCREEN_WIDTH)
+		{
+			sampleConsole.printEx(SAMPLE_SCREEN_WIDTH - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name);
+		}
+	}
 
     delay += Doryen::Platform::getLastFrameLength( );
     if ( delay >= 0.5f )
@@ -1526,9 +1527,17 @@ int main( int argc, char *argv[] )
 				Doryen::Platform::getFps());
 		console.printEx(79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
 				Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds());
-		console.print(2, 47, "%c%c : select a sample", TCOD_CHAR_ARROW_N, TCOD_CHAR_ARROW_S);
-		console.print(2, 48, "ALT-ENTER : switch to %s",
-				Doryen::Console::isFullscreen() ? "windowed mode  " : "fullscreen mode");
+
+		console.print(2, 47, format("{}{} : select a sample", (char)TCOD_CHAR_ARROW_N, (char)TCOD_CHAR_ARROW_S));
+
+		if (Console::isFullscreen())
+		{
+			console.print(2, 48, "ALT-ENTER : switch to windowed mode");
+		}
+		else
+		{
+			console.print(2, 48, "ALT-ENTER : switch to fullscreen mode");
+		}
 
 		// render current sample
 		samples[curSample].render(first, &key, &mouse);
@@ -1538,7 +1547,7 @@ int main( int argc, char *argv[] )
 		Doryen::Console::blit(&sampleConsole, 0, 0, SAMPLE_SCREEN_WIDTH,
 				SAMPLE_SCREEN_HEIGHT, // the source console & zone to blit
 				Doryen::Console::root, SAMPLE_SCREEN_X,
-                               SAMPLE_SCREEN_Y // the destination console & position
+				SAMPLE_SCREEN_Y // the destination console & position
         );
         // erase the renderer in debug mode (needed because the root console is not cleared each frame)
 		console.print(1, 1, "        ");
