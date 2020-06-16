@@ -61,24 +61,11 @@ Doryen::Console::Console(int w, int h)
 {
 	if (w > 0 && h > 0)
 	{
-		TCOD_console_data_t* console = new TCOD_console_data_t;
+		width = w;
+		height = h;
 
-		console->w = w;
-		console->h = h;
-
-		console->fore = TCOD_white;
-		console->back = TCOD_black;
-		console->fade = 255;
-		console->buf = new char_t[console->w * console->h];
-		console->oldbuf = new char_t[console->w * console->h];
-		console->bkgnd_flag = TCOD_BKGND_NONE;
-		console->alignment = TCOD_LEFT;
-
-		for (int j = 0; j < console->w * console->h; j++)
-		{
-			console->buf[j].c = ' ';
-			console->buf[j].cf = -1;
-		}
+		buffer.resize(width * height);
+		oldBuffer.resize(width * height);
 
 		windowClose = false;
 
@@ -87,8 +74,6 @@ Doryen::Console::Console(int w, int h)
 			controlBackground[i] = Doryen::Color(0, 0, 0); // Black
 			controlForeground[i] = Doryen::Color(255, 255, 255); // White
 		}
-
-		data = console;
 	}
 	else
 	{
