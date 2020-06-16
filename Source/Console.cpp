@@ -203,6 +203,29 @@ void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen
 		// during all the life cycle program.
 		isConsoleRoot = true;
 
+		// The method not is static and as
+		// future plan, is convert this method
+		// as a construct for initialize the
+		// first console with root.
+
+		// Actually, the method blit is free of
+		// bugs caused for initialize of console
+		// with this method, but in the past, the
+		// method blit try use the buffer and
+		// oldBuffer without methods getters and
+		// setters and it threw out_of_range
+		// exceptions because the method this
+		// method [initRoot] not reinitialized the
+		// width and height of console.
+
+		// Reinitialize the size of console
+		width = w;
+		height = h;
+
+		// Reinitialize the size of buffers
+		buffer.resize(width * height);
+		oldBuffer.resize(width * height);
+
 		renderer->setWidth(w);
 		renderer->setHeigth(h);
 		renderer->setFullscreen(_fullscreen);
@@ -1011,6 +1034,9 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 
 			if (dx >= destination.getWidth() or dy >= destination.getHeight()) continue;
 
+			// See the documentation internal of initRoot method for see details of an
+			// buf produce for this method [blit]
+			// Actually, this method [blit] is free of bugs
 			destination.setChar(dx, dy, dstChar.getC());
 			destination.setCharForeground(dx, dy, dstChar.getForeground());
 			destination.setCharBackground(dx, dy, dstChar.getBackground());
