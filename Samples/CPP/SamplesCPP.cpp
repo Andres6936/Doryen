@@ -1525,14 +1525,14 @@ int main( int argc, char *argv[] )
 		// print the help message
 		console.setDefaultForeground(Doryen::Color::grey);
 		console.print(50, 46,
-				format("last frame : {.2f} ms ({} fps)",
-						Platform::getLastFrameLength() * 1000,
-						Platform::getFps()));
+				format("last frame : {>2.0f} ms ({} fps)",
+						console.getLastFrameLength() * 1000,
+						console.getFramePerSeconds()));
 
 		console.printEx(79, 47, TCOD_BKGND_NONE, TCOD_RIGHT, "elapsed : %8dms %4.2fs",
 				Doryen::Platform::getElapsedMilli(), Doryen::Platform::getElapsedSeconds());
 
-		console.print(2, 47, format("{}{} : select a sample", (char)TCOD_CHAR_ARROW_N, (char)TCOD_CHAR_ARROW_S));
+		console.print(2, 47, format("{c}{c} : select a sample", (char)TCOD_CHAR_ARROW_N, (char)TCOD_CHAR_ARROW_S));
 
 		if (Console::isFullscreen())
 		{

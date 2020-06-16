@@ -1043,3 +1043,8 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 		}
 	}
 }
+
+unsigned int Doryen::Console::getFramePerSeconds() const
+{
+	return renderer->getFramePerSeconds();
+}

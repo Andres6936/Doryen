@@ -217,9 +217,11 @@ namespace Doryen
 
 		unsigned int getNrgbMask() const;
 
-		unsigned int getCurrentFramePerSeconds() const;
+		unsigned int getFramePerSeconds() const;
 
 		unsigned int getMinimunFrameLength() const;
+
+		unsigned int getCurrentFramePerSeconds() const;
 
 		const std::string& getFontfile() const;
 

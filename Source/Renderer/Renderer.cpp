@@ -553,3 +553,8 @@ void Doryen::Renderer::setFontCharVerticalSize(unsigned int _fontCharVerticalSiz
 {
 	fontCharVerticalSize = _fontCharVerticalSize;
 }
+
+unsigned int Doryen::Renderer::getFramePerSeconds() const
+{
+	return framePerSeconds;
+}

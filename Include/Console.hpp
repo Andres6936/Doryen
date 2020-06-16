@@ -1296,6 +1296,8 @@ namespace Doryen
 
 		float getLastFrameLength() const;
 
+		unsigned int getFramePerSeconds() const;
+
 	private:
 
 		void
