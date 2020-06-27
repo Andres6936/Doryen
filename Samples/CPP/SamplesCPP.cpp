@@ -26,9 +26,14 @@ class Sample final
 
 public:
 
-	char name[64];
+	const std::string name;
 
-	std::function<void(bool first, KeyCode key, const Mouse& mouse)> render;
+	const std::function<void(bool first, KeyCode key, const Mouse& mouse)> render;
+
+	Sample(const std::string& _name, const std::function<void(bool first, KeyCode key, const Mouse& mouse)>& _render) :
+			name(_name), render(_render)
+	{
+	};
 };
 
 // ***************************
@@ -1391,41 +1396,33 @@ void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 
 #endif
 
-// ***************************
-// the list of samples
-// ***************************
-Sample samples[] = {
-		{ "  True colors        ", render_colors },
-		{ "  Offscreen console  ", render_offscreen },
-		{ "  Line drawing       ", render_lines },
-		{ "  Noise              ", render_noise },
-		{ "  Field of view      ", render_fov },
-		{ "  Path finding       ", render_path },
-		{ "  Bsp toolkit        ", render_bsp },
-		{ "  Image toolkit      ", render_image },
-		{ "  Mouse support      ", render_mouse },
-		{ "  Name generator     ", render_name },
-#ifndef NO_SDL_SAMPLE
-		{ "  SDL callback       ", render_sdl },
-#endif
-};
+using namespace std::string_literals;
 
-int nbSamples = sizeof(samples) / sizeof(Sample); // total number of samples
-
-// ***************************
-// the main function
-// ***************************
 int main(int argc, char* argv[])
 {
+	std::array<Sample, 11> samples = {
+			Sample{ "  True colors        "s, render_colors },
+			Sample{ "  Offscreen console  "s, render_offscreen },
+			Sample{ "  Line drawing       "s, render_lines },
+			Sample{ "  Noise              "s, render_noise },
+			Sample{ "  Field of view      "s, render_fov },
+			Sample{ "  Path finding       "s, render_path },
+			Sample{ "  Bsp toolkit        "s, render_bsp },
+			Sample{ "  Image toolkit      "s, render_image },
+			Sample{ "  Mouse support      "s, render_mouse },
+			Sample{ "  Name generator     "s, render_name },
+			Sample{ "  SDL callback       "s, render_sdl }
+	};
+
 	int curSample = 0; // index of the current sample
 	bool first = true; // first time we render a sample
 
-    const char *font = "Data/fonts/consolas10x10_gs_tc.png";
-    int nbCharHoriz = 0, nbCharVertic = 0;
-    int fullscreenWidth = 0;
-    int fullscreenHeight = 0;
-    TCOD_renderer_t renderer = TCOD_RENDERER_SDL;
-    bool fullscreen = false;
+	const char* font = "Data/fonts/consolas10x10_gs_tc.png";
+	int nbCharHoriz = 0, nbCharVertic = 0;
+	int fullscreenWidth = 0;
+	int fullscreenHeight = 0;
+	TCOD_renderer_t renderer = TCOD_RENDERER_SDL;
+	bool fullscreen = false;
     int fontFlags = TCOD_FONT_TYPE_GREYSCALE | TCOD_FONT_LAYOUT_TCOD, fontNewFlags = 0;
     bool creditsEnd = false;
     int cur_renderer = 0;
@@ -1523,9 +1520,9 @@ int main(int argc, char* argv[])
 		}
 
 		// print the list of samples
-		for (int i = 0; i < nbSamples; i++)
-        {
-            if ( i == curSample )
+		for (int i = 0; i < samples.size(); i++)
+		{
+			if (i == curSample)
 			{
 				// set colors for currently selected sample
 				console.setDefaultForeground(Doryen::Color::white);
@@ -1539,7 +1536,7 @@ int main(int argc, char* argv[])
 			}
 
 			// print the sample name
-			console.print(2, 46 - (nbSamples - i), samples[i].name);
+			console.print(2, 46 - (samples.size() - i), samples[i].name);
 		}
 
 		// print the help message
@@ -1619,7 +1616,7 @@ int main(int argc, char* argv[])
 		if (_key == KeyCode::DOWN)
 		{
 			// down arrow : next sample
-			curSample = (curSample + 1) % nbSamples;
+			curSample = (curSample + 1) % samples.size();
 			first = true;
 		}
 		else if (_key == KeyCode::UP)
@@ -1627,7 +1624,7 @@ int main(int argc, char* argv[])
 			// up arrow : previous sample
 			curSample--;
 			if (curSample < 0)
-			{ curSample = nbSamples - 1; }
+			{ curSample = samples.size() - 1; }
 			first = true;
 		}
 		else if (_key == KeyCode::ENTER and console.getKeyPressed().isLeftAltPressed())
