@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_LINELISTENER_HPP
 #define LIBTCOD_LINELISTENER_HPP
 
-#include <libtcod.hpp>
+#include <Doryen/libtcod.hpp>
 
 #include "SampleRenderer.hpp"
 

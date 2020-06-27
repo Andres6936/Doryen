@@ -1,5 +1,4 @@
 #include "LineListener.hpp"
-#include "Algorithms/Drawing/Bresenham.hpp"
 
 bool RenderLine::drawPoint(int x, int y)
 {

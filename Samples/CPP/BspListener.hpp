@@ -1,9 +1,9 @@
 #ifndef LIBTCOD_BSPLISTENER_HPP
 #define LIBTCOD_BSPLISTENER_HPP
 
-#include "libtcod.hpp"
+#include "Doryen/libtcod.hpp"
 #include "SampleRenderer.hpp"
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 static int bspDepth = 8;
 

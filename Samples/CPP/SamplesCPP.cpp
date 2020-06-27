@@ -10,13 +10,11 @@
 #include <cmath>
 #include <iostream>
 
-#include "libtcod.hpp"
-
 #include "SampleRenderer.hpp"
 #include "LineListener.hpp"
 #include "BspListener.hpp"
-#include "Algorithms/Drawing/Bresenham.hpp"
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "Doryen/Algorithms/Drawing/Bresenham.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 using namespace Doryen;
 
