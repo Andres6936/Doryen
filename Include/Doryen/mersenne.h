@@ -30,7 +30,10 @@
 
 #include "mersenne_types.h"
 
-typedef void *TCOD_random_t;
+
+typedef unsigned int uint32;
+
+typedef void* TCOD_random_t;
 
 TCOD_random_t TCOD_random_get_instance(void);
 

@@ -27,6 +27,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <Doryen/FOV/Fov.hpp>
+
 class BspHelper : public Doryen::Algorithms::ITCODBspCallback
 {
 public :

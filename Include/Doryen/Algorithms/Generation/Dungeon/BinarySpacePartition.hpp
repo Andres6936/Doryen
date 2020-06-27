@@ -294,7 +294,7 @@ namespace Doryen
 			 */
 			BinarySpacePartition* getRight() const
 			{
-				return sons ? (BinarySpacePartition*)(sons->next) : NULL;
+				return sons ? (BinarySpacePartition*)(sons->next) : nullptr;
 			}
 
 			/**
