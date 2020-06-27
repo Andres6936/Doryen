@@ -25,7 +25,6 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.hpp"
 #include "RadShader.hpp"
 
 void StandardShader::compute() {

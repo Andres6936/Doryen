@@ -29,6 +29,10 @@
 #define _TCOD_BSP_HPP
 
 #include <Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp>
+#include <Doryen/tree.hpp>
+#include <Doryen/mersenne.hpp>
+
+typedef unsigned char uint8;
 
 namespace Doryen
 {

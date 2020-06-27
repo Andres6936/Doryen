@@ -29,6 +29,7 @@
 #define _TCOD_RANDOM_HPP
 
 #include "mersenne_types.h"
+#include "mersenne.h"
 
 /**
  @PageName random
@@ -79,6 +80,7 @@ Python already has great builtin random generators. But some parts of the Doryen
 <h6>For C# users:</h6>
 .NET already has great builtin random generators. But some parts of the Doryen library (noise, heightmap, ...) uses RNG as parameters. If you intend to use those functions, you must provide a RNG created with the library.
  */
+typedef unsigned int uint32;
 
 class TCODRandom {
 	public :

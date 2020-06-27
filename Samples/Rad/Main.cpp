@@ -26,7 +26,7 @@
 */
 
 #include <cmath>
-#include "libtcod.hpp"
+
 #include "BSPHelper.hpp"
 #include "RadShader.hpp"
 

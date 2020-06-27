@@ -25,19 +25,21 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.hpp"
 #include "BSPHelper.hpp"
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
-BspHelper::BspHelper() {
-	bspDepth=8;
-	minRoomSize=4;
-	randomRoom=true; 
-	roomWalls=false; 			
+#include "Doryen/libtcod.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+
+BspHelper::BspHelper()
+{
+	bspDepth = 8;
+	minRoomSize = 4;
+	randomRoom = true;
+	roomWalls = false;
 }
 
 // draw a vertical line
-void BspHelper::vline( Doryen::Map *map, int x, int y1, int y2 )
+void BspHelper::vline(Doryen::Map* map, int x, int y1, int y2)
 {
 	int y=y1;
 	int dy=(y1>y2?-1:1);

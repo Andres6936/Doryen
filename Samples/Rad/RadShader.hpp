@@ -25,15 +25,22 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class Shader {
-public :
-	virtual ~Shader() {}
+#include "Doryen/libtcod.hpp"
 
-    virtual void init( Doryen::Map *map );
+class Shader
+{
+public :
+	virtual ~Shader()
+	{
+	}
+
+	virtual void init(Doryen::Map* map);
+
 	// add a new light. return its ID
-    virtual int addLight( int x, int y, int radius, const Doryen::Color &col );
+	virtual int addLight(int x, int y, int radius, const Doryen::Color& col);
+
 	// update the light with given ID
-    virtual void updateLight( int id, int x, int y, int radius, const Doryen::Color &col );
+	virtual void updateLight(int id, int x, int y, int radius, const Doryen::Color& col);
 	virtual void compute() = 0;
 	// get the computed light color
     virtual const Doryen::Color &getLightColor( int x, int y );

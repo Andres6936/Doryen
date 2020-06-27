@@ -1,4 +1,4 @@
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 /*
 * Umbra

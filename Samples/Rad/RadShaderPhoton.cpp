@@ -25,7 +25,6 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.hpp"
 #include "RadShader.hpp"
 
 PhotonShader::PhotonShader(float reflectivity, float selfIllumination, int nbPass) : 
