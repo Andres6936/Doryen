@@ -9,22 +9,27 @@
 #include <cstdio>
 #include <cmath>
 #include <iostream>
+#include <functional>
 
 #include "SampleRenderer.hpp"
 #include "LineListener.hpp"
 #include "BspListener.hpp"
+
 #include "Doryen/Algorithms/Drawing/Bresenham.hpp"
 #include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 using namespace Doryen;
 
 // a sample has a name and a rendering function
-typedef struct
+class Sample final
 {
+
+public:
+
 	char name[64];
 
-	void (* render)(bool first, TCOD_key_t* key, TCOD_mouse_t* mouse);
-} sample_t;
+	std::function<void(bool first, TCOD_key_t* key, TCOD_mouse_t* mouse)> render;
+};
 
 // ***************************
 // samples rendering functions
@@ -1387,33 +1392,33 @@ void render_sdl( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 // the list of samples
 // ***************************
-sample_t samples[] = {
-        { "  True colors        ", render_colors },
-        { "  Offscreen console  ", render_offscreen },
-        { "  Line drawing       ", render_lines },
-        { "  Noise              ", render_noise },
-        { "  Field of view      ", render_fov },
-        { "  Path finding       ", render_path },
-        { "  Bsp toolkit        ", render_bsp },
-        { "  Image toolkit      ", render_image },
-        { "  Mouse support      ", render_mouse },
-        { "  Name generator     ", render_name },
+Sample samples[] = {
+		{ "  True colors        ", render_colors },
+		{ "  Offscreen console  ", render_offscreen },
+		{ "  Line drawing       ", render_lines },
+		{ "  Noise              ", render_noise },
+		{ "  Field of view      ", render_fov },
+		{ "  Path finding       ", render_path },
+		{ "  Bsp toolkit        ", render_bsp },
+		{ "  Image toolkit      ", render_image },
+		{ "  Mouse support      ", render_mouse },
+		{ "  Name generator     ", render_name },
 #ifndef NO_SDL_SAMPLE
-        { "  SDL callback       ", render_sdl },
+		{ "  SDL callback       ", render_sdl },
 #endif
 };
 
-int nbSamples = sizeof( samples ) / sizeof( sample_t ); // total number of samples
+int nbSamples = sizeof(samples) / sizeof(Sample); // total number of samples
 
 // ***************************
 // the main function
 // ***************************
-int main( int argc, char *argv[] )
+int main(int argc, char* argv[])
 {
-    int curSample = 0; // index of the current sample
-    bool first = true; // first time we render a sample
-    TCOD_key_t key = { TCODK_NONE, 0 };
-    TCOD_mouse_t mouse;
+	int curSample = 0; // index of the current sample
+	bool first = true; // first time we render a sample
+	TCOD_key_t key = { TCODK_NONE, 0 };
+	TCOD_mouse_t mouse;
     const char *font = "Data/fonts/consolas10x10_gs_tc.png";
     int nbCharHoriz = 0, nbCharVertic = 0;
     int fullscreenWidth = 0;
