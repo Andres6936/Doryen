@@ -240,49 +240,50 @@ In these cases, the selected mean will appear with the lowest frequency.
 		@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
 		@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
 		*/
-		inline int getInt (int min, int max, int mean = 0) { return (mean <= 0) ? TCOD_random_get_int(data,min,max) : TCOD_random_get_int_mean(data,min,max,mean); }
-		inline int get (int min, int max, int mean = 0) { return (mean <= 0) ? TCOD_random_get_int(data,min,max) : TCOD_random_get_int_mean(data,min,max,mean); }
+		int getInt(int min, int max, int mean = 0);
 
-		/**
-		@PageName random_use
-		@FuncTitle Getting a float
-		@FuncDesc To get a random floating point number, using either the explicit or simplified API where applicable
-		@Cpp
-			//explicit API:
-			float TCODRandom::getFloat(float min, float max, float mean = 0.0f)
+	int get(int min, int max, int mean = 0);
 
-			//simplified API:
-			float TCODRandom::get(float min, float max, float mean = 0.0f)
-		@C
-			float TCOD_random_get_float(TCOD_random_t mersenne, float min, float max)
-			float TCOD_random_get_float_mean(TCOD_random_t mersenne, float min, float max, float mean)
-		@Py random_get_float(mersenne, mi, ma)
-		@C# float TCODRandom::getFloat(float min, float max)
-		@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used.
-		@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
-		@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
-		@CppEx
-			// default generator
-			TCODRandom * default = TCODRandom::getInstance();
-			int aRandomIntBetween0And1000 = default->getInt(0,1000);
-			int anotherRandomInt = default->get(0,1000);
-			// another random generator
-			TCODRandom *myRandom = new TCODRandom();
-			float aRandomFloatBetween0And1000 = myRandom->getFloat(0.0f,1000.0f);
-			float anotherRandomFloat = myRandom->get(0.0f,1000.0f);
-		@CEx
-			// default generator
-			int a_random_int_between_0_and_1000 = TCOD_random_get_float(NULL,0,1000);
-			// another random generator
-			TCOD_random_t my_random = TCOD_random_new();
-			float a_random_float_between_0_and_1000 = TCOD_random_get_float(my_random,0.0f,1000.0f);
-		@PyEx
-			# default generator
-			a_random_int_between_0_and_1000 = libtcod.random_get_float(0,0,1000)
-			# another random generator
-			my_random = libtcod.random_new()
-			a_random_float_between_0_and_1000 = libtcod.random_get_float(my_random,0.0,1000.0)
-		*/
+	/**
+	@PageName random_use
+	@FuncTitle Getting a float
+	@FuncDesc To get a random floating point number, using either the explicit or simplified API where applicable
+	@Cpp
+		//explicit API:
+		float TCODRandom::getFloat(float min, float max, float mean = 0.0f)
+
+		//simplified API:
+		float TCODRandom::get(float min, float max, float mean = 0.0f)
+	@C
+		float TCOD_random_get_float(TCOD_random_t mersenne, float min, float max)
+		float TCOD_random_get_float_mean(TCOD_random_t mersenne, float min, float max, float mean)
+	@Py random_get_float(mersenne, mi, ma)
+	@C# float TCODRandom::getFloat(float min, float max)
+	@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used.
+	@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
+	@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
+	@CppEx
+		// default generator
+		TCODRandom * default = TCODRandom::getInstance();
+		int aRandomIntBetween0And1000 = default->getInt(0,1000);
+		int anotherRandomInt = default->get(0,1000);
+		// another random generator
+		TCODRandom *myRandom = new TCODRandom();
+		float aRandomFloatBetween0And1000 = myRandom->getFloat(0.0f,1000.0f);
+		float anotherRandomFloat = myRandom->get(0.0f,1000.0f);
+	@CEx
+		// default generator
+		int a_random_int_between_0_and_1000 = TCOD_random_get_float(NULL,0,1000);
+		// another random generator
+		TCOD_random_t my_random = TCOD_random_new();
+		float a_random_float_between_0_and_1000 = TCOD_random_get_float(my_random,0.0f,1000.0f);
+	@PyEx
+		# default generator
+		a_random_int_between_0_and_1000 = libtcod.random_get_float(0,0,1000)
+		# another random generator
+		my_random = libtcod.random_new()
+		a_random_float_between_0_and_1000 = libtcod.random_get_float(my_random,0.0,1000.0)
+	*/
 		inline float getFloat (float min, float max, float mean = 0.0f) { return (mean <= 0) ? TCOD_random_get_float(data,min,max) : TCOD_random_get_float_mean(data,min,max,mean); }
 		inline float get (float min, float max, float mean = 0.0f) { return (mean <= 0.0f) ? TCOD_random_get_float(data,min,max) : TCOD_random_get_float_mean(data,min,max,mean); }
 
