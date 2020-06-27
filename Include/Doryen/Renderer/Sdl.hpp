@@ -39,6 +39,11 @@ namespace Doryen
 		 */
 		short currentFramePerSecond = 0;
 
+		/**
+		 * Mouse event
+		 */
+		Mouse mouse;
+
 		SDL_Event event;
 
 		SDL_Surface* screen = nullptr;

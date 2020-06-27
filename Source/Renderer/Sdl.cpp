@@ -1121,26 +1121,38 @@ void Doryen::SDL::draw()
 
 Doryen::Mouse Doryen::SDL::getMouseEvent()
 {
-	Mouse mouseEvent;
+	// The mouse is an object that should be have
+	// memory of past events, the aim is determine
+	// if the user press ALT + Any Key in any moment
+	// or if occur an mouse event while is pressed
+	// the key ALT.
 
-	if (not eventPending) return mouseEvent;
+	// Although the mouse should be have memory,
+	// exist events that should be reset, like the
+	// movement made for the user.
+
+	// Set the movement of mouse to 0 (zero).
+	mouse.setDx(0);
+	mouse.setDy(0);
+
+	if (not eventPending) return mouse;
 
 	if (event.type == SDL_MOUSEMOTION)
 	{
 		SDL_MouseMotionEvent* mme = &event.motion;
 
-		mouseEvent.addDx(mme->xrel);
-		mouseEvent.addDy(mme->yrel);
-		mouseEvent.setX(mme->x);
-		mouseEvent.setY(mme->y);
+		mouse.addDx(mme->xrel);
+		mouse.addDy(mme->yrel);
+		mouse.setX(mme->x);
+		mouse.setY(mme->y);
 
 		const int charWidth = getFontWidth();
 		const int charHeight = getFontHeigth();
 
-		mouseEvent.setCx(mouseEvent.getX() / charWidth);
-		mouseEvent.setCy(mouseEvent.getY() / charHeight);
-		mouseEvent.setDcx(mouseEvent.getDx() / charWidth);
-		mouseEvent.setDcy(mouseEvent.getDy() / charHeight);
+		mouse.setCx(mouse.getX() / charWidth);
+		mouse.setCy(mouse.getY() / charHeight);
+		mouse.setDcx(mouse.getDx() / charWidth);
+		mouse.setDcy(mouse.getDy() / charHeight);
 	}
 	else if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
@@ -1149,20 +1161,20 @@ Doryen::Mouse Doryen::SDL::getMouseEvent()
 		switch (mev->button)
 		{
 		case SDL_BUTTON_LEFT :
-			mouseEvent.setStatus(MouseCode::LEFT);
+			mouse.setStatus(MouseCode::LEFT);
 			break;
 
 		case SDL_BUTTON_MIDDLE :
-			mouseEvent.setStatus(MouseCode::MIDDLE);
+			mouse.setStatus(MouseCode::MIDDLE);
 			break;
 
 		case SDL_BUTTON_RIGHT :
-			mouseEvent.setStatus(MouseCode::RIGHT);
+			mouse.setStatus(MouseCode::RIGHT);
 			break;
 		}
 	}
 
-	return mouseEvent;
+	return mouse;
 }
 
 void Doryen::SDL::updateEventsQueue()
