@@ -32,7 +32,10 @@
 
 #include <Doryen/mersenne.h>
 #include <Doryen/libtcod_int.h>
-#include "Doryen/libtcod.h"
+
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define CLAMP(x, upper, lower) (MIN(upper, MAX(x, lower)))
 
 static TCOD_random_t instance = NULL;
 static float rand_div = 1.0f / (float)(0xffffffff);
