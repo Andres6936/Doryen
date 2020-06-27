@@ -53,11 +53,21 @@ SDL_Surface* TCOD_sys_read_bmp(const char* filename);
 
 void TCOD_sys_write_bmp(const SDL_Surface* surf, const char* filename);
 
-bool TCOD_sys_check_png(const char* filename);
+bool TCOD_sys_check_png(const char* filename)
+{
+	static uint8 magic_number[] = { 137, 80, 78, 71, 13, 10, 26, 10 };
+	return TCOD_sys_check_magic_number(filename, sizeof(magic_number), magic_number);
+}
 
-SDL_Surface* TCOD_sys_read_png(const char* filename);
+SDL_Surface* TCOD_sys_read_png(const char* filename)
+{
+	return NULL;
+}
 
-void TCOD_sys_write_png(const SDL_Surface* surf, const char* filename);
+void TCOD_sys_write_png(const SDL_Surface* surf, const char* filename)
+{
+
+}
 
 typedef struct
 {
