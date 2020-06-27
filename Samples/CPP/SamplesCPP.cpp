@@ -865,32 +865,37 @@ void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 		sampleConsole.setDefaultForeground(Doryen::Color::lightYellow);
 		TCODMouse::move(320, 200);
 		TCODMouse::showCursor(true);
-    }
+	}
 
-    sampleConsole.clear( );
+	sampleConsole.clear();
 	if (mouse.isPressedLeftButton())
 	{ lbut = !lbut; }
 	if (mouse.isPressedRightButton())
 	{ rbut = !rbut; }
 	if (mouse.isPressedMiddleButton())
 	{ mbut = !mbut; }
-	sampleConsole.print(1, 1,
-			format(
-					"Mouse position : {4d}x{4d}\n"
-					"Mouse cell     : {4d}x{4d}\n"
-					"Mouse movement : {4d}x{4d}\n"
-					"Left button    : {} (toggle {})\n"
-					"Right button   : {} (toggle {})\n"
-					"Middle button  : {} (toggle {})\n",
-					//"Wheel          : {}\n",
-					mouse.getX(), mouse.getY(),
-					mouse.getCx(), mouse.getCy(),
-					mouse.getDx(), mouse.getDy(),
-					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF",
-					mouse.isPressedRightButton() ? " ON" : "OFF", rbut ? " ON" : "OFF",
-					mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"
-					//mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : "")
-			));
+
+	sampleConsole.print(1, 1, format("Mouse position : {4d}x{4d}\n",
+			mouse.getX(), mouse.getY()));
+
+	sampleConsole.print(1, 2,
+			format("Mouse cell     : {4d}x{4d}", mouse.getCx(), mouse.getCy()));
+
+	sampleConsole.print(1, 3,
+			format("Mouse movement : {4d}x{4d}", mouse.getDx(), mouse.getDy()));
+
+	sampleConsole.print(1, 4,
+			format("Left button    : {} (toggle {})",
+					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF"));
+
+	sampleConsole.print(1, 5, format("Right button   : {} (toggle {})",
+			mouse.isPressedRightButton() ? " ON" : "OFF", rbut ? " ON" : "OFF"));
+
+	sampleConsole.print(1, 6, format("Middle button  : {} (toggle {})",
+			mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"));
+
+//	sampleConsole.print(1, 7,format("Wheel          : {}",
+//					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : ""));
 
 	sampleConsole.print(1, 10, "1 : Hide cursor\n2 : Show cursor");
 
