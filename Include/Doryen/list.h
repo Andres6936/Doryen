@@ -28,7 +28,9 @@
 #ifndef _TCOD_LIST_H
 #define _TCOD_LIST_H
 
-typedef void *TCOD_list_t;
+#include <stdbool.h>
+
+typedef void* TCOD_list_t;
 
 TCOD_list_t TCOD_list_new();
 
@@ -36,7 +38,7 @@ TCOD_list_t TCOD_list_allocate(int nb_elements);
 
 void TCOD_list_delete(TCOD_list_t l);
 
-void TCOD_list_push(TCOD_list_t l, const void * elt);
+void TCOD_list_push(TCOD_list_t l, const void* elt);
 
 void * TCOD_list_pop(TCOD_list_t l);
 

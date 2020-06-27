@@ -2,7 +2,7 @@
 #define LIBTCOD_PIXEL_HPP
 
 #include <vector>
-#include "Color.hpp"
+#include "Doryen/Color.hpp"
 
 namespace Doryen
 {

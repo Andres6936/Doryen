@@ -27,10 +27,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <zlib.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 
-typedef struct {
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
+typedef struct
+{
 	TCOD_list_t buffer; /* list<int> */
 	uintptr ibuffer; /* byte buffer. bytes are send into buffer 4 by 4 (32 bits OS) or 8 by 8(64 bits OS) */
 	int isize; /* number of bytes in ibuffer */
@@ -38,7 +40,8 @@ typedef struct {
 	int offset; /* current reading position */
 } zip_data_t;
 
-TCOD_zip_t TCOD_zip_new() {
+TCOD_zip_t TCOD_zip_new()
+{
 	zip_data_t *ret=(zip_data_t *)calloc(sizeof(zip_data_t),1);
 	return (TCOD_zip_t)ret;
 }

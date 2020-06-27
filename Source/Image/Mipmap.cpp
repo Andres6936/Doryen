@@ -1,4 +1,4 @@
-#include "Image/Mipmap.hpp"
+#include "Doryen/Image/Mipmap.hpp"
 
 unsigned int Doryen::Mipmap::getLevels(
 		unsigned int width,

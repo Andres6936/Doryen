@@ -24,19 +24,23 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include <stdlib.h> /* calloc */
 #include <string.h> /* NULL/memcpy */
-#include "libtcod.h"
+
+#include "Doryen/list.h"
 
 #define LIST(l) ((TCOD_list_int_t *)l)
 
-typedef struct {
-	void **array;
+typedef struct
+{
+	void** array;
 	int fillSize;
 	int allocSize;
 } TCOD_list_int_t;
 
-static void TCOD_list_allocate_int(TCOD_list_t l) {
+static void TCOD_list_allocate_int(TCOD_list_t l)
+{
 	void **newArray;
 	int newSize = LIST(l)->allocSize * 2;
 	if ( newSize == 0 ) newSize = 16;

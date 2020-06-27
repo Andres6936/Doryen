@@ -1,4 +1,6 @@
-SET(LIBTCOD_WEATHER_SRC Main.hpp Main.cpp UtilWeather.hpp UtilWeather.cpp)
+ADD_EXECUTABLE(Weather
+        Main.hpp Main.cpp UtilWeather.hpp UtilWeather.cpp)
 
-ADD_EXECUTABLE(Weather ${LIBTCOD_WEATHER_SRC})
-TARGET_LINK_LIBRARIES(Weather ${LIBTCOD_NAME} ${LIBTCOD_CPP_NAME})
+SET_TARGET_PROPERTIES(Weather PROPERTIES CXX_STANDARD 17)
+TARGET_LINK_LIBRARIES(Weather PRIVATE Doryen.Core.C)
+TARGET_LINK_LIBRARIES(Weather PRIVATE Doryen.Core.Cpp)

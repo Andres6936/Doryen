@@ -25,7 +25,9 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-typedef void *TCOD_image_t;
+#include <Doryen/console.h>
+
+typedef void* TCOD_image_t;
 
 TCOD_image_t TCOD_image_new(int width, int height);
 
@@ -33,7 +35,7 @@ TCOD_image_t TCOD_image_from_console(TCOD_console_t console);
 
 void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console);
 
-TCOD_image_t TCOD_image_load(const char *filename);
+TCOD_image_t TCOD_image_load(const char* filename);
 
 void TCOD_image_clear(TCOD_image_t image, TCOD_color_t color);
 

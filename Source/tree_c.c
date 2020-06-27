@@ -24,7 +24,7 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include "libtcod.h"
+#include "Doryen/libtcod.h"
 
 void TCOD_tree_add_son(TCOD_tree_t *node, TCOD_tree_t *son) {
 	TCOD_tree_t *lastson = node->sons;

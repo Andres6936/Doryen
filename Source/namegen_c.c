@@ -33,17 +33,19 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include "libtcod.h"
+
+#include "Doryen/libtcod.h"
 
 /* ------------ *
  * the typedefs *
  * ------------ */
 
 /* the struct containing a definition of an unprocessed syllable set */
-typedef struct {
-    char * name;
-    char * vocals;
-    char * consonants;
+typedef struct
+{
+	char* name;
+	char* vocals;
+	char* consonants;
     char * pre;
     char * start;
     char * middle;

@@ -32,16 +32,19 @@
 */
 
 #include <stdlib.h> /* for NULL in VS */
-#include "libtcod.h"
-#include "libtcod_int.h"
+
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 /* angle ranges */
-double * start_angle = NULL;
-double * end_angle = NULL;
+double* start_angle = NULL;
+double* end_angle = NULL;
 /* number of allocated angle pairs */
 int allocated = 0;
 
-void TCOD_map_compute_fov_restrictive_shadowcasting_quadrant (map_t *m, int player_x, int player_y, int max_radius, bool light_walls, int dx, int dy) {
+void TCOD_map_compute_fov_restrictive_shadowcasting_quadrant(map_t* m, int player_x, int player_y, int max_radius,
+		bool light_walls, int dx, int dy)
+{
 	/*octant: vertical edge */
 	{
 		int iteration = 1; /*iteration of the algo for this octant */

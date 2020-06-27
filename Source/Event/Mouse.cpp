@@ -1,6 +1,6 @@
 // Joan Andrés (@Andres6936) Github.
 
-#include "Event/Mouse.hpp"
+#include "Doryen/Event/Mouse.hpp"
 
 using namespace Doryen;
 

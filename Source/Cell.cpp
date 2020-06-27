@@ -1,4 +1,4 @@
-#include "Cell.hpp"
+#include "Doryen/Cell.hpp"
 
 Doryen::Cell::Cell( )
 {

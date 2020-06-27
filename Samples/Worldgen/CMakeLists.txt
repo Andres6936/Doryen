@@ -1,4 +1,6 @@
-SET(LIBTCOD_WORLDGEN_SRC Main.hpp Main.cpp UtilWorldgen.hpp UtilWorldgen.cpp MapData.cpp MapData.hpp)
+ADD_EXECUTABLE(Worldgen
+        Main.hpp Main.cpp UtilWorldgen.hpp UtilWorldgen.cpp MapData.cpp MapData.hpp)
 
-ADD_EXECUTABLE(Worldgen ${LIBTCOD_WORLDGEN_SRC})
-TARGET_LINK_LIBRARIES(Worldgen ${LIBTCOD_NAME} ${LIBTCOD_CPP_NAME})
+SET_TARGET_PROPERTIES(Worldgen PROPERTIES CXX_STANDARD 17)
+TARGET_LINK_LIBRARIES(Worldgen PRIVATE Doryen.Core.C)
+TARGET_LINK_LIBRARIES(Worldgen PRIVATE Doryen.Core.Cpp)

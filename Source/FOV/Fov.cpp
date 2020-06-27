@@ -25,26 +25,26 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <FOV/CircularRaycasting.hpp>
-#include <FOV/DiamondRayCasting.hpp>
-#include <FOV/Permissive.hpp>
-#include <FOV/Restrictive.hpp>
-#include <FOV/ShadowCasting.hpp>
-#include <FOV/Fov.hpp>
+#include <Doryen/FOV/CircularRaycasting.hpp>
+#include <Doryen/FOV/DiamondRayCasting.hpp>
+#include <Doryen/FOV/Permissive.hpp>
+#include <Doryen/FOV/Restrictive.hpp>
+#include <Doryen/FOV/ShadowCasting.hpp>
+#include <Doryen/FOV/Fov.hpp>
 
 
-#include "libtcod.hpp"
-#include "fov_types.h"
+#include "Doryen/libtcod.hpp"
+#include "Doryen/fov_types.h"
 
 Doryen::Map::Map()
 {
 	width = 0;
 	height = 0;
-    nbcells = 0;
-    cells = nullptr;
+	nbcells = 0;
+	cells = nullptr;
 }
 
-Doryen::Map::Map( int width, int height )
+Doryen::Map::Map(int width, int height)
 {
     if ( width < 0 || height < 0 )
     {

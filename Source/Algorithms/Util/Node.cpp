@@ -1,4 +1,4 @@
-#include "Algorithms/Util/Node.hpp"
+#include "Doryen/Algorithms/Util/Node.hpp"
 
 
 Doryen::Algorithms::Node::Node( )

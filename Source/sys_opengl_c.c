@@ -27,17 +27,19 @@
 
 /*
  * This renderer is mostly copied and pasted from Antagonist's SkyFire GLSL roguelike engine
- */ 
+ */
 
-#include "libtcod.h"
-#include "libtcod_int.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
 #ifndef NO_OPENGL
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 
-#define CHECKGL( GLcall )                               		\
-    GLcall;                                             		\
-    if(!_CheckGL_Error( #GLcall, __FILE__, __LINE__))     		\
+#define CHECKGL(GLcall)                                    \
+    GLcall;                                                    \
+    if(!_CheckGL_Error( #GLcall, __FILE__, __LINE__))            \
     return false;
 
 #ifdef NDEBUG

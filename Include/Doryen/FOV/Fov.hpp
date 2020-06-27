@@ -30,46 +30,46 @@
 
 #pragma once
 
-#include "Cell.hpp"
-#include "fov.h"
+#include "Doryen/Cell.hpp"
+#include "Doryen/fov.h"
 
 class AStar;
 
 namespace Doryen
 {
 
-    /**
-     * This toolkit allows to easily calculate the potential visible set of map
-     * cells from the player position.
-     *
-     * @note A cell is potentially visible if the line of sight from the player
-     * to the cell in unobstructed.
-     *
-     * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
-     * to all the cells on the submap perimeter).
-     *
-     * 2- <b>FOV_DIAMOND</b>: based on
-     * http://www.geocities.com/temerra/los_rays.html this algorithm.
-     *
-     * 3- <b>FOV_SHADOW</b>: based on
-     * http://roguebasin.roguelikedevelopment.org/index.php?
-     * title=FOV_using_recursive_shadowcasting this algorithm.
-     *
-     * 4- <b>FOV_PERMISSIVE_x</b>: based on
-     * http://roguebasin.roguelikedevelopment.org/index.php?
-     * title=Precise_Permissive_Field_of_View this algorithm.
-     *
-     * Permissive has a variable permissiveness parameter. You can either use the
-     * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
-     * permissive).
-     *
-     * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
-     * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
-     *
-     * Comparison of the algorithms:
-     *
-     * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
-     */
+	/**
+	 * This toolkit allows to easily calculate the potential visible set of map
+	 * cells from the player position.
+	 *
+	 * @note A cell is potentially visible if the line of sight from the player
+	 * to the cell in unobstructed.
+	 *
+	 * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
+	 * to all the cells on the submap perimeter).
+	 *
+	 * 2- <b>FOV_DIAMOND</b>: based on
+	 * http://www.geocities.com/temerra/los_rays.html this algorithm.
+	 *
+	 * 3- <b>FOV_SHADOW</b>: based on
+	 * http://roguebasin.roguelikedevelopment.org/index.php?
+	 * title=FOV_using_recursive_shadowcasting this algorithm.
+	 *
+	 * 4- <b>FOV_PERMISSIVE_x</b>: based on
+	 * http://roguebasin.roguelikedevelopment.org/index.php?
+	 * title=Precise_Permissive_Field_of_View this algorithm.
+	 *
+	 * Permissive has a variable permissiveness parameter. You can either use the
+	 * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
+	 * permissive).
+	 *
+	 * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
+	 * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
+	 *
+	 * Comparison of the algorithms:
+	 *
+	 * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
+	 */
     class Map
     {
 

@@ -1,16 +1,18 @@
 #include <string.h>
-#include "libtcod.hpp"
-#include "gui.hpp"
+#include "Doryen/libtcod.hpp"
+#include "Doryen/gui.hpp"
 
-Button::Button(const char *label,const char *tip,widget_callback_t cbk, void *userData) 
-	: pressed(false),label(NULL) {
-	if ( label != NULL ) {
+Button::Button(const char* label, const char* tip, widget_callback_t cbk, void* userData)
+		: pressed(false), label(NULL)
+{
+	if (label != NULL)
+	{
 		setLabel(label);
 	}
-	if ( tip != NULL ) setTip(tip);
-	this->x=0;
-	this->y=0;
-	this->userData=userData;
+	if (tip != NULL) setTip(tip);
+	this->x = 0;
+	this->y = 0;
+	this->userData = userData;
 	this->cbk=cbk;
 }
 

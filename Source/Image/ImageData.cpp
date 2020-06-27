@@ -2,9 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-#include <Console.hpp>
-#include <Image/PNG/State.hpp>
-#include "Image/ImageData.hpp"
+#include <Doryen/Console.hpp>
+#include <Doryen/Image/PNG/State.hpp>
+#include "Doryen/Image/ImageData.hpp"
 
 using namespace Doryen;
 

@@ -37,13 +37,13 @@
 
 #include <fstream>
 
-#include "Image/PNG/LodePNG.hpp"
+#include "Doryen/Image/PNG/LodePNG.hpp"
 
 extern "C"
 {
 
-#include "libtcod.h"
-#include "libtcod_int.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 bool TCOD_sys_check_png(const char* filename)
 {

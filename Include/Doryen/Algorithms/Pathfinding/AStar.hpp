@@ -5,9 +5,9 @@
 #include <deque>
 #include <algorithm>
 
-#include "Geometry/Point2D.hpp"
-#include "Algorithms/Util/Node.hpp"
-#include "Algorithms/Enum/SearchState.hpp"
+#include "Doryen/Geometry/Point2D.hpp"
+#include "Doryen/Algorithms/Util/Node.hpp"
+#include "Doryen/Algorithms/Enum/SearchState.hpp"
 
 // For sorting the heap the STL needs compare function that
 // lets us compare the f value of two nodes
@@ -16,8 +16,8 @@ class HeapCompare
 
 public:
 
-    bool operator()( const Doryen::Algorithms::Node *x,
-                     const Doryen::Algorithms::Node *y ) const
+	bool operator()(const Doryen::Algorithms::Node* x,
+			const Doryen::Algorithms::Node* y) const
     {
         return x->f > y->f;
     }

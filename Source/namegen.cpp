@@ -29,7 +29,7 @@
 * This file was written by Dominik "Mingos" Marczuk.
 */
 
-#include "libtcod.hpp"
+#include "Doryen/libtcod.hpp"
 
 void TCODNamegen::parse (const char * filename, TCODRandom * random) {
 	TCOD_namegen_parse (filename, random ? random->data : NULL);

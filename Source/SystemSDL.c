@@ -39,8 +39,8 @@
 
 #endif
 
-#include "libtcod.h"
-#include "libtcod_int.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 /* to enable bitmap locking. Is there any use ?? makes the OSX port renderer to fail */
 /*#define USE_SDL_LOCKS */

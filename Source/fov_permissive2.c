@@ -28,15 +28,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
+
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 /* The size of each square in units */
 #define STEP_SIZE 16
 
 /* Jonathon Duerig enhanced permissive FOV */
-typedef struct {
-	int xi,yi,xf,yf;
+typedef struct
+{
+	int xi, yi, xf, yf;
 } line_t;
 
 /* Defines the parameters of the permissiveness */

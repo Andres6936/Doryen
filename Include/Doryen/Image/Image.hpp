@@ -30,7 +30,7 @@
 #include <array>
 #include <utility>
 
-#include "Image/ImageData.hpp"
+#include "Doryen/Image/ImageData.hpp"
 
 namespace Doryen
 {

@@ -28,8 +28,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
+
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 #define BIG_NAME_LEN 128
 
@@ -39,7 +40,8 @@
 #define DEF_LISTS(d) (((TCOD_struct_int_t *)d)->lists)
 
 /* definition property */
-typedef struct {
+typedef struct
+{
 	char *name;
 	TCOD_value_type_t value;
 	bool mandat;

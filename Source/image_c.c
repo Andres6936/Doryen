@@ -27,18 +27,21 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 
-typedef struct {
-	int width,height;
-	float fwidth,fheight;
-	TCOD_color_t *buf;
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
+typedef struct
+{
+	int width, height;
+	float fwidth, fheight;
+	TCOD_color_t* buf;
 	bool dirty;
 } mipmap_t;
 
-typedef struct {
-	void *sys_img;
+typedef struct
+{
+	void* sys_img;
 	int nb_mipmaps;
 	mipmap_t *mipmaps;
 	TCOD_color_t key_color;

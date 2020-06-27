@@ -25,9 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <Algorithms/Drawing/Bresenham.hpp>
-
-#include "libtcod.hpp"
+#include <Doryen/Algorithms/Drawing/Bresenham.hpp>
 
 // ********** bresenham line drawing **********
 void Doryen::Algorithms::Line::init(int xFrom, int yFrom, int xTo, int yTo)

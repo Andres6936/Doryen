@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Platform/Platform.hpp"
+#include "Doryen/Platform/Platform.hpp"
 
 void Doryen::Platform::setFps( int val )
 {

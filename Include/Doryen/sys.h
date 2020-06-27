@@ -28,13 +28,21 @@
 #ifndef _TCOD_SYS_H
 #define _TCOD_SYS_H
 
+#include <Doryen/list.h>
+#include <Doryen/Image.h>
+#include <Doryen/mouse_types.h>
+#include <Doryen/console_types.h>
+
+typedef unsigned char uint8;
+typedef unsigned int uint32;
+
 uint32 TCOD_sys_elapsed_milli();
 
 float TCOD_sys_elapsed_seconds();
 
 void TCOD_sys_sleep_milli(uint32 val);
 
-void TCOD_sys_save_screenshot(const char *filename);
+void TCOD_sys_save_screenshot(const char* filename);
 
 void TCOD_sys_force_fullscreen_resolution(int width, int height);
 

@@ -26,15 +26,17 @@
 */
 
 #include <stdlib.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 #include <string.h>
 
-typedef struct _ray_data_t {
-	int xloc,yloc; /* position */
-	int xob,yob; /* obscurity vector */
-	int xerr,yerr; /* bresenham error */
-	struct _ray_data_t * xinput, * yinput; /* offset of input rays */
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
+typedef struct _ray_data_t
+{
+	int xloc, yloc; /* position */
+	int xob, yob; /* obscurity vector */
+	int xerr, yerr; /* bresenham error */
+	struct _ray_data_t* xinput, * yinput; /* offset of input rays */
 	bool added; /* already in the fov */
 	bool ignore; /* non visible. don't bother processing it */
 } ray_data_t;

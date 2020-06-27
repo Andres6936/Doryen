@@ -3,7 +3,7 @@
 
 #include <SDL/SDL.h>
 
-#include "Renderer/Renderer.hpp"
+#include "Doryen/Renderer/Renderer.hpp"
 
 namespace Doryen
 {

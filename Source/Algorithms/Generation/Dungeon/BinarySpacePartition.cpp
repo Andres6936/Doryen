@@ -25,10 +25,10 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.hpp"
+#include "Doryen/libtcod.hpp"
 
-#include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include "Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
+#include "Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp"
 
 Doryen::Algorithms::BinarySpacePartition::BinarySpacePartition(BinarySpacePartition* father, bool left)
 {

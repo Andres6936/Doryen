@@ -4,7 +4,7 @@
 #include <vector>
 #include <cmath>
 
-#include "FOV/Fov.hpp"
+#include "Doryen/FOV/Fov.hpp"
 
 namespace Doryen
 {

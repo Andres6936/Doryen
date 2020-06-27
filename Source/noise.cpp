@@ -25,15 +25,20 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include <stdlib.h>
-#include "libtcod.hpp"
-TCODNoise::TCODNoise(int dimensions, TCOD_noise_type_t type) {
-	data = TCOD_noise_new(dimensions, TCOD_NOISE_DEFAULT_HURST, TCOD_NOISE_DEFAULT_LACUNARITY, TCODRandom::getInstance()->data);
-	TCOD_noise_set_type(data,type);
+
+#include "Doryen/libtcod.hpp"
+
+TCODNoise::TCODNoise(int dimensions, TCOD_noise_type_t type)
+{
+	data = TCOD_noise_new(dimensions, TCOD_NOISE_DEFAULT_HURST, TCOD_NOISE_DEFAULT_LACUNARITY,
+			TCODRandom::getInstance()->data);
+	TCOD_noise_set_type(data, type);
 }
 
-TCODNoise::TCODNoise(int dimensions, TCODRandom *random, TCOD_noise_type_t type) {
+TCODNoise::TCODNoise(int dimensions, TCODRandom* random, TCOD_noise_type_t type)
+{
 	data = TCOD_noise_new(dimensions, TCOD_NOISE_DEFAULT_HURST, TCOD_NOISE_DEFAULT_LACUNARITY, random->data);
-	TCOD_noise_set_type(data,type);
+	TCOD_noise_set_type(data, type);
 }
 
 TCODNoise::TCODNoise(int dimensions, float hurst, float lacunarity, TCOD_noise_type_t type) {

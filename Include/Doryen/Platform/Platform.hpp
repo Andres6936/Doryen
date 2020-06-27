@@ -28,8 +28,8 @@
 #ifndef _TCOD_SYS_HPP
 #define _TCOD_SYS_HPP
 
-#include "libtcod.h"
-#include "libtcod.hpp"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod.hpp"
 
 /**
  * This toolkit contains some system specific miscellaneous utilities.

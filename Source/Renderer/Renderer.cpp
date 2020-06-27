@@ -1,11 +1,11 @@
-#include <Platform/Platform.hpp>
-#include "Renderer/Renderer.hpp"
+#include <Doryen/Platform/Platform.hpp>
+#include "Doryen/Renderer/Renderer.hpp"
 
 // Static Members
 
 bool Doryen::Renderer::hasInstanceActive = false;
 
-const std::array <int, 256> Doryen::Renderer::layoutAsciiCode =
+const std::array<int, 256> Doryen::Renderer::layoutAsciiCode =
 
 		{
 				// ASCII 0 to 15

@@ -25,20 +25,26 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdlib.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 #include <string.h>
+#include <stdlib.h>
 
-void TCOD_map_compute_fov(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls, TCOD_fov_algorithm_t algo) {
+#include "Doryen/libtcod_int.h"
+#include "Doryen/libtcod.h"
+
+void TCOD_map_compute_fov(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls,
+		TCOD_fov_algorithm_t algo)
+{
 	TCOD_IFNOT(map != NULL) return;
-	switch(algo) {
-		case FOV_DIAMOND : TCOD_map_compute_fov_diamond_raycasting(map,player_x,player_y,max_radius,light_walls); break;
-		case FOV_PERMISSIVE_0 :
-		case FOV_PERMISSIVE_1 :
-		case FOV_PERMISSIVE_2 :
-		case FOV_PERMISSIVE_3 :
-		case FOV_PERMISSIVE_4 :
+	switch (algo)
+	{
+	case FOV_DIAMOND :
+		TCOD_map_compute_fov_diamond_raycasting(map, player_x, player_y, max_radius, light_walls);
+		break;
+	case FOV_PERMISSIVE_0 :
+	case FOV_PERMISSIVE_1 :
+	case FOV_PERMISSIVE_2 :
+	case FOV_PERMISSIVE_3 :
+	case FOV_PERMISSIVE_4 :
 		case FOV_PERMISSIVE_5 :
 		case FOV_PERMISSIVE_6 :
 		case FOV_PERMISSIVE_7 :

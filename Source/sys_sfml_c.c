@@ -34,18 +34,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 
-static sfRenderWindow *renderWindow=NULL;
-static sfInput *input=NULL;
-static bool cursorShown=true;
-static sfClock *clock=NULL;
-static sfImage* charmap=NULL;
-static sfSprite* charmapSprite=NULL;
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
-static int consoleWidth=0;
-static int consoleHeight=0;
+static sfRenderWindow* renderWindow = NULL;
+static sfInput* input = NULL;
+static bool cursorShown = true;
+static sfClock* clock = NULL;
+static sfImage* charmap = NULL;
+static sfSprite* charmapSprite = NULL;
+
+static int consoleWidth = 0;
+static int consoleHeight = 0;
 static char_t *consoleBuffer=NULL;
 static char_t *prevConsoleBuffer=NULL;
 

@@ -1,6 +1,6 @@
-#include <Image/PNG/Adler32.hpp>
-#include "Image/PNG/DecompressSettings.hpp"
-#include "Image/PNG/HuffmanTree.hpp"
+#include <Doryen/Image/PNG/Adler32.hpp>
+#include "Doryen/Image/PNG/DecompressSettings.hpp"
+#include "Doryen/Image/PNG/HuffmanTree.hpp"
 
 // Static Members
 

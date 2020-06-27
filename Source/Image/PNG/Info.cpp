@@ -1,5 +1,5 @@
 #include <vector>
-#include "Image/PNG/Info.hpp"
+#include "Doryen/Image/PNG/Info.hpp"
 
 LodePNGInfo::LodePNGInfo()
 {

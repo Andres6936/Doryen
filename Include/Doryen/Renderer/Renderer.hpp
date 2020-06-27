@@ -4,12 +4,12 @@
 #include <vector>
 #include <array>
 
-#include "Color.h"
-#include "Char.hpp"
-#include "Color.hpp"
-#include "Event/Key.hpp"
-#include "Event/Mouse.hpp"
-#include "Geometry/Point2D.hpp"
+#include "Doryen/Color.h"
+#include "Doryen/Char.hpp"
+#include "Doryen/Color.hpp"
+#include "Doryen/Event/Key.hpp"
+#include "Doryen/Event/Mouse.hpp"
+#include "Doryen/Geometry/Point2D.hpp"
 
 namespace Doryen
 {

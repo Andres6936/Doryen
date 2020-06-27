@@ -25,18 +25,19 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "libtcod.h"
-#include "libtcod_int.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
 
 /* grey levels */
-const TCOD_color_t TCOD_black={TCOD_BLACK};
-const TCOD_color_t TCOD_white={TCOD_WHITE};
+const TCOD_color_t TCOD_black = { TCOD_BLACK };
+const TCOD_color_t TCOD_white = { TCOD_WHITE };
 
-TCOD_color_t TCOD_color_multiply (TCOD_color_t c1, TCOD_color_t c2) {
+TCOD_color_t TCOD_color_multiply(TCOD_color_t c1, TCOD_color_t c2)
+{
 	TCOD_color_t ret;
-	ret.r=(uint8)(((int)c1.r)*c2.r/255);
-	ret.g=(uint8)(((int)c1.g)*c2.g/255);
-	ret.b=(uint8)(((int)c1.b)*c2.b/255);
+	ret.r = (uint8)(((int)c1.r) * c2.r / 255);
+	ret.g = (uint8)(((int)c1.g) * c2.g / 255);
+	ret.b = (uint8)(((int)c1.b) * c2.b / 255);
 	return ret;
 }
 

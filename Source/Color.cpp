@@ -25,10 +25,10 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <Color.hpp>
+#include <Doryen/Color.hpp>
 
-#include "libtcod.hpp"
-#include "libtcod_int.h"
+#include "Doryen/libtcod.hpp"
+#include "Doryen/libtcod_int.h"
 
 // grey levels
 const Doryen::Color Doryen::Color::black(TCOD_BLACK);

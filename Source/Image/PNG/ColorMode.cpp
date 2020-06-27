@@ -1,5 +1,5 @@
 #include <new>
-#include "Image/PNG/ColorMode.hpp"
+#include "Doryen/Image/PNG/ColorMode.hpp"
 
 void LodePNGColorMode::cleanup()
 {

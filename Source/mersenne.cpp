@@ -25,14 +25,17 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include <stdlib.h>
-#include "libtcod.hpp"
-#include "libtcod_int.h"
 
-static TCODRandom *instance=(TCODRandom *)NULL;
+#include "Doryen/libtcod.hpp"
+#include "Doryen/libtcod_int.h"
 
-TCODRandom *TCODRandom::getInstance(void) {
-	if (! instance ) {
-		instance=new TCODRandom(TCOD_RNG_CMWC,true);
+static TCODRandom* instance = (TCODRandom*)NULL;
+
+TCODRandom* TCODRandom::getInstance(void)
+{
+	if (!instance)
+	{
+		instance = new TCODRandom(TCOD_RNG_CMWC, true);
 	}
 	return instance;
 }

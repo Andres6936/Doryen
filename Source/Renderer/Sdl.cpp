@@ -1,7 +1,8 @@
 #include <fstream>
-#include <Image/Image.hpp>
 #include <iostream>
-#include "Renderer/Sdl.hpp"
+
+#include <Doryen/Image/Image.hpp>
+#include "Doryen/Renderer/Sdl.hpp"
 
 // Construct
 

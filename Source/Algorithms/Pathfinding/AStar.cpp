@@ -1,6 +1,6 @@
-#include <Algorithms/Pathfinding/AStar.hpp>
+#include <Doryen/Algorithms/Pathfinding/AStar.hpp>
 
-#include "Exceptions/IllegalMethodCall.hpp"
+#include "Doryen/Exceptions/IllegalMethodCall.hpp"
 
 Doryen::Algorithms::Pathfinding::AStar::AStar( const Doryen::Map &map )
 {

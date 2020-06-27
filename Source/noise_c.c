@@ -28,7 +28,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include "libtcod.h"
+
+#include "Doryen/libtcod.h"
 
 #define WAVELET_TILE_SIZE 32
 #define WAVELET_ARAD 16
@@ -36,7 +37,8 @@
 #define SIMPLEX_SCALE 0.5f
 #define WAVELET_SCALE 2.0f
 
-typedef struct {
+typedef struct
+{
 	int ndim;
 	unsigned char map[256]; /* Randomized map of indexes into buffer */
 	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS]; 	/* Random 256 x ndim buffer */

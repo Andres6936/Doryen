@@ -28,7 +28,10 @@
 #ifndef _TCOD_CONSOLE_TYPES_H
 #define _TCOD_CONSOLE_TYPES_H
 
-typedef enum {
+#include <stdbool.h>
+
+typedef enum
+{
 	TCODK_NONE,
 	TCODK_ESCAPE,
 	TCODK_BACKSPACE,

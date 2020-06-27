@@ -28,15 +28,17 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "libtcod.h"
+
+#include "Doryen/libtcod.h"
 
 #define MAX_JAVADOC_COMMENT_SIZE 16384
 
 /* damn ANSI C does not know strdup, strcasecmp, strncasecmp */
-char *TCOD_strdup(const char *s) {
-	uint32 l=strlen(s)+1;
-	char *ret=malloc(sizeof(char)*l);
-	memcpy(ret,s,sizeof(char)*l);
+char* TCOD_strdup(const char* s)
+{
+	uint32 l = strlen(s) + 1;
+	char* ret = malloc(sizeof(char) * l);
+	memcpy(ret, s, sizeof(char) * l);
 	return ret;
 }
 

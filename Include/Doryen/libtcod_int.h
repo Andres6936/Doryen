@@ -27,20 +27,33 @@
 
 #ifndef _TCODLIB_INT_H
 #define _TCODLIB_INT_H
+
 #include <stdarg.h>
 #include <assert.h>
+#include <stdbool.h>
+
+#include <Doryen/fov.h>
+#include <Doryen/sys.h>
+#include <Doryen/Color.h>
+#include <Doryen/console_types.h>
+#include <Doryen/mersenne_types.h>
+
 /* tcodlib internal stuff */
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+typedef unsigned char uint8;
+typedef unsigned int uint32;
+
 /* a cell in the console */
-typedef struct {
-	int c;		/* character ascii code */
-	int cf;		/* character number in font */
-	TCOD_color_t fore;	/* foreground color */
-	TCOD_color_t back;	/* background color */
-	uint8 dirt;	/* cell modified since last flush ? */
+typedef struct
+{
+	int c;        /* character ascii code */
+	int cf;        /* character number in font */
+	TCOD_color_t fore;    /* foreground color */
+	TCOD_color_t back;    /* background color */
+	uint8 dirt;    /* cell modified since last flush ? */
 } char_t;
 
 /* Console non public data */

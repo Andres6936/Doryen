@@ -30,17 +30,22 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
+
+#include "Doryen/console.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
 #ifndef NO_UNICODE
+
 #include <wchar.h>
 #include <wctype.h>
+
 #endif
 
 #if defined( TCOD_VISUAL_STUDIO )
 static const char *version_string ="libtcod "TCOD_STRVERSION;
 #else
-static const char *version_string __attribute__((unused)) ="libtcod "TCOD_STRVERSION;
+static const char* version_string __attribute__((unused)) = "libtcod "TCOD_STRVERSION;
 #endif
 
 static bool windowClosed=false;

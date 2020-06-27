@@ -1,5 +1,5 @@
-#include "Image/PNG/State.hpp"
-#include "Image/PNG/CRC32Table.hpp"
+#include "Doryen/Image/PNG/State.hpp"
+#include "Doryen/Image/PNG/CRC32Table.hpp"
 
 unsigned int LodePNGState::inspect(unsigned* w, unsigned* h, const unsigned char* in, size_t insize)
 {

@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
-#include "FOV/ShadowCasting.hpp"
+
+#include "Doryen/FOV/ShadowCasting.hpp"
 
 void Doryen::ShadowRayCasting::operator()(Doryen::Map& map, int playerX, int playerY, int maxRadius, bool ligthWalls)
 {

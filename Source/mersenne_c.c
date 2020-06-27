@@ -29,18 +29,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "libtcod.h"
-#include "libtcod_int.h"
 
-static TCOD_random_t instance=NULL;
-static float rand_div=1.0f/(float)(0xffffffff);
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
+static TCOD_random_t instance = NULL;
+static float rand_div = 1.0f / (float)(0xffffffff);
 static double rand_div_double = 1.0 / (double)(0xffffffff);
 
 /* initialize the mersenne twister array */
-static void mt_init(uint32 seed, uint32 mt[624] )
+static void mt_init(uint32 seed, uint32 mt[624])
 {
 	int i;
-    mt[0]= seed;
+	mt[0] = seed;
     for (i=1; i<624; i++) {
         mt[i] = (1812433253 * (mt[i-1] ^ (mt[i-1] >> 30)) + i);
     }

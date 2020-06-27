@@ -1,11 +1,13 @@
-#include "libtcod.hpp"
-#include "gui.hpp"
+#include "Doryen/libtcod.hpp"
+#include "Doryen/gui.hpp"
 
-Container::~Container() { 
-	content.clearAndDelete(); 
+Container::~Container()
+{
+	content.clearAndDelete();
 }
 
-void Container::addWidget(Widget *wid) { 
+void Container::addWidget(Widget* wid)
+{
 	content.push(wid);
 	widgets.remove(wid);
 }

@@ -31,18 +31,22 @@
 #include <sys/stat.h>
 #include <string.h>
 
-#if defined (__linux) && ! defined (__ANDROID__) || defined (__FreeBSD__)
+#if defined (__linux) && !defined (__ANDROID__) || defined (__FreeBSD__)
 /* X11 stuff for clipboard support */
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+
 #elif defined (__APPLE__) && defined (__MACH__)
 #include <ApplicationServices/ApplicationServices.h>
 #endif
-#include "libtcod.h"
-#include "libtcod_int.h"
+
+#include "Doryen/libtcod.h"
+#include "Doryen/libtcod_int.h"
+
 #ifdef TCOD_WINDOWS
 #include <windows.h>
 #else
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>

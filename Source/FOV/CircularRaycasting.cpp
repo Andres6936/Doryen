@@ -1,16 +1,16 @@
-#include "FOV/CircularRaycasting.hpp"
-
 #include <algorithm>
-#include <Algorithms/Drawing/Bresenham.hpp>
 
-void Doryen::CircularRaycasting::operator()( Doryen::Map &map, int playerX,
-                                             int playerY, int maxRadius, bool ligthWalls )
+#include <Doryen/Algorithms/Drawing/Bresenham.hpp>
+#include "Doryen/FOV/CircularRaycasting.hpp"
+
+void Doryen::CircularRaycasting::operator()(Doryen::Map& map, int playerX,
+		int playerY, int maxRadius, bool ligthWalls)
 {
-    int xMin = 0;
-    int yMin = 0;
+	int xMin = 0;
+	int yMin = 0;
 
-    int xMax = map.width;
-    int yMax = map.height;
+	int xMax = map.width;
+	int yMax = map.height;
 
     int radiusDouble = maxRadius * maxRadius;
 

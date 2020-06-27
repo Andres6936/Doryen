@@ -1,4 +1,4 @@
-#include "Image/PNG/Adler32.hpp"
+#include "Doryen/Image/PNG/Adler32.hpp"
 
 Adler32::Adler32(const std::vector <unsigned char>& data)
 {

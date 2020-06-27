@@ -28,17 +28,17 @@ freely, subject to the following restrictions:
 
 #include <string.h> /*for size_t*/
 
-#include "Image/PNG/Info.hpp"
-#include "Image/PNG/Time.hpp"
-#include "Image/PNG/State.hpp"
-#include "Image/PNG/ColorType.hpp"
-#include "Image/PNG/ColorMode.hpp"
-#include "Image/PNG/AutoConvert.hpp"
-#include "Image/PNG/FilterStrategy.hpp"
-#include "Image/PNG/DecoderSettings.hpp"
-#include "Image/PNG/EncoderSettings.hpp"
-#include "Image/PNG/CompressSettings.hpp"
-#include "Image/PNG/DecompressSettings.hpp"
+#include "Doryen/Image/PNG/Info.hpp"
+#include "Doryen/Image/PNG/Time.hpp"
+#include "Doryen/Image/PNG/State.hpp"
+#include "Doryen/Image/PNG/ColorType.hpp"
+#include "Doryen/Image/PNG/ColorMode.hpp"
+#include "Doryen/Image/PNG/AutoConvert.hpp"
+#include "Doryen/Image/PNG/FilterStrategy.hpp"
+#include "Doryen/Image/PNG/DecoderSettings.hpp"
+#include "Doryen/Image/PNG/EncoderSettings.hpp"
+#include "Doryen/Image/PNG/CompressSettings.hpp"
+#include "Doryen/Image/PNG/DecompressSettings.hpp"
 
 #ifdef __cplusplus
 

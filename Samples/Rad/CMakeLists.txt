@@ -1,4 +1,6 @@
-SET(LIBTCOD_RADIOSITY_SRC Main.cpp BSPHelper.cpp RadShader.cpp RadShaderPhoton.cpp RadShaderStandard.cpp)
+ADD_EXECUTABLE(Rad
+        Main.cpp BSPHelper.cpp RadShader.cpp RadShaderPhoton.cpp RadShaderStandard.cpp)
 
-ADD_EXECUTABLE(Rad ${LIBTCOD_RADIOSITY_SRC})
-TARGET_LINK_LIBRARIES(Rad ${LIBTCOD_NAME} ${LIBTCOD_CPP_NAME})
+SET_TARGET_PROPERTIES(Rad PROPERTIES CXX_STANDARD 17)
+TARGET_LINK_LIBRARIES(Rad PRIVATE Doryen.Core.C)
+TARGET_LINK_LIBRARIES(Rad PRIVATE Doryen.Core.Cpp)

@@ -24,10 +24,10 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include "libtcod.h"
+#include "Doryen/libtcod.h"
 
-#include "Image/Image.hpp"
-#include "Image/ImageData.hpp"
+#include "Doryen/Image/Image.hpp"
+#include "Doryen/Image/ImageData.hpp"
 
 #include <cmath>
 

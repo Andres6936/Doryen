@@ -29,13 +29,16 @@
 #define _TCOD_CONSOLE_H
 
 #include "console_types.h"
+#include "Color.h"
 
 #define TCOD_BKGND_ADDALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ADDA|(((uint8)(alpha*255))<<8)))
 
-typedef void * TCOD_console_t;
+typedef void* TCOD_console_t;
+
+typedef unsigned char uint8;
 
 
-void TCOD_console_set_window_title(const char *title);
+void TCOD_console_set_window_title(const char* title);
 
 void TCOD_console_set_fullscreen(bool fullscreen);
 

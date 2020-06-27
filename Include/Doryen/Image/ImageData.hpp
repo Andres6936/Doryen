@@ -5,10 +5,10 @@
 #include <string>
 #include <SDL/SDL.h>
 
-#include "Color.hpp"
-#include "Console.hpp"
-#include "Image/Mipmap.hpp"
-#include "Geometry/Size.hpp"
+#include "Doryen/Color.hpp"
+#include "Doryen/Console.hpp"
+#include "Doryen/Image/Mipmap.hpp"
+#include "Doryen/Geometry/Size.hpp"
 
 namespace Doryen
 {

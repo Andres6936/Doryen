@@ -28,9 +28,9 @@
 #include <cstdio>
 #include <cstring>
 
-#include "Console.hpp"
-#include "libtcod.hpp"
-#include "libtcod_int.h"
+#include "Doryen/Console.hpp"
+#include "Doryen/libtcod.hpp"
+#include "Doryen/libtcod_int.h"
 
 // Static Members
 

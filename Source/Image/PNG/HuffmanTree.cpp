@@ -1,4 +1,4 @@
-#include "Image/PNG/HuffmanTree.hpp"
+#include "Doryen/Image/PNG/HuffmanTree.hpp"
 
 // Static Members
 
