@@ -30,6 +30,8 @@
 
 #include "Doryen/list.h"
 
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 #define LIST(l) ((TCOD_list_int_t *)l)
 
 typedef struct

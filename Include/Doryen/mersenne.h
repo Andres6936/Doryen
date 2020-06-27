@@ -30,7 +30,6 @@
 
 #include "mersenne_types.h"
 
-
 typedef unsigned int uint32;
 
 typedef void* TCOD_random_t;

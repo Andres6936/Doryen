@@ -28,7 +28,6 @@
 #ifndef _TCOD_RANDOM_HPP
 #define _TCOD_RANDOM_HPP
 
-#include "mersenne_types.h"
 #include "mersenne.h"
 
 /**
