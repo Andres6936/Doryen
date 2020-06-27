@@ -827,16 +827,17 @@ void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 		sampleConsole.setDefaultBackground(blue);
 		sampleConsole.rect(30, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
 		circle->blitRect(&sampleConsole, 30, 3, -1, -1, TCOD_BKGND_MULTIPLY);
-    }
-    else
-    {
-        // render circle.png with normal blitting
-        circle->blitRect( &sampleConsole, 0, 3, -1, -1, TCOD_BKGND_SET );
-        circle->blitRect( &sampleConsole, 15, 3, -1, -1, TCOD_BKGND_SET );
-        circle->blitRect( &sampleConsole, 30, 3, -1, -1, TCOD_BKGND_SET );
-    }
-    img->blit( &sampleConsole, x, y,
-               TCOD_BKGND_SET, scalex, scaley, angle );
+	}
+	else
+	{
+		// render circle.png with normal blitting
+		circle->blitRect(&sampleConsole, 0, 3, -1, -1, TCOD_BKGND_SET);
+		circle->blitRect(&sampleConsole, 15, 3, -1, -1, TCOD_BKGND_SET);
+		circle->blitRect(&sampleConsole, 30, 3, -1, -1, TCOD_BKGND_SET);
+	}
+
+	img->blit(sampleConsole, { static_cast<int>(x), static_cast<int>(y) },
+			BackgroundFlag::SET, scalex, scaley, angle);
 }
 
 // ***************************
