@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_SHADOWRAYCASTING_HPP
 #define LIBTCOD_SHADOWRAYCASTING_HPP
 
-#include <FOV/Fov.hpp>
+#include <Doryen/FOV/Fov.hpp>
 
 namespace Doryen
 {

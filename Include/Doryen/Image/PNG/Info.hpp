@@ -6,8 +6,8 @@
 #include <map>
 #include <vector>
 
-#include "Image/PNG/ColorMode.hpp"
-#include "Image/PNG/Time.hpp"
+#include "Doryen/Image/PNG/ColorMode.hpp"
+#include "Doryen/Image/PNG/Time.hpp"
 
 /*Information about the PNG image, except pixels, width and height.*/
 class LodePNGInfo

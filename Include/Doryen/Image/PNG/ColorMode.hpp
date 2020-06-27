@@ -2,7 +2,7 @@
 #define LIBTCOD_COLORMODE_HPP
 
 #include <cstddef>
-#include "Image/PNG/ColorType.hpp"
+#include "Doryen/Image/PNG/ColorType.hpp"
 
 /*
 Color mode of an image. Contains all information required to decode the pixel

@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_DECODERSETTINGS_HPP
 #define LIBTCOD_DECODERSETTINGS_HPP
 
-#include "Image/PNG/DecompressSettings.hpp"
+#include "Doryen/Image/PNG/DecompressSettings.hpp"
 
 /*
 Settings for the decoder. This contains settings for the PNG and the Zlib

@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-#include "Image/PNG/Info.hpp"
-#include "Image/PNG/ColorMode.hpp"
-#include "Image/PNG/DecoderSettings.hpp"
-#include "Image/PNG/EncoderSettings.hpp"
+#include "Doryen/Image/PNG/Info.hpp"
+#include "Doryen/Image/PNG/ColorMode.hpp"
+#include "Doryen/Image/PNG/DecoderSettings.hpp"
+#include "Doryen/Image/PNG/EncoderSettings.hpp"
 
 /*The settings, state and information for extended encoding and decoding.*/
 class LodePNGState

@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_DIAMONDRAYCASTING_HPP
 #define LIBTCOD_DIAMONDRAYCASTING_HPP
 
-#include <FOV/Fov.hpp>
+#include <Doryen/FOV/Fov.hpp>
 
 namespace Doryen
 {

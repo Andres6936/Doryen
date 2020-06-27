@@ -1,9 +1,9 @@
 #ifndef LIBTCOD_ENCODERSETTINGS_HPP
 #define LIBTCOD_ENCODERSETTINGS_HPP
 
-#include "Image/PNG/CompressSettings.hpp"
-#include "Image/PNG/FilterStrategy.hpp"
-#include "Image/PNG/AutoConvert.hpp"
+#include "Doryen/Image/PNG/CompressSettings.hpp"
+#include "Doryen/Image/PNG/FilterStrategy.hpp"
+#include "Doryen/Image/PNG/AutoConvert.hpp"
 
 /*Settings for the encoder.*/
 class LodePNGEncoderSettings
