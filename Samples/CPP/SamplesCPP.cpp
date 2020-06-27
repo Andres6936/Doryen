@@ -28,7 +28,7 @@ public:
 
 	char name[64];
 
-	std::function<void(bool first, TCOD_key_t* key, TCOD_mouse_t* mouse)> render;
+	std::function<void(bool first, KeyCode key, const Mouse& mouse)> render;
 };
 
 // ***************************
@@ -38,17 +38,17 @@ public:
 // ***************************
 // true colors sample
 // ***************************
-void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_colors(bool first, KeyCode key, const Mouse& mouse)
 {
-    enum
-    {
-        TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT
-    };
-    static Doryen::Color cols[4] = { Doryen::Color( 50, 40, 150 ), Doryen::Color( 240, 85, 5 ),
-                                     Doryen::Color( 50, 35, 240 ),
-                                     Doryen::Color( 10, 200, 130 ) }; // random corner colors
-    static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
-    if ( first )
+	enum
+	{
+		TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT
+	};
+	static Doryen::Color cols[4] = { Doryen::Color(50, 40, 150), Doryen::Color(240, 85, 5),
+									 Doryen::Color(50, 35, 240),
+									 Doryen::Color(10, 200, 130) }; // random corner colors
+	static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
+	if (first)
     {
         Doryen::Platform::setFps( 0 ); // unlimited fps
         sampleConsole.clear( );
@@ -137,7 +137,7 @@ void render_colors( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                                "The Doryen library uses 24 bits colors, for both background and foreground." );
 }
 
-void render_offscreen( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_offscreen(bool first, KeyCode key, const Mouse& mouse)
 {
 	static Console secondary(SAMPLE_SCREEN_WIDTH / 2, SAMPLE_SCREEN_HEIGHT / 2);
 	static Console screenshot(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
@@ -269,7 +269,7 @@ Doryen::BackgroundFlag switchBackgroundFlag(Doryen::BackgroundFlag flag)
 	}
 }
 
-void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_lines(bool first, KeyCode key, const Mouse& mouse)
 {
 	static Console bk(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT); // colored background
 	static bool init = false;
@@ -291,7 +291,7 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 			"TCOD_BKGND_DEFAULT"
 	};
 
-	if (key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER)
+	if (key == KeyCode::ENTER or key == KeyCode::KP_ENTER)
 	{
 		// switch to the next blending mode
 		switchBackgroundFlag(backFlag);
@@ -358,16 +358,16 @@ void render_lines( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 // noise sample
 // ***************************
-void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_noise(bool first, KeyCode key, const Mouse& mouse)
 {
-    enum
-    {
-        PERLIN, SIMPLEX, WAVELET,
-        FBM_PERLIN, TURBULENCE_PERLIN,
-        FBM_SIMPLEX, TURBULENCE_SIMPLEX,
-        FBM_WAVELET, TURBULENCE_WAVELET
-    }; // which function we render
-    static const char *funcName[] = {
+	enum
+	{
+		PERLIN, SIMPLEX, WAVELET,
+		FBM_PERLIN, TURBULENCE_PERLIN,
+		FBM_SIMPLEX, TURBULENCE_SIMPLEX,
+		FBM_WAVELET, TURBULENCE_WAVELET
+	}; // which function we render
+	static const char* funcName[] = {
 			"1 : perlin noise       ",
 			"2 : simplex noise      ",
 			"3 : wavelet noise      ",
@@ -474,87 +474,87 @@ void render_noise( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
             sampleConsole.print( 2, 2 + curfunc, funcName[ curfunc ] );
         }
     }
-    // draw parameters
-    sampleConsole.setDefaultForeground(Doryen::Color::white);
+	// draw parameters
+	sampleConsole.setDefaultForeground(Doryen::Color::white);
 	sampleConsole.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
-    if ( func > WAVELET )
+	if (func > WAVELET)
 	{
 		sampleConsole.print(2, 12, format("E/D : hurst {2.1f}", hurst));
 		sampleConsole.print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
 		sampleConsole.print(2, 14, format("T/G : octaves {2.1f}", octaves));
 	}
-    // handle keypress
-    if ( key->vk == TCODK_NONE )
-    { return; }
-    if ( key->c >= '1' && key->c <= '9' )
-    {
-        // change the noise function
-        func = key->c - '1';
-    }
-    else if ( key->c == 'E' || key->c == 'e' )
-    {
-        // increase hurst
-        hurst += 0.1f;
-        delete noise;
-        noise = new TCODNoise( 2, hurst, lacunarity );
-    }
-    else if ( key->c == 'D' || key->c == 'd' )
-    {
-        // decrease hurst
-        hurst -= 0.1f;
-        delete noise;
-        noise = new TCODNoise( 2, hurst, lacunarity );
-    }
-    else if ( key->c == 'R' || key->c == 'r' )
-    {
-        // increase lacunarity
-        lacunarity += 0.5f;
-        delete noise;
-        noise = new TCODNoise( 2, hurst, lacunarity );
-    }
-    else if ( key->c == 'F' || key->c == 'f' )
-    {
-        // decrease lacunarity
-        lacunarity -= 0.5f;
-        delete noise;
-        noise = new TCODNoise( 2, hurst, lacunarity );
-    }
-    else if ( key->c == 'T' || key->c == 't' )
-    {
-        // increase octaves
-        octaves += 0.5f;
-    }
-    else if ( key->c == 'G' || key->c == 'g' )
-    {
-        // decrease octaves
-        octaves -= 0.5f;
-    }
-    else if ( key->c == 'Y' || key->c == 'y' )
-    {
-        // increase zoom
-        zoom += 0.2f;
-    }
-    else if ( key->c == 'H' || key->c == 'h' )
-    {
-        // decrease zoom
-        zoom -= 0.2f;
-    }
+	// handle keypress
+	if (key == KeyCode::NONE) return;
+
+//    if ( key->c >= '1' && key->c <= '9' )
+//    {
+//        // change the noise function
+//        func = key->c - '1';
+//    }
+//    else if ( key->c == 'E' || key->c == 'e' )
+//    {
+//        // increase hurst
+//        hurst += 0.1f;
+//        delete noise;
+//        noise = new TCODNoise( 2, hurst, lacunarity );
+//    }
+//    else if ( key->c == 'D' || key->c == 'd' )
+//    {
+//        // decrease hurst
+//        hurst -= 0.1f;
+//        delete noise;
+//        noise = new TCODNoise( 2, hurst, lacunarity );
+//    }
+//    else if ( key->c == 'R' || key->c == 'r' )
+//    {
+//        // increase lacunarity
+//        lacunarity += 0.5f;
+//        delete noise;
+//        noise = new TCODNoise( 2, hurst, lacunarity );
+//    }
+//    else if ( key->c == 'F' || key->c == 'f' )
+//    {
+//        // decrease lacunarity
+//        lacunarity -= 0.5f;
+//        delete noise;
+//        noise = new TCODNoise( 2, hurst, lacunarity );
+//    }
+//    else if ( key->c == 'T' || key->c == 't' )
+//    {
+//        // increase octaves
+//        octaves += 0.5f;
+//    }
+//    else if ( key->c == 'G' || key->c == 'g' )
+//    {
+//        // decrease octaves
+//        octaves -= 0.5f;
+//    }
+//    else if ( key->c == 'Y' || key->c == 'y' )
+//    {
+//        // increase zoom
+//        zoom += 0.2f;
+//    }
+//    else if ( key->c == 'H' || key->c == 'h' )
+//    {
+//        // decrease zoom
+//        zoom -= 0.2f;
+//    }
 }
 
 // ***************************
 // fov sample
 // ***************************
-void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_fov(bool first, KeyCode key, const Mouse& mouse)
 {
-    static const char *smap[] = {
-            "##############################################",
-            "#######################      #################",
-            "#####################    #     ###############",
-            "######################  ###        ###########",
-            "##################      #####             ####",
-            "################       ########    ###### ####",
-            "###############      #################### ####",
-            "################    ######                  ##",
+	static const char* smap[] = {
+			"##############################################",
+			"#######################      #################",
+			"#####################    #     ###############",
+			"######################  ###        ###########",
+			"##################      #####             ####",
+			"################       ########    ###### ####",
+			"###############      #################### ####",
+			"################    ######                  ##",
             "########   #######  ######   #     #     #  ##",
             "########   ######      ###                  ##",
             "########                                    ##",
@@ -707,81 +707,82 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
                     {
                         // l = 1.0 at player position, 0.0 at a radius of 10 cells
                         float l = (SQUARED_TORCH_RADIUS - r ) / SQUARED_TORCH_RADIUS + di;
-                        l = CLAMP( 0.0f, 1.0f, l );
-                        // interpolate the color
-                        base = Doryen::Color::lerp( base, light, l );
-                    }
-                    light = base;
-                }
+						l = CLAMP(0.0f, 1.0f, l);
+						// interpolate the color
+						base = Doryen::Color::lerp(base, light, l);
+					}
+					light = base;
+				}
 				sampleConsole.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
-            }
-        }
-    }
-    if ( key->c == 'I' || key->c == 'i' )
-    {
-        // player move north
-        if ( smap[ playerY - 1 ][ playerX ] == ' ' )
-        {
-			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-			playerY--;
-			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-			recomputeFov = true;
-        }
-    }
-    else if ( key->c == 'K' || key->c == 'k' )
-    {
-        // player move south
-        if ( smap[ playerY + 1 ][ playerX ] == ' ' )
-        {
-			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-			playerY++;
-			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-			recomputeFov = true;
-        }
-    }
-    else if ( key->c == 'J' || key->c == 'j' )
-    {
-        // player move west
-        if ( smap[ playerY ][ playerX - 1 ] == ' ' )
-        {
-			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-			playerX--;
-			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-			recomputeFov = true;
-        }
-    }
-    else if ( key->c == 'L' || key->c == 'l' )
-    {
-        // player move east
-        if ( smap[ playerY ][ playerX + 1 ] == ' ' )
-        {
-			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-			playerX++;
-			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-			recomputeFov = true;
-        }
-    }
-    else if ( key->c == 'T' || key->c == 't' )
-	{
-		// enable/disable the torch fx
-		torch = !torch;
-		sampleConsole.setDefaultForeground(Doryen::Color::white);
-		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-		sampleConsole.setDefaultForeground(Doryen::Color::black);
+			}
+		}
 	}
-    else if ( key->c == 'W' || key->c == 'w' )
+//    if ( key->c == 'I' || key->c == 'i' )
+//    {
+//        // player move north
+//        if ( smap[ playerY - 1 ][ playerX ] == ' ' )
+//        {
+//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+//			playerY--;
+//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+//			recomputeFov = true;
+//        }
+//    }
+//    else if ( key->c == 'K' || key->c == 'k' )
+//    {
+//        // player move south
+//        if ( smap[ playerY + 1 ][ playerX ] == ' ' )
+//        {
+//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+//			playerY++;
+//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+//			recomputeFov = true;
+//        }
+//    }
+//    else if ( key->c == 'J' || key->c == 'j' )
+//    {
+//        // player move west
+//        if ( smap[ playerY ][ playerX - 1 ] == ' ' )
+//        {
+//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+//			playerX--;
+//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+//			recomputeFov = true;
+//        }
+//    }
+//    else if ( key->c == 'L' || key->c == 'l' )
+//    {
+//        // player move east
+//        if ( smap[ playerY ][ playerX + 1 ] == ' ' )
+//        {
+//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+//			playerX++;
+//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+//			recomputeFov = true;
+//        }
+//    }
+//    else if ( key->c == 'T' || key->c == 't' )
+//	{
+//		// enable/disable the torch fx
+//		torch = !torch;
+//		sampleConsole.setDefaultForeground(Doryen::Color::white);
+//		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+//				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+//		sampleConsole.setDefaultForeground(Doryen::Color::black);
+//	}
+//    else if ( key->c == 'W' || key->c == 'w' )
+//	{
+//		light_walls = !light_walls;
+//		sampleConsole.setDefaultForeground(Doryen::Color::white);
+//		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+//				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+//		sampleConsole.setDefaultForeground(Doryen::Color::black);
+//		recomputeFov = true;
+//	}
+
+	if (key == KeyCode::KP_ADD || key == KeyCode::KP_SUB)
 	{
-		light_walls = !light_walls;
-		sampleConsole.setDefaultForeground(Doryen::Color::white);
-		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-		sampleConsole.setDefaultForeground(Doryen::Color::black);
-		recomputeFov = true;
-	}
-    else if ( key->c == '+' || key->c == '-' )
-	{
-		algonum += key->c == '+' ? 1 : -1;
+		algonum += key == KeyCode::KP_ADD ? 1 : -1;
 		algonum = CLAMP(0, NB_FOV_ALGORITHMS - 1, algonum);
 		sampleConsole.setDefaultForeground(Doryen::Color::white);
 		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
@@ -794,7 +795,7 @@ void render_fov( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 // image sample
 // ***************************
-void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_image(bool first, KeyCode key, const Mouse& mouse)
 {
 	static Doryen::Image* img = NULL, * circle = NULL;
 	static Doryen::Color blue(0, 0, 255);
@@ -848,64 +849,66 @@ void render_image( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 // ***************************
 // mouse sample
 // ***************************/
-void render_mouse( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 {
-    static bool lbut = false, rbut = false, mbut = false;
+	static bool lbut = false, rbut = false, mbut = false;
 
-    if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-        sampleConsole.setDefaultBackground( Doryen::Color::grey );
-        sampleConsole.setDefaultForeground( Doryen::Color::lightYellow );
-        TCODMouse::move( 320, 200 );
-        TCODMouse::showCursor( true );
+	if (first)
+	{
+		Doryen::Platform::setFps(30); // fps limited to 30
+		sampleConsole.setDefaultBackground(Doryen::Color::grey);
+		sampleConsole.setDefaultForeground(Doryen::Color::lightYellow);
+		TCODMouse::move(320, 200);
+		TCODMouse::showCursor(true);
     }
 
     sampleConsole.clear( );
-    if ( mouse->lbutton_pressed )
-    { lbut = !lbut; }
-    if ( mouse->rbutton_pressed )
-    { rbut = !rbut; }
-    if ( mouse->mbutton_pressed )
-    { mbut = !mbut; }
-    sampleConsole.print(1, 1,
+	if (mouse.isPressedLeftButton())
+	{ lbut = !lbut; }
+	if (mouse.isPressedRightButton())
+	{ rbut = !rbut; }
+	if (mouse.isPressedMiddleButton())
+	{ mbut = !mbut; }
+	sampleConsole.print(1, 1,
 			format(
 					"Mouse position : {4d}x{4d}\n"
 					"Mouse cell     : {4d}x{4d}\n"
 					"Mouse movement : {4d}x{4d}\n"
 					"Left button    : {} (toggle {})\n"
 					"Right button   : {} (toggle {})\n"
-					"Middle button  : {} (toggle {})\n"
-					"Wheel          : {}\n",
-					mouse->x, mouse->y,
-					mouse->cx, mouse->cy,
-					mouse->dx, mouse->dy,
-					mouse->lbutton ? " ON" : "OFF", lbut ? " ON" : "OFF",
-					mouse->rbutton ? " ON" : "OFF", rbut ? " ON" : "OFF",
-					mouse->mbutton ? " ON" : "OFF", mbut ? " ON" : "OFF",
-					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : "")));
+					"Middle button  : {} (toggle {})\n",
+					//"Wheel          : {}\n",
+					mouse.getX(), mouse.getY(),
+					mouse.getCx(), mouse.getCy(),
+					mouse.getDx(), mouse.getDy(),
+					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF",
+					mouse.isPressedRightButton() ? " ON" : "OFF", rbut ? " ON" : "OFF",
+					mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"
+					//mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : "")
+			));
 
 	sampleConsole.print(1, 10, "1 : Hide cursor\n2 : Show cursor");
-	if (key->c == '1')
-	{ TCODMouse::showCursor(false); }
-	else if (key->c == '2')
-	{ TCODMouse::showCursor(true); }
+
+//	if (key->c == '1')
+//	{ TCODMouse::showCursor(false); }
+//	else if (key->c == '2')
+//	{ TCODMouse::showCursor(true); }
 }
 
 // ***************************
 // path sample
 // ***************************
-void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_path(bool first, KeyCode key, const Mouse& mouse)
 {
-    static const char *smap[] = {
-            "##############################################",
-            "#######################      #################",
-            "#####################    #     ###############",
-            "######################  ###        ###########",
-            "##################      #####             ####",
-            "################       ########    ###### ####",
-            "###############      #################### ####",
-            "################    ######                  ##",
+	static const char* smap[] = {
+			"##############################################",
+			"#######################      #################",
+			"#####################    #     ###############",
+			"######################  ###        ###########",
+			"##################      #####             ####",
+			"################       ########    ###### ####",
+			"###############      #################### ####",
+			"################    ######                  ##",
             "########   #######  ######   #     #     #  ##",
             "########   ######      ###                  ##",
             "########                                    ##",
@@ -1109,69 +1112,69 @@ void render_path( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 //                sampleConsole.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
 //                recalculatePath = true;
 //            }
-        }
-    }
+		}
+	}
 
-    if (( key->c == 'I' || key->c == 'i' ) && destinationY > 0 )
-    {
-        // destination move north
-        destinationY--;
-		recalculatePath = true;
-		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-    }
-    else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
-    {
-        // destination move south
-        destinationY++;
-		recalculatePath = true;
-		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-    }
-    else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
-    {
-        // destination move west
-        destinationX--;
-		recalculatePath = true;
-		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-    }
-    else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
-    {
-        // destination move east
-        destinationX++;
-		recalculatePath = true;
-		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-    }
-    else if ( key->vk == TCODK_TAB )
-    {
-        usingAstar = !usingAstar;
+//    if (( key->c == 'I' || key->c == 'i' ) && destinationY > 0 )
+//    {
+//        // destination move north
+//        destinationY--;
+//		recalculatePath = true;
+//		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//    }
+//    else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
+//    {
+//        // destination move south
+//        destinationY++;
+//		recalculatePath = true;
+//		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//    }
+//    else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
+//    {
+//        // destination move west
+//        destinationX--;
+//		recalculatePath = true;
+//		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//    }
+//    else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
+//    {
+//        // destination move east
+//        destinationX++;
+//		recalculatePath = true;
+//		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//    }
+	if (key == KeyCode::TAB)
+	{
+		usingAstar = !usingAstar;
 
-        if ( usingAstar )
-        {
-            sampleConsole.print( 1, 4, "Using : A*      " );
-        }
-        else
-        {
-            sampleConsole.print( 1, 4, "Using : Dijkstra" );
-        }
-
-        recalculatePath = true;
-    }
-
-    mouseX = mouse->cx - SAMPLE_SCREEN_X;
-    mouseY = mouse->cy - SAMPLE_SCREEN_Y;
-
-    if ( mouseX >= 0 && mouseX < SAMPLE_SCREEN_WIDTH && mouseY >= 0 && mouseY < SAMPLE_SCREEN_HEIGHT &&
-         ( destinationX != mouseX || destinationY != mouseY ))
-    {
-        destinationX = mouseX;
-        destinationY = mouseY;
+		if (usingAstar)
+		{
+			sampleConsole.print(1, 4, "Using : A*      ");
+		}
+		else
+		{
+			sampleConsole.print(1, 4, "Using : Dijkstra");
+		}
 
 		recalculatePath = true;
+	}
+
+	mouseX = mouse.getCx() - SAMPLE_SCREEN_X;
+	mouseY = mouse.getCy() - SAMPLE_SCREEN_Y;
+
+	if (mouseX >= 0 && mouseX < SAMPLE_SCREEN_WIDTH && mouseY >= 0 && mouseY < SAMPLE_SCREEN_HEIGHT &&
+		(destinationX != mouseX || destinationY != mouseY))
+	{
+		destinationX = mouseX;
+		destinationY = mouseY;
+
+		recalculatePath = true;
 		sampleConsole.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-    }
+	}
 }
 
 
-void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_bsp(bool first, KeyCode key, const Mouse& mouse)
 {
 	static Algorithms::BinarySpacePartition* bsp = NULL;
 	static bool generate = true;
@@ -1229,62 +1232,62 @@ void render_bsp( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 			sampleConsole.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
         }
     }
-    if ( key->vk == TCODK_ENTER || key->vk == TCODK_KPENTER )
-    {
-        generate = true;
-    }
-    else if ( key->c == ' ' )
-    {
-        refresh = true;
-    }
-    else if ( key->c == '+' )
-    {
-        bspDepth++;
-        generate = true;
-    }
-    else if ( key->c == '-' && bspDepth > 1 )
-    {
-        bspDepth--;
-        generate = true;
-    }
-    else if ( key->c == '*' )
-    {
-        minRoomSize++;
-        generate = true;
-    }
-    else if ( key->c == '/' && minRoomSize > 2 )
-    {
-        minRoomSize--;
-        generate = true;
-    }
-    else if ( key->c == '1' || key->vk == TCODK_1 || key->vk == TCODK_KP1 )
-    {
-        randomRoom = !randomRoom;
-        if ( !randomRoom )
-        { roomWalls = true; }
-        refresh = true;
-    }
-    else if ( key->c == '2' || key->vk == TCODK_2 || key->vk == TCODK_KP2 )
-    {
-        roomWalls = !roomWalls;
-        refresh = true;
-    }
+	if (key == KeyCode::ENTER || key == KeyCode::PRINT_SCREEN)
+	{
+		generate = true;
+	}
+	else if (key == KeyCode::SPACE)
+	{
+		refresh = true;
+	}
+	else if (key == KeyCode::KP_ADD)
+	{
+		bspDepth++;
+		generate = true;
+	}
+	else if (key == KeyCode::KP_SUB && bspDepth > 1)
+	{
+		bspDepth--;
+		generate = true;
+	}
+	else if (key == KeyCode::KP_MUL)
+	{
+		minRoomSize++;
+		generate = true;
+	}
+	else if (key == KeyCode::KP_DIV && minRoomSize > 2)
+	{
+		minRoomSize--;
+		generate = true;
+	}
+	else if (key == KeyCode::K_1 or key == KeyCode::KP_1)
+	{
+		randomRoom = !randomRoom;
+		if (!randomRoom)
+		{ roomWalls = true; }
+		refresh = true;
+	}
+	else if (key == KeyCode::K_2 or key == KeyCode::KP_2)
+	{
+		roomWalls = !roomWalls;
+		refresh = true;
+	}
 }
 
 /* ***************************
  * name generator sample
  * ***************************/
-void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_name(bool first, KeyCode key, const Mouse& mouse)
 {
-    static int nbSets = 0;
-    static int curSet = 0;
-    static float delay = 0.0f;
-    static TCODList <char *> names;
-    static TCODList <char *> sets;
-    int i;
-    if ( nbSets == 0 )
-    {
-        TCODList <char *> files = Doryen::Platform::getDirectoryContent( "Data/namegen", "*.cfg" );
+	static int nbSets = 0;
+	static int curSet = 0;
+	static float delay = 0.0f;
+	static TCODList<char*> names;
+	static TCODList<char*> sets;
+	int i;
+	if (nbSets == 0)
+	{
+		TCODList<char*> files = Doryen::Platform::getDirectoryContent("Data/namegen", "*.cfg");
         // parse all the files
         for ( char **it = files.begin( ); it != files.end( ); it++ )
         {
@@ -1329,26 +1332,26 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 	}
 
     delay += Doryen::Platform::getLastFrameLength( );
-    if ( delay >= 0.5f )
-    {
-        delay -= 0.5f;
-        // add a new name to the list
-        names.push( TCODNamegen::generate( sets.get( curSet ), true ));
-    }
-    if ( key->c == '+' )
-    {
-        curSet++;
-        if ( curSet == nbSets )
-        { curSet = 0; }
-        names.push( strdup( "======" ));
-    }
-    else if ( key->c == '-' )
-    {
-        curSet--;
-        if ( curSet < 0 )
-        { curSet = nbSets - 1; }
-        names.push( strdup( "======" ));
-    }
+	if (delay >= 0.5f)
+	{
+		delay -= 0.5f;
+		// add a new name to the list
+		names.push(TCODNamegen::generate(sets.get(curSet), true));
+	}
+	if (key == KeyCode::KP_ADD)
+	{
+		curSet++;
+		if (curSet == nbSets)
+		{ curSet = 0; }
+		names.push(strdup("======"));
+	}
+	else if (key == KeyCode::KP_SUB)
+	{
+		curSet--;
+		if (curSet < 0)
+		{ curSet = nbSets - 1; }
+		names.push(strdup("======"));
+	}
 }
 
 /* ***************************
@@ -1357,30 +1360,29 @@ void render_name( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
 #ifndef NO_SDL_SAMPLE
 
 
-
-void render_sdl( bool first, TCOD_key_t *key, TCOD_mouse_t *mouse )
+void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 {
-    if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); /* limited to 30 fps */
-        // use noise sample as background. rendering is done in SampleRenderer
-        sampleConsole.setDefaultBackground( Doryen::Color::lightBlue );
-        sampleConsole.setDefaultForeground( Doryen::Color::white );
-        sampleConsole.clear( );
-        sampleConsole.printRectEx( SAMPLE_SCREEN_WIDTH / 2, 3, SAMPLE_SCREEN_WIDTH, 0, TCOD_BKGND_NONE, TCOD_CENTER,
-                                   "The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer." );
-    }
-    if ( key->vk == TCODK_TAB )
-    {
-        sdl_callback_enabled = !sdl_callback_enabled;
-        if ( sdl_callback_enabled )
-        {
-            Doryen::Platform::registerSDLRenderer( new SampleRenderer( ));
-        }
-        else
-        {
-            Doryen::Platform::registerSDLRenderer( NULL );
-            // we want libtcod to redraw the sample console even if nothing has changed in it
+	if (first)
+	{
+		Doryen::Platform::setFps(30); /* limited to 30 fps */
+		// use noise sample as background. rendering is done in SampleRenderer
+		sampleConsole.setDefaultBackground(Doryen::Color::lightBlue);
+		sampleConsole.setDefaultForeground(Doryen::Color::white);
+		sampleConsole.clear();
+		sampleConsole.printRectEx(SAMPLE_SCREEN_WIDTH / 2, 3, SAMPLE_SCREEN_WIDTH, 0, TCOD_BKGND_NONE, TCOD_CENTER,
+				"The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.");
+	}
+	if (key == KeyCode::TAB)
+	{
+		sdl_callback_enabled = !sdl_callback_enabled;
+		if (sdl_callback_enabled)
+		{
+			Doryen::Platform::registerSDLRenderer(new SampleRenderer());
+		}
+		else
+		{
+			Doryen::Platform::registerSDLRenderer(NULL);
+			// we want libtcod to redraw the sample console even if nothing has changed in it
             Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
                                              SAMPLE_SCREEN_HEIGHT );
         }
@@ -1417,8 +1419,7 @@ int main(int argc, char* argv[])
 {
 	int curSample = 0; // index of the current sample
 	bool first = true; // first time we render a sample
-	TCOD_key_t key = { TCODK_NONE, 0 };
-	TCOD_mouse_t mouse;
+
     const char *font = "Data/fonts/consolas10x10_gs_tc.png";
     int nbCharHoriz = 0, nbCharVertic = 0;
     int fullscreenWidth = 0;
@@ -1567,8 +1568,11 @@ int main(int argc, char* argv[])
 			console.print(2, 48, "ALT-ENTER : switch to fullscreen mode");
 		}
 
+		const KeyCode _key = console.getKeyPressed().getKeyCode();
+		const Mouse mouse = console.getMouseEvent();
+
 		// render current sample
-		samples[curSample].render(first, &key, &mouse);
+		samples[curSample].render(first, _key, mouse);
 		first = false;
 
 		// blit the sample console on the root console
@@ -1611,11 +1615,6 @@ int main(int argc, char* argv[])
 
 		// update the game screen
 		Doryen::Console::flush();
-
-		// did the user hit a key ?
-		Doryen::Platform::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE), &key, &mouse);
-
-		KeyCode _key = console.getKeyPressed().getKeyCode();
 
 		if (_key == KeyCode::DOWN)
 		{
