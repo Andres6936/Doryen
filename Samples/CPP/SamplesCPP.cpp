@@ -120,7 +120,7 @@ void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 
 using namespace std::string_literals;
 
-std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(const Console& _console)
+std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(std::reference_wrapper<Console> _console)
 {
 	// Although we declare a pointer to ISample the reality is that
 	// needed a instance of object derived of ISample, the aim is
@@ -257,7 +257,7 @@ int main(int argc, char* argv[])
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
 
-	std::array<std::shared_ptr<Functor::ISample>, 11> samples = configureExamples(sampleConsole);
+	std::array<std::shared_ptr<Functor::ISample>, 11> samples = configureExamples(std::ref(sampleConsole));
 
 	while (console.isRunning())
 	{

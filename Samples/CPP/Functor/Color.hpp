@@ -16,11 +16,11 @@ namespace Functor
 
 	private:
 
-		Console secondary;
+		std::reference_wrapper<Console> secondary;
 
 	public:
 
-		Color(const std::string _name, const Console& _console);
+		Color(const std::string _name, std::reference_wrapper<Console> _console);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 
