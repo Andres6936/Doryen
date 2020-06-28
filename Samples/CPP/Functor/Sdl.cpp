@@ -5,6 +5,11 @@
 
 using namespace Doryen;
 
+Functor::SDL::SDL(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
+
 void Functor::SDL::operator()(KeyCode key, const Mouse& mouse)
 {
 	static bool first = true;
