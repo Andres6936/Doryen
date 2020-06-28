@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class Offscreen : private ISample
+	class Offscreen : public ISample
 	{
 
 	private:

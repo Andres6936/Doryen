@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class Color : private ISample
+	class Color : public ISample
 	{
 
 	private:

@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class BSP : private ISample
+	class BSP : public ISample
 	{
 
 	private:

@@ -12,7 +12,7 @@ using namespace Doryen;
 namespace Functor
 {
 
-	class Mouse : private ISample
+	class Mouse : public ISample
 	{
 
 	private:

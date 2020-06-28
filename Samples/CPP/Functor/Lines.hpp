@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class Lines : private ISample
+	class Lines : public ISample
 	{
 
 	private:

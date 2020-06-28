@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class Noise : private ISample
+	class Noise : public ISample
 	{
 
 	private:

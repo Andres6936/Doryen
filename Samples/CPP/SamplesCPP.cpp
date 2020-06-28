@@ -4,13 +4,26 @@
  * It's in the public domain.
  */
 
-#include <cstdlib>
-#include <cstring>
+#include <memory>
 #include <cstdio>
+#include <cstring>
+#include <cstdlib>
 #include <iostream>
 #include <functional>
 
 #include "SampleRenderer.hpp"
+#include "Functor/Interface/ISample.hpp"
+#include "Functor/Bsp.hpp"
+#include "Functor/Color.hpp"
+#include "Functor/Fov.hpp"
+#include "Functor/Image.hpp"
+#include "Functor/Lines.hpp"
+#include "Functor/Mouse.hpp"
+#include "Functor/Name.hpp"
+#include "Functor/Noise.hpp"
+#include "Functor/Offscreen.hpp"
+#include "Functor/Path.hpp"
+#include "Functor/Sdl.hpp"
 
 using namespace Doryen;
 
@@ -106,6 +119,23 @@ void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 #endif
 
 using namespace std::string_literals;
+
+void configureExamples(const Console& _console)
+{
+	using VirtualPointer = typename std::shared_ptr<Functor::ISample>;
+
+	VirtualPointer bsp = std::make_shared<Functor::BSP>("  Bsp toolkit        "s, _console);
+	VirtualPointer color = std::make_shared<Functor::Color>("  True colors        "s, _console);
+	VirtualPointer fov = std::make_shared<Functor::Fov>("  Field of view      "s, _console);
+	VirtualPointer image;
+	VirtualPointer lines;
+	VirtualPointer mouse;
+	VirtualPointer name;
+	VirtualPointer noise;
+	VirtualPointer offscreen;
+	VirtualPointer path;
+	VirtualPointer sdl;
+}
 
 int main(int argc, char* argv[])
 {

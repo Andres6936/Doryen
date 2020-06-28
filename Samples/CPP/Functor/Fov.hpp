@@ -11,7 +11,7 @@ using namespace Doryen;
 
 namespace Functor
 {
-	class FOV : private ISample
+	class FOV : public ISample
 	{
 
 	private:

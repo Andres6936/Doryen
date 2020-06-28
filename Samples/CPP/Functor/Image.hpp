@@ -12,7 +12,7 @@ using namespace Doryen;
 namespace Functor
 {
 
-	class Image : private ISample
+	class Image : public ISample
 	{
 
 	private:

@@ -12,7 +12,7 @@ using namespace Doryen;
 namespace Functor
 {
 
-	class SDL : private ISample
+	class SDL : public ISample
 	{
 
 	private:
