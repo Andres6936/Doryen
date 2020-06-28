@@ -3,8 +3,13 @@
 #include "Bsp.hpp"
 #include "../BspListener.hpp"
 
-
 using namespace Doryen;
+
+Functor::BSP::BSP(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
+
 
 void Functor::BSP::operator()(KeyCode key, const Mouse& mouse)
 {

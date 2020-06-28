@@ -5,18 +5,22 @@
 
 #include <Doryen/libtcod.hpp>
 
+#include "Interface/ISample.hpp"
+
 using namespace Doryen;
 
 namespace Functor
 {
-	class BSP
+	class BSP : private ISample
 	{
 
 	private:
 
-		Console sample;
+		const Console sample;
 
 	public:
+
+		BSP(const std::string _name, const Console& _console);
 
 		void operator()(KeyCode key, const Mouse& mouse);
 
