@@ -120,21 +120,41 @@ void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 
 using namespace std::string_literals;
 
-void configureExamples(const Console& _console)
+std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(const Console& _console)
 {
-	using VirtualPointer = typename std::shared_ptr<Functor::ISample>;
+	// Although we declare a pointer to ISample the reality is that
+	// needed a instance of object derived of ISample, the aim is
+	// allow save the pointer an array.
+	using SharedPointer = typename std::shared_ptr<Functor::ISample>;
 
-	VirtualPointer bsp = std::make_shared<Functor::BSP>("  Bsp toolkit        "s, _console);
-	VirtualPointer color = std::make_shared<Functor::Color>("  True colors        "s, _console);
-	VirtualPointer fov = std::make_shared<Functor::FOV>("  Field of view      "s, _console);
-	VirtualPointer image = std::make_shared<Functor::Image>("  Image toolkit      "s, _console);
-	VirtualPointer lines = std::make_shared<Functor::Lines>("  Line drawing       "s, _console);
-	VirtualPointer mouse = std::make_shared<Functor::Mouse>("  Mouse support      "s, _console);
-	VirtualPointer name = std::make_shared<Functor::Name>("  Name generator     "s, _console);
-	VirtualPointer noise = std::make_shared<Functor::Noise>("  Noise              "s, _console);
-	VirtualPointer offscreen = std::make_shared<Functor::Offscreen>("  Offscreen console  "s, _console);
-	VirtualPointer path = std::make_shared<Functor::Path>("  Path finding       "s, _console);
-	VirtualPointer sdl = std::make_shared<Functor::SDL>("  SDL callback       "s, _console);
+	SharedPointer bsp = std::make_shared<Functor::BSP>("  Bsp toolkit        "s, _console);
+	SharedPointer color = std::make_shared<Functor::Color>("  True colors        "s, _console);
+	SharedPointer fov = std::make_shared<Functor::FOV>("  Field of view      "s, _console);
+	SharedPointer image = std::make_shared<Functor::Image>("  Image toolkit      "s, _console);
+	SharedPointer lines = std::make_shared<Functor::Lines>("  Line drawing       "s, _console);
+	SharedPointer mouse = std::make_shared<Functor::Mouse>("  Mouse support      "s, _console);
+	SharedPointer name = std::make_shared<Functor::Name>("  Name generator     "s, _console);
+	SharedPointer noise = std::make_shared<Functor::Noise>("  Noise              "s, _console);
+	SharedPointer offscreen = std::make_shared<Functor::Offscreen>("  Offscreen console  "s, _console);
+	SharedPointer path = std::make_shared<Functor::Path>("  Path finding       "s, _console);
+	SharedPointer sdl = std::make_shared<Functor::SDL>("  SDL callback       "s, _console);
+
+	std::array<SharedPointer, 11> pointers;
+
+	// Respect the sort original of the examples
+	pointers[0] = color;
+	pointers[1] = offscreen;
+	pointers[2] = lines;
+	pointers[3] = noise;
+	pointers[4] = fov;
+	pointers[5] = path;
+	pointers[6] = bsp;
+	pointers[7] = image;
+	pointers[8] = mouse;
+	pointers[9] = name;
+	pointers[10] = sdl;
+
+	return pointers;
 }
 
 int main(int argc, char* argv[])
