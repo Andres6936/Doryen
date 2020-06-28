@@ -3,13 +3,26 @@
 #ifndef DORYEN_MOUSE_HPP
 #define DORYEN_MOUSE_HPP
 
+#include <Doryen/libtcod.hpp>
 
-class Mouse
+using namespace Doryen;
+
+namespace Functor
 {
 
-public:
+	class Mouse
+	{
 
-};
+	private:
 
+		Console sample;
+
+	public:
+
+		void operator()(KeyCode key, const Doryen::Mouse& mouse);
+
+	};
+
+}
 
 #endif //DORYEN_MOUSE_HPP

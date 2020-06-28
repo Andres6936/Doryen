@@ -3,13 +3,26 @@
 #ifndef DORYEN_NAME_HPP
 #define DORYEN_NAME_HPP
 
+#include <Doryen/libtcod.hpp>
 
-class Name
+using namespace Doryen;
+
+namespace Functor
 {
 
-public:
+	class Name
+	{
 
-};
+	private:
 
+		Console sample;
+
+	public:
+
+		void operator()(KeyCode key, const Mouse& mouse);
+
+	};
+
+}
 
 #endif //DORYEN_NAME_HPP

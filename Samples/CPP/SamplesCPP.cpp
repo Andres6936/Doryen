@@ -77,53 +77,7 @@ void render_image(bool first, KeyCode key, const Mouse& mouse)
 // ***************************/
 void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 {
-	static bool lbut = false, rbut = false, mbut = false;
 
-	if (first)
-	{
-		Doryen::Platform::setFps(30); // fps limited to 30
-		sampleConsole.setDefaultBackground(Doryen::Color::grey);
-		sampleConsole.setDefaultForeground(Doryen::Color::lightYellow);
-		TCODMouse::move(320, 200);
-		TCODMouse::showCursor(true);
-	}
-
-	sampleConsole.clear();
-	if (mouse.isPressedLeftButton())
-	{ lbut = !lbut; }
-	if (mouse.isPressedRightButton())
-	{ rbut = !rbut; }
-	if (mouse.isPressedMiddleButton())
-	{ mbut = !mbut; }
-
-	sampleConsole.print(1, 1, format("Mouse position : {4d}x{4d}\n",
-			mouse.getX(), mouse.getY()));
-
-	sampleConsole.print(1, 2,
-			format("Mouse cell     : {4d}x{4d}", mouse.getPositionCellX(), mouse.getPositionCellY()));
-
-	sampleConsole.print(1, 3,
-			format("Mouse movement : {4d}x{4d}", mouse.getMovementRelativeX(), mouse.getMovementRelativeY()));
-
-	sampleConsole.print(1, 4,
-			format("Left button    : {} (toggle {})",
-					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF"));
-
-	sampleConsole.print(1, 5, format("Right button   : {} (toggle {})",
-			mouse.isPressedRightButton() ? " ON" : "OFF", rbut ? " ON" : "OFF"));
-
-	sampleConsole.print(1, 6, format("Middle button  : {} (toggle {})",
-			mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"));
-
-//	sampleConsole.print(1, 7,format("Wheel          : {}",
-//					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : ""));
-
-	sampleConsole.print(1, 10, "1 : Hide cursor\n2 : Show cursor");
-
-//	if (key->c == '1')
-//	{ TCODMouse::showCursor(false); }
-//	else if (key->c == '2')
-//	{ TCODMouse::showCursor(true); }
 }
 
 void render_path(bool first, KeyCode key, const Mouse& mouse)
@@ -141,79 +95,7 @@ void render_bsp(bool first, KeyCode key, const Mouse& mouse)
  * ***************************/
 void render_name(bool first, KeyCode key, const Mouse& mouse)
 {
-	static int nbSets = 0;
-	static int curSet = 0;
-	static float delay = 0.0f;
-	static TCODList<char*> names;
-	static TCODList<char*> sets;
-	int i;
-	if (nbSets == 0)
-	{
-		TCODList<char*> files = Doryen::Platform::getDirectoryContent("Data/namegen", "*.cfg");
-        // parse all the files
-        for ( char **it = files.begin( ); it != files.end( ); it++ )
-        {
-            char tmp[256];
-            sprintf( tmp, "Data/namegen/%s", *it );
-            TCODNamegen::parse( tmp );
-        }
-        // get the sets list
-        sets = TCODNamegen::getSets( );
-        nbSets = sets.size( );
-    }
-    if ( first )
-    {
-        Doryen::Platform::setFps( 30 ); /* limited to 30 fps */
-    }
 
-    while ( names.size( ) >= 15 )
-    {
-        // remove the first element.
-#ifndef TCOD_VISUAL_STUDIO
-        char *nameToRemove = *( names.begin( ));
-#endif
-		names.remove(names.begin());
-		// for some reason, this crashes on MSVC...
-#ifndef TCOD_VISUAL_STUDIO
-		free(nameToRemove);
-#endif
-	}
-
-	sampleConsole.setDefaultBackground(Doryen::Color::lightBlue);
-	sampleConsole.clear();
-	sampleConsole.setDefaultForeground(Doryen::Color::white);
-	sampleConsole.print(1, 1, format("{}\n\n+ : next generator\n- : prev generator", sets.get(curSet)));
-
-	for (i = 0; i < names.size(); i++)
-	{
-		char* name = names.get(i);
-		if (strlen(name) < SAMPLE_SCREEN_WIDTH)
-		{
-			sampleConsole.printEx(SAMPLE_SCREEN_WIDTH - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name);
-		}
-	}
-
-    delay += Doryen::Platform::getLastFrameLength( );
-	if (delay >= 0.5f)
-	{
-		delay -= 0.5f;
-		// add a new name to the list
-		names.push(TCODNamegen::generate(sets.get(curSet), true));
-	}
-	if (key == KeyCode::KP_ADD)
-	{
-		curSet++;
-		if (curSet == nbSets)
-		{ curSet = 0; }
-		names.push(strdup("======"));
-	}
-	else if (key == KeyCode::KP_SUB)
-	{
-		curSet--;
-		if (curSet < 0)
-		{ curSet = nbSets - 1; }
-		names.push(strdup("======"));
-	}
 }
 
 /* ***************************
@@ -224,31 +106,7 @@ void render_name(bool first, KeyCode key, const Mouse& mouse)
 
 void render_sdl(bool first, KeyCode key, const Mouse& mouse)
 {
-	if (first)
-	{
-		Doryen::Platform::setFps(30); /* limited to 30 fps */
-		// use noise sample as background. rendering is done in SampleRenderer
-		sampleConsole.setDefaultBackground(Doryen::Color::lightBlue);
-		sampleConsole.setDefaultForeground(Doryen::Color::white);
-		sampleConsole.clear();
-		sampleConsole.printRectEx(SAMPLE_SCREEN_WIDTH / 2, 3, SAMPLE_SCREEN_WIDTH, 0, TCOD_BKGND_NONE, TCOD_CENTER,
-				"The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.");
-	}
-	if (key == KeyCode::TAB)
-	{
-		sdl_callback_enabled = !sdl_callback_enabled;
-		if (sdl_callback_enabled)
-		{
-			Doryen::Platform::registerSDLRenderer(new SampleRenderer());
-		}
-		else
-		{
-			Doryen::Platform::registerSDLRenderer(NULL);
-			// we want libtcod to redraw the sample console even if nothing has changed in it
-            Doryen::Console::root->setDirty( SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
-                                             SAMPLE_SCREEN_HEIGHT );
-        }
-    }
+
 }
 
 #endif
