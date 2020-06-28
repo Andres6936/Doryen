@@ -879,7 +879,7 @@ void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 			mouse.getX(), mouse.getY()));
 
 	sampleConsole.print(1, 2,
-			format("Mouse cell     : {4d}x{4d}", mouse.getCx(), mouse.getCy()));
+			format("Mouse cell     : {4d}x{4d}", mouse.getPositionCellX(), mouse.getPositionCellY()));
 
 	sampleConsole.print(1, 3,
 			format("Mouse movement : {4d}x{4d}", mouse.getMovementRelativeX(), mouse.getMovementRelativeY()));
@@ -1169,8 +1169,8 @@ void render_path(bool first, KeyCode key, const Mouse& mouse)
 		recalculatePath = true;
 	}
 
-	mouseX = mouse.getCx() - SAMPLE_SCREEN_X;
-	mouseY = mouse.getCy() - SAMPLE_SCREEN_Y;
+	mouseX = mouse.getPositionCellX() - SAMPLE_SCREEN_X;
+	mouseY = mouse.getPositionCellY() - SAMPLE_SCREEN_Y;
 
 	if (mouseX >= 0 && mouseX < SAMPLE_SCREEN_WIDTH && mouseY >= 0 && mouseY < SAMPLE_SCREEN_HEIGHT &&
 		(destinationX != mouseX || destinationY != mouseY))

@@ -26,14 +26,14 @@ int Mouse::getMovementRelativeY() const
 	return movementRelativeY;
 }
 
-int Mouse::getCx() const
+int Mouse::getPositionCellX() const
 {
-	return cx;
+	return positionCellX;
 }
 
-int Mouse::getCy() const
+int Mouse::getPositionCellY() const
 {
-	return cy;
+	return positionCellY;
 }
 
 int Mouse::getDcx() const
@@ -63,24 +63,24 @@ void Mouse::setY(int _y)
 	y = _y;
 }
 
-void Mouse::setDx(int _dx)
+void Mouse::setMovementRelativeX(int _dx)
 {
 	movementRelativeX = _dx;
 }
 
-void Mouse::setDy(int _dy)
+void Mouse::setMovementRelativeY(int _dy)
 {
 	movementRelativeY = _dy;
 }
 
-void Mouse::setCx(int _cx)
+void Mouse::setPositionCellX(int _cx)
 {
-	cx = _cx;
+	positionCellX = _cx;
 }
 
-void Mouse::setCy(int _cy)
+void Mouse::setPositionCellY(int _cy)
 {
-	cy = _cy;
+	positionCellY = _cy;
 }
 
 void Mouse::setDcx(int _dcx)

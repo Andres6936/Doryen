@@ -1132,8 +1132,8 @@ Doryen::Mouse Doryen::SDL::getMouseEvent()
 	// movement made for the user.
 
 	// Set the movement of mouse to 0 (zero).
-	mouse.setDx(0);
-	mouse.setDy(0);
+	mouse.setMovementRelativeX(0);
+	mouse.setMovementRelativeY(0);
 
 	if (not eventPending) return mouse;
 
@@ -1149,8 +1149,8 @@ Doryen::Mouse Doryen::SDL::getMouseEvent()
 		const int charWidth = getFontWidth();
 		const int charHeight = getFontHeigth();
 
-		mouse.setCx(mouse.getX() / charWidth);
-		mouse.setCy(mouse.getY() / charHeight);
+		mouse.setPositionCellX(mouse.getX() / charWidth);
+		mouse.setPositionCellY(mouse.getY() / charHeight);
 		mouse.setDcx(mouse.getMovementRelativeX() / charWidth);
 		mouse.setDcy(mouse.getMovementRelativeY() / charHeight);
 	}

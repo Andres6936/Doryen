@@ -39,8 +39,8 @@ namespace Doryen
 		 */
 		int movementRelativeY = 0;
 
-		int cx = 0;
-		int cy = 0;
+		int positionCellX = 0;
+		int positionCellY = 0;
 
 		int dcx = 0;
 		int dcy = 0;
@@ -75,9 +75,9 @@ namespace Doryen
 
 		int getMovementRelativeY() const;
 
-		int getCx() const;
+		int getPositionCellX() const;
 
-		int getCy() const;
+		int getPositionCellY() const;
 
 		int getDcx() const;
 
@@ -91,13 +91,13 @@ namespace Doryen
 
 		void setY(int _y);
 
-		void setDx(int _dx);
+		void setMovementRelativeX(int _dx);
 
-		void setDy(int _dy);
+		void setMovementRelativeY(int _dy);
 
-		void setCx(int _cx);
+		void setPositionCellX(int _cx);
 
-		void setCy(int _cy);
+		void setPositionCellY(int _cy);
 
 		void setDcx(int _dcx);
 
