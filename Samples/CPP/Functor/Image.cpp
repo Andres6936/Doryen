@@ -4,6 +4,12 @@
 
 using namespace Doryen;
 
+
+Functor::Image::Image(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
+
 void Functor::Image::operator()(KeyCode key, const Mouse& mouse)
 {
 	static Doryen::Image* img = NULL, * circle = NULL;
