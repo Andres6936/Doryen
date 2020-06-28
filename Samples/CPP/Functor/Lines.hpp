@@ -20,7 +20,7 @@ namespace Functor
 
 	public:
 
-		Lines(const std::string _name, const Console& _console);
+		Lines(const std::string _name, std::reference_wrapper<Console> _console);
 
 		BackgroundFlag switchBackgroundFlag(BackgroundFlag flag);
 

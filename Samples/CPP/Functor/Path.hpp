@@ -20,7 +20,7 @@ namespace Functor
 
 	public:
 
-		Path(const std::string _name, const Console& _console);
+		Path(const std::string _name, std::reference_wrapper<Console> _console);
 
 		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 
