@@ -24,7 +24,7 @@ namespace Functor
 
 		BackgroundFlag switchBackgroundFlag(BackgroundFlag flag);
 
-		void operator()(KeyCode key, const Mouse& mouse);
+		void render(KeyCode key, const Mouse& mouse) override;
 
 	};
 }

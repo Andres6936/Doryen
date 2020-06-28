@@ -16,13 +16,13 @@ namespace Functor
 
 	private:
 
-		const Console sample;
+		Console sample;
 
 	public:
 
 		FOV(const std::string _name, const Console& _console);
 
-		void operator()(KeyCode key, const Mouse& mouse);
+		void render(KeyCode key, const Mouse& mouse) override;
 
 	};
 }

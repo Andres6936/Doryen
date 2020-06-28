@@ -10,7 +10,7 @@ Functor::Lines::Lines(std::string _name, const Console& _console) : ISample(_nam
 
 }
 
-void Functor::Lines::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 {
 	static Console bk(sample.getWidth(), sample.getHeight()); // colored background
 	static bool init = false;

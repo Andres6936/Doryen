@@ -10,7 +10,7 @@ Functor::Path::Path(std::string _name, const Console& _console) : ISample(_name)
 
 }
 
-void Functor::Path::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
 	static const char* smap[] = {
 			"##############################################",

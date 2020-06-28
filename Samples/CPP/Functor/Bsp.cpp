@@ -11,7 +11,7 @@ Functor::BSP::BSP(std::string _name, const Console& _console) : ISample(_name), 
 }
 
 
-void Functor::BSP::operator()(KeyCode key, const Mouse& mouse)
+void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 {
 	static Algorithms::BinarySpacePartition* bsp = NULL;
 	static bool generate = true;

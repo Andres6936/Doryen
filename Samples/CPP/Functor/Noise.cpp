@@ -5,7 +5,7 @@
 
 using namespace Doryen;
 
-void Functor::Noise::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 {
 	enum
 	{

@@ -9,7 +9,7 @@ Functor::Color::Color(std::string _name, const Console& _console) : ISample(_nam
 
 }
 
-void Functor::Color::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Color::render(KeyCode key, const Mouse& mouse)
 {
 	enum
 	{

@@ -9,7 +9,7 @@ Functor::Name::Name(std::string _name, const Console& _console) : ISample(_name)
 
 }
 
-void Functor::Name::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Name::render(KeyCode key, const Mouse& mouse)
 {
 	static int nbSets = 0;
 	static int curSet = 0;

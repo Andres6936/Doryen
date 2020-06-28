@@ -9,7 +9,7 @@ Functor::Mouse::Mouse(std::string _name, const Console& _console) : ISample(_nam
 
 }
 
-void Functor::Mouse::operator()(KeyCode key, const Doryen::Mouse& mouse)
+void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 {
 	static bool lbut = false, rbut = false, mbut = false;
 

@@ -5,6 +5,10 @@
 
 #include <string>
 
+#include "Doryen/libtcod.hpp"
+
+using namespace Doryen;
+
 namespace Functor
 {
 
@@ -17,9 +21,22 @@ namespace Functor
 
 	public:
 
+		// Construct
+
 		ISample(const std::string& _name) : name(_name)
 		{
 		};
+
+		// Methods Virtual
+
+		virtual void render(KeyCode key, const Mouse& mouse) = 0;
+
+		// Getters
+
+		const std::string& getName() const
+		{
+			return name;
+		}
 
 	};
 

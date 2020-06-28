@@ -9,7 +9,7 @@ Functor::FOV::FOV(std::string _name, const Console& _console) : ISample(_name), 
 
 }
 
-void Functor::FOV::operator()(KeyCode key, const Mouse& mouse)
+void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
 	static const char* smap[] = {
 			"##############################################",

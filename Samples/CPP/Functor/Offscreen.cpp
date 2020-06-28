@@ -9,7 +9,7 @@ Functor::Offscreen::Offscreen(std::string _name, const Console& _console) : ISam
 
 }
 
-void Functor::Offscreen::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Offscreen::render(KeyCode key, const Mouse& mouse)
 {
 	static Console secondary(sample.getWidth() / 2, sample.getHeight() / 2);
 	static Console screenshot(sample.getWidth(), sample.getHeight());

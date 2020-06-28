@@ -159,20 +159,6 @@ std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(const Consol
 
 int main(int argc, char* argv[])
 {
-	std::array<Sample, 11> samples = {
-			Sample{ "  True colors        "s, render_colors },
-			Sample{ "  Offscreen console  "s, render_offscreen },
-			Sample{ "  Line drawing       "s, render_lines },
-			Sample{ "  Noise              "s, render_noise },
-			Sample{ "  Field of view      "s, render_fov },
-			Sample{ "  Path finding       "s, render_path },
-			Sample{ "  Bsp toolkit        "s, render_bsp },
-			Sample{ "  Image toolkit      "s, render_image },
-			Sample{ "  Mouse support      "s, render_mouse },
-			Sample{ "  Name generator     "s, render_name },
-			Sample{ "  SDL callback       "s, render_sdl }
-	};
-
 	int curSample = 0; // index of the current sample
 	bool first = true; // first time we render a sample
 
@@ -271,6 +257,8 @@ int main(int argc, char* argv[])
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
 
+	std::array<std::shared_ptr<Functor::ISample>, 11> samples = configureExamples(sampleConsole);
+
 	while (console.isRunning())
 	{
 		if (!creditsEnd)
@@ -295,7 +283,7 @@ int main(int argc, char* argv[])
 			}
 
 			// print the sample name
-			console.print(2, 46 - (samples.size() - i), samples[i].name);
+			console.print(2, 46 - (samples.size() - i), samples[i]->getName());
 		}
 
 		// print the help message
@@ -328,7 +316,8 @@ int main(int argc, char* argv[])
 		const Mouse mouse = console.getMouseEvent();
 
 		// render current sample
-		samples[curSample].render(first, _key, mouse);
+		samples[curSample]->render(_key, mouse);
+
 		first = false;
 
 		// blit the sample console on the root console

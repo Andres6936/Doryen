@@ -10,7 +10,7 @@ Functor::Image::Image(std::string _name, const Console& _console) : ISample(_nam
 
 }
 
-void Functor::Image::operator()(KeyCode key, const Mouse& mouse)
+void Functor::Image::render(KeyCode key, const Mouse& mouse)
 {
 	static Doryen::Image* img = NULL, * circle = NULL;
 	static Doryen::Color blue(0, 0, 255);

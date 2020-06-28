@@ -23,7 +23,7 @@ namespace Functor
 
 		Mouse(const std::string _name, const Console& _console);
 
-		void operator()(KeyCode key, const Doryen::Mouse& mouse);
+		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 
 	};
 

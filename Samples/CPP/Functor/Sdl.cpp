@@ -10,7 +10,7 @@ Functor::SDL::SDL(std::string _name, const Console& _console) : ISample(_name), 
 
 }
 
-void Functor::SDL::operator()(KeyCode key, const Mouse& mouse)
+void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 {
 	static bool first = true;
 
