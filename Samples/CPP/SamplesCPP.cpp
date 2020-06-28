@@ -9,7 +9,6 @@
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
-#include <functional>
 
 #include "SampleRenderer.hpp"
 #include "Functor/Interface/ISample.hpp"
