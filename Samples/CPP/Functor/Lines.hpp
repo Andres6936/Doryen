@@ -5,18 +5,22 @@
 
 #include <Doryen/libtcod.hpp>
 
+#include "Interface/ISample.hpp"
+
 using namespace Doryen;
 
 namespace Functor
 {
-	class Lines
+	class Lines : private ISample
 	{
 
 	private:
 
-		Console sample;
+		const Console sample;
 
 	public:
+
+		Lines(const std::string _name, const Console& _console);
 
 		BackgroundFlag switchBackgroundFlag(BackgroundFlag flag);
 

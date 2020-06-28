@@ -5,6 +5,11 @@
 
 using namespace Doryen;
 
+Functor::Lines::Lines(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
+
 void Functor::Lines::operator()(KeyCode key, const Mouse& mouse)
 {
 	static Console bk(sample.getWidth(), sample.getHeight()); // colored background
