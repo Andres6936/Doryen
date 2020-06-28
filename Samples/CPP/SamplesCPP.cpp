@@ -69,53 +69,7 @@ void render_fov(bool first, KeyCode key, const Mouse& mouse)
 // ***************************
 void render_image(bool first, KeyCode key, const Mouse& mouse)
 {
-	static Doryen::Image* img = NULL, * circle = NULL;
-	static Doryen::Color blue(0, 0, 255);
-	static Doryen::Color green(0, 255, 0);
-	if (img == NULL)
-	{
-		img = new Doryen::Image("Data/img/skull.png");
-		img->setKeyColor(Doryen::Color::black);
-		circle = new Doryen::Image("Data/img/circle.png");
-	}
-	if (first)
-	{
-        Doryen::Platform::setFps( 30 ); // fps limited to 30
-    }
-    sampleConsole.setDefaultBackground( Doryen::Color::black );
-    sampleConsole.clear( );
-    float x = SAMPLE_SCREEN_WIDTH / 2 + cosf( Doryen::Platform::getElapsedSeconds( )) * 10.0f;
-    float y = ( float ) ( SAMPLE_SCREEN_HEIGHT / 2 );
-    float scalex = 0.2f + 1.8f * ( 1.0f + cosf( Doryen::Platform::getElapsedSeconds( ) / 2 )) / 2.0f;
-    float scaley = scalex;
-    float angle = Doryen::Platform::getElapsedSeconds( );
-    long elapsed = Doryen::Platform::getElapsedMilli( ) / 2000;
-    if ( elapsed & 1 )
-    {
-        // split the color channels of circle.png
-        // the red channel
-		sampleConsole.setDefaultBackground(Doryen::Color::red);
-		sampleConsole.rect(0, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sampleConsole, 0, 3, -1, -1, TCOD_BKGND_MULTIPLY);
-        // the green channel
-		sampleConsole.setDefaultBackground(green);
-		sampleConsole.rect(15, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sampleConsole, 15, 3, -1, -1, TCOD_BKGND_MULTIPLY);
-        // the blue channel
-		sampleConsole.setDefaultBackground(blue);
-		sampleConsole.rect(30, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sampleConsole, 30, 3, -1, -1, TCOD_BKGND_MULTIPLY);
-	}
-	else
-	{
-		// render circle.png with normal blitting
-		circle->blitRect(&sampleConsole, 0, 3, -1, -1, TCOD_BKGND_SET);
-		circle->blitRect(&sampleConsole, 15, 3, -1, -1, TCOD_BKGND_SET);
-		circle->blitRect(&sampleConsole, 30, 3, -1, -1, TCOD_BKGND_SET);
-	}
 
-	img->blit(sampleConsole, { static_cast<int>(x), static_cast<int>(y) },
-			BackgroundFlag::SET, scalex, scaley, angle);
 }
 
 // ***************************

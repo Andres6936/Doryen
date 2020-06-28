@@ -3,13 +3,26 @@
 #ifndef DORYEN_IMAGE_HPP
 #define DORYEN_IMAGE_HPP
 
+#include <Doryen/libtcod.hpp>
 
-class Image
+using namespace Doryen;
+
+namespace Functor
 {
 
-public:
+	class Image
+	{
 
-};
+	private:
 
+		Console sample;
+
+	public:
+
+		void operator()(KeyCode key, const Mouse& mouse);
+
+	};
+
+}
 
 #endif //DORYEN_IMAGE_HPP
