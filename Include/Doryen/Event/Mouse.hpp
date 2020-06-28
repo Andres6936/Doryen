@@ -39,7 +39,16 @@ namespace Doryen
 		 */
 		int movementRelativeY = 0;
 
+		/**
+		 * Position in the cell relative to coordiante X of
+		 * main console (root).
+		 */
 		int positionCellX = 0;
+
+		/**
+		 * Position in the cell relative to coordinate Y of
+		 * main console (root).
+		 */
 		int positionCellY = 0;
 
 		int dcx = 0;
