@@ -33,23 +33,21 @@ std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(std::referen
 {
 	// Although we declare a pointer to ISample, the reality is that
 	// needed a instance of object derived of ISample, the aim is
-	// allow save the pointer an array and use its like a scene manager.
-	using SharedPointer = typename std::shared_ptr<Functor::ISample>;
-
-	std::array<SharedPointer, 11> pointers;
+	// allow save the pointer in an array and use its like a scene manager.
+	std::array<std::shared_ptr<Functor::ISample>, 11> pointers;
 
 	// Respect the sort original of the examples
-	pointers[0] = std::make_shared<Functor::Color>("  True colors        "s, _console);;
-	pointers[1] = std::make_shared<Functor::Offscreen>("  Offscreen console  "s, _console);;
-	pointers[2] = std::make_shared<Functor::Lines>("  Line drawing       "s, _console);;
-	pointers[3] = std::make_shared<Functor::Noise>("  Noise              "s, _console);;
-	pointers[4] = std::make_shared<Functor::FOV>("  Field of view      "s, _console);;
-	pointers[5] = std::make_shared<Functor::Path>("  Path finding       "s, _console);;
-	pointers[6] = std::make_shared<Functor::BSP>("  Bsp toolkit        "s, _console);;
-	pointers[7] = std::make_shared<Functor::Image>("  Image toolkit      "s, _console);;
-	pointers[8] = std::make_shared<Functor::Mouse>("  Mouse support      "s, _console);;
-	pointers[9] = std::make_shared<Functor::Name>("  Name generator     "s, _console);;
-	pointers[10] = std::make_shared<Functor::SDL>("  SDL callback       "s, _console);;
+	pointers[0] = std::make_shared<Functor::Color>("True colors"s, _console);;
+	pointers[1] = std::make_shared<Functor::Offscreen>("Offscreen Console"s, _console);;
+	pointers[2] = std::make_shared<Functor::Lines>("Line drawing"s, _console);;
+	pointers[3] = std::make_shared<Functor::Noise>("Noise"s, _console);;
+	pointers[4] = std::make_shared<Functor::FOV>("Field of view"s, _console);;
+	pointers[5] = std::make_shared<Functor::Path>("Path finding"s, _console);;
+	pointers[6] = std::make_shared<Functor::BSP>("Bsp toolkit"s, _console);;
+	pointers[7] = std::make_shared<Functor::Image>("Image toolkit"s, _console);;
+	pointers[8] = std::make_shared<Functor::Mouse>("Mouse support"s, _console);;
+	pointers[9] = std::make_shared<Functor::Name>("Name generator"s, _console);;
+	pointers[10] = std::make_shared<Functor::SDL>("SDL callback"s, _console);;
 
 	return pointers;
 }
