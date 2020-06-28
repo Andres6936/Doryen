@@ -4,6 +4,11 @@
 
 using namespace Doryen;
 
+Functor::Color::Color(std::string _name, const Console& _console) : ISample(_name), secondary(_console)
+{
+
+}
+
 void Functor::Color::operator()(KeyCode key, const Mouse& mouse)
 {
 	enum
