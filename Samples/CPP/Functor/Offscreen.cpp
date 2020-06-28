@@ -59,12 +59,12 @@ void Functor::Offscreen::render(KeyCode key, const Mouse& mouse)
 	}
 
 	// restore the initial screen
-	screenshot.blit({ 0, 0 }, sample, { 0, 0 });
+	screenshot.blit({ 0, 0 }, sample.get(), { 0, 0 });
 
 	// For avoid that program terminate
 	if (not(x < 0) and not(y < 0))
 	{
 		// blit the overlapping screen
-		secondary.blit({ 0, 0 }, sample, { x, y }, 1.0f, 0.75f);
+		secondary.blit({ 0, 0 }, sample.get(), { x, y }, 1.0f, 0.75f);
 	}
 }

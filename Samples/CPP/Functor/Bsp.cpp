@@ -48,16 +48,16 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 		generate = false;
 		refresh = false;
 	}
-	sampleConsole.clear();
-	sampleConsole.setDefaultForeground(Doryen::Color::white);
-	sampleConsole.print(1, 1,
+	sample.get().clear();
+	sample.get().setDefaultForeground(Doryen::Color::white);
+	sample.get().print(1, 1,
 			format("ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth {}\n*/: room size {}\n1 : random room size {}",
 					bspDepth, minRoomSize,
 					randomRoom ? "ON" : "OFF"));
 
 	if (randomRoom)
 	{
-		sampleConsole.print(1, 6, format("2 : room walls {}",
+		sample.get().print(1, 6, format("2 : room walls {}",
 				roomWalls ? "ON" : "OFF"));
 	}
 	// render the level
@@ -66,7 +66,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 		for (int x = 0; x < SAMPLE_SCREEN_WIDTH; x++)
 		{
 			bool wall = (map[x][y] == '#');
-			sampleConsole.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
+			sample.get().setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
 		}
 	}
 	if (key == KeyCode::ENTER || key == KeyCode::PRINT_SCREEN)
