@@ -14,10 +14,6 @@ namespace Functor
 	class Lines : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Lines(const std::string _name, std::reference_wrapper<Console> _console);

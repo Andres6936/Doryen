@@ -15,10 +15,6 @@ namespace Functor
 	class SDL : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		SDL(const std::string _name, std::reference_wrapper<Console> _console);

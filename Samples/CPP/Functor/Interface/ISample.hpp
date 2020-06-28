@@ -19,11 +19,15 @@ namespace Functor
 
 		const std::string name;
 
+	protected:
+
+		std::reference_wrapper<Console> sample;
+
 	public:
 
 		// Construct
 
-		ISample(const std::string& _name) : name(_name)
+		ISample(const std::string& _name, std::reference_wrapper<Console> _console) : name(_name), sample(_console)
 		{
 		};
 

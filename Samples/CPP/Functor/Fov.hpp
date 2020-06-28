@@ -14,10 +14,6 @@ namespace Functor
 	class FOV : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		FOV(const std::string _name, std::reference_wrapper<Console> _console);

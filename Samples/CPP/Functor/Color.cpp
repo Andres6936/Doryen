@@ -4,7 +4,7 @@
 
 using namespace Doryen;
 
-Functor::Color::Color(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name), secondary(_console)
+Functor::Color::Color(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
 {
 
 }
@@ -52,38 +52,38 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	}
 
 	// ==== scan the whole screen, interpolating corner colors ====
-	for (int x = 0; x < secondary.get().getWidth(); x++)
+	for (int x = 0; x < sample.get().getWidth(); x++)
 	{
-		float xcoef = (float)(x) / (secondary.get().getWidth() - 1);
+		float xcoef = (float)(x) / (sample.get().getWidth() - 1);
 		// get the current column top and bottom colors
 		Doryen::Color top = Doryen::Color::lerp(cols[TOPLEFT], cols[TOPRIGHT], xcoef);
 		Doryen::Color bottom = Doryen::Color::lerp(cols[BOTTOMLEFT], cols[BOTTOMRIGHT], xcoef);
-		for (int y = 0; y < secondary.get().getHeight(); y++)
+		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
-			float ycoef = (float)(y) / (secondary.get().getHeight() - 1);
+			float ycoef = (float)(y) / (sample.get().getHeight() - 1);
 			// get the current cell color
 			Doryen::Color curColor = Doryen::Color::lerp(top, bottom, ycoef);
-			secondary.get().setCharBackground(x, y, curColor, Doryen::BackgroundFlag::SET);
+			sample.get().setCharBackground(x, y, curColor, Doryen::BackgroundFlag::SET);
 		}
 	}
 
 	// ==== print the text with a random color ====
 	// get the background color at the text position
-	Doryen::Color textColor = secondary.get().getCharBackground(secondary.get().getWidth() / 2, 5);
+	Doryen::Color textColor = sample.get().getCharBackground(sample.get().getWidth() / 2, 5);
 	// and invert it
 	textColor.r = 255 - textColor.r;
 	textColor.g = 255 - textColor.g;
 	textColor.b = 255 - textColor.b;
 	// put random text (for performance tests)
-	for (int x = 0; x < secondary.get().getWidth(); x++)
+	for (int x = 0; x < sample.get().getWidth(); x++)
 	{
-		for (int y = 0; y < secondary.get().getHeight(); y++)
+		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
 			int c;
-			Doryen::Color col = secondary.get().getCharBackground(x, y);
+			Doryen::Color col = sample.get().getCharBackground(x, y);
 			col = Doryen::Color::lerp(col, Doryen::Color::black, 0.5f);
 			// use colored character 255 on first and last lines
-			if (y == 0 || y == secondary.get().getHeight() - 1)
+			if (y == 0 || y == sample.get().getHeight() - 1)
 			{
 				c = 255;
 			}
@@ -92,15 +92,15 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 				c = TCODRandom::getInstance()->getInt('a', 'z');
 			}
 
-			secondary.get().setDefaultForeground(col);
-			secondary.get().putChar(x, y, c, Doryen::BackgroundFlag::NONE);
+			sample.get().setDefaultForeground(col);
+			sample.get().putChar(x, y, c, Doryen::BackgroundFlag::NONE);
 		}
 	}
-	secondary.get().setDefaultForeground(textColor);
+	sample.get().setDefaultForeground(textColor);
 	// the background behind the text is slightly darkened using the BKGND_MULTIPLY flag
-	secondary.get().setDefaultBackground(Doryen::Color::grey);
-	secondary.get().printRectEx(secondary.get().getWidth() / 2, 5, secondary.get().getWidth() - 2,
-			secondary.get().getHeight() - 1,
+	sample.get().setDefaultBackground(Doryen::Color::grey);
+	sample.get().printRectEx(sample.get().getWidth() / 2, 5, sample.get().getWidth() - 2,
+			sample.get().getHeight() - 1,
 			TCOD_BKGND_MULTIPLY, TCOD_CENTER,
 			"The Doryen library uses 24 bits colors, for both background and foreground.");
 }

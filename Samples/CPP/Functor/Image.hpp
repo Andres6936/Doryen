@@ -15,10 +15,6 @@ namespace Functor
 	class Image : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Image(const std::string _name, std::reference_wrapper<Console> _console);

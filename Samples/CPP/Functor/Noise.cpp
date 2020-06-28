@@ -184,7 +184,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 //    }
 }
 
-Functor::Noise::Noise(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name), sample(_console)
+Functor::Noise::Noise(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
 {
 
 }

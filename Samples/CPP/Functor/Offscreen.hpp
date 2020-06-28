@@ -14,10 +14,6 @@ namespace Functor
 	class Offscreen : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Offscreen(const std::string _name, std::reference_wrapper<Console> _console);

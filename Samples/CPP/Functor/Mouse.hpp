@@ -15,10 +15,6 @@ namespace Functor
 	class Mouse : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Mouse(const std::string _name, std::reference_wrapper<Console> _console);

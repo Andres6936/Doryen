@@ -14,10 +14,6 @@ namespace Functor
 	class Path : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Path(const std::string _name, std::reference_wrapper<Console> _console);

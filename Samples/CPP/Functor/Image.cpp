@@ -5,7 +5,7 @@
 using namespace Doryen;
 
 
-Functor::Image::Image(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name), sample(_console)
+Functor::Image::Image(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
 {
 
 }

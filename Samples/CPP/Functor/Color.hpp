@@ -14,10 +14,6 @@ namespace Functor
 	class Color : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> secondary;
-
 	public:
 
 		Color(const std::string _name, std::reference_wrapper<Console> _console);

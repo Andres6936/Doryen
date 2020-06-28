@@ -15,10 +15,6 @@ namespace Functor
 	class Name : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Name(const std::string _name, std::reference_wrapper<Console> _console);

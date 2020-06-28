@@ -14,10 +14,6 @@ namespace Functor
 	class Noise : public ISample
 	{
 
-	private:
-
-		std::reference_wrapper<Console> sample;
-
 	public:
 
 		Noise(const std::string _name, std::reference_wrapper<Console> _console);
