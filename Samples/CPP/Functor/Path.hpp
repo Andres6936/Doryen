@@ -5,11 +5,13 @@
 
 #include <Doryen/libtcod.hpp>
 
+#include "Interface/ISample.hpp"
+
 using namespace Doryen;
 
 namespace Functor
 {
-	class Path
+	class Path : private ISample
 	{
 
 	private:
@@ -17,6 +19,8 @@ namespace Functor
 		Console sample;
 
 	public:
+
+		Path(const std::string _name, const Console& _console);
 
 		void operator()(KeyCode key, const Mouse& mouse);
 
