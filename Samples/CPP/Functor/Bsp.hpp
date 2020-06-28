@@ -3,13 +3,24 @@
 #ifndef DORYEN_BSP_HPP
 #define DORYEN_BSP_HPP
 
+#include <Doryen/libtcod.hpp>
 
-class BSP
+using namespace Doryen;
+
+namespace Functor
 {
+	class BSP
+	{
 
-public:
+	private:
 
-};
+		Console sample;
 
+	public:
+
+		void operator()(KeyCode key, const Mouse& mouse);
+
+	};
+}
 
 #endif //DORYEN_BSP_HPP

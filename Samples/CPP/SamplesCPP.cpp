@@ -172,113 +172,14 @@ void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 //	{ TCODMouse::showCursor(true); }
 }
 
-// ***************************
-// path sample
-// ***************************
 void render_path(bool first, KeyCode key, const Mouse& mouse)
 {
 
 }
 
-
 void render_bsp(bool first, KeyCode key, const Mouse& mouse)
 {
-	static Algorithms::BinarySpacePartition* bsp = NULL;
-	static bool generate = true;
-	static bool refresh = false;
-	static map_t map;
-	static Color darkWall(0, 0, 100);
-	static Color darkGround(50, 50, 150);
-	static BspListener listener;
 
-	if (generate || refresh)
-	{
-		// dungeon generation
-		if (!bsp)
-		{
-			// create the bsp
-			bsp = new Algorithms::BinarySpacePartition(
-					0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
-		}
-        else
-        {
-            // restore the nodes size
-            bsp->resize( 0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT );
-        }
-        memset( map, '#', sizeof( char ) * SAMPLE_SCREEN_WIDTH * SAMPLE_SCREEN_HEIGHT );
-        if ( generate )
-        {
-            // build a new random bsp tree
-            bsp->removeSons( );
-            bsp->splitRecursive( NULL, bspDepth, minRoomSize + ( roomWalls ? 1 : 0 ),
-                                 minRoomSize + ( roomWalls ? 1 : 0 ), 1.5f, 1.5f );
-        }
-        // create the dungeon from the bsp
-        bsp->traverseInvertedLevelOrder( &listener, &map );
-        generate = false;
-        refresh = false;
-    }
-    sampleConsole.clear( );
-    sampleConsole.setDefaultForeground(Doryen::Color::white);
-	sampleConsole.print(1, 1,
-			format("ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth {}\n*/: room size {}\n1 : random room size {}",
-					bspDepth, minRoomSize,
-					randomRoom ? "ON" : "OFF"));
-
-    if ( randomRoom )
-	{
-		sampleConsole.print(1, 6, format("2 : room walls {}",
-				roomWalls ? "ON" : "OFF"));
-	}
-    // render the level
-    for ( int y = 0; y < SAMPLE_SCREEN_HEIGHT; y++ )
-    {
-        for ( int x = 0; x < SAMPLE_SCREEN_WIDTH; x++ )
-        {
-            bool wall = ( map[ x ][ y ] == '#' );
-			sampleConsole.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
-        }
-    }
-	if (key == KeyCode::ENTER || key == KeyCode::PRINT_SCREEN)
-	{
-		generate = true;
-	}
-	else if (key == KeyCode::SPACE)
-	{
-		refresh = true;
-	}
-	else if (key == KeyCode::KP_ADD)
-	{
-		bspDepth++;
-		generate = true;
-	}
-	else if (key == KeyCode::KP_SUB && bspDepth > 1)
-	{
-		bspDepth--;
-		generate = true;
-	}
-	else if (key == KeyCode::KP_MUL)
-	{
-		minRoomSize++;
-		generate = true;
-	}
-	else if (key == KeyCode::KP_DIV && minRoomSize > 2)
-	{
-		minRoomSize--;
-		generate = true;
-	}
-	else if (key == KeyCode::K_1 or key == KeyCode::KP_1)
-	{
-		randomRoom = !randomRoom;
-		if (!randomRoom)
-		{ roomWalls = true; }
-		refresh = true;
-	}
-	else if (key == KeyCode::K_2 or key == KeyCode::KP_2)
-	{
-		roomWalls = !roomWalls;
-		refresh = true;
-	}
 }
 
 /* ***************************
