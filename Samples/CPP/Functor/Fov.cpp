@@ -2,8 +2,12 @@
 
 #include "Fov.hpp"
 
-
 using namespace Doryen;
+
+Functor::FOV::FOV(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
 
 void Functor::FOV::operator()(KeyCode key, const Mouse& mouse)
 {
