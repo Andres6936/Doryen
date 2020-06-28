@@ -45,17 +45,17 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 #endif
 	}
 
-	sample.setDefaultBackground(Doryen::Color::lightBlue);
-	sample.clear();
-	sample.setDefaultForeground(Doryen::Color::white);
-	sample.print(1, 1, format("{}\n\n+ : next generator\n- : prev generator", sets.get(curSet)));
+	sample.get().setDefaultBackground(Doryen::Color::lightBlue);
+	sample.get().clear();
+	sample.get().setDefaultForeground(Doryen::Color::white);
+	sample.get().print(1, 1, format("{}\n\n+ : next generator\n- : prev generator", sets.get(curSet)));
 
 	for (i = 0; i < names.size(); i++)
 	{
 		char* name = names.get(i);
-		if (strlen(name) < sample.getWidth())
+		if (strlen(name) < sample.get().getWidth())
 		{
-			sample.printEx(sample.getWidth() - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name);
+			sample.get().printEx(sample.get().getWidth() - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name);
 		}
 	}
 

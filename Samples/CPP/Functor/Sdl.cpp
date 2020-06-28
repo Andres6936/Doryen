@@ -20,10 +20,11 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 
 		Doryen::Platform::setFps(30); /* limited to 30 fps */
 		// use noise sample as background. rendering is done in SampleRenderer
-		sample.setDefaultBackground(Doryen::Color::lightBlue);
-		sample.setDefaultForeground(Doryen::Color::white);
-		sample.clear();
-		sample.printRectEx(sample.getWidth() / 2, 3, sample.getWidth(), 0, TCOD_BKGND_NONE, TCOD_CENTER,
+		sample.get().setDefaultBackground(Doryen::Color::lightBlue);
+		sample.get().setDefaultForeground(Doryen::Color::white);
+		sample.get().clear();
+		sample.get().printRectEx(sample.get().getWidth() / 2, 3, sample.get().getWidth(), 0, TCOD_BKGND_NONE,
+				TCOD_CENTER,
 				"The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.");
 	}
 	if (key == KeyCode::TAB)

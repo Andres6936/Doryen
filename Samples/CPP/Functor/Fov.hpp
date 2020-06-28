@@ -16,7 +16,7 @@ namespace Functor
 
 	private:
 
-		Console sample;
+		std::reference_wrapper<Console> sample;
 
 	public:
 

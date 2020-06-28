@@ -12,7 +12,7 @@ Functor::Lines::Lines(std::string _name, std::reference_wrapper<Console> _consol
 
 void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 {
-	static Console bk(sample.getWidth(), sample.getHeight()); // colored background
+	static Console bk(sample.get().getWidth(), sample.get().getHeight()); // colored background
 	static bool init = false;
 
 	static const char* flagNames[] = {
@@ -43,14 +43,14 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	if (!init)
 	{
 		// initialize the colored background
-		for (int x = 0; x < sample.getWidth(); x++)
+		for (int x = 0; x < sample.get().getWidth(); x++)
 		{
-			for (int y = 0; y < sample.getHeight(); y++)
+			for (int y = 0; y < sample.get().getHeight(); y++)
 			{
 				Doryen::Color col;
-				col.r = (uint8)(x * 255 / (sample.getWidth() - 1));
-				col.g = (uint8)((x + y) * 255 / (sample.getWidth() - 1 + sample.getHeight() - 1));
-				col.b = (uint8)(y * 255 / (sample.getHeight() - 1));
+				col.r = (uint8)(x * 255 / (sample.get().getWidth() - 1));
+				col.g = (uint8)((x + y) * 255 / (sample.get().getWidth() - 1 + sample.get().getHeight() - 1));
+				col.b = (uint8)(y * 255 / (sample.get().getHeight() - 1));
 				bk.setCharBackground(x, y, col, Doryen::BackgroundFlag::SET);
 			}
 		}
@@ -60,27 +60,27 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	// blit the background
 	bk.blit({ 0, 0 }, sample, { 0, 0 });
 	// render the gradient
-	int recty = (int)((sample.getHeight() - 2) *
+	int recty = (int)((sample.get().getHeight() - 2) *
 					  ((1.0f + cosf(Doryen::Platform::getElapsedSeconds())) / 2.0f));
-	for (int x = 0; x < sample.getWidth(); x++)
+	for (int x = 0; x < sample.get().getWidth(); x++)
 	{
 		Doryen::Color col;
-		col.r = (uint8)(x * 255 / sample.getWidth());
-		col.g = (uint8)(x * 255 / sample.getWidth());
-		col.b = (uint8)(x * 255 / sample.getWidth());
+		col.r = (uint8)(x * 255 / sample.get().getWidth());
+		col.g = (uint8)(x * 255 / sample.get().getWidth());
+		col.b = (uint8)(x * 255 / sample.get().getWidth());
 
-		sample.setCharBackground(x, recty, col, backFlag);
-		sample.setCharBackground(x, recty + 1, col, backFlag);
-		sample.setCharBackground(x, recty + 2, col, backFlag);
+		sample.get().setCharBackground(x, recty, col, backFlag);
+		sample.get().setCharBackground(x, recty + 1, col, backFlag);
+		sample.get().setCharBackground(x, recty + 2, col, backFlag);
 	}
 	// calculate the segment ends
 	float angle = Doryen::Platform::getElapsedSeconds() * 2.0f;
 	float cosAngle = cosf(angle);
 	float sinAngle = sinf(angle);
-	int xo = (int)(sample.getWidth() / 2 * (1 + cosAngle));
-	int yo = (int)(sample.getHeight() / 2 + sinAngle * sample.getWidth() / 2);
-	int xd = (int)(sample.getWidth() / 2 * (1 - cosAngle));
-	int yd = (int)(sample.getHeight() / 2 - sinAngle * sample.getWidth() / 2);
+	int xo = (int)(sample.get().getWidth() / 2 * (1 + cosAngle));
+	int yo = (int)(sample.get().getHeight() / 2 + sinAngle * sample.get().getWidth() / 2);
+	int xd = (int)(sample.get().getWidth() / 2 * (1 - cosAngle));
+	int yd = (int)(sample.get().getHeight() / 2 - sinAngle * sample.get().getWidth() / 2);
 
 	// render the line
 	RenderLine listener;
@@ -90,7 +90,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	objLine.line(xo, yo, xd, yd, listener);
 
 	// print the current flag
-	sample.print(2, 2, format("{} (ENTER to change)", flagNames[(int)backFlag]));
+	sample.get().print(2, 2, format("{} (ENTER to change)", flagNames[(int)backFlag]));
 }
 
 

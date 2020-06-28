@@ -62,11 +62,11 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	if (!map)
 	{
 		// initialize the map for the fov toolkit
-		map = new Doryen::Map(sample.getWidth(), sample.getHeight());
+		map = new Doryen::Map(sample.get().getWidth(), sample.get().getHeight());
 
-		for (int y = 0; y < sample.getHeight(); y++)
+		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
-			for (int x = 0; x < sample.getWidth(); x++)
+			for (int x = 0; x < sample.get().getWidth(); x++)
 			{
 				if (smap[y][x] == ' ')
 				{
@@ -91,20 +91,20 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		// during the player movement, only the @ is redrawn.
 		// the rest impacts only the background color
 		// draw the help text & player @
-		sample.clear();
-		sample.setDefaultForeground(Doryen::Color::white);
-		sample.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+		sample.get().clear();
+		sample.get().setDefaultForeground(Doryen::Color::white);
+		sample.get().print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
 				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-		sample.setDefaultForeground(Doryen::Color::black);
-		sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+		sample.get().setDefaultForeground(Doryen::Color::black);
+		sample.get().putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 		// draw windows
-		for (int y = 0; y < sample.getHeight(); y++)
+		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
-			for (int x = 0; x < sample.getWidth(); x++)
+			for (int x = 0; x < sample.get().getWidth(); x++)
 			{
 				if (smap[y][x] == '=')
 				{
-					sample.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
+					sample.get().putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
 				}
 			}
 		}
@@ -141,15 +141,15 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		di = 0.2f * noise->get(&torchx);
 	}
 	// draw the dungeon
-	for (int y = 0; y < sample.getHeight(); y++)
+	for (int y = 0; y < sample.get().getHeight(); y++)
 	{
-		for (int x = 0; x < sample.getWidth(); x++)
+		for (int x = 0; x < sample.get().getWidth(); x++)
 		{
 			bool visible = map->isInFov(x, y);
 			bool wall = smap[y][x] == '#';
 			if (!visible)
 			{
-				sample.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
+				sample.get().setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
 			}
 			else
 			{
@@ -183,7 +183,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 					}
 					light = base;
 				}
-				sample.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
+				sample.get().setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
 			}
 		}
 	}
@@ -254,10 +254,10 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	{
 		algonum += key == KeyCode::KP_ADD ? 1 : -1;
 		algonum = CLAMP(0, NB_FOV_ALGORITHMS - 1, algonum);
-		sample.setDefaultForeground(Doryen::Color::white);
-		sample.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
+		sample.get().setDefaultForeground(Doryen::Color::white);
+		sample.get().print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
 				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-		sample.setDefaultForeground(Doryen::Color::black);
+		sample.get().setDefaultForeground(Doryen::Color::black);
 		recomputeFov = true;
 	}
 }
