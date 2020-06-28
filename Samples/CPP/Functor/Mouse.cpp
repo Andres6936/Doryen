@@ -2,8 +2,12 @@
 
 #include "Mouse.hpp"
 
-
 using namespace Doryen;
+
+Functor::Mouse::Mouse(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
 
 void Functor::Mouse::operator()(KeyCode key, const Doryen::Mouse& mouse)
 {
