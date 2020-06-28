@@ -322,11 +322,9 @@ bool Doryen::Console::isKeyPressed(KeyCode _key)
 	return renderer->getKeyPressed().getKeyCode() == _key;
 }
 
-bool Doryen::Console::isWindowClosed()
+bool Doryen::Console::isRunning()
 {
-	//return TCOD_console_is_window_closed() != 0;
-
-	return false;
+	return renderer->isRunning();
 }
 
 unsigned int Doryen::Console::getWidth() const

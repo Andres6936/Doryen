@@ -1188,4 +1188,19 @@ void Doryen::SDL::updateEventsQueue()
 	// If 'event' is not NULL, the next event
 	// is removed from the queue and stored in that area.
 	eventPending = SDL_PollEvent(&event);
+
+	processEventsOfExit();
+}
+
+void Doryen::SDL::processEventsOfExit()
+{
+	// Exist event that not are part of Mouse or Keyboard
+	// but that are needed process, examples of this type
+	// of events are the event of exit or termination
+	// that happen when the user want exit of app.
+
+	if (event.type == SDL_QUIT)
+	{
+		setRunning(false);
+	}
 }

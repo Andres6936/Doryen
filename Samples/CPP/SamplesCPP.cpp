@@ -1517,7 +1517,7 @@ int main(int argc, char* argv[])
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
 
-	while (!console.isWindowClosed())
+	while (console.isRunning())
 	{
 		if (!creditsEnd)
 		{

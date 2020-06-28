@@ -231,13 +231,13 @@ namespace Doryen
 		static void setWindowTitle(const std::string& _title);
 
         /**
-         * When you start the program, this returns false. Once a "close window"
+         * When you start the program, this returns true. Once a "close window"
          * event has been sent by the window manager, it will allways return
-         * true. You're supposed to exit cleanly the game.
+         * false. You're supposed to exit cleanly the game.
          *
-         * @return true if the user want exit the app, false otherwise.
+         * @return false if the user not want exit the app, true otherwise.
          */
-        bool isWindowClosed( );
+		bool isRunning();
 
         /**
          * Display credits, as seen in the samples.

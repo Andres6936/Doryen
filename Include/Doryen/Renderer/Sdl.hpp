@@ -78,6 +78,8 @@ namespace Doryen
 
 		void updateEventsQueue();
 
+		void processEventsOfExit();
+
 		// Setters
 
 		void setFps(short value);

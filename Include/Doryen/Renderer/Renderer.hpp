@@ -84,26 +84,28 @@ namespace Doryen
 		 */
 		unsigned minimunFrameLengthBackup = 0;
 
+		bool anyCharacterUpdated = false;
+
 		bool fontHasDoryenLayout = false;
 
 		bool fontHasRowLayout = false;
 
 		bool fontGrayscale = false;
 
-		bool fullscreen = false;
-
 		bool fontUpdated = false;
 
-		bool anyCharacterUpdated = false;
+		bool fullscreen = false;
+
+		bool running = true;
 
 		std::string fontfile = "Terminal.png";
 
 		/**
 		 * whether each character in the font is a colored tile
 		 */
-		std::vector <bool> colored;
+		std::vector<bool> colored;
 
-		std::vector <bool> characterUpdated;
+		std::vector<bool> characterUpdated;
 
 		std::vector <bool> characterDrawed;
 
@@ -163,23 +165,25 @@ namespace Doryen
 
 		float getLastFrameLength() const;
 
-		bool isFontHasDoryenLayout() const;
+		bool isRunning() const;
+
+		bool isFontUpdated() const;
+
+		bool isFullscreen() const;
+
+		bool isFontGrayscale() const;
 
 		bool isFontHasRowLayout() const;
 
-		bool isFontGrayscale() const;
+		bool isAnyCharacterUpdated() const;
+
+		bool isFontHasDoryenLayout() const;
 
 		bool isCharacterColored(unsigned index) const;
 
 		bool isCharacterDrawed(unsigned index) const;
 
 		bool isCharacterUpdated(unsigned index) const;
-
-		bool isFullscreen() const;
-
-		bool isFontUpdated() const;
-
-		bool isAnyCharacterUpdated() const;
 
 		short getFade() const;
 
@@ -250,6 +254,8 @@ namespace Doryen
 		void setWidth(unsigned int _width);
 
 		void setHeigth(unsigned int _heigth);
+
+		void setRunning(bool _running);
 
 		void setFullscreen(bool _fullscreen);
 

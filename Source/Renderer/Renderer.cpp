@@ -204,6 +204,11 @@ void Doryen::Renderer::setLayoutCharacter(unsigned index, unsigned code)
 	layoutCharacteres[index] = code;
 }
 
+bool Doryen::Renderer::isRunning() const
+{
+	return running;
+}
+
 bool Doryen::Renderer::isFullscreen() const
 {
 	return fullscreen;
@@ -557,4 +562,9 @@ void Doryen::Renderer::setFontCharVerticalSize(unsigned int _fontCharVerticalSiz
 unsigned int Doryen::Renderer::getFramePerSeconds() const
 {
 	return framePerSeconds;
+}
+
+void Doryen::Renderer::setRunning(bool _running)
+{
+	running = _running;
 }

@@ -247,7 +247,7 @@ int main()
 
 	init(console);
 
-	while (!console.isWindowClosed())
+	while (!console.isRunning())
 	{
 
 		render(console);
