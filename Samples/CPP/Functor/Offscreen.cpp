@@ -4,6 +4,11 @@
 
 using namespace Doryen;
 
+Functor::Offscreen::Offscreen(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
+
 void Functor::Offscreen::operator()(KeyCode key, const Mouse& mouse)
 {
 	static Console secondary(sample.getWidth() / 2, sample.getHeight() / 2);
