@@ -183,3 +183,8 @@ void Functor::Noise::operator()(KeyCode key, const Mouse& mouse)
 //        zoom -= 0.2f;
 //    }
 }
+
+Functor::Noise::Noise(std::string _name, const Console& _console) : ISample(_name), sample(_console)
+{
+
+}
