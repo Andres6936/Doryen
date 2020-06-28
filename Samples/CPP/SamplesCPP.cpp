@@ -126,15 +126,15 @@ void configureExamples(const Console& _console)
 
 	VirtualPointer bsp = std::make_shared<Functor::BSP>("  Bsp toolkit        "s, _console);
 	VirtualPointer color = std::make_shared<Functor::Color>("  True colors        "s, _console);
-	VirtualPointer fov = std::make_shared<Functor::Fov>("  Field of view      "s, _console);
-	VirtualPointer image;
-	VirtualPointer lines;
-	VirtualPointer mouse;
-	VirtualPointer name;
-	VirtualPointer noise;
-	VirtualPointer offscreen;
-	VirtualPointer path;
-	VirtualPointer sdl;
+	VirtualPointer fov = std::make_shared<Functor::FOV>("  Field of view      "s, _console);
+	VirtualPointer image = std::make_shared<Functor::Image>("  Image toolkit      "s, _console);
+	VirtualPointer lines = std::make_shared<Functor::Lines>("  Line drawing       "s, _console);
+	VirtualPointer mouse = std::make_shared<Functor::Mouse>("  Mouse support      "s, _console);
+	VirtualPointer name = std::make_shared<Functor::Name>("  Name generator     "s, _console);
+	VirtualPointer noise = std::make_shared<Functor::Noise>("  Noise              "s, _console);
+	VirtualPointer offscreen = std::make_shared<Functor::Offscreen>("  Offscreen console  "s, _console);
+	VirtualPointer path = std::make_shared<Functor::Path>("  Path finding       "s, _console);
+	VirtualPointer sdl = std::make_shared<Functor::SDL>("  SDL callback       "s, _console);
 }
 
 int main(int argc, char* argv[])
