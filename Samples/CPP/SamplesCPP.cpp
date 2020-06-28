@@ -7,16 +7,10 @@
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
-#include <cmath>
 #include <iostream>
 #include <functional>
 
 #include "SampleRenderer.hpp"
-#include "LineListener.hpp"
-#include "BspListener.hpp"
-
-#include "Doryen/Algorithms/Drawing/Bresenham.hpp"
-#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
 using namespace Doryen;
 
