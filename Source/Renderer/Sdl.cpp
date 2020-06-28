@@ -1151,8 +1151,8 @@ Doryen::Mouse Doryen::SDL::getMouseEvent()
 
 		mouse.setCx(mouse.getX() / charWidth);
 		mouse.setCy(mouse.getY() / charHeight);
-		mouse.setDcx(mouse.getDx() / charWidth);
-		mouse.setDcy(mouse.getDy() / charHeight);
+		mouse.setDcx(mouse.getMovementRelativeX() / charWidth);
+		mouse.setDcy(mouse.getMovementRelativeY() / charHeight);
 	}
 	else if (event.type == SDL_MOUSEBUTTONDOWN)
 	{

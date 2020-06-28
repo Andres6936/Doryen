@@ -23,8 +23,21 @@ namespace Doryen
 		int x = 0;
 		int y = 0;
 
-		int dx = 0;
-		int dy = 0;
+		/**
+		 * The movement relative of mouse in the coordinate in X
+		 * from the last event processed and send to user.
+		 *
+		 * @note Set to 0 each time that the events are processed.
+		 */
+		int movementRelativeX = 0;
+
+		/**
+		 * The movement relative of mouse in the coordinate in Y
+		 * from the last event processed and send to user.
+		 *
+		 * @note Set to 0 each time that the events are processed.
+		 */
+		int movementRelativeY = 0;
 
 		int cx = 0;
 		int cy = 0;
@@ -58,9 +71,9 @@ namespace Doryen
 
 		int getY() const;
 
-		int getDx() const;
+		int getMovementRelativeX() const;
 
-		int getDy() const;
+		int getMovementRelativeY() const;
 
 		int getCx() const;
 

@@ -882,7 +882,7 @@ void render_mouse(bool first, KeyCode key, const Mouse& mouse)
 			format("Mouse cell     : {4d}x{4d}", mouse.getCx(), mouse.getCy()));
 
 	sampleConsole.print(1, 3,
-			format("Mouse movement : {4d}x{4d}", mouse.getDx(), mouse.getDy()));
+			format("Mouse movement : {4d}x{4d}", mouse.getMovementRelativeX(), mouse.getMovementRelativeY()));
 
 	sampleConsole.print(1, 4,
 			format("Left button    : {} (toggle {})",

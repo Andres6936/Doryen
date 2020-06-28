@@ -16,14 +16,14 @@ int Mouse::getY() const
 	return y;
 }
 
-int Mouse::getDx() const
+int Mouse::getMovementRelativeX() const
 {
-	return dx;
+	return movementRelativeX;
 }
 
-int Mouse::getDy() const
+int Mouse::getMovementRelativeY() const
 {
-	return dy;
+	return movementRelativeY;
 }
 
 int Mouse::getCx() const
@@ -65,12 +65,12 @@ void Mouse::setY(int _y)
 
 void Mouse::setDx(int _dx)
 {
-	dx = _dx;
+	movementRelativeX = _dx;
 }
 
 void Mouse::setDy(int _dy)
 {
-	dy = _dy;
+	movementRelativeY = _dy;
 }
 
 void Mouse::setCx(int _cx)
@@ -102,12 +102,12 @@ void Mouse::setStatus(MouseCode _status)
 
 void Mouse::addDx(int _dx)
 {
-	dx += _dx;
+	movementRelativeX += _dx;
 }
 
 void Mouse::addDy(int _dy)
 {
-	dy += _dy;
+	movementRelativeY += _dy;
 }
 
 bool Mouse::isPressedLeftButton() const
