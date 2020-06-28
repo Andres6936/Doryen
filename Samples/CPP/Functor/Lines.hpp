@@ -16,7 +16,7 @@ namespace Functor
 
 	private:
 
-		const Console sample;
+		Console sample;
 
 	public:
 
