@@ -1,5 +1,7 @@
 // Joan Andrés (@Andres6936) Github.
 
+#include <cstdint>
+
 #include "Color.hpp"
 
 using namespace Doryen;
@@ -11,10 +13,10 @@ Functor::Color::Color(std::string _name, std::reference_wrapper<Console> _consol
 
 void Functor::Color::render(KeyCode key, const Mouse& mouse)
 {
-	enum
-	{
-		TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT
-	};
+	const std::uint8_t TOP_LEFT = 0;
+	const std::uint8_t TOP_RIGHT = 1;
+	const std::uint8_t BOTTOM_LEFT = 2;
+	const std::uint8_t BOTTOM_RIGHT = 3;
 
 	static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
 
@@ -54,8 +56,8 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	{
 		float xcoef = (float)(x) / (sample.get().getWidth() - 1);
 		// get the current column top and bottom colors
-		Doryen::Color top = Doryen::Color::lerp(cornerColors[TOPLEFT], cornerColors[TOPRIGHT], xcoef);
-		Doryen::Color bottom = Doryen::Color::lerp(cornerColors[BOTTOMLEFT], cornerColors[BOTTOMRIGHT], xcoef);
+		Doryen::Color top = Doryen::Color::lerp(cornerColors[TOP_LEFT], cornerColors[TOP_RIGHT], xcoef);
+		Doryen::Color bottom = Doryen::Color::lerp(cornerColors[BOTTOM_LEFT], cornerColors[BOTTOM_RIGHT], xcoef);
 		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
 			float ycoef = (float)(y) / (sample.get().getHeight() - 1);
