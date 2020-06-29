@@ -20,8 +20,8 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 
 	static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
 
-	// ==== slighty modify the corner colors ====
-	for (int c = 0; c < 4; c++)
+	// Slightly modify the corner colors
+	for (int c = 0; c < cornerColors.size(); c++)
 	{
 		// move each corner color
 		int component = TCODRandom::getInstance()->getInt(0, 2);
