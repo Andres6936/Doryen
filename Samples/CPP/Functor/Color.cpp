@@ -6,7 +6,7 @@ using namespace Doryen;
 
 Functor::Color::Color(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
 {
-
+	prepareRandomCornerColors();
 }
 
 void Functor::Color::render(KeyCode key, const Mouse& mouse)
@@ -15,9 +15,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	{
 		TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT
 	};
-	static Doryen::Color cols[4] = { Doryen::Color(50, 40, 150), Doryen::Color(240, 85, 5),
-									 Doryen::Color(50, 35, 240),
-									 Doryen::Color(10, 200, 130) }; // random corner colors
+
 	static int dirr[4] = { 1, -1, 1, 1 }, dirg[4] = { 1, -1, -1, 1 }, dirb[4] = { 1, 1, 1, -1 };
 
 	// ==== slighty modify the corner colors ====
@@ -28,24 +26,24 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		switch (component)
 		{
 		case 0 :
-			cols[c].r += 5 * dirr[c];
-			if (cols[c].r == 255)
+			cornerColors[c].r += 5 * dirr[c];
+			if (cornerColors[c].r == 255)
 			{ dirr[c] = -1; }
-			else if (cols[c].r == 0)
+			else if (cornerColors[c].r == 0)
 			{ dirr[c] = 1; }
 			break;
 		case 1 :
-			cols[c].g += 5 * dirg[c];
-			if (cols[c].g == 255)
+			cornerColors[c].g += 5 * dirg[c];
+			if (cornerColors[c].g == 255)
 			{ dirg[c] = -1; }
-			else if (cols[c].g == 0)
+			else if (cornerColors[c].g == 0)
 			{ dirg[c] = 1; }
 			break;
 		case 2 :
-			cols[c].b += 5 * dirb[c];
-			if (cols[c].b == 255)
+			cornerColors[c].b += 5 * dirb[c];
+			if (cornerColors[c].b == 255)
 			{ dirb[c] = -1; }
-			else if (cols[c].b == 0)
+			else if (cornerColors[c].b == 0)
 			{ dirb[c] = 1; }
 			break;
 		}
@@ -56,8 +54,8 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	{
 		float xcoef = (float)(x) / (sample.get().getWidth() - 1);
 		// get the current column top and bottom colors
-		Doryen::Color top = Doryen::Color::lerp(cols[TOPLEFT], cols[TOPRIGHT], xcoef);
-		Doryen::Color bottom = Doryen::Color::lerp(cols[BOTTOMLEFT], cols[BOTTOMRIGHT], xcoef);
+		Doryen::Color top = Doryen::Color::lerp(cornerColors[TOPLEFT], cornerColors[TOPRIGHT], xcoef);
+		Doryen::Color bottom = Doryen::Color::lerp(cornerColors[BOTTOMLEFT], cornerColors[BOTTOMRIGHT], xcoef);
 		for (int y = 0; y < sample.get().getHeight(); y++)
 		{
 			float ycoef = (float)(y) / (sample.get().getHeight() - 1);
@@ -103,4 +101,12 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			sample.get().getHeight() - 1,
 			TCOD_BKGND_MULTIPLY, TCOD_CENTER,
 			"The Doryen library uses 24 bits colors, for both background and foreground.");
+}
+
+void Functor::Color::prepareRandomCornerColors()
+{
+	cornerColors[0] = Doryen::Color(50, 40, 150);
+	cornerColors[1] = Doryen::Color(240, 85, 5);
+	cornerColors[2] = Doryen::Color(50, 35, 240);
+	cornerColors[3] = Doryen::Color(10, 200, 130);
 }

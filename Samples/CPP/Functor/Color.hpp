@@ -3,7 +3,7 @@
 #ifndef DORYEN_COLOR_HPP
 #define DORYEN_COLOR_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <array>
 
 #include "Interface/ISample.hpp"
 
@@ -13,6 +13,17 @@ namespace Functor
 {
 	class Color : public ISample
 	{
+
+	private:
+
+		/**
+		 * Random corner colors
+		 */
+		std::array<Doryen::Color, 4> cornerColors;
+
+		// Methods Private
+
+		void prepareRandomCornerColors();
 
 	public:
 
