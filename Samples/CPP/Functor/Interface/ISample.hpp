@@ -21,6 +21,12 @@ namespace Functor
 
 	protected:
 
+		/**
+		 * To be able to use the same console throughout all the examples
+		 * it is necessary to have a reference to it, this is important
+		 * since the changes made in an example will be correctly rendered
+		 * once it is drawn in the main method.
+		 */
 		std::reference_wrapper<Console> sample;
 
 	public:
