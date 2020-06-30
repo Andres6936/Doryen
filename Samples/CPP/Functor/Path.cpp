@@ -32,6 +32,23 @@ void Functor::Path::prepareInstanceOfMap()
 		mapHaveSizeCorrect = false;
 		return;
 	}
+
+	for (int y = 0; y < map.getHeight(); ++y)
+	{
+		for (int x = 0; x < map.getWidth(); ++x)
+		{
+			if (dungeon[y][x] == ' ')
+			{
+				map.setProperties(x, y, true, true);
+			}
+			else if (dungeon[y][x] == '=')
+			{
+				map.setProperties(x, y, true, false);
+			}
+		}
+	}
+
+	mapHaveSizeCorrect = true;
 }
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
@@ -49,27 +66,9 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	int mouseX = 0;
 	int mouseY = 0;
 
-	if (!map)
+	if (mapHaveSizeCorrect)
 	{
-		// initialize the map for the fov toolkit
-		map = new Doryen::Map(sample.get().getWidth(), sample.get().getHeight());
-
-		for (int y = 0; y < sample.get().getHeight(); y++)
-		{
-			for (int x = 0; x < sample.get().getWidth(); x++)
-			{
-				if (dungeon[y][x] == ' ')
-				{
-					map->setProperties(x, y, true, true); // ground
-				}
-				else if (dungeon[y][x] == '=')
-				{
-					map->setProperties(x, y, true, false); // window
-				}
-			}
-		}
-
-		AStar = new Doryen::Algorithms::Pathfinding::AStar(*map);
+		AStar = new Doryen::Algorithms::Pathfinding::AStar(map);
 		//dijkstra = new TCODDijkstra( map );
 	}
 
