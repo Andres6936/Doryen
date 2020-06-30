@@ -1307,10 +1307,12 @@ namespace Doryen
 
 		/**
 		 * Draw the tittle for a frame.
-		 * @param _title The title to draw. (Preferably the length should be lesser to
-		 *  marked for the lenght get of parameter point).
-		 * @param _point Mark the begin of frame in the coordinate x and the end of
-		 *  frame store in the coordinate y, mean the lenght total of frame.
+		 *
+		 * @note Preferably the length of title should be lesser than
+		 *  length of frame.
+		 *
+		 * @param _title The title to draw.
+		 * @param _start Coordinate in x and y of frame relative to console
 		 */
 		void drawFrameTitle(std::string_view _title, const Geometry::Point2D<>& _start,
 				const std::uint16_t lengthFrame);
