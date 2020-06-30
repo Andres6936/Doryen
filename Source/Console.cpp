@@ -829,16 +829,19 @@ void Doryen::Console::vline(int x, int y, int l, BackgroundFlag flag)
 
 void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty, BackgroundFlag flag)
 {
+	//Draw the edges
 	putChar(start.x, start.y, 218, flag);
 	putChar(start.x + end.x - 1, start.y, 191, flag);
 	putChar(start.x, start.y + end.y - 1, 192, flag);
 	putChar(start.x + end.x - 1, start.y + end.y - 1, 217, flag);
 
+	// Draw the border of frame
 	hline(start.x + 1, start.y, end.x - 2, flag);
 	hline(start.x + 1, start.y + end.y - 1, end.x - 2, flag);
 
 	if (end.y > 2)
 	{
+		// Draw the border of frame
 		vline(start.x, start.y + 1, end.y - 2, flag);
 		vline(start.x + end.x - 1, start.y + 1, end.y - 2, flag);
 
