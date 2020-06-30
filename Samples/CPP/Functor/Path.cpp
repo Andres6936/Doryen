@@ -12,7 +12,6 @@ Functor::Path::Path(std::string _name, std::reference_wrapper<Console> _console)
 	prepareInstanceOfMap();
 }
 
-
 void Functor::Path::prepareInstanceOfMap()
 {
 	const std::uint16_t width = sample.get().getWidth();
@@ -52,6 +51,29 @@ void Functor::Path::prepareInstanceOfMap()
 	AStar = Algorithms::Pathfinding::AStar(map);
 
 	mapHaveSizeCorrect = true;
+}
+
+void Functor::Path::drawDungeon()
+{
+	for (int y = 0; y < dungeon.size(); y++)
+	{
+		for (int x = 0; x < std::strlen(dungeon.at(0)); x++)
+		{
+			if (dungeon[y][x] == '#')
+			{
+				sample.get().setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
+			}
+			else if (dungeon[y][x] == '=')
+			{
+				// The character 205 represent a double wall
+				sample.get().putChar(x, y, 205, Doryen::BackgroundFlag::NONE);
+			}
+			else
+			{
+				sample.get().setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
+			}
+		}
+	}
 }
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
@@ -100,25 +122,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 
 	sample.get().clear();
 
-	// draw the dungeon
-	for (int y = 0; y < sample.get().getHeight(); y++)
-	{
-		for (int x = 0; x < sample.get().getWidth(); x++)
-		{
-			if (dungeon[y][x] == '#')
-			{
-				sample.get().setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
-			}
-			else if (dungeon[y][x] == '=')
-			{
-				sample.get().putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
-			}
-			else
-			{
-				sample.get().setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
-			}
-		}
-	}
+	drawDungeon();
 
 	sample.get().setDefaultForeground(Doryen::Color::white);
 
@@ -131,7 +135,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	// draw the path
 	if (usingAstar && AStar.findPath())
 	{
-		Doryen::Geometry::Point2D point;
+		Geometry::Point2D point;
 
 		for (int i = 0; i < AStar.size(); i++)
 		{
@@ -173,7 +177,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	}
 
 	// move the creature
-	busy -= Doryen::Platform::getLastFrameLength();
+	busy -= sample.get().getLastFrameLength();
 
 	if (busy <= 0.0f)
 	{

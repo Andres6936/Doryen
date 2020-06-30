@@ -78,6 +78,8 @@ namespace Functor
 
 		// Private Methods
 
+		void drawDungeon();
+
 		/**
 		 * @post The variable {mapHaveSizeCorrect} has been initialized.
 		 */
