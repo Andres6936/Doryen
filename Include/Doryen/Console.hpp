@@ -28,6 +28,8 @@
 #ifndef _TCOD_CONSOLE_HPP
 #define _TCOD_CONSOLE_HPP
 
+#include <string_view>
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <array>
@@ -1300,8 +1302,18 @@ namespace Doryen
 
 	private:
 
-		void
-		drawFrame(const Geometry::Point2D<>& start, const Geometry::Point2D<>& end, bool empty, BackgroundFlag flag);
+		void drawFrame(const Geometry::Point2D<>& start,
+				const Geometry::Point2D<>& end, bool empty, BackgroundFlag flag);
+
+		/**
+		 * Draw the tittle for a frame.
+		 * @param _title The title to draw. (Preferably the length should be lesser to
+		 *  marked for the lenght get of parameter point).
+		 * @param _point Mark the begin of frame in the coordinate x and the end of
+		 *  frame store in the coordinate y, mean the lenght total of frame.
+		 */
+		void drawFrameTitle(std::string_view _title, const Geometry::Point2D<>& _start,
+				const std::uint16_t lengthFrame);
 
 	};
 }

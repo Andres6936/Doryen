@@ -852,13 +852,29 @@ void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty
 	}
 }
 
+void Doryen::Console::drawFrameTitle(std::string_view _title,
+		const Doryen::Geometry::Point2D<>& _start,
+		const std::uint16_t lengthFrame)
+{
+	// Overflow caused for that the title is greater than length of frame
+	if (_title.size() > lengthFrame)
+	{
+		print(_start.x, _start.y, _title.data());
+		return;
+	}
+
+	// If not exit overflow, center the title
+	std::uint16_t centerX = (lengthFrame - _title.size()) / 2;
+	print(centerX, _start.y, _title.data());
+}
+
+
 void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
 		Doryen::BackgroundFlag flag, const std::string& name)
 {
 	// Curly braces for create a Point directly.
 	drawFrame({ x, y }, { w, h }, clear, flag);
-
-	// TODO: Print name in center of frame
+	drawFrameTitle(name, { x, y }, w);
 }
 
 void Doryen::Console::print(int x, int y, const std::string& fmt)
