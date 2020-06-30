@@ -13,9 +13,6 @@ Functor::Path::Path(std::string _name, std::reference_wrapper<Console> _console)
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
 	static Doryen::Map* map = nullptr;
-	static Doryen::Color darkWall(0, 0, 100);
-	static Doryen::Color darkGround(50, 50, 150);
-	static Doryen::Color lightGround(200, 180, 50);
 
 	static Doryen::Algorithms::Pathfinding::AStar* AStar = nullptr;
 
@@ -94,7 +91,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.get().setCharBackground(x, y, darkWall, Doryen::BackgroundFlag::SET);
+				sample.get().setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
@@ -102,7 +99,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			}
 			else
 			{
-				sample.get().setCharBackground(x, y, darkGround, Doryen::BackgroundFlag::SET);
+				sample.get().setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
 			}
 		}
 	}
@@ -126,7 +123,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar->getPoint2DAt(i);
 
-				sample.get().setCharBackground(point.x, point.y, lightGround, Doryen::BackgroundFlag::SET);
+				sample.get().setCharBackground(point.x, point.y, LIGHT_GROUND, Doryen::BackgroundFlag::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{

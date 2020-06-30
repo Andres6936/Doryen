@@ -41,6 +41,12 @@ namespace Functor
 				"##############################################",
 		};
 
+		// Const Fields
+
+		const Doryen::Color DARK_WALL = { 0, 0, 100 };
+		const Doryen::Color DARK_GROUND = { 50, 50, 150 };
+		const Doryen::Color LIGHT_GROUND = { 200, 180, 50 };
+
 		// Fields
 
 		int playerX = 20;
