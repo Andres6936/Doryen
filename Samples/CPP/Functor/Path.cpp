@@ -48,13 +48,14 @@ void Functor::Path::prepareInstanceOfMap()
 		}
 	}
 
+	// TODO: Initialize the map Dijkstra
+	AStar = Algorithms::Pathfinding::AStar(map);
+
 	mapHaveSizeCorrect = true;
 }
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
-	static Doryen::Algorithms::Pathfinding::AStar* AStar = nullptr;
-
 	static bool usingAstar = true;
 
 	//static float dijkstraDist = 0;
@@ -66,19 +67,13 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	int mouseX = 0;
 	int mouseY = 0;
 
-	if (mapHaveSizeCorrect)
-	{
-		AStar = new Doryen::Algorithms::Pathfinding::AStar(map);
-		//dijkstra = new TCODDijkstra( map );
-	}
-
 	if (recalculatePath)
 	{
 		if (usingAstar)
 		{
 			if (dungeon[destinationY][destinationX] == ' ')
 			{
-				AStar->compute(playerX, playerY, destinationX, destinationY);
+				AStar.compute(playerX, playerY, destinationX, destinationY);
 			}
 		}
 		else
@@ -134,15 +129,15 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	sample.get().print(1, 4, "Using : A*");
 
 	// draw the path
-	if (usingAstar && AStar->findPath())
+	if (usingAstar && AStar.findPath())
 	{
 		Doryen::Geometry::Point2D point;
 
-		for (int i = 0; i < AStar->size(); i++)
+		for (int i = 0; i < AStar.size(); i++)
 		{
 			try
 			{
-				point = AStar->getPoint2DAt(i);
+				point = AStar.getPoint2DAt(i);
 
 				sample.get().setCharBackground(point.x, point.y, LIGHT_GROUND, Doryen::BackgroundFlag::SET);
 			}
@@ -183,15 +178,15 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	if (busy <= 0.0f)
 	{
 		busy = 0.2f;
-		if (usingAstar && AStar->findPath())
+		if (usingAstar && AStar.findPath())
 		{
-			if (!AStar->isEmpty())
+			if (!AStar.isEmpty())
 			{
 				sample.get().putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
 
 				try
 				{
-					Doryen::Geometry::Point2D point = AStar->walk();
+					Doryen::Geometry::Point2D point = AStar.walk();
 
 					playerX = point.x;
 					playerY = point.y;

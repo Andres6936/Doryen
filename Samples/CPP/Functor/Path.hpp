@@ -72,10 +72,15 @@ namespace Functor
 
 		Map map;
 
+		Algorithms::Pathfinding::AStar AStar;
+
 	private:
 
 		// Private Methods
 
+		/**
+		 * @post The variable {mapHaveSizeCorrect} has been initialized.
+		 */
 		void prepareInstanceOfMap();
 
 	public:

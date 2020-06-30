@@ -95,24 +95,33 @@ namespace Doryen
                  * deleted by this routine once the
                  * search ends.
                  */
-                void freeUnusedNodes( );
+				void freeUnusedNodes();
 
-            public :
+			public :
 
-                /**
-                 * @brief Allocating a pathfinder from a map.
-                 *
-                 * First, you have to allocate a path using a map. {Doryen::Map}.
-                 *
-                 * @param map The map. The path finder will use the 'walkable' property of
-                 * the cells to find a path.
-                 *
-                 * @param diagonalCost Cost of a diagonal movement compared to an horizontal
-                 * or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
-                 *
-                 * @note It you want the same cost for all movements, use 1.0f.
-                 * @note If you don't want the path finder to use diagonal movements, use 0.0f.
-                 */
+				/**
+				 * Allow the instance of a object without needed of specify
+				 * a initial map.
+				 *
+				 * @note The use of AStar without a map associate cause the
+				 *  throw of exceptions.
+				 */
+				AStar() = default;
+
+				/**
+				 * @brief Allocating a pathfinder from a map.
+				 *
+				 * First, you have to allocate a path using a map. {Doryen::Map}.
+				 *
+				 * @param map The map. The path finder will use the 'walkable' property of
+				 * the cells to find a path.
+				 *
+				 * @param diagonalCost Cost of a diagonal movement compared to an horizontal
+				 * or vertical movement. On a standard cartesian map, it should be sqrt(2) (1.41f).
+				 *
+				 * @note It you want the same cost for all movements, use 1.0f.
+				 * @note If you don't want the path finder to use diagonal movements, use 0.0f.
+				 */
                 explicit AStar( const Doryen::Map &map );
 
                 /**
