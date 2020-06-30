@@ -12,35 +12,6 @@ Functor::Path::Path(std::string _name, std::reference_wrapper<Console> _console)
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
-	static const char* smap[] = {
-			"##############################################",
-			"#######################      #################",
-			"#####################    #     ###############",
-			"######################  ###        ###########",
-			"##################      #####             ####",
-			"################       ########    ###### ####",
-			"###############      #################### ####",
-			"################    ######                  ##",
-			"########   #######  ######   #     #     #  ##",
-			"########   ######      ###                  ##",
-			"########                                    ##",
-			"####       ######      ###   #     #     #  ##",
-			"#### ###   ########## ####                  ##",
-			"#### ###   ##########   ###########=##########",
-			"#### ##################   #####          #####",
-			"#### ###             #### #####          #####",
-			"####           #     ####                #####",
-			"########       #     #### #####          #####",
-			"########       #####      ####################",
-			"##############################################",
-	};
-
-	static int playerX = 20;
-	static int playerY = 10;
-
-	static int destinationX = 33;
-	static int destinationY = 4;
-
 	static Doryen::Map* map = nullptr;
 	static Doryen::Color darkWall(0, 0, 100);
 	static Doryen::Color darkGround(50, 50, 150);
@@ -68,11 +39,11 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 			for (int x = 0; x < sample.get().getWidth(); x++)
 			{
-				if (smap[y][x] == ' ')
+				if (dungeon[y][x] == ' ')
 				{
 					map->setProperties(x, y, true, true); // ground
 				}
-				else if (smap[y][x] == '=')
+				else if (dungeon[y][x] == '=')
 				{
 					map->setProperties(x, y, true, false); // window
 				}
@@ -87,7 +58,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	{
 		if (usingAstar)
 		{
-			if (smap[destinationY][destinationX] == ' ')
+			if (dungeon[destinationY][destinationX] == ' ')
 			{
 				AStar->compute(playerX, playerY, destinationX, destinationY);
 			}
@@ -121,11 +92,11 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	{
 		for (int x = 0; x < sample.get().getWidth(); x++)
 		{
-			if (smap[y][x] == '#')
+			if (dungeon[y][x] == '#')
 			{
 				sample.get().setCharBackground(x, y, darkWall, Doryen::BackgroundFlag::SET);
 			}
-			else if (smap[y][x] == '=')
+			else if (dungeon[y][x] == '=')
 			{
 				sample.get().putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
 			}
