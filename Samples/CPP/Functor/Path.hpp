@@ -18,6 +18,13 @@ namespace Functor
 
 		// Constexpr Fields
 
+		/**
+		 * The width of dungeon is get: std::strlen(dungeon.at(0))
+		 * The height of dungeon is get: dungeon.size()
+		 *
+		 * @note The width and height dungeon should be
+		 *  correspond with the width and height of console.
+		 */
 		constexpr static const std::array dungeon = {
 				"##############################################",
 				"#######################      #################",
@@ -49,11 +56,27 @@ namespace Functor
 
 		// Fields
 
+		/**
+		 * Determine if the map has been initialized correctly.
+		 * It mean the size of map should be same to size of dungeon.
+		 *
+		 * @pre The method {prepareInstanceOfMap} has been called.
+		 */
+		bool mapHaveSizeCorrect = false;
+
 		int playerX = 20;
 		int playerY = 10;
 
 		int destinationX = 33;
 		int destinationY = 4;
+
+		Map map;
+
+	private:
+
+		// Private Methods
+
+		void prepareInstanceOfMap();
 
 	public:
 

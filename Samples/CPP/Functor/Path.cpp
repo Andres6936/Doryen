@@ -1,19 +1,41 @@
 // Joan Andrés (@Andres6936) Github.
 
 #include <iostream>
+#include <cstring>
+
 #include "Path.hpp"
 
 using namespace Doryen;
 
 Functor::Path::Path(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
 {
+	prepareInstanceOfMap();
+}
 
+
+void Functor::Path::prepareInstanceOfMap()
+{
+	const std::uint16_t width = sample.get().getWidth();
+	const std::uint16_t height = sample.get().getHeight();
+
+	map = {width, height};
+
+	// See documentation of the variable dungeon for see how
+	// get the size of dungeon {width and height}.
+	if (map.getWidth() not_eq std::strlen(dungeon.at(0)) or
+		map.getHeight() not_eq dungeon.size())
+	{
+		std::cerr << "The width or height of map not correspond with "
+				  << "the width or height of console.\n";
+
+		// Complete pre-condition
+		mapHaveSizeCorrect = false;
+		return;
+	}
 }
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
-	static Doryen::Map* map = nullptr;
-
 	static Doryen::Algorithms::Pathfinding::AStar* AStar = nullptr;
 
 	static bool usingAstar = true;
