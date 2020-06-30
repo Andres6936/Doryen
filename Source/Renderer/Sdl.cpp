@@ -1115,6 +1115,9 @@ void Doryen::SDL::draw()
 
 	fillOldBuffer();
 
+	// TODO: The limit the frame per second (fps) of application too limit
+	//  the velocity with the events are updated.
+
 	// Update the Queue of events
 	updateEventsQueue();
 }
