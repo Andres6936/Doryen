@@ -28,25 +28,25 @@ using namespace Doryen;
 
 using namespace std::string_literals;
 
-std::array<std::shared_ptr<Functor::ISample>, 11> configureExamples(std::reference_wrapper<Console> _console)
+std::array<std::unique_ptr<Functor::ISample>, 11> configureExamples(std::reference_wrapper<Console> _console)
 {
 	// Although we declare a pointer to ISample, the reality is that
 	// needed a instance of object derived of ISample, the aim is
 	// allow save the pointer in an array and use its like a scene manager.
-	std::array<std::shared_ptr<Functor::ISample>, 11> pointers;
+	std::array<std::unique_ptr<Functor::ISample>, 11> pointers;
 
 	// Respect the sort original of the examples
-	pointers[0] = std::make_shared<Functor::Color>("True colors"s, _console);;
-	pointers[1] = std::make_shared<Functor::Offscreen>("Offscreen Console"s, _console);;
-	pointers[2] = std::make_shared<Functor::Lines>("Line drawing"s, _console);;
-	pointers[3] = std::make_shared<Functor::Noise>("Noise"s, _console);;
-	pointers[4] = std::make_shared<Functor::FOV>("Field of view"s, _console);;
-	pointers[5] = std::make_shared<Functor::Path>("Path finding"s, _console);;
-	pointers[6] = std::make_shared<Functor::BSP>("Bsp toolkit"s, _console);;
-	pointers[7] = std::make_shared<Functor::Image>("Image toolkit"s, _console);;
-	pointers[8] = std::make_shared<Functor::Mouse>("Mouse support"s, _console);;
-	pointers[9] = std::make_shared<Functor::Name>("Name generator"s, _console);;
-	pointers[10] = std::make_shared<Functor::SDL>("SDL callback"s, _console);;
+	pointers[0] = std::make_unique<Functor::Color>("True colors"s, _console);;
+	pointers[1] = std::make_unique<Functor::Offscreen>("Offscreen Console"s, _console);;
+	pointers[2] = std::make_unique<Functor::Lines>("Line drawing"s, _console);;
+	pointers[3] = std::make_unique<Functor::Noise>("Noise"s, _console);;
+	pointers[4] = std::make_unique<Functor::FOV>("Field of view"s, _console);;
+	pointers[5] = std::make_unique<Functor::Path>("Path finding"s, _console);;
+	pointers[6] = std::make_unique<Functor::BSP>("Bsp toolkit"s, _console);;
+	pointers[7] = std::make_unique<Functor::Image>("Image toolkit"s, _console);;
+	pointers[8] = std::make_unique<Functor::Mouse>("Mouse support"s, _console);;
+	pointers[9] = std::make_unique<Functor::Name>("Name generator"s, _console);;
+	pointers[10] = std::make_unique<Functor::SDL>("SDL callback"s, _console);;
 
 	return pointers;
 }
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
 
-	std::array<std::shared_ptr<Functor::ISample>, 11> samples = configureExamples(std::ref(sampleConsole));
+	std::array samples = configureExamples(std::ref(sampleConsole));
 
 	while (console.isRunning())
 	{
