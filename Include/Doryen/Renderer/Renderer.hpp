@@ -265,11 +265,13 @@ namespace Doryen
 
 		void setFontGrayscale(bool _fontGrayscale);
 
+		void setMaxFontChars(unsigned int _maxFontChars);
+
 		void setActualFullscreenWidth(unsigned int width);
 
 		void setActualFullscreenHeigth(unsigned int heigth);
 
-		void setMaxFontChars(unsigned int _maxFontChars);
+		void setMinimumFrameLength(unsigned int _minFrameLength);
 
 		void setFontCharHorizontalSize(unsigned int _fontCharHorizontalSize);
 

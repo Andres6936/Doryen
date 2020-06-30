@@ -568,3 +568,8 @@ void Doryen::Renderer::setRunning(bool _running)
 {
 	running = _running;
 }
+
+void Doryen::Renderer::setMinimumFrameLength(unsigned int _frameLength)
+{
+	minimunFrameLength = _frameLength;
+}

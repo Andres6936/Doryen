@@ -1065,3 +1065,15 @@ unsigned int Doryen::Console::getFramePerSeconds() const
 {
 	return renderer->getFramePerSeconds();
 }
+
+void Doryen::Console::setFramePerSeconds(std::uint8_t _fps)
+{
+	// For avoid the division zero error
+	if (_fps == 0)
+	{
+		renderer->setMinimumFrameLength(0);
+		return;
+	}
+
+	renderer->setMinimumFrameLength(1000 / _fps);
+}
