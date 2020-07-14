@@ -54,6 +54,10 @@ namespace Doryen
 
 		void findResolution();
 
+		void updateEventsQueue();
+
+		void processEventsOfExit();
+
 		static void convertToGenericEvent(SDL_Event& event, Key& key);
 
 	public:
@@ -75,10 +79,6 @@ namespace Doryen
 		void loadFont() override;
 
 		void sleepMilli(int milliseconds);
-
-		void updateEventsQueue();
-
-		void processEventsOfExit();
 
 		// Setters
 
