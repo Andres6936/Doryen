@@ -129,7 +129,9 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 	sample.get().putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 
-	sample.get().print(1, 1, "IJKL / mouse :\nmove destination\nTAB : A*/dijkstra");
+	sample.get().print(1, 1, "IJKL / mouse :");
+	sample.get().print(1, 2, "move destination");
+	sample.get().print(1, 3, "TAB : A*/dijkstra");
 	sample.get().print(1, 4, "Using : A*");
 
 	// draw the path
