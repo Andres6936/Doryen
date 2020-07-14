@@ -497,50 +497,6 @@ void Doryen::SDL::onExit()
 
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
-	keyPressed.resetState();
-
-	if (not eventPending) return keyPressed;
-
-	// Same that keyPressed
-	if (event.type == SDL_KEYDOWN)
-	{
-		SDL_KeyboardEvent* keyboard = &event.key;
-
-		// Has been pressed CTRL, ALT of SHIFT ?
-		if (keyboard->keysym.sym == SDLK_LALT)
-		{
-			keyPressed.setKeyCode(KeyCode::ALT);
-			keyPressed.setRigthAltPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_RALT)
-		{
-			keyPressed.setKeyCode(KeyCode::ALT);
-			keyPressed.setLeftAltPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_LCTRL)
-		{
-			keyPressed.setKeyCode(KeyCode::CONTROL);
-			keyPressed.setLeftCtrlPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_RCTRL)
-		{
-			keyPressed.setKeyCode(KeyCode::CONTROL);
-			keyPressed.setRigthCtrlPressed(true);
-		}
-		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
-				 keyboard->keysym.sym == SDLK_RSHIFT)
-		{
-			keyPressed.setKeyCode(KeyCode::SHIFT);
-			keyPressed.setShift(true);
-		}
-
-		// Convert the event of type SDL to a event of
-		// type Doryen (Generic)
-		convertToGenericEvent(event, keyPressed);
-
-		keyPressed.setPressed(true);
-	}
-
 	return keyPressed;
 }
 
@@ -1193,6 +1149,8 @@ void Doryen::SDL::updateEventsQueue()
 	eventPending = SDL_PollEvent(&event);
 
 	processEventsOfExit();
+
+	updateKeyEvents();
 }
 
 void Doryen::SDL::processEventsOfExit()
@@ -1205,5 +1163,52 @@ void Doryen::SDL::processEventsOfExit()
 	if (event.type == SDL_QUIT)
 	{
 		setRunning(false);
+	}
+}
+
+void Doryen::SDL::updateKeyEvents()
+{
+	keyPressed.resetState();
+
+	if (not eventPending) return;
+
+	// Same that keyPressed
+	if (event.type == SDL_KEYDOWN)
+	{
+		SDL_KeyboardEvent* keyboard = &event.key;
+
+		// Has been pressed CTRL, ALT of SHIFT ?
+		if (keyboard->keysym.sym == SDLK_LALT)
+		{
+			keyPressed.setKeyCode(KeyCode::ALT);
+			keyPressed.setRigthAltPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_RALT)
+		{
+			keyPressed.setKeyCode(KeyCode::ALT);
+			keyPressed.setLeftAltPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_LCTRL)
+		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
+			keyPressed.setLeftCtrlPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_RCTRL)
+		{
+			keyPressed.setKeyCode(KeyCode::CONTROL);
+			keyPressed.setRigthCtrlPressed(true);
+		}
+		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
+				 keyboard->keysym.sym == SDLK_RSHIFT)
+		{
+			keyPressed.setKeyCode(KeyCode::SHIFT);
+			keyPressed.setShift(true);
+		}
+
+		// Convert the event of type SDL to a event of
+		// type Doryen (Generic)
+		convertToGenericEvent(event, keyPressed);
+
+		keyPressed.setPressed(true);
 	}
 }

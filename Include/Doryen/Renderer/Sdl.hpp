@@ -59,6 +59,10 @@ namespace Doryen
 
 		void findResolution();
 
+		void updateKeyEvents();
+
+		void updateMouseEvents();
+
 		void updateEventsQueue();
 
 		void processEventsOfExit();
