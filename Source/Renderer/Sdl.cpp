@@ -1080,59 +1080,6 @@ void Doryen::SDL::draw()
 
 Doryen::Mouse Doryen::SDL::getMouseEvent()
 {
-	// The mouse is an object that should be have
-	// memory of past events, the aim is determine
-	// if the user press ALT + Any Key in any moment
-	// or if occur an mouse event while is pressed
-	// the key ALT.
-
-	// Although the mouse should be have memory,
-	// exist events that should be reset, like the
-	// movement made for the user.
-
-	// Set the movement of mouse to 0 (zero).
-	mouse.setMovementRelativeX(0);
-	mouse.setMovementRelativeY(0);
-
-	if (not eventPending) return mouse;
-
-	if (event.type == SDL_MOUSEMOTION)
-	{
-		SDL_MouseMotionEvent* mme = &event.motion;
-
-		mouse.addDx(mme->xrel);
-		mouse.addDy(mme->yrel);
-		mouse.setX(mme->x);
-		mouse.setY(mme->y);
-
-		const int charWidth = getFontWidth();
-		const int charHeight = getFontHeigth();
-
-		mouse.setPositionCellX(mouse.getX() / charWidth);
-		mouse.setPositionCellY(mouse.getY() / charHeight);
-		mouse.setDcx(mouse.getMovementRelativeX() / charWidth);
-		mouse.setDcy(mouse.getMovementRelativeY() / charHeight);
-	}
-	else if (event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		SDL_MouseButtonEvent* mev = &event.button;
-
-		switch (mev->button)
-		{
-		case SDL_BUTTON_LEFT :
-			mouse.setStatus(MouseCode::LEFT);
-			break;
-
-		case SDL_BUTTON_MIDDLE :
-			mouse.setStatus(MouseCode::MIDDLE);
-			break;
-
-		case SDL_BUTTON_RIGHT :
-			mouse.setStatus(MouseCode::RIGHT);
-			break;
-		}
-	}
-
 	return mouse;
 }
 
@@ -1151,6 +1098,7 @@ void Doryen::SDL::updateEventsQueue()
 	processEventsOfExit();
 
 	updateKeyEvents();
+	updateMouseEvents();
 }
 
 void Doryen::SDL::processEventsOfExit()
@@ -1210,5 +1158,61 @@ void Doryen::SDL::updateKeyEvents()
 		convertToGenericEvent(event, keyPressed);
 
 		keyPressed.setPressed(true);
+	}
+}
+
+void Doryen::SDL::updateMouseEvents()
+{
+	// The mouse is an object that should be have
+	// memory of past events, the aim is determine
+	// if the user press ALT + Any Key in any moment
+	// or if occur an mouse event while is pressed
+	// the key ALT.
+
+	// Although the mouse should be have memory,
+	// exist events that should be reset, like the
+	// movement made for the user.
+
+	// Set the movement of mouse to 0 (zero).
+	mouse.setMovementRelativeX(0);
+	mouse.setMovementRelativeY(0);
+
+	if (not eventPending) return;
+
+	if (event.type == SDL_MOUSEMOTION)
+	{
+		SDL_MouseMotionEvent* mme = &event.motion;
+
+		mouse.addDx(mme->xrel);
+		mouse.addDy(mme->yrel);
+		mouse.setX(mme->x);
+		mouse.setY(mme->y);
+
+		const int charWidth = getFontWidth();
+		const int charHeight = getFontHeigth();
+
+		mouse.setPositionCellX(mouse.getX() / charWidth);
+		mouse.setPositionCellY(mouse.getY() / charHeight);
+		mouse.setDcx(mouse.getMovementRelativeX() / charWidth);
+		mouse.setDcy(mouse.getMovementRelativeY() / charHeight);
+	}
+	else if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		SDL_MouseButtonEvent* mev = &event.button;
+
+		switch (mev->button)
+		{
+		case SDL_BUTTON_LEFT :
+			mouse.setStatus(MouseCode::LEFT);
+			break;
+
+		case SDL_BUTTON_MIDDLE :
+			mouse.setStatus(MouseCode::MIDDLE);
+			break;
+
+		case SDL_BUTTON_RIGHT :
+			mouse.setStatus(MouseCode::RIGHT);
+			break;
+		}
 	}
 }
