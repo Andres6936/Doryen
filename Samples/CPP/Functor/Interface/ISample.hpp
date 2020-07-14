@@ -35,6 +35,7 @@ namespace Functor
 
 		ISample(const std::string& _name, std::reference_wrapper<Console> _console) : name(_name), sample(_console)
 		{
+			sample.get().setFramePerSeconds(30);
 		};
 
 		// Methods Virtual
