@@ -83,3 +83,8 @@ void Doryen::Key::setShift(bool _shift)
 {
 	shift = _shift;
 }
+
+void Doryen::Key::resetState()
+{
+	keyCode = KeyCode::NONE;
+}

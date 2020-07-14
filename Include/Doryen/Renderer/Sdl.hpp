@@ -44,6 +44,11 @@ namespace Doryen
 		 */
 		Mouse mouse;
 
+		/**
+		 * Key event
+		 */
+		Key keyPressed;
+
 		SDL_Event event;
 
 		SDL_Surface* screen = nullptr;

@@ -497,7 +497,7 @@ void Doryen::SDL::onExit()
 
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
-	Key keyPressed;
+	keyPressed.resetState();
 
 	if (not eventPending) return keyPressed;
 

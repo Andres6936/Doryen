@@ -95,6 +95,10 @@ namespace Doryen
 
 	public:
 
+		// Methods
+
+		void resetState();
+
 		// Getters
 
 		KeyCode getKeyCode() const;
