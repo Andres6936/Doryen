@@ -79,3 +79,13 @@ void Mouse::resetState()
 {
 	status = MouseCode::NONE;
 }
+
+bool Mouse::isWheelUp() const
+{
+	return status == MouseCode::WHEEL_UP;
+}
+
+bool Mouse::isWheelDown() const
+{
+	return status == MouseCode::WHEEL_DOWN;
+}

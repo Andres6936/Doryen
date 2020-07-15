@@ -1264,6 +1264,14 @@ void Doryen::SDL::updateMouseEvents()
 		case SDL_BUTTON_RIGHT :
 			mouse.setStatus(MouseCode::RIGHT);
 			break;
+
+		case SDL_BUTTON_WHEELUP:
+			mouse.setStatus(MouseCode::WHEEL_UP);
+			break;
+
+		case SDL_BUTTON_WHEELDOWN:
+			mouse.setStatus(MouseCode::WHEEL_DOWN);
+			break;
 		}
 	}
 }

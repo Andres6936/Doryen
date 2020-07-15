@@ -38,8 +38,8 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 	sample.print(1, 6, format("Middle button  : {} (toggle {})",
 			mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"));
 
-//	sample.print(1, 7,format("Wheel          : {}",
-//					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : ""));
+	sample.print(1, 7, format("Wheel          : {}",
+			mouse.isWheelUp() ? "UP" : (mouse.isWheelDown() ? "DOWN" : "")));
 
 	sample.print(1, 10, format("Press TAB for {} cursor", visibleCursor ? "hidden" : "show"));
 

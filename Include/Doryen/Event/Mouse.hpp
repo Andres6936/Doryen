@@ -54,6 +54,10 @@ namespace Doryen
 
 		void resetState();
 
+		bool isWheelUp() const;
+
+		bool isWheelDown() const;
+
 		bool isPressedLeftButton() const;
 
 		bool isPressedRightButton() const;
