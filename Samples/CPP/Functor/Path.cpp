@@ -61,16 +61,16 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(x, y, DARK_WALL, BackgroundFlag::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
 				// The character 205 represent a double wall
-				sample.putChar(x, y, 205, Doryen::BackgroundFlag::NONE);
+				sample.putChar(x, y, 205, BackgroundFlag::NONE);
 			}
 			else
 			{
-				sample.setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(x, y, DARK_GROUND, BackgroundFlag::SET);
 			}
 		}
 	}
