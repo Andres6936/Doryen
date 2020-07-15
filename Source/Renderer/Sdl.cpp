@@ -1229,14 +1229,13 @@ void Doryen::SDL::updateMouseEvents()
 	// or if occur an mouse event while is pressed
 	// the key ALT.
 
-	// Although the mouse should be have memory,
-	// exist events that should be reset, like the
-	// movement made for the user.
+	mouse.resetState();
 
 	int coordinateX = 0;
 	int coordinateY = 0;
 
-	char buttonPressed = SDL_GetMouseState(&coordinateX, &coordinateY);
+	// Ignore the result of function, already manage the events.
+	SDL_GetMouseState(&coordinateX, &coordinateY);
 
 	mouse.setX(coordinateX);
 	mouse.setY(coordinateY);
@@ -1247,21 +1246,24 @@ void Doryen::SDL::updateMouseEvents()
 	mouse.setPositionCellX(mouse.getX() / CHART_WIDTH);
 	mouse.setPositionCellY(mouse.getY() / CHART_HEIGHT);
 
-	if (buttonPressed)
+	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
-		if (SDL_BUTTON(SDL_BUTTON_LEFT))
+		SDL_MouseButtonEvent* mev = &event.button;
+
+		switch (mev->button)
 		{
+		case SDL_BUTTON_LEFT :
 			mouse.setStatus(MouseCode::LEFT);
-		}
+			break;
 
-		if (SDL_BUTTON(SDL_BUTTON_MIDDLE))
-		{
+		case SDL_BUTTON_MIDDLE :
 			mouse.setStatus(MouseCode::MIDDLE);
-		}
+			break;
 
-		if (SDL_BUTTON(SDL_BUTTON_RIGHT))
-		{
+
+		case SDL_BUTTON_RIGHT :
 			mouse.setStatus(MouseCode::RIGHT);
+			break;
 		}
 	}
 }

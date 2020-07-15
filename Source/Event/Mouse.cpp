@@ -74,3 +74,8 @@ bool Mouse::isPressedMiddleButton() const
 {
 	return status == MouseCode::MIDDLE;
 }
+
+void Mouse::resetState()
+{
+	status = MouseCode::NONE;
+}

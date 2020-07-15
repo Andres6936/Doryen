@@ -48,6 +48,8 @@ namespace Doryen
 
 		// Methods
 
+		void resetState();
+
 		bool isPressedLeftButton() const;
 
 		bool isPressedRightButton() const;
