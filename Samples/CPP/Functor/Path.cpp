@@ -124,16 +124,10 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 
 	drawDungeon();
 	drawDestinationPoint();
-
-	sample.setDefaultForeground(Doryen::Color::white);
+	drawHelpMessage();
 
 	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-
-	sample.print(1, 1, "IJKL / mouse :");
-	sample.print(1, 2, "move destination");
-	sample.print(1, 3, "TAB : A*/dijkstra");
-	sample.print(1, 4, "Using : A*");
 
 	// draw the path
 	if (usingAstar && AStar.findPath())
@@ -288,4 +282,15 @@ bool Functor::Path::moveDestination(KeyCode key)
 void Functor::Path::drawDestinationPoint()
 {
 	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+}
+
+void Functor::Path::drawHelpMessage()
+{
+	sample.setDefaultForeground(Color::white);
+
+	sample.print(1, 1, "WASD / Mouse :");
+	sample.print(1, 2, "Move Destination");
+	sample.print(1, 3, "TAB : A*/dijkstra");
+
+	sample.print(1, 4, format("Using : {}", usingAStar ? "A*" : "Dijkstra"));
 }

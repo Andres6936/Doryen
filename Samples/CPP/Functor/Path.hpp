@@ -56,6 +56,8 @@ namespace Functor
 
 		// Fields
 
+		bool usingAStar = true;
+
 		/**
 		 * Determine if the map has been initialized correctly.
 		 * It mean the size of map should be same to size of dungeon.
@@ -79,6 +81,11 @@ namespace Functor
 		// Private Methods
 
 		void drawDungeon();
+
+		/**
+		 * @pre The dungeon has been drawn.
+		 */
+		void drawHelpMessage();
 
 		void drawDestinationPoint();
 
