@@ -11,32 +11,16 @@ Functor::Mouse::Mouse(std::string _name, Console& _console) : ISample(_name, _co
 
 void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 {
-	static bool lbut = false, rbut = false, mbut = false;
-
 	drawBackground();
 
-	if (mouse.isPressedLeftButton())
-	{ lbut = !lbut; }
-	if (mouse.isPressedRightButton())
-	{ rbut = !rbut; }
-	if (mouse.isPressedMiddleButton())
-	{ mbut = !mbut; }
-
-	sample.print(1, 1, format("Mouse position : {4d}x{4d}\n",
-			mouse.getX(), mouse.getY()));
+	sample.print(1, 1, format("Mouse position : {4d}x{4d}", mouse.getX(), mouse.getY()));
 
 	sample.print(1, 2,
 			format("Mouse cell     : {4d}x{4d}", mouse.getPositionCellX(), mouse.getPositionCellY()));
 
-	sample.print(1, 4,
-			format("Left button    : {} (toggle {})",
-					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF"));
-
-	sample.print(1, 5, format("Right button   : {} (toggle {})",
-			mouse.isPressedRightButton() ? " ON" : "OFF", rbut ? " ON" : "OFF"));
-
-	sample.print(1, 6, format("Middle button  : {} (toggle {})",
-			mouse.isPressedMiddleButton() ? " ON" : "OFF", mbut ? " ON" : "OFF"));
+	sample.print(1, 4, format("Left button   : {}", mouse.isPressedLeftButton() ? "ON" : "OFF"));
+	sample.print(1, 6, format("Middle button : {}", mouse.isPressedMiddleButton() ? "ON" : "OFF"));
+	sample.print(1, 5, format("Right button  : {}", mouse.isPressedRightButton() ? "ON" : "OFF"));
 
 	sample.print(1, 7, format("Wheel          : {}",
 			mouse.isWheelUp() ? "UP" : (mouse.isWheelDown() ? "DOWN" : "")));
@@ -45,6 +29,7 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 
 	if (key == KeyCode::TAB)
 	{
+		// Toggle the variable
 		visibleCursor = not visibleCursor;
 	}
 }
