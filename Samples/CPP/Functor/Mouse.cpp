@@ -53,8 +53,7 @@ void Functor::Mouse::drawBackground() const
 {
 	sample.setDefaultBackground(Color::grey);
 	sample.setDefaultForeground(Color::lightYellow);
+	sample.showCursor(visibleCursor);
 
 	sample.clear();
-
-	if (visibleCursor) sample.showCursor(visibleCursor);
 }
