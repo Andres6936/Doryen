@@ -100,6 +100,14 @@ namespace Functor
 		bool moveDestination(KeyCode key);
 
 		/**
+		 * Determine if the user wanna use A* or Dijkstra.
+		 *
+		 * @param key The key to verify: TAB
+		 * @return True if the user change the algorithm to use.
+		 */
+		bool changeAlgorithm(KeyCode key);
+
+		/**
 		 * @post The variable {mapHaveSizeCorrect} has been initialized.
 		 */
 		void prepareInstanceOfMap();

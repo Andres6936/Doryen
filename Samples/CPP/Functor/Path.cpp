@@ -78,8 +78,6 @@ void Functor::Path::drawDungeon()
 
 void Functor::Path::render(KeyCode key, const Mouse& mouse)
 {
-	static bool usingAstar = true;
-
 	//static float dijkstraDist = 0;
 	//static TCODDijkstra *dijkstra = nullptr;
 
@@ -91,7 +89,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 
 	if (recalculatePath)
 	{
-		if (usingAstar)
+		if (usingAStar)
 		{
 			if (dungeon[destinationY][destinationX] == ' ')
 			{
@@ -130,7 +128,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 
 	// draw the path
-	if (usingAstar && AStar.findPath())
+	if (usingAStar && AStar.findPath())
 	{
 		Geometry::Point2D point;
 
@@ -179,7 +177,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	if (busy <= 0.0f)
 	{
 		busy = 0.2f;
-		if (usingAstar && AStar.findPath())
+		if (usingAStar && AStar.findPath())
 		{
 			if (!AStar.isEmpty())
 			{
@@ -213,22 +211,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	}
 
 	recalculatePath = moveDestination(key);
-
-	if (key == KeyCode::TAB)
-	{
-		usingAstar = !usingAstar;
-
-		if (usingAstar)
-		{
-			sample.print(1, 4, "Using : A*      ");
-		}
-		else
-		{
-			sample.print(1, 4, "Using : Dijkstra");
-		}
-
-		recalculatePath = true;
-	}
+	recalculatePath = changeAlgorithm(key);
 
 	// sample screen position
 	// TODO: Delete this dependency of variables
@@ -293,4 +276,17 @@ void Functor::Path::drawHelpMessage()
 	sample.print(1, 3, "TAB : A*/dijkstra");
 
 	sample.print(1, 4, format("Using : {}", usingAStar ? "A*" : "Dijkstra"));
+}
+
+bool Functor::Path::changeAlgorithm(KeyCode key)
+{
+	if (key == KeyCode::TAB)
+	{
+		// Toggle variable
+		usingAStar = not usingAStar;
+
+		return true;
+	}
+
+	return false;
 }
