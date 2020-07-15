@@ -17,6 +17,8 @@ namespace Functor
 
 	private:
 
+		bool showCursor = true;
+
 		void drawBackground() const;
 
 	public:

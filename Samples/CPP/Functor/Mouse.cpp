@@ -13,17 +13,7 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 {
 	static bool lbut = false, rbut = false, mbut = false;
 
-	static bool first = true;
-
 	drawBackground();
-
-	if (first)
-	{
-		first = false;
-
-		TCODMouse::move(320, 200);
-		TCODMouse::showCursor(true);
-	}
 
 	sample.clear();
 	if (mouse.isPressedLeftButton())
@@ -64,4 +54,6 @@ void Functor::Mouse::drawBackground() const
 {
 	sample.setDefaultBackground(Color::grey);
 	sample.setDefaultForeground(Color::lightYellow);
+
+	if (showCursor) sample.showCursor(true);
 }

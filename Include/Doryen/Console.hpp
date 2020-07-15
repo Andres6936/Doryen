@@ -1296,6 +1296,8 @@ namespace Doryen
 
 		void setDirty(int x, int y, int w, int h);
 
+		void showCursor(bool show);
+
 		void setFramePerSeconds(std::uint8_t _fps);
 
 		float getLastFrameLength() const;

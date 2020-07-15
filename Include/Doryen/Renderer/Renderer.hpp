@@ -333,6 +333,8 @@ namespace Doryen
 
 		virtual Mouse getMouseEvent() = 0;
 
+		virtual void showCursor(bool visible) = 0;
+
 		virtual void setWindowTitle(const std::string& _title) = 0;
 
 		virtual void setWindowInFullscreen() = 0;

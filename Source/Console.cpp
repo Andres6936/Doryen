@@ -1077,3 +1077,8 @@ void Doryen::Console::setFramePerSeconds(std::uint8_t _fps)
 
 	renderer->setMinimumFrameLength(1000 / _fps);
 }
+
+void Doryen::Console::showCursor(bool show)
+{
+	renderer->showCursor(show);
+}

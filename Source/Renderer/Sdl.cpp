@@ -1267,3 +1267,8 @@ void Doryen::SDL::updateMouseEvents()
 		}
 	}
 }
+
+void Doryen::SDL::showCursor(bool visible)
+{
+	SDL_ShowCursor(visible);
+}
