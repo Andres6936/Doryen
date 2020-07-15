@@ -81,6 +81,16 @@ namespace Functor
 		void drawDungeon();
 
 		/**
+		 * Get the event generate for the user and determine if
+		 * the user wanna move the coordinate of destination, if
+		 * it is the case return true, false otherwise.
+		 *
+		 * @param key The key to verify are: W A S D
+		 * @return True if the user move coordinate destination.
+		 */
+		bool moveDestination(KeyCode key);
+
+		/**
 		 * @post The variable {mapHaveSizeCorrect} has been initialized.
 		 */
 		void prepareInstanceOfMap();

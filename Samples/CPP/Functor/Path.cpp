@@ -217,34 +217,8 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		}
 	}
 
-//    if (( key->c == 'I' || key->c == 'i' ) && destinationY > 0 )
-//    {
-//        // destination move north
-//        destinationY--;
-//		recalculatePath = true;
-//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-//    }
-//    else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
-//    {
-//        // destination move south
-//        destinationY++;
-//		recalculatePath = true;
-//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-//    }
-//    else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
-//    {
-//        // destination move west
-//        destinationX--;
-//		recalculatePath = true;
-//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-//    }
-//    else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
-//    {
-//        // destination move east
-//        destinationX++;
-//		recalculatePath = true;
-//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-//    }
+	recalculatePath = moveDestination(key);
+
 	if (key == KeyCode::TAB)
 	{
 		usingAstar = !usingAstar;
@@ -278,4 +252,38 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		recalculatePath = true;
 		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 	}
+}
+
+bool Functor::Path::moveDestination(KeyCode key)
+{
+	if (key == KeyCode::W && destinationY > 0)
+	{
+		// destination move north
+		destinationY--;
+		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		return true;
+	}
+	else if (key == KeyCode::S && destinationY < sample.getHeight() - 1)
+	{
+		// destination move south
+		destinationY++;
+		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		return true;
+	}
+	else if (key == KeyCode::A && destinationX > 0)
+	{
+		// destination move west
+		destinationX--;
+		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		return true;
+	}
+	else if (key == KeyCode::D && destinationX < sample.getWidth() - 1)
+	{
+		// destination move east
+		destinationX++;
+		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		return true;
+	}
+
+	return false;
 }
