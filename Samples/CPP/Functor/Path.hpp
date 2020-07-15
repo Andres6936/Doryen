@@ -80,6 +80,11 @@ namespace Functor
 
 		// Private Methods
 
+		/**
+		 * @pre The dungeon has been drawn.
+		 */
+		void drawPlayer();
+
 		void drawDungeon();
 
 		/**

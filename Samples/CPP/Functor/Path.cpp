@@ -123,9 +123,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	drawDungeon();
 	drawDestinationPoint();
 	drawHelpMessage();
-
-	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+	drawPlayer();
 
 	// draw the path
 	if (usingAStar && AStar.findPath())
@@ -289,4 +287,9 @@ bool Functor::Path::changeAlgorithm(KeyCode key)
 	}
 
 	return false;
+}
+
+void Functor::Path::drawPlayer()
+{
+	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 }
