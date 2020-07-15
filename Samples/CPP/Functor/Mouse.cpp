@@ -41,11 +41,11 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 //	sample.print(1, 7,format("Wheel          : {}",
 //					mouse->wheel_up ? "UP" : (mouse->wheel_down ? "DOWN" : ""));
 
-	sample.print(1, 10, format("Press TAB for {} cursor", showCursor ? "hidden" : "show"));
+	sample.print(1, 10, format("Press TAB for {} cursor", visibleCursor ? "hidden" : "show"));
 
 	if (key == KeyCode::TAB)
 	{
-		showCursor = not showCursor;
+		visibleCursor = not visibleCursor;
 	}
 }
 
@@ -56,5 +56,5 @@ void Functor::Mouse::drawBackground() const
 
 	sample.clear();
 
-	if (showCursor) sample.showCursor(true);
+	if (visibleCursor) sample.showCursor(visibleCursor);
 }
