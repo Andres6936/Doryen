@@ -20,7 +20,14 @@ namespace Doryen
 
 	private:
 
+		/**
+		 * Position in pixels relative to main console (root).
+		 */
 		int x = 0;
+
+		/**
+		 * Position in pixels relative to main console (root).
+		 */
 		int y = 0;
 
 		/**
@@ -34,9 +41,6 @@ namespace Doryen
 		 * main console (root).
 		 */
 		int positionCellY = 0;
-
-		int dcx = 0;
-		int dcy = 0;
 
 		/**
 		 * Determine if the button left, right, middle was pressed.
