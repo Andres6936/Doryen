@@ -81,7 +81,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	//static float dijkstraDist = 0;
 	//static TCODDijkstra *dijkstra = nullptr;
 
-	static bool recalculatePath = false;
+	static bool recalculatePath = true;
 	static float busy;
 
 	if (recalculatePath)

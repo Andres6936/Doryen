@@ -30,10 +30,10 @@
 
 #pragma once
 
+#include <vector>
+
 #include "Doryen/Cell.hpp"
 #include "Doryen/fov.h"
-
-class AStar;
 
 namespace Doryen
 {
@@ -70,33 +70,28 @@ namespace Doryen
 	 *
 	 * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
 	 */
-    class Map
-    {
+	class Map
+	{
 
-    public :
+	public :
 
-        virtual ~Map( );
+		int width;
+		int height;
 
-        friend class TCODPath;
+		std::vector<Cell> cells;
 
-        int width;
-        int height;
-        int nbcells;
+		TCOD_map_t data;
 
-        Doryen::Cell *cells;
+		Map();
 
-        TCOD_map_t data;
-
-        Map( );
-
-        /**
-         * @brief Building the map.
-         *
-         * First, you have to allocate a map of the same size as your dungeon.
-         *
-         * @param width The size of the map (in map cells).
-         * @param height The size of the map (in map cells).
-         */
+		/**
+		 * @brief Building the map.
+		 *
+		 * First, you have to allocate a map of the same size as your dungeon.
+		 *
+		 * @param width The size of the map (in map cells).
+		 * @param height The size of the map (in map cells).
+		 */
         Map( int width, int height );
 
         /**

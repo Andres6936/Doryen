@@ -4,18 +4,18 @@
 namespace Doryen
 {
     class Cell
-    {
+	{
 
-    public:
+	public:
 
-        bool transparent;
-        bool walkable;
-        bool fov;
+		bool transparent = false;
+		bool walkable = false;
+		bool fov = false;
 
-        Cell( );
+		Cell() noexcept = default;
 
-        Cell( bool isTransparent, bool isWalkable, bool isFOV );
-    };
+		Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept;
+	};
 }
 
 #endif //LIBTCOD_CELL_HPP

@@ -14,29 +14,29 @@ void Doryen::CircularRaycasting::operator()(Doryen::Map& map, int playerX,
 
     int radiusDouble = maxRadius * maxRadius;
 
-    if ( maxRadius > 0 )
-    {
-        xMin = std::max( 0, playerX - maxRadius );
-        yMin = std::max( 0, playerY - maxRadius );
+	if (maxRadius > 0)
+	{
+		xMin = std::max(0, playerX - maxRadius);
+		yMin = std::max(0, playerY - maxRadius);
 
-        xMax = std::min( map.width, playerX + maxRadius + 1 );
-        yMax = std::min( map.height, playerY + maxRadius + 1 );
-    }
+		xMax = std::min(map.width, playerX + maxRadius + 1);
+		yMax = std::min(map.height, playerY + maxRadius + 1);
+	}
 
-    for ( int i = 0; i <= map.nbcells - 1; i++ )
-    {
-        map.cells[ i ].fov = false;
-    }
+	for (Cell& cell : map.cells)
+	{
+		cell.fov = false;
+	}
 
-    int xo = xMin;
-    int yo = yMin;
+	int xo = xMin;
+	int yo = yMin;
 
-    while ( xo < xMax )
-    {
-        castRay( map, playerX, playerY, xo++, yo, radiusDouble, ligthWalls );
-    }
+	while (xo < xMax)
+	{
+		castRay(map, playerX, playerY, xo++, yo, radiusDouble, ligthWalls);
+	}
 
-    xo = xMax - 1;
+	xo = xMax - 1;
     yo = yMin + 1;
 
     while ( yo < yMax )
@@ -84,11 +84,11 @@ void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
 
     int offset = curX + map.width * curY;
 
-    if ( offset >= 0 && offset < map.nbcells )
-    {
-        in = true;
-        map.cells[ offset ].fov = true;
-    }
+	if (offset >= 0 && offset < map.cells.size())
+	{
+		in = true;
+		map.cells[offset].fov = true;
+	}
 
     while ( !end )
     {
@@ -106,17 +106,17 @@ void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
             }
         }
 
-        if ( offset >= 0 && offset < map.nbcells )
-        {
-            in = true;
+		if (offset >= 0 && offset < map.cells.size())
+		{
+			in = true;
 
-            if ( !blocked && !map.cells[ offset ].transparent )
-            {
-                blocked = true;
-            }
-            else if ( blocked )
-            {
-                return;
+			if (!blocked && !map.cells[offset].transparent)
+			{
+				blocked = true;
+			}
+			else if (blocked)
+			{
+				return;
             }
 
             if ( ligthWalls || !blocked )
@@ -143,37 +143,37 @@ void Doryen::CircularRaycasting::postProcessing( Doryen::Map &map, int x0,
 
             unsigned int offset = cx + map.width * cy;
 
-            if ( offset < map.nbcells && map.cells[ offset ].fov == 1
-                 && map.cells[ offset ].transparent )
-            {
-                if ( x2 >= x0 && x2 <= x1 )
-                {
-                    unsigned int offset2 = x2 + map.width * cy;
+			if (offset < map.cells.size() && map.cells[offset].fov == 1
+				&& map.cells[offset].transparent)
+			{
+				if (x2 >= x0 && x2 <= x1)
+				{
+					unsigned int offset2 = x2 + map.width * cy;
 
-                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
-                    {
-                        map.cells[ offset2 ].fov = true;
-                    }
+					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					{
+						map.cells[offset2].fov = true;
+					}
                 }
 
                 if ( y2 >= y0 && y2 <= y1 )
                 {
                     unsigned int offset2 = cx + map.width * y2;
 
-                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
-                    {
-                        map.cells[ offset2 ].fov = true;
-                    }
+					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					{
+						map.cells[offset2].fov = true;
+					}
                 }
 
                 if ( x2 >= x0 && x2 <= x1 && y2 >= y0 && y2 <= y1 )
                 {
                     unsigned int offset2 = x2 + map.width * y2;
 
-                    if ( offset2 < map.nbcells && !map.cells[ offset2 ].transparent )
-                    {
-                        map.cells[ offset2 ].fov = true;
-                    }
+					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					{
+						map.cells[offset2].fov = true;
+					}
                 }
             }
         }

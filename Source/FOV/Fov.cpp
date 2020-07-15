@@ -32,21 +32,19 @@
 #include <Doryen/FOV/ShadowCasting.hpp>
 #include <Doryen/FOV/Fov.hpp>
 
-
-#include "Doryen/libtcod.hpp"
 #include "Doryen/fov_types.h"
+
+#include <algorithm>
 
 Doryen::Map::Map()
 {
 	width = 0;
 	height = 0;
-	nbcells = 0;
-	cells = nullptr;
 }
 
 Doryen::Map::Map(int width, int height)
 {
-    if ( width < 0 || height < 0 )
+	if (width < 0 || height < 0)
     {
         // Throw Error
     }
@@ -54,20 +52,19 @@ Doryen::Map::Map(int width, int height)
     {
         this->width = width;
         this->height = height;
-        this->nbcells = width * height;
 
-        this->cells = new Doryen::Cell[nbcells]( );
+		this->cells.resize(width * height);
     }
 }
 
 void Doryen::Map::clear( bool transparent, bool walkable )
 {
-    for ( int i = 0; i < width * height; i++ )
-    {
-        cells[ i ].transparent = transparent;
-        cells[ i ].walkable = walkable;
-        cells[ i ].fov = false;
-    }
+	for (Cell& cell : cells)
+	{
+		cell.transparent = transparent;
+		cell.walkable = walkable;
+		cell.fov = false;
+	}
 }
 
 void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkable )
@@ -85,39 +82,12 @@ void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkab
 
 void Doryen::Map::copy( const Map &source )
 {
-    // Comparamos el tamaño del mapa original (this) con el
-    // objetivo (source), Si ambos tienen un tamaño similar
-    // (esto es, this->nbcells == source.nbcells), no hay necesidad
-    // de elimnar el mapa (this) para volver
-    // a reservar, simplemente sobreescribimos el mapa.
+	this->cells.clear();
 
-    // En caso de no ser igual el tamaño de los mapas, eliminamos,
-    // reservamos y sobreescribimos.
+	std::copy(source.cells.begin(), source.cells.end(), std::back_inserter(this->cells));
 
-    if ( this->nbcells != source.nbcells )
-    {
-        // Eliminamos el mapa.
-        delete[] this->cells;
-
-        // Reservamos una nueva lista de celdas del mismo tamaño que
-        // el source.
-        this->cells = new Doryen::Cell[source.nbcells]( );
-
-        // Copiamos las variables miembros del source.
-        this->nbcells = source.nbcells;
-        this->width = source.width;
-        this->height = source.height;
-    }
-
-    // Recordemos que en este punto, el tamaño de los mapas {this,
-    // como source} son iguales.
-    // Restamos 1 porque empezamos a contar desde 0.
-    for ( int i = 0; i <= nbcells - 1; i++ )
-    {
-        this->cells[ i ].transparent = source.cells[ i ].transparent;
-        this->cells[ i ].walkable = source.cells[ i ].walkable;
-        this->cells[ i ].fov = source.cells[ i ].fov;
-    }
+	this->width = source.width;
+	this->height = source.height;
 }
 
 void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
@@ -247,9 +217,4 @@ int Doryen::Map::getWidth( ) const
 int Doryen::Map::getHeight( ) const
 {
     return height;
-}
-
-Doryen::Map::~Map( )
-{
-    delete[] cells;
 }

@@ -5,9 +5,9 @@
 
 void Doryen::ShadowRayCasting::operator()(Doryen::Map& map, int playerX, int playerY, int maxRadius, bool ligthWalls)
 {
-	for (int i = 0; i <= map.nbcells - 1; ++i)
+	for (Cell& cell : map.cells)
 	{
-		map.cells[i].fov = false;
+		cell.fov = false;
 	}
 
 	if (maxRadius == 0)

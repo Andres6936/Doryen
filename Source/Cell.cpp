@@ -1,13 +1,6 @@
 #include "Doryen/Cell.hpp"
 
-Doryen::Cell::Cell( )
-{
-    transparent = false;
-    walkable = false;
-    fov = false;
-}
-
-Doryen::Cell::Cell( bool isTransparent, bool isWalkable, bool isFOV )
+Doryen::Cell::Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept
 {
     transparent = isTransparent;
     walkable = isWalkable;
