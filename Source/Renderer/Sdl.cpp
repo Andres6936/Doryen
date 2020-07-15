@@ -589,6 +589,79 @@ void Doryen::SDL::convertToGenericEvent(SDL_Event& event, Doryen::Key& key)
 		key.setKeyCode(KeyCode::DELETE);
 		break;
 
+	case SDLK_a:
+		key.setKeyCode(KeyCode::A);
+		break;
+	case SDLK_b:
+		key.setKeyCode(KeyCode::B);
+		break;
+	case SDLK_c:
+		key.setKeyCode(KeyCode::C);
+		break;
+	case SDLK_d:
+		key.setKeyCode(KeyCode::D);
+		break;
+	case SDLK_e:
+		key.setKeyCode(KeyCode::E);
+		break;
+	case SDLK_f:
+		key.setKeyCode(KeyCode::F);
+		break;
+	case SDLK_g:
+		key.setKeyCode(KeyCode::G);
+		break;
+	case SDLK_h:
+		key.setKeyCode(KeyCode::H);
+		break;
+	case SDLK_i:
+		key.setKeyCode(KeyCode::I);
+		break;
+	case SDLK_j:
+		key.setKeyCode(KeyCode::J);
+		break;
+	case SDLK_k:
+		key.setKeyCode(KeyCode::K);
+		break;
+	case SDLK_l:
+		key.setKeyCode(KeyCode::L);
+		break;
+	case SDLK_m:
+		key.setKeyCode(KeyCode::M);
+		break;
+	case SDLK_n:
+		key.setKeyCode(KeyCode::N);
+		break;
+	case SDLK_o:
+		key.setKeyCode(KeyCode::O);
+		break;
+	case SDLK_p:
+		key.setKeyCode(KeyCode::P);
+		break;
+	case SDLK_q:
+		key.setKeyCode(KeyCode::Q);
+		break;
+	case SDLK_r:
+		key.setKeyCode(KeyCode::R);
+		break;
+	case SDLK_s:
+		key.setKeyCode(KeyCode::S);
+		break;
+	case SDLK_t:
+		key.setKeyCode(KeyCode::T);
+		break;
+	case SDLK_w:
+		key.setKeyCode(KeyCode::W);
+		break;
+	case SDLK_x:
+		key.setKeyCode(KeyCode::X);
+		break;
+	case SDLK_y:
+		key.setKeyCode(KeyCode::Y);
+		break;
+	case SDLK_z:
+		key.setKeyCode(KeyCode::Z);
+		break;
+
 	case SDLK_0:
 		key.setKeyCode(KeyCode::K_0);
 		break;
