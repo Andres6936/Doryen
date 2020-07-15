@@ -17,7 +17,7 @@ namespace Functor
 
 	public:
 
-		Name(const std::string _name, std::reference_wrapper<Console> _console);
+		Name(const std::string _name, Console& _console);
 
 		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 

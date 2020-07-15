@@ -27,15 +27,15 @@ namespace Functor
 		 * since the changes made in an example will be correctly rendered
 		 * once it is drawn in the main method.
 		 */
-		std::reference_wrapper<Console> sample;
+		Console& sample;
 
 	public:
 
 		// Construct
 
-		ISample(const std::string& _name, std::reference_wrapper<Console> _console) : name(_name), sample(_console)
+		ISample(const std::string& _name, Console& _console) : name(_name), sample(_console)
 		{
-			sample.get().setFramePerSeconds(30);
+			sample.setFramePerSeconds(30);
 		};
 
 		// Methods Virtual

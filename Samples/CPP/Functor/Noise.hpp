@@ -16,7 +16,7 @@ namespace Functor
 
 	public:
 
-		Noise(const std::string _name, std::reference_wrapper<Console> _console);
+		Noise(const std::string _name, Console& _console);
 
 		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 

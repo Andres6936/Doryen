@@ -16,7 +16,7 @@ namespace Functor
 
 	public:
 
-		BSP(const std::string _name, std::reference_wrapper<Console> _console);
+		BSP(const std::string _name, Console& _console);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 

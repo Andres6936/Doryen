@@ -7,17 +7,17 @@
 
 using namespace Doryen;
 
-Functor::Path::Path(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
+Functor::Path::Path(std::string _name, Console& _console) : ISample(_name, _console)
 {
 	prepareInstanceOfMap();
 }
 
 void Functor::Path::prepareInstanceOfMap()
 {
-	const std::uint16_t width = sample.get().getWidth();
-	const std::uint16_t height = sample.get().getHeight();
+	const std::uint16_t width = sample.getWidth();
+	const std::uint16_t height = sample.getHeight();
 
-	map = {width, height};
+	map = { width, height };
 
 	// See documentation of the variable dungeon for see how
 	// get the size of dungeon {width and height}.
@@ -61,16 +61,16 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.get().setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(x, y, DARK_WALL, Doryen::BackgroundFlag::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
 				// The character 205 represent a double wall
-				sample.get().putChar(x, y, 205, Doryen::BackgroundFlag::NONE);
+				sample.putChar(x, y, 205, Doryen::BackgroundFlag::NONE);
 			}
 			else
 			{
-				sample.get().setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(x, y, DARK_GROUND, Doryen::BackgroundFlag::SET);
 			}
 		}
 	}
@@ -120,19 +120,19 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		busy = 0.2f;
 	}
 
-	sample.get().clear();
+	sample.clear();
 
 	drawDungeon();
 
-	sample.get().setDefaultForeground(Doryen::Color::white);
+	sample.setDefaultForeground(Doryen::Color::white);
 
-	sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
-	sample.get().putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 
-	sample.get().print(1, 1, "IJKL / mouse :");
-	sample.get().print(1, 2, "move destination");
-	sample.get().print(1, 3, "TAB : A*/dijkstra");
-	sample.get().print(1, 4, "Using : A*");
+	sample.print(1, 1, "IJKL / mouse :");
+	sample.print(1, 2, "move destination");
+	sample.print(1, 3, "TAB : A*/dijkstra");
+	sample.print(1, 4, "Using : A*");
 
 	// draw the path
 	if (usingAstar && AStar.findPath())
@@ -145,7 +145,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar.getPoint2DAt(i);
 
-				sample.get().setCharBackground(point.x, point.y, LIGHT_GROUND, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(point.x, point.y, LIGHT_GROUND, Doryen::BackgroundFlag::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{
@@ -163,7 +163,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 //                if ( !wall )
 //                {
 //                    float d = dijkstra->getDistance( x, y );
-//                    sample.get().setCharBackground( x, y, Doryen::Color::lerp( lightGround, darkGround,
+//                    sample.setCharBackground( x, y, Doryen::Color::lerp( lightGround, darkGround,
 //                                                                                0.9f * d / dijkstraDist ),
 //                                                     TCOD_BKGND_SET );
 //                }
@@ -174,12 +174,12 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 //        {
 //            int x, y;
 //            dijkstra->get( i, &x, &y );
-//            sample.get().setCharBackground( x, y, lightGround, TCOD_BKGND_SET );
+//            sample.setCharBackground( x, y, lightGround, TCOD_BKGND_SET );
 //        }
 	}
 
 	// move the creature
-	busy -= sample.get().getLastFrameLength();
+	busy -= sample.getLastFrameLength();
 
 	if (busy <= 0.0f)
 	{
@@ -188,7 +188,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 			if (!AStar.isEmpty())
 			{
-				sample.get().putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+				sample.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
 
 				try
 				{
@@ -197,7 +197,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 					playerX = point.x;
 					playerY = point.y;
 
-					sample.get().putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+					sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 				}
 				catch (Doryen::Exceptions::IllegalMethodCall& e)
 				{
@@ -209,9 +209,9 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 //            if ( !dijkstra->isEmpty( ))
 //            {
-//                sample.get().putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
+//                sample.putChar( playerX, playerY, ' ', TCOD_BKGND_NONE );
 //                dijkstra->walk( &playerX, &playerY );
-//                sample.get().putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
+//                sample.putChar( playerX, playerY, '@', TCOD_BKGND_NONE );
 //                recalculatePath = true;
 //            }
 		}
@@ -222,28 +222,28 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 //        // destination move north
 //        destinationY--;
 //		recalculatePath = true;
-//		sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 //    }
 //    else if (( key->c == 'K' || key->c == 'k' ) && destinationY < SAMPLE_SCREEN_HEIGHT - 1 )
 //    {
 //        // destination move south
 //        destinationY++;
 //		recalculatePath = true;
-//		sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 //    }
 //    else if (( key->c == 'J' || key->c == 'j' ) && destinationX > 0 )
 //    {
 //        // destination move west
 //        destinationX--;
 //		recalculatePath = true;
-//		sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 //    }
 //    else if (( key->c == 'L' || key->c == 'l' ) && destinationX < SAMPLE_SCREEN_WIDTH - 1 )
 //    {
 //        // destination move east
 //        destinationX++;
 //		recalculatePath = true;
-//		sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+//		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 //    }
 	if (key == KeyCode::TAB)
 	{
@@ -251,11 +251,11 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 
 		if (usingAstar)
 		{
-			sample.get().print(1, 4, "Using : A*      ");
+			sample.print(1, 4, "Using : A*      ");
 		}
 		else
 		{
-			sample.get().print(1, 4, "Using : Dijkstra");
+			sample.print(1, 4, "Using : Dijkstra");
 		}
 
 		recalculatePath = true;
@@ -269,13 +269,13 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	mouseX = mouse.getPositionCellX() - SAMPLE_SCREEN_X;
 	mouseY = mouse.getPositionCellY() - SAMPLE_SCREEN_Y;
 
-	if (mouseX >= 0 && mouseX < sample.get().getWidth() && mouseY >= 0 && mouseY < sample.get().getHeight() &&
+	if (mouseX >= 0 && mouseX < sample.getWidth() && mouseY >= 0 && mouseY < sample.getHeight() &&
 		(destinationX != mouseX || destinationY != mouseY))
 	{
 		destinationX = mouseX;
 		destinationY = mouseY;
 
 		recalculatePath = true;
-		sample.get().putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 	}
 }

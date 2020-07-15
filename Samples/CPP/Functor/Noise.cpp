@@ -36,20 +36,20 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	if (!noise)
 	{
 		noise = new TCODNoise(2, hurst, lacunarity);
-		img = new Doryen::Image(sample.get().getWidth() * 2, sample.get().getHeight() * 2);
+		img = new Doryen::Image(sample.getWidth() * 2, sample.getHeight() * 2);
 	}
 
 	// texture animation
 	dx += 0.01f;
 	dy += 0.01f;
 	// render the 2d noise function
-	for (int y = 0; y < 2 * sample.get().getHeight(); y++)
+	for (int y = 0; y < 2 * sample.getHeight(); y++)
 	{
-		for (int x = 0; x < 2 * sample.get().getWidth(); x++)
+		for (int x = 0; x < 2 * sample.getWidth(); x++)
 		{
 			float f[2];
-			f[0] = zoom * x / (2 * sample.get().getWidth()) + dx;
-			f[1] = zoom * y / (2 * sample.get().getHeight()) + dy;
+			f[0] = zoom * x / (2 * sample.getWidth()) + dx;
+			f[1] = zoom * y / (2 * sample.getHeight()) + dy;
 			float value = 0.0f;
 			switch (func)
 			{
@@ -90,15 +90,15 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	// blit the noise image on the console with subcell resolution
 	img->blit2x(sample, 0, 0);
 	// draw a transparent rectangle
-	sample.get().setDefaultBackground(Doryen::Color::grey);
-	sample.get().rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
+	sample.setDefaultBackground(Doryen::Color::grey);
+	sample.rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
 	for (int y = 2; y < 2 + (func <= WAVELET ? 10 : 13); y++)
 	{
 		for (int x = 2; x < 2 + 23; x++)
 		{
-			Doryen::Color col = sample.get().getCharForeground(x, y);
+			Doryen::Color col = sample.getCharForeground(x, y);
 			col = col * Doryen::Color::grey;
-			sample.get().setCharForeground(x, y, col);
+			sample.setCharForeground(x, y, col);
 		}
 	}
 
@@ -107,24 +107,24 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	{
 		if (curfunc == func)
 		{
-			sample.get().setDefaultForeground(Doryen::Color::white);
-			sample.get().setDefaultBackground(Doryen::Color::lightBlue);
-			sample.get().printEx(2, 2 + curfunc, TCOD_BKGND_SET, TCOD_LEFT, funcName[curfunc]);
+			sample.setDefaultForeground(Doryen::Color::white);
+			sample.setDefaultBackground(Doryen::Color::lightBlue);
+			sample.printEx(2, 2 + curfunc, TCOD_BKGND_SET, TCOD_LEFT, funcName[curfunc]);
 		}
 		else
 		{
-			sample.get().setDefaultForeground(Doryen::Color::grey);
-			sample.get().print(2, 2 + curfunc, funcName[curfunc]);
+			sample.setDefaultForeground(Doryen::Color::grey);
+			sample.print(2, 2 + curfunc, funcName[curfunc]);
 		}
 	}
 	// draw parameters
-	sample.get().setDefaultForeground(Doryen::Color::white);
-	sample.get().print(2, 11, format("Y/H : zoom {2.1f}", zoom));
+	sample.setDefaultForeground(Doryen::Color::white);
+	sample.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
 	if (func > WAVELET)
 	{
-		sample.get().print(2, 12, format("E/D : hurst {2.1f}", hurst));
-		sample.get().print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
-		sample.get().print(2, 14, format("T/G : octaves {2.1f}", octaves));
+		sample.print(2, 12, format("E/D : hurst {2.1f}", hurst));
+		sample.print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
+		sample.print(2, 14, format("T/G : octaves {2.1f}", octaves));
 	}
 	// handle keypress
 	if (key == KeyCode::NONE) return;
@@ -184,7 +184,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 //    }
 }
 
-Functor::Noise::Noise(std::string _name, std::reference_wrapper<Console> _console) : ISample(_name, _console)
+Functor::Noise::Noise(std::string _name, Console& _console) : ISample(_name, _console)
 {
 
 }
