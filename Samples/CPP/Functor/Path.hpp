@@ -80,6 +80,8 @@ namespace Functor
 
 		void drawDungeon();
 
+		void drawDestinationPoint();
+
 		/**
 		 * Get the event generate for the user and determine if
 		 * the user wanna move the coordinate of destination, if

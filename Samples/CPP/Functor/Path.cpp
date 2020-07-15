@@ -123,6 +123,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	sample.clear();
 
 	drawDungeon();
+	drawDestinationPoint();
 
 	sample.setDefaultForeground(Doryen::Color::white);
 
@@ -260,30 +261,31 @@ bool Functor::Path::moveDestination(KeyCode key)
 	{
 		// destination move north
 		destinationY--;
-		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 		return true;
 	}
 	else if (key == KeyCode::S && destinationY < sample.getHeight() - 1)
 	{
 		// destination move south
 		destinationY++;
-		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 		return true;
 	}
 	else if (key == KeyCode::A && destinationX > 0)
 	{
 		// destination move west
 		destinationX--;
-		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 		return true;
 	}
 	else if (key == KeyCode::D && destinationX < sample.getWidth() - 1)
 	{
 		// destination move east
 		destinationX++;
-		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 		return true;
 	}
 
 	return false;
+}
+
+void Functor::Path::drawDestinationPoint()
+{
+	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 }
