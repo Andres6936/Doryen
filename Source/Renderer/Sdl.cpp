@@ -56,8 +56,26 @@ float Doryen::SDL::getElapsedSeconds() const
 	return SDL_GetTicks() * 1.0f / 1000.0f;
 }
 
-int isMouseEvent(const SDL_Event* event)
+/**
+ * Function private to file.
+ *
+ * If the filter returns 1, then the event will be added to the internal queue.
+ * If it returns 0, then the event will be dropped from the queue. This allows
+ * selective filtering of dynamically.
+ *
+ * @note Events pushed onto the queue with SDL_PushEvent or SDL_PeepEvents do
+ *  not get passed through the event filter.
+ *
+ * @param event Events generate for the user (generally, the press an key in
+ *  the keyboard or mouse).
+ *
+ * @return True (1) for all event different of motion mouse.
+ */
+int filterMovementMouse(const SDL_Event* event)
 {
+	// We wanna filter all the movement mouse events
+	// and dropped (deleted) from the queue for that its
+	// wont be process and avoid that block the rest events.
 	if (event->type == SDL_MOUSEMOTION)
 	{
 		return 0;
@@ -177,7 +195,7 @@ void Doryen::SDL::onRenderer()
 		// sequentially if not immediately, for it, is
 		// needed filter the events and allow only events
 		// that NOT ARE ABOVE MOVEMENT MOUSE.
-		SDL_SetEventFilter(isMouseEvent);
+		SDL_SetEventFilter(filterMovementMouse);
 	}
 }
 
