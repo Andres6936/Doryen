@@ -84,9 +84,6 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	static bool recalculatePath = false;
 	static float busy;
 
-	int mouseX = 0;
-	int mouseY = 0;
-
 	if (recalculatePath)
 	{
 		if (usingAStar)
@@ -126,7 +123,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	drawPlayer();
 
 	// draw the path
-	if (usingAStar && AStar.findPath())
+	if (usingAStar and AStar.findPath())
 	{
 		Geometry::Point2D point;
 
@@ -175,7 +172,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	if (busy <= 0.0f)
 	{
 		busy = 0.2f;
-		if (usingAStar && AStar.findPath())
+		if (usingAStar and AStar.findPath())
 		{
 			if (!AStar.isEmpty())
 			{
@@ -216,41 +213,44 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 	constexpr short SAMPLE_SCREEN_X = 20;
 	constexpr short SAMPLE_SCREEN_Y = 10;
 
-	mouseX = mouse.getPositionCellX() - SAMPLE_SCREEN_X;
-	mouseY = mouse.getPositionCellY() - SAMPLE_SCREEN_Y;
-
-	if (mouseX >= 0 && mouseX < sample.getWidth() && mouseY >= 0 && mouseY < sample.getHeight() &&
-		(destinationX != mouseX || destinationY != mouseY))
+	if (mouse.isPressedLeftButton())
 	{
-		destinationX = mouseX;
-		destinationY = mouseY;
+		const int MOUSE_X = mouse.getPositionCellX() - SAMPLE_SCREEN_X;
+		const int MOUSE_Y = mouse.getPositionCellY() - SAMPLE_SCREEN_Y;
 
-		recalculatePath = true;
-		sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		if (MOUSE_X >= 0 and MOUSE_X < sample.getWidth() and
+			MOUSE_Y >= 0 and MOUSE_Y < sample.getHeight())
+		{
+			destinationX = MOUSE_X;
+			destinationY = MOUSE_Y;
+
+			recalculatePath = true;
+			sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+		}
 	}
 }
 
 bool Functor::Path::moveDestination(KeyCode key)
 {
-	if (key == KeyCode::W && destinationY > 0)
+	if (key == KeyCode::W and destinationY > 0)
 	{
 		// destination move north
 		destinationY--;
 		return true;
 	}
-	else if (key == KeyCode::S && destinationY < sample.getHeight() - 1)
+	else if (key == KeyCode::S and destinationY < sample.getHeight() - 1)
 	{
 		// destination move south
 		destinationY++;
 		return true;
 	}
-	else if (key == KeyCode::A && destinationX > 0)
+	else if (key == KeyCode::A and destinationX > 0)
 	{
 		// destination move west
 		destinationX--;
 		return true;
 	}
-	else if (key == KeyCode::D && destinationX < sample.getWidth() - 1)
+	else if (key == KeyCode::D and destinationX < sample.getWidth() - 1)
 	{
 		// destination move east
 		destinationX++;
