@@ -24,22 +24,6 @@ namespace Doryen
 		int y = 0;
 
 		/**
-		 * The movement relative of mouse in the coordinate in X
-		 * from the last event processed and send to user.
-		 *
-		 * @note Set to 0 each time that the events are processed.
-		 */
-		int movementRelativeX = 0;
-
-		/**
-		 * The movement relative of mouse in the coordinate in Y
-		 * from the last event processed and send to user.
-		 *
-		 * @note Set to 0 each time that the events are processed.
-		 */
-		int movementRelativeY = 0;
-
-		/**
 		 * Position in the cell relative to coordiante X of
 		 * main console (root).
 		 */
@@ -64,10 +48,6 @@ namespace Doryen
 
 		// Methods
 
-		void addDx(int _dx);
-
-		void addDy(int _dy);
-
 		bool isPressedLeftButton() const;
 
 		bool isPressedRightButton() const;
@@ -80,17 +60,9 @@ namespace Doryen
 
 		int getY() const;
 
-		int getMovementRelativeX() const;
-
-		int getMovementRelativeY() const;
-
 		int getPositionCellX() const;
 
 		int getPositionCellY() const;
-
-		int getDcx() const;
-
-		int getDcy() const;
 
 		MouseCode getStatus() const;
 
@@ -100,17 +72,9 @@ namespace Doryen
 
 		void setY(int _y);
 
-		void setMovementRelativeX(int _dx);
-
-		void setMovementRelativeY(int _dy);
-
 		void setPositionCellX(int _cx);
 
 		void setPositionCellY(int _cy);
-
-		void setDcx(int _dcx);
-
-		void setDcy(int _dcy);
 
 		void setStatus(MouseCode _status);
 

@@ -56,6 +56,18 @@ float Doryen::SDL::getElapsedSeconds() const
 	return SDL_GetTicks() * 1.0f / 1000.0f;
 }
 
+int isMouseEvent(const SDL_Event* event)
+{
+	if (event->type == SDL_MOUSEMOTION)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
 void Doryen::SDL::onRenderer()
 {
 	if (hasInstanceActive)
@@ -136,6 +148,36 @@ void Doryen::SDL::onRenderer()
 		SDL_EnableUNICODE(1);
 
 		hasInstanceActive = true;
+
+		// An problem with the support to event
+		// generate for the mouse, is that SDL
+		// have the option of process the events
+		// of two ways, the first is added the
+		// event generate in a queue and the second
+		// is get the last event generate.
+
+		// Actually the second of process the event
+		// is used for Doryen and is that in the past
+		// Libtcod used the first way of process event
+		// but this have the problem that the events
+		// generate in an frame concrete not was all
+		// process at same time, and if this events
+		// are much, the event can will process inside
+		// of 15 or more frames later.
+
+		// This change produce that the movement
+		// relatives of mouse cannot be get, but
+		// in other case, the event generate for the
+		// mouse and keyboard can be get with a flow
+		// const without affect the one to other.
+
+		// The events generate for the movement mouse
+		// are too many and can be fill the queue of only
+		// events that not necessary will be process
+		// sequentially if not immediately, for it, is
+		// needed filter the events and allow only events
+		// that NOT ARE ABOVE MOVEMENT MOUSE.
+		SDL_SetEventFilter(isMouseEvent);
 	}
 }
 
@@ -1173,46 +1215,35 @@ void Doryen::SDL::updateMouseEvents()
 	// exist events that should be reset, like the
 	// movement made for the user.
 
-	// Set the movement of mouse to 0 (zero).
-	mouse.setMovementRelativeX(0);
-	mouse.setMovementRelativeY(0);
+	int coordinateX = 0;
+	int coordinateY = 0;
 
-	if (not eventPending) return;
+	char buttonPressed = SDL_GetMouseState(&coordinateX, &coordinateY);
 
-	if (event.type == SDL_MOUSEMOTION)
+	mouse.setX(coordinateX);
+	mouse.setY(coordinateY);
+
+	const int CHART_WIDTH = getFontWidth();
+	const int CHART_HEIGHT = getFontHeigth();
+
+	mouse.setPositionCellX(mouse.getX() / CHART_WIDTH);
+	mouse.setPositionCellY(mouse.getY() / CHART_HEIGHT);
+
+	if (buttonPressed)
 	{
-		SDL_MouseMotionEvent* mme = &event.motion;
-
-		mouse.addDx(mme->xrel);
-		mouse.addDy(mme->yrel);
-		mouse.setX(mme->x);
-		mouse.setY(mme->y);
-
-		const int charWidth = getFontWidth();
-		const int charHeight = getFontHeigth();
-
-		mouse.setPositionCellX(mouse.getX() / charWidth);
-		mouse.setPositionCellY(mouse.getY() / charHeight);
-		mouse.setDcx(mouse.getMovementRelativeX() / charWidth);
-		mouse.setDcy(mouse.getMovementRelativeY() / charHeight);
-	}
-	else if (event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		SDL_MouseButtonEvent* mev = &event.button;
-
-		switch (mev->button)
+		if (SDL_BUTTON(SDL_BUTTON_LEFT))
 		{
-		case SDL_BUTTON_LEFT :
 			mouse.setStatus(MouseCode::LEFT);
-			break;
+		}
 
-		case SDL_BUTTON_MIDDLE :
+		if (SDL_BUTTON(SDL_BUTTON_MIDDLE))
+		{
 			mouse.setStatus(MouseCode::MIDDLE);
-			break;
+		}
 
-		case SDL_BUTTON_RIGHT :
+		if (SDL_BUTTON(SDL_BUTTON_RIGHT))
+		{
 			mouse.setStatus(MouseCode::RIGHT);
-			break;
 		}
 	}
 }

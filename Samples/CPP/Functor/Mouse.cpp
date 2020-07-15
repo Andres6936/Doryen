@@ -40,9 +40,6 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 	sample.get().print(1, 2,
 			format("Mouse cell     : {4d}x{4d}", mouse.getPositionCellX(), mouse.getPositionCellY()));
 
-	sample.get().print(1, 3,
-			format("Mouse movement : {4d}x{4d}", mouse.getMovementRelativeX(), mouse.getMovementRelativeY()));
-
 	sample.get().print(1, 4,
 			format("Left button    : {} (toggle {})",
 					mouse.isPressedLeftButton() ? " ON" : "OFF", lbut ? " ON" : "OFF"));
