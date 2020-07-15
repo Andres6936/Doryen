@@ -15,12 +15,12 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 
 	static bool first = true;
 
+	drawBackground();
+
 	if (first)
 	{
 		first = false;
 
-		sample.setDefaultBackground(Doryen::Color::grey);
-		sample.setDefaultForeground(Doryen::Color::lightYellow);
 		TCODMouse::move(320, 200);
 		TCODMouse::showCursor(true);
 	}
@@ -58,4 +58,10 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 //	{ TCODMouse::showCursor(false); }
 //	else if (key->c == '2')
 //	{ TCODMouse::showCursor(true); }
+}
+
+void Functor::Mouse::drawBackground() const
+{
+	sample.setDefaultBackground(Color::grey);
+	sample.setDefaultForeground(Color::lightYellow);
 }

@@ -15,6 +15,10 @@ namespace Functor
 	class Mouse : public ISample
 	{
 
+	private:
+
+		void drawBackground() const;
+
 	public:
 
 		Mouse(const std::string _name, Console& _console);
