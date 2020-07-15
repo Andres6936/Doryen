@@ -15,7 +15,6 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 
 	drawBackground();
 
-	sample.clear();
 	if (mouse.isPressedLeftButton())
 	{ lbut = !lbut; }
 	if (mouse.isPressedRightButton())
@@ -54,6 +53,8 @@ void Functor::Mouse::drawBackground() const
 {
 	sample.setDefaultBackground(Color::grey);
 	sample.setDefaultForeground(Color::lightYellow);
+
+	sample.clear();
 
 	if (showCursor) sample.showCursor(true);
 }
