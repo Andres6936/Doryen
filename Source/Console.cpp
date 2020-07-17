@@ -27,6 +27,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <iostream>
 
 #include "Doryen/Console.hpp"
 #include "Doryen/libtcod.hpp"
@@ -946,16 +947,40 @@ std::vector<std::string> getAllWords(std::string&& _text)
 	{
 		words.emplace_back(_text.substr(0, position));
 		// Deleted the word add to list more the delimiter (for it sum 1)
-		words.erase(words.begin(), words.begin() + position + 1);
+		_text.erase(0, position + 1);
 	}
 
 	return words;
 }
 
-std::vector<std::string> wrapText(std::string_view _text)
+std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LINE_WIDTH)
 {
 	// Pass a copy for parameters
 	const std::vector<std::string> words = getAllWords(std::string{ _text });
+
+	std::vector<std::string> wrapText{ 1 };
+
+	// First iteration
+	std::uint16_t spaceLeft = LINE_WIDTH;
+	std::uint16_t currentIndex = 0;
+
+	for (const std::string& word : words)
+	{
+		if (word.size() + 1 > spaceLeft)
+		{
+			// Insert a new line
+			wrapText.emplace_back(word + " ");
+			currentIndex += 1;
+			spaceLeft = LINE_WIDTH - word.size() + 1;
+		}
+		else
+		{
+			spaceLeft = spaceLeft - word.size() + 1;
+			wrapText[currentIndex] += word + " ";
+		}
+	}
+
+	return wrapText;
 }
 
 void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
@@ -964,6 +989,12 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 	if (text.size() > size.w)
 	{
 		// Wrap the text
+		const std::vector<std::string> lineTexts = wrapText(text, size.w);
+
+		for (const std::string& text : lineTexts)
+		{
+			std::cout << text << "\n";
+		}
 	}
 	else
 	{

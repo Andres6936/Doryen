@@ -27,6 +27,10 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 		sample.printRectEx(sample.getWidth() / 2, 3, sample.getWidth(), 0, TCOD_BKGND_NONE,
 				TCOD_CENTER,
 				"The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.");
+
+		const std::string text = "The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.";
+
+		sample.writeText({ (int)sample.getWidth() / 2, 3 }, { (int)sample.getWidth(), 0 }, BackgroundFlag::SET, text);
 	}
 	if (key == KeyCode::TAB)
 	{
