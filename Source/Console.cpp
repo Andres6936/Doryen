@@ -931,6 +931,24 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
 	return 1;
 }
 
+std::vector<std::string> processEspecialCharacters(std::string_view _text)
+{
+	std::vector<std::string> textFormatted;
+
+	std::size_t lastCharacterProcessed = 0;
+	std::size_t positionCharacterNewLine = _text.find('\n');
+
+	while (positionCharacterNewLine not_eq std::string::npos)
+	{
+		textFormatted.emplace_back(_text.substr(lastCharacterProcessed, positionCharacterNewLine));
+		// Skip the especial character (example: new line)
+		lastCharacterProcessed = positionCharacterNewLine + 1;
+		positionCharacterNewLine = _text.find('\n', lastCharacterProcessed);
+	}
+
+	return textFormatted;
+}
+
 /**
  * @param _text Reference to text (Warning, the parameter
  *  is modified in the function, pass for copy if no wanna
@@ -940,12 +958,14 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
  */
 std::vector<std::string> getAllWords(std::string&& _text)
 {
+	std::vector<std::string> textProcessed = processEspecialCharacters(_text);
+
 	std::vector<std::string> words;
 
 	std::size_t positionWhitespace;
 
 	// The delimiter for word is a whitespace (Length of 1)
-	while ((positionWhitespace = _text.find(std::string{ " " })) not_eq std::string::npos)
+	while ((positionWhitespace = _text.find(' ')) not_eq std::string::npos)
 	{
 		words.emplace_back(_text.substr(0, positionWhitespace));
 		// Deleted the word add to list more the delimiter (for it sum 1)
