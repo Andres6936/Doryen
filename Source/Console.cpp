@@ -942,12 +942,14 @@ std::vector<std::string> getAllWords(std::string&& _text)
 {
 	std::vector<std::string> words;
 
+	std::size_t positionWhitespace;
+
 	// The delimiter for word is a whitespace (Length of 1)
-	while (std::size_t position = _text.find(' ') not_eq std::string::npos)
+	while ((positionWhitespace = _text.find(std::string{ " " })) not_eq std::string::npos)
 	{
-		words.emplace_back(_text.substr(0, position));
+		words.emplace_back(_text.substr(0, positionWhitespace));
 		// Deleted the word add to list more the delimiter (for it sum 1)
-		_text.erase(0, position + 1);
+		_text.erase(0, positionWhitespace + 1);
 	}
 
 	return words;
@@ -991,9 +993,9 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 		// Wrap the text
 		const std::vector<std::string> lineTexts = wrapText(text, size.w);
 
-		for (const std::string& text : lineTexts)
+		for (const std::string& _text : lineTexts)
 		{
-			std::cout << text << "\n";
+			std::cout << _text << "\n";
 		}
 	}
 	else
