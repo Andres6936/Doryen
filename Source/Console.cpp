@@ -993,9 +993,12 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 		// Wrap the text
 		const std::vector<std::string> lineTexts = wrapText(text, size.w);
 
+		std::uint16_t currentY = coordinate.y;
+
 		for (const std::string& _text : lineTexts)
 		{
-			std::cout << _text << "\n";
+			print(coordinate.x, currentY, _text);
+			currentY += 1;
 		}
 	}
 	else
