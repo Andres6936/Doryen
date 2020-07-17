@@ -973,11 +973,11 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 			// Insert a new line
 			wrapText.emplace_back(word + " ");
 			currentIndex += 1;
-			spaceLeft = LINE_WIDTH - word.size() + 1;
+			spaceLeft = LINE_WIDTH - (word.size() + 1);
 		}
 		else
 		{
-			spaceLeft = spaceLeft - word.size() + 1;
+			spaceLeft = spaceLeft - (word.size() + 1);
 			wrapText[currentIndex] += word + " ";
 		}
 	}
