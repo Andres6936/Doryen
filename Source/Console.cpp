@@ -32,6 +32,8 @@
 #include "Doryen/libtcod.hpp"
 #include "Doryen/libtcod_int.h"
 
+using namespace Doryen;
+
 // Static Members
 
 Doryen::Renderer* Doryen::Console::renderer = new SDL();
@@ -926,6 +928,47 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
 //	return ret;
 
 	return 1;
+}
+
+/**
+ * @param _text Reference to text (Warning, the parameter
+ *  is modified in the function, pass for copy if no wanna
+ *  that the information will be destroyed).
+ *
+ * @return List with all the word content in the text.
+ */
+std::vector<std::string> getAllWords(std::string&& _text)
+{
+	std::vector<std::string> words;
+
+	// The delimiter for word is a whitespace (Length of 1)
+	while (std::size_t position = _text.find(' ') not_eq std::string::npos)
+	{
+		words.emplace_back(_text.substr(0, position));
+		// Deleted the word add to list more the delimiter (for it sum 1)
+		words.erase(words.begin(), words.begin() + position + 1);
+	}
+
+	return words;
+}
+
+std::vector<std::string> wrapText(std::string_view _text)
+{
+	// Pass a copy for parameters
+	const std::vector<std::string> words = getAllWords(std::string{ _text });
+}
+
+void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
+		const Size& size, BackgroundFlag flag, std::string_view text)
+{
+	if (text.size() > size.w)
+	{
+		// Wrap the text
+	}
+	else
+	{
+		print(coordinate.x, coordinate.y, text.data());
+	}
 }
 
 int Doryen::Console::getHeightRect(int x, int y, int w, int h, const char* fmt, ...)
