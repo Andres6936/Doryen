@@ -931,7 +931,7 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
 	return 1;
 }
 
-std::vector<std::string> processEspecialCharacters(std::string_view _text)
+std::vector<std::string> processEspecialCharacters(std::string&& _text)
 {
 	std::vector<std::string> textFormatted;
 
@@ -940,7 +940,14 @@ std::vector<std::string> processEspecialCharacters(std::string_view _text)
 
 	while (positionCharacterNewLine not_eq std::string::npos)
 	{
-		textFormatted.emplace_back(_text.substr(lastCharacterProcessed, positionCharacterNewLine));
+		std::string line = _text.substr(lastCharacterProcessed, positionCharacterNewLine);
+
+		if (line[0] == '\n')
+		{
+			textFormatted.emplace_back("");
+		}
+
+		textFormatted.emplace_back(line);
 		// Skip the especial character (example: new line)
 		lastCharacterProcessed = positionCharacterNewLine + 1;
 		positionCharacterNewLine = _text.find('\n', lastCharacterProcessed);
@@ -958,7 +965,7 @@ std::vector<std::string> processEspecialCharacters(std::string_view _text)
  */
 std::vector<std::string> getAllWords(std::string&& _text)
 {
-	std::vector<std::string> textProcessed = processEspecialCharacters(_text);
+	std::vector<std::string> textProcessed = processEspecialCharacters(std::move(_text));
 
 	std::vector<std::string> words;
 
