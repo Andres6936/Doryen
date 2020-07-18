@@ -931,6 +931,26 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
 	return 1;
 }
 
+std::vector<std::string> processCharacterNewLine(std::vector<std::string>&& _lines)
+{
+	std::vector<std::string> textFormatted;
+
+	for (const std::string& line: _lines)
+	{
+		if (line[0] == '\n')
+		{
+			textFormatted.emplace_back("");
+			textFormatted.emplace_back(line.substr(1));
+		}
+		else
+		{
+			textFormatted.emplace_back(line);
+		}
+	}
+
+	return textFormatted;
+}
+
 std::vector<std::string> processEspecialCharacters(std::string&& _text)
 {
 	std::vector<std::string> lines;
@@ -949,7 +969,7 @@ std::vector<std::string> processEspecialCharacters(std::string&& _text)
 
 	lines.emplace_back(_text.substr(lastCharacterProcessed));
 
-	return lines;
+	return processCharacterNewLine(std::move(lines));
 }
 
 /**
