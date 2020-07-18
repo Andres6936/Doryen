@@ -1025,7 +1025,7 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 {
 	std::vector<std::string> textProcessed = processEspecialCharacters(std::string{ _text });
 
-	auto paragraphs = getAllWordsParagraph(std::move(textProcessed));
+	std::vector<std::vector<std::string>> paragraphs = getAllWordsParagraph(std::move(textProcessed));
 
 	// Pass a copy for parameters
 	const std::vector<std::string> words = getAllWords(std::string{ _text });
