@@ -981,8 +981,6 @@ std::vector<std::string> processEspecialCharacters(std::string&& _text)
  */
 std::vector<std::string> getAllWords(std::string&& _text)
 {
-	std::vector<std::string> textProcessed = processEspecialCharacters(std::move(_text));
-
 	std::vector<std::string> words;
 
 	std::size_t positionWhitespace;
@@ -998,8 +996,34 @@ std::vector<std::string> getAllWords(std::string&& _text)
 	return words;
 }
 
+std::vector<std::vector<std::string>> getAllWordsParagraph(std::vector<std::string>&& _lines)
+{
+	std::vector<std::vector<std::string>> paragraphs;
+
+	std::vector<std::string> mergeLine;
+
+	for (std::string& line : _lines)
+	{
+		if (line.empty())
+		{
+			paragraphs.emplace_back(mergeLine);
+		}
+		else
+		{
+			std::vector<std::string> words = getAllWords(std::move(line));
+			std::copy(words.begin(), words.end(), std::back_inserter(mergeLine));
+		}
+	}
+
+	return paragraphs;
+}
+
 std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LINE_WIDTH)
 {
+	std::vector<std::string> textProcessed = processEspecialCharacters(std::string{ _text });
+
+	auto paragraphs = getAllWordsParagraph(std::move(textProcessed));
+
 	// Pass a copy for parameters
 	const std::vector<std::string> words = getAllWords(std::string{ _text });
 
