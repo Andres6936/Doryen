@@ -1007,6 +1007,7 @@ std::vector<std::vector<std::string>> getAllWordsParagraph(std::vector<std::stri
 		if (line.empty())
 		{
 			paragraphs.emplace_back(mergeLine);
+			mergeLine.clear();
 		}
 		else
 		{
@@ -1014,6 +1015,8 @@ std::vector<std::vector<std::string>> getAllWordsParagraph(std::vector<std::stri
 			std::copy(words.begin(), words.end(), std::back_inserter(mergeLine));
 		}
 	}
+
+	paragraphs.emplace_back(mergeLine);
 
 	return paragraphs;
 }
