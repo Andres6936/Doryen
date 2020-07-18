@@ -960,7 +960,7 @@ std::vector<std::string> processEspecialCharacters(std::string&& _text)
 
 	while (positionCharacterNewLine not_eq std::string::npos)
 	{
-		std::string line = _text.substr(lastCharacterProcessed, positionCharacterNewLine);
+		std::string line = _text.substr(lastCharacterProcessed, positionCharacterNewLine - lastCharacterProcessed);
 		lines.emplace_back(line);
 		// Skip the especial character (example: new line)
 		lastCharacterProcessed = positionCharacterNewLine + 1;
