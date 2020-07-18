@@ -1027,29 +1027,37 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 
 	std::vector<std::vector<std::string>> paragraphs = getAllWordsParagraph(std::move(textProcessed));
 
-	// Pass a copy for parameters
-	const std::vector<std::string> words = getAllWords(std::string{ _text });
-
 	std::vector<std::string> wrapText{ 1 };
-
-	// First iteration
-	std::uint16_t spaceLeft = LINE_WIDTH;
 	std::uint16_t currentIndex = 0;
 
-	for (const std::string& word : words)
+	for (const std::vector<std::string>& paragraph: paragraphs)
 	{
-		if (word.size() + 1 > spaceLeft)
+		// First iteration
+		std::uint16_t spaceLeft = LINE_WIDTH;
+
+		for (const std::string& word : paragraph)
 		{
-			// Insert a new line
-			wrapText.emplace_back(word + " ");
-			currentIndex += 1;
-			spaceLeft = LINE_WIDTH - (word.size() + 1);
+			if (word.size() + 1 > spaceLeft)
+			{
+				// Insert a new line
+				wrapText.emplace_back(word + " ");
+				currentIndex += 1;
+				spaceLeft = LINE_WIDTH - (word.size() + 1);
+			}
+			else
+			{
+				spaceLeft = spaceLeft - (word.size() + 1);
+				wrapText[currentIndex] += word + " ";
+			}
 		}
-		else
-		{
-			spaceLeft = spaceLeft - (word.size() + 1);
-			wrapText[currentIndex] += word + " ";
-		}
+
+		// Insert a space in blank
+		wrapText.emplace_back("");
+		// The new paragraph begin here
+		wrapText.emplace_back("");
+		// For write the lines from the
+		// actual point
+		currentIndex += 2;
 	}
 
 	return wrapText;
