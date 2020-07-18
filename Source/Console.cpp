@@ -1075,6 +1075,12 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 
 		for (const std::string& _text : lineTexts)
 		{
+			if (_text.empty())
+			{
+				currentY += 1;
+				continue;
+			}
+
 			print(coordinate.x, currentY, _text);
 			currentY += 1;
 		}
