@@ -933,7 +933,7 @@ int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t f
 
 std::vector<std::string> processEspecialCharacters(std::string&& _text)
 {
-	std::vector<std::string> textFormatted;
+	std::vector<std::string> lines;
 
 	std::size_t lastCharacterProcessed = 0;
 	std::size_t positionCharacterNewLine = _text.find('\n');
@@ -941,19 +941,15 @@ std::vector<std::string> processEspecialCharacters(std::string&& _text)
 	while (positionCharacterNewLine not_eq std::string::npos)
 	{
 		std::string line = _text.substr(lastCharacterProcessed, positionCharacterNewLine);
-
-		if (line[0] == '\n')
-		{
-			textFormatted.emplace_back("");
-		}
-
-		textFormatted.emplace_back(line);
+		lines.emplace_back(line);
 		// Skip the especial character (example: new line)
 		lastCharacterProcessed = positionCharacterNewLine + 1;
-		positionCharacterNewLine = _text.find('\n', lastCharacterProcessed);
+		positionCharacterNewLine = _text.find('\n', lastCharacterProcessed + 1);
 	}
 
-	return textFormatted;
+	lines.emplace_back(_text.substr(lastCharacterProcessed));
+
+	return lines;
 }
 
 /**
