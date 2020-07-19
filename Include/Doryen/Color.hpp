@@ -185,33 +185,6 @@ namespace Doryen
 
 		void add(const Color& other);
 
-		/**
-		@PageName color
-		@FuncTitle Subtract two colors
-		@FuncDesc  c1 = c1 - c2 => c1.r = MAX(0, c1.r - c2.r)
-					  c1.g = MAX(0, c1.g - c2.g)
-					  c1.b = MAX(0, c1.b - c2.b)
-		redish = red - darkGrey
-	<table><tr><td style="background-color: rgb(127, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="background-color: rgb(128, 128, 128); width: 60px;"></td></tr></table>
-		@CppEx Doryen::TCODColor myRedish = Doryen::TCODColor::red - Doryen::TCODColor::darkGrey
-		@CEx TCOD_color_t my_redish = TCOD_color_subtract(TCOD_red, TCOD_dark_grey);
-		@PyEx myRedish = libtcod.red - libtcod.dark_grey
-		@C#Ex Doryen::TCODColor myRedish = Doryen::TCODColor.red.Minus(Doryen::TCODColor.darkGrey)
-		@LuaEx myRedish = tcod.color.red - tcod.color.darkGrey
-		*/
-        Color operator-( const Color &a ) const
-        {
-            int r = ( int ) ( this->r ) - a.r;
-            int g = ( int ) ( this->g ) - a.g;
-            int b = ( int ) ( this->b ) - a.b;
-
-            r = MAX( 0, r );
-            g = MAX( 0, g );
-            b = MAX( 0, b );
-
-            return Color( r, g, b );
-        }
-
         /**
         @PageName color
         @FuncTitle Interpolate between two colors
