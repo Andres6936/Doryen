@@ -51,7 +51,7 @@
 	@Color sky 0,191,255
 	@Color azure 0,127,255
 	@Color blue 0,0,255
-	@Color han 63,0,255
+	@Color SECONDARY_LIGHT 63,0,255
 	@Color violet 127,0,255
 	@Color purple 191,0,255
 	@Color fuchsia 255,0,255
@@ -422,9 +422,9 @@ namespace Doryen
 		static const Color PRIMARY_DARK;
 		static const Color PRIMARY_DARKER;
 		static const Color BLUE;
-		static const Color han;
+		static const Color SECONDARY_LIGHT;
 		static const Color VIOLET;
-		static const Color purple;
+		static const Color SECONDARY;
 		static const Color BASE_LIGHTEST;
 		static const Color MAGENTA;
 		static const Color BASE_LIGHTER;
@@ -445,21 +445,21 @@ namespace Doryen
 		static const Color PRIMARY_LIGHT;
 
 		//lighter colors
-		static const Color lighterBlue;
+		static const Color SECONDARY_LIGHTER;
 
 		// lightest colors
-		static const Color lightestYellow;
-		static const Color lightestBlue;
+		static const Color SECONDARY_VIVID;
+		static const Color SECONDARY_DARK;
 
 		// metallic
-		static const Color brass;
-        static const Color copper;
-        static const Color gold;
-        static const Color silver;
+		static const Color SECONDARY_DARKER;
+		static const Color copper;
+		static const Color gold;
+		static const Color silver;
 
-        // miscellaneous
-        static const Color celadon;
-        static const Color peach;
+		// miscellaneous
+		static const Color celadon;
+		static const Color peach;
     };
 }
 

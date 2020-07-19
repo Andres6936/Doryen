@@ -74,12 +74,13 @@ const Color Color::PRIMARY_DARKER(22, 46, 81);
 
 const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
 
-const Color Color::lighterBlue(TCOD_LIGHTER_BLUE);
-const Color Color::han(TCOD_HAN);
-const Color Color::purple(TCOD_PURPLE);
-const Color Color::lightestYellow(TCOD_LIGHTEST_YELLOW);
-const Color Color::lightestBlue(TCOD_LIGHTEST_BLUE);
-const Color Color::brass(TCOD_BRASS);
+const Color Color::SECONDARY_LIGHTER(248, 223, 226);
+const Color Color::SECONDARY_LIGHT(242, 147, 140);
+const Color Color::SECONDARY(216, 57, 51);
+const Color Color::SECONDARY_VIVID(228, 29, 61);
+const Color Color::SECONDARY_DARK(181, 9, 9);
+const Color Color::SECONDARY_DARKER(139, 10, 3);
+
 const Color Color::copper(TCOD_COPPER);
 const Color Color::gold(TCOD_GOLD);
 const Color Color::silver(TCOD_SILVER);
