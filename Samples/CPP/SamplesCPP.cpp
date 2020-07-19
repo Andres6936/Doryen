@@ -217,42 +217,13 @@ int main(int argc, char* argv[])
 		// blit the sample console on the root console
 		sampleConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
 
-		// erase the renderer in debug mode (needed because the root console is not cleared each frame)
-		console.print(1, 1, "        ");
-
-		/* display renderer list and current renderer */
-		cur_renderer = Doryen::Platform::getRenderer();
-
-		console.setDefaultForeground(Palette::GRAY_WARN_30);
-		console.setDefaultBackground(Palette::GRAY_WARN_90);
-		console.printEx(42, 46 - (TCOD_NB_RENDERERS + 1), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :");
-
-		for (int i = 0; i < TCOD_NB_RENDERERS; i++)
-		{
-			if (i == cur_renderer)
-			{
-				/* set colors for current renderer */
-				console.setDefaultForeground(Palette::GRAY_WARN_1);
-				console.setDefaultBackground(Palette::PRIMARY_LIGHT);
-			}
-			else
-			{
-				/* set colors for other renderer */
-				console.setDefaultForeground(Palette::GRAY_WARN_30);
-				console.setDefaultBackground(Palette::GRAY_WARN_90);
-			}
-			console.printEx(42, 46 - (TCOD_NB_RENDERERS - i), TCOD_BKGND_SET, TCOD_LEFT,
-					renderer_name[i]);
-		}
-
 		// update the game screen
-		Doryen::Console::flush();
+		console.flush();
 
 		if (_key == KeyCode::DOWN)
 		{
 			// down arrow : next sample
 			curSample = (curSample + 1) % samples.size();
-			first = true;
 		}
 		else if (_key == KeyCode::UP)
 		{
@@ -260,34 +231,6 @@ int main(int argc, char* argv[])
 			curSample--;
 			if (curSample < 0)
 			{ curSample = samples.size() - 1; }
-			first = true;
-		}
-		else if (_key == KeyCode::ENTER and console.getKeyPressed().isLeftAltPressed())
-		{
-			// ALT-ENTER : switch fullscreen
-			Doryen::Console::setWindowInFullscreen();
-#ifdef TCOD_LINUX
-		}
-		else if (_key == KeyCode::PRINT_SCREEN)
-		{
-#else
-			} else if ( key.vk == TCODK_PRINTSCREEN ) {
-#endif
-		}
-		else if (_key == KeyCode::F1)
-		{
-			// switch renderers with F1,F2,F3
-			Doryen::Platform::setRenderer(TCOD_RENDERER_GLSL);
-		}
-		else if (_key == KeyCode::F2)
-		{
-			Doryen::Platform::setRenderer(TCOD_RENDERER_OPENGL);
-		}
-		else if (_key == KeyCode::F3)
-		{
-			Doryen::Platform::setRenderer(TCOD_RENDERER_SDL);
 		}
     }
-
-    return 0;
 }
