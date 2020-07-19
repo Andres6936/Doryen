@@ -46,11 +46,11 @@ private:
 
 	TCODNoise* noise = new TCODNoise(3);
 
-	void burn(int samplex, int sampley, int samplew, int sampleh);
+	void effectBurn(int samplex, int sampley, int samplew, int sampleh);
 
-	void explode(int samplex, int sampley, int samplew, int sampleh);
+	void effectBlur(int samplex, int sampley, int samplew, int sampleh);
 
-	void blur(int samplex, int sampley, int samplew, int sampleh);
+	void effectExplode(int samplex, int sampley, int samplew, int sampleh);
 
 	void nextState();
 

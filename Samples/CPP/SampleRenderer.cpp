@@ -32,20 +32,20 @@ void SampleRenderer::render(std::any sdlSurface)
 	switch (state)
 	{
 	case State::Draw_Blur :
-		blur(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		effectBlur(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Draw_Explode :
-		explode(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		effectExplode(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Draw_Burn :
-		burn(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		effectBurn(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Stop:
 		break;
 	}
 }
 
-void SampleRenderer::burn(int samplex, int sampley, int samplew, int sampleh)
+void SampleRenderer::effectBurn(int samplex, int sampley, int samplew, int sampleh)
 {
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
@@ -83,7 +83,7 @@ void SampleRenderer::burn(int samplex, int sampley, int samplew, int sampleh)
 	}
 }
 
-void SampleRenderer::explode(int samplex, int sampley, int samplew, int sampleh)
+void SampleRenderer::effectExplode(int samplex, int sampley, int samplew, int sampleh)
 {
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
@@ -118,7 +118,7 @@ void SampleRenderer::explode(int samplex, int sampley, int samplew, int sampleh)
 	}
 }
 
-void SampleRenderer::blur(int samplex, int sampley, int samplew, int sampleh)
+void SampleRenderer::effectBlur(int samplex, int sampley, int samplew, int sampleh)
 {
 	// let's blur that sample console
 	float f[3], n = 0.0f;
