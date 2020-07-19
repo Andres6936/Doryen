@@ -13,25 +13,19 @@ Functor::SDL::SDL(std::string _name, Console& _console) : ISample(_name, _consol
 void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 {
 	drawBackground();
-
-	const std::string text = "The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.";
-
-	sample.writeText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BackgroundFlag::SET, text);
+	drawText();
 
 	if (key == KeyCode::TAB)
 	{
-		sdl_callback_enabled = !sdl_callback_enabled;
+		renderCallback = not renderCallback;
 
-		if (sdl_callback_enabled)
+		if (renderCallback)
 		{
 			sample.registerCallback(std::make_unique<SampleRenderer>());
 		}
 		else
 		{
 			sample.unregisterCallback();
-			// we want libtcod to redraw the sample console even if nothing has changed in it
-			Doryen::Console::root->setDirty(SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
-					SAMPLE_SCREEN_HEIGHT);
 		}
 	}
 }
@@ -44,4 +38,9 @@ void Functor::SDL::drawBackground() const
 	sample.setDefaultForeground(Palette::BASE_LIGHTEST);
 
 	sample.clear();
+}
+
+void Functor::SDL::drawText() const
+{
+	sample.writeText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BackgroundFlag::SET, text);
 }
