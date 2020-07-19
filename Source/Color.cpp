@@ -72,8 +72,6 @@ const Color Color::PRIMARY_VIVID(0, 80, 216);
 const Color Color::PRIMARY_DARK(26, 68, 128);
 const Color Color::PRIMARY_DARKER(22, 46, 81);
 
-const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
-
 const Color Color::SECONDARY_LIGHTER(248, 223, 226);
 const Color Color::SECONDARY_LIGHT(242, 147, 140);
 const Color Color::SECONDARY(216, 57, 51);
@@ -81,11 +79,13 @@ const Color Color::SECONDARY_VIVID(228, 29, 61);
 const Color Color::SECONDARY_DARK(181, 9, 9);
 const Color Color::SECONDARY_DARKER(139, 10, 3);
 
-const Color Color::copper(TCOD_COPPER);
-const Color Color::gold(TCOD_GOLD);
-const Color Color::silver(TCOD_SILVER);
-const Color Color::celadon(TCOD_CELADON);
-const Color Color::peach(TCOD_PEACH);
+const Color Color::ACCENT_COOL_LIGHTER(225, 243, 248);
+const Color Color::ACCENT_COOL_LIGHT(151, 212, 234);
+const Color Color::ACCENT_COOL(0, 189, 227);
+const Color Color::ACCENT_COOL_DARK(40, 160, 203);
+const Color Color::ACCENT_COOL_DARKER(7, 100, 141);
+
+const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
 
 // Getters
 

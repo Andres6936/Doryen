@@ -453,14 +453,14 @@ namespace Doryen
 
 		// metallic
 		static const Color SECONDARY_DARKER;
-		static const Color copper;
-		static const Color gold;
-		static const Color silver;
+		static const Color ACCENT_COOL_LIGHTER;
+		static const Color ACCENT_COOL_LIGHT;
+		static const Color ACCENT_COOL;
 
 		// miscellaneous
-		static const Color celadon;
-		static const Color peach;
-    };
+		static const Color ACCENT_COOL_DARK;
+		static const Color ACCENT_COOL_DARKER;
+	};
 }
 
 Doryen::Color operator*( float value, const Doryen::Color &c );
