@@ -24,7 +24,7 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 
 		if (sdl_callback_enabled)
 		{
-			Doryen::Platform::registerSDLRenderer(new SampleRenderer());
+			sample.registerCallback(std::make_unique<SampleRenderer>());
 		}
 		else
 		{
