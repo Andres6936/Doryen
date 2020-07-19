@@ -111,16 +111,3 @@ TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char 
 {
 	return TCOD_sys_get_directory_content(path,pattern);
 }
-
-
-// custom post-renderer
-static CallbackRender* renderer = NULL;
-extern "C" void TCOD_CRenderer(void *sdl_surface) {
-	if ( renderer ) renderer->render(sdl_surface);
-}
-
-void Doryen::Platform::registerSDLRenderer(CallbackRender* renderer)
-{
-	::renderer = renderer;
-	TCOD_sys_register_SDL_renderer(TCOD_CRenderer);
-}

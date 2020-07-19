@@ -31,16 +31,6 @@
 #include "Doryen/libtcod.h"
 #include "Doryen/libtcod.hpp"
 
-class CallbackRender
-{
-
-public :
-
-	virtual ~CallbackRender() = default;
-
-	virtual void render(void* sdlSurface) = 0;
-};
-
 namespace Doryen
 {
 
