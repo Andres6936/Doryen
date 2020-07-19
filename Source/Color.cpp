@@ -30,61 +30,6 @@
 
 using namespace Doryen;
 
-// Gray Warm
-
-const Color Color::GRAY_WARN_1(252, 252, 251);
-const Color Color::GRAY_WARN_30(175, 174, 162);
-const Color Color::GRAY_WARN_90(23, 22, 22);
-
-// Basic Palette
-
-const Color Color::RED(229, 34, 7);
-const Color Color::ORANGE(230, 111, 14);
-const Color Color::GOLD(255, 190, 46);
-const Color Color::YELLOW(254, 230, 133);
-const Color Color::GREEN(83, 130, 0);
-const Color Color::MINT(4, 197, 133);
-const Color Color::CYAN(0, 158, 193);
-const Color Color::BLUE(0, 118, 214);
-const Color Color::INDIGO(103, 108, 200);
-const Color Color::VIOLET(129, 104, 179);
-const Color Color::MAGENTA(215, 45, 121);
-
-// Base Palette
-
-const Color Color::BASE_LIGHTEST(240, 240, 240);
-const Color Color::BASE_LIGHTER(223, 225, 226);
-const Color Color::BASE_LIGHT(169, 174, 177);
-const Color Color::BASE(113, 118, 122);
-const Color Color::BASE_DARK(86, 92, 101);
-const Color Color::BASE_DARKER(61, 69, 81);
-const Color Color::BASE_DARKEST(27, 27, 27);
-
-// Primary Palette
-
-const Color Color::INK(27, 27, 27);
-const Color Color::PRIMARY_LIGHTER(217, 232, 246);
-const Color Color::PRIMARY_LIGHT(115, 179, 231);
-const Color Color::PRIMARY(0, 94, 162);
-const Color Color::PRIMARY_VIVID(0, 80, 216);
-const Color Color::PRIMARY_DARK(26, 68, 128);
-const Color Color::PRIMARY_DARKER(22, 46, 81);
-
-const Color Color::SECONDARY_LIGHTER(248, 223, 226);
-const Color Color::SECONDARY_LIGHT(242, 147, 140);
-const Color Color::SECONDARY(216, 57, 51);
-const Color Color::SECONDARY_VIVID(228, 29, 61);
-const Color Color::SECONDARY_DARK(181, 9, 9);
-const Color Color::SECONDARY_DARKER(139, 10, 3);
-
-const Color Color::ACCENT_COOL_LIGHTER(225, 243, 248);
-const Color Color::ACCENT_COOL_LIGHT(151, 212, 234);
-const Color Color::ACCENT_COOL(0, 189, 227);
-const Color Color::ACCENT_COOL_DARK(40, 160, 203);
-const Color Color::ACCENT_COOL_DARKER(7, 100, 141);
-
-const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
-
 // Getters
 
 short Color::getRed() const

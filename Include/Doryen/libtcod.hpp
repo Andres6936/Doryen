@@ -45,6 +45,7 @@
 #include "Format/Flossy.hpp"
 #include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
+#include "Graphics/Color/Palette.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
 #include "Algorithms/Pathfinding/AStar.hpp"
 #include "Algorithms/Drawing/Bresenham.hpp"
