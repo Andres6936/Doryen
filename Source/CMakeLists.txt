@@ -23,7 +23,7 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Image/Mipmap.cpp
         mersenne.cpp mouse.cpp namegen.cpp noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp
-        FOV/ShadowCasting.cpp
+        FOV/ShadowCasting.cpp Random/Number.cpp
         Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
         Image/PNG/LodePNG.cpp Image/PNG/Info.cpp Image/PNG/State.cpp
         Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp Image/PNG/HuffmanTree.cpp
