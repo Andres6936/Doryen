@@ -31,19 +31,14 @@
 #include "Doryen/libtcod.h"
 #include "Doryen/libtcod.hpp"
 
-/**
- * This toolkit contains some system specific miscellaneous utilities.
- *
- * @note Use them is you want your code to be easily portable.
- */
-class ITCODSDLRenderer
+class CallbackRender
 {
 
 public :
-    virtual ~ITCODSDLRenderer( )
-    { }
 
-    virtual void render( void *sdlSurface ) = 0;
+	virtual ~CallbackRender() = default;
+
+	virtual void render(void* sdlSurface) = 0;
 };
 
 namespace Doryen
@@ -258,7 +253,7 @@ namespace Doryen
 				... draw something on sdl_surface using pygame
 			libtcod.sys_register_SDL_renderer(my_renderer)
 		*/
-		static void registerSDLRenderer(ITCODSDLRenderer* renderer);
+		static void registerSDLRenderer(CallbackRender* renderer);
 
 		/**
 		@PageName system_sdlcbk

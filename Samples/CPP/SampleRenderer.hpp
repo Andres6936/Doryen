@@ -27,17 +27,17 @@ static Doryen::Console sampleConsole( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT 
  */
 static Doryen::BackgroundFlag backFlag = Doryen::BackgroundFlag::SET;
 
-class SampleRenderer : public ITCODSDLRenderer
+class SampleRenderer : public CallbackRender
 {
 
 public :
 
-    SampleRenderer( ) : effectNum( 0 ), delay( 3.0f )
-    {
-        noise = new TCODNoise( 3 );
-    }
+	SampleRenderer() : effectNum(0), delay(3.0f)
+	{
+		noise = new TCODNoise(3);
+	}
 
-    ~SampleRenderer( ) override
+	~SampleRenderer() override
     {
         delete noise;
     }
