@@ -341,7 +341,7 @@ bool Doryen::Heightmap::hasLandOnBorder(float seaLevel) const
 	return false;
 }
 
-void Doryen::Heightmap::islandify(float seaLevel, TCODRandom* rnd)
+void Doryen::Heightmap::islandify(float seaLevel)
 {
 	// NOTE: Without implementation in Libtcod 1.5.1
 }
@@ -470,12 +470,12 @@ float Doryen::Heightmap::getSlope(int x, int y) const
 	return (float)std::atan2(maxdy + mindy, 1.0f);
 }
 
-void Doryen::Heightmap::rainErosion(int nbDrops, float erosionCoef, float agregationCoef, TCODRandom* rnd)
+void Doryen::Heightmap::rainErosion(int nbDrops, float erosionCoef, float agregationCoef)
 {
 	while (nbDrops > 0)
 	{
-		int curx = TCOD_random_get_int(rnd->data, 0, this->w - 1);
-		int cury = TCOD_random_get_int(rnd->data, 0, this->h - 1);
+		int curx = Random::Number::nextInteger(0, this->w - 1);
+		int cury = Random::Number::nextInteger(0, this->h - 1);
 
 		static int dx[8] = { -1, 0, 1, -1, 1, -1, 0, 1 };
 		static int dy[8] = { -1, -1, -1, 0, 0, 1, 1, 1 };
@@ -559,7 +559,7 @@ Doryen::Heightmap::kernelTransform(int kernelSize, const int* dx, const int* dy,
 	}
 }
 
-void Doryen::Heightmap::addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd)
+void Doryen::Heightmap::addVoronoi(int nbPoints, int nbCoef, const float* coef)
 {
 	class Point : public Doryen::Geometry::Point2D<>
 	{
@@ -578,8 +578,8 @@ void Doryen::Heightmap::addVoronoi(int nbPoints, int nbCoef, const float* coef, 
 
 	for (int i = 0; i < nbPoints; i++)
 	{
-		pt[i].x = TCOD_random_get_int(rnd, 0, this->w - 1);
-		pt[i].y = TCOD_random_get_int(rnd, 0, this->h - 1);
+		pt[i].x = Random::Number::nextInteger(0, this->w - 1);
+		pt[i].y = Random::Number::nextInteger(0, this->h - 1);
 	}
 
 	for (int x = 0; x < this->w; x++)

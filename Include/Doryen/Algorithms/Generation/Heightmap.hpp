@@ -248,7 +248,7 @@ namespace Doryen
 		@Param sedimentationCoef	Amount of ground deposited when the drops stops to flow
 		@Param rnd	RNG to use, NULL for default generator.
 		*/
-		void rainErosion(int nbDrops, float erosionCoef, float sedimentationCoef, TCODRandom* rnd);
+		void rainErosion(int nbDrops, float erosionCoef, float sedimentationCoef);
 
 		/**
 		@PageName heightmap_modify
@@ -298,7 +298,7 @@ namespace Doryen
 			Closest site : coef[0], second closest site : coef[1], ...
 		@Param rnd	RNG to use, NULL for default generator.
 		*/
-		void addVoronoi(int nbPoints, int nbCoef, const float* coef, TCODRandom* rnd);
+		void addVoronoi(int nbPoints, int nbCoef, const float* coef);
 
 		/**
 		@PageName heightmap_modify
@@ -466,7 +466,7 @@ namespace Doryen
 
 		//	void heatErosion(int nbPass,float minSlope,float erosionCoef,float sedimentationCoef,TCODRandom *rnd);
 		//	void midPointDeplacement(TCODRandom *rnd);
-		void islandify(float seaLevel, TCODRandom* rnd); // lowers the terrain near the heightmap borders
+		void islandify(float seaLevel); // lowers the terrain near the heightmap borders
 		// TODO : checks island connectivity with floodfill
 	private :
 		//	void setMPDHeight(TCODRandom *rnd,int x,int y, float z, float offset);

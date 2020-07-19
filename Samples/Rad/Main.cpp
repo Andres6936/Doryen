@@ -119,11 +119,11 @@ void init(Doryen::Console& console)
 	// put random lights
 	for (int i = 0; i < 10; i++)
 	{
-		int lx = TCODRandom::getInstance()->getInt(1, MAP_WIDTH - 2);
-		int ly = TCODRandom::getInstance()->getInt(1, MAP_HEIGHT - 2);
+		int lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
+		int ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
 		findPos(&lx, &ly);
-		leftShader->addLight(lx, ly, LIGHT_RADIUS, Doryen::Color::GRAY_WARN_1);
-		rightShader->addLight(lx, ly, LIGHT_RADIUS, Doryen::Color::GRAY_WARN_1);
+		leftShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		rightShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 		console.setChar(lx, ly, '*');
 		console.setChar(lx + CON_WIDTH / 2, ly, '*');
 	}
@@ -135,8 +135,8 @@ void init(Doryen::Console& console)
 	console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 
 	// add the player's torch
-	torchIndex = leftShader->addLight(playerx, playery, 10, Doryen::Color::GRAY_WARN_1);
-	rightShader->addLight(playerx, playery, LIGHT_RADIUS, Doryen::Color::GRAY_WARN_1);
+	torchIndex = leftShader->addLight(playerx, playery, 10, Palette::GRAY_WARN_1);
+	rightShader->addLight(playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
 	// init shaders (must be done after adding lights for photon shader)
 	leftShader->init(map);
@@ -233,8 +233,8 @@ void move(int dx, int dy, Doryen::Console& console)
 		console.setChar(playerx, playery, '@');
 		console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 		// update the player's torch position
-		leftShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::GRAY_WARN_1);
-		rightShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Doryen::Color::GRAY_WARN_1);
+		leftShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		rightShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 	}
 }
 
@@ -242,7 +242,7 @@ int main()
 {
 	Doryen::Console console = Doryen::Console();
 
-	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false, TCOD_RENDERER_SDL);
+	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false);
 	console.setAlignment(TCOD_CENTER);
 
 	init(console);
