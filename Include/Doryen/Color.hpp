@@ -150,30 +150,6 @@ namespace Doryen
 		void operator=(const Color& _rhs);
 
 		/**
-		@PageName color
-		@FuncTitle Multiply two colors
-		@FuncDesc c1 = c2 * c3 =>
-		c1.r = c2.r * c3.r / 255
-		c1.g = c2.g * c3.g / 255
-		c1.b = c2.b * c3.b / 255
-		darkishRed = darkGrey * red
-	<table><tr><td style="background-color: rgb(96, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr></table>
-		@CppEx Doryen::TCODColor myDarkishRed = Doryen::TCODColor::darkGrey * Doryen::TCODColor::lightRed;
-		@CEx TCOD_color_t my_darkish_red = TCOD_color_multiply(TCOD_dark_grey, TCOD_light_red);
-		@PyEx my_darkish_red = libtcod.dark_grey * libtcod.light_red
-		@C#Ex Doryen::TCODColor myDarkishRed = Doryen::TCODColor.darkGrey.Multiply(Doryen::TCODColor.lightRed);
-		@LuaEx myDarkishRed = tcod.color.darkGrey * tcod.color.lightRed
-		*/
-		Color operator*(const Color& a) const
-		{
-			Doryen::Color ret;
-			ret.r = (((int)r) * a.r / 255);
-			ret.g = (((int)g) * a.g / 255);
-			ret.b = (((int)b) * a.b / 255);
-			return ret;
-		}
-
-		/**
 		 * Multiply the color.
 		 */
 		void multiply(const Color& other);

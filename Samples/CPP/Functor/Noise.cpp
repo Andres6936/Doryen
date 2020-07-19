@@ -97,7 +97,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 		for (int x = 2; x < 2 + 23; x++)
 		{
 			Doryen::Color col = sample.getCharForeground(x, y);
-			col = col * Doryen::Color::GRAY_WARN_30;
+			col.multiply(Doryen::Color::GRAY_WARN_30);
 			sample.setCharForeground(x, y, col);
 		}
 	}
