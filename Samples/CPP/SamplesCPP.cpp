@@ -65,71 +65,8 @@ int main(int argc, char* argv[])
     bool creditsEnd = false;
     int cur_renderer = 0;
 
-    // initialize the root console (open the game window)
-    for ( int j = 1; j < argc; j++ )
-    {
-        if ( strcmp( argv[ j ], "-font" ) == 0 && j + 1 < argc )
-        {
-            j++;
-            font = argv[ j ];
-            fontFlags = 0;
-        }
-        else if ( strcmp( argv[ j ], "-font-nb-char" ) == 0 && j + 2 < argc )
-        {
-            j++;
-            nbCharHoriz = atoi( argv[ j ] );
-            j++;
-            nbCharVertic = atoi( argv[ j ] );
-            fontFlags = 0;
-        }
-        else if ( strcmp( argv[ j ], "-fullscreen-resolution" ) == 0 && j + 2 < argc )
-        {
-            j++;
-            fullscreenWidth = atoi( argv[ j ] );
-            j++;
-            fullscreenHeight = atoi( argv[ j ] );
-        }
-        else if ( strcmp( argv[ j ], "-fullscreen" ) == 0 )
-        {
-            fullscreen = true;
-        }
-        else if ( strcmp( argv[ j ], "-font-in-row" ) == 0 )
-        {
-            fontNewFlags |= TCOD_FONT_LAYOUT_ASCII_INROW;
-            fontFlags = 0;
-        }
-        else if ( strcmp( argv[ j ], "-font-greyscale" ) == 0 )
-        {
-            fontNewFlags |= TCOD_FONT_TYPE_GREYSCALE;
-            fontFlags = 0;
-        }
-        else if ( strcmp( argv[ j ], "-font-tcod" ) == 0 )
-        {
-            fontNewFlags |= TCOD_FONT_LAYOUT_TCOD;
-            fontFlags = 0;
-        }
-        else if ( strcmp( argv[ j ], "-help" ) == 0 || strcmp( argv[ j ], "-?" ) == 0 )
-        {
-            printf( "options :\n" );
-            printf( "-font <filename> : use a custom font\n" );
-            printf( "-font-nb-char <nb_char_horiz> <nb_char_vertic> : number of characters in the font\n" );
-            printf( "-font-in-row : the font layout is in row instead of columns\n" );
-            printf( "-font-tcod : the font uses TCOD layout instead of ASCII\n" );
-            printf( "-font-greyscale : antialiased font using greyscale bitmap\n" );
-            printf( "-fullscreen : start in fullscreen\n" );
-            printf( "-fullscreen-resolution <screen_width> <screen_height> : force fullscreen resolution\n" );
-            printf( "-renderer <num> : set renderer. 0 : GLSL 1 : OPENGL 2 : SDL\n" );
-            exit( 0 );
-        }
-		else
-		{
-			// ignore parameter
-		}
-	}
-
 	if (fontFlags == 0)
 	{ fontFlags = fontNewFlags; }
-
 
 	if (fullscreenWidth > 0)
 	{
