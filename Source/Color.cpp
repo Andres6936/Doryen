@@ -32,49 +32,49 @@ using namespace Doryen;
 
 // Getters
 
-short Color::getRed() const
+std::uint8_t Color::getRed() const
 {
 	return r;
 }
 
-short Color::getGreen() const
+std::uint8_t Color::getGreen() const
 {
 	return g;
 }
 
-short Color::getBlue() const
+std::uint8_t Color::getBlue() const
 {
 	return b;
 }
 
-short Color::getAlpha() const
+std::uint8_t Color::getAlpha() const
 {
 	return a;
 }
 
 // Setters
 
-void Color::setRed(const short _r)
+void Color::setRed(const std::uint8_t _r)
 {
 	r = _r;
 }
 
-void Color::setGreen(const short _g)
+void Color::setGreen(const std::uint8_t _g)
 {
 	g = _g;
 }
 
-void Color::setBlue(const short _b)
+void Color::setBlue(const std::uint8_t _b)
 {
 	b = _b;
 }
 
-void Color::setAlpha(const short _a)
+void Color::setAlpha(const std::uint8_t _a)
 {
 	a = _a;
 }
 
-Color::Color(short r, short g, short b) noexcept
+Color::Color(std::uint8_t r, std::uint8_t g, std::uint8_t b) noexcept
 {
 	this->r = r;
 	this->g = g;
@@ -90,7 +90,7 @@ Color::Color() noexcept
 	a = 255;
 }
 
-Color::Color(short r, short g, short b, short a) noexcept
+Color::Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a) noexcept
 {
 	this->r = r;
 	this->g = g;
@@ -104,7 +104,7 @@ bool Color::equals(const Color& c) const noexcept
 }
 
 // Private function
-short clamp(short a, short b, short x)
+std::uint8_t clamp(std::uint8_t a, std::uint8_t b, std::uint8_t x)
 {
 	if (x < a)
 	{
@@ -125,9 +125,9 @@ short clamp(short a, short b, short x)
 
 void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 {
-	short nr = 0;
-	short ng = 0;
-	short nb = 0;
+	std::uint8_t nr = 0;
+	std::uint8_t ng = 0;
+	std::uint8_t nb = 0;
 
 	switch (flag)
 	{
@@ -166,16 +166,16 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 	case BackgroundFlag::SCREEN:
 
-		this->r = (short)(255 - (255 - this->r) * (255 - another.r) / 255);
-		this->g = (short)(255 - (255 - this->g) * (255 - another.g) / 255);
-		this->b = (short)(255 - (255 - this->b) * (255 - another.b) / 255);
+		this->r = (std::uint8_t)(255 - (255 - this->r) * (255 - another.r) / 255);
+		this->g = (std::uint8_t)(255 - (255 - this->g) * (255 - another.g) / 255);
+		this->b = (std::uint8_t)(255 - (255 - this->b) * (255 - another.b) / 255);
 		break;
 
 	case BackgroundFlag::COLOR_DODGE:
 
 		if (this->r != 255)
 		{
-			nr = (short)((255 * another.r) / (255 - this->r));
+			nr = (std::uint8_t)((255 * another.r) / (255 - this->r));
 		}
 		else
 		{
@@ -184,7 +184,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (this->g != 255)
 		{
-			ng = (short)((255 * another.g) / (255 - this->g));
+			ng = (std::uint8_t)((255 * another.g) / (255 - this->g));
 		}
 		else
 		{
@@ -193,7 +193,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (this->b != 255)
 		{
-			nb = (short)((255 * another.b) / (255 - this->b));
+			nb = (std::uint8_t)((255 * another.b) / (255 - this->b));
 		}
 		else
 		{
@@ -209,7 +209,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (another.r > 0)
 		{
-			nr = (short)(255 - (255 * (255 - this->r)) / another.r);
+			nr = (std::uint8_t)(255 - (255 * (255 - this->r)) / another.r);
 		}
 		else
 		{
@@ -218,7 +218,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (another.g > 0)
 		{
-			ng = (short)(255 - (255 * (255 - this->g)) / another.g);
+			ng = (std::uint8_t)(255 - (255 * (255 - this->g)) / another.g);
 		}
 		else
 		{
@@ -227,7 +227,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (another.b > 0)
 		{
-			nb = (short)(255 - (255 * (255 - this->b)) / another.b);
+			nb = (std::uint8_t)(255 - (255 * (255 - this->b)) / another.b);
 		}
 		else
 		{
@@ -252,9 +252,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 	case BackgroundFlag::BURN:
 
-		nr = (short)(this->r + another.r - 255);
-		ng = (short)(this->g + another.g - 255);
-		nb = (short)(this->b + another.b - 255);
+		nr = (std::uint8_t)(this->r + another.r - 255);
+		ng = (std::uint8_t)(this->g + another.g - 255);
+		nb = (std::uint8_t)(this->b + another.b - 255);
 
 		this->r = clamp(0, 255, nr);
 		this->g = clamp(0, 255, ng);
@@ -265,29 +265,29 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 		if (another.r <= 128)
 		{
-			nr = (short)(2 * (another.r) * this->r / 255);
+			nr = (std::uint8_t)(2 * (another.r) * this->r / 255);
 		}
 		else
 		{
-			nr = (short)(255 - 2 * (255 - another.r) * (255 - this->r) / 255);
+			nr = (std::uint8_t)(255 - 2 * (255 - another.r) * (255 - this->r) / 255);
 		}
 
 		if (another.g <= 128)
 		{
-			ng = (short)(2 * (another.g) * this->g / 255);
+			ng = (std::uint8_t)(2 * (another.g) * this->g / 255);
 		}
 		else
 		{
-			ng = (short)(255 - 2 * (255 - another.g) * (255 - this->g) / 255);
+			ng = (std::uint8_t)(255 - 2 * (255 - another.g) * (255 - this->g) / 255);
 		}
 
 		if (another.b <= 128)
 		{
-			nb = (short)(2 * (another.b) * this->b / 255);
+			nb = (std::uint8_t)(2 * (another.b) * this->b / 255);
 		}
 		else
 		{
-			nb = (short)(255 - 2 * (255 - another.b) * (255 - this->b) / 255);
+			nb = (std::uint8_t)(255 - 2 * (255 - another.b) * (255 - this->b) / 255);
 		}
 
 		this->r = clamp(0, 255, nr);
@@ -304,20 +304,20 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 
 void Color::multiply(const Color& other)
 {
-	this->r = (short)(this->r * other.r / 255);
-	this->g = (short)(this->g * other.g / 255);
-	this->b = (short)(this->b * other.b / 255);
+	this->r = (std::uint8_t)(this->r * other.r / 255);
+	this->g = (std::uint8_t)(this->g * other.g / 255);
+	this->b = (std::uint8_t)(this->b * other.b / 255);
 }
 
 void Color::add(const Color& other)
 {
-	this->r = (short)(this->r + other.r);
-	this->g = (short)(this->g + other.g);
-	this->b = (short)(this->b + other.b);
+	this->r = (std::uint8_t)(this->r + other.r);
+	this->g = (std::uint8_t)(this->g + other.g);
+	this->b = (std::uint8_t)(this->b + other.b);
 
-	this->r = std::min((short)255, r);
-	this->g = std::min((short)255, g);
-	this->b = std::min((short)255, b);
+	this->r = std::min((std::uint8_t)255, r);
+	this->g = std::min((std::uint8_t)255, g);
+	this->b = std::min((std::uint8_t)255, b);
 }
 
 Color::Color(const Color& _rhs) noexcept

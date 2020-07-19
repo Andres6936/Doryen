@@ -28,11 +28,13 @@
 #ifndef _TCOD_COLOR_HPP
 #define _TCOD_COLOR_HPP
 
-#define MAX( a, b ) ((a)<(b)?(b):(a))
-#define MIN( a, b ) ((a)>(b)?(b):(a))
-#define ABS( a ) ((a)<0?-(a):(a))
-#define CLAMP( a, b, x )        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
-#define LERP( a, b, x ) ( a + x * (b - a) )
+#include <cstdint>
+
+#define MAX(a, b) ((a)<(b)?(b):(a))
+#define MIN(a, b) ((a)>(b)?(b):(a))
+#define ABS(a) ((a)<0?-(a):(a))
+#define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
+#define LERP(a, b, x) ( a + x * (b - a) )
 
 namespace Doryen
 {
@@ -74,15 +76,15 @@ namespace Doryen
 	 * For further information on sRGB,
 	 * see http://www.w3.org/pub/WWW/Graphics/Color/sRGB.html
 	 */
-    class Color
-    {
+	class Color
+	{
 
-    public :
+	public :
 
-        short r;
-        short g;
-        short b;
-		short a;
+		std::uint8_t r;
+		std::uint8_t g;
+		std::uint8_t b;
+		std::uint8_t a;
 
 		/**
 		 * Creates an opaque sRGB color with the component red, green, and blue
@@ -112,7 +114,7 @@ namespace Doryen
 		 * @param g The green component.
 		 * @param b The blue component.
 		 */
-		Color(short r, short g, short b) noexcept;
+		Color(std::uint8_t r, std::uint8_t g, std::uint8_t b) noexcept;
 
 		/**
 		 * Creates an sRGB color with the specified red, green, blue, and alpha
@@ -123,7 +125,7 @@ namespace Doryen
 		 * @param b The blue component.
 		 * @param a The alpha component
 		 */
-		Color(short r, short g, short b, short a) noexcept;
+		Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a) noexcept;
 
 		/**
 		 * Determines whether another Color is equal to this Color.
@@ -205,33 +207,33 @@ namespace Doryen
         @LuaEx myColor = tcod.color.Interpolate( tcod.color.darkGrey, tcod.color.lightRed, coef )
         */
         static Color lerp( const Color &a, const Color &b, float coef )
-        {
-            Color ret;
-            ret.r = ( a.r + ( b.r - a.r ) * coef );
-            ret.g = ( a.g + ( b.g - a.g ) * coef );
-            ret.b = ( a.b + ( b.b - a.b ) * coef );
-            return ret;
-        }
+		{
+			Color ret;
+			ret.r = (a.r + (b.r - a.r) * coef);
+			ret.g = (a.g + (b.g - a.g) * coef);
+			ret.b = (a.b + (b.b - a.b) * coef);
+			return ret;
+		}
 
 		// Getters
 
-		short getRed() const;
+		std::uint8_t getRed() const;
 
-		short getGreen() const;
+		std::uint8_t getGreen() const;
 
-		short getBlue() const;
+		std::uint8_t getBlue() const;
 
-		short getAlpha() const;
+		std::uint8_t getAlpha() const;
 
 		// Setters
 
-		void setRed(short _r);
+		void setRed(std::uint8_t _r);
 
-		void setGreen(short _g);
+		void setGreen(std::uint8_t _g);
 
-		void setBlue(short _b);
+		void setBlue(std::uint8_t _b);
 
-		void setAlpha(short _a);
+		void setAlpha(std::uint8_t _a);
 	};
 }
 
