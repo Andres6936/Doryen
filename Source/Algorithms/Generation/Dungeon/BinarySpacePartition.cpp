@@ -25,8 +25,9 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Doryen/libtcod.hpp"
+#include <vector>
 
+#include "Doryen/Random/Number.hpp"
 #include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 #include "Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp"
 
@@ -89,16 +90,17 @@ bool Doryen::Algorithms::BinarySpacePartition::traversePostOrder(ITCODBspCallbac
 
 bool Doryen::Algorithms::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* listener, void* userData)
 {
-	TCODList <BinarySpacePartition*> stack;
-	stack.push(this);
-	while (!stack.isEmpty())
+	std::vector<BinarySpacePartition*> stack;
+	stack.push_back(this);
+	while (!stack.empty())
 	{
-		BinarySpacePartition* node = stack.get(0);
-		stack.remove(node);
+		BinarySpacePartition* node = stack.at(0);
+		stack.erase(stack.begin());
+
 		if (node->getLeft())
-		{ stack.push(node->getLeft()); }
+		{ stack.push_back(node->getLeft()); }
 		if (node->getRight())
-		{ stack.push(node->getRight()); }
+		{ stack.push_back(node->getRight()); }
 		if (!listener->visitNode(node, userData))
 		{ return false; }
 	}
@@ -107,22 +109,28 @@ bool Doryen::Algorithms::BinarySpacePartition::traverseLevelOrder(ITCODBspCallba
 
 bool Doryen::Algorithms::BinarySpacePartition::traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData)
 {
-	TCODList <BinarySpacePartition*> stack1;
-	TCODList <BinarySpacePartition*> stack2;
-	stack1.push(this);
-	while (!stack1.isEmpty())
+	std::vector<BinarySpacePartition*> stack1;
+	std::vector<BinarySpacePartition*> stack2;
+
+	stack1.push_back(this);
+
+	while (!stack1.empty())
 	{
-		BinarySpacePartition* node = stack1.get(0);
-		stack2.push(node);
-		stack1.remove(node);
+		BinarySpacePartition* node = stack1.at(0);
+		stack2.push_back(node);
+
+		stack1.erase(stack1.begin());
+
 		if (node->getLeft())
-		{ stack1.push(node->getLeft()); }
+		{ stack1.push_back(node->getLeft()); }
 		if (node->getRight())
-		{ stack1.push(node->getRight()); }
+		{ stack1.push_back(node->getRight()); }
 	}
-	while (!stack2.isEmpty())
+	while (!stack2.empty())
 	{
-		BinarySpacePartition* node = stack2.pop();
+		BinarySpacePartition* node = stack2.at(stack2.size() - 1);
+		stack2.pop_back();
+
 		if (!listener->visitNode(node, userData))
 		{ return false; }
 	}
