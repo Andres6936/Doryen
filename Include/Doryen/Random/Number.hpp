@@ -29,6 +29,13 @@ namespace Doryen::Random
 
 		static void setRandomSeed();
 
+		/**
+		 * Generate a random number between the range [from, to].
+		 *
+		 * @param from Minimum value to generate (Inclusive)
+		 * @param to Maximum value to generate (Inclusive)
+		 * @return Value between the range [from, to].
+		 */
 		static std::int32_t nextInteger(std::int32_t from, std::int32_t to);
 
 	};
