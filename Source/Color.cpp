@@ -137,21 +137,6 @@ Color operator*(float value, const Color& c)
 	return c * value;
 }
 
-void Color::genMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
-{
-	for (int segment = 0; segment < nbKey - 1; segment++)
-	{
-		int idxStart = keyIndex[segment];
-		int idxEnd = keyIndex[segment + 1];
-		int idx;
-		for (idx = idxStart; idx <= idxEnd; idx++)
-		{
-			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
-					(float)(idx - idxStart) / (idxEnd - idxStart));
-		}
-	}
-}
-
 Color::Color(short r, short g, short b)
 {
 	this->r = r;
