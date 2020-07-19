@@ -5,9 +5,6 @@
  */
 
 #include <memory>
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
 #include <iostream>
 
 #include "SampleRenderer.hpp"
