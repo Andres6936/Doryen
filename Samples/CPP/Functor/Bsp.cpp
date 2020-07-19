@@ -49,7 +49,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 		refresh = false;
 	}
 	sample.clear();
-	sample.setDefaultForeground(Doryen::Color::white);
+	sample.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
 	sample.print(1, 1,
 			format("ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth {}\n*/: room size {}\n1 : random room size {}",
 					bspDepth, minRoomSize,

@@ -32,54 +32,44 @@
 
 using namespace Doryen;
 
-// grey levels
-const Color Color::black(TCOD_BLACK);
+// Gray Warm
 
-const Color Color::grey(TCOD_GREY);
+const Color Color::GRAY_WARN_1(252, 252, 251);
+const Color Color::GRAY_WARN_30(175, 174, 162);
+const Color Color::GRAY_WARN_90(23, 22, 22);
 
-const Color Color::white(TCOD_WHITE);
+// Basic palette
+
+const Color Color::RED(229, 34, 7);
+const Color Color::ORANGE(230, 111, 14);
+const Color Color::GOLD(255, 190, 46);
+const Color Color::YELLOW(254, 230, 133);
+const Color Color::GREEN(83, 130, 0);
+const Color Color::MINT(4, 197, 133);
+const Color Color::CYAN(0, 158, 193);
+const Color Color::BLUE(0, 118, 214);
+const Color Color::INDIGO(103, 108, 200);
+const Color Color::VIOLET(129, 104, 179);
+const Color Color::MAGENTA(215, 45, 121);
 
 //sepia
 const Color Color::sepia(TCOD_SEPIA);
 
-// standard colors
-const Color Color::red(TCOD_RED);
-
-const Color Color::flame(TCOD_FLAME);
-
-const Color Color::orange(TCOD_ORANGE);
-
-const Color Color::amber(TCOD_AMBER);
-
-const Color Color::yellow(TCOD_YELLOW);
-
-const Color Color::lime(TCOD_LIME);
-
 const Color Color::chartreuse(TCOD_CHARTREUSE);
-
-const Color Color::green(TCOD_GREEN);
 
 const Color Color::sea(TCOD_SEA);
 
 const Color Color::turquoise(TCOD_TURQUOISE);
 
-const Color Color::cyan(TCOD_CYAN);
-
 const Color Color::sky(TCOD_SKY);
 
 const Color Color::azure(TCOD_AZURE);
 
-const Color Color::blue(TCOD_BLUE);
-
 const Color Color::han(TCOD_HAN);
-
-const Color Color::violet(TCOD_VIOLET);
 
 const Color Color::purple(TCOD_PURPLE);
 
 const Color Color::fuchsia(TCOD_FUCHSIA);
-
-const Color Color::magenta(TCOD_MAGENTA);
 
 const Color Color::pink(TCOD_PINK);
 
@@ -122,9 +112,6 @@ const Color Color::silver(TCOD_SILVER);
 const Color Color::celadon(TCOD_CELADON);
 
 const Color Color::peach(TCOD_PEACH);
-
-#ifndef TCOD_HAIKU
-#endif
 
 // Getters
 

@@ -400,34 +400,34 @@ namespace Doryen
 		// Assets
 
 		// grey levels
-		static const Color black;
-		static const Color grey;
-		static const Color white;
+		static const Color GRAY_WARN_90;
+		static const Color GRAY_WARN_30;
+		static const Color GRAY_WARN_1;
 
 		//sepia
 		static const Color sepia;
 
 		// standard colors
-		static const Color red;
-		static const Color flame;
-        static const Color orange;
-        static const Color amber;
-        static const Color yellow;
-        static const Color lime;
-        static const Color chartreuse;
-        static const Color green;
-        static const Color sea;
-        static const Color turquoise;
-        static const Color cyan;
-        static const Color sky;
-        static const Color azure;
-        static const Color blue;
-        static const Color han;
-        static const Color violet;
-        static const Color purple;
-        static const Color fuchsia;
-        static const Color magenta;
-        static const Color pink;
+		static const Color RED;
+		static const Color GOLD;
+		static const Color ORANGE;
+		static const Color MINT;
+		static const Color YELLOW;
+		static const Color INDIGO;
+		static const Color chartreuse;
+		static const Color GREEN;
+		static const Color sea;
+		static const Color turquoise;
+		static const Color CYAN;
+		static const Color sky;
+		static const Color azure;
+		static const Color BLUE;
+		static const Color han;
+		static const Color VIOLET;
+		static const Color purple;
+		static const Color fuchsia;
+		static const Color MAGENTA;
+		static const Color pink;
         static const Color crimson;
 
         // dark colors

@@ -87,12 +87,12 @@ namespace Doryen
 		/**
 		 * Foreground text.
 		 */
-		Color foreground = Color::white;
+		Color foreground = Color::GRAY_WARN_1;
 
 		/**
 		 * Background text.
 		 */
-		Color background = Color::black;
+		Color background = Color::GRAY_WARN_90;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 

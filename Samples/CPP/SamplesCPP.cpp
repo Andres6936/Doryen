@@ -166,14 +166,14 @@ int main(int argc, char* argv[])
 			if (i == curSample)
 			{
 				// set colors for currently selected sample
-				console.setDefaultForeground(Doryen::Color::white);
+				console.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
 				console.setDefaultBackground(Doryen::Color::lightBlue);
 			}
 			else
 			{
 				// set colors for other samples
-				console.setDefaultForeground(Doryen::Color::grey);
-				console.setDefaultBackground(Doryen::Color::black);
+				console.setDefaultForeground(Doryen::Color::GRAY_WARN_30);
+				console.setDefaultBackground(Doryen::Color::GRAY_WARN_90);
 			}
 
 			// print the sample name
@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
 		}
 
 		// print the help message
-		console.setDefaultForeground(Doryen::Color::grey);
+		console.setDefaultForeground(Doryen::Color::GRAY_WARN_30);
 		console.print(50, 46,
 				format("last frame : {>2.0f} ms ({} fps)",
 						console.getLastFrameLength() * 1000,
@@ -230,8 +230,8 @@ int main(int argc, char* argv[])
 		/* display renderer list and current renderer */
 		cur_renderer = Doryen::Platform::getRenderer();
 
-		console.setDefaultForeground(Doryen::Color::grey);
-		console.setDefaultBackground(Doryen::Color::black);
+		console.setDefaultForeground(Doryen::Color::GRAY_WARN_30);
+		console.setDefaultBackground(Doryen::Color::GRAY_WARN_90);
 		console.printEx(42, 46 - (TCOD_NB_RENDERERS + 1), TCOD_BKGND_SET, TCOD_LEFT, "Renderer :");
 
 		for (int i = 0; i < TCOD_NB_RENDERERS; i++)
@@ -239,14 +239,14 @@ int main(int argc, char* argv[])
 			if (i == cur_renderer)
 			{
 				/* set colors for current renderer */
-				console.setDefaultForeground(Doryen::Color::white);
+				console.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
 				console.setDefaultBackground(Doryen::Color::lightBlue);
 			}
 			else
 			{
 				/* set colors for other renderer */
-				console.setDefaultForeground(Doryen::Color::grey);
-				console.setDefaultBackground(Doryen::Color::black);
+				console.setDefaultForeground(Doryen::Color::GRAY_WARN_30);
+				console.setDefaultBackground(Doryen::Color::GRAY_WARN_90);
 			}
 			console.printEx(42, 46 - (TCOD_NB_RENDERERS - i), TCOD_BKGND_SET, TCOD_LEFT,
 					renderer_name[i]);

@@ -90,14 +90,14 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	// blit the noise image on the console with subcell resolution
 	img->blit2x(sample, 0, 0);
 	// draw a transparent rectangle
-	sample.setDefaultBackground(Doryen::Color::grey);
+	sample.setDefaultBackground(Doryen::Color::GRAY_WARN_30);
 	sample.rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
 	for (int y = 2; y < 2 + (func <= WAVELET ? 10 : 13); y++)
 	{
 		for (int x = 2; x < 2 + 23; x++)
 		{
 			Doryen::Color col = sample.getCharForeground(x, y);
-			col = col * Doryen::Color::grey;
+			col = col * Doryen::Color::GRAY_WARN_30;
 			sample.setCharForeground(x, y, col);
 		}
 	}
@@ -107,18 +107,18 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	{
 		if (curfunc == func)
 		{
-			sample.setDefaultForeground(Doryen::Color::white);
+			sample.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
 			sample.setDefaultBackground(Doryen::Color::lightBlue);
 			sample.printEx(2, 2 + curfunc, TCOD_BKGND_SET, TCOD_LEFT, funcName[curfunc]);
 		}
 		else
 		{
-			sample.setDefaultForeground(Doryen::Color::grey);
+			sample.setDefaultForeground(Doryen::Color::GRAY_WARN_30);
 			sample.print(2, 2 + curfunc, funcName[curfunc]);
 		}
 	}
 	// draw parameters
-	sample.setDefaultForeground(Doryen::Color::white);
+	sample.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
 	sample.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
 	if (func > WAVELET)
 	{
