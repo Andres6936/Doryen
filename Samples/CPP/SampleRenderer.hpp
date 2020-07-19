@@ -40,7 +40,7 @@ private:
 
 	SDL_Surface* screen;
 
-	float delay = 3.0f;
+	float delay = 2.0f;
 
 	State state = State::Draw_Blur;
 

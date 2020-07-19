@@ -24,7 +24,7 @@ void SampleRenderer::render(std::any sdlSurface)
 
 	if (delay < 0.0f)
 	{
-		delay = 3.0f;
+		delay = 2.0f;
 
 		nextState();
 	}
