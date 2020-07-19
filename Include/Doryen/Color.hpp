@@ -34,46 +34,6 @@
 #define CLAMP( a, b, x )        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 #define LERP( a, b, x ) ( a + x * (b - a) )
 
-// color constants uses to generate @ColorTable
-/**
-	@ColorCategory STANDARD COLORS
-	@Color red 255,0,0
-	@Color flame 255,63,0
-	@Color orange 255,127,0
-	@Color amber 255,191,0
-	@Color yellow 255,255,0,
-	@Color lime 191,255,0
-	@Color chartreuse 127,255,0
-	@Color green 0,255,0
-	@Color sea 0,255,127
-	@Color turquoise 0,255,191
-	@Color cyan 0,255,255
-	@Color sky 0,191,255
-	@Color azure 0,127,255
-	@Color blue 0,0,255
-	@Color SECONDARY_LIGHT 63,0,255
-	@Color violet 127,0,255
-	@Color purple 191,0,255
-	@Color fuchsia 255,0,255
-	@Color magenta 255,0,191
-	@Color pink 255,0,127
-	@Color crimson 255,0,63
-	@ColorCategory METALLIC COLORS
-	@Color brass 191,151,96
-	@Color copper 196,136,124
-	@Color gold 229,191,0
-	@Color silver 203,203,203
-	@ColorCategory MISCELLANEOUS COLORS
-	@Color celadon 172,255,175
-	@Color peach 255,159,127
-	@ColorCategory GREYSCALE & SEPIA
-	@Color grey 127,127,127
-	@Color sepia 127,101,63
-	@ColorCategory BLACK AND WHITE
-	@Color black 0,0,0
-	@Color white 255,255,255
-*/
-
 namespace Doryen
 {
 	enum class BackgroundFlag : short
