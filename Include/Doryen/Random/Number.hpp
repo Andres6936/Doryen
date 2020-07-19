@@ -14,17 +14,16 @@ namespace Doryen::Random
 
 	private:
 
-		std::random_device randomDevice;
-
-		std::mt19937 randomEngine;
+		// Without random device, I wanna a determinist behavior
+		// If you wanna an un-determinist behavior, called to
+		// setRandomSeed function.
+		static std::mt19937 randomEngine;
 
 	public:
 
-		Number() : randomEngine(randomDevice())
-		{
-		};
+		static void setRandomSeed();
 
-		std::int32_t nextInteger(std::int32_t from, std::int32_t to) const;
+		static std::int32_t nextInteger(std::int32_t from, std::int32_t to);
 
 	};
 }
