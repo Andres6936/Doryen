@@ -203,7 +203,7 @@ void BspHelper::createBspDungeon( Doryen::Map *map, TCODRandom *rng )
 			map->getHeight());
 	map->clear(false, false); // fill with walls
 	// create the BSP tree
-	bsp->splitRecursive(rng, bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,
+	bsp->splitRecursive(bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,
 			1.5f);
 	// carve rooms and corridors
 	bsp->traverseInvertedLevelOrder(this, map);

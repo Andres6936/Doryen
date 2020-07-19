@@ -161,31 +161,33 @@ void Algorithms::BinarySpacePartition::splitOnce(bool horizontal, int position)
 }
 
 void
-Algorithms::BinarySpacePartition::splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize,
+Algorithms::BinarySpacePartition::splitRecursive(int nb, int minHSize, int minVSize,
 		float maxHRatio, float maxVRatio)
 {
 	if (nb == 0 || (w < 2 * minHSize && h < 2 * minVSize))
 	{ return; }
 	bool horiz;
-	if (!randomizer)
-	{ randomizer = TCODRandom::getInstance(); }
+
 	// promote square rooms
 	if (h < 2 * minVSize || w > h * maxHRatio)
 	{ horiz = false; }
 	else if (w < 2 * minHSize || h > w * maxVRatio)
 	{ horiz = true; }
 	else
-	{ horiz = randomizer->getInt(0, 1) == 0; }
+	{ horiz = Random::Number::nextInteger(0, 1) == 0; }
 	int position;
 	if (horiz)
 	{
-		position = randomizer->getInt(y + minVSize, y + h - minVSize);
-	} else {
-		position = randomizer->getInt(x+minHSize,x+w-minHSize);
+		position = Random::Number::nextInteger(y + minVSize, y + h - minVSize);
 	}
-	splitOnce(horiz,position);
-	getLeft()->splitRecursive(randomizer,nb-1,minHSize,minVSize,maxHRatio,maxVRatio);
-	getRight()->splitRecursive(randomizer,nb-1,minHSize,minVSize,maxHRatio,maxVRatio);
+	else
+	{
+		position = Random::Number::nextInteger(x + minHSize, x + w - minHSize);
+	}
+	splitOnce(horiz, position);
+
+	getLeft()->splitRecursive(nb - 1, minHSize, minVSize, maxHRatio, maxVRatio);
+	getRight()->splitRecursive(nb - 1, minHSize, minVSize, maxHRatio, maxVRatio);
 }
 
 void Algorithms::BinarySpacePartition::resize(int x, int y, int w, int h)

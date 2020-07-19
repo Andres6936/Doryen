@@ -213,7 +213,7 @@ namespace Doryen
 			 * @endcode
 			 */
 			void
-			splitRecursive(TCODRandom* randomizer, int nb, int minHSize, int minVSize, float maxHRatio,
+			splitRecursive(int nb, int minHSize, int minVSize, float maxHRatio,
 					float maxVRatio);
 
 			/**

@@ -40,7 +40,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 		{
 			// build a new random bsp tree
 			bsp->removeSons();
-			bsp->splitRecursive(NULL, bspDepth, minRoomSize + (roomWalls ? 1 : 0),
+			bsp->splitRecursive(bspDepth, minRoomSize + (roomWalls ? 1 : 0),
 					minRoomSize + (roomWalls ? 1 : 0), 1.5f, 1.5f);
 		}
 		// create the dungeon from the bsp
