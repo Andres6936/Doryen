@@ -28,7 +28,7 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 		}
 		else
 		{
-			Doryen::Platform::registerSDLRenderer(NULL);
+			//Doryen::Platform::registerSDLRenderer(NULL);
 			// we want libtcod to redraw the sample console even if nothing has changed in it
 			Doryen::Console::root->setDirty(SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
 					SAMPLE_SCREEN_HEIGHT);
