@@ -129,7 +129,7 @@ void Color::setAlpha(const short _a)
 	a = _a;
 }
 
-Color::Color(short r, short g, short b)
+Color::Color(short r, short g, short b) noexcept
 {
 	this->r = r;
 	this->g = g;
@@ -137,7 +137,7 @@ Color::Color(short r, short g, short b)
 	this->a = 255;
 }
 
-Color::Color()
+Color::Color() noexcept
 {
 	r = 0;
 	g = 0;
@@ -145,7 +145,7 @@ Color::Color()
 	a = 255;
 }
 
-Color::Color(short r, short g, short b, short a)
+Color::Color(short r, short g, short b, short a) noexcept
 {
 	this->r = r;
 	this->g = g;
@@ -153,7 +153,7 @@ Color::Color(short r, short g, short b, short a)
 	this->a = a;
 }
 
-bool Color::equals(const Color& c) const
+bool Color::equals(const Color& c) const noexcept
 {
 	return r == c.r && g == c.g && b == c.b && a == c.a;
 }
@@ -375,7 +375,7 @@ void Color::add(const Color& other)
 	this->b = std::min((short)255, b);
 }
 
-Color::Color(const Color& _rhs)
+Color::Color(const Color& _rhs) noexcept
 {
 	this->r = _rhs.r;
 	this->g = _rhs.g;

@@ -90,14 +90,14 @@ namespace Doryen
 		 *
 		 * Alpha is defaulted to 255.
 		 */
-		Color();
+		Color() noexcept;
 
 		/**
 		 * Constructor copy, create an color from exist color.
 		 *
 		 * @param _rhs Color to copy.
 		 */
-		Color(const Color& _rhs);
+		Color(const Color& _rhs) noexcept;
 
 		/**
 		 * Creates an opaque sRGB color with the specified red, green, and blue
@@ -112,18 +112,18 @@ namespace Doryen
 		 * @param g The green component.
 		 * @param b The blue component.
 		 */
-        Color( short r, short g, short b );
+		Color(short r, short g, short b) noexcept;
 
-        /**
-         * Creates an sRGB color with the specified red, green, blue, and alpha
-         * values in the range (0 - 255).
-         *
-         * @param r The red component.
-         * @param g The green component.
-         * @param b The blue component.
-         * @param a The alpha component
-         */
-        Color( short r, short g, short b, short a );
+		/**
+		 * Creates an sRGB color with the specified red, green, blue, and alpha
+		 * values in the range (0 - 255).
+		 *
+		 * @param r The red component.
+		 * @param g The green component.
+		 * @param b The blue component.
+		 * @param a The alpha component
+		 */
+		Color(short r, short g, short b, short a) noexcept;
 
 		/**
 		 * Determines whether another Color is equal to this Color.
@@ -135,7 +135,7 @@ namespace Doryen
 		 * @param c The object to test for equality with this Color
 		 * @return true if the objects are the same; false otherwise.
 		 */
-		bool equals(const Color& c) const;
+		bool equals(const Color& c) const noexcept;
 
 		/**
 		 * Transform the color as result of apply a operation.
