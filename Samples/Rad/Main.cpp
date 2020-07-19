@@ -108,7 +108,7 @@ void init(Doryen::Console& console)
 
 	// build the dungeon
 	map = new Doryen::Map(MAP_WIDTH, MAP_HEIGHT);
-	bsp.createBspDungeon(map, NULL);
+	bsp.createBspDungeon(map);
 	// empty map
 	//map->clear(true,true);	
 

@@ -5,6 +5,8 @@
 #include "SampleRenderer.hpp"
 #include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 
+using namespace Doryen;
+
 static int bspDepth = 8;
 
 static int minRoomSize = 4;
@@ -41,12 +43,12 @@ public :
             if ( maxy == SAMPLE_SCREEN_HEIGHT - 1 )
             { maxy--; }
             if ( randomRoom )
-            {
-                minx = TCODRandom::getInstance( )->getInt( minx, maxx - minRoomSize + 1 );
-                miny = TCODRandom::getInstance( )->getInt( miny, maxy - minRoomSize + 1 );
-                maxx = TCODRandom::getInstance( )->getInt( minx + minRoomSize - 1, maxx );
-                maxy = TCODRandom::getInstance( )->getInt( miny + minRoomSize - 1, maxy );
-            }
+			{
+				minx = Random::Number::nextInteger(minx, maxx - minRoomSize + 1);
+				miny = Random::Number::nextInteger(miny, maxy - minRoomSize + 1);
+				maxx = Random::Number::nextInteger(minx + minRoomSize - 1, maxx);
+				maxy = Random::Number::nextInteger(miny + minRoomSize - 1, maxy);
+			}
             // resize the node to fit the room
 //printf("node %dx%d %dx%d => room %dx%d %dx%d\n",node->x,node->y,node->w,node->h,minx,miny,maxx-minx+1,maxy-miny+1);
             node->x = minx;
@@ -77,21 +79,21 @@ public :
             {
                 // vertical corridor
                 if (left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x)
-                {
-                    // no overlapping zone. we need a Z shaped corridor
-                    int x1 = TCODRandom::getInstance( )->getInt( left->x, left->x + left->w - 1 );
-                    int x2 = TCODRandom::getInstance( )->getInt( right->x, right->x + right->w - 1 );
-                    int y = TCODRandom::getInstance( )->getInt( left->y + left->h, right->y );
-                    vline_up( map, x1, y - 1 );
-                    hline( map, x1, y, x2 );
-                    vline_down( map, x2, y + 1 );
-                }
+				{
+					// no overlapping zone. we need a Z shaped corridor
+					int x1 = Random::Number::nextInteger(left->x, left->x + left->w - 1);
+					int x2 = Random::Number::nextInteger(right->x, right->x + right->w - 1);
+					int y = Random::Number::nextInteger(left->y + left->h, right->y);
+					vline_up(map, x1, y - 1);
+					hline(map, x1, y, x2);
+					vline_down(map, x2, y + 1);
+				}
                 else
                 {
                     // straight vertical corridor
                     int minx = MAX( left->x, right->x );
-                    int maxx = MIN( left->x + left->w - 1, right->x + right->w - 1 );
-                    int x = TCODRandom::getInstance( )->getInt( minx, maxx );
+					int maxx = MIN(left->x + left->w - 1, right->x + right->w - 1);
+					int x = Random::Number::nextInteger(minx, maxx);
                     vline_down( map, x, right->y );
                     vline_up( map, x, right->y - 1 );
                 }
@@ -100,21 +102,21 @@ public :
             {
                 // horizontal corridor
                 if ( left->y + left->h - 1 < right->y || right->y + right->h - 1 < left->y )
-                {
-                    // no overlapping zone. we need a Z shaped corridor
-                    int y1 = TCODRandom::getInstance( )->getInt( left->y, left->y + left->h - 1 );
-                    int y2 = TCODRandom::getInstance( )->getInt( right->y, right->y + right->h - 1 );
-                    int x = TCODRandom::getInstance( )->getInt( left->x + left->w, right->x );
-                    hline_left( map, x - 1, y1 );
-                    vline( map, x, y1, y2 );
-                    hline_right( map, x + 1, y2 );
-                }
+				{
+					// no overlapping zone. we need a Z shaped corridor
+					int y1 = Random::Number::nextInteger(left->y, left->y + left->h - 1);
+					int y2 = Random::Number::nextInteger(right->y, right->y + right->h - 1);
+					int x = Random::Number::nextInteger(left->x + left->w, right->x);
+					hline_left(map, x - 1, y1);
+					vline(map, x, y1, y2);
+					hline_right(map, x + 1, y2);
+				}
                 else
                 {
                     // straight horizontal corridor
                     int miny = MAX( left->y, right->y );
-                    int maxy = MIN( left->y + left->h - 1, right->y + right->h - 1 );
-                    int y = TCODRandom::getInstance( )->getInt( miny, maxy );
+					int maxy = MIN(left->y + left->h - 1, right->y + right->h - 1);
+					int y = Random::Number::nextInteger(miny, maxy);
                     hline_left( map, right->x - 1, y );
                     hline_right( map, right->x, y );
                 }

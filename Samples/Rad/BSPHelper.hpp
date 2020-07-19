@@ -39,16 +39,17 @@ public :
 	bool randomRoom;
 	bool roomWalls;
 
-	void createBspDungeon(Doryen::Map* map, TCODRandom* rng);
+	void createBspDungeon(Doryen::Map* map);
 
 	// libtcod bsp callback stuff
 	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData);
+
 private :
-	void vline( Doryen::Map *map, int x, int y1, int y2 );
+	void vline(Doryen::Map* map, int x, int y1, int y2);
 
-	void vline_up( Doryen::Map *map, int x, int y );
+	void vline_up(Doryen::Map* map, int x, int y);
 
-	void vline_down( Doryen::Map *map, int x, int y );
+	void vline_down(Doryen::Map* map, int x, int y);
 
 	void hline( Doryen::Map *map, int x1, int y, int x2 );
 

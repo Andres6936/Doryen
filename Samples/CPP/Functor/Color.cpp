@@ -24,7 +24,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	for (int c = 0; c < cornerColors.size(); c++)
 	{
 		// move each corner color
-		int component = TCODRandom::getInstance()->getInt(0, 2);
+		int component = Random::Number::nextInteger(0, 2);
 		switch (component)
 		{
 		case 0 :
@@ -89,7 +89,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			}
 			else
 			{
-				c = TCODRandom::getInstance()->getInt('a', 'z');
+				c = Random::Number::nextInteger('a', 'z');
 			}
 
 			sample.setDefaultForeground(col);
