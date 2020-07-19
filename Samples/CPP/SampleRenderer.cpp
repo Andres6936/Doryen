@@ -17,9 +17,11 @@ void SampleRenderer::render(std::any sdlSurface)
 	const auto[CHAR_WIDTH, CHAR_HEIGHT] = sampleConsole.getFontSize();
 
 	// compute the sample console position in pixels
-	int samplex = SAMPLE_SCREEN_X * CHAR_WIDTH;
-	int sampley = SAMPLE_SCREEN_Y * CHAR_HEIGHT;
-	delay -= Doryen::Platform::getLastFrameLength();
+	const int SAMPLE_X = SAMPLE_SCREEN_X * CHAR_WIDTH;
+	const int SAMPLE_Y = SAMPLE_SCREEN_Y * CHAR_HEIGHT;
+
+	delay -= sampleConsole.getLastFrameLength();
+
 	if (delay < 0.0f)
 	{
 		delay = 3.0f;
@@ -32,16 +34,17 @@ void SampleRenderer::render(std::any sdlSurface)
 		else
 		{ sdl_callback_enabled = true; }
 	}
+
 	switch ( effectNum )
 	{
 	case 0 :
-		blur(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		blur(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case 1 :
-		explode(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		explode(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case 2 :
-		burn(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		burn(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	}
 }
