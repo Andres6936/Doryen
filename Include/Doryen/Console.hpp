@@ -180,8 +180,7 @@ namespace Doryen
          * through the libtcod.cfg file.
          */
 		void
-		initRoot(int w, int h, const char* title, bool _fullscreen = false,
-				TCOD_renderer_t _renderer = TCOD_RENDERER_SDL);
+		initRoot(int w, int h, const char* title, bool _fullscreen = false);
 
 		/**
 		 * This function allows you to use a bitmap font (png or bmp) with custom

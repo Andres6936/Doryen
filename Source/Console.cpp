@@ -198,7 +198,7 @@ Doryen::Console::~Console()
 	}
 }
 
-void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen, TCOD_renderer_t _renderer)
+void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen)
 {
 	if (w > 0 && h > 0)
 	{

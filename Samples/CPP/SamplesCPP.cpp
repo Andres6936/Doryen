@@ -60,14 +60,10 @@ int main(int argc, char* argv[])
 	int nbCharHoriz = 0, nbCharVertic = 0;
 	int fullscreenWidth = 0;
 	int fullscreenHeight = 0;
-	TCOD_renderer_t renderer = TCOD_RENDERER_SDL;
 	bool fullscreen = false;
     int fontFlags = TCOD_FONT_TYPE_GREYSCALE | TCOD_FONT_LAYOUT_TCOD, fontNewFlags = 0;
     bool creditsEnd = false;
     int cur_renderer = 0;
-    static const char *renderer_name[TCOD_NB_RENDERERS] = {
-            "F1 GLSL   ", "F2 OPENGL ", "F3 SDL    "
-    };
 
     // initialize the root console (open the game window)
     for ( int j = 1; j < argc; j++ )
@@ -92,11 +88,6 @@ int main(int argc, char* argv[])
             fullscreenWidth = atoi( argv[ j ] );
             j++;
             fullscreenHeight = atoi( argv[ j ] );
-        }
-        else if ( strcmp( argv[ j ], "-renderer" ) == 0 && j + 1 < argc )
-        {
-            j++;
-            renderer = ( TCOD_renderer_t ) atoi( argv[ j ] );
         }
         else if ( strcmp( argv[ j ], "-fullscreen" ) == 0 )
         {
@@ -149,7 +140,7 @@ int main(int argc, char* argv[])
 
 	console.setCustomFont(font, fontFlags, nbCharHoriz, nbCharVertic);
 
-	console.initRoot(80, 50, "libtcod C++ sample", fullscreen, renderer);
+	console.initRoot(80, 50, "libtcod C++ sample", fullscreen);
 
 	std::array samples = configureExamples(std::ref(sampleConsole));
 
