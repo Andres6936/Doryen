@@ -25,10 +25,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <Doryen/Color.hpp>
-
-#include "Doryen/libtcod.hpp"
-#include "Doryen/libtcod_int.h"
+#include <math.h>
+#include "Doryen/Color.hpp"
 
 using namespace Doryen;
 
