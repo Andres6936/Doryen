@@ -46,11 +46,11 @@ private:
 
 	TCODNoise* noise = new TCODNoise(3);
 
-	void burn(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+	void burn(int samplex, int sampley, int samplew, int sampleh);
 
-	void explode(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+	void explode(int samplex, int sampley, int samplew, int sampleh);
 
-	void blur(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+	void blur(int samplex, int sampley, int samplew, int sampleh);
 
 	void nextState();
 

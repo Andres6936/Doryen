@@ -32,28 +32,28 @@ void SampleRenderer::render(std::any sdlSurface)
 	switch (state)
 	{
 	case State::Draw_Blur :
-		blur(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		blur(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Draw_Explode :
-		explode(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		explode(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Draw_Burn :
-		burn(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		burn(SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case State::Stop:
 		break;
 	}
 }
 
-void SampleRenderer::burn( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh )
+void SampleRenderer::burn(int samplex, int sampley, int samplew, int sampleh)
 {
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	for (int x = samplex; x < samplex + samplew; x++ )
+	for (int x = samplex; x < samplex + samplew; x++)
 	{
-		Uint8 *p = ( Uint8 * ) screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
-		for (int y = sampley; y < sampley + sampleh; y++ )
+		Uint8* p = (Uint8*)screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
+		for (int y = sampley; y < sampley + sampleh; y++)
 		{
 			int ir = 0, ig = 0, ib = 0;
 			Uint8 *p2 = p + screen->format->BytesPerPixel; // get pixel at x+1,y
@@ -83,17 +83,17 @@ void SampleRenderer::burn( SDL_Surface *screen, int samplex, int sampley, int sa
 	}
 }
 
-void SampleRenderer::explode( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh )
+void SampleRenderer::explode(int samplex, int sampley, int samplew, int sampleh)
 {
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	TCODRandom *rng = TCODRandom::getInstance( );
-	int dist = ( int ) ( 10 * ( 3.0f - delay ));
-	for (int x = samplex; x < samplex + samplew; x++ )
+	TCODRandom* rng = TCODRandom::getInstance();
+	int dist = (int)(10 * (3.0f - delay));
+	for (int x = samplex; x < samplex + samplew; x++)
 	{
-		Uint8 *p = ( Uint8 * ) screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
-		for (int y = sampley; y < sampley + sampleh; y++ )
+		Uint8* p = (Uint8*)screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
+		for (int y = sampley; y < sampley + sampleh; y++)
 		{
 			int ir = 0, ig = 0, ib = 0;
 			for (int i = 0; i < 3; i++ )
@@ -118,17 +118,17 @@ void SampleRenderer::explode( SDL_Surface *screen, int samplex, int sampley, int
 	}
 }
 
-void SampleRenderer::blur( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh )
+void SampleRenderer::blur(int samplex, int sampley, int samplew, int sampleh)
 {
 	// let's blur that sample console
 	float f[3], n = 0.0f;
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	f[ 2 ] = Doryen::Platform::getElapsedSeconds( );
-	for (int x = samplex; x < samplex + samplew; x++ )
+	f[2] = Doryen::Platform::getElapsedSeconds();
+	for (int x = samplex; x < samplex + samplew; x++)
 	{
-		Uint8 *p = ( Uint8 * ) screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
+		Uint8* p = (Uint8*)screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
 		f[ 0 ] = ( float ) ( x ) / samplew;
 		for (int y = sampley; y < sampley + sampleh; y++ )
 		{
