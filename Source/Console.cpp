@@ -1250,3 +1250,8 @@ void Console::registerCallback(std::unique_ptr<CallbackRender> _render) const
 {
 	renderer->registerCallback(std::move(_render));
 }
+
+void Console::unregisterCallback() const
+{
+	renderer->unregisterCallback();
+}

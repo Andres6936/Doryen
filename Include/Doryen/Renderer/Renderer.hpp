@@ -165,6 +165,8 @@ namespace Doryen
 		 */
 		void fillOldBuffer();
 
+		void unregisterCallback();
+
 		// Getters
 
 		float getLastFrameLength() const;

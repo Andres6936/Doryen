@@ -573,3 +573,9 @@ void Doryen::Renderer::setMinimumFrameLength(unsigned int _frameLength)
 {
 	minimunFrameLength = _frameLength;
 }
+
+void Doryen::Renderer::unregisterCallback()
+{
+	// Set to null the render
+	callbackRender.reset(nullptr);
+}
