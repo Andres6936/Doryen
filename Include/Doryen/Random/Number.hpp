@@ -9,6 +9,12 @@
 namespace Doryen::Random
 {
 
+	/**
+	 * Generate random number with behavior determinist
+	 * (for purpose of debug), if you not wanna the
+	 * determinist behavior, call to function setRandomSeed
+	 * before of generate a new number random.
+	 */
 	class Number
 	{
 
