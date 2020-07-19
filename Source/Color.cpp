@@ -69,24 +69,14 @@ const Color Color::han(TCOD_HAN);
 
 const Color Color::purple(TCOD_PURPLE);
 
-const Color Color::fuchsia(TCOD_FUCHSIA);
+const Color Color::BASE_LIGHTEST(240, 240, 240);
+const Color Color::BASE_LIGHTER(223, 225, 226);
+const Color Color::BASE_LIGHT(169, 174, 177);
+const Color Color::BASE(113, 118, 122);
+const Color Color::BASE_DARK(86, 92, 101);
+const Color Color::BASE_DARKER(61, 69, 81);
+const Color Color::BASE_DARKEST(27, 27, 27);
 
-const Color Color::pink(TCOD_PINK);
-
-const Color Color::crimson(TCOD_CRIMSON);
-
-// dark colors
-const Color Color::darkYellow(TCOD_DARK_YELLOW);
-
-const Color Color::darkBlue(TCOD_DARK_BLUE);
-
-// darker colors
-const Color Color::darkerBlue(TCOD_DARKER_BLUE);
-
-// darkest colors
-const Color Color::darkestFlame(TCOD_DARKEST_FLAME);
-
-// light colors
 const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
 const Color Color::PRIMARY_LIGHT(115, 179, 231);
 

@@ -425,20 +425,20 @@ namespace Doryen
 		static const Color han;
 		static const Color VIOLET;
 		static const Color purple;
-		static const Color fuchsia;
+		static const Color BASE_LIGHTEST;
 		static const Color MAGENTA;
-		static const Color pink;
-        static const Color crimson;
+		static const Color BASE_LIGHTER;
+		static const Color BASE_LIGHT;
 
-        // dark colors
-		static const Color darkYellow;
-		static const Color darkBlue;
+		// dark colors
+		static const Color BASE;
+		static const Color BASE_DARK;
 
 		// darker colors
-		static const Color darkerBlue;
+		static const Color BASE_DARKER;
 
 		// darkest colors
-		static const Color darkestFlame;
+		static const Color BASE_DARKEST;
 
 		// light colors
 		static const Color ACCENT_WARN_LIGHT;
