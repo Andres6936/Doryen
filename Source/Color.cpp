@@ -30,140 +30,142 @@
 #include "Doryen/libtcod.hpp"
 #include "Doryen/libtcod_int.h"
 
+using namespace Doryen;
+
 // grey levels
-const Doryen::Color Doryen::Color::black(TCOD_BLACK);
+const Color Color::black(TCOD_BLACK);
 
-const Doryen::Color Doryen::Color::grey(TCOD_GREY);
+const Color Color::grey(TCOD_GREY);
 
-const Doryen::Color Doryen::Color::white(TCOD_WHITE);
+const Color Color::white(TCOD_WHITE);
 
 //sepia
-const Doryen::Color Doryen::Color::sepia(TCOD_SEPIA);
+const Color Color::sepia(TCOD_SEPIA);
 
 // standard colors
-const Doryen::Color Doryen::Color::red(TCOD_RED);
+const Color Color::red(TCOD_RED);
 
-const Doryen::Color Doryen::Color::flame(TCOD_FLAME);
+const Color Color::flame(TCOD_FLAME);
 
-const Doryen::Color Doryen::Color::orange(TCOD_ORANGE);
+const Color Color::orange(TCOD_ORANGE);
 
-const Doryen::Color Doryen::Color::amber(TCOD_AMBER);
+const Color Color::amber(TCOD_AMBER);
 
-const Doryen::Color Doryen::Color::yellow(TCOD_YELLOW);
+const Color Color::yellow(TCOD_YELLOW);
 
-const Doryen::Color Doryen::Color::lime(TCOD_LIME);
+const Color Color::lime(TCOD_LIME);
 
-const Doryen::Color Doryen::Color::chartreuse(TCOD_CHARTREUSE);
+const Color Color::chartreuse(TCOD_CHARTREUSE);
 
-const Doryen::Color Doryen::Color::green(TCOD_GREEN);
+const Color Color::green(TCOD_GREEN);
 
-const Doryen::Color Doryen::Color::sea(TCOD_SEA);
+const Color Color::sea(TCOD_SEA);
 
-const Doryen::Color Doryen::Color::turquoise(TCOD_TURQUOISE);
+const Color Color::turquoise(TCOD_TURQUOISE);
 
-const Doryen::Color Doryen::Color::cyan(TCOD_CYAN);
+const Color Color::cyan(TCOD_CYAN);
 
-const Doryen::Color Doryen::Color::sky(TCOD_SKY);
+const Color Color::sky(TCOD_SKY);
 
-const Doryen::Color Doryen::Color::azure(TCOD_AZURE);
+const Color Color::azure(TCOD_AZURE);
 
-const Doryen::Color Doryen::Color::blue(TCOD_BLUE);
+const Color Color::blue(TCOD_BLUE);
 
-const Doryen::Color Doryen::Color::han(TCOD_HAN);
+const Color Color::han(TCOD_HAN);
 
-const Doryen::Color Doryen::Color::violet(TCOD_VIOLET);
+const Color Color::violet(TCOD_VIOLET);
 
-const Doryen::Color Doryen::Color::purple(TCOD_PURPLE);
+const Color Color::purple(TCOD_PURPLE);
 
-const Doryen::Color Doryen::Color::fuchsia(TCOD_FUCHSIA);
+const Color Color::fuchsia(TCOD_FUCHSIA);
 
-const Doryen::Color Doryen::Color::magenta(TCOD_MAGENTA);
+const Color Color::magenta(TCOD_MAGENTA);
 
-const Doryen::Color Doryen::Color::pink(TCOD_PINK);
+const Color Color::pink(TCOD_PINK);
 
-const Doryen::Color Doryen::Color::crimson(TCOD_CRIMSON);
+const Color Color::crimson(TCOD_CRIMSON);
 
 // dark colors
-const Doryen::Color Doryen::Color::darkYellow(TCOD_DARK_YELLOW);
+const Color Color::darkYellow(TCOD_DARK_YELLOW);
 
-const Doryen::Color Doryen::Color::darkBlue(TCOD_DARK_BLUE);
+const Color Color::darkBlue(TCOD_DARK_BLUE);
 
 // darker colors
-const Doryen::Color Doryen::Color::darkerBlue(TCOD_DARKER_BLUE);
+const Color Color::darkerBlue(TCOD_DARKER_BLUE);
 
 // darkest colors
-const Doryen::Color Doryen::Color::darkestFlame(TCOD_DARKEST_FLAME);
+const Color Color::darkestFlame(TCOD_DARKEST_FLAME);
 
 // light colors
-const Doryen::Color Doryen::Color::lightYellow(TCOD_LIGHT_YELLOW);
+const Color Color::lightYellow(TCOD_LIGHT_YELLOW);
 
-const Doryen::Color Doryen::Color::lightBlue(TCOD_LIGHT_BLUE);
+const Color Color::lightBlue(TCOD_LIGHT_BLUE);
 
 // lighter colors
-const Doryen::Color Doryen::Color::lighterBlue(TCOD_LIGHTER_BLUE);
+const Color Color::lighterBlue(TCOD_LIGHTER_BLUE);
 
 // lightest colors
-const Doryen::Color Doryen::Color::lightestYellow(TCOD_LIGHTEST_YELLOW);
+const Color Color::lightestYellow(TCOD_LIGHTEST_YELLOW);
 
-const Doryen::Color Doryen::Color::lightestBlue(TCOD_LIGHTEST_BLUE);
+const Color Color::lightestBlue(TCOD_LIGHTEST_BLUE);
 
 //special
-const Doryen::Color Doryen::Color::brass(TCOD_BRASS);
+const Color Color::brass(TCOD_BRASS);
 
-const Doryen::Color Doryen::Color::copper(TCOD_COPPER);
+const Color Color::copper(TCOD_COPPER);
 
-const Doryen::Color Doryen::Color::gold(TCOD_GOLD);
+const Color Color::gold(TCOD_GOLD);
 
-const Doryen::Color Doryen::Color::silver(TCOD_SILVER);
+const Color Color::silver(TCOD_SILVER);
 
 //miscellaneous
-const Doryen::Color Doryen::Color::celadon(TCOD_CELADON);
+const Color Color::celadon(TCOD_CELADON);
 
-const Doryen::Color Doryen::Color::peach(TCOD_PEACH);
+const Color Color::peach(TCOD_PEACH);
 
 #ifndef TCOD_HAIKU
 #endif
 
 // Getters
 
-short Doryen::Color::getRed() const
+short Color::getRed() const
 {
 	return r;
 }
 
-short Doryen::Color::getGreen() const
+short Color::getGreen() const
 {
 	return g;
 }
 
-short Doryen::Color::getBlue() const
+short Color::getBlue() const
 {
 	return b;
 }
 
-short Doryen::Color::getAlpha() const
+short Color::getAlpha() const
 {
 	return a;
 }
 
 // Setters
 
-void Doryen::Color::setRed(const short _r)
+void Color::setRed(const short _r)
 {
 	r = _r;
 }
 
-void Doryen::Color::setGreen(const short _g)
+void Color::setGreen(const short _g)
 {
 	g = _g;
 }
 
-void Doryen::Color::setBlue(const short _b)
+void Color::setBlue(const short _b)
 {
 	b = _b;
 }
 
-void Doryen::Color::setAlpha(const short _a)
+void Color::setAlpha(const short _a)
 {
 	a = _a;
 }
@@ -171,12 +173,12 @@ void Doryen::Color::setAlpha(const short _a)
 // Any
 
 // non member operators
-Doryen::Color operator*(float value, const Doryen::Color& c)
+Color operator*(float value, const Color& c)
 {
 	return c * value;
 }
 
-void Doryen::Color::genMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
+void Color::genMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
 {
 	for (int segment = 0; segment < nbKey - 1; segment++)
 	{
@@ -185,13 +187,13 @@ void Doryen::Color::genMap(Color* map, int nbKey, Color const* keyColor, int con
 		int idx;
 		for (idx = idxStart; idx <= idxEnd; idx++)
 		{
-			map[idx] = Doryen::Color::lerp(keyColor[segment], keyColor[segment + 1],
+			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
 					(float)(idx - idxStart) / (idxEnd - idxStart));
 		}
 	}
 }
 
-Doryen::Color::Color(short r, short g, short b)
+Color::Color(short r, short g, short b)
 {
 	this->r = r;
 	this->g = g;
@@ -199,7 +201,7 @@ Doryen::Color::Color(short r, short g, short b)
 	this->a = 255;
 }
 
-Doryen::Color::Color()
+Color::Color()
 {
 	r = 0;
 	g = 0;
@@ -207,7 +209,7 @@ Doryen::Color::Color()
 	a = 255;
 }
 
-Doryen::Color::Color(short r, short g, short b, short a)
+Color::Color(short r, short g, short b, short a)
 {
 	this->r = r;
 	this->g = g;
@@ -215,7 +217,7 @@ Doryen::Color::Color(short r, short g, short b, short a)
 	this->a = a;
 }
 
-bool Doryen::Color::equals(const Color& c) const
+bool Color::equals(const Color& c) const
 {
 	return r == c.r && g == c.g && b == c.b && a == c.a;
 }
@@ -240,7 +242,7 @@ short clamp(short a, short b, short x)
 	}
 }
 
-void Doryen::Color::trasformColor(const Doryen::Color& another, Doryen::BackgroundFlag flag)
+void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 {
 	short nr = 0;
 	short ng = 0;
@@ -419,14 +421,14 @@ void Doryen::Color::trasformColor(const Doryen::Color& another, Doryen::Backgrou
 	}
 }
 
-void Doryen::Color::multiply(const Doryen::Color& other)
+void Color::multiply(const Color& other)
 {
 	this->r = (short)(this->r * other.r / 255);
 	this->g = (short)(this->g * other.g / 255);
 	this->b = (short)(this->b * other.b / 255);
 }
 
-void Doryen::Color::add(const Doryen::Color& other)
+void Color::add(const Color& other)
 {
 	this->r = (short)(this->r + other.r);
 	this->g = (short)(this->g + other.g);
@@ -437,7 +439,7 @@ void Doryen::Color::add(const Doryen::Color& other)
 	this->b = std::min((short)255, b);
 }
 
-Doryen::Color::Color(const Doryen::Color& _rhs)
+Color::Color(const Color& _rhs)
 {
 	this->r = _rhs.r;
 	this->g = _rhs.g;
@@ -445,7 +447,7 @@ Doryen::Color::Color(const Doryen::Color& _rhs)
 	this->a = _rhs.a;
 }
 
-void Doryen::Color::operator=(const Doryen::Color& _rhs)
+void Color::operator=(const Color& _rhs)
 {
 	this->r = _rhs.r;
 	this->g = _rhs.g;
