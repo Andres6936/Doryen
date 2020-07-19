@@ -34,33 +34,31 @@ private:
 
 	SDL_Surface* screen;
 
+	int effectNum;
+
+	float delay;
+
+	TCODNoise* noise = new TCODNoise(3);
+
+	void burn(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+
+	void explode(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+
+	void blur(SDL_Surface* screen, int samplex, int sampley, int samplew, int sampleh);
+
 public :
 
 	SampleRenderer() : effectNum(0), delay(3.0f)
 	{
-		noise = new TCODNoise(3);
 	}
 
 	~SampleRenderer() override
 	{
-        delete noise;
-    }
+		delete noise;
+	}
 
 	void render(std::any _surface) override;
 
-protected :
-
-    TCODNoise *noise;
-
-    int effectNum;
-
-    float delay;
-
-    void burn( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh );
-
-    void explode( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh );
-
-    void blur( SDL_Surface *screen, int samplex, int sampley, int samplew, int sampleh );
 };
 
 
