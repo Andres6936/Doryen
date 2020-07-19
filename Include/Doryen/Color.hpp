@@ -183,33 +183,6 @@ namespace Doryen
             return Color( r, g, b );
         }
 
-        /**
-        @PageName color
-        @FuncTitle Adding two colors
-        @FuncDesc c1 = c1 + c2 => c1.r = MIN(255, c1.r + c2.r)
-                      c1.g = MIN(255, c1.g + c2.g)
-                      c1.b = MIN(255, c1.b + c2.b)
-        lightishRed = red + darkGrey
-    <table><tr><td style="background-color: rgb(255, 128, 128); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="background-color: rgb(128, 128, 128); width: 60px;"></td></tr></table>
-        @CppEx Doryen::TCODColor myLightishRed = Doryen::TCODColor::red + Doryen::TCODColor::darkGrey
-        @CEx TCOD_color_t my_lightish_red = TCOD_color_add(TCOD_red, TCOD_dark_grey);
-        @PyEx myLightishRed = libtcod.red + libtcod.dark_grey
-        @C#Ex Doryen::TCODColor myLightishRed = Doryen::TCODColor.red.Plus(Doryen::TCODColor.darkGrey)
-        @LuaEx myLightishRed = tcod.color.red + tcod.color.darkGrey
-        */
-        Color operator+( const Color &a ) const
-        {
-            int r = ( int ) ( this->r ) + a.r;
-			int g = (int)(this->g) + a.g;
-			int b = (int)(this->b) + a.b;
-
-			r = MIN(255, r);
-			g = MIN(255, g);
-			b = MIN(255, b);
-
-			return Color(r, g, b);
-		}
-
 		void add(const Color& other);
 
 		/**

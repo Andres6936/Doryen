@@ -55,15 +55,15 @@ void StandardShader::compute() {
 		for (int x=minx; x <= maxx; x++) {
 			for (int y=miny; y <= maxy; y++) {
 				if ( lmap.isInFov(x-minx,y-miny)) {
-					int squaredDist = (l->x-x)*(l->x-x)+(l->y-y)*(l->y-y);
+					int squaredDist = (l->x - x) * (l->x - x) + (l->y - y) * (l->y - y);
 					// basic
 					//double coef = 1.0-squaredDist*invSquaredRadius;
 					// invsqr1
 					//double coef=(1.0f/(1.0f+(float)(squaredDist)));
 					// invsqr2
-					double coef=(1.0f/(1.0f+(float)(squaredDist)/20)- offset)*factor;
-                    Doryen::Color *col = &lightmap[ x + y * map->getWidth( ) ];
-					*col = *col + l->col * coef;
+					double coef = (1.0f / (1.0f + (float)(squaredDist) / 20) - offset) * factor;
+					Doryen::Color* col = &lightmap[x + y * map->getWidth()];
+					col->add(l->col * coef);
 				}					
 			}
 		}
