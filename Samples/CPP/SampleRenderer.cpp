@@ -14,18 +14,18 @@ void SampleRenderer::render(std::any sdlSurface)
 
 	// now we have almighty access to the screen's precious pixels !!
 	// get the font character size
-	int charw, charh;
-	Doryen::Platform::getCharSize(&charw, &charh);
+	const auto[CHAR_WIDTH, CHAR_HEIGHT] = sampleConsole.getFontSize();
+
 	// compute the sample console position in pixels
-	int samplex = SAMPLE_SCREEN_X * charw;
-	int sampley = SAMPLE_SCREEN_Y * charh;
+	int samplex = SAMPLE_SCREEN_X * CHAR_WIDTH;
+	int sampley = SAMPLE_SCREEN_Y * CHAR_HEIGHT;
 	delay -= Doryen::Platform::getLastFrameLength();
 	if (delay < 0.0f)
 	{
 		delay = 3.0f;
-		effectNum = (effectNum + 1 ) % 3;
+		effectNum = (effectNum + 1) % 3;
 
-		if (effectNum == 2 )
+		if (effectNum == 2)
 		{
 			sdl_callback_enabled = false; // no forced redraw for burn effect
 		}
@@ -35,13 +35,13 @@ void SampleRenderer::render(std::any sdlSurface)
 	switch ( effectNum )
 	{
 	case 0 :
-		blur( screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * charw, SAMPLE_SCREEN_HEIGHT * charh );
+		blur(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case 1 :
-		explode( screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * charw, SAMPLE_SCREEN_HEIGHT * charh );
+		explode(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	case 2 :
-		burn( screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * charw, SAMPLE_SCREEN_HEIGHT * charh );
+		burn(screen, samplex, sampley, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
 	}
 }

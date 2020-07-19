@@ -1255,3 +1255,8 @@ void Console::unregisterCallback() const
 {
 	renderer->unregisterCallback();
 }
+
+Size Console::getFontSize() const
+{
+	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeigth() };
+}

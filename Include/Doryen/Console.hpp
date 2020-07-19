@@ -1308,6 +1308,8 @@ namespace Doryen
 
 		unsigned int getFramePerSeconds() const;
 
+		Size getFontSize() const;
+
 		void unregisterCallback() const;
 
 		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
