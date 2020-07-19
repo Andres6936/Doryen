@@ -15,6 +15,10 @@ namespace Functor
 	class SDL : public ISample
 	{
 
+	private:
+
+		void drawBackground() const;
+
 	public:
 
 		SDL(const std::string _name, Console& _console);

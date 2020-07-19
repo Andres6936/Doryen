@@ -12,26 +12,12 @@ Functor::SDL::SDL(std::string _name, Console& _console) : ISample(_name, _consol
 
 void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 {
-	static bool first = true;
+	drawBackground();
 
-	if (first)
-	{
-		first = false;
+	const std::string text = "The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.";
 
-		Doryen::Platform::setFps(30); /* limited to 30 fps */
-		// use noise sample as background. rendering is done in SampleRenderer
-		sample.setDefaultBackground(Doryen::Palette::PRIMARY);
-		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-		sample.clear();
-		// TODO: https://en.wikipedia.org/wiki/Line_wrap_and_word_wrap
-		sample.printRectEx(sample.getWidth() / 2, 3, sample.getWidth(), 0, TCOD_BKGND_NONE,
-				TCOD_CENTER,
-				"The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.");
+	sample.writeText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BackgroundFlag::SET, text);
 
-		const std::string text = "The SDL callback gives you access to the screen surface so that you can alter the pixels one by one using SDL API or any API on top of SDL. SDL is used here to blur the sample console.\n\nHit TAB to enable/disable the callback. While enabled, it will be active on other samples too.\n\nNote that the SDL callback only works with SDL renderer.";
-
-		sample.writeText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BackgroundFlag::SET, text);
-	}
 	if (key == KeyCode::TAB)
 	{
 		sdl_callback_enabled = !sdl_callback_enabled;
@@ -48,4 +34,14 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 					SAMPLE_SCREEN_HEIGHT);
 		}
 	}
+}
+
+void Functor::SDL::drawBackground() const
+{
+	// Use noise sample as background.
+	// Rendering is done in SampleRenderer
+	sample.setDefaultBackground(Palette::PRIMARY);
+	sample.setDefaultForeground(Palette::BASE_LIGHTEST);
+
+	sample.clear();
 }
