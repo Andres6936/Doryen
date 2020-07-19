@@ -20,8 +20,8 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 
 		Doryen::Platform::setFps(30); /* limited to 30 fps */
 		// use noise sample as background. rendering is done in SampleRenderer
-		sample.setDefaultBackground(Doryen::Color::PRIMARY_LIGHT);
-		sample.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
+		sample.setDefaultBackground(Doryen::Palette::PRIMARY);
+		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
 		sample.clear();
 		// TODO: https://en.wikipedia.org/wiki/Line_wrap_and_word_wrap
 		sample.printRectEx(sample.getWidth() / 2, 3, sample.getWidth(), 0, TCOD_BKGND_NONE,

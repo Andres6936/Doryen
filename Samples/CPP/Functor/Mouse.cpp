@@ -36,8 +36,8 @@ void Functor::Mouse::render(KeyCode key, const Doryen::Mouse& mouse)
 
 void Functor::Mouse::drawBackground() const
 {
-	sample.setDefaultBackground(Color::GRAY_WARN_30);
-	sample.setDefaultForeground(Color::ACCENT_WARN_LIGHT);
+	sample.setDefaultBackground(Palette::GRAY_WARN_30);
+	sample.setDefaultForeground(Palette::YELLOW);
 	sample.showCursor(visibleCursor);
 
 	sample.clear();

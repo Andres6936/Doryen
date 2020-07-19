@@ -34,6 +34,7 @@
 #include <vector>
 #include <array>
 
+#include "Graphics/Color/Palette.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Geometry/Size.hpp"
 #include "Renderer/Sdl.hpp"
@@ -87,12 +88,12 @@ namespace Doryen
 		/**
 		 * Foreground text.
 		 */
-		Color foreground = Color::GRAY_WARN_1;
+		Color foreground = Palette::GRAY_WARN_1;
 
 		/**
 		 * Background text.
 		 */
-		Color background = Color::GRAY_WARN_90;
+		Color background = Palette::GRAY_WARN_90;
 
 		Color controlBackground[TCOD_COLCTRL_NUMBER];
 

@@ -267,7 +267,7 @@ void Functor::Path::drawDestinationPoint()
 
 void Functor::Path::drawHelpMessage()
 {
-	sample.setDefaultForeground(Color::GRAY_WARN_1);
+	sample.setDefaultForeground(Palette::GRAY_WARN_1);
 
 	sample.print(1, 1, "WASD / Mouse :");
 	sample.print(1, 2, "Move Destination");

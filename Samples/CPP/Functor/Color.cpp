@@ -81,7 +81,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		{
 			int c;
 			Doryen::Color col = sample.getCharBackground(x, y);
-			col = Doryen::Color::lerp(col, Doryen::Color::GRAY_WARN_90, 0.5f);
+			col = Doryen::Color::lerp(col, Doryen::Palette::GRAY_WARN_90, 0.5f);
 			// use colored character 255 on first and last lines
 			if (y == 0 || y == sample.getHeight() - 1)
 			{
@@ -98,7 +98,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	}
 	sample.setDefaultForeground(textColor);
 	// the background behind the text is slightly darkened using the BKGND_MULTIPLY flag
-	sample.setDefaultBackground(Doryen::Color::GRAY_WARN_30);
+	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_30);
 	sample.printRectEx(sample.getWidth() / 2, 5, sample.getWidth() - 2,
 			sample.getHeight() - 1,
 			TCOD_BKGND_MULTIPLY, TCOD_CENTER,

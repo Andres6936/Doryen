@@ -18,11 +18,11 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	if (img == NULL)
 	{
 		img = new Doryen::Image("Data/img/skull.png");
-		img->setKeyColor(Doryen::Color::GRAY_WARN_90);
+		img->setKeyColor(Doryen::Palette::GRAY_WARN_90);
 		circle = new Doryen::Image("Data/img/circle.png");
 	}
 
-	sample.setDefaultBackground(Doryen::Color::GRAY_WARN_90);
+	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_90);
 	sample.clear();
 	float x = sample.getWidth() / 2 + cosf(Doryen::Platform::getElapsedSeconds()) * 10.0f;
 	float y = (float)(sample.getHeight() / 2);
@@ -34,7 +34,7 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	{
 		// split the color channels of circle.png
 		// the red channel
-		sample.setDefaultBackground(Doryen::Color::RED);
+		sample.setDefaultBackground(Doryen::Palette::RED);
 		sample.rect(0, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
 		circle->blitRect(&sample, 0, 3, -1, -1, TCOD_BKGND_MULTIPLY);
 		// the green channel

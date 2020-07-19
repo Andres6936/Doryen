@@ -5,6 +5,7 @@
 #include <Doryen/Console.hpp>
 #include <Doryen/Image/PNG/State.hpp>
 #include "Doryen/Image/ImageData.hpp"
+#include "Doryen/Graphics/Color/Palette.hpp"
 
 using namespace Doryen;
 
@@ -288,7 +289,7 @@ ImageData::ImageData(
 
 	for (int i = 0; i < width * heigth; ++i)
 	{
-		mipmaps.at(0).buf[i] = Color::GRAY_WARN_90;
+		mipmaps.at(0).buf[i] = Palette::GRAY_WARN_90;
 	}
 
 	float fw = (float)width;
@@ -366,7 +367,7 @@ Color ImageData::getPixel(int x, int y) const
 		}
 		else
 		{
-			return Color::GRAY_WARN_90;
+			return Palette::GRAY_WARN_90;
 		}
 	}
 	else
@@ -375,7 +376,7 @@ Color ImageData::getPixel(int x, int y) const
 		if (not isCoordinateInsideRange(x, y))
 		{
 			// Invariant not satisfied
-			return Color::GRAY_WARN_90;
+			return Palette::GRAY_WARN_90;
 		}
 
 		Uint8 bytesPerPixel = representation->format->BytesPerPixel;
@@ -393,7 +394,7 @@ Color ImageData::getPixel(int x, int y) const
 			}
 			else
 			{
-				return Color::GRAY_WARN_90;
+				return Palette::GRAY_WARN_90;
 			}
 		}
 		else
@@ -511,14 +512,14 @@ const Color& ImageData::getMipmapPixel(
 			texelX > mipmaps[mip].width or
 			texelY > mipmaps[mip].height)
 		{
-			return Color::GRAY_WARN_90;
+			return Palette::GRAY_WARN_90;
 		}
 
 		return mipmaps[mip].buf[texelX + mipmaps[mip].width * texelY];
 	}
 	else
 	{
-		return Color::GRAY_WARN_90;
+		return Palette::GRAY_WARN_90;
 	}
 }
 
