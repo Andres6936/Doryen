@@ -167,7 +167,7 @@ int main(int argc, char* argv[])
 			{
 				// set colors for currently selected sample
 				console.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
-				console.setDefaultBackground(Doryen::Color::lightBlue);
+				console.setDefaultBackground(Doryen::Color::PRIMARY_LIGHT);
 			}
 			else
 			{
@@ -240,7 +240,7 @@ int main(int argc, char* argv[])
 			{
 				/* set colors for current renderer */
 				console.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
-				console.setDefaultBackground(Doryen::Color::lightBlue);
+				console.setDefaultBackground(Doryen::Color::PRIMARY_LIGHT);
 			}
 			else
 			{

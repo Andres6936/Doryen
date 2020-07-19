@@ -87,9 +87,8 @@ const Color Color::darkerBlue(TCOD_DARKER_BLUE);
 const Color Color::darkestFlame(TCOD_DARKEST_FLAME);
 
 // light colors
-const Color Color::lightYellow(TCOD_LIGHT_YELLOW);
-
-const Color Color::lightBlue(TCOD_LIGHT_BLUE);
+const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
+const Color Color::PRIMARY_LIGHT(115, 179, 231);
 
 // lighter colors
 const Color Color::lighterBlue(TCOD_LIGHTER_BLUE);

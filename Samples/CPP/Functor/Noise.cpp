@@ -108,7 +108,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 		if (curfunc == func)
 		{
 			sample.setDefaultForeground(Doryen::Color::GRAY_WARN_1);
-			sample.setDefaultBackground(Doryen::Color::lightBlue);
+			sample.setDefaultBackground(Doryen::Color::PRIMARY_LIGHT);
 			sample.printEx(2, 2 + curfunc, TCOD_BKGND_SET, TCOD_LEFT, funcName[curfunc]);
 		}
 		else

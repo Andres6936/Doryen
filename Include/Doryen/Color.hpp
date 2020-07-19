@@ -431,28 +431,28 @@ namespace Doryen
         static const Color crimson;
 
         // dark colors
-        static const Color darkYellow;
-        static const Color darkBlue;
+		static const Color darkYellow;
+		static const Color darkBlue;
 
-        // darker colors
-        static const Color darkerBlue;
+		// darker colors
+		static const Color darkerBlue;
 
-        // darkest colors
-        static const Color darkestFlame;
+		// darkest colors
+		static const Color darkestFlame;
 
-        // light colors
-        static const Color lightYellow;
-        static const Color lightBlue;
+		// light colors
+		static const Color ACCENT_WARN_LIGHT;
+		static const Color PRIMARY_LIGHT;
 
-        //lighter colors
-        static const Color lighterBlue;
+		//lighter colors
+		static const Color lighterBlue;
 
-        // lightest colors
-        static const Color lightestYellow;
-        static const Color lightestBlue;
+		// lightest colors
+		static const Color lightestYellow;
+		static const Color lightestBlue;
 
-        // metallic
-        static const Color brass;
+		// metallic
+		static const Color brass;
         static const Color copper;
         static const Color gold;
         static const Color silver;
