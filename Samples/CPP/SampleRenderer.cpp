@@ -88,7 +88,7 @@ void SampleRenderer::effectExplode(int samplex, int sampley, int samplew, int sa
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	TCODRandom* rng = TCODRandom::getInstance();
+
 	int dist = (int)(10 * (3.0f - delay));
 	for (int x = samplex; x < samplex + samplew; x++)
 	{
@@ -98,14 +98,14 @@ void SampleRenderer::effectExplode(int samplex, int sampley, int samplew, int sa
 			int ir = 0, ig = 0, ib = 0;
 			for (int i = 0; i < 3; i++ )
 			{
-				int dx = rng->getInt( -dist, dist );
-				int dy = rng->getInt( -dist, dist );
-				Uint8 *p2;
+				int dx = Doryen::Random::Number::nextInteger(-dist, dist);
+				int dy = Doryen::Random::Number::nextInteger(-dist, dist);
+				Uint8* p2;
 				p2 = p + dx * screen->format->BytesPerPixel;
 				p2 += dy * screen->pitch;
-				ir += p2[ ridx ];
-				ig += p2[ gidx ];
-				ib += p2[ bidx ];
+				ir += p2[ridx];
+				ig += p2[gidx];
+				ib += p2[bidx];
 			}
 			ir /= 3;
 			ig /= 3;
