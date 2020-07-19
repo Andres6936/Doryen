@@ -219,14 +219,7 @@ int main(int argc, char* argv[])
 
 		// erase the renderer in debug mode (needed because the root console is not cleared each frame)
 		console.print(1, 1, "        ");
-#ifndef NO_SDL_SAMPLE
-		if (sdl_callback_enabled)
-		{
-			// we want libtcod to redraw the sample console even if nothing has changed in it
-			console.setDirty(SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y, SAMPLE_SCREEN_WIDTH,
-					SAMPLE_SCREEN_HEIGHT);
-		}
-#endif
+
 		/* display renderer list and current renderer */
 		cur_renderer = Doryen::Platform::getRenderer();
 

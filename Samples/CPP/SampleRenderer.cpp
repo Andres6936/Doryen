@@ -25,26 +25,22 @@ void SampleRenderer::render(std::any sdlSurface)
 	if (delay < 0.0f)
 	{
 		delay = 3.0f;
-		effectNum = (effectNum + 1) % 3;
 
-		if (effectNum == 2)
-		{
-			sdl_callback_enabled = false; // no forced redraw for burn effect
-		}
-		else
-		{ sdl_callback_enabled = true; }
+		nextState();
 	}
 
-	switch ( effectNum )
+	switch (state)
 	{
-	case 0 :
+	case State::Draw_Blur :
 		blur(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
-	case 1 :
+	case State::Draw_Explode :
 		explode(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
 		break;
-	case 2 :
+	case State::Draw_Burn :
 		burn(screen, SAMPLE_X, SAMPLE_Y, SAMPLE_SCREEN_WIDTH * CHAR_WIDTH, SAMPLE_SCREEN_HEIGHT * CHAR_HEIGHT);
+		break;
+	case State::Stop:
 		break;
 	}
 }
@@ -226,13 +222,29 @@ void SampleRenderer::blur( SDL_Surface *screen, int samplex, int sampley, int sa
 				ig /= count;
 				ib /= count;
 				p[ ridx ] = ir;
-				p[ gidx ] = ig;
-				p[ bidx ] = ib;
+				p[gidx] = ig;
+				p[bidx] = ib;
 				break;
 			default:
 				break;
 			}
 			p += screen->pitch;
 		}
+	}
+}
+
+void SampleRenderer::nextState()
+{
+	if (state == State::Draw_Blur)
+	{
+		state = State::Draw_Burn;
+	}
+	else if (state == State::Draw_Burn)
+	{
+		state = State::Draw_Explode;
+	}
+	else if (state == State::Draw_Explode)
+	{
+		state = State::Draw_Blur;
 	}
 }
