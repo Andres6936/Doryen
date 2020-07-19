@@ -299,6 +299,4 @@ namespace Doryen
 	};
 }
 
-Doryen::Color operator*( float value, const Doryen::Color &c );
-
 #endif

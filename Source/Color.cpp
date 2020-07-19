@@ -129,14 +129,6 @@ void Color::setAlpha(const short _a)
 	a = _a;
 }
 
-// Any
-
-// non member operators
-Color operator*(float value, const Color& c)
-{
-	return c * value;
-}
-
 Color::Color(short r, short g, short b)
 {
 	this->r = r;
