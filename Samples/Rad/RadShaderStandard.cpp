@@ -63,7 +63,8 @@ void StandardShader::compute() {
 					// invsqr2
 					double coef = (1.0f / (1.0f + (float)(squaredDist) / 20) - offset) * factor;
 					Doryen::Color* col = &lightmap[x + y * map->getWidth()];
-					col->add(l->col * coef);
+					l->col.multiply(coef);
+					col->add(l->col);
 				}					
 			}
 		}

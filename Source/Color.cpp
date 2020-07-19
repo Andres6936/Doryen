@@ -123,7 +123,7 @@ std::uint8_t clamp(std::uint8_t a, std::uint8_t b, std::uint8_t x)
 	}
 }
 
-void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
+void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noexcept
 {
 	std::uint8_t nr = 0;
 	std::uint8_t ng = 0;
@@ -302,11 +302,22 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag)
 	}
 }
 
-void Color::multiply(const Color& other)
+void Color::multiply(const Color& other) noexcept
 {
 	this->r = (std::uint8_t)(this->r * other.r / 255);
 	this->g = (std::uint8_t)(this->g * other.g / 255);
 	this->b = (std::uint8_t)(this->b * other.b / 255);
+}
+
+void Color::multiply(float value) noexcept
+{
+	this->r = this->r * value;
+	this->g = this->g * value;
+	this->b = this->b * value;
+
+	this->r = std::min((std::uint8_t)255, r);
+	this->g = std::min((std::uint8_t)255, g);
+	this->b = std::min((std::uint8_t)255, b);
 }
 
 void Color::add(const Color& other)
@@ -328,7 +339,7 @@ Color::Color(const Color& _rhs) noexcept
 	this->a = _rhs.a;
 }
 
-void Color::operator=(const Color& _rhs)
+void Color::operator=(const Color& _rhs) noexcept
 {
 	this->r = _rhs.r;
 	this->g = _rhs.g;

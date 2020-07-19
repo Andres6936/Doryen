@@ -145,45 +145,21 @@ namespace Doryen
 		 * @param another Color to add
 		 * @param flag Operation to make
 		 */
-		void trasformColor(const Color& another, BackgroundFlag flag);
+		void trasformColor(const Color& another, BackgroundFlag flag) noexcept;
 
 		// Operators
 
-		void operator=(const Color& _rhs);
+		void operator=(const Color& _rhs) noexcept;
 
 		/**
 		 * Multiply the color.
 		 */
-		void multiply(const Color& other);
+		void multiply(const Color& other) noexcept;
 
 		/**
-		@PageName color
-		@FuncTitle Multiply a color by a float
-		@FuncDesc c1 = c2 * v =>
-		c1.r = CLAMP(0, 255, c2.r * v)
-		c1.g = CLAMP(0, 255, c2.g * v)
-		c1.b = CLAMP(0, 255, c2.b * v)
-		darkishRed = red * 0.5
-	<table><tr><td style="background-color: rgb(128, 0, 0); width: 60px; height: 30px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td><td style="width: 60px;"></td></tr></table>
-	</tbody>
-		@CppEx Doryen::TCODColor myDarkishRed = Doryen::TCODColor::lightRed * 0.5f;
-		@CEx TCOD_color_t my_darkish_red = TCOD_color_multiply_scalar(TCOD_light_red, 0.5f);
-		@PyEx myDarkishRed = litbcod.light_red * 0.5
-		@C#Ex Doryen::TCODColor myDarkishRed = Doryen::TCODColor.lightRed.Multiply(0.5f);
-		@LuaEx myDarkishRed = tcod.color.lightRed * 0.5
-		*/
-        Color operator*( float value ) const
-        {
-            int r = ( int ) ( this->r * value );
-            int g = ( int ) ( this->g * value );
-            int b = ( int ) ( this->b * value );
-
-            r = CLAMP( 0, 255, r );
-            g = CLAMP( 0, 255, g );
-            b = CLAMP( 0, 255, b );
-
-            return Color( r, g, b );
-        }
+		 * Multiply for scalar.
+		 */
+		void multiply(float value) noexcept;
 
 		void add(const Color& other);
 
