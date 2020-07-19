@@ -53,20 +53,15 @@ const Color Color::VIOLET(129, 104, 179);
 const Color Color::MAGENTA(215, 45, 121);
 
 //sepia
-const Color Color::sepia(TCOD_SEPIA);
-
-const Color Color::chartreuse(TCOD_CHARTREUSE);
-
-const Color Color::sea(TCOD_SEA);
-
-const Color Color::turquoise(TCOD_TURQUOISE);
-
-const Color Color::sky(TCOD_SKY);
-
-const Color Color::azure(TCOD_AZURE);
+const Color Color::INK(27, 27, 27);
+const Color Color::PRIMARY_LIGHTER(217, 232, 246);
+const Color Color::PRIMARY_LIGHT(115, 179, 231);
+const Color Color::PRIMARY(0, 94, 162);
+const Color Color::PRIMARY_VIVID(0, 80, 216);
+const Color Color::PRIMARY_DARK(26, 68, 128);
+const Color Color::PRIMARY_DARKER(22, 46, 81);
 
 const Color Color::han(TCOD_HAN);
-
 const Color Color::purple(TCOD_PURPLE);
 
 const Color Color::BASE_LIGHTEST(240, 240, 240);
@@ -78,7 +73,6 @@ const Color Color::BASE_DARKER(61, 69, 81);
 const Color Color::BASE_DARKEST(27, 27, 27);
 
 const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
-const Color Color::PRIMARY_LIGHT(115, 179, 231);
 
 // lighter colors
 const Color Color::lighterBlue(TCOD_LIGHTER_BLUE);

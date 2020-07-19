@@ -405,7 +405,7 @@ namespace Doryen
 		static const Color GRAY_WARN_1;
 
 		//sepia
-		static const Color sepia;
+		static const Color INK;
 
 		// standard colors
 		static const Color RED;
@@ -414,13 +414,13 @@ namespace Doryen
 		static const Color MINT;
 		static const Color YELLOW;
 		static const Color INDIGO;
-		static const Color chartreuse;
+		static const Color PRIMARY_LIGHTER;
 		static const Color GREEN;
-		static const Color sea;
-		static const Color turquoise;
+		static const Color PRIMARY;
+		static const Color PRIMARY_VIVID;
 		static const Color CYAN;
-		static const Color sky;
-		static const Color azure;
+		static const Color PRIMARY_DARK;
+		static const Color PRIMARY_DARKER;
 		static const Color BLUE;
 		static const Color han;
 		static const Color VIOLET;
