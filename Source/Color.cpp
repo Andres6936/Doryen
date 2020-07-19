@@ -38,7 +38,7 @@ const Color Color::GRAY_WARN_1(252, 252, 251);
 const Color Color::GRAY_WARN_30(175, 174, 162);
 const Color Color::GRAY_WARN_90(23, 22, 22);
 
-// Basic palette
+// Basic Palette
 
 const Color Color::RED(229, 34, 7);
 const Color Color::ORANGE(230, 111, 14);
@@ -52,17 +52,7 @@ const Color Color::INDIGO(103, 108, 200);
 const Color Color::VIOLET(129, 104, 179);
 const Color Color::MAGENTA(215, 45, 121);
 
-//sepia
-const Color Color::INK(27, 27, 27);
-const Color Color::PRIMARY_LIGHTER(217, 232, 246);
-const Color Color::PRIMARY_LIGHT(115, 179, 231);
-const Color Color::PRIMARY(0, 94, 162);
-const Color Color::PRIMARY_VIVID(0, 80, 216);
-const Color Color::PRIMARY_DARK(26, 68, 128);
-const Color Color::PRIMARY_DARKER(22, 46, 81);
-
-const Color Color::han(TCOD_HAN);
-const Color Color::purple(TCOD_PURPLE);
+// Base Palette
 
 const Color Color::BASE_LIGHTEST(240, 240, 240);
 const Color Color::BASE_LIGHTER(223, 225, 226);
@@ -72,28 +62,28 @@ const Color Color::BASE_DARK(86, 92, 101);
 const Color Color::BASE_DARKER(61, 69, 81);
 const Color Color::BASE_DARKEST(27, 27, 27);
 
+// Primary Palette
+
+const Color Color::INK(27, 27, 27);
+const Color Color::PRIMARY_LIGHTER(217, 232, 246);
+const Color Color::PRIMARY_LIGHT(115, 179, 231);
+const Color Color::PRIMARY(0, 94, 162);
+const Color Color::PRIMARY_VIVID(0, 80, 216);
+const Color Color::PRIMARY_DARK(26, 68, 128);
+const Color Color::PRIMARY_DARKER(22, 46, 81);
+
 const Color Color::ACCENT_WARN_LIGHT(255, 188, 120);
 
-// lighter colors
 const Color Color::lighterBlue(TCOD_LIGHTER_BLUE);
-
-// lightest colors
+const Color Color::han(TCOD_HAN);
+const Color Color::purple(TCOD_PURPLE);
 const Color Color::lightestYellow(TCOD_LIGHTEST_YELLOW);
-
 const Color Color::lightestBlue(TCOD_LIGHTEST_BLUE);
-
-//special
 const Color Color::brass(TCOD_BRASS);
-
 const Color Color::copper(TCOD_COPPER);
-
 const Color Color::gold(TCOD_GOLD);
-
 const Color Color::silver(TCOD_SILVER);
-
-//miscellaneous
 const Color Color::celadon(TCOD_CELADON);
-
 const Color Color::peach(TCOD_PEACH);
 
 // Getters
