@@ -15,7 +15,7 @@ namespace Doryen
 
 		virtual ~CallbackRender() = default;
 
-		virtual void render(std::any& _surface) = 0;
+		virtual void render(std::any _surface) = 0;
 
 	};
 

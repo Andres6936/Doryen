@@ -1141,7 +1141,8 @@ void Doryen::SDL::draw()
 		}
 	}
 
-	// TODO: Render Callback Function
+	// Render Callback Function
+	if (callbackRender) callbackRender->render(screen);
 
 	SDL_Flip(screen);
 
