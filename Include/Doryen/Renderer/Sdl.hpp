@@ -116,6 +116,8 @@ namespace Doryen
 		Key getKeyPressed() override;
 
 		Mouse getMouseEvent() override;
+
+		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
 	};
 }
 

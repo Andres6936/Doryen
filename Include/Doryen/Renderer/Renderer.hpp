@@ -1,8 +1,9 @@
 #ifndef LIBTCOD_RENDERER_HPP
 #define LIBTCOD_RENDERER_HPP
 
-#include <vector>
 #include <array>
+#include <vector>
+#include <memory>
 
 #include "Doryen/Color.h"
 #include "Doryen/Char.hpp"
@@ -10,6 +11,7 @@
 #include "Doryen/Event/Key.hpp"
 #include "Doryen/Event/Mouse.hpp"
 #include "Doryen/Geometry/Point2D.hpp"
+#include "Doryen/Graphics/Callback/Render.hpp"
 
 namespace Doryen
 {
@@ -21,9 +23,11 @@ namespace Doryen
 
 		static bool hasInstanceActive;
 
-		std::vector <Char> buffer;
+		std::vector<Char> buffer;
 
-		std::vector <Char> oldBuffer;
+		std::vector<Char> oldBuffer;
+
+		std::unique_ptr<CallbackRender> callbackRender;
 
 	private:
 
@@ -333,11 +337,13 @@ namespace Doryen
 
 		virtual Mouse getMouseEvent() = 0;
 
+		virtual void setWindowInFullscreen() = 0;
+
 		virtual void showCursor(bool visible) = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
 
-		virtual void setWindowInFullscreen() = 0;
+		virtual void registerCallback(std::unique_ptr<CallbackRender> _callback) = 0;
 	};
 }
 

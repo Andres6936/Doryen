@@ -1308,6 +1308,8 @@ namespace Doryen
 
 		unsigned int getFramePerSeconds() const;
 
+		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
+
 	private:
 
 		void drawFrame(const Geometry::Point2D<>& start,

@@ -1353,3 +1353,8 @@ void Doryen::SDL::showCursor(bool visible)
 {
 	SDL_ShowCursor(visible);
 }
+
+void Doryen::SDL::registerCallback(std::unique_ptr<CallbackRender> _callback)
+{
+	callbackRender = std::move(_callback);
+}
