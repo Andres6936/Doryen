@@ -1,5 +1,5 @@
 ADD_EXECUTABLE(Rad
-        Main.cpp BSPHelper.cpp Shader/Interface/Shader.cpp RadShaderPhoton.cpp RadShaderStandard.cpp)
+        Main.cpp BSPHelper.cpp Shader/Interface/Shader.cpp Shader/PhotonShader.cpp Shader/StandardShader.cpp)
 
 SET_TARGET_PROPERTIES(Rad PROPERTIES CXX_STANDARD 17)
 TARGET_LINK_LIBRARIES(Rad PRIVATE Doryen.Core.C)

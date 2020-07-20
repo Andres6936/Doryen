@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Shader.hpp"
+#include "StandardShader.hpp"
 
 void StandardShader::compute() {
 	// turn off all lights
