@@ -69,4 +69,6 @@ public :
 
 	// libtcod bsp callback stuff
 	bool visitNode(Algorithms::BinarySpacePartition* node, Map& userData);
+
+	Map& getReferenceToMap();
 };

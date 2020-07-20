@@ -87,7 +87,7 @@ void findPos(int* x, int* y)
 	{
 		for (; (*y) < MAP_HEIGHT; (*y)++)
 		{
-			if (map->isWalkable((*x), (*y)))
+			if (bsp.getReferenceToMap().isWalkable((*x), (*y)))
 			{ return; }
 		}
 	}
@@ -95,7 +95,7 @@ void findPos(int* x, int* y)
 	{
 		for (*y = 0; (*y) < MAP_HEIGHT; (*y)++)
 		{
-			if (map->isWalkable((*x), (*y)))
+			if (bsp.getReferenceToMap().isWalkable((*x), (*y)))
 			{ return; }
 		}
 	}
@@ -181,7 +181,7 @@ void render(Doryen::Console& console)
 		{
 			Doryen::Color darkCol, lightCol;
 			// get the cell dark and lit colors
-			if (map->isWalkable(x, y))
+			if (bsp.getReferenceToMap().isWalkable(x, y))
 			{
 				darkCol = darkGround;
 				lightCol = lightGround;
@@ -212,7 +212,7 @@ void render(Doryen::Console& console)
 
 void move(int dx, int dy, Doryen::Console& console)
 {
-	if (map->isWalkable(playerx + dx, playery + dy))
+	if (bsp.getReferenceToMap().isWalkable(playerx + dx, playery + dy))
 	{
 		// restore the previous map char
 		console.setChar(playerx, playery, playerBack);

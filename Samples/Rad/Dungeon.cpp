@@ -213,3 +213,8 @@ void Dungeon::generateDungeon()
 	// carve rooms and corridors
 	bsp->traverseInvertedLevelOrder(this, map);
 }
+
+Map& Dungeon::getReferenceToMap()
+{
+	return map;
+}
