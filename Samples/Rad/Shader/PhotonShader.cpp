@@ -164,17 +164,19 @@ void PhotonShader::compute()
 	// turn off all lights
 	int size = map.getWidth() * map.getHeight();
 	memset(data, 0, sizeof(CellData) * size);
+
 	// first pass. lights only
-	for (Light* l = lights.begin(); l != lights.end(); l++)
+	for (Light& l : lights)
 	{
-		int off = l->x + l->y * map.getWidth();
+		int off = l.x + l.y * map.getWidth();
 		CellData* cellData = &data[off];
 		float sum = ffSum[off];
-		cellData->emission.r = l->col.r * sum;
-		cellData->emission.g = l->col.r * sum;
-		cellData->emission.b = l->col.r * sum;
-		computeLightContribution(l->x, l->y, l->radius, cellData->emission, 0.5f);
+		cellData->emission.r = l.col.r * sum;
+		cellData->emission.g = l.col.r * sum;
+		cellData->emission.b = l.col.r * sum;
+		computeLightContribution(l.x, l.y, l.radius, cellData->emission, 0.5f);
 	}
+
 	// other passes. all lit cells act as lights
 	int pass=1;
 	while ( pass < nbPass )

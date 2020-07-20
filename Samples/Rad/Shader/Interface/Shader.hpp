@@ -42,7 +42,7 @@ protected :
 		Doryen::Color col;
 	};
 
-	TCODList<Light> lights;
+	std::vector<Light> lights;
 
 	std::vector<Color> lightmap;
 

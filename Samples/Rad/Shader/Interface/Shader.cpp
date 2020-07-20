@@ -34,24 +34,25 @@ Shader::Shader(Map& _map) noexcept: map(_map)
 
 int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
 {
-	int id=lights.size();
+	int id = lights.size();
 	Light l;
-	l.x=x;
-	l.y=y;
-	l.radius=radius;
-	l.col=col;
-	lights.push(l);
+	l.x = x;
+	l.y = y;
+	l.radius = radius;
+	l.col = col;
+	lights.push_back(l);
 	return id;
 }
 
 
 void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color &col )
 {
-	Light *l=lights.begin()+id;
-	l->x=x;
-	l->y=y;
-	l->radius=radius;
-	l->col=col;
+	Light& l = lights[id];
+
+	l.x = x;
+	l.y = y;
+	l.radius = radius;
+	l.col = col;
 }
 
 const Doryen::Color &Shader::getLightColor( int x, int y )
