@@ -29,7 +29,7 @@
 
 Shader::Shader(Map& _map) noexcept: map(_map)
 {
-	lightmap = new Color[map.getWidth() * map.getHeight()];
+	lightmap.resize(map.getWidth() * map.getHeight());
 }
 
 int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )

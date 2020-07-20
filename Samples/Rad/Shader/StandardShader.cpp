@@ -27,10 +27,9 @@
 
 #include "StandardShader.hpp"
 
-void StandardShader::compute() {
-	// turn off all lights
-    memset(lightmap, 0, sizeof(Doryen::Color) * map.getWidth() * map.getHeight());
-	for ( Light *l=lights.begin(); l != lights.end(); l++)
+void StandardShader::compute()
+{
+	for (Light* l = lights.begin(); l != lights.end(); l++)
 	{
 		// compute the potential visible set for this light
 		int minx = l->x - l->radius;
