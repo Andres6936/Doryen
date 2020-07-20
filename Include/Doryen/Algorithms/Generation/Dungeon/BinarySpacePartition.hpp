@@ -404,27 +404,27 @@ namespace Doryen
 			 * @return False if the traversal has been interrupted
 			 * (a callback returned false).
 			 */
-			bool traversePreOrder(ITCODBspCallback* listener, void* userData);
+			bool traversePreOrder(BinarySpacePartitionCallback* listener, void* userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseInOrder(ITCODBspCallback* listener, void* userData);
+			bool traverseInOrder(BinarySpacePartitionCallback* listener, void* userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traversePostOrder(ITCODBspCallback* listener, void* userData);
+			bool traversePostOrder(BinarySpacePartitionCallback* listener, void* userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseLevelOrder(ITCODBspCallback* listener, void* userData);
+			bool traverseLevelOrder(BinarySpacePartitionCallback* listener, void* userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData);
+			bool traverseInvertedLevelOrder(BinarySpacePartitionCallback* listener, void* userData);
 
 		protected :
 

@@ -32,7 +32,7 @@
 
 using namespace Doryen;
 
-BspHelper::BspHelper()
+BinarySpacePartition::BinarySpacePartition()
 {
 	bspDepth = 8;
 	minRoomSize = 4;
@@ -41,69 +41,75 @@ BspHelper::BspHelper()
 }
 
 // draw a vertical line
-void BspHelper::vline(Doryen::Map* map, int x, int y1, int y2)
+void BinarySpacePartition::vline(Doryen::Map* map, int x, int y1, int y2)
 {
-	int y=y1;
-	int dy=(y1>y2?-1:1);
-	map->setProperties(x,y,true,true);
-	if ( y1 == y2 ) return;
-	do {
-		y+=dy;
-		map->setProperties(x,y,true,true);
-	} while (y!=y2);
+	int y = y1;
+	int dy = (y1 > y2 ? -1 : 1);
+	map->setProperties(x, y, true, true);
+	if (y1 == y2) return;
+	do
+	{
+		y += dy;
+		map->setProperties(x, y, true, true);
+	} while (y != y2);
 }
 
 
 // draw a vertical line up until we reach an empty space
-void BspHelper::vline_up( Doryen::Map *map, int x, int y )
+void BinarySpacePartition::vline_up(Doryen::Map* map, int x, int y)
 {
-	while (y >= 0 && !map->isTransparent(x,y)) {
-		map->setProperties(x,y,true,true);
+	while (y >= 0 && !map->isTransparent(x, y))
+	{
+		map->setProperties(x, y, true, true);
 		y--;
 	}
 }
 
 // draw a vertical line down until we reach an empty space
-void BspHelper::vline_down( Doryen::Map *map, int x, int y )
+void BinarySpacePartition::vline_down(Doryen::Map* map, int x, int y)
 {
-	while (y < map->getHeight() && !map->isTransparent(x,y)) {
-		map->setProperties(x,y,true,true);
+	while (y < map->getHeight() && !map->isTransparent(x, y))
+	{
+		map->setProperties(x, y, true, true);
 		y++;
 	}
 }
 
 // draw a horizontal line
-void BspHelper::hline( Doryen::Map *map, int x1, int y, int x2 )
+void BinarySpacePartition::hline(Doryen::Map* map, int x1, int y, int x2)
 {
-	int x=x1;
-	int dx=(x1>x2?-1:1);
-	map->setProperties(x,y,true,true);
-	if ( x1 == x2 ) return;
-	do {
-		x+=dx;
-		map->setProperties(x,y,true,true);
-	} while (x!=x2);
+	int x = x1;
+	int dx = (x1 > x2 ? -1 : 1);
+	map->setProperties(x, y, true, true);
+	if (x1 == x2) return;
+	do
+	{
+		x += dx;
+		map->setProperties(x, y, true, true);
+	} while (x != x2);
 }
 
 // draw a horizontal line left until we reach an empty space
-void BspHelper::hline_left( Doryen::Map *map, int x, int y )
+void BinarySpacePartition::hline_left(Doryen::Map* map, int x, int y)
 {
-	while (x >= 0 && !map->isTransparent(x,y)) {
-		map->setProperties(x,y,true,true);
+	while (x >= 0 && !map->isTransparent(x, y))
+	{
+		map->setProperties(x, y, true, true);
 		x--;
 	}
 }
 
 // draw a horizontal line right until we reach an empty space
-void BspHelper::hline_right( Doryen::Map *map, int x, int y )
+void BinarySpacePartition::hline_right(Doryen::Map* map, int x, int y)
 {
-	while (x < map->getWidth() && !map->isTransparent(x,y)) {
-		map->setProperties(x,y,true,true);
+	while (x < map->getWidth() && !map->isTransparent(x, y))
+	{
+		map->setProperties(x, y, true, true);
 		x++;
 	}
 }
 
-bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
+bool BinarySpacePartition::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
 {
 	Doryen::Map* map = (Doryen::Map*)userData;
 	if (node->isLeaf())
@@ -208,11 +214,9 @@ bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* 
 	return true;
 }
 
-void BspHelper::createBspDungeon(Doryen::Map* map)
+void BinarySpacePartition::createBspDungeon(Map* map)
 {
-	Algorithms::BinarySpacePartition* bsp = new Algorithms::BinarySpacePartition(0, 0, map->getWidth(),
-			map->getHeight());
-	map->clear(false, false); // fill with walls
+	auto const bsp = new Algorithms::BinarySpacePartition(0, 0, map->getWidth(), map->getHeight());
 	// create the BSP tree
 	bsp->splitRecursive(bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,
 			1.5f);

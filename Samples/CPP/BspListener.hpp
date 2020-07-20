@@ -18,17 +18,17 @@ typedef char map_t[SAMPLE_SCREEN_WIDTH][SAMPLE_SCREEN_HEIGHT];
 
 // the class building the dungeon from the bsp nodes
 //#include <stdio.h>
-class BspListener : public Doryen::Algorithms::ITCODBspCallback
+class BspListener : public Doryen::Algorithms::BinarySpacePartitionCallback
 {
 public :
-    bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
-    {
-        map_t* map = (map_t*)userData;
-        if (node->isLeaf())
-        {
-            // calculate the room size
-            int minx = node->x + 1;
-            int maxx = node->x + node->w - 1;
+	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
+	{
+		map_t* map = (map_t*)userData;
+		if (node->isLeaf())
+		{
+			// calculate the room size
+			int minx = node->x + 1;
+			int maxx = node->x + node->w - 1;
             int miny = node->y + 1;
             int maxy = node->y + node->h - 1;
             if (!roomWalls)

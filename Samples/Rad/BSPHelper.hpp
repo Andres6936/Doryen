@@ -1,5 +1,3 @@
-#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-
 /*
 * Umbra
 * Copyright (c) 2009, 2010 Mingos, Jice
@@ -27,33 +25,39 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 #include <Doryen/FOV/Fov.hpp>
 
-class BspHelper : public Doryen::Algorithms::ITCODBspCallback
+using namespace Doryen;
+
+class BinarySpacePartition : public Algorithms::BinarySpacePartitionCallback
 {
+
 public :
-	BspHelper();
+
+	BinarySpacePartition();
 
 	int bspDepth;
 	int minRoomSize;
 	bool randomRoom;
 	bool roomWalls;
 
-	void createBspDungeon(Doryen::Map* map);
+	void createBspDungeon(Map* map);
 
 	// libtcod bsp callback stuff
-	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData);
+	bool visitNode(Algorithms::BinarySpacePartition* node, void* userData);
 
 private :
-	void vline(Doryen::Map* map, int x, int y1, int y2);
 
-	void vline_up(Doryen::Map* map, int x, int y);
+	void vline(Map* map, int x, int y1, int y2);
 
-	void vline_down(Doryen::Map* map, int x, int y);
+	void vline_up(Map* map, int x, int y);
 
-	void hline( Doryen::Map *map, int x1, int y, int x2 );
+	void vline_down(Map* map, int x, int y);
 
-	void hline_left( Doryen::Map *map, int x, int y );
+	void hline(Map* map, int x1, int y, int x2);
 
-	void hline_right( Doryen::Map *map, int x, int y );
+	void hline_left(Map* map, int x, int y);
+
+	void hline_right(Map* map, int x, int y);
 };

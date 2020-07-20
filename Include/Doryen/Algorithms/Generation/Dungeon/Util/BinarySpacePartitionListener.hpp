@@ -8,14 +8,12 @@ namespace Doryen
 
 		class BinarySpacePartition;
 
-		class ITCODBspCallback
+		class BinarySpacePartitionCallback
 		{
 
 		public :
 
-			virtual ~ITCODBspCallback()
-			{
-			}
+			virtual ~BinarySpacePartitionCallback() = default;
 
 			virtual bool visitNode(BinarySpacePartition* node, void* userData) = 0;
 		};

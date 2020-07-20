@@ -57,7 +57,7 @@ Algorithms::BinarySpacePartition::~BinarySpacePartition()
 	removeSons();
 }
 
-bool Algorithms::BinarySpacePartition::traversePreOrder(ITCODBspCallback* listener, void* userData)
+bool Algorithms::BinarySpacePartition::traversePreOrder(BinarySpacePartitionCallback* listener, void* userData)
 {
 	if (!listener->visitNode(this, userData))
 	{ return false; }
@@ -68,7 +68,7 @@ bool Algorithms::BinarySpacePartition::traversePreOrder(ITCODBspCallback* listen
 	return true;
 }
 
-bool Algorithms::BinarySpacePartition::traverseInOrder(ITCODBspCallback* listener, void* userData)
+bool Algorithms::BinarySpacePartition::traverseInOrder(BinarySpacePartitionCallback* listener, void* userData)
 {
 	if (getLeft() && !getLeft()->traverseInOrder(listener, userData))
 	{ return false; }
@@ -79,7 +79,7 @@ bool Algorithms::BinarySpacePartition::traverseInOrder(ITCODBspCallback* listene
 	return true;
 }
 
-bool Algorithms::BinarySpacePartition::traversePostOrder(ITCODBspCallback* listener, void* userData)
+bool Algorithms::BinarySpacePartition::traversePostOrder(BinarySpacePartitionCallback* listener, void* userData)
 {
 	if (getLeft() && !getLeft()->traversePostOrder(listener, userData))
 	{ return false; }
@@ -90,7 +90,7 @@ bool Algorithms::BinarySpacePartition::traversePostOrder(ITCODBspCallback* liste
 	return true;
 }
 
-bool Algorithms::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* listener, void* userData)
+bool Algorithms::BinarySpacePartition::traverseLevelOrder(BinarySpacePartitionCallback* listener, void* userData)
 {
 	std::vector<BinarySpacePartition*> stack;
 	stack.push_back(this);
@@ -109,7 +109,8 @@ bool Algorithms::BinarySpacePartition::traverseLevelOrder(ITCODBspCallback* list
 	return true;
 }
 
-bool Algorithms::BinarySpacePartition::traverseInvertedLevelOrder(ITCODBspCallback* listener, void* userData)
+bool
+Algorithms::BinarySpacePartition::traverseInvertedLevelOrder(BinarySpacePartitionCallback* listener, void* userData)
 {
 	std::vector<BinarySpacePartition*> stack1;
 	std::vector<BinarySpacePartition*> stack2;

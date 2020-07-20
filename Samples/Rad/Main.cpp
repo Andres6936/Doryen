@@ -44,7 +44,7 @@ using namespace Doryen;
 
 Doryen::Map* map;
 
-BspHelper bsp;
+BinarySpacePartition bsp;
 
 int playerx = 0, playery = 0, playerBack;
 
@@ -104,9 +104,7 @@ void findPos(int* x, int* y)
 
 void init(Console& console)
 {
-	console.clear();
-
-	// build the dungeon
+	// Build the dungeon
 	map = new Map(MAP_WIDTH, MAP_HEIGHT);
 	bsp.createBspDungeon(map);
 	// empty map
@@ -243,7 +241,6 @@ int main()
 	Console console = Console();
 
 	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false);
-	console.setAlignment(TCOD_CENTER);
 
 	init(console);
 
