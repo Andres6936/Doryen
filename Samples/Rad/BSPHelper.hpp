@@ -25,27 +25,12 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-#include <Doryen/FOV/Fov.hpp>
+#include <Doryen/libtcod.hpp>
 
 using namespace Doryen;
 
 class BinarySpacePartition : public Algorithms::BinarySpacePartitionCallback
 {
-
-public :
-
-	BinarySpacePartition();
-
-	int bspDepth;
-	int minRoomSize;
-	bool randomRoom;
-	bool roomWalls;
-
-	void createBspDungeon(Map* map);
-
-	// libtcod bsp callback stuff
-	bool visitNode(Algorithms::BinarySpacePartition* node, void* userData);
 
 private :
 
@@ -60,4 +45,17 @@ private :
 	void hline_left(Map* map, int x, int y);
 
 	void hline_right(Map* map, int x, int y);
+
+public :
+
+	const static std::uint8_t BSP_DEPTH = 8;
+	const static std::uint8_t MIN_ROOM_SIZE = 4;
+
+	const static bool RANDOM_ROOM = true;
+	const static bool ROOM_WALLS = false;
+
+	void createBspDungeon(Map* map);
+
+	// libtcod bsp callback stuff
+	bool visitNode(Algorithms::BinarySpacePartition* node, void* userData);
 };

@@ -27,18 +27,7 @@
 
 #include "BSPHelper.hpp"
 
-#include "Doryen/libtcod.hpp"
-#include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-
 using namespace Doryen;
-
-BinarySpacePartition::BinarySpacePartition()
-{
-	bspDepth = 8;
-	minRoomSize = 4;
-	randomRoom = true;
-	roomWalls = false;
-}
 
 // draw a vertical line
 void BinarySpacePartition::vline(Doryen::Map* map, int x, int y1, int y2)
@@ -119,26 +108,26 @@ bool BinarySpacePartition::visitNode(Doryen::Algorithms::BinarySpacePartition* n
 		int maxx = node->x + node->w - 1;
 		int miny = node->y + 1;
 		int maxy = node->y + node->h - 1;
-		if (!roomWalls)
+		if (!ROOM_WALLS)
 		{
 			if (minx > 1)
 			{ minx--; }
 			if (miny > 1)
 			{ miny--; }
 		}
-		if (maxx == map->getWidth()-1 ) maxx--;
-		if (maxy == map->getHeight()-1 ) maxy--;
-		if ( randomRoom )
+		if (maxx == map->getWidth() - 1) maxx--;
+		if (maxy == map->getHeight() - 1) maxy--;
+		if (RANDOM_ROOM)
 		{
-			minx = Random::Number::nextInteger(minx, maxx - minRoomSize + 1 < minx ? maxx : maxx - minRoomSize + 1);
-			miny = Random::Number::nextInteger(miny, maxy - minRoomSize + 1 < miny ? maxy : maxy - minRoomSize + 1);
-			maxx = Random::Number::nextInteger(minx + minRoomSize - 1 > maxx ? minx : minx + minRoomSize - 1, maxx);
-			maxy = Random::Number::nextInteger(miny + minRoomSize - 1 > maxy ? miny : miny + minRoomSize - 1 > maxy,
+			minx = Random::Number::nextInteger(minx, maxx - MIN_ROOM_SIZE + 1 < minx ? maxx : maxx - MIN_ROOM_SIZE + 1);
+			miny = Random::Number::nextInteger(miny, maxy - MIN_ROOM_SIZE + 1 < miny ? maxy : maxy - MIN_ROOM_SIZE + 1);
+			maxx = Random::Number::nextInteger(minx + MIN_ROOM_SIZE - 1 > maxx ? minx : minx + MIN_ROOM_SIZE - 1, maxx);
+			maxy = Random::Number::nextInteger(miny + MIN_ROOM_SIZE - 1 > maxy ? miny : miny + MIN_ROOM_SIZE - 1 > maxy,
 					maxy);
 		}
 		// keep walls on the map borders
-		minx=MAX(1,minx);
-		miny=MAX(1,miny);
+		minx = MAX(1, minx);
+		miny = MAX(1, miny);
 		maxx=MIN(map->getWidth()-2,maxx);
 		maxy=MIN(map->getHeight()-2,maxy);
 		// resize the node to fit the room
@@ -218,7 +207,7 @@ void BinarySpacePartition::createBspDungeon(Map* map)
 {
 	auto const bsp = new Algorithms::BinarySpacePartition(0, 0, map->getWidth(), map->getHeight());
 	// create the BSP tree
-	bsp->splitRecursive(bspDepth, minRoomSize + (roomWalls ? 1 : 0), minRoomSize + (roomWalls ? 1 : 0), 1.5f,
+	bsp->splitRecursive(BSP_DEPTH, MIN_ROOM_SIZE + (ROOM_WALLS ? 1 : 0), MIN_ROOM_SIZE + (ROOM_WALLS ? 1 : 0), 1.5f,
 			1.5f);
 	// carve rooms and corridors
 	bsp->traverseInvertedLevelOrder(this, map);
