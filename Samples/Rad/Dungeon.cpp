@@ -25,12 +25,12 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "BSPHelper.hpp"
+#include "Dungeon.hpp"
 
 using namespace Doryen;
 
 // draw a vertical line
-void BinarySpacePartition::vline(int x, int y1, int y2)
+void Dungeon::vline(int x, int y1, int y2)
 {
 	int y = y1;
 	int dy = (y1 > y2 ? -1 : 1);
@@ -45,7 +45,7 @@ void BinarySpacePartition::vline(int x, int y1, int y2)
 
 
 // draw a vertical line up until we reach an empty space
-void BinarySpacePartition::vline_up(int x, int y)
+void Dungeon::vline_up(int x, int y)
 {
 	while (y >= 0 && !map.isTransparent(x, y))
 	{
@@ -55,7 +55,7 @@ void BinarySpacePartition::vline_up(int x, int y)
 }
 
 // draw a vertical line down until we reach an empty space
-void BinarySpacePartition::vline_down(int x, int y)
+void Dungeon::vline_down(int x, int y)
 {
 	while (y < map.getHeight() && !map.isTransparent(x, y))
 	{
@@ -65,7 +65,7 @@ void BinarySpacePartition::vline_down(int x, int y)
 }
 
 // draw a horizontal line
-void BinarySpacePartition::hline(int x1, int y, int x2)
+void Dungeon::hline(int x1, int y, int x2)
 {
 	int x = x1;
 	int dx = (x1 > x2 ? -1 : 1);
@@ -79,7 +79,7 @@ void BinarySpacePartition::hline(int x1, int y, int x2)
 }
 
 // draw a horizontal line left until we reach an empty space
-void BinarySpacePartition::hline_left(int x, int y)
+void Dungeon::hline_left(int x, int y)
 {
 	while (x >= 0 && !map.isTransparent(x, y))
 	{
@@ -89,7 +89,7 @@ void BinarySpacePartition::hline_left(int x, int y)
 }
 
 // draw a horizontal line right until we reach an empty space
-void BinarySpacePartition::hline_right(int x, int y)
+void Dungeon::hline_right(int x, int y)
 {
 	while (x < map.getWidth() && !map.isTransparent(x, y))
 	{
@@ -98,7 +98,7 @@ void BinarySpacePartition::hline_right(int x, int y)
 	}
 }
 
-bool BinarySpacePartition::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map)
+bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map)
 {
 	if (node->isLeaf())
 	{
@@ -204,7 +204,7 @@ bool BinarySpacePartition::visitNode(Doryen::Algorithms::BinarySpacePartition* n
 	return true;
 }
 
-void BinarySpacePartition::generateDungeon()
+void Dungeon::generateDungeon()
 {
 	auto const bsp = new Algorithms::BinarySpacePartition(0, 0, map.getWidth(), map.getHeight());
 	// create the BSP tree

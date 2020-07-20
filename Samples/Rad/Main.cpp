@@ -27,7 +27,7 @@
 
 #include <cmath>
 
-#include "BSPHelper.hpp"
+#include "Dungeon.hpp"
 #include "Shader/StandardShader.hpp"
 #include "Shader/PhotonShader.hpp"
 
@@ -43,7 +43,7 @@ using namespace Doryen;
 #define CELL_REFLECTIVITY 1.5
 #define CELL_SELF_ILLUMINATION 0.4
 
-BinarySpacePartition bsp;
+Dungeon bsp;
 
 int playerx = 0, playery = 0, playerBack;
 

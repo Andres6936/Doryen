@@ -29,7 +29,7 @@
 
 using namespace Doryen;
 
-class BinarySpacePartition : public Algorithms::BinarySpacePartitionCallback
+class Dungeon : public Algorithms::BinarySpacePartitionCallback
 {
 
 private :
