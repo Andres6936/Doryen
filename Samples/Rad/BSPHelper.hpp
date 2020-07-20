@@ -34,6 +34,16 @@ class BinarySpacePartition : public Algorithms::BinarySpacePartitionCallback
 
 private :
 
+	// Constants Static
+
+	const static std::uint8_t BSP_DEPTH = 8;
+	const static std::uint8_t MIN_ROOM_SIZE = 4;
+
+	const static bool RANDOM_ROOM = true;
+	const static bool ROOM_WALLS = false;
+
+	// Methods Private
+
 	void vline(Map* map, int x, int y1, int y2);
 
 	void vline_up(Map* map, int x, int y);
@@ -47,12 +57,6 @@ private :
 	void hline_right(Map* map, int x, int y);
 
 public :
-
-	const static std::uint8_t BSP_DEPTH = 8;
-	const static std::uint8_t MIN_ROOM_SIZE = 4;
-
-	const static bool RANDOM_ROOM = true;
-	const static bool ROOM_WALLS = false;
 
 	void createBspDungeon(Map* map);
 
