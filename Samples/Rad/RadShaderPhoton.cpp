@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "RadShader.hpp"
+#include "Shader.hpp"
 
 PhotonShader::PhotonShader(float reflectivity, float selfIllumination, int nbPass) : 
 	maxRadius(0),reflectivity(reflectivity), selfIllumination(selfIllumination), nbPass(nbPass) {

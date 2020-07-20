@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "RadShader.hpp"
+#include "Shader.hpp"
 
 void Shader::init( Doryen::Map *map )
 {

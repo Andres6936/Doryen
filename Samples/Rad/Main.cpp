@@ -28,7 +28,8 @@
 #include <cmath>
 
 #include "BSPHelper.hpp"
-#include "RadShader.hpp"
+#include "Shader/StandardShader.hpp"
+#include "Shader/PhotonShader.hpp"
 
 using namespace Doryen;
 
