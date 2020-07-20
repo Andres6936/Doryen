@@ -13,7 +13,7 @@ Doryen::SDL::SDL() : Renderer()
 
 Doryen::SDL::~SDL()
 {
-	delete screen;
+	//delete screen;
 	delete charmap;
 }
 
