@@ -24,7 +24,7 @@ protected :
 	int nbPass = 3;
 	// array of MAP_WIDTH*MAP_HEIGHT*maxDiameter*maxDiamter form factor coefficients (0-255)
 	// maxDiameter = 2*maxRadius+1
-	float* ff;
+	std::vector<float> ff;
 	// array of MAP_WIDTH*MAP_HEIGHT containing the sum of all affected cells form factors for each cell in the map
 	float* ffSum;
 
