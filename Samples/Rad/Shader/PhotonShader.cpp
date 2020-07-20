@@ -127,10 +127,13 @@ void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const F
 	// compute the light's contribution
 #define MIN_FACTOR (1.0f/255.0f)
 	int width = map.getWidth();
+
 	for (int y = miny, cdy = miny - ominy; y <= maxy; y++, cdy++)
 	{
 		CellData* cellData = &data[minx + y * width];
-		float* cellFormRow = &cellFormFactor[minx - ominx + cdy * maxDiameter];
+
+		auto cellFormRow = std::next(cellFormFactor, minx - ominx + cdy * maxDiameter);
+
 		for (int x = minx; x <= maxx; x++, cellData++, cellFormRow++)
 		{
 			float cellff = *cellFormRow;
