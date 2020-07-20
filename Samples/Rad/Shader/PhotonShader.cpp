@@ -201,11 +201,12 @@ void PhotonShader::compute()
 	}
 	
 	CellData *cellData=data;
-    Doryen::Color *col = lightmap;
-	propagate();  
-	for (int c=0; c < size; c++,cellData++, col++) {
-		col->r = (uint8)MIN(255,cellData->outgoing.r);
-		col->g = (uint8)MIN(255,cellData->outgoing.g);
-		col->b = (uint8)MIN(255,cellData->outgoing.b);
+
+	propagate();
+
+	for (int c=0; c < size; c++,cellData++) {
+		lightmap[c].r = (uint8)MIN(255,cellData->outgoing.r);
+		lightmap[c].g = (uint8)MIN(255,cellData->outgoing.g);
+		lightmap[c].b = (uint8)MIN(255,cellData->outgoing.b);
 	}	
 }
