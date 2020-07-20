@@ -29,10 +29,22 @@
 
 class Shader
 {
-public :
-	virtual ~Shader()
+
+protected :
+
+	struct Light
 	{
-	}
+		int x, y, radius;
+		Doryen::Color col;
+	};
+
+	TCODList<Light> lights;
+	Doryen::Color* lightmap;
+	Doryen::Map* map;
+
+public :
+
+	virtual ~Shader() = default;
 
 	virtual void init(Doryen::Map* map);
 
@@ -41,17 +53,11 @@ public :
 
 	// update the light with given ID
 	virtual void updateLight(int id, int x, int y, int radius, const Doryen::Color& col);
+
 	virtual void compute() = 0;
+
 	// get the computed light color
     virtual const Doryen::Color &getLightColor( int x, int y );
-protected :
-	struct Light {
-		int x,y,radius;
-        Doryen::Color col;
-	};
-	TCODList<Light> lights;
-    Doryen::Color *lightmap;
-    Doryen::Map *map;
 };
 
 class StandardShader : public Shader {
