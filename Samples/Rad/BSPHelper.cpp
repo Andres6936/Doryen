@@ -124,10 +124,11 @@ bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* 
 		if (maxy == map->getHeight()-1 ) maxy--;
 		if ( randomRoom )
 		{
-			minx = Random::Number::nextInteger(minx, maxx - minRoomSize + 1);
-			miny = Random::Number::nextInteger(miny, maxy - minRoomSize + 1);
-			maxx = Random::Number::nextInteger(minx + minRoomSize - 1, maxx);
-			maxy = Random::Number::nextInteger(miny + minRoomSize - 1, maxy);
+			minx = Random::Number::nextInteger(minx, maxx - minRoomSize + 1 < minx ? maxx : maxx - minRoomSize + 1);
+			miny = Random::Number::nextInteger(miny, maxy - minRoomSize + 1 < miny ? maxy : maxy - minRoomSize + 1);
+			maxx = Random::Number::nextInteger(minx + minRoomSize - 1 > maxx ? minx : minx + minRoomSize - 1, maxx);
+			maxy = Random::Number::nextInteger(miny + minRoomSize - 1 > maxy ? miny : miny + minRoomSize - 1 > maxy,
+					maxy);
 		}
 		// keep walls on the map borders
 		minx=MAX(1,minx);
@@ -183,9 +184,13 @@ bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* 
 			if ( left->y+left->h -1 < right->y || right->y+right->h-1 < left->y )
 			{
 				// no overlapping zone. we need a Z shaped corridor
-				int y1 = Random::Number::nextInteger(left->y, left->y + left->h - 1);
-				int y2 = Random::Number::nextInteger(right->y, right->y + right->h - 1);
+				int y1 = Random::Number::nextInteger(left->y,
+						left->y + left->h - 1 < left->y ? left->y : left->y + left->h - 1);
+				int y2 = Random::Number::nextInteger(right->y,
+						right->y + right->h - 1 < right->y ? right->y : right->y + right->h - 1);
+
 				int x = Random::Number::nextInteger(left->x + left->w, right->x);
+
 				hline_left(map, x - 1, y1);
 				vline(map, x, y1, y2);
 				hline_right(map, x + 1, y2);
@@ -205,7 +210,7 @@ bool BspHelper::visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* 
 
 void BspHelper::createBspDungeon(Doryen::Map* map)
 {
-	Doryen::Algorithms::BinarySpacePartition* bsp = new Doryen::Algorithms::BinarySpacePartition(0, 0, map->getWidth(),
+	Algorithms::BinarySpacePartition* bsp = new Algorithms::BinarySpacePartition(0, 0, map->getWidth(),
 			map->getHeight());
 	map->clear(false, false); // fill with walls
 	// create the BSP tree

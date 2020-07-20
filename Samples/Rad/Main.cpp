@@ -102,12 +102,12 @@ void findPos(int* x, int* y)
 	}
 }
 
-void init(Doryen::Console& console)
+void init(Console& console)
 {
 	console.clear();
 
 	// build the dungeon
-	map = new Doryen::Map(MAP_WIDTH, MAP_HEIGHT);
+	map = new Map(MAP_WIDTH, MAP_HEIGHT);
 	bsp.createBspDungeon(map);
 	// empty map
 	//map->clear(true,true);	
@@ -240,14 +240,14 @@ void move(int dx, int dy, Doryen::Console& console)
 
 int main()
 {
-	Doryen::Console console = Doryen::Console();
+	Console console = Console();
 
 	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false);
 	console.setAlignment(TCOD_CENTER);
 
 	init(console);
 
-	while (!console.isRunning())
+	while (console.isRunning())
 	{
 
 		render(console);
