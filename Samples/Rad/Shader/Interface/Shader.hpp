@@ -25,7 +25,11 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#pragma once
+
 #include "Doryen/libtcod.hpp"
+
+using namespace Doryen;
 
 class Shader
 {
@@ -40,13 +44,14 @@ protected :
 
 	TCODList<Light> lights;
 	Doryen::Color* lightmap;
-	Doryen::Map* map;
+
+	Map& map;
 
 public :
 
-	virtual ~Shader() = default;
+	Shader(Map& _map) noexcept;
 
-	virtual void init(Doryen::Map* map);
+	virtual ~Shader() = default;
 
 	// add a new light. return its ID
 	virtual int addLight(int x, int y, int radius, const Doryen::Color& col);

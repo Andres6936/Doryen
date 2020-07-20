@@ -105,8 +105,9 @@ void init(Console& console)
 {
 	bsp.generateDungeon();
 	// create shaders
-	leftShader = new StandardShader();
-	rightShader = new PhotonShader(CELL_REFLECTIVITY, CELL_SELF_ILLUMINATION, 3);
+	// init shaders (must be done after adding lights for photon shader)
+	leftShader = new StandardShader(bsp.getReferenceToMap());
+	rightShader = new PhotonShader(bsp.getReferenceToMap());
 
 	// put random lights
 	for (int i = 0; i < 10; i++)
@@ -129,10 +130,6 @@ void init(Console& console)
 	// add the player's torch
 	torchIndex = leftShader->addLight(playerx, playery, 10, Palette::GRAY_WARN_1);
 	rightShader->addLight(playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
-
-	// init shaders (must be done after adding lights for photon shader)
-	leftShader->init(map);
-	rightShader->init(map);
 
 	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
 

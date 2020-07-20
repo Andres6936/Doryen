@@ -9,9 +9,8 @@ class PhotonShader : public Shader
 {
 
 public :
-	PhotonShader(float reflectivity, float selfIllumination, int nbPass);
 
-	void init(Doryen::Map* map);
+	PhotonShader(Map& map) noexcept;
 
 	void compute();
 
@@ -19,10 +18,10 @@ public :
 
 protected :
 	// maximum radius of a light in the map
-	int maxRadius;
-	float reflectivity;
-	float selfIllumination;
-	int nbPass;
+	int maxRadius = 0;
+	float reflectivity = 1.5f;
+	float selfIllumination = 0.4f;
+	int nbPass = 3;
 	// array of MAP_WIDTH*MAP_HEIGHT*maxDiameter*maxDiamter form factor coefficients (0-255)
 	// maxDiameter = 2*maxRadius+1
 	float* ff;

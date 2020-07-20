@@ -10,6 +10,10 @@ class StandardShader : public Shader
 
 public :
 
+	StandardShader(Map& _map) noexcept: Shader(_map)
+	{
+	};
+
 	void compute();
 
 };

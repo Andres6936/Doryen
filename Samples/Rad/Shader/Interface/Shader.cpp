@@ -27,11 +27,9 @@
 
 #include "Shader.hpp"
 
-void Shader::init( Doryen::Map *map )
+Shader::Shader(Map& _map) noexcept: map(_map)
 {
-	this->map=map;
-	int size=map->getWidth()*map->getHeight();
-    lightmap = new Doryen::Color[size];
+	lightmap = new Color[map.getWidth() * map.getHeight()];
 }
 
 int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
@@ -46,6 +44,7 @@ int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
 	return id;
 }
 
+
 void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color &col )
 {
 	Light *l=lights.begin()+id;
@@ -55,8 +54,7 @@ void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color 
 	l->col=col;
 }
 
-
 const Doryen::Color &Shader::getLightColor( int x, int y )
 {
-	return lightmap[ x + y * map->getWidth()];
+	return lightmap[x + y * map.getWidth()];
 }
