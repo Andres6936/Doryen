@@ -1,5 +1,6 @@
 // Joan Andrés (@Andres6936) Github.
 
+#include <iostream>
 #include "Sdl.hpp"
 #include "../SampleRenderer.hpp"
 
@@ -17,15 +18,21 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 
 	if (key == KeyCode::TAB)
 	{
-		renderCallback = not renderCallback;
+		// Toggle the variable
+		registerCallback = not registerCallback;
 
-		if (renderCallback)
+		if (registerCallback)
 		{
-			sample.registerCallback(std::make_unique<SampleRenderer>());
+			if (not renderingCallback)
+			{
+				sample.registerCallback(std::make_unique<SampleRenderer>());
+				renderingCallback = true;
+			}
 		}
 		else
 		{
 			sample.unregisterCallback();
+			renderingCallback = false;
 		}
 	}
 }

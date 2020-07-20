@@ -17,7 +17,9 @@ namespace Functor
 
 	private:
 
-		bool renderCallback = false;
+		bool renderingCallback = false;
+
+		bool registerCallback = false;
 
 		const std::string text = "The SDL callback gives you access to the "
 								 "screen surface so that you can alter the "
