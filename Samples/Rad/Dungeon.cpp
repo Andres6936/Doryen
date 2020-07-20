@@ -196,8 +196,8 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 				int miny = MAX(left->y, right->y);
 				int maxy = MIN(left->y + left->h - 1, right->y + right->h - 1);
 				int y = Random::Number::nextInteger(miny, maxy);
-				hline_left(map, right->x - 1, y);
-				hline_right(map, right->x, y);
+				hline_left(right->x - 1, y);
+				hline_right(right->x, y);
 			}
 		}
 	}
