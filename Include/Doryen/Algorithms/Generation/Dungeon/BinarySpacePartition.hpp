@@ -28,9 +28,10 @@
 #ifndef _TCOD_BSP_HPP
 #define _TCOD_BSP_HPP
 
-#include <Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp>
 #include <Doryen/tree.hpp>
+#include <Doryen/FOV/Fov.hpp>
 #include <Doryen/mersenne.hpp>
+#include <Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp>
 
 typedef unsigned char uint8;
 
@@ -404,27 +405,27 @@ namespace Doryen
 			 * @return False if the traversal has been interrupted
 			 * (a callback returned false).
 			 */
-			bool traversePreOrder(BinarySpacePartitionCallback* listener, void* userData);
+			bool traversePreOrder(BinarySpacePartitionCallback* listener, Map& userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseInOrder(BinarySpacePartitionCallback* listener, void* userData);
+			bool traverseInOrder(BinarySpacePartitionCallback* listener, Map& userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traversePostOrder(BinarySpacePartitionCallback* listener, void* userData);
+			bool traversePostOrder(BinarySpacePartitionCallback* listener, Map& userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseLevelOrder(BinarySpacePartitionCallback* listener, void* userData);
+			bool traverseLevelOrder(BinarySpacePartitionCallback* listener, Map& userData);
 
 			/**
 			 * @related traversePreOrder() function documentation.
 			 */
-			bool traverseInvertedLevelOrder(BinarySpacePartitionCallback* listener, void* userData);
+			bool traverseInvertedLevelOrder(BinarySpacePartitionCallback* listener, Map& userData);
 
 		protected :
 

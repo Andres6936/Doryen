@@ -42,8 +42,6 @@ using namespace Doryen;
 #define CELL_REFLECTIVITY 1.5
 #define CELL_SELF_ILLUMINATION 0.4
 
-Doryen::Map* map;
-
 BinarySpacePartition bsp;
 
 int playerx = 0, playery = 0, playerBack;
@@ -104,12 +102,7 @@ void findPos(int* x, int* y)
 
 void init(Console& console)
 {
-	// Build the dungeon
-	map = new Map(MAP_WIDTH, MAP_HEIGHT);
-	bsp.createBspDungeon(map);
-	// empty map
-	//map->clear(true,true);	
-
+	bsp.generateDungeon();
 	// create shaders
 	leftShader = new StandardShader();
 	rightShader = new PhotonShader(CELL_REFLECTIVITY, CELL_SELF_ILLUMINATION, 3);

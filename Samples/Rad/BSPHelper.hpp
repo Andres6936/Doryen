@@ -42,24 +42,31 @@ private :
 	const static bool RANDOM_ROOM = true;
 	const static bool ROOM_WALLS = false;
 
+	const static std::uint8_t MAP_WIDTH = 39;
+	const static std::uint8_t MAP_HEIGHT = 50;
+
+	// Variables
+
+	Map map{ MAP_WIDTH, MAP_HEIGHT };
+
 	// Methods Private
 
-	void vline(Map* map, int x, int y1, int y2);
+	void vline(int x, int y1, int y2);
 
-	void vline_up(Map* map, int x, int y);
+	void vline_up(int x, int y);
 
-	void vline_down(Map* map, int x, int y);
+	void vline_down(int x, int y);
 
-	void hline(Map* map, int x1, int y, int x2);
+	void hline(int x1, int y, int x2);
 
-	void hline_left(Map* map, int x, int y);
+	void hline_left(int x, int y);
 
-	void hline_right(Map* map, int x, int y);
+	void hline_right(int x, int y);
 
 public :
 
-	void createBspDungeon(Map* map);
+	void generateDungeon();
 
 	// libtcod bsp callback stuff
-	bool visitNode(Algorithms::BinarySpacePartition* node, void* userData);
+	bool visitNode(Algorithms::BinarySpacePartition* node, Map& userData);
 };

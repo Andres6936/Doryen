@@ -15,7 +15,7 @@ namespace Doryen
 
 			virtual ~BinarySpacePartitionCallback() = default;
 
-			virtual bool visitNode(BinarySpacePartition* node, void* userData) = 0;
+			virtual bool visitNode(BinarySpacePartition* node, Map& userData) = 0;
 		};
 	}
 }
