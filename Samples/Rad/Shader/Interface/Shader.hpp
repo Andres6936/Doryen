@@ -64,7 +64,7 @@ public :
 	virtual ~Shader() = default;
 
 	// add a new light. return its ID
-	virtual int addLight(int x, int y, int radius, const Doryen::Color& col);
+	virtual int addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col);
 
 	// update the light with given ID
 	virtual void updateLight(int id, int x, int y, int radius, const Doryen::Color& col);

@@ -14,7 +14,7 @@ public :
 
 	void compute();
 
-	int addLight(int x, int y, int radius, const Doryen::Color& col);
+	int addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col);
 
 protected :
 	// maximum radius of a light in the map

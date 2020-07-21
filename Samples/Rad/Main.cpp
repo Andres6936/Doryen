@@ -117,8 +117,8 @@ void init(Console& console)
 
 		findPos(&lx, &ly);
 
-		leftShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
-		rightShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		leftShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		rightShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
 		console.setChar(lx, ly, '*');
 		console.setChar(lx + CON_WIDTH / 2, ly, '*');
@@ -131,8 +131,8 @@ void init(Console& console)
 	console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 
 	// add the player's torch
-	torchIndex = leftShader->addLight(playerx, playery, 10, Palette::GRAY_WARN_1);
-	rightShader->addLight(playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+	torchIndex = leftShader->addLight(Geometry::Point2D<uint32_t>(), 10, Palette::GRAY_WARN_1);
+	rightShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
 	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
 

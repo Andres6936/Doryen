@@ -32,12 +32,13 @@ Shader::Shader(Map& _map) noexcept: map(_map)
 	lightmap.resize(map.getWidth() * map.getHeight());
 }
 
-int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
+int Shader::addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col)
 {
 	int id = lights.size();
 	Light l;
-	l.coordinate.x = x;
-	l.coordinate.y = y;
+
+	l.coordinate = _coordinate;
+
 	l.radius = radius;
 	l.col = col;
 	lights.push_back(l);
