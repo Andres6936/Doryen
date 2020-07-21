@@ -37,9 +37,9 @@ void StandardShader::compute()
 		// compute the potential visible set for this light
 		const std::uint32_t MIN_X = std::max(0u, l.coordinate.x - l.radius);
 		const std::uint32_t MIN_Y = std::max(0u, l.coordinate.y - l.radius);
+
 		const std::uint32_t MAX_X = std::min(l.coordinate.x + l.radius, (unsigned)map.getWidth() - 1);
 		const std::uint32_t MAX_Y = std::min(l.coordinate.y + l.radius, (unsigned)map.getHeight() - 1);
-
 
 		float offset = 1.0f / (1.0f + (float)(l.radius * l.radius) / 20);
 		float factor = 1.0f / (1.0f - offset);
