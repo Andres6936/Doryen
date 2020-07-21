@@ -73,9 +73,15 @@ void StandardShader::compute()
 					// invsqr2
 					double coef = (1.0f / (1.0f + (float)(squaredDist) / 20) - offset) * factor;
 
+					// Save a copy for avoid edit the original color
+					const Color copy = light.col;
+
 					light.col.multiply(coef);
 
 					lightmap[x + y * map.getWidth()].add(light.col);
+
+					// Recovery the original color
+					light.col = copy;
 				}
 			}
 		}
