@@ -210,13 +210,13 @@ void render(Doryen::Console& console)
 			// hack : for a better look, lights are white and we only use them as 
 			// a lerp coefficient between dark and light colors.
 			// a true light model would multiply the light color with the cell color 
-			Doryen::Color leftLight = leftShader->getLightColor(x, y);
-			Doryen::Color cellLeftCol = Doryen::Color::lerp(darkCol, lightCol, gammaLookup[leftLight.r] / 255.0f);
+			Color leftLight = leftShader->getLightColor(x, y);
+			Color cellLeftCol = Color::lerp(darkCol, lightCol, gammaLookup[leftLight.r] / 255.0f);
 			console.setCharBackground(x, y, cellLeftCol);
 
 			// render right map
-			Doryen::Color rightLight = rightShader->getLightColor(x, y);
-			Doryen::Color cellRightCol = Doryen::Color::lerp(darkCol, lightCol, gammaLookup[rightLight.r] / 255.0f);
+			Color rightLight = rightShader->getLightColor(x, y);
+			Color cellRightCol = Color::lerp(darkCol, lightCol, gammaLookup[rightLight.r] / 255.0f);
 			console.setCharBackground(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}
