@@ -322,13 +322,9 @@ void Color::multiply(float value) noexcept
 
 void Color::add(const Color& other)
 {
-	this->r = (std::uint8_t)(this->r + other.r);
-	this->g = (std::uint8_t)(this->g + other.g);
-	this->b = (std::uint8_t)(this->b + other.b);
-
-	this->r = std::min((std::uint8_t)255, r);
-	this->g = std::min((std::uint8_t)255, g);
-	this->b = std::min((std::uint8_t)255, b);
+	this->r = std::min(255, this->r + other.r);
+	this->g = std::min(255, this->g + other.g);
+	this->b = std::min(255, this->b + other.b);
 }
 
 Color::Color(const Color& _rhs) noexcept
