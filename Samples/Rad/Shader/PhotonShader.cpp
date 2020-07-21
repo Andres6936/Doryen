@@ -53,7 +53,7 @@ PhotonShader::PhotonShader(Map& map) noexcept: Shader(map)
 int PhotonShader::addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col)
 {
 	if (radius > maxRadius) maxRadius = radius;
-	return Shader::addLight(Geometry::Point2D<uint32_t>(), radius, col);
+	return Shader::addLight(_coordinate, radius, col);
 }
 
 // compute form factor of cell x,y relative to all its surrounding cells

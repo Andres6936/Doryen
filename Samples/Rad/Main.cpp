@@ -45,7 +45,7 @@ using namespace Doryen;
 
 Dungeon bsp;
 
-int playerx = 0, playery = 0, playerBack;
+std::uint32_t playerx = 0, playery = 0, playerBack;
 
 Shader* leftShader = NULL;
 
@@ -112,13 +112,13 @@ void init(Console& console)
 	// put random lights
 	for (int i = 0; i < 10; i++)
 	{
-		int lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
-		int ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
+		std::uint32_t lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
+		std::uint32_t ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
 
 		findPos(&lx, &ly);
 
-		leftShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
-		rightShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		leftShader->addLight({ lx, ly }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+		rightShader->addLight({ lx, ly }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
 		console.setChar(lx, ly, '*');
 		console.setChar(lx + CON_WIDTH / 2, ly, '*');
@@ -126,13 +126,14 @@ void init(Console& console)
 
 	// find a starting position for the player
 	findPos(&playerx, &playery);
+
 	playerBack = console.getChar(playerx, playery);
 	console.setChar(playerx, playery, '@');
 	console.setChar(playerx + CON_WIDTH / 2, playery, '@');
 
 	// add the player's torch
-	torchIndex = leftShader->addLight(Geometry::Point2D<uint32_t>(), 10, Palette::GRAY_WARN_1);
-	rightShader->addLight(Geometry::Point2D<uint32_t>(), LIGHT_RADIUS, Palette::GRAY_WARN_1);
+	torchIndex = leftShader->addLight({ playerx, playery }, 10, Palette::GRAY_WARN_1);
+	rightShader->addLight({ playerx, playery }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
 	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
 
