@@ -234,6 +234,19 @@ Dungeon::Point Dungeon::getCoordinateWalkableMoreClosestAt(const Point& _at) con
 				}
 			}
 		}
+
+		// Not is possible find a position walkable closet to coordinate, so that
+		// begin from the initial coordinate of map
+		for (std::uint32_t x = 0; x < map.getWidth(); ++x)
+		{
+			for (std::uint32_t y = 0; y < map.getHeight(); ++y)
+			{
+				if (map.isWalkable(x, y))
+				{
+					return { x, y };
+				}
+			}
+		}
 	}
 
 	throw std::out_of_range("Not is possible find a position walkable in the current map");
