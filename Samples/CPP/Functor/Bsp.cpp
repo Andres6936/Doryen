@@ -44,6 +44,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 					minRoomSize + (roomWalls ? 1 : 0), 1.5f, 1.5f);
 		}
 
+		map.clear();
 		// create the dungeon from the bsp
 		bsp->traverseInvertedLevelOrder(&listener, map);
 		generate = false;
