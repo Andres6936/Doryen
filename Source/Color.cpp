@@ -311,13 +311,15 @@ void Color::multiply(const Color& other) noexcept
 
 void Color::multiply(float value) noexcept
 {
-	this->r = this->r * value;
-	this->g = this->g * value;
-	this->b = this->b * value;
+	// Resolver invariant
+	if (value < 0.0f) value = 0.0f;
 
-	this->r = std::min((std::uint8_t)255, r);
-	this->g = std::min((std::uint8_t)255, g);
-	this->b = std::min((std::uint8_t)255, b);
+	// Needed the static cast for avoid overflow problem
+	// Needed that value will be greater that zero (value > 0.0f),
+	// because the component r, g and b are positives.
+	this->r = std::min(255, static_cast<std::int32_t>(this->r * value));
+	this->g = std::min(255, static_cast<std::int32_t>(this->g * value));
+	this->b = std::min(255, static_cast<std::int32_t>(this->b * value));
 }
 
 void Color::add(const Color& other)

@@ -158,6 +158,11 @@ namespace Doryen
 
 		/**
 		 * Multiply for scalar.
+		 *
+		 * For avoid problem with overflow, if value is lesser that 0
+		 * it will be set to zero.
+		 *
+		 * @note If value < 0.0f it will be converted to value = 0.0f
 		 */
 		void multiply(float value) noexcept;
 
