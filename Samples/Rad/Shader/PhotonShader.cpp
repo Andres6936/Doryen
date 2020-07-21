@@ -181,13 +181,13 @@ void PhotonShader::compute()
 	// first pass. lights only
 	for (Light& l : lights)
 	{
-		int off = l.x + l.y * map.getWidth();
+		int off = l.coordinate.x + l.coordinate.y * map.getWidth();
 		CellData* cellData = &data[off];
 		float sum = ffSum[off];
 		cellData->emission.r = l.col.r * sum;
 		cellData->emission.g = l.col.r * sum;
 		cellData->emission.b = l.col.r * sum;
-		computeLightContribution(l.x, l.y, l.radius, cellData->emission, 0.5f);
+		computeLightContribution(l.coordinate.x, l.coordinate.y, l.radius, cellData->emission, 0.5f);
 	}
 
 	// other passes. all lit cells act as lights

@@ -36,8 +36,8 @@ int Shader::addLight( int x, int y, int radius, const Doryen::Color &col )
 {
 	int id = lights.size();
 	Light l;
-	l.x = x;
-	l.y = y;
+	l.coordinate.x = x;
+	l.coordinate.y = y;
 	l.radius = radius;
 	l.col = col;
 	lights.push_back(l);
@@ -49,8 +49,8 @@ void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color 
 {
 	Light& l = lights[id];
 
-	l.x = x;
-	l.y = y;
+	l.coordinate.x = x;
+	l.coordinate.y = y;
 	l.radius = radius;
 	l.col = col;
 }

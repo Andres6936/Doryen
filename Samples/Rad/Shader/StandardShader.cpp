@@ -32,10 +32,10 @@ void StandardShader::compute()
 	for (Light& l : lights)
 	{
 		// compute the potential visible set for this light
-		int minx = l.x - l.radius;
-		int miny = l.y - l.radius;
-		int maxx = l.x + l.radius;
-		int maxy = l.y + l.radius;
+		int minx = l.coordinate.x - l.radius;
+		int miny = l.coordinate.y - l.radius;
+		int maxx = l.coordinate.x + l.radius;
+		int maxy = l.coordinate.y + l.radius;
 		minx = MAX(0, minx);
 		miny = MAX(0, miny);
 		maxx = MIN(maxx, map.getWidth() - 1);
@@ -51,7 +51,7 @@ void StandardShader::compute()
 				lmap.setProperties(x - minx, y - miny, map.isWalkable(x, y), map.isTransparent(x, y));
 			}
 		}
-		lmap.computeFov(l.x - minx, l.y - miny, l.radius);
+		lmap.computeFov(l.coordinate.x - minx, l.coordinate.y - miny, l.radius);
 		// compute the light's contribution		
 		//double invSquaredRadius=1.0 / (l.radius*l.radius);
 		for (int x = minx; x <= maxx; x++)
@@ -60,7 +60,8 @@ void StandardShader::compute()
 			{
 				if (lmap.isInFov(x - minx, y - miny))
 				{
-					int squaredDist = (l.x - x) * (l.x - x) + (l.y - y) * (l.y - y);
+					int squaredDist =
+							(l.coordinate.x - x) * (l.coordinate.x - x) + (l.coordinate.y - y) * (l.coordinate.y - y);
 					// basic
 					//double coef = 1.0-squaredDist*invSquaredRadius;
 					// invsqr1

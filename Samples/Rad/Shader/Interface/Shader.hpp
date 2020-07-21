@@ -36,14 +36,16 @@ class Shader
 
 protected :
 
-	struct Light
+	class Light
 	{
-		int x;
-		int y;
 
-		int radius;
+	public:
 
-		Color col;
+		int radius = 0;
+
+		Color col{};
+
+		Geometry::Point2D<std::uint32_t> coordinate{};
 	};
 
 	/**
