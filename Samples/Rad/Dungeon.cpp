@@ -47,7 +47,7 @@ void Dungeon::vline(int x, int y1, int y2)
 // draw a vertical line up until we reach an empty space
 void Dungeon::vline_up(int x, int y)
 {
-	while (y >= 0 && !map.isTransparent(x, y))
+	while (y >= 0 && not map.isWalkable(x, y))
 	{
 		map.setProperties(x, y, true, true);
 		y--;
@@ -57,7 +57,7 @@ void Dungeon::vline_up(int x, int y)
 // draw a vertical line down until we reach an empty space
 void Dungeon::vline_down(int x, int y)
 {
-	while (y < map.getHeight() && !map.isTransparent(x, y))
+	while (y < map.getHeight() && not map.isWalkable(x, y))
 	{
 		map.setProperties(x, y, true, true);
 		y++;
@@ -81,7 +81,7 @@ void Dungeon::hline(int x1, int y, int x2)
 // draw a horizontal line left until we reach an empty space
 void Dungeon::hline_left(int x, int y)
 {
-	while (x >= 0 && !map.isTransparent(x, y))
+	while (x >= 0 && not map.isWalkable(x, y))
 	{
 		map.setProperties(x, y, true, true);
 		x--;
@@ -91,7 +91,7 @@ void Dungeon::hline_left(int x, int y)
 // draw a horizontal line right until we reach an empty space
 void Dungeon::hline_right(int x, int y)
 {
-	while (x < map.getWidth() && !map.isTransparent(x, y))
+	while (x < map.getWidth() && not map.isWalkable(x, y))
 	{
 		map.setProperties(x, y, true, true);
 		x++;

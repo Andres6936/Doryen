@@ -41,10 +41,10 @@ private :
 	// Constants Static
 
 	const static std::uint8_t BSP_DEPTH = 8;
-	const static std::uint8_t MIN_ROOM_SIZE = 4;
+	const static std::uint8_t MIN_ROOM_SIZE = 5;
 
-	const static bool RANDOM_ROOM = true;
-	const static bool ROOM_WALLS = false;
+	const static bool RANDOM_ROOM = false;
+	const static bool ROOM_WALLS = true;
 
 	const static std::uint8_t MAP_WIDTH = 39;
 	const static std::uint8_t MAP_HEIGHT = 50;
