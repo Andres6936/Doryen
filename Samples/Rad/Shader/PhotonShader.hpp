@@ -58,8 +58,9 @@ protected :
 		// total amount of light on the cell (used to shade the map)
 		FColor outgoing;
 	};
+
 	// array of MAP_WIDTH*MAP_HEIGHT CellData
-	CellData* data;
+	std::vector<CellData> data;
 
 	void propagate();
 

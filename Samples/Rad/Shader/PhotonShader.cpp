@@ -37,9 +37,9 @@ PhotonShader::PhotonShader(Map& map) noexcept: Shader(map)
 	std::fill(ff.begin(), ff.end(), 0.0f);
 
 	ffSum = new float[size];
-	data = new CellData[size];
 
-	memset(data, 0, sizeof(CellData) * size);
+	data.resize(size);
+
 	// compute form factors
 	for (int y = 0; y < map.getHeight(); y++)
 	{
@@ -152,23 +152,24 @@ void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const F
 
 void PhotonShader::propagate()
 {
-	CellData* cellData = data;
-
-	int size = map.getWidth() * map.getHeight();
 	lightsCoord.clear();
-	for (int c = 0; c < size; c++, cellData++)
+
+	for (int i = 0; i < data.size(); ++i)
 	{
-		cellData->emission.r = cellData->incoming.r * reflectivity;
-		cellData->emission.g = cellData->incoming.g * reflectivity;
-		cellData->emission.b = cellData->incoming.b * reflectivity;
-		cellData->outgoing.r += cellData->incoming.r * selfIllumination;
-		cellData->outgoing.g += cellData->incoming.g * selfIllumination;
-		cellData->outgoing.b += cellData->incoming.b * selfIllumination;
-		cellData->incoming.r = 0;
-		cellData->incoming.g = 0;
-		cellData->incoming.b = 0;
-		if (cellData->emission.r > 0 || cellData->emission.g > 0 || cellData->emission.b > 0)
-			lightsCoord.push(Coord(c % map.getWidth(), c / map.getWidth()));
+		data[i].emission.r = data[i].incoming.r * reflectivity;
+		data[i].emission.g = data[i].incoming.g * reflectivity;
+		data[i].emission.b = data[i].incoming.b * reflectivity;
+		data[i].outgoing.r += data[i].incoming.r * selfIllumination;
+		data[i].outgoing.g += data[i].incoming.g * selfIllumination;
+		data[i].outgoing.b += data[i].incoming.b * selfIllumination;
+		data[i].incoming.r = 0;
+		data[i].incoming.g = 0;
+		data[i].incoming.b = 0;
+
+		if (data[i].emission.r > 0 || data[i].emission.g > 0 || data[i].emission.b > 0)
+		{
+			lightsCoord.push(Coord(i % map.getWidth(), i / map.getWidth()));
+		}
 	}
 }
 
@@ -176,7 +177,6 @@ void PhotonShader::compute()
 {
 	// turn off all lights
 	int size = map.getWidth() * map.getHeight();
-	memset(data, 0, sizeof(CellData) * size);
 
 	// first pass. lights only
 	for (Light& l : lights)
@@ -195,24 +195,24 @@ void PhotonShader::compute()
 	while ( pass < nbPass )
 	{
 		propagate();
-		CellData* cellData = data;
+
 		//for (int y=0; y < map.getHeight(); y++ ) {
 		//	for (int x=0; x < map.getWidth(); x++, cellData++ ) {
-		for (Coord* c = lightsCoord.begin(); c != lightsCoord.end(); c++)
+		for (Coord& c : lightsCoord)
 		{
-			cellData = &data[c->x + c->y * map.getWidth()];
-			computeLightContribution(c->x, c->y, maxRadius, cellData->emission, reflectivity);
+			CellData cellData = data.at(c.x + c.y * map.getWidth());
+
+			computeLightContribution(c.x, c.y, maxRadius, cellData.emission, reflectivity);
 		}
 		pass++;
 	}
-	
-	CellData *cellData=data;
 
 	propagate();
 
-	for (int c=0; c < size; c++,cellData++) {
-		lightmap[c].r = (uint8)MIN(255,cellData->outgoing.r);
-		lightmap[c].g = (uint8)MIN(255,cellData->outgoing.g);
-		lightmap[c].b = (uint8)MIN(255,cellData->outgoing.b);
+	for (int c = 0; c < data.size(); ++c)
+	{
+		lightmap[c].r = (uint8)MIN(255,data[c].outgoing.r);
+		lightmap[c].g = (uint8)MIN(255,data[c].outgoing.g);
+		lightmap[c].b = (uint8)MIN(255,data[c].outgoing.b);
 	}	
 }
