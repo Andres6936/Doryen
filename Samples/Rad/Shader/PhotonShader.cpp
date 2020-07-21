@@ -33,8 +33,8 @@ PhotonShader::PhotonShader(Map& map) noexcept: Shader(map)
 	int maxDiameter = 2 * maxRadius + 1;
 
 	// initialize data
-	ff.resize(size * maxDiameter * maxDiameter);
-	std::fill(ff.begin(), ff.end(), 0.0f);
+	formFactor.resize(size * maxDiameter * maxDiameter);
+	std::fill(formFactor.begin(), formFactor.end(), 0.0f);
 
 	ffSum = new float[size];
 
@@ -69,7 +69,7 @@ void PhotonShader::computeFormFactor(int x, int y)
 	int maxy = MIN(omaxy, map.getHeight() - 1);
 	int maxDiameter = 2 * maxRadius + 1;
 
-	auto cellFormFactor = ff.begin() + (x + y * map.getWidth()) * maxDiameter * maxDiameter;
+	auto cellFormFactor = formFactor.begin() + (x + y * map.getWidth()) * maxDiameter * maxDiameter;
 
 	map.computeFov(x, y, maxRadius);
 	int squareRad = (maxRadius * maxRadius);
@@ -125,7 +125,7 @@ void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const F
 
 	int maxDiameter = 2 * maxRadius + 1;
 
-	auto cellFormFactor = ff.begin() + (lx + ly * map.getWidth()) * maxDiameter * maxDiameter;
+	auto cellFormFactor = formFactor.begin() + (lx + ly * map.getWidth()) * maxDiameter * maxDiameter;
 
 	// compute the light's contribution
 #define MIN_FACTOR (1.0f/255.0f)
