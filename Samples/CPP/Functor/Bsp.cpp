@@ -16,7 +16,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 	static Algorithms::BinarySpacePartition* bsp = NULL;
 	static bool generate = true;
 	static bool refresh = false;
-	static map_t map;
+	static Map map{ SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT };
 	static Color darkWall(0, 0, 100);
 	static Color darkGround(50, 50, 150);
 	static BspListener listener;
@@ -35,7 +35,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 			// restore the nodes size
 			bsp->resize(0, 0, SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
 		}
-		memset(map, '#', sizeof(char) * SAMPLE_SCREEN_WIDTH * SAMPLE_SCREEN_HEIGHT);
+
 		if (generate)
 		{
 			// build a new random bsp tree
@@ -43,8 +43,9 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 			bsp->splitRecursive(bspDepth, minRoomSize + (roomWalls ? 1 : 0),
 					minRoomSize + (roomWalls ? 1 : 0), 1.5f, 1.5f);
 		}
+
 		// create the dungeon from the bsp
-		bsp->traverseInvertedLevelOrder(&listener, &map);
+		bsp->traverseInvertedLevelOrder(&listener, map);
 		generate = false;
 		refresh = false;
 	}
@@ -65,7 +66,7 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 	{
 		for (int x = 0; x < SAMPLE_SCREEN_WIDTH; x++)
 		{
-			bool wall = (map[x][y] == '#');
+			bool wall = map.isWalkable(x, y);
 			sample.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
 		}
 	}

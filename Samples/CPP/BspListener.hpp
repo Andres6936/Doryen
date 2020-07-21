@@ -20,19 +20,20 @@ typedef char map_t[SAMPLE_SCREEN_WIDTH][SAMPLE_SCREEN_HEIGHT];
 //#include <stdio.h>
 class BspListener : public Doryen::Algorithms::BinarySpacePartitionCallback
 {
+
 public :
-	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, void* userData)
+
+	bool visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map)
 	{
-		map_t* map = (map_t*)userData;
 		if (node->isLeaf())
 		{
 			// calculate the room size
 			int minx = node->x + 1;
 			int maxx = node->x + node->w - 1;
-            int miny = node->y + 1;
-            int maxy = node->y + node->h - 1;
-            if (!roomWalls)
-            {
+			int miny = node->y + 1;
+			int maxy = node->y + node->h - 1;
+			if (!roomWalls)
+			{
                 if ( minx > 1 )
                 { minx--; }
                 if ( miny > 1 )
@@ -60,7 +61,7 @@ public :
             {
                 for ( int y = miny; y <= maxy; y++ )
                 {
-                    ( *map )[ x ][ y ] = ' ';
+					map.setProperties(x, y, true, true);
                 }
             }
         }
@@ -130,77 +131,79 @@ public :
 // ***************************
 
 // draw a vertical line
-    void vline( map_t *map, int x, int y1, int y2 )
-    {
-        int y = y1;
-        int dy = ( y1 > y2 ? -1 : 1 );
-        ( *map )[ x ][ y ] = ' ';
-        if ( y1 == y2 )
-        { return; }
-        do
-        {
-            y += dy;
-            ( *map )[ x ][ y ] = ' ';
-        }
-        while ( y != y2 );
-    }
+	void vline(Map& map, int x, int y1, int y2)
+	{
+		int y = y1;
+		int dy = (y1 > y2 ? -1 : 1);
+
+		map.setProperties(x, y, true, true);
+
+		if (y1 == y2)
+		{ return; }
+		do
+		{
+			y += dy;
+			map.setProperties(x, y, true, true);
+		} while (y != y2);
+	}
 
 
 // draw a vertical line up until we reach an empty space
-    void vline_up( map_t *map, int x, int y )
-    {
-        while ( y >= 0 && ( *map )[ x ][ y ] != ' ' )
-        {
-            ( *map )[ x ][ y ] = ' ';
-            y--;
-        }
-    }
+	void vline_up(Map& map, int x, int y)
+	{
+		while (y >= 0 && not map.isWalkable(x, y))
+		{
+			map.setProperties(x, y, true, true);
+			y--;
+		}
+	}
 
 // draw a vertical line down until we reach an empty space
-    void vline_down( map_t *map, int x, int y )
-    {
-        while ( y < SAMPLE_SCREEN_HEIGHT && ( *map )[ x ][ y ] != ' ' )
-        {
-            ( *map )[ x ][ y ] = ' ';
-            y++;
-        }
-    }
+	void vline_down(Map& map, int x, int y)
+	{
+		while (y < SAMPLE_SCREEN_HEIGHT && not map.isWalkable(x, y))
+		{
+			map.setProperties(x, y, true, true);
+			y++;
+		}
+	}
 
 // draw a horizontal line
-    void hline( map_t *map, int x1, int y, int x2 )
-    {
-        int x = x1;
-        int dx = ( x1 > x2 ? -1 : 1 );
-        ( *map )[ x ][ y ] = ' ';
-        if ( x1 == x2 )
-        { return; }
-        do
-        {
-            x += dx;
-            ( *map )[ x ][ y ] = ' ';
-        }
-        while ( x != x2 );
-    }
+	void hline(Map& map, int x1, int y, int x2)
+	{
+		int x = x1;
+		int dx = (x1 > x2 ? -1 : 1);
+
+		map.setProperties(x, y, true, true);
+
+		if (x1 == x2)
+		{ return; }
+		do
+		{
+			x += dx;
+			map.setProperties(x, y, true, true);
+		} while (x != x2);
+	}
 
 // draw a horizontal line left until we reach an empty space
-    void hline_left( map_t *map, int x, int y )
-    {
-        while ( x >= 0 && ( *map )[ x ][ y ] != ' ' )
-        {
-            ( *map )[ x ][ y ] = ' ';
-            x--;
-        }
-    }
+	void hline_left(Map& map, int x, int y)
+	{
+		while (x >= 0 && not map.isWalkable(x, y))
+		{
+			map.setProperties(x, y, true, true);
+			x--;
+		}
+	}
 
 // draw a horizontal line right until we reach an empty space
-    void hline_right( map_t *map, int x, int y )
-    {
-        while ( x < SAMPLE_SCREEN_WIDTH && ( *map )[ x ][ y ] != ' ' )
-        {
-            ( *map )[ x ][ y ] = ' ';
-            x++;
-        }
-    }
+	void hline_right(Map& map, int x, int y)
+	{
+		while (x < SAMPLE_SCREEN_WIDTH && not map.isWalkable(x, y))
+		{
+			map.setProperties(x, y, true, true);
+			x++;
+		}
+	}
 
 };
 
