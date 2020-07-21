@@ -12,6 +12,8 @@ public :
 
 	PhotonShader(Map& map) noexcept;
 
+	void calculateShaders();
+
 	void compute();
 
 	int addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col);

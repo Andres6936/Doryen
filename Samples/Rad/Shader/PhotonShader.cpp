@@ -29,25 +29,7 @@
 
 PhotonShader::PhotonShader(Map& map) noexcept: Shader(map)
 {
-	int size = map.getWidth() * map.getHeight();
-	int maxDiameter = 2 * maxRadius + 1;
 
-	// initialize data
-	formFactor.resize(size * maxDiameter * maxDiameter);
-	std::fill(formFactor.begin(), formFactor.end(), 0.0f);
-
-	ffSum = new float[size];
-
-	data.resize(size);
-
-	// compute form factors
-	for (int y = 0; y < map.getHeight(); y++)
-	{
-		for (int x = 0; x < map.getWidth(); x++)
-		{
-			computeFormFactor(x, y);
-		}
-	}
 }
 
 int PhotonShader::addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius, const Doryen::Color& col)
@@ -211,8 +193,31 @@ void PhotonShader::compute()
 
 	for (int c = 0; c < data.size(); ++c)
 	{
-		lightmap[c].r = (uint8)MIN(255,data[c].outgoing.r);
-		lightmap[c].g = (uint8)MIN(255,data[c].outgoing.g);
-		lightmap[c].b = (uint8)MIN(255,data[c].outgoing.b);
-	}	
+		lightmap[c].r = (uint8)MIN(255, data[c].outgoing.r);
+		lightmap[c].g = (uint8)MIN(255, data[c].outgoing.g);
+		lightmap[c].b = (uint8)MIN(255, data[c].outgoing.b);
+	}
+}
+
+void PhotonShader::calculateShaders()
+{
+	int size = map.getWidth() * map.getHeight();
+	int maxDiameter = 2 * maxRadius + 1;
+
+	// initialize data
+	formFactor.resize(size * maxDiameter * maxDiameter);
+	std::fill(formFactor.begin(), formFactor.end(), 0.0f);
+
+	ffSum = new float[size];
+
+	data.resize(size);
+
+	// compute form factors
+	for (int y = 0; y < map.getHeight(); y++)
+	{
+		for (int x = 0; x < map.getWidth(); x++)
+		{
+			computeFormFactor(x, y);
+		}
+	}
 }

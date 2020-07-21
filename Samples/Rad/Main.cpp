@@ -136,6 +136,8 @@ void init(Console& console)
 		}
 	}
 
+	rightShader->calculateShaders();
+
 	// find a starting position for the player
 	findPos(&playerx, &playery);
 

@@ -71,9 +71,14 @@ void StandardShader::compute()
 					Doryen::Color* col = &lightmap[x + y * map.getWidth()];
 					l.col.multiply(coef);
 					col->add(l.col);
-				}					
+				}
 			}
 		}
 	}
+}
+
+void StandardShader::calculateShaders()
+{
+
 }
 

@@ -16,6 +16,8 @@ public :
 
 	void compute();
 
+	void calculateShaders() override;
+
 };
 
 #endif //DORYEN_STANDARDSHADER_HPP

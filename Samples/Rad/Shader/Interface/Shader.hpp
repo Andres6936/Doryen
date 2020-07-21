@@ -71,6 +71,8 @@ public :
 
 	virtual void compute() = 0;
 
+	virtual void calculateShaders() = 0;
+
 	// get the computed light color
-    virtual const Doryen::Color &getLightColor( int x, int y );
+	virtual const Doryen::Color& getLightColor(int x, int y);
 };
