@@ -118,11 +118,10 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 		if (maxy == map.getHeight() - 1) maxy--;
 		if (RANDOM_ROOM)
 		{
-			minx = Random::Number::nextInteger(minx, maxx - MIN_ROOM_SIZE + 1 < minx ? maxx : maxx - MIN_ROOM_SIZE + 1);
-			miny = Random::Number::nextInteger(miny, maxy - MIN_ROOM_SIZE + 1 < miny ? maxy : maxy - MIN_ROOM_SIZE + 1);
-			maxx = Random::Number::nextInteger(minx + MIN_ROOM_SIZE - 1 > maxx ? minx : minx + MIN_ROOM_SIZE - 1, maxx);
-			maxy = Random::Number::nextInteger(miny + MIN_ROOM_SIZE - 1 > maxy ? miny : miny + MIN_ROOM_SIZE - 1 > maxy,
-					maxy);
+			minx = exchangeValueForGenerateRandomNumber(minx, maxx - MIN_ROOM_SIZE + 1);
+			miny = exchangeValueForGenerateRandomNumber(miny, maxy - MIN_ROOM_SIZE + 1);
+			maxx = exchangeValueForGenerateRandomNumber(minx + MIN_ROOM_SIZE - 1, maxx);
+			maxy = exchangeValueForGenerateRandomNumber(miny + MIN_ROOM_SIZE - 1, maxy);
 		}
 		// keep walls on the map borders
 		minx = MAX(1, minx);
@@ -179,27 +178,10 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 			// horizontal corridor
 			if ( left->y+left->h -1 < right->y || right->y+right->h-1 < left->y )
 			{
-				int y1 = 0;
-				int y2 = 0;
 
 				// no overlapping zone. we need a Z shaped corridor
-				if (left->y + left->h - 1 > left->y)
-				{
-					y1 = Random::Number::nextInteger(left->y, left->y + left->h - 1);
-				}
-				else
-				{
-					y1 = Random::Number::nextInteger(left->y + left->h - 1, left->y);
-				}
-
-				if (right->y + right->h - 1 > right->y)
-				{
-					y2 = Random::Number::nextInteger(right->y, right->y + right->h - 1);
-				}
-				else
-				{
-					y2 = Random::Number::nextInteger(right->y + right->h - 1, right->y);
-				}
+				int y1 = exchangeValueForGenerateRandomNumber(left->y, left->y + left->h - 1);
+				int y2 = exchangeValueForGenerateRandomNumber(right->y, right->y + right->h - 1);
 
 				int x = Random::Number::nextInteger(left->x + left->w, right->x);
 
@@ -276,4 +258,16 @@ bool Dungeon::invariantSatisfiedWithCoordinate(const Point& _verify) const
 	}
 
 	return true;
+}
+
+std::int32_t Dungeon::exchangeValueForGenerateRandomNumber(const std::int32_t _from, const std::int32_t _to) const
+{
+	if (_from < _to)
+	{
+		return Random::Number::nextInteger(_from, _to);
+	}
+	else
+	{
+		return Random::Number::nextInteger(_to, _from);
+	}
 }

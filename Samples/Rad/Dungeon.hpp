@@ -74,6 +74,8 @@ private :
 
 	void hline_right(int x, int y);
 
+	std::int32_t exchangeValueForGenerateRandomNumber(std::int32_t _from, std::int32_t _to) const;
+
 public :
 
 	void generateDungeon();
