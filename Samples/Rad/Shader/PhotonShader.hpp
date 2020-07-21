@@ -44,19 +44,33 @@ protected :
 	};
 
 	TCODList<Coord> lightsCoord;
+
 	// color not limited to 0-255 range
-	struct FColor
+	class FColor
 	{
-		float r, g, b;
+
+	public:
+
+		float r = 0;
+		float g = 0;
+		float b = 0;
+
+		FColor() noexcept = default;
 	};
-	struct CellData
+
+	class CellData
 	{
+
+	public:
+
 		// amount of light emitted by this cell for this pass
-		FColor emission;
+		FColor emission{};
 		// amount of light incoming from other cells for this pass (including self through self illumination)
-		FColor incoming;
+		FColor incoming{};
 		// total amount of light on the cell (used to shade the map)
-		FColor outgoing;
+		FColor outgoing{};
+
+		CellData() noexcept = default;
 	};
 
 	// array of MAP_WIDTH*MAP_HEIGHT CellData
