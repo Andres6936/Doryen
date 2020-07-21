@@ -110,7 +110,6 @@ void init(Console& console)
 {
 	bsp.generateDungeon();
 	// create shaders
-	// init shaders (must be done after adding lights for photon shader)
 	leftShader = new StandardShader(bsp.getReferenceToMap());
 	rightShader = new PhotonShader(bsp.getReferenceToMap());
 
@@ -136,6 +135,7 @@ void init(Console& console)
 		}
 	}
 
+	// init shaders (must be done after adding lights for photon shader)
 	rightShader->calculateShaders();
 
 	// find a starting position for the player
