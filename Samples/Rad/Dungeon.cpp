@@ -218,3 +218,19 @@ Map& Dungeon::getReferenceToMap()
 {
 	return map;
 }
+
+Geometry::Point2D<std::uint32_t> Dungeon::getCoordinateWalkableMoreClosest() const
+{
+	for (std::uint32_t x = 0; x < map.getWidth(); ++x)
+	{
+		for (std::uint32_t y = 0; y < map.getHeight(); ++y)
+		{
+			if (map.isWalkable(x, y))
+			{
+				return { x, y };
+			}
+		}
+	}
+
+	throw std::out_of_range("Not is possible find a position walkable in the current map");
+}
