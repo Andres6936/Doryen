@@ -35,8 +35,8 @@ void StandardShader::compute()
 	for (Light& light : lights)
 	{
 		// compute the potential visible set for this light
-		const std::uint32_t MIN_X = std::max(0u, light.coordinate.x - light.radius);
-		const std::uint32_t MIN_Y = std::max(0u, light.coordinate.y - light.radius);
+		const std::uint32_t MIN_X = std::max(0, (int)light.coordinate.x - light.radius);
+		const std::uint32_t MIN_Y = std::max(0, (int)light.coordinate.y - light.radius);
 
 		const std::uint32_t MAX_X = std::min(light.coordinate.x + light.radius, (unsigned)map.getWidth() - 1);
 		const std::uint32_t MAX_Y = std::min(light.coordinate.y + light.radius, (unsigned)map.getHeight() - 1);
