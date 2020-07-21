@@ -32,16 +32,16 @@ void StandardShader::compute()
 {
 	std::fill(lightmap.begin(), lightmap.end(), Color{});
 
-	for (Light& l : lights)
+	for (Light& light : lights)
 	{
 		// compute the potential visible set for this light
-		const std::uint32_t MIN_X = std::max(0u, l.coordinate.x - l.radius);
-		const std::uint32_t MIN_Y = std::max(0u, l.coordinate.y - l.radius);
+		const std::uint32_t MIN_X = std::max(0u, light.coordinate.x - light.radius);
+		const std::uint32_t MIN_Y = std::max(0u, light.coordinate.y - light.radius);
 
-		const std::uint32_t MAX_X = std::min(l.coordinate.x + l.radius, (unsigned)map.getWidth() - 1);
-		const std::uint32_t MAX_Y = std::min(l.coordinate.y + l.radius, (unsigned)map.getHeight() - 1);
+		const std::uint32_t MAX_X = std::min(light.coordinate.x + light.radius, (unsigned)map.getWidth() - 1);
+		const std::uint32_t MAX_Y = std::min(light.coordinate.y + light.radius, (unsigned)map.getHeight() - 1);
 
-		float offset = 1.0f / (1.0f + (float)(l.radius * l.radius) / 20);
+		float offset = 1.0f / (1.0f + (float)(light.radius * light.radius) / 20);
 		float factor = 1.0f / (1.0f - offset);
 		// compute the light's fov
 		Doryen::Map lmap(MAX_X - MIN_X + 1, MAX_Y - MIN_Y + 1);
@@ -54,7 +54,7 @@ void StandardShader::compute()
 			}
 		}
 
-		lmap.computeFov(l.coordinate.x - MIN_X, l.coordinate.y - MIN_Y, l.radius);
+		lmap.computeFov(light.coordinate.x - MIN_X, light.coordinate.y - MIN_Y, light.radius);
 		// compute the light's contribution		
 		//double invSquaredRadius=1.0 / (l.radius*l.radius);
 		for (int x = MIN_X; x <= MAX_X; x++)
@@ -64,7 +64,8 @@ void StandardShader::compute()
 				if (lmap.isInFov(x - MIN_X, y - MIN_Y))
 				{
 					int squaredDist =
-							(l.coordinate.x - x) * (l.coordinate.x - x) + (l.coordinate.y - y) * (l.coordinate.y - y);
+							(light.coordinate.x - x) * (light.coordinate.x - x) +
+							(light.coordinate.y - y) * (light.coordinate.y - y);
 					// basic
 					//double coef = 1.0-squaredDist*invSquaredRadius;
 					// invsqr1
@@ -72,9 +73,9 @@ void StandardShader::compute()
 					// invsqr2
 					double coef = (1.0f / (1.0f + (float)(squaredDist) / 20) - offset) * factor;
 
-					l.col.multiply(coef);
+					light.col.multiply(coef);
 
-					lightmap[x + y * map.getWidth()].add(l.col);
+					lightmap[x + y * map.getWidth()].add(light.col);
 				}
 			}
 		}
