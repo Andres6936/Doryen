@@ -112,14 +112,17 @@ void PhotonShader::computeFormFactor(int x, int y)
 
 void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const FColor &lcol, float reflectivity)
 {
-	int ominx = lx - lradius;
-	int ominy = ly - lradius;
-	int omaxx = lx + lradius;
-	int omaxy = ly + lradius;
-	int minx = MAX(ominx, 0);
-	int miny = MAX(ominy, 0);
-	int maxx = MIN(omaxx, map.getWidth() - 1);
-	int maxy = MIN(omaxy, map.getHeight() - 1);
+	const std::int32_t O_MIN_X = lx - lradius;
+	const std::int32_t O_MIN_Y = ly - lradius;
+	const std::int32_t O_MAX_X = lx + lradius;
+	const std::int32_t O_MAX_Y = ly + lradius;
+
+	const std::int32_t MIN_X = std::max(O_MIN_X, 0);
+	const std::int32_t MIN_Y = std::max(O_MIN_Y, 0);
+
+	const std::int32_t MAX_X = std::min(O_MAX_X, map.getWidth() - 1);
+	const std::int32_t MAX_Y = std::min(O_MAX_Y, map.getHeight() - 1);
+
 	int maxDiameter = 2 * maxRadius + 1;
 
 	auto cellFormFactor = ff.begin() + (lx + ly * map.getWidth()) * maxDiameter * maxDiameter;
@@ -128,13 +131,13 @@ void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const F
 #define MIN_FACTOR (1.0f/255.0f)
 	int width = map.getWidth();
 
-	for (int y = miny, cdy = miny - ominy; y <= maxy; y++, cdy++)
+	for (int y = MIN_Y, cdy = MIN_Y - O_MIN_Y; y <= MAX_Y; y++, cdy++)
 	{
-		CellData* cellData = &data[minx + y * width];
+		CellData* cellData = &data[MIN_X + y * width];
 
-		auto cellFormRow = std::next(cellFormFactor, minx - ominx + cdy * maxDiameter);
+		auto cellFormRow = std::next(cellFormFactor, MIN_X - O_MIN_X + cdy * maxDiameter);
 
-		for (int x = minx; x <= maxx; x++, cellData++, cellFormRow++)
+		for (int x = MIN_X; x <= MAX_X; x++, cellData++, cellFormRow++)
 		{
 			float cellff = *cellFormRow;
 			if (cellff > MIN_FACTOR)
@@ -142,7 +145,7 @@ void PhotonShader::computeLightContribution(int lx, int ly, int lradius, const F
 				cellData->incoming.r += lcol.r * cellff;
 				cellData->incoming.g += lcol.g * cellff;
 				cellData->incoming.b += lcol.b * cellff;
-			}					
+			}
 		}
 	}
 }
