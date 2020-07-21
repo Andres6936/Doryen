@@ -86,7 +86,7 @@ int gammaLookup[256];
 #define GAMMA (1/2.2f)
 
 // find the closest walkable position
-void findPos(int* x, int* y)
+void findPos(std::uint32_t* x, std::uint32_t* y)
 {
 	for (; (*x) < MAP_WIDTH; (*x)++)
 	{
