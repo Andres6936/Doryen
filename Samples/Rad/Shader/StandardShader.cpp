@@ -25,6 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <cmath>
 #include "StandardShader.hpp"
 
 void StandardShader::compute()
@@ -34,35 +35,33 @@ void StandardShader::compute()
 	for (Light& l : lights)
 	{
 		// compute the potential visible set for this light
-		int minx = l.coordinate.x - l.radius;
-		int miny = l.coordinate.y - l.radius;
-		int maxx = l.coordinate.x + l.radius;
-		int maxy = l.coordinate.y + l.radius;
-		minx = MAX(0, minx);
-		miny = MAX(0, miny);
-		maxx = MIN(maxx, map.getWidth() - 1);
-		maxy = MIN(maxy, map.getHeight() - 1);
+		const std::uint32_t MIN_X = std::max(0u, l.coordinate.x - l.radius);
+		const std::uint32_t MIN_Y = std::max(0u, l.coordinate.y - l.radius);
+		const std::uint32_t MAX_X = std::min(l.coordinate.x + l.radius, (unsigned)map.getWidth() - 1);
+		const std::uint32_t MAX_Y = std::min(l.coordinate.y + l.radius, (unsigned)map.getHeight() - 1);
+
+
 		float offset = 1.0f / (1.0f + (float)(l.radius * l.radius) / 20);
 		float factor = 1.0f / (1.0f - offset);
 		// compute the light's fov
-		Doryen::Map lmap(maxx - minx + 1, maxy - miny + 1);
+		Doryen::Map lmap(MAX_X - MIN_X + 1, MAX_Y - MIN_Y + 1);
 
-		for (int x = minx; x <= maxx; x++)
+		for (int x = MIN_X; x <= MAX_X; x++)
 		{
-			for (int y = miny; y <= maxy; y++)
+			for (int y = MIN_Y; y <= MAX_Y; y++)
 			{
-				lmap.setProperties(x - minx, y - miny, map.isTransparent(x, y), map.isWalkable(x, y));
+				lmap.setProperties(x - MIN_X, y - MIN_Y, map.isTransparent(x, y), map.isWalkable(x, y));
 			}
 		}
 
-		lmap.computeFov(l.coordinate.x - minx, l.coordinate.y - miny, l.radius);
+		lmap.computeFov(l.coordinate.x - MIN_X, l.coordinate.y - MIN_Y, l.radius);
 		// compute the light's contribution		
 		//double invSquaredRadius=1.0 / (l.radius*l.radius);
-		for (int x = minx; x <= maxx; x++)
+		for (int x = MIN_X; x <= MAX_X; x++)
 		{
-			for (int y = miny; y <= maxy; y++)
+			for (int y = MIN_Y; y <= MAX_Y; y++)
 			{
-				if (lmap.isInFov(x - minx, y - miny))
+				if (lmap.isInFov(x - MIN_X, y - MIN_Y))
 				{
 					int squaredDist =
 							(l.coordinate.x - x) * (l.coordinate.x - x) + (l.coordinate.y - y) * (l.coordinate.y - y);
