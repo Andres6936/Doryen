@@ -248,6 +248,7 @@ void move(int dx, int dy, Doryen::Console& console)
 int main()
 {
 	Console console = Console();
+	console.setFramePerSeconds(24);
 
 	console.initRoot(80, 50, "Photon reactor - radiosity engine for roguelikes", false);
 
