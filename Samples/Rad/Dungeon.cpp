@@ -179,11 +179,27 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 			// horizontal corridor
 			if ( left->y+left->h -1 < right->y || right->y+right->h-1 < left->y )
 			{
+				int y1 = 0;
+				int y2 = 0;
+
 				// no overlapping zone. we need a Z shaped corridor
-				int y1 = Random::Number::nextInteger(left->y,
-						left->y + left->h - 1 < left->y ? left->y : left->y + left->h - 1);
-				int y2 = Random::Number::nextInteger(right->y,
-						right->y + right->h - 1 < right->y ? right->y : right->y + right->h - 1);
+				if (left->y + left->h - 1 > left->y)
+				{
+					y1 = Random::Number::nextInteger(left->y, left->y + left->h - 1);
+				}
+				else
+				{
+					y1 = Random::Number::nextInteger(left->y + left->h - 1, left->y);
+				}
+
+				if (right->y + right->h - 1 > right->y)
+				{
+					y2 = Random::Number::nextInteger(right->y, right->y + right->h - 1);
+				}
+				else
+				{
+					y2 = Random::Number::nextInteger(right->y + right->h - 1, right->y);
+				}
 
 				int x = Random::Number::nextInteger(left->x + left->w, right->x);
 
