@@ -11,13 +11,13 @@ namespace Doryen
 
 		public:
 
-			Point2D()
+			Point2D() noexcept
 			{
-				x = T();
-				y = T();
+				x = T{};
+				y = T{};
 			}
 
-			Point2D(T _x, T _y)
+			Point2D(T _x, T _y) noexcept
 			{
 				x = _x;
 				y = _y;
