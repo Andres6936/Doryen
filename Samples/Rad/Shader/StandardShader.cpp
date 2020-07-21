@@ -29,6 +29,8 @@
 
 void StandardShader::compute()
 {
+	std::fill(lightmap.begin(), lightmap.end(), Color{});
+
 	for (Light& l : lights)
 	{
 		// compute the potential visible set for this light
@@ -44,13 +46,15 @@ void StandardShader::compute()
 		float factor = 1.0f / (1.0f - offset);
 		// compute the light's fov
 		Doryen::Map lmap(maxx - minx + 1, maxy - miny + 1);
+
 		for (int x = minx; x <= maxx; x++)
 		{
 			for (int y = miny; y <= maxy; y++)
 			{
-				lmap.setProperties(x - minx, y - miny, map.isWalkable(x, y), map.isTransparent(x, y));
+				lmap.setProperties(x - minx, y - miny, map.isTransparent(x, y), map.isWalkable(x, y));
 			}
 		}
+
 		lmap.computeFov(l.coordinate.x - minx, l.coordinate.y - miny, l.radius);
 		// compute the light's contribution		
 		//double invSquaredRadius=1.0 / (l.radius*l.radius);
@@ -68,9 +72,10 @@ void StandardShader::compute()
 					//double coef=(1.0f/(1.0f+(float)(squaredDist)));
 					// invsqr2
 					double coef = (1.0f / (1.0f + (float)(squaredDist) / 20) - offset) * factor;
-					Doryen::Color* col = &lightmap[x + y * map.getWidth()];
+
 					l.col.multiply(coef);
-					col->add(l.col);
+
+					lightmap[x + y * map.getWidth()].add(l.col);
 				}
 			}
 		}
