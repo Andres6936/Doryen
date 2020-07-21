@@ -34,6 +34,10 @@ class Dungeon : public Algorithms::BinarySpacePartitionCallback
 
 private :
 
+	// Definition
+
+	using Point = Geometry::Point2D<std::uint32_t>;
+
 	// Constants Static
 
 	const static std::uint8_t BSP_DEPTH = 8;
@@ -50,6 +54,13 @@ private :
 	Map map{ MAP_WIDTH, MAP_HEIGHT };
 
 	// Methods Private
+
+	/**
+	 * Verify if the coordinate is into of range of map.
+	 * @param _verify Coordinate to verify.
+	 * @return True if the coordinate is into range of map, false otherwise.
+	 */
+	bool invariantSatisfiedWithCoordinate(const Point& _verify) const;
 
 	void vline(int x, int y1, int y2);
 
@@ -72,5 +83,5 @@ public :
 	// libtcod bsp callback stuff
 	bool visitNode(Algorithms::BinarySpacePartition* node, Map& userData);
 
-	Geometry::Point2D<std::uint32_t> getCoordinateWalkableMoreClosest() const;
+	Point getCoordinateWalkableMoreClosestAt(const Point& _at) const;
 };

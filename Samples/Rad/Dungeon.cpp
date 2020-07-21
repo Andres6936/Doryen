@@ -219,18 +219,32 @@ Map& Dungeon::getReferenceToMap()
 	return map;
 }
 
-Geometry::Point2D<std::uint32_t> Dungeon::getCoordinateWalkableMoreClosest() const
+Dungeon::Point Dungeon::getCoordinateWalkableMoreClosestAt(const Point& _at) const
 {
-	for (std::uint32_t x = 0; x < map.getWidth(); ++x)
+	if (invariantSatisfiedWithCoordinate(_at))
 	{
-		for (std::uint32_t y = 0; y < map.getHeight(); ++y)
+		// Find the position walkable more closest at coordinate passed for parameter
+		for (std::uint32_t x = _at.x; x < map.getWidth(); ++x)
 		{
-			if (map.isWalkable(x, y))
+			for (std::uint32_t y = _at.y; y < map.getHeight(); ++y)
 			{
-				return { x, y };
+				if (map.isWalkable(x, y))
+				{
+					return { x, y };
+				}
 			}
 		}
 	}
 
 	throw std::out_of_range("Not is possible find a position walkable in the current map");
+}
+
+bool Dungeon::invariantSatisfiedWithCoordinate(const Point& _verify) const
+{
+	if (_verify.x > map.getWidth() or _verify.y > map.getHeight())
+	{
+		return false;
+	}
+
+	return true;
 }
