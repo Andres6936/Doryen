@@ -26,12 +26,17 @@
 */
 
 #include <cmath>
+#include <iostream>
 
 #include "Dungeon.hpp"
 #include "Shader/StandardShader.hpp"
 #include "Shader/PhotonShader.hpp"
 
 using namespace Doryen;
+
+// Definitions Public
+
+using Point = Geometry::Point2D<std::uint32_t>;
 
 #define CON_WIDTH 80
 #define CON_HEIGHT 50
@@ -112,16 +117,23 @@ void init(Console& console)
 	// put random lights
 	for (int i = 0; i < 10; i++)
 	{
-		std::uint32_t lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
-		std::uint32_t ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
+		const std::uint32_t lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
+		const std::uint32_t ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
 
-		findPos(&lx, &ly);
+		try
+		{
+			const Point walkableCoordinate = bsp.getCoordinateWalkableMoreClosestAt({ lx, ly });
 
-		leftShader->addLight({ lx, ly }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
-		rightShader->addLight({ lx, ly }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+			leftShader->addLight(walkableCoordinate, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+			rightShader->addLight(walkableCoordinate, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
-		console.setChar(lx, ly, '*');
-		console.setChar(lx + CON_WIDTH / 2, ly, '*');
+			console.setChar(walkableCoordinate.x, walkableCoordinate.y, '*');
+			console.setChar(walkableCoordinate.x + CON_WIDTH / 2, walkableCoordinate.y, '*');
+		}
+		catch (std::out_of_range& e)
+		{
+			std::cerr << e.what() << "\n\n";
+		}
 	}
 
 	// find a starting position for the player
