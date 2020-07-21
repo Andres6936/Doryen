@@ -159,6 +159,7 @@ void PhotonShader::compute()
 {
 	// turn off all lights
 	int size = map.getWidth() * map.getHeight();
+	std::fill(data.begin(), data.end(), CellData{});
 
 	// first pass. lights only
 	for (Light& l : lights)
