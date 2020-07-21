@@ -114,9 +114,12 @@ void init(Console& console)
 	{
 		int lx = Random::Number::nextInteger(1, MAP_WIDTH - 2);
 		int ly = Random::Number::nextInteger(1, MAP_HEIGHT - 2);
+
 		findPos(&lx, &ly);
+
 		leftShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 		rightShader->addLight(lx, ly, LIGHT_RADIUS, Palette::GRAY_WARN_1);
+
 		console.setChar(lx, ly, '*');
 		console.setChar(lx + CON_WIDTH / 2, ly, '*');
 	}

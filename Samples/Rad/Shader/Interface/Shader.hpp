@@ -38,10 +38,17 @@ protected :
 
 	struct Light
 	{
-		int x, y, radius;
-		Doryen::Color col;
+		int x;
+		int y;
+
+		int radius;
+
+		Color col;
 	};
 
+	/**
+	 * Object that generate a source of light.
+	 */
 	std::vector<Light> lights;
 
 	std::vector<Color> lightmap;
