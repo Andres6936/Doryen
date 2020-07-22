@@ -894,7 +894,13 @@ void Doryen::SDL::draw()
 				}
 			}
 
-			if (changed)
+			// An problem with rendering the callback is that not is
+			// possible for Doryen detect an change in the characters,
+			// because the callback work to level of pixels, so that
+			// each that the callback is rendering it get the last screen
+			// updated for Doryen, it derive in incosistences when the
+			// callback try modified the pixeles of surface.
+			if (changed or callbackRender not_eq nullptr)
 			{
 				Color background = character.getBackground();
 
