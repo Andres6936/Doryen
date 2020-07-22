@@ -342,8 +342,8 @@ int main(int argc, char* argv[])
 	Console console = Console();
 	console.initRoot(WIDTH, HEIGHT, "Pyromaniac Flame Spell", false);
 
-	Platform::setFps(25);
-	TCODMouse::showCursor(true);
+	console.setFramePerSeconds(25);
+	console.showCursor(true);
 
 	bool endCredits = false;
 	init();
