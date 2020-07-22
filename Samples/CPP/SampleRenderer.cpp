@@ -5,7 +5,11 @@ void SampleRenderer::render(std::any sdlSurface)
 {
 	try
 	{
-		screen = std::any_cast<SDL_Surface*>(sdlSurface);
+		// Initialize the screen only one time
+		if (screen == nullptr)
+		{
+			screen = std::any_cast<SDL_Surface*>(sdlSurface);
+		}
 	}
 	catch (std::bad_any_cast& exception)
 	{

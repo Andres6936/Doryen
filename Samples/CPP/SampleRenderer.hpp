@@ -38,7 +38,7 @@ private:
 		Stop,
 	};
 
-	SDL_Surface* screen;
+	SDL_Surface* screen = nullptr;
 
 	float delay = 2.0f;
 
