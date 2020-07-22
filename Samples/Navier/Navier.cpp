@@ -331,8 +331,8 @@ void render(Console& root)
 
 	img.blit2x(root, 0, 0);
 
-	root.print(2, HEIGHT - 2, format("{4d} fps", Platform::getFps()));
 	root.setDefaultForeground(Palette::GRAY_WARN_1);
+	root.print(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
 	root.putChar(playerx, playery, '@');
 }
 
