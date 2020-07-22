@@ -98,8 +98,7 @@ Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
 
 void Image::putPixel(int x, int y, const Color col)
 {
-	TCOD_color_t ccol = { col.r, col.g, col.b };
-	TCOD_image_put_pixel(data, x, y, ccol);
+	imageData.setPixel(x, y, col);
 }
 
 void
