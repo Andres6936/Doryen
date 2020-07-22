@@ -325,7 +325,7 @@ void render(Console& root)
 		{
 			float coef = (float)(dens[IX(x, y)] / 128.0f);
 			coef = CLAMP(0.0f, 1.0f, coef);
-			img.putPixel(x, y, Color::lerp(deepBlue, highBlue, coef));
+			img.setPixel(x, y, Color::lerp(deepBlue, highBlue, coef));
 		}
 	}
 
