@@ -241,7 +241,7 @@ void init()
 	memcpy(dens_prev, dens, sizeof(float) * SIZE);
 }
 
-void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, Mouse mouse)
+void get_from_UI(float* d, float* u, float* v, float elapsed, const KeyCode& k, const Mouse& mouse)
 {
 	int i, j;
 	float vx = 0.0f, vy = 0.0f;
@@ -307,7 +307,7 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, Mouse m
 
 }
 
-void update(float elapsed, KeyCode k, Mouse mouse)
+void update(float elapsed, const KeyCode& k, const Mouse& mouse)
 {
 	get_from_UI(dens_prev, u_prev, v_prev, elapsed, k, mouse);
 	update_velocity(u, v, u_prev, v_prev, visc, elapsed);
@@ -350,8 +350,8 @@ int main(int argc, char* argv[])
 
 	while (console.isRunning())
 	{
-		KeyCode key = Console::getKeyPressed().getKeyCode();
-		Mouse mouse = Console::getMouseEvent();
+		const KeyCode key = Console::getKeyPressed().getKeyCode();
+		const Mouse mouse = Console::getMouseEvent();
 
 		if (key == KeyCode::PRINT_SCREEN)
 		{
