@@ -283,16 +283,16 @@ void get_from_UI(float* d, float* u, float* v, float elapsed, KeyCode k, Mouse m
 	if (!mouse.isPressedLeftButton() && !mouse.isPressedRightButton())
 	{ return; }
 
-	i = mouse.getCx() * 2;
-	j = mouse.getCy() * 2;
+	i = mouse.getPositionCellX() * 2;
+	j = mouse.getPositionCellY() * 2;
 	if (i < 1 || i > N || j < 1 || j > N)
 	{ return; }
 
 	if (mouse.isPressedLeftButton())
 	{
 		float dx, dy, l;
-		dx = mouse.getCx() - playerx;
-		dy = mouse.getCy() - playery;
+		dx = mouse.getPositionCellX() - playerx;
+		dy = mouse.getPositionCellY() - playery;
 		l = sqrt(dx * dx + dy * dy);
 		if (l > 0)
 		{
@@ -316,8 +316,8 @@ void update(float elapsed, KeyCode k, Mouse mouse)
 
 void render(Console& root)
 {
-	static Color deepBlue = Color::darkestFlame;
-	static Color highBlue = Color::lightestYellow;
+	static Color deepBlue = Palette::RED;
+	static Color highBlue = Palette::YELLOW;
 
 	for (int x = 0; x <= N; x++)
 	{
@@ -332,7 +332,7 @@ void render(Console& root)
 	img.blit2x(root, 0, 0);
 
 	root.print(2, HEIGHT - 2, format("{4d} fps", Platform::getFps()));
-	root.setDefaultForeground(Color::white);
+	root.setDefaultForeground(Palette::GRAY_WARN_1);
 	root.putChar(playerx, playery, '@');
 }
 
@@ -340,7 +340,7 @@ int main(int argc, char* argv[])
 {
 	// Initialize the game window
 	Console console = Console();
-	console.initRoot(WIDTH, HEIGHT, "Pyromaniac Flame Spell", false, TCOD_RENDERER_SDL);
+	console.initRoot(WIDTH, HEIGHT, "Pyromaniac Flame Spell", false);
 
 	Platform::setFps(25);
 	TCODMouse::showCursor(true);
@@ -348,7 +348,7 @@ int main(int argc, char* argv[])
 	bool endCredits = false;
 	init();
 
-	while (!console.isWindowClosed())
+	while (console.isRunning())
 	{
 		KeyCode key = Console::getKeyPressed().getKeyCode();
 		Mouse mouse = Console::getMouseEvent();
