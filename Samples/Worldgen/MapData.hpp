@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_MAPDATA_HPP
 #define LIBTCOD_MAPDATA_HPP
 
-#include <libtcod.h>
+#include <Doryen/libtcod.h>
 
 class MapData
 {

@@ -30,8 +30,8 @@
 #include <math.h>
 #include <stdio.h>
 #include "Main.hpp"
-#include "Algorithms/Drawing/Bresenham.hpp"
-#include "Algorithms/Generation/Heightmap.hpp"
+#include "Doryen/Algorithms/Drawing/Bresenham.hpp"
+#include "Doryen/Algorithms/Generation/Heightmap.hpp"
 
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
@@ -1027,7 +1027,7 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 			// COLD_DESERT,
 			Doryen::Color(180, 210, 210),
 			// GRASSLAND,
-			Doryen::Color::sea,
+			Doryen::Palette::CYAN,
 			// BOREAL_FOREST,
 			Doryen::Color(14, 93, 43),
 			// TEMPERATE_FOREST,
@@ -1041,7 +1041,7 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 			// TROPICAL_DRY_FOREST,
 			Doryen::Color(60, 130, 40),
 			// TROPICAL_EVERGREEN_FOREST,
-			Doryen::Color::green,
+			Doryen::Palette::GREEN,
 			// THORN_FOREST,
 			Doryen::Color(192, 192, 112),
 	};
@@ -1096,23 +1096,23 @@ void WorldGenerator::computeColors()
 			if (temp < -10.0f && h < sandHeight)
 			{
 				imageWorldmap->putPixel(x, y,
-						Doryen::Color::lerp(Doryen::Color::white, c,
+						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f));
 			}
 			else if (temp < -8.0f && h < sandHeight)
 			{
 				imageWorldmap->putPixel(x, y,
-						Doryen::Color::lerp(Doryen::Color::white, c,
+						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f + 0.7f * (10.0f +
 											   temp) /
 									   2.0f));
 			}
 			else if (temp < -2.0f && h >= sandHeight)
-			{ imageWorldmap->putPixel(x, y, Doryen::Color::white); }
+			{ imageWorldmap->putPixel(x, y, Doryen::Palette::GRAY_WARN_1); }
 			else if (temp < 2.0f && h >= sandHeight)
 			{
 				//Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
-				c = Doryen::Color::lerp(Doryen::Color::white, c, (temp + 2) / 4.0f);
+				c = Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c, (temp + 2) / 4.0f);
 				imageWorldmap->putPixel(x, y, c);
 			}
 			else
@@ -1131,7 +1131,7 @@ void WorldGenerator::computeColors()
 			if (md->riverId > 0)
 			{
 				Doryen::Color c = imageWorldmap->getPixel(x, y);
-				c = Doryen::Color::lerp(c, Doryen::Color::blue, 0.3f);
+				c = Doryen::Color::lerp(c, Doryen::Palette::BLUE, 0.3f);
 				imageWorldmap->putPixel(x, y, c);
 			}
 			md++;
