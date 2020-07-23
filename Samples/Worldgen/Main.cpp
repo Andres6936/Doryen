@@ -94,9 +94,10 @@ void render(Console& console)
 			map.putPixel(px, py, getMapShadedColor(wx, wy, true));
 		}
 	}
-	map.blit2x(&console, 0, 0);
 
-	console.setDefaultForeground(Color::white);
+	map.blit2x(console, 0, 0);
+
+	console.setDefaultForeground(Palette::GRAY_WARN_1);
 	static const char* biomeNames[] = {
 			"Tundra", "Cold desert", "Grassland", "Boreal forest",
 			"Temperate forest", "Tropical/Montane forest",
@@ -126,7 +127,7 @@ int main(int argc, char* argv[])
 {
 	// initialize the game window
 	Console console = Console();
-	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false, TCOD_RENDERER_SDL);
+	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false);
 
 	Platform::setFps(25);
 	TCODMouse::showCursor(true);
@@ -146,7 +147,7 @@ int main(int argc, char* argv[])
 
 	worldGen.computeSunLight(lightDir);
 
-	while (!console.isWindowClosed())
+	while (console.isRunning())
 	{
 		//	read keyboard
 //		TCOD_key_t k=Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
