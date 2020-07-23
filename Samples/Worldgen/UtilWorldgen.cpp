@@ -1170,6 +1170,50 @@ void WorldGenerator::computeColors()
 	drawCoasts(imageWorldmap);
 }
 
+/**
+		@PageName color
+		@FuncTitle Generate a smooth color map
+		@FuncDesc You can define a color map from an array of color keys. Colors will be interpolated between the keys.
+		0 -> black
+		4 -> red
+		8 -> white
+		Result :
+		<table>
+		<tbody><tr><td class="code"><pre>map[0]</pre></td><td style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td><td>black</td></tr>
+
+		<tr><td class="code"><pre>map[1]</pre></td><td style="background-color: rgb(63, 0, 0); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+		<tr><td class="code"><pre>map[2]</pre></td><td style="background-color: rgb(127, 0, 0); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+		<tr><td class="code"><pre>map[3]</pre></td><td style="background-color: rgb(191, 0, 0); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+		<tr><td class="code"><pre>map[4]</pre></td><td style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td><td>red</td></tr>
+		<tr><td class="code"><pre>map[5]</pre></td><td style="background-color: rgb(255, 63, 63); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+		<tr><td class="code"><pre>map[6]</pre></td><td style="background-color: rgb(255, 127, 127); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+
+		<tr><td class="code"><pre>map[7]</pre></td><td style="background-color: rgb(255, 191, 191); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td></tr>
+		<tr><td class="code"><pre>map[8]</pre></td><td style="background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); width: 50px;" align="center">&nbsp;</td><td>white</td></tr>
+	</tbody></table>
+		@Cpp static void genMap(Doryen::TCODColor *map, int nbKey, Doryen::TCODColor const *keyColor, int const *keyIndex)
+		@C void TCOD_gen_map(TCOD_color_t *map, int nb_key, TCOD_color_t const *key_color, int const *key_index)
+		@Py color_gen_map(keyColor,keyIndex) # returns an array of colors
+		@Param map	An array of colors to be filled by the function.
+		@Param nbKey	Number of color keys
+		@Param keyColor	Array of nbKey colors containing the color of each key
+		@Param keyIndex	Array of nbKey integers containing the index of each key.
+			If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1] is the number of elements in map minus 1 but you can also use the function to fill only a part of the map array.
+		@CppEx
+			int idx[] = { 0, 4, 8 }; // indexes of the keys
+			Doryen::TCODColor col[] = { Doryen::TCODColor( 0,0,0 ), Doryen::TCODColor(255,0,0), Doryen::TCODColor(255,255,255) }; // colors : black, red, white
+			Doryen::TCODColor map[9];
+			Doryen::TCODColor::genMap(map,3,col,idx);
+		@CEx
+			int idx[] = { 0, 4, 8 }; // indexes of the keys
+			TCOD_color_t col[] = { { 0,0,0 }, {255,0,0}, {255,255,255} }; // colors : black, red, white
+			TCOD_color_t map[9];
+			TCOD_color_gen_map(map,3,col,idx);
+		@PyEx
+			idx = [ 0, 4, 8 ] # indexes of the keys
+			col = [ libtcod.Color( 0,0,0 ), libtcod.Color( 255,0,0 ), libtcod.Color(255,255,255) ] # colors : black, red, white
+			map=libtcod.color_gen_map(col,idx)
+		*/
 void genMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
 {
 	for (int segment = 0; segment < nbKey - 1; segment++)
