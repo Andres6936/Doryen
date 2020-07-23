@@ -33,6 +33,8 @@
 #include "Doryen/Algorithms/Drawing/Bresenham.hpp"
 #include "Doryen/Algorithms/Generation/Heightmap.hpp"
 
+using namespace Doryen;
+
 // temperature / precipitation Biome diagram (Whittaker diagram)
 EBiome biomeDiagram[5][5] = {
 		// artic/alpine climate (below -5�C)
@@ -1168,12 +1170,27 @@ void WorldGenerator::computeColors()
 	drawCoasts(imageWorldmap);
 }
 
+void genMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
+{
+	for (int segment = 0; segment < nbKey - 1; segment++)
+	{
+		int idxStart = keyIndex[segment];
+		int idxEnd = keyIndex[segment + 1];
+		int idx;
+		for (idx = idxStart; idx <= idxEnd; idx++)
+		{
+			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
+					(float)(idx - idxStart) / (idxEnd - idxStart));
+		}
+	}
+}
+
 void WorldGenerator::generate(TCODRandom* wRng)
 {
 	float timeTotalStart = Doryen::Platform::getElapsedSeconds();
 	float timeStart = Doryen::Platform::getElapsedSeconds();
 
-	Doryen::Color::genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
+	genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
 	if (wRng != nullptr)
 	{
@@ -1255,7 +1272,7 @@ void WorldGenerator::drawCoasts(Doryen::Image* img)
 			if ((h < sandHeight && h2 >= sandHeight)
 				|| (h2 < sandHeight && h >= sandHeight))
 			{
-				img->putPixel(x, y, Doryen::Color::black);
+				img->putPixel(x, y, Doryen::Palette::GRAY_WARN_90);
 			}
 			else
 			{
@@ -1264,7 +1281,7 @@ void WorldGenerator::drawCoasts(Doryen::Image* img)
 				if ((h < sandHeight && h2 >= sandHeight)
 					|| (h2 < sandHeight && h >= sandHeight))
 				{
-					img->putPixel(x, y, Doryen::Color::black);
+					img->putPixel(x, y, Doryen::Palette::GRAY_WARN_90);
 				}
 			}
 		}
@@ -1281,7 +1298,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 			// COLD_DESERT,
 			Doryen::Color(129, 174, 170),
 			// GRASSLAND,
-			Doryen::Color::sea,
+			Doryen::Palette::CYAN,
 			// BOREAL_FOREST,
 			Doryen::Color(14, 93, 43),
 			// TEMPERATE_FOREST,
@@ -1291,11 +1308,11 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 			// HOT_DESERT,
 			Doryen::Color(229, 247, 184),
 			// SAVANNA,
-			Doryen::Color::orange,
+			Doryen::Palette::ORANGE,
 			// TROPICAL_DRY_FOREST,
-			Doryen::Color::darkYellow,
+			Doryen::Palette::YELLOW,
 			// TROPICAL_EVERGREEN_FOREST,
-			Doryen::Color::green,
+			Doryen::Palette::GRAY_WARN_90,
 			// THORN_FOREST,
 			Doryen::Color(192, 192, 112),
 	};
@@ -1363,7 +1380,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_temperature.png");
 		legend->getSize(&legendWidth, &legendHeight);
-		Doryen::Color::genMap(tempGradient, MAX_TEMP_KEY, tempKeyColor, tempIndexes);
+		genMap(tempGradient, MAX_TEMP_KEY, tempKeyColor, tempIndexes);
 	}
 
 	if (filename == NULL)
@@ -1460,7 +1477,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_altitude.png");
 		legend->getSize(&legendWidth, &legendHeight);
-		Doryen::Color::genMap(altGradient, MAX_ALT_KEY, altColors, altIndexes);
+		genMap(altGradient, MAX_ALT_KEY, altColors, altIndexes);
 	}
 
 	if (filename == NULL)
