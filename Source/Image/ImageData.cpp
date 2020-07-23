@@ -611,7 +611,7 @@ void ImageData::generateMip(int _mip)
 
 void ImageData::setPixel(int x, int y, const Color& _color)
 {
-	if (representation not_eq nullptr)
+//	if (representation not_eq nullptr)
 	{
 		if (mipmaps.empty())
 		{
