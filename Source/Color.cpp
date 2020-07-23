@@ -344,3 +344,8 @@ void Color::operator=(const Color& _rhs) noexcept
 	this->b = _rhs.b;
 	this->a = _rhs.a;
 }
+
+std::string Color::toString() const
+{
+	return { '{' + std::to_string(r) + ' ' + std::to_string(g) + ' ' + std::to_string(b) + '}' };
+}
