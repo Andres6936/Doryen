@@ -42,15 +42,15 @@ float wx = 0, wy = 0, curwx = 0, curwy = 0;
 // mouse coordinates in world map
 float mx = 0, my = 0;
 
-void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse)
+void update(float elapsed, const KeyCode& k, const Mouse& mouse)
 {
 	// destination wanted
-	wx = (worldGen.getWidth() - 2 * WIDTH) * mouse.cx / WIDTH;
-	wy = (worldGen.getHeight() - 2 * HEIGHT) * mouse.cy / HEIGHT;
+	wx = (worldGen.getWidth() - 2 * WIDTH) * mouse.getPositionCellX() / WIDTH;
+	wy = (worldGen.getHeight() - 2 * HEIGHT) * mouse.getPositionCellY() / HEIGHT;
 	curwx += (wx - curwx) * elapsed;
 	curwy += (wy - curwy) * elapsed;
-	mx = curwx + mouse.cx * 2;
-	my = curwy + mouse.cy * 2;
+	mx = curwx + mouse.getPositionCellX() * 2;
+	my = curwy + mouse.getPositionCellY() * 2;
 	worldGen.updateClouds(elapsed);
 }
 
@@ -129,11 +129,8 @@ int main(int argc, char* argv[])
 	Console console = Console();
 	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false);
 
-	Platform::setFps(25);
-	TCODMouse::showCursor(true);
-
-	TCOD_key_t k = { TCODK_NONE, 0 };
-	TCOD_mouse_t mouse;
+	console.setFramePerSeconds(25);
+	console.showCursor(true);
 
 	bool endCredits = false;
 
@@ -153,21 +150,18 @@ int main(int argc, char* argv[])
 //		TCOD_key_t k=Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
 //		TCOD_mouse_t mouse=TCODMouse::getStatus();
 
-		Platform::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS | TCOD_EVENT_MOUSE), &k, &mouse);
+		const KeyCode k = console.getKeyPressed().getKeyCode();
+		const Mouse mouse = console.getMouseEvent();
 
-		if (k.vk == TCODK_PRINTSCREEN)
+		if (k == KeyCode::PRINT_SCREEN)
 		{
 			// screenshot
-			if (!k.pressed)
-			{ Platform::saveScreenshot(NULL); }
-			k.vk = TCODK_NONE;
+			Platform::saveScreenshot(NULL);
 		}
-		else if (k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER))
+		else if (k == KeyCode::ENTER)
 		{
 			// switch fullscreen
-			if (!k.pressed)
-			{ Console::setWindowInFullscreen(); }
-			k.vk = TCODK_NONE;
+			Console::setWindowInFullscreen();
 		}
 		// update the game
 		update(Platform::getLastFrameLength(), k, mouse);
