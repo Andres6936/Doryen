@@ -146,16 +146,18 @@ void render(Console& root)
 		}
 	}
 	root.setDefaultForeground(Palette::GRAY_WARN_1);
-	root.print(5, CON_H - 12, format("TCOD's Weather system :\n"
-									 "- wind with varying speed and direction\n"
-									 "- rain\n"
-									 "- lightnings\n"
-									 "- day/night cycle\n"
-									 "Day time : {}\n"
-									 "Weather : {}\n\n"
-									 "Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
-									 "Accelerate time with ENTER", getDaytime(), weather.getWeather(),
-			weather.getIndicatorDelta()));
+
+	root.print(5, CON_H - 12, "Doryen Weather System:");
+	root.print(5, CON_H - 11, "- Wind with varying speed and direction");
+	root.print(5, CON_H - 10, "- Rain");
+	root.print(5, CON_H - 9, "- Lightnings");
+	root.print(5, CON_H - 8, "- Day/Night cycle");
+	root.print(5, CON_H - 7, format("Day time : {}", getDaytime()));
+	root.print(5, CON_H - 6, format("Weather : {}", weather.getWeather()));
+
+	root.print(5, CON_H - 4, "Weather evolves automatically");
+	root.print(5, CON_H - 3, format("but you can alter it by holding + or - : {.1f}", weather.getIndicatorDelta()));
+	root.print(5, CON_H - 2, "Accelerate time with ENTER");
 }
 
 
