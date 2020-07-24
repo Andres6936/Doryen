@@ -4,7 +4,8 @@ PROJECT(Doryen VERSION 2020.0626 LANGUAGES CXX C)
 
 # All projects need "Include" directory
 
-OPTION(DORYEN_SAMPLES "Generate Doryen samples" ON)
+OPTION(DORYEN_SAMPLES "Generate Doryen Samples" ON)
+OPTION(DORYEN_TESTS "Execute Doryen Test" ON)
 
 FIND_LIBRARY(M_LIB m)
 FIND_PACKAGE(X11 REQUIRED)
@@ -41,4 +42,8 @@ IF (DORYEN_SAMPLES)
     ADD_SUBDIRECTORY(Samples/Ripples) # Water ripples demo
     ADD_SUBDIRECTORY(Samples/Weather) # Weather + Day/Night demo
     ADD_SUBDIRECTORY(Samples/Worldgen) # WorldGen demo
+ENDIF ()
+
+IF (DORYEN_TESTS)
+    ADD_SUBDIRECTORY(Test)
 ENDIF ()
