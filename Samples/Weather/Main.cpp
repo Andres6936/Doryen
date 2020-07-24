@@ -40,7 +40,7 @@ Doryen::Color lightningColor(220, 220, 255);
 
 Doryen::Image* ground;
 
-void update(float elapsed, const KeyCode k, TCOD_mouse_t mouse)
+void update(float elapsed, const KeyCode& k, TCOD_mouse_t mouse)
 {
 	if (k == KeyCode::KP_ADD)
 	{
@@ -276,7 +276,7 @@ int main(int argc, char* argv[])
 	while (console.isRunning())
 	{
 		//	read keyboard
-		KeyCode keyPressed = console.getKeyPressed().getKeyCode();
+		const KeyCode keyPressed = console.getKeyPressed().getKeyCode();
 
 		TCOD_mouse_t mouse = TCODMouse::getStatus();
 
