@@ -430,23 +430,6 @@ namespace Doryen
         */
 
 		/**
-        @PageName console_print
-        @FuncTitle Setting the default alignment
-        @FuncDesc This function defines the default alignment (see TCOD_alignment_t) for the console.
-            This default alignment is used by several functions (print, printRect, ...).
-            Values for alignment : TCOD_LEFT, TCOD_CENTER, TCOD_RIGHT (in python, remove TCOD_ : libtcod.LEFT).
-            For C# and Lua : LeftAlignment, RightAlignment, CenterAlignment
-        @Cpp void TCODConsole::setAlignment(TCOD_alignment_t alignment)
-        @C void TCOD_console_set_alignment(TCOD_console_t con,TCOD_bkgnd_flag_t alignment)
-        @Py console_set_alignment(con, alignment)
-        @C# void TCODConsole::setAlignment(TCODAlignment alignment)
-        @Lua Console:setAlignment(alignment)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param alignment defines how the strings are printed on screen.
-        */
-		void setAlignment(TCOD_alignment_t alignment);
-
-		/**
 		@PageName console_print
 		@FuncTitle Printing a string with default parameters
 		@FuncDesc This function print a string at a specific position using current default alignment, background flag, foreground and background colors.

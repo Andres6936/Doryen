@@ -42,10 +42,6 @@ void TCOD_console_set_window_title(const char* title);
 
 void TCOD_console_set_fullscreen(bool fullscreen);
 
-bool TCOD_console_is_fullscreen();
-
-bool TCOD_console_is_window_closed();
-
 void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_horiz, int nb_char_vertic);
 
 
@@ -66,8 +62,6 @@ void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c);
 void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_flag_t flag);
 
 void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back);
-
-void TCOD_console_set_alignment(TCOD_console_t con,TCOD_alignment_t alignment);
 
 
 void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...);

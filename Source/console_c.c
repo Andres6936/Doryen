@@ -101,10 +101,6 @@ TCOD_console_t TCOD_console_new(int w, int h)  {
 	}
 }
 
-bool TCOD_console_is_window_closed() {
-	return windowClosed;
-}
-
 void TCOD_console_set_window_closed() {
 	windowClosed=true;
 }
@@ -117,16 +113,6 @@ void TCOD_console_set_fullscreen(bool fullscreen) {
 	TCOD_IFNOT(TCOD_ctx.root != NULL) return;
 	TCOD_sys_set_fullscreen(fullscreen);
 	TCOD_ctx.fullscreen=fullscreen;
-}
-
-bool TCOD_console_is_fullscreen() {
-	return TCOD_ctx.fullscreen;
-}
-
-void TCOD_console_set_alignment(TCOD_console_t con,TCOD_alignment_t alignment) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return;
-	dat->alignment=alignment;
 }
 
 
