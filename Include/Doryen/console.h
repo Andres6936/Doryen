@@ -105,6 +105,4 @@ void TCOD_console_credits();
 
 void TCOD_console_credits_reset();
 
-bool TCOD_console_credits_render(int x, int y, bool alpha);
-
 #endif
