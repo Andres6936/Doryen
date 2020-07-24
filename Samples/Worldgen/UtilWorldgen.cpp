@@ -1184,7 +1184,7 @@ void WorldGenerator::computeColors()
  *
  * <table>
  * 	<tbody>
- * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); width: 50px;" >&nbsp;</td><td>black</td></tr>
+ * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); width: 50px;" >&nbsp;</td><td>black</td></tr>
  * 		<tr><td>map[1]</td><td style="background-color: rgb(63, 0, 0);" >&nbsp;</td></tr>
  * 		<tr><td>map[2]</td><td style="background-color: rgb(127, 0, 0);" >&nbsp;</td></tr>
  * 		<tr><td>map[3]</td><td style="background-color: rgb(191, 0, 0);" >&nbsp;</td></tr>
