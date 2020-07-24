@@ -63,8 +63,10 @@ static Doryen::Color keyColor[MAX_COLOR_KEY] = {
         Doryen::Color( 255, 255, 255 )
 };
 
-void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
-	if ( mouse.lbutton ) rippleManager->startRipple(mouse.cx*2,mouse.cy*2);
+void update(float elapsed, const Mouse& mouse)
+{
+	if (mouse.isPressedLeftButton())
+		rippleManager->startRipple(mouse.getPositionCellX() * 2, mouse.getPositionCellY() * 2);
 	rippleManager->updateRipples(elapsed);
 }
 
@@ -180,25 +182,22 @@ int main (int argc, char *argv[])
 	rippleManager = new RippleManager(&waterMap);
 
     while ( console.isRunning( ))
-    {
-		TCOD_key_t k;
-		TCOD_mouse_t mouse;
+	{
+		const Key k = console.getKeyPressed();
+		const Mouse mouse = console.getMouseEvent();
 
-        Doryen::Platform::checkForEvent( TCOD_EVENT_KEY | TCOD_EVENT_MOUSE, &k, &mouse );
-
-		if ( k.vk == TCODK_PRINTSCREEN ) {
+		if (k.getKeyCode() == KeyCode::PRINT_SCREEN)
+		{
 			// screenshot
-            if ( !k.pressed )
-            { Doryen::Platform::saveScreenshot( NULL ); }
-            k.vk=TCODK_NONE;
-		} else if ( k.lalt && (k.vk == TCODK_ENTER || k.vk == TCODK_KPENTER) ) {
+			Doryen::Platform::saveScreenshot(NULL);
+		}
+		else if (k.isLeftAltPressed() and k.getKeyCode() == KeyCode::ENTER)
+		{
 			// switch fullscreen
-            if ( !k.pressed )
-            { Doryen::Console::setWindowInFullscreen(); }
-            k.vk=TCODK_NONE;
+			Doryen::Console::setWindowInFullscreen();
 		}
 		// update the game
-        update( Doryen::Platform::getLastFrameLength( ), k, mouse );
+		update(console.getLastFrameLength(), mouse);
 
 		// render the game screen
 		render(console);
