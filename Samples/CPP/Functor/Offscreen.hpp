@@ -3,7 +3,7 @@
 #ifndef DORYEN_OFFSCREEN_HPP
 #define DORYEN_OFFSCREEN_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 #include "Interface/ISample.hpp"
 

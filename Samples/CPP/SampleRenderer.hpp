@@ -5,7 +5,7 @@
 
 #include <SDL/SDL.h>
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 // sample screen size
 constexpr short SAMPLE_SCREEN_WIDTH = 46;

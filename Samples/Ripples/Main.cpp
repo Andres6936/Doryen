@@ -24,7 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "Main.hpp"
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 
 using namespace Doryen;
 

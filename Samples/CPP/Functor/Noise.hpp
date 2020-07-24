@@ -3,7 +3,7 @@
 #ifndef DORYEN_NOISE_HPP
 #define DORYEN_NOISE_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 #include "Interface/ISample.hpp"
 

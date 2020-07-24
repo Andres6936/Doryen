@@ -3,7 +3,7 @@
 #ifndef DORYEN_NAME_HPP
 #define DORYEN_NAME_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 #include "Interface/ISample.hpp"
 

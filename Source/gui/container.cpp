@@ -1,4 +1,4 @@
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "Doryen/gui.hpp"
 
 Container::~Container()

@@ -30,7 +30,7 @@
 #include <iostream>
 
 #include "Doryen/Console/Console.hpp"
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "Doryen/libtcod_int.h"
 
 using namespace Doryen;

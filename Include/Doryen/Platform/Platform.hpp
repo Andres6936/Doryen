@@ -29,7 +29,7 @@
 #define _TCOD_SYS_HPP
 
 #include "Doryen/libtcod.h"
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 
 namespace Doryen
 {

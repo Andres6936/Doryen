@@ -23,7 +23,7 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "UtilRipples.hpp"
 
 using namespace Doryen;

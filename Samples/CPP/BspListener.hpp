@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_BSPLISTENER_HPP
 #define LIBTCOD_BSPLISTENER_HPP
 
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "SampleRenderer.hpp"
 #include "Doryen/Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
 

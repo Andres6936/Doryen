@@ -25,7 +25,7 @@
 */
 
 #include "MapData.hpp"
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 
 using namespace Doryen;
 

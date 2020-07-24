@@ -25,8 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _TCODLIB_HPP
-#define _TCODLIB_HPP
+#pragma once
 
 #include "libtcod.h"
 #include "list.hpp"
@@ -53,5 +52,3 @@
 #include "Algorithms/Drawing/Bresenham.hpp"
 #include "Algorithms/Generation/Heightmap.hpp"
 #include "Algorithms/Generation/Dungeon/BinarySpacePartition.hpp"
-
-#endif

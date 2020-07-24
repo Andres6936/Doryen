@@ -26,7 +26,7 @@
 */
 #include <stdlib.h>
 
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "Doryen/libtcod_int.h"
 
 static TCODRandom* instance = (TCODRandom*)NULL;

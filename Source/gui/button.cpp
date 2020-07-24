@@ -1,5 +1,5 @@
 #include <string.h>
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include "Doryen/gui.hpp"
 
 Button::Button(const char* label, const char* tip, widget_callback_t cbk, void* userData)

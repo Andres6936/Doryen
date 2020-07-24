@@ -3,7 +3,7 @@
 #ifndef DORYEN_LINES_HPP
 #define DORYEN_LINES_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 #include "Interface/ISample.hpp"
 

@@ -3,7 +3,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "doctest/doctest.h"
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 
 using namespace Doryen;
 

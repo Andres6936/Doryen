@@ -3,7 +3,7 @@
 #ifndef DORYEN_IMAGE_HPP
 #define DORYEN_IMAGE_HPP
 
-#include <Doryen/libtcod.hpp>
+#include <Doryen/Doryen.hpp>
 
 #include "Interface/ISample.hpp"
 

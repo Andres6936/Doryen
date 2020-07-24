@@ -27,7 +27,7 @@
 #ifndef _TCOD_HEIGHTMAP_HPP
 #define _TCOD_HEIGHTMAP_HPP
 
-#include "Doryen/libtcod.hpp"
+#include "Doryen/Doryen.hpp"
 #include <vector>
 
 namespace Doryen
