@@ -147,6 +147,67 @@ void render()
 			weather.getIndicatorDelta()));
 }
 
+
+/**
+ * @brief Generate a smooth color map.
+ *
+ * You can define a color map from an array of color keys. Colors will be interpolated <br>
+ * between the keys.
+ *
+ * 0 -> black
+ * 4 -> red
+ * 8 -> white
+ *
+ * Result :
+ *
+ * <table>
+ * 	<tbody>
+ * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); width: 50px;" /><td>black</td></tr>
+ * 		<tr><td>map[1]</td><td style="background-color: rgb(63, 0, 0);" /></tr>
+ * 		<tr><td>map[2]</td><td style="background-color: rgb(127, 0, 0);" /></tr>
+ * 		<tr><td>map[3]</td><td style="background-color: rgb(191, 0, 0);" /></tr>
+ * 		<tr><td>map[4]</td><td style="background-color: rgb(255, 0, 0);" /><td>red</td></tr>
+ * 		<tr><td>map[5]</td><td style="background-color: rgb(255, 63, 63);" /></tr>
+ * 		<tr><td>map[6]</td><td style="background-color: rgb(255, 127, 127);" /></tr>
+ * 		<tr><td>map[7]</td><td style="background-color: rgb(255, 191, 191);" /></tr>
+ * 		<tr><td>map[8]</td><td style="background-color: rgb(255, 255, 255);" /><td>white</td></tr>
+ * 	</tbody>
+ * </table>
+ *
+ * If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1] <br>
+ * is the number of elements in map minus 1 but you can also use the function to <br>
+ * fill only a part of the map array.
+ *
+ * @param map	An array of colors to be filled by the function.
+ * @param nbKey	Number of color keys
+ * @param keyColor	Array of nbKey colors containing the color of each key
+ * @param keyIndex	Array of nbKey integers containing the index of each key.
+ *
+ * @example
+ * @code
+ * int idx[] = { 0, 4, 8 }; // indexes of the keys
+ *
+ * // Colors : Black, Red, White
+ * Doryen::TCODColor col[] = { {0, 0, 0}, {255, 0, 0}, {255, 255, 255} };
+ * Doryen::TCODColor map[9];
+ * Doryen::TCODColor::genMap(map,3,col,idx);
+ * @endcode
+ */
+void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
+{
+	for (int segment = 0; segment < nbKey - 1; segment++)
+	{
+		int idxStart = keyIndex[segment];
+		int idxEnd = keyIndex[segment + 1];
+		int idx;
+		for (idx = idxStart; idx <= idxEnd; idx++)
+		{
+			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
+					(float)(idx - idxStart) / (idxEnd - idxStart));
+		}
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	// initialize the game window
@@ -170,7 +231,7 @@ int main(int argc, char* argv[])
 			0, 51, 102, 153, 204, 255
 	};
 	Doryen::Color gradientMap[256];
-	Doryen::Color::genMap(gradientMap, 6, colors, keys);
+	generateSmoothColorMap(gradientMap, 6, colors, keys);
 	for (int x = 0; x < CON_W * 2; x++)
 	{
 		for (int y = 0; y < CON_H * 2; y++)
