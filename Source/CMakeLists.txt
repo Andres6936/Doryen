@@ -21,7 +21,7 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Color.cpp
         Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
         Image/Mipmap.cpp
-        mersenne.cpp mouse.cpp namegen.cpp noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
+        mersenne.cpp namegen.cpp noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp
         FOV/ShadowCasting.cpp Random/Number.cpp
         Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
