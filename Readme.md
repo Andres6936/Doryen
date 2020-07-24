@@ -57,6 +57,23 @@ or your own internal data structure through function callbacks.
 
 For regions, cities, dungeons building.
 
+### Compiling from source
+
+##### Requirements
+
+- CMake Version >= 3.15
+- SDL Version === 1.2.15
+- SDL Version >= 2.0.4
+
+##### Commands
+
+You can clone with Git via the GitHub repository.
+
+> git clone --recursive --depth=1 https://github.com/Andres6936/Doryen.git
+> cd Doryen && mkdir Build
+> cd Build && cmake ..
+> make
+
 ###### All screenshots come from the Doryen sample source code.
 
 <details>
