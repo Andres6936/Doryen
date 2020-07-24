@@ -29,7 +29,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "Doryen/Console.hpp"
+#include "Doryen/Console/Console.hpp"
 #include "Doryen/libtcod.hpp"
 #include "Doryen/libtcod_int.h"
 

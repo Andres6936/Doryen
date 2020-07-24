@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-#include <Doryen/Console.hpp>
+#include "Doryen/Console/Console.hpp"
 #include <Doryen/Image/PNG/State.hpp>
 #include "Doryen/Image/ImageData.hpp"
 #include "Doryen/Graphics/Color/Palette.hpp"

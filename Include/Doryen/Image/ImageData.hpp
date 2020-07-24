@@ -6,9 +6,9 @@
 #include <SDL/SDL.h>
 
 #include "Doryen/Graphics/Color/Color.hpp"
-#include "Doryen/Console.hpp"
-#include "Doryen/Image/Mipmap.hpp"
+#include "Doryen/Console/Console.hpp"
 #include "Doryen/Geometry/Size.hpp"
+#include "Doryen/Image/Mipmap.hpp"
 
 namespace Doryen
 {

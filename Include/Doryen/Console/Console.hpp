@@ -34,14 +34,14 @@
 #include <vector>
 #include <array>
 
-#include "Graphics/Color/Palette.hpp"
-#include "Graphics/Color/Color.hpp"
-#include "Renderer/Renderer.hpp"
-#include "Geometry/Size.hpp"
-#include "Renderer/Sdl.hpp"
+#include "Doryen/Graphics/Color/Palette.hpp"
+#include "Doryen/Graphics/Color/Color.hpp"
+#include "Doryen/Renderer/Renderer.hpp"
+#include "Doryen/Geometry/Size.hpp"
+#include "Doryen/Renderer/Sdl.hpp"
 
-#include "libtcod.h"
-#include "console_types.h"
+#include "Doryen/libtcod.h"
+#include "Doryen/console_types.h"
 
 namespace Doryen
 {
