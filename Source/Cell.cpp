@@ -1,4 +1,4 @@
-#include "Doryen/Cell.hpp"
+#include "Doryen/Algorithms/Util/Cell.hpp"
 
 Doryen::Cell::Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept
 {

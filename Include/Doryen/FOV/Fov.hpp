@@ -32,7 +32,7 @@
 
 #include <vector>
 
-#include "Doryen/Cell.hpp"
+#include "Doryen/Algorithms/Util/Cell.hpp"
 #include "Doryen/fov.h"
 
 namespace Doryen
