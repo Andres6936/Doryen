@@ -25,7 +25,9 @@
 */
 
 #include "MapData.hpp"
-#include "Doryen/Algorithms/Generation/Heightmap.hpp"
+#include "Doryen/libtcod.hpp"
+
+using namespace Doryen;
 
 // size of the heightmap
 constexpr int HM_WIDTH = 400;
