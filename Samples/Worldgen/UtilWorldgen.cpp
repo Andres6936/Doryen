@@ -1184,15 +1184,15 @@ void WorldGenerator::computeColors()
  *
  * <table>
  * 	<tbody>
- * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); width: 50px;" >&nbsp;</td><td>black</td></tr>
- * 		<tr><td>map[1]</td><td style="background-color: rgb(63, 0, 0);" >&nbsp;</td></tr>
- * 		<tr><td>map[2]</td><td style="background-color: rgb(127, 0, 0);" >&nbsp;</td></tr>
- * 		<tr><td>map[3]</td><td style="background-color: rgb(191, 0, 0);" >&nbsp;</td></tr>
- * 		<tr><td>map[4]</td><td style="background-color: rgb(255, 0, 0);" >&nbsp;</td><td>red</td></tr>
- * 		<tr><td>map[5]</td><td style="background-color: rgb(255, 63, 63);" >&nbsp;</td></tr>
- * 		<tr><td>map[6]</td><td style="background-color: rgb(255, 127, 127);" >&nbsp;</td></tr>
- * 		<tr><td>map[7]</td><td style="background-color: rgb(255, 191, 191);" >&nbsp;</td></tr>
- * 		<tr><td>map[8]</td><td style="background-color: rgb(255, 255, 255);" >&nbsp;</td><td>white</td></tr>
+ * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); width: 50px;" ></td><td>black</td></tr>
+ * 		<tr><td>map[1]</td><td style="background-color: rgb(63, 0, 0);" ></td></tr>
+ * 		<tr><td>map[2]</td><td style="background-color: rgb(127, 0, 0);" ></td></tr>
+ * 		<tr><td>map[3]</td><td style="background-color: rgb(191, 0, 0);" ></td></tr>
+ * 		<tr><td>map[4]</td><td style="background-color: rgb(255, 0, 0);" ></td><td>red</td></tr>
+ * 		<tr><td>map[5]</td><td style="background-color: rgb(255, 63, 63);" ></td></tr>
+ * 		<tr><td>map[6]</td><td style="background-color: rgb(255, 127, 127);" ></td></tr>
+ * 		<tr><td>map[7]</td><td style="background-color: rgb(255, 191, 191);" ></td></tr>
+ * 		<tr><td>map[8]</td><td style="background-color: rgb(255, 255, 255);" ></td><td>white</td></tr>
  * 	</tbody>
  * </table>
  *
