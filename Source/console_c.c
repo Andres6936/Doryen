@@ -399,19 +399,6 @@ void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c) {
 	dat->buf[ y * dat->w + x ].cf = TCOD_ctx.ascii_to_tcod[c];
 }
 
-static void TCOD_console_clamp(int cx, int cy, int cw, int ch, int *x, int *y, int *w, int *h) {
-	if ( *x + *w > cw ) *w = cw - *x;
-	if ( *y + *h > ch ) *h = ch - *y;
-	if (*x < cx ) {
-		*w -= cx - *x;
-		*x = cx;
-	}
-	if (*y < cy ) {
-		*h -= cy - *y;
-		*y = cy;
-	}
-}
-
 
 char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	#define NB_BUFFERS 10
