@@ -97,7 +97,7 @@ public :
 	/**
 	 * Biome map.
 	 */
-	EBiome* biomeMap = new EBiome[HM_WIDTH * HM_HEIGHT];
+	std::array<EBiome, HM_WIDTH * HM_HEIGHT> biomeMap;
 
 	/**
 	 * Map data.

@@ -1553,7 +1553,6 @@ WorldGenerator::~WorldGenerator()
 	delete temperature;
 	delete precipitation;
 
-	delete[] biomeMap;
 	delete[] mapData;
 	delete[] worldint;
 }
