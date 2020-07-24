@@ -74,7 +74,7 @@ const char* getDaytime()
 	return buf;
 }
 
-void render()
+void render(Console& root)
 {
 	static Doryen::Image img(CON_W * 2, CON_H * 2);
 	for (int x = 0; x < CON_W * 2; x++)
@@ -115,7 +115,7 @@ void render()
 			img.putPixel(x, y, Doryen::Color(r, g, b));
 		}
 	}
-	img.blit2x(Doryen::Console::root, 0, 0);
+	img.blit2x(root, 0, 0);
 	// rain drops
 	for (int x = 0; x < CON_W; x++)
 	{
@@ -140,21 +140,21 @@ void render()
 					col = recoveryLightingColor;
 				}
 
-				Doryen::Console::root->setChar(x, y, '/');
-				Doryen::Console::root->setCharForeground(x, y, col);
+				root.setChar(x, y, '/');
+				root.setCharForeground(x, y, col);
 			}
 		}
 	}
-	Doryen::Console::root->setDefaultForeground(Palette::GRAY_WARN_1);
-	Doryen::Console::root->print(5, CON_H - 12, format("TCOD's Weather system :\n"
-													   "- wind with varying speed and direction\n"
-													   "- rain\n"
-													   "- lightnings\n"
-													   "- day/night cycle\n"
-													   "Day time : {}\n"
-													   "Weather : {}\n\n"
-													   "Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
-													   "Accelerate time with ENTER", getDaytime(), weather.getWeather(),
+	root.setDefaultForeground(Palette::GRAY_WARN_1);
+	root.print(5, CON_H - 12, format("TCOD's Weather system :\n"
+									 "- wind with varying speed and direction\n"
+									 "- rain\n"
+									 "- lightnings\n"
+									 "- day/night cycle\n"
+									 "Day time : {}\n"
+									 "Weather : {}\n\n"
+									 "Weather evolves automatically\nbut you can alter it by holding + or - : %.1f\n"
+									 "Accelerate time with ENTER", getDaytime(), weather.getWeather(),
 			weather.getIndicatorDelta()));
 }
 
@@ -294,12 +294,12 @@ int main(int argc, char* argv[])
 		update(Doryen::Platform::getLastFrameLength(), keyPressed, mouse);
 
 		// render the game screen
-		render();
+		render(console);
 		// render libtcod credits
 		if (!endCredits)
 		{ endCredits = Doryen::Console::renderCredits(4, 4, true); }
 		// flush updates to screen
-		Doryen::Console::root->flush();
+		console.flush();
 	}
 	return 0;
 }

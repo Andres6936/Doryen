@@ -1,5 +1,3 @@
-#include "Algorithms/Generation/Heightmap.hpp"
-
 /*
 * Copyright (c) 2010 Jice
 * All rights reserved.
@@ -26,7 +24,10 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-class Weather {
+#include "Doryen/libtcod.hpp"
+
+class Weather
+{
 public :
 	void init(int width, int height);
 

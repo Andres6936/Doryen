@@ -24,9 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
 #include "Main.hpp"
-#include "Algorithms/Generation/Heightmap.hpp"
 
 #define OCTAVES 7.0f
 #define SCALE 2.0f
