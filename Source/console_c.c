@@ -432,16 +432,6 @@ void TCOD_console_rect(TCOD_console_t con,int x,int y, int rw, int rh, bool clea
 	}
 }
 
-void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag) {
-	int i;
-	for (i=x; i< x+l; i++) TCOD_console_put_char(con,i,y,TCOD_CHAR_HLINE,flag);
-}
-
-void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag) {
-	int i;
-	for (i=y; i< y+l; i++) TCOD_console_put_char(con,x,i,TCOD_CHAR_VLINE,flag);
-}
-
 
 char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	#define NB_BUFFERS 10
