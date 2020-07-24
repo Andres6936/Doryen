@@ -10,6 +10,12 @@ std::int32_t Random::Number::nextInteger(std::int32_t from, std::int32_t to)
 	return distribution(randomEngine);
 }
 
+float Random::Number::nextFloat(float from, float to)
+{
+	std::uniform_real_distribution<float> distribution{ from, to };
+	return distribution(randomEngine);
+}
+
 void Random::Number::setRandomSeed()
 {
 	// Rewrite the random engine with a new, but a difference of
