@@ -290,7 +290,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(Doryen::Platform::getLastFrameLength(), keyPressed);
+		update(console.getLastFrameLength(), keyPressed);
 
 		// render the game screen
 		render(console);
