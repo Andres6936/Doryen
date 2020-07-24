@@ -85,7 +85,6 @@ TEST_CASE ("Overflow for operations of multiply for a scalar positive")
 			CHECK(blue.equals({ 0, 0, 255 }));
 }
 
-
 TEST_CASE ("Overflow for operations of multiply for a scalar negative")
 {
 	// Element Null
