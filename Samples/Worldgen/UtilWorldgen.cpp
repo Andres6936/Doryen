@@ -1173,7 +1173,7 @@ void WorldGenerator::computeColors()
 /**
  * @brief Generate a smooth color map.
  *
- * You can define a color map from an array of color keys. Colors will be interpolated
+ * You can define a color map from an array of color keys. Colors will be interpolated <br>
  * between the keys.
  *
  * 0 -> black
@@ -1198,8 +1198,8 @@ void WorldGenerator::computeColors()
  * 	</tbody>
  * </table>
  *
- * If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1]
- * is the number of elements in map minus 1 but you can also use the function to
+ * If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1] <br>
+ * is the number of elements in map minus 1 but you can also use the function to <br>
  * fill only a part of the map array.
  *
  * @param map	An array of colors to be filled by the function.
@@ -1210,7 +1210,9 @@ void WorldGenerator::computeColors()
  * @example
  * @code
  * int idx[] = { 0, 4, 8 }; // indexes of the keys
- * Doryen::TCODColor col[] = { Doryen::TCODColor( 0,0,0 ), Doryen::TCODColor(255,0,0), Doryen::TCODColor(255,255,255) }; // colors : black, red, white
+ *
+ * // Colors : Black, Red, White
+ * Doryen::TCODColor col[] = { {0, 0, 0}, {255, 0, 0}, {255, 255, 255} };
  * Doryen::TCODColor map[9];
  * Doryen::TCODColor::genMap(map,3,col,idx);
  * @endcode
