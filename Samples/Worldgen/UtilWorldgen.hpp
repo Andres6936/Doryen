@@ -72,7 +72,7 @@ public :
 	/**
 	 * Complete world map (not shaded).
 	 */
-	Doryen::Image* imageWorldmap = new Doryen::Image(HM_WIDTH, HM_HEIGHT);
+	Image imageWorldmap{ HM_WIDTH, HM_HEIGHT };
 
 	/**
 	 * World height map (0.0 - 1.0) .

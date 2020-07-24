@@ -588,7 +588,7 @@ float WorldGenerator::getMapIntensity(float worldX, float worldY, float lightDir
 
 Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 {
-	return getInterpolatedColor(imageWorldmap, worldX, worldY);
+	return getInterpolatedColor(&imageWorldmap, worldX, worldY);
 }
 
 Doryen::Color WorldGenerator::getInterpolatedColor(Doryen::Image* img, float x, float y)
@@ -1097,29 +1097,29 @@ void WorldGenerator::computeColors()
 			temp += 10 * (clouds[HM_WIDTH - 1 - x][HM_HEIGHT - 1 - y]); // cheap 2D noise ;)
 			if (temp < -10.0f && h < sandHeight)
 			{
-				imageWorldmap->putPixel(x, y,
+				imageWorldmap.putPixel(x, y,
 						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f));
 			}
 			else if (temp < -8.0f && h < sandHeight)
 			{
-				imageWorldmap->putPixel(x, y,
+				imageWorldmap.putPixel(x, y,
 						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f + 0.7f * (10.0f +
 											   temp) /
 									   2.0f));
 			}
 			else if (temp < -2.0f && h >= sandHeight)
-			{ imageWorldmap->putPixel(x, y, Doryen::Palette::GRAY_WARN_1); }
+			{ imageWorldmap.putPixel(x, y, Doryen::Palette::GRAY_WARN_1); }
 			else if (temp < 2.0f && h >= sandHeight)
 			{
 				//Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
 				c = Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c, (temp + 2) / 4.0f);
-				imageWorldmap->putPixel(x, y, c);
+				imageWorldmap.putPixel(x, y, c);
 			}
 			else
 			{
-				imageWorldmap->putPixel(x, y, c);
+				imageWorldmap.putPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1132,9 +1132,9 @@ void WorldGenerator::computeColors()
 		{
 			if (md->riverId > 0)
 			{
-				Doryen::Color c = imageWorldmap->getPixel(x, y);
+				Doryen::Color c = imageWorldmap.getPixel(x, y);
 				c = Doryen::Color::lerp(c, Doryen::Palette::BLUE, 0.3f);
-				imageWorldmap->putPixel(x, y, c);
+				imageWorldmap.putPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1154,7 +1154,7 @@ void WorldGenerator::computeColors()
 				int iy = y + dy[i];
 				if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 				{
-					Doryen::Color c = imageWorldmap->getPixel(ix, iy);
+					Doryen::Color c = imageWorldmap.getPixel(ix, iy);
 					r += coef[i] * c.r;
 					g += coef[i] * c.g;
 					b += coef[i] * c.b;
@@ -1164,10 +1164,10 @@ void WorldGenerator::computeColors()
 			r /= count;
 			g /= count;
 			b /= count;
-			imageWorldmap->putPixel(x, y, Doryen::Color(r, g, b));
+			imageWorldmap.putPixel(x, y, Doryen::Color(r, g, b));
 		}
 	}
-	drawCoasts(imageWorldmap);
+	drawCoasts(&imageWorldmap);
 }
 
 /**
@@ -1553,7 +1553,6 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 
 WorldGenerator::~WorldGenerator()
 {
-	delete imageWorldmap;
 	delete heightmap;
 	delete heightmapWithoutErosion;
 	delete temperature;
