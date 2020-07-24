@@ -195,7 +195,7 @@ int main(int argc, char* argv[])
 
 	bool endCredits = false;
 
-	while (!console.isWindowClosed())
+	while (console.isRunning())
 	{
 		//	read keyboard
 		Doryen::Key keyPressed = Doryen::Console::getKeyPressed();
