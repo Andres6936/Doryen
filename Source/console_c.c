@@ -481,41 +481,6 @@ char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	return ret;
 }
 
-void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool empty, TCOD_bkgnd_flag_t flag, const char *fmt, ...) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_console_put_char(con,x,y,TCOD_CHAR_NW,flag);
-	TCOD_console_put_char(con,x+w-1,y,TCOD_CHAR_NE,flag);
-	TCOD_console_put_char(con,x,y+h-1,TCOD_CHAR_SW,flag);
-	TCOD_console_put_char(con,x+w-1,y+h-1,TCOD_CHAR_SE,flag);
-	TCOD_console_hline(con,x+1,y,w-2,flag);
-	TCOD_console_hline(con,x+1,y+h-1,w-2,flag);
-	if ( h > 2 ) {
-		TCOD_console_vline(con,x,y+1,h-2,flag);
-		TCOD_console_vline(con,x+w-1,y+1,h-2,flag);
-		if ( empty ) {
-			TCOD_console_rect(con,x+1,y+1,w-2,h-2,true,flag);
-		}
-	}
-	if (fmt) {
-		va_list ap;
-		int xs;
-		TCOD_color_t tmp;
-		char *title;
-		va_start(ap,fmt);
-		title = TCOD_console_vsprint(fmt,ap);
-		va_end(ap);
-		title[w-3]=0; /* truncate if needed */
-		xs = x + (w-strlen(title)-2)/2;
-		tmp=dat->back; /* swap colors */
-		dat->back=dat->fore;
-		dat->fore=tmp;
-		TCOD_console_print_ex(con,xs,y,TCOD_BKGND_SET,TCOD_LEFT," %s ",title);
-		tmp=dat->back; /* swap colors */
-		dat->back=dat->fore;
-		dat->fore=tmp;
-	}
-}
-
 void TCOD_console_print_ex(TCOD_console_t con,int x, int y,
 	TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...) {
 	va_list ap;
