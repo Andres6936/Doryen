@@ -51,8 +51,6 @@ void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t col);
 
 void TCOD_console_set_default_foreground(TCOD_console_t con,TCOD_color_t col);
 
-void TCOD_console_clear(TCOD_console_t con);
-
 void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_color_t col, TCOD_bkgnd_flag_t flag);
 
 void TCOD_console_set_char_foreground(TCOD_console_t con,int x, int y, TCOD_color_t col);

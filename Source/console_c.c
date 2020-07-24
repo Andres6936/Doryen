@@ -38,7 +38,6 @@
 #ifndef NO_UNICODE
 
 #include <wchar.h>
-#include <wctype.h>
 
 #endif
 
@@ -48,7 +47,6 @@ static const char *version_string ="libtcod "TCOD_STRVERSION;
 static const char* version_string __attribute__((unused)) = "libtcod "TCOD_STRVERSION;
 #endif
 
-static bool windowClosed=false;
 TCOD_internal_context_t TCOD_ctx={
 	/* number of characters in the bitmap font */
 	16, 16,
@@ -102,7 +100,6 @@ TCOD_console_t TCOD_console_new(int w, int h)  {
 }
 
 void TCOD_console_set_window_closed() {
-	windowClosed=true;
 }
 
 void TCOD_console_set_window_title(const char *title) {
@@ -259,22 +256,6 @@ void TCOD_console_set_dirty(int dx, int dy, int dw, int dh) {
 		for (y=dy; y < dy+dh; y++) {
 			int off=x+dat->w*y;
 			dat->buf[off].dirt=1;
-		}
-	}
-}
-
-void TCOD_console_clear(TCOD_console_t con) {
-	int x,y;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return;
-	for (x=0; x < dat->w;x++) {
-		for (y=0; y < dat->h; y++) {
-			int off=x+dat->w*y;
-			dat->buf[off].dirt=0;
-			dat->buf[off].c=' ';
-			dat->buf[off].cf=TCOD_ctx.ascii_to_tcod?TCOD_ctx.ascii_to_tcod[' ']:0;
-			dat->buf[off].fore=dat->fore;
-			dat->buf[off].back=dat->back;
 		}
 	}
 }
@@ -707,7 +688,6 @@ bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen) {
 	dat->oldbuf = (char_t *)calloc(sizeof(char_t),dat->w*dat->h);
 	dat->bkgnd_flag=TCOD_BKGND_NONE;
 	dat->alignment=TCOD_LEFT;
-	windowClosed = false;
 	for (i=0; i< dat->w*dat->h; i++) {
 		dat->buf[i].c=' ';
 		dat->buf[i].cf=-1;
