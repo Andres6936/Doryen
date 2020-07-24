@@ -223,9 +223,10 @@ int main(int argc, char* argv[])
 {
 	// initialize the game window
 	Doryen::Console console = Doryen::Console();
+
 	console.initRoot(CON_W, CON_H, "Weather system v 0.1.0", false);
-	TCODMouse::showCursor(true);
-	Doryen::Platform::setFps(25);
+	console.showCursor(true);
+	console.setFramePerSeconds(25);
 
 	weather.init(CON_W * 2, CON_H * 2);
 	ground = new Doryen::Image(CON_W * 2, CON_H * 2);
