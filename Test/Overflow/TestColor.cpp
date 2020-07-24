@@ -8,7 +8,7 @@
 
 using namespace Doryen;
 
-TEST_CASE ("Overflow for operations of multiply")
+TEST_CASE ("Overflow for operations of multiply for another color")
 {
 	// Element Null
 	Color white{ 0, 0, 0 };
