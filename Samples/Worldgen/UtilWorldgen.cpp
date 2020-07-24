@@ -242,8 +242,8 @@ void WorldGenerator::addHill(int nbHill, float baseRadius, float radiusVar, floa
 		float hillMinRadius = baseRadius * (1.0f - radiusVar);
 		float hillMaxRadius = baseRadius * (1.0f + radiusVar);
 		float radius = wgRng->getFloat(hillMinRadius, hillMaxRadius);
-		int xh = wgRng->getInt(0, HM_WIDTH - 1);
-		int yh = wgRng->getInt(0, HM_HEIGHT - 1);
+		int xh = Random::Number::nextInteger(0, HM_WIDTH - 1);
+		int yh = Random::Number::nextInteger(0, HM_HEIGHT - 1);
 		heightmap->addHill((float)xh, (float)yh, radius, height);
 	}
 }
@@ -658,8 +658,8 @@ void WorldGenerator::generateRivers()
 	// the destination
 	int dx, dy;
 	// get a random point near the coast
-	sx = wgRng->getInt(0, HM_WIDTH - 1);
-	sy = wgRng->getInt(HM_HEIGHT / 5, 4 * HM_HEIGHT / 5);
+	sx = Random::Number::nextInteger(0, HM_WIDTH - 1);
+	sy = Random::Number::nextInteger(HM_HEIGHT / 5, 4 * HM_HEIGHT / 5);
 	float h = heightmap->getValue(sx, sy);
 	while (h < sandHeight - 0.02 || h >= sandHeight)
 	{
@@ -673,16 +673,16 @@ void WorldGenerator::generateRivers()
 		}
 		h = heightmap->getValue(sx, sy);
 	}
-	TCODList <int> tree;
-	TCODList <int> randPt;
+	TCODList<int> tree;
+	TCODList<int> randPt;
 	tree.push(sx + sy * HM_WIDTH);
 	riverId++;
 	dx = sx;
 	dy = sy;
-	for (int i = 0; i < wgRng->getInt(50, 200); i++)
+	for (int i = 0; i < Random::Number::nextInteger(50, 200); i++)
 	{
-		int rx = wgRng->getInt(sx - 200, sx + 200);
-		int ry = wgRng->getInt(sy - 200, sy + 200);
+		int rx = Random::Number::nextInteger(sx - 200, sx + 200);
+		int ry = Random::Number::nextInteger(sy - 200, sy + 200);
 //	    if ( IN_RECTANGLE(rx,ry,HM_WIDTH,HM_HEIGHT) ) {
 //	        float h=heightmap->getValue(rx,ry);
 //	        if ( h >= sandHeight ) {
@@ -1053,14 +1053,14 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 	b += biomeColors[biome].b;
 	for (int i = 0; i < 4; i++)
 	{
-		int ix = x + wgRng->getInt(-10, 10);
-		int iy = y + wgRng->getInt(-10, 10);
+		int ix = x + Random::Number::nextInteger(-10, 10);
+		int iy = y + Random::Number::nextInteger(-10, 10);
 		if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 		{
 			Doryen::Color c = biomeColors[biomeMap[ix + iy * HM_WIDTH]];
-			r += c.r + wgRng->getInt(-10, 10);
-			g += c.g + wgRng->getInt(-10, 10);
-			b += c.b + wgRng->getInt(-10, 10);
+			r += c.r + Random::Number::nextInteger(-10, 10);
+			g += c.g + Random::Number::nextInteger(-10, 10);
+			b += c.b + Random::Number::nextInteger(-10, 10);
 			count++;
 		}
 	}
