@@ -481,17 +481,6 @@ char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	return ret;
 }
 
-void TCOD_console_print_ex(TCOD_console_t con,int x, int y,
-	TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...) {
-	va_list ap;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return;
-	va_start(ap,fmt);
-	TCOD_console_print_internal(con,x,y,0,0,flag,alignment,
-		TCOD_console_vsprint(fmt,ap), false, false);
-	va_end(ap);
-}
-
 /* non public methods */
 int TCOD_console_stringLength(const unsigned char *s) {
 	int l=0;
