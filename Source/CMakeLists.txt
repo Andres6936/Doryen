@@ -18,16 +18,16 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Core.C PUBLIC
 
 ADD_LIBRARY(Doryen.Core.Cpp
         Algorithms/Drawing/Bresenham.cpp
-        Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Color.cpp
-        Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
+        Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Graphics/Color/Color.cpp
+        Console/Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
         Image/Mipmap.cpp
         mersenne.cpp namegen.cpp noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp zip.cpp
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp
         FOV/ShadowCasting.cpp Random/Number.cpp
-        Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
+        Algorithms/Util/Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
         Image/PNG/LodePNG.cpp Image/PNG/Info.cpp Image/PNG/State.cpp
         Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp Image/PNG/HuffmanTree.cpp
-        Image/PNG/Adler32.cpp SystemSDLImagePNG.cpp Renderer/Renderer.cpp Char.cpp
+        Image/PNG/Adler32.cpp SystemSDLImagePNG.cpp Renderer/Renderer.cpp Console/Char.cpp
         Event/Key.cpp Event/Mouse.cpp)
 
 SET_TARGET_PROPERTIES(Doryen.Core.Cpp PROPERTIES CXX_STANDARD 17)
