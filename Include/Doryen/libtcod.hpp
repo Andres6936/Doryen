@@ -30,7 +30,7 @@
 
 #include "libtcod.h"
 #include "list.hpp"
-#include "Color.hpp"
+
 #include "Console.hpp"
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
@@ -45,6 +45,7 @@
 #include "Format/Flossy.hpp"
 #include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
+#include "Graphics/Color/Color.hpp"
 #include "Graphics/Color/Palette.hpp"
 #include "Graphics/Callback/Render.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"

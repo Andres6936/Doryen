@@ -3,7 +3,7 @@
 #ifndef DORYEN_PALETTE_HPP
 #define DORYEN_PALETTE_HPP
 
-#include <Doryen/Color.hpp>
+#include "Doryen/Graphics/Color/Color.hpp"
 
 namespace Doryen::Palette
 {

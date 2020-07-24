@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_CHAR_HPP
 #define LIBTCOD_CHAR_HPP
 
-#include "Color.hpp"
+#include "Graphics/Color/Color.hpp"
 
 namespace Doryen
 {

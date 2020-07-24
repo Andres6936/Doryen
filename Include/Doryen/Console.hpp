@@ -35,10 +35,10 @@
 #include <array>
 
 #include "Graphics/Color/Palette.hpp"
+#include "Graphics/Color/Color.hpp"
 #include "Renderer/Renderer.hpp"
 #include "Geometry/Size.hpp"
 #include "Renderer/Sdl.hpp"
-#include "Color.hpp"
 
 #include "libtcod.h"
 #include "console_types.h"

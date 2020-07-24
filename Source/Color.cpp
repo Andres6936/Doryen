@@ -26,7 +26,8 @@
 */
 
 #include <math.h>
-#include "Doryen/Color.hpp"
+
+#include "Doryen/Graphics/Color/Color.hpp"
 
 using namespace Doryen;
 

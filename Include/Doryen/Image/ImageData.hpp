@@ -5,7 +5,7 @@
 #include <string>
 #include <SDL/SDL.h>
 
-#include "Doryen/Color.hpp"
+#include "Doryen/Graphics/Color/Color.hpp"
 #include "Doryen/Console.hpp"
 #include "Doryen/Image/Mipmap.hpp"
 #include "Doryen/Geometry/Size.hpp"
