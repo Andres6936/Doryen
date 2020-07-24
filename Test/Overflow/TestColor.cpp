@@ -128,8 +128,11 @@ TEST_CASE ("Overflow for operations of add for another color")
 {
 	// Element Null
 	Color white{ 0, 0, 0 };
-	white.add({ 255, 255, 255 });
 
+	white.add({ 0, 0, 0 });
+			CHECK(white.equals({ 0, 0, 0 }));
+
+	white.add({ 255, 255, 255 });
 			CHECK(white.equals({ 255, 255, 255 }));
 
 	// Element Neutral
@@ -161,4 +164,9 @@ TEST_CASE ("Overflow for operations of add for another color")
 	blue.add({ 0, 0, 255 });
 
 			CHECK(blue.equals({ 0, 0, 255 }));
+
+	Color gray{ 127, 127, 127 };
+	gray.add({ 50, 50, 50 });
+
+			CHECK(gray.equals({ 177, 177, 177 }));
 }
