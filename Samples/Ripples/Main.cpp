@@ -205,7 +205,7 @@ int main (int argc, char *argv[])
         if ( !endCredits )
         { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
         // flush updates to screen
-        Doryen::Console::root->flush( );
+        console.flush();
 	}
 	return 0;	
 }
