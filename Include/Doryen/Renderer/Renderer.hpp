@@ -6,9 +6,9 @@
 #include <memory>
 
 #include "Doryen/Color.h"
-#include "Doryen/Char.hpp"
 #include "Doryen/Event/Key.hpp"
 #include "Doryen/Event/Mouse.hpp"
+#include "Doryen/Console/Char.hpp"
 #include "Doryen/Geometry/Point2D.hpp"
 #include "Doryen/Graphics/Color/Color.hpp"
 #include "Doryen/Graphics/Callback/Render.hpp"

@@ -1,4 +1,4 @@
-#include "Doryen/Char.hpp"
+#include "Doryen/Console/Char.hpp"
 
 int Doryen::Char::getC() const
 {
