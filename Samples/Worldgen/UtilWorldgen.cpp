@@ -241,7 +241,7 @@ void WorldGenerator::addHill(int nbHill, float baseRadius, float radiusVar, floa
 	{
 		float hillMinRadius = baseRadius * (1.0f - radiusVar);
 		float hillMaxRadius = baseRadius * (1.0f + radiusVar);
-		float radius = wgRng->getFloat(hillMinRadius, hillMaxRadius);
+		float radius = Random::Number::nextFloat(hillMinRadius, hillMaxRadius);
 		int xh = Random::Number::nextInteger(0, HM_WIDTH - 1);
 		int yh = Random::Number::nextInteger(0, HM_HEIGHT - 1);
 		heightmap->addHill((float)xh, (float)yh, radius, height);
@@ -1236,11 +1236,6 @@ void WorldGenerator::generate(TCODRandom* wRng)
 
 	genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
-	if (wRng != nullptr)
-	{
-		this->wgRng = wRng;
-	}
-
 	noise = new TCODNoise(2, wgRng);
 
 	float timeEnd = Doryen::Platform::getElapsedSeconds();
@@ -1557,7 +1552,6 @@ WorldGenerator::~WorldGenerator()
 	delete heightmapWithoutErosion;
 	delete temperature;
 	delete precipitation;
-	delete wgRng;
 
 	delete[] biomeMap;
 	delete[] mapData;
