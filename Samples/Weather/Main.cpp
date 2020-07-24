@@ -40,20 +40,19 @@ Doryen::Color lightningColor(220, 220, 255);
 
 Doryen::Image* ground;
 
-void update(float elapsed, Doryen::Key k, TCOD_mouse_t mouse)
+void update(float elapsed, const KeyCode k, TCOD_mouse_t mouse)
 {
-	if (k.getKeyCode() == Doryen::KeyCode::KP_ADD)
+	if (k == KeyCode::KP_ADD)
 	{
 		float d = weather.getIndicatorDelta();
 		weather.setIndicatorDelta(d + elapsed * 0.1f);
 	}
-	else if (k.getKeyCode() == Doryen::KeyCode::KP_SUB)
+	else if (k == KeyCode::KP_SUB)
 	{
 		float d = weather.getIndicatorDelta();
 		weather.setIndicatorDelta(d - elapsed * 0.1f);
 	}
-	else if (k.getKeyCode() == Doryen::KeyCode::ENTER ||
-			 k.getKeyCode() == Doryen::KeyCode::KP_ENTER)
+	else if (k == KeyCode::ENTER || k == KeyCode::KP_ENTER)
 	{
 		elapsed *= 20.0f;
 	}
@@ -277,22 +276,21 @@ int main(int argc, char* argv[])
 	while (console.isRunning())
 	{
 		//	read keyboard
-		Doryen::Key keyPressed = Doryen::Console::getKeyPressed();
+		KeyCode keyPressed = console.getKeyPressed().getKeyCode();
 
 		TCOD_mouse_t mouse = TCODMouse::getStatus();
 
-		if (keyPressed.getKeyCode() == Doryen::KeyCode::PRINT_SCREEN)
+		if (keyPressed == KeyCode::PRINT_SCREEN)
 		{
 			// screenshot
 			Doryen::Platform::saveScreenshot(NULL);
 		}
-		else if (keyPressed.isLeftAltPressed() &&
-				 (keyPressed.getKeyCode() == Doryen::KeyCode::ENTER ||
-				  keyPressed.getKeyCode() == Doryen::KeyCode::KP_ENTER))
+		else if (keyPressed == KeyCode::SPACE)
 		{
 			// switch fullscreen
 			Doryen::Console::setWindowInFullscreen();
 		}
+
 		// update the game
 		update(Doryen::Platform::getLastFrameLength(), keyPressed, mouse);
 
