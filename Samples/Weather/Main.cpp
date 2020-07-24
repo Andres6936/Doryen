@@ -40,7 +40,7 @@ Doryen::Color lightningColor(220, 220, 255);
 
 Doryen::Image* ground;
 
-void update(float elapsed, const KeyCode& k, TCOD_mouse_t mouse)
+void update(float elapsed, const KeyCode& k)
 {
 	if (k == KeyCode::KP_ADD)
 	{
@@ -278,8 +278,6 @@ int main(int argc, char* argv[])
 		//	read keyboard
 		const KeyCode keyPressed = console.getKeyPressed().getKeyCode();
 
-		TCOD_mouse_t mouse = TCODMouse::getStatus();
-
 		if (keyPressed == KeyCode::PRINT_SCREEN)
 		{
 			// screenshot
@@ -292,7 +290,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(Doryen::Platform::getLastFrameLength(), keyPressed, mouse);
+		update(Doryen::Platform::getLastFrameLength(), keyPressed);
 
 		// render the game screen
 		render(console);
