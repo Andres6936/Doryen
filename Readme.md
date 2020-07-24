@@ -69,10 +69,10 @@ For regions, cities, dungeons building.
 
 You can clone with Git via the GitHub repository.
 
-> git clone --recursive --depth=1 https://github.com/Andres6936/Doryen.git
-> cd Doryen && mkdir Build
-> cd Build && cmake ..
-> make
+    git clone --recursive --depth=1 https://github.com/Andres6936/Doryen.git
+    cd Doryen && mkdir Build
+    cd Build && cmake ..
+    make
 
 ###### All screenshots come from the Doryen sample source code.
 
