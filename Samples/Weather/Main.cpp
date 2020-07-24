@@ -125,16 +125,27 @@ void render()
 			{
 				float lightning = weather.getLightning(x * 2, y * 2);
 				float cloudCoef = weather.getCloud(x * 2, y * 2);
-				Doryen::Color col = Doryen::Color::darkBlue * cloudCoef;
-				col = col * weather.getAmbientLightColor();
+
+				Doryen::Color col = Palette::BASE_DARKEST;
+				col.multiply(cloudCoef);
+				col.multiply(weather.getAmbientLightColor());
+
 				if (lightning > 0.0f)
-				{ col = col + 2 * lightning * lightningColor; }
+				{
+					// For avoid edit the original color
+					Color recoveryLightingColor = lightningColor;
+					recoveryLightingColor.multiply(lightning);
+					recoveryLightingColor.multiply(2);
+
+					col = recoveryLightingColor;
+				}
+
 				Doryen::Console::root->setChar(x, y, '/');
 				Doryen::Console::root->setCharForeground(x, y, col);
 			}
 		}
 	}
-	Doryen::Console::root->setDefaultForeground(Doryen::Color::white);
+	Doryen::Console::root->setDefaultForeground(Palette::GRAY_WARN_1);
 	Doryen::Console::root->print(5, CON_H - 12, format("TCOD's Weather system :\n"
 													   "- wind with varying speed and direction\n"
 													   "- rain\n"
@@ -244,9 +255,13 @@ int main(int argc, char* argv[])
 			// darken the lower part (text background) 
 			if (y > CON_H * 2 - 27)
 			{ coef = 0.5f; }
-			Doryen::Color col = coef * gradientMap[ih];
+
+			// For avoid edit the original color
+			Color gradinatMapIndex = gradientMap[ih];
+			gradinatMapIndex.multiply(coef);
+			Color col = gradinatMapIndex;
 			// add some noise
-			col = col * TCODRandom::getInstance()->getFloat(0.95f, 1.05f);
+			col.multiply(Random::Number::nextFloat(0.95f, 1.05f));
 			ground->putPixel(x, y, col);
 		}
 	}
