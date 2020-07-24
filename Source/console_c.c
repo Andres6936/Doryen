@@ -412,26 +412,6 @@ static void TCOD_console_clamp(int cx, int cy, int cw, int ch, int *x, int *y, i
 	}
 }
 
-void TCOD_console_rect(TCOD_console_t con,int x,int y, int rw, int rh, bool clear, TCOD_bkgnd_flag_t flag) {
-	int cx,cy;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL ) return;
-	TCOD_ASSERT((unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h );
-	TCOD_ASSERT(x+rw <= dat->w && y+rh <= dat->h );
-
-	TCOD_console_clamp(0,0,dat->w,dat->h,&x,&y,&rw,&rh);
-	TCOD_IFNOT(rw > 0 && rh > 0) return;
-	for (cx=x;cx < x+rw; cx++) {
-		for (cy=y;cy<y+rh;cy++) {
-			TCOD_console_set_char_background(con,cx,cy,dat->back,flag);
-			if ( clear ) {
-				dat->buf[cx + cy*dat->w].c=' ';
-				dat->buf[cx + cy*dat->w].cf=TCOD_ctx.ascii_to_tcod[' '];
-			}
-		}
-	}
-}
-
 
 char *TCOD_console_vsprint(const char *fmt, va_list ap) {
 	#define NB_BUFFERS 10
