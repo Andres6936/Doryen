@@ -136,13 +136,14 @@ void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* gr
 			{
 				float xOffset = (getData(x - 1, y) - getData(x + 1, y));
 				float yOffset = (getData(x, y - 1) - getData(x, y + 1));
-				float f[3] = { x, y, elCoef };
+				float f[3] = { static_cast<float>(x), static_cast<float>(y), elCoef };
 				xOffset += noise3d.get(f, TCOD_NOISE_SIMPLEX) * 0.3f;
 				if (ABS(xOffset) < 250 && ABS(yOffset) < 250)
 				{
 					Doryen::Color col = ground->getPixel(x + (int)(xOffset), y + (int)(yOffset));
-                    col = col + Doryen::Color::white * xOffset * 0.1f;
-					groundWithRipples->putPixel(x,y,col);
+					col = Palette::GRAY_WARN_1;
+					col.multiply(xOffset * 0.1f);
+					groundWithRipples->putPixel(x, y, col);
 				}
 			}
 		}

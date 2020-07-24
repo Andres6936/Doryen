@@ -26,7 +26,7 @@
 #include "Main.hpp"
 #include "Doryen/libtcod.hpp"
 
-using namespace std;
+using namespace Doryen;
 
 TCODNoise noise2d(2);
 TCODNoise noise3d(3);
@@ -69,7 +69,7 @@ void update(float elapsed, TCOD_key_t k, TCOD_mouse_t mouse) {
 }
 
 
-void render() {
+void render(Console& console) {
 	// copy ground into ground2. damn libtcod should have that...
 	for (int x=0; x < CON_W*2;x++) {
 		for (int y=0; y < CON_H*2;y++) {
@@ -77,18 +77,79 @@ void render() {
 		}
 	}
 	rippleManager->renderRipples(ground,ground2);
-    ground2->blit2x( Doryen::Console::root, 0, 0 );
-    Doryen::Console::root->setDefaultForeground( Doryen::Color::white );
-    Doryen::Console::root->print( 3, 49, "Click in water to trigger ripples" );
+    ground2->blit2x( console, 0, 0 );
+
+    console.setDefaultForeground( Palette::GRAY_WARN_1 );
+    console.print( 3, 49, "Click in water to trigger ripples" );
+}
+
+/**
+ * @brief Generate a smooth color map.
+ *
+ * You can define a color map from an array of color keys. Colors will be interpolated <br>
+ * between the keys.
+ *
+ * 0 -> black
+ * 4 -> red
+ * 8 -> white
+ *
+ * Result :
+ *
+ * <table>
+ * 	<tbody>
+ * 		<tr><td>map[0]</td><td style="background-color: rgb(0, 0, 0); width: 50px;" /><td>black</td></tr>
+ * 		<tr><td>map[1]</td><td style="background-color: rgb(63, 0, 0);" /></tr>
+ * 		<tr><td>map[2]</td><td style="background-color: rgb(127, 0, 0);" /></tr>
+ * 		<tr><td>map[3]</td><td style="background-color: rgb(191, 0, 0);" /></tr>
+ * 		<tr><td>map[4]</td><td style="background-color: rgb(255, 0, 0);" /><td>red</td></tr>
+ * 		<tr><td>map[5]</td><td style="background-color: rgb(255, 63, 63);" /></tr>
+ * 		<tr><td>map[6]</td><td style="background-color: rgb(255, 127, 127);" /></tr>
+ * 		<tr><td>map[7]</td><td style="background-color: rgb(255, 191, 191);" /></tr>
+ * 		<tr><td>map[8]</td><td style="background-color: rgb(255, 255, 255);" /><td>white</td></tr>
+ * 	</tbody>
+ * </table>
+ *
+ * If you want to fill the map array, keyIndex[0] must be 0 and keyIndex[nbKey-1] <br>
+ * is the number of elements in map minus 1 but you can also use the function to <br>
+ * fill only a part of the map array.
+ *
+ * @param map	An array of colors to be filled by the function.
+ * @param nbKey	Number of color keys
+ * @param keyColor	Array of nbKey colors containing the color of each key
+ * @param keyIndex	Array of nbKey integers containing the index of each key.
+ *
+ * @example
+ * @code
+ * int idx[] = { 0, 4, 8 }; // indexes of the keys
+ *
+ * // Colors : Black, Red, White
+ * Doryen::TCODColor col[] = { {0, 0, 0}, {255, 0, 0}, {255, 255, 255} };
+ * Doryen::TCODColor map[9];
+ * Doryen::TCODColor::genMap(map,3,col,idx);
+ * @endcode
+ */
+void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int const* keyIndex)
+{
+	for (int segment = 0; segment < nbKey - 1; segment++)
+	{
+		int idxStart = keyIndex[segment];
+		int idxEnd = keyIndex[segment + 1];
+		int idx;
+		for (idx = idxStart; idx <= idxEnd; idx++)
+		{
+			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
+					(float)(idx - idxStart) / (idxEnd - idxStart));
+		}
+	}
 }
 
 int main (int argc, char *argv[])
 {
 	// initialize the game window
 	Doryen::Console console = Doryen::Console();
-	console.initRoot(CON_W, CON_H, "Water ripples v"VERSION, false, TCOD_RENDERER_SDL);
-	Doryen::Platform::setFps(25);
-	TCODMouse::showCursor(true);
+	console.initRoot(CON_W, CON_H, "Water ripples v 0.1.0", false);
+	console.showCursor(true);
+	console.setFramePerSeconds(25);
 
 	bool endCredits = false;
 
@@ -96,8 +157,9 @@ int main (int argc, char *argv[])
 	Doryen::Heightmap hm(CON_W * 2, CON_H * 2);
 	hm.addFbm(&noise2d, 3.0f, 3.0f, 0, 0, 7.0f, 1.0f, 0.5f);
 	hm.normalize();
+
 	// apply a color map to create a ground image
-	Doryen::Color::genMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
+	generateSmoothColorMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 	ground = new Doryen::Image(CON_W * 2, CON_H * 2);
 	ground2 = new Doryen::Image(CON_W * 2, CON_H * 2);
 	// create a Doryen::Map defining water zones. Walkable = water
@@ -117,7 +179,7 @@ int main (int argc, char *argv[])
 	}
 	rippleManager = new RippleManager(&waterMap);
 
-    while ( !console.isWindowClosed( ))
+    while ( console.isRunning( ))
     {
 		TCOD_key_t k;
 		TCOD_mouse_t mouse;
@@ -139,7 +201,7 @@ int main (int argc, char *argv[])
         update( Doryen::Platform::getLastFrameLength( ), k, mouse );
 
 		// render the game screen
-		render();
+		render(console);
 		// render libtcod credits
         if ( !endCredits )
         { endCredits = Doryen::Console::renderCredits( 4, 4, true ); }
