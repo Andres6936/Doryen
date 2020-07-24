@@ -26,19 +26,3 @@
 */
 #include "Doryen/libtcod.hpp"
 
-void TCODMouse::showCursor(bool visible) {
-    SDL_ShowCursor( visible ? 1 : 0 );
-}
-
-bool TCODMouse::isCursorVisible() {
-    return ( SDL_ShowCursor( -1 ) != 0 );
-}
-
-void TCODMouse::move(int x, int y) {
-    SDL_WarpMouse(( Uint16 ) x, ( Uint16 ) y );
-}
-
-TCOD_mouse_t TCODMouse::getStatus() {
-	return TCOD_mouse_get_status();
-}
-

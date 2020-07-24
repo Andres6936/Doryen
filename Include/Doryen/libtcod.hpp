@@ -35,7 +35,6 @@
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
 #include "mersenne.hpp"
-#include "mouse.hpp"
 #include "noise.hpp"
 #include "FOV/Fov.hpp"
 #include "tree.hpp"
