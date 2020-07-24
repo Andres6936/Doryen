@@ -417,14 +417,6 @@ bool Doryen::Console::isFullscreen()
 	return renderer->isFullscreen();
 }
 
-void Doryen::Console::blit(const Doryen::Console* srcCon, int xSrc, int ySrc, int wSrc, int hSrc,
-		Doryen::Console* dstCon, int xDst, int yDst, float foreground_alpha,
-		float background_alpha)
-{
-	TCOD_console_blit(srcCon->data, xSrc, ySrc, wSrc, hSrc, dstCon->data, xDst, yDst, foreground_alpha,
-			background_alpha);
-}
-
 
 void Doryen::Console::flush()
 {

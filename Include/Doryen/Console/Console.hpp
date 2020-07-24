@@ -1048,113 +1048,24 @@ namespace Doryen
         static void disableKeyboardRepeat( );
 
 		/**
-		@PageName console_keycode_t
-		@PageTitle 	Key codes
-		@PageFather console_input
-		@PageDesc TCOD_keycode_t is a libtcod specific code representing a key on the keyboard.
-			For python, replace TCODK by KEY: libtcod.KEY_NONE. C# and Lua, the value is in parenthesis. Possible values are :
-			When no key was pressed (see checkForKeypress) : TCOD_NONE (NoKey)
-			Special keys :
-			TCODK_ESCAPE (Escape)
-			TCODK_BACKSPACE (Backspace)
-			TCODK_TAB (Tab)
-			TCODK_ENTER (Enter)
-			TCODK_SHIFT (Shift)
-			TCODK_CONTROL (Control)
-			TCODK_ALT (Alt)
-			TCODK_PAUSE (Pause)
-			TCODK_CAPSLOCK (CapsLock)
-			TCODK_PAGEUP (PageUp)
-			TCODK_PAGEDOWN (PageDown)
-			TCODK_END (End)
-			TCODK_HOME (Home)
-			TCODK_UP (Up)
-			TCODK_LEFT (Left)
-			TCODK_RIGHT (Right)
-			TCODK_DOWN (Down)
-			TCODK_PRINTSCREEN (Printscreen)
-			TCODK_INSERT (Insert)
-			TCODK_DELETE (Delete)
-			TCODK_LWIN (Lwin)
-			TCODK_RWIN (Rwin)
-			TCODK_APPS (Apps)
-			TCODK_KPADD (KeypadAdd)
-			TCODK_KPSUB (KeypadSubtract)
-			TCODK_KPDIV (KeypadDivide)
-			TCODK_KPMUL (KeypadMultiply)
-			TCODK_KPDEC (KeypadDecimal)
-			TCODK_KPENTER (KeypadEnter)
-			TCODK_F1 (F1)
-			TCODK_F2 (F2)
-			TCODK_F3 (F3)
-			TCODK_F4 (F4)
-			TCODK_F5 (F5)
-			TCODK_F6 (F6)
-			TCODK_F7 (F7)
-			TCODK_F8 (F8)
-			TCODK_F9 (F9)
-			TCODK_F10 (F10)
-			TCODK_F11 (F11)
-			TCODK_F12 (F12)
-			TCODK_NUMLOCK (Numlock)
-			TCODK_SCROLLLOCK (Scrolllock)
-			TCODK_SPACE (Space)
-
-			numeric keys :
-
-			TCODK_0 (Zero)
-			TCODK_1 (One)
-			TCODK_2 (Two)
-			TCODK_3 (Three)
-			TCODK_4 (Four)
-			TCODK_5 (Five)
-			TCODK_6 (Six)
-			TCODK_7 (Seven)
-			TCODK_8 (Eight)
-			TCODK_9 (Nine)
-			TCODK_KP0 (KeypadZero)
-			TCODK_KP1 (KeypadOne)
-			TCODK_KP2 (KeypadTwo)
-			TCODK_KP3 (KeypadThree)
-			TCODK_KP4 (KeypadFour)
-			TCODK_KP5 (KeypadFive)
-			TCODK_KP6 (KeypadSix)
-			TCODK_KP7 (KeypadSeven)
-			TCODK_KP8 (KeypadEight)
-			TCODK_KP9 (KeypadNine)
-
-			Any other (printable) key :
-
-			TCODK_CHAR (Char)
-
-			Codes starting with TCODK_KP represents keys on the numeric keypad (if available).
-		*/
-
-
-
-		/**
-        @PageName console_offscreen
-        @FuncTitle Blitting a console on another one
-        @FuncDesc This function allows you to blit a rectangular area of the source console at a specific position on a destination console. It can also simulate alpha transparency with the fade parameter.
-        @Cpp static void blit(const TCODConsole *src,int xSrc, int ySrc, int wSrc, int hSrc, TCODConsole *dst, int xDst, int yDst, float foregroundAlpha=1.0f, float backgroundAlpha=1.0f)
-        @C void TCOD_console_blit(TCOD_console_t src,int xSrc, int ySrc, int wSrc, int hSrc, TCOD_console_t dst, int xDst, int yDst, float foreground_alpha, float background_alpha)
-        @Py console_blit(src,xSrc,ySrc,xSrc,hSrc,dst,xDst,yDst,foregroundAlpha=1.0,backgroundAlpha=1.0)
-        @C#
-            static void TCODConsole::blit(TCODConsole src, int xSrc, int ySrc, int wSrc, int hSrc, TCODConsole dst, int xDst, int yDst)
-            static void TCODConsole::blit(TCODConsole src, int xSrc, int ySrc, int wSrc, int hSrc, TCODConsole dst, int xDst, int yDst, float foreground_alpha)
-            static void TCODConsole::blit(TCODConsole src, int xSrc, int ySrc, int wSrc, int hSrc, TCODConsole dst, int xDst, int yDst, float foreground_alpha, float background_alpha)
-        @Lua
-            tcod.console.blit(src, xSrc, ySrc, wSrc, hSrc, dst, xDst, yDst)
-            tcod.console.blit(src, xSrc, ySrc, wSrc, hSrc, dst, xDst, yDst, foreground_alpha)
-            tcod.console.blit(src, xSrc, ySrc, wSrc, hSrc, dst, xDst, yDst, foreground_alpha, background_alpha)
-        @Param src The source console that must be blitted on another one.
-        @Param xSrc,ySrc,wSrc,hSrc The rectangular area of the source console that will be blitted. If wSrc and/or hSrc == 0, the source console width/height are used
-        @Param dst The destination console.
-        @Param xDst,yDst Where to blit the upper-left corner of the source area in the destination console.
-        @Param foregroundAlpha,backgroundAlpha Alpha transparency of the blitted console.
-            0.0 => The source console is completely transparent. This function does nothing.
-            1.0 => The source console is opaque. Its cells replace the destination cells.
-            0 < fade < 1.0 => The source console is partially blitted, simulating real transparency.
+		 * @brief Blitting a console on another one
+		 *
+		 * This function allows you to blit a rectangular area of the source console
+		 * at a specific position on a destination console. It can also simulate alpha
+		 * transparency with the fade parameter.
+		 *
+         * @param source The rectangular area of the source console that will be blitted.
+         *  If wSrc and/or hSrc == 0, the source console width/height are used
+         * @param destination The source console that must be blitted on another one.
+         * @param dest Where to blit the upper-left corner of the source area in the destination console.
+         * @param foregroundAlpha Alpha transparency of the blitted console.
+         * @param backgroundAlpha Alpha transparency of the blitted console.
+         *
+         *  0.0 => The source console is completely transparent. This function does nothing. <br>
+         *  1.0 => The source console is opaque. Its cells replace the destination cells. <br>
+         *  0 < fade < 1.0 => The source console is partially blitted, simulating real transparency. <br>
+         *
+         *  @example
         @CppEx
             // Cross-fading between two offscreen consoles. We use two offscreen consoles with the same size as the root console. We render a different screen on each offscreen console. When the user hits a key, we do a cross-fading from the first screen to the second screen.
             TCODConsole *off1 = new TCODConsole(80,50);
@@ -1172,61 +1083,7 @@ namespace Doryen
                 TCODConsole::blit(off2,0,0,80,50,TCODConsole::root,0,0,i/255.0,i/255.0); // renders the second screen (transparent)
                 TCODConsole::flush();
             }
-        @CEx
-            TCOD_console_t off1 = TCOD_console_new(80,50);
-            TCOD_console_t off2 = TCOD_console_new(80,50);
-            int i;
-            ... print screen1 on off1
-            ... print screen2 of off2
-            // render screen1 in the game window
-            TCOD_console_blit(off1,0,0,80,50,NULL,0,0,1.0,1.0);
-            TCOD_console_flush();
-            // wait or a keypress
-            TCOD_console_wait_for_keypress(true);
-            // do a cross-fading from off1 to off2
-            for (i=1; i <= 255; i++) {
-                TCOD_console_blit(off1,0,0,80,50,NULL,0,0,1.0,1.0); // renders the first screen (opaque)
-                TCOD_console_blit(off2,0,0,80,50,NULL,0,0,i/255.0,i/255.0); // renders the second screen (transparent)
-                TCOD_console_flush();
-            }
-        @PyEx
-            off1 = libtcod.console_new(80,50)
-            off2 = libtcod.console_new(80,50)
-            ... print screen1 on off1
-            ... print screen2 of off2
-            # render screen1 in the game window
-            libtcod.console_blit(off1,0,0,80,50,0,0,0)
-            libtcod.console_flush()
-            # wait or a keypress
-            libtcod.console_wait_for_keypress(True)
-            # do a cross-fading from off1 to off2
-            for i in range(1,256) :
-                litbcod.console_blit(off1,0,0,80,50,0,0,0) # renders the first screen (opaque)
-                litbcod.console_blit(off2,0,0,80,50,0,0,0,i/255.0,i/255.0) # renders the second screen (transparent)
-                litbcod.console_flush()
-        @LuaEx
-            -- Cross-fading between two offscreen consoles. We use two offscreen consoles with the same size as the root console. We render a different screen on each offscreen console. When the user hits a key, we do a cross-fading from the first screen to the second screen.
-            off1 = tcod.Console(80,50)
-            off2 = tcod.Console(80,50)
-            ... print screen1 on off1
-            ... print screen2 of off2
-            -- render screen1 in the game window
-            root=libtcod.TCODConsole_root
-            tcod.console.blit(off1,0,0,80,50,root,0,0)
-            tcod.console.flush()
-            -- wait or a keypress
-            tcod.console.waitForKeypress(true)
-            -- do a cross-fading from off1 to off2
-            for i=1,255,1 do
-                tcod.console.blit(off1,0,0,80,50,root,0,0) -- renders the first screen (opaque)
-                tcod.console.blit(off2,0,0,80,50,root,0,0,i/255,i/255) -- renders the second screen (transparent)
-                tcod.console.flush()
-            end
         */
-		static void
-		blit(const Console* src, int xSrc, int ySrc, int wSrc, int hSrc, Console* dst, int xDst, int yDst,
-				float foreground_alpha = 1.0f, float background_alpha = 1.0f);
-
 		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 
