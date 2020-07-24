@@ -143,8 +143,11 @@ TEST_CASE ("Overflow for operations of add for another color")
 
 	// Element Total
 	Color black{ 255, 255, 255 };
-	black.add({ 255, 255, 255 });
 
+	black.add({ 0, 0, 0 });
+			CHECK(black.equals({ 255, 255, 255 }));
+
+	black.add({ 255, 255, 255 });
 			CHECK(black.equals({ 255, 255, 255 }));
 
 	// Element Component Red
