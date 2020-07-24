@@ -156,7 +156,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "Color.h"
 #include "console.h"
 #include "Image.h"
-#include "mouse.h"
 #include "sys.h"
 #include "mersenne.h"
 #include "noise.h"

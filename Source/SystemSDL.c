@@ -2059,11 +2059,6 @@ TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t* key, TCOD_mouse
 	return retMask;
 }
 
-TCOD_mouse_t TCOD_mouse_get_status()
-{
-	return tcod_mouse;
-}
-
 
 /* classic keyboard functions (based on generic events) */
 
