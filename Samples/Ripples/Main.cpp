@@ -24,7 +24,9 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #include "Main.hpp"
-#include "Algorithms/Generation/Heightmap.hpp"
+#include "Doryen/libtcod.hpp"
+
+using namespace std;
 
 TCODNoise noise2d(2);
 TCODNoise noise3d(3);
