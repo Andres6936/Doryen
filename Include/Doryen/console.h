@@ -31,16 +31,11 @@
 #include "console_types.h"
 #include "Color.h"
 
-#define TCOD_BKGND_ADDALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ADDA|(((uint8)(alpha*255))<<8)))
-
 typedef void* TCOD_console_t;
 
 typedef unsigned char uint8;
 
-
 void TCOD_console_set_window_title(const char* title);
-
-void TCOD_console_set_fullscreen(bool fullscreen);
 
 void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_horiz, int nb_char_vertic);
 
@@ -64,22 +59,9 @@ void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color
 
 void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...);
 
-
-void TCOD_console_rect(TCOD_console_t con,int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag);
-
 void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag);
 
 void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag);
-
-void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool empty, TCOD_bkgnd_flag_t flag, const char *fmt, ...);
-
-#ifndef NO_UNICODE
-/* unicode support */
-
-
-
-#endif
-
 
 TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con);
 
