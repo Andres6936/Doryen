@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <memory>
+#include <cstdint>
 
 #include "Doryen/Color.h"
 #include "Doryen/Event/Key.hpp"
@@ -342,6 +343,8 @@ namespace Doryen
 		virtual void setWindowInFullscreen() = 0;
 
 		virtual void showCursor(bool visible) = 0;
+
+		virtual std::uint32_t getElapseMilliseconds() const = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
 

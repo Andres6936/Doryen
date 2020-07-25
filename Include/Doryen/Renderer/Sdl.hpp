@@ -2,7 +2,6 @@
 #define LIBTCOD_SDL_HPP
 
 #include <SDL/SDL.h>
-
 #include "Doryen/Renderer/Renderer.hpp"
 
 namespace Doryen
@@ -116,6 +115,8 @@ namespace Doryen
 		Key getKeyPressed() override;
 
 		Mouse getMouseEvent() override;
+
+		std::uint32_t getElapseMilliseconds() const override;
 
 		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
 	};

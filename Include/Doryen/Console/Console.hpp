@@ -1177,6 +1177,15 @@ namespace Doryen
          */
 		unsigned int getFramePerSeconds() const;
 
+		/**
+		 * @brief Get global timer in milliseconds.
+		 *
+		 * Returns the number of milliseconds since the program has started.
+		 *
+		 * @return number of milliseconds since the program has started.
+		 */
+		std::uint32_t getElapsedMilliseconds() const;
+
 		Size getFontSize() const;
 
 		void unregisterCallback() const;

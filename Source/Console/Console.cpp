@@ -1247,3 +1247,8 @@ Size Console::getFontSize() const
 {
 	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeigth() };
 }
+
+std::uint32_t Console::getElapsedMilliseconds() const
+{
+	return renderer->getElapseMilliseconds();
+}
