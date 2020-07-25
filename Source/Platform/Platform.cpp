@@ -32,11 +32,6 @@ void Doryen::Platform::saveScreenshot( const char *filename )
     TCOD_sys_save_screenshot( filename );
 }
 
-uint32 Doryen::Platform::getElapsedMilli( )
-{
-	return TCOD_sys_elapsed_milli();
-}
-
 float Doryen::Platform::getElapsedSeconds( )
 {
 	return TCOD_sys_elapsed_seconds();

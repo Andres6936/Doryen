@@ -45,15 +45,6 @@ namespace Doryen
 	public :
 
 		/**
-		 * @brief Get global timer in milliseconds.
-		 *
-		 * Returns the number of milliseconds since the program has started.
-		 *
-		 * @return number of milliseconds since the program has started.
-		 */
-		static uint32 getElapsedMilli();
-
-		/**
 		 * Returns the number of seconds since the program has started.
 		 *
 		 * @return number of seconds since the program has started.
