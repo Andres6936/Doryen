@@ -81,8 +81,6 @@ TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern
 
 /* clipboard */
 
-char *TCOD_sys_clipboard_get();
-
 typedef void *TCOD_semaphore_t;
 typedef void *TCOD_mutex_t;
 

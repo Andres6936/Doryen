@@ -221,15 +221,5 @@ char *TCOD_sys_clipboard_get()
 #else
 static Display *dpy=NULL;
 
-char *TCOD_sys_clipboard_get()
-{
-	int len;
-	if (!dpy ) dpy = XOpenDisplay(NULL);
-	char *xbuf = XFetchBytes(dpy,&len);
-	if (! xbuf ) return NULL;
-	char *ret=strdup(xbuf);
-	XFree(xbuf);
-	return ret;
-}
 #endif
 
