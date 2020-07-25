@@ -246,10 +246,6 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	{
 		algonum += key == KeyCode::KP_ADD ? 1 : -1;
 		algonum = CLAMP(0, NB_FOV_ALGORITHMS - 1, algonum);
-		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-		sample.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_90);
 		recomputeFov = true;
 	}
 }
