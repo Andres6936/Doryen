@@ -164,18 +164,6 @@ namespace Doryen
 		static void forceFullscreenResolution(int width, int height);
 
 		/**
-		@PageName system_misc
-		@FuncTitle Get the font size
-		@FuncDesc You can get the size of the characters in the font
-		@Cpp static void TCODSystem::getCharSize(int *width, int *height)
-		@C void TCOD_sys_get_char_size(int *width, int *height)
-		@Py sys_get_char_size() # returns w,h
-		@C# static void TCODSystem::getCharSize(out int w, out int h);
-		@Param width,height contains a character size when the function returns
-		*/
-        static void getCharSize( int *w, int *h );
-
-        /**
         @PageName system_misc
         @FuncTitle Dynamically updating the font bitmap
         @FuncDesc You can dynamically change the bitmap of a character in the font. All cells using this ascii code will be updated at next flush call.

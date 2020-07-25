@@ -77,11 +77,6 @@ void Doryen::Platform::updateChar(int asciiCode, int fontx, int fonty, const Ima
 	TCOD_sys_update_char(asciiCode, fontx, fonty, img->data, x, y);
 }
 
-void Doryen::Platform::getCharSize( int *w, int *h )
-{
-	TCOD_sys_get_char_size(w,h);
-}
-
 TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
 {
 	return TCOD_sys_get_directory_content(path,pattern);
