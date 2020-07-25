@@ -307,9 +307,6 @@ void TCOD_close_library(TCOD_library_t library) {
 }
 #else
 
-void * TCOD_get_function_address(TCOD_library_t library, const char *function_name) {
-	return dlsym(library,(char *)function_name);
-}
 void TCOD_close_library(TCOD_library_t library) {
 	dlclose(library);
 }
