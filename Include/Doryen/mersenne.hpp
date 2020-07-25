@@ -183,29 +183,6 @@ class TCODRandom {
 		*/
 		virtual ~TCODRandom();
 
-	/**
-	@PageName random_use
-	@PageFather random
-	@PageTitle Using a generator
-	@FuncTitle Getting an integer
-	@FuncDesc Once you obtained a generator (using one of those methods), you can get random numbers using the following functions, using either the explicit or simplified API where applicable:
-	@Cpp
-		//explicit API:
-		int TCODRandom::getInt(int min, int max, int mean = 0)
-
-		//simplified API:
-		int TCODRandom::get(int min, int max, int mean = 0)
-	@C
-		int TCOD_random_get_int(TCOD_random_t mersenne, int min, int max)
-		int TCOD_random_get_int_mean(TCOD_random_t mersenne, int min, int max, int mean)
-	@Py
-	@C#
-	@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used..
-	@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
-	@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
-	*/
-		int getInt(int min, int max, int mean = 0);
-
 	int get(int min, int max, int mean = 0);
 
 	/**
