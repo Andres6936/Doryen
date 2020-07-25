@@ -80,7 +80,6 @@ TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern
 
 
 /* clipboard */
-void TCOD_sys_clipboard_set(const char *value);
 
 char *TCOD_sys_clipboard_get();
 

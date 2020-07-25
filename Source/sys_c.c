@@ -220,16 +220,6 @@ char *TCOD_sys_clipboard_get()
 }
 #else
 static Display *dpy=NULL;
-void TCOD_sys_clipboard_set(const char *value)
-{
-	if ( ! value ) return;
-	if (!dpy ) dpy = XOpenDisplay(NULL);
-	XStoreBytes(dpy,value,strlen(value)+1);
-	/* doesn't seem to work without this... */
-	int len;
-	char *xbuf = XFetchBytes(dpy,&len);
-	XFree(xbuf);
-}
 
 char *TCOD_sys_clipboard_get()
 {
