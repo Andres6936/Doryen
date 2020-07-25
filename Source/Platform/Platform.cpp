@@ -72,11 +72,6 @@ TCOD_renderer_t Doryen::Platform::getRenderer( )
 	return TCOD_sys_get_renderer();
 }
 
-void Doryen::Platform::getFullscreenOffsets( int *offx, int *offy )
-{
-	TCOD_sys_get_fullscreen_offsets(offx,offy);
-}
-
 void Doryen::Platform::updateChar(int asciiCode, int fontx, int fonty, const Image* img, int x, int y)
 {
 	TCOD_sys_update_char(asciiCode, fontx, fonty, img->data, x, y);
