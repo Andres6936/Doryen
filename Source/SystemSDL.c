@@ -1105,12 +1105,6 @@ static void TCOD_sys_load_player_config()
 	{ TCOD_ctx.fullscreen_height = fullscreenHeight; }
 }
 
-
-TCOD_renderer_t TCOD_sys_get_renderer()
-{
-	return TCOD_ctx.renderer;
-}
-
 void TCOD_sys_set_renderer(TCOD_renderer_t renderer)
 {
 	if (renderer == TCOD_ctx.renderer)
