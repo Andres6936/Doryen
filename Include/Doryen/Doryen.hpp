@@ -35,7 +35,7 @@
 #include "mersenne.hpp"
 #include "noise.hpp"
 #include "FOV/Fov.hpp"
-#include "tree.hpp"
+#include "Tree.hpp"
 #include "zip.hpp"
 #include "namegen.hpp"
 
