@@ -440,26 +440,6 @@ bool TCOD_sys_is_key_pressed(TCOD_keycode_t key) {
 	return key_status[key];
 }
 
-TCOD_key_t TCOD_sys_wait_for_keypress(bool flush) {
-	sfEvent event;
-	TCOD_key_t ret={TCODK_NONE,0};
-	if ( flush ) {
-		while ( sfRenderWindow_GetEvent(renderWindow, &event) ) {
-			if (event.Type == sfEvtClosed) {
-				sfRenderWindow_Close(renderWindow);
-				return ret;
-			}
-			TCOD_sys_SFMLtoTCOD(&event,0);			
-		}
-	}
-	do {
-		while ( !sfRenderWindow_GetEvent(renderWindow, &event) ) { TCOD_sys_sleep_milli(10); }
-		ret = TCOD_sys_SFMLtoTCOD(&event,TCOD_KEY_PRESSED);
-	} while ( ret.vk == TCODK_NONE && event.Type != sfEvtClosed );
-	if (event.Type == sfEvtClosed) sfRenderWindow_Close(renderWindow);
-	return ret;
-}
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds) {
 	sfSleep((float)(milliseconds)/1000.0f);
