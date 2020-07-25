@@ -128,10 +128,59 @@ void Functor::FOV::drawDungeon()
 	}
 }
 
+void Functor::FOV::movePlayer(KeyCode key)
+{
+
+	if (key == KeyCode::I)
+	{
+		// player move north
+		if (dungeon[playerY - 1][playerX] == ' ')
+		{
+			playerY--;
+			recomputeFov = true;
+		}
+	}
+	else if (key == KeyCode::K)
+	{
+		// player move south
+		if (dungeon[playerY + 1][playerX] == ' ')
+		{
+			playerY++;
+			recomputeFov = true;
+		}
+	}
+	else if (key == KeyCode::J)
+	{
+		// player move west
+		if (dungeon[playerY][playerX - 1] == ' ')
+		{
+			playerX--;
+			recomputeFov = true;
+		}
+	}
+	else if (key == KeyCode::L)
+	{
+		// player move east
+		if (dungeon[playerY][playerX + 1] == ' ')
+		{
+			playerX++;
+			recomputeFov = true;
+		}
+	}
+	else if (key == KeyCode::T)
+	{
+		// enable/disable the torch fx
+		torch = !torch;
+	}
+	else if (key == KeyCode::W)
+	{
+		light_walls = !light_walls;
+		recomputeFov = true;
+	}
+}
+
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
-	static bool recomputeFov = true; // the player moved. must recompute fov
-
 	static Doryen::Color darkWall(0, 0, 100);
 	static Doryen::Color darkGround(50, 50, 150);
 
@@ -157,68 +206,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		}
 	}
 
-//    if ( key->c == 'I' || key->c == 'i' )
-//    {
-//        // player move north
-//        if ( smap[ playerY - 1 ][ playerX ] == ' ' )
-//        {
-//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-//			playerY--;
-//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-//			recomputeFov = true;
-//        }
-//    }
-//    else if ( key->c == 'K' || key->c == 'k' )
-//    {
-//        // player move south
-//        if ( smap[ playerY + 1 ][ playerX ] == ' ' )
-//        {
-//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-//			playerY++;
-//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-//			recomputeFov = true;
-//        }
-//    }
-//    else if ( key->c == 'J' || key->c == 'j' )
-//    {
-//        // player move west
-//        if ( smap[ playerY ][ playerX - 1 ] == ' ' )
-//        {
-//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-//			playerX--;
-//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-//			recomputeFov = true;
-//        }
-//    }
-//    else if ( key->c == 'L' || key->c == 'l' )
-//    {
-//        // player move east
-//        if ( smap[ playerY ][ playerX + 1 ] == ' ' )
-//        {
-//			sampleConsole.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
-//			playerX++;
-//			sampleConsole.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
-//			recomputeFov = true;
-//        }
-//    }
-//    else if ( key->c == 'T' || key->c == 't' )
-//	{
-//		// enable/disable the torch fx
-//		torch = !torch;
-//		sampleConsole.setDefaultForeground(Doryen::Color::white);
-//		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-//				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-//		sampleConsole.setDefaultForeground(Doryen::Color::black);
-//	}
-//    else if ( key->c == 'W' || key->c == 'w' )
-//	{
-//		light_walls = !light_walls;
-//		sampleConsole.setDefaultForeground(Doryen::Color::white);
-//		sampleConsole.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-//				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
-//		sampleConsole.setDefaultForeground(Doryen::Color::black);
-//		recomputeFov = true;
-//	}
+	movePlayer(key);
 
 	if (key == KeyCode::KP_ADD || key == KeyCode::KP_SUB)
 	{

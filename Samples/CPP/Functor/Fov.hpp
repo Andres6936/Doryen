@@ -70,6 +70,11 @@ namespace Functor
 
 		bool light_walls = true;
 
+		/**
+		 * The player moved. must recompute fov
+		 */
+		bool recomputeFov = true;
+
 		int algonum = 0;
 
 		int playerX = 20;
@@ -95,6 +100,8 @@ namespace Functor
 		void drawDungeon();
 
 		void drawTextHelp();
+
+		void movePlayer(KeyCode key);
 
 		void prepareInstanceOfMap();
 
