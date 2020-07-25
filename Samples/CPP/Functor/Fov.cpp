@@ -121,6 +121,9 @@ void Functor::FOV::drawDungeon()
 				}
 				sample.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
 			}
+
+			// Draw the window
+			if (dungeon[y][x] == '=') sample.putChar(x, y, TCOD_CHAR_DHLINE, BackgroundFlag::SET);
 		}
 	}
 }
@@ -132,36 +135,12 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	static Doryen::Color darkWall(0, 0, 100);
 	static Doryen::Color darkGround(50, 50, 150);
 
-	static bool first = true;
-
 	sample.clear();
 
 	drawPlayer();
 	drawTextHelp();
 	drawDungeon();
 
-	if (first)
-	{
-		first = false;
-
-		// we draw the foreground only the first time.
-		// during the player movement, only the @ is redrawn.
-		// the rest impacts only the background color
-		// draw the help text & player @
-		sample.clear();
-
-		// draw windows
-		for (int y = 0; y < sample.getHeight(); y++)
-		{
-			for (int x = 0; x < sample.getWidth(); x++)
-			{
-				if (dungeon[y][x] == '=')
-				{
-					sample.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
-				}
-			}
-		}
-	}
 	if (recomputeFov)
 	{
 		// calculate the field of view from the player position
