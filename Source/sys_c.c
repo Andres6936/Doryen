@@ -306,10 +306,7 @@ void TCOD_close_library(TCOD_library_t library) {
 	FreeLibrary((HMODULE)library);
 }
 #else
-TCOD_library_t TCOD_load_library(const char *path) {
-	void *l=dlopen(path,RTLD_LAZY);
-	return (TCOD_library_t)l;
-}
+
 void * TCOD_get_function_address(TCOD_library_t library, const char *function_name) {
 	return dlsym(library,(char *)function_name);
 }

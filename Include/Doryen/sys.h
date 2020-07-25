@@ -90,8 +90,6 @@ typedef void *TCOD_mutex_t;
 /* dynamic library */
 typedef void *TCOD_library_t;
 
-TCOD_library_t TCOD_load_library(const char *path);
-
 void * TCOD_get_function_address(TCOD_library_t library, const char *function_name);
 
 void TCOD_close_library(TCOD_library_t);
