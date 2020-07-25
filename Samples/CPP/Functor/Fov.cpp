@@ -11,29 +11,6 @@ Functor::FOV::FOV(std::string _name, Console& _console) : ISample(_name, _consol
 
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
-	static const char* smap[] = {
-			"##############################################",
-			"#######################      #################",
-			"#####################    #     ###############",
-			"######################  ###        ###########",
-			"##################      #####             ####",
-			"################       ########    ###### ####",
-			"###############      #################### ####",
-			"################    ######                  ##",
-			"########   #######  ######   #     #     #  ##",
-			"########   ######      ###                  ##",
-			"########                                    ##",
-			"####       ######      ###   #     #     #  ##",
-			"#### ###   ########## ####                  ##",
-			"#### ###   ##########   ###########=##########",
-			"#### ##################   #####          #####",
-			"#### ###             #### #####          #####",
-			"####           #     ####                #####",
-			"########       #     #### #####          #####",
-			"########       #####      ####################",
-			"##############################################",
-	};
-
 	constexpr float TORCH_RADIUS = 10.0f;
 
 	constexpr float SQUARED_TORCH_RADIUS = (TORCH_RADIUS * TORCH_RADIUS);
@@ -68,11 +45,11 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		{
 			for (int x = 0; x < sample.getWidth(); x++)
 			{
-				if (smap[y][x] == ' ')
+				if (dungeon[y][x] == ' ')
 				{
 					map->setProperties(x, y, true, true);// ground
 				}
-				else if (smap[y][x] == '=')
+				else if (dungeon[y][x] == '=')
 				{ map->setProperties(x, y, true, false); } // window
 			}
 		}
@@ -101,7 +78,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		{
 			for (int x = 0; x < sample.getWidth(); x++)
 			{
-				if (smap[y][x] == '=')
+				if (dungeon[y][x] == '=')
 				{
 					sample.putChar(x, y, TCOD_CHAR_DHLINE, Doryen::BackgroundFlag::NONE);
 				}
@@ -145,7 +122,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		for (int x = 0; x < sample.getWidth(); x++)
 		{
 			bool visible = map->isInFov(x, y);
-			bool wall = smap[y][x] == '#';
+			bool wall = dungeon[y][x] == '#';
 			if (!visible)
 			{
 				sample.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
