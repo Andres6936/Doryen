@@ -59,7 +59,7 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 		}
 	}
 
-	delay += Doryen::Platform::getLastFrameLength();
+	delay += sample.getLastFrameLength();
 	if (delay >= 0.5f)
 	{
 		delay -= 0.5f;

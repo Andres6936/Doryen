@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
 			Console::setWindowInFullscreen();
 		}
 		// update the game
-		update(Platform::getLastFrameLength(), k, mouse);
+		update(console.getLastFrameLength(), k, mouse);
 
 		// render the game screen
 		render(console);
