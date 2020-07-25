@@ -579,3 +579,8 @@ void Doryen::Renderer::unregisterCallback()
 	// Set to null the render
 	callbackRender.reset(nullptr);
 }
+
+float Doryen::Renderer::getElapsedSeconds() const
+{
+	return getElapsedMilliseconds() * (1.0f / 1000.0f);
+}

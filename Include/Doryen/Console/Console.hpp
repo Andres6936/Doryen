@@ -1169,6 +1169,13 @@ namespace Doryen
 		float getLastFrameLength() const;
 
 		/**
+		 * Returns the number of seconds since the program has started.
+		 *
+		 * @return number of seconds since the program has started.
+		 */
+		float getElapsedSeconds() const;
+
+		/**
          * @brief Get the number of frames rendered during the last second.
          *
          * @note The value returned by this function is updated every second.

@@ -1252,3 +1252,8 @@ std::uint32_t Console::getElapsedMilliseconds() const
 {
 	return renderer->getElapsedMilliseconds();
 }
+
+float Console::getElapsedSeconds() const
+{
+	return renderer->getElapsedSeconds();
+}

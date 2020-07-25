@@ -170,6 +170,8 @@ namespace Doryen
 
 		// Getters
 
+		float getElapsedSeconds() const;
+
 		float getLastFrameLength() const;
 
 		bool isRunning() const;
