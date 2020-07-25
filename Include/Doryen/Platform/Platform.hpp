@@ -124,50 +124,6 @@ namespace Doryen
 
 		/**
 		@PageName system_sdlcbk
-		@PageFather system
-		@PageTitle Draw custom graphics on top of the root console
-		@PageDesc You can register a callback that will be called after the libtcod rendering phase, but before the screen buffer is swapped. This callback receives the screen SDL_Surface reference.
-			This makes it possible to use any SDL drawing functions (including openGL) on top of the libtcod console.
-		@FuncTitle Render custom graphics
-		@FuncDesc To disable the custom renderer, call the same method with a NULL parameter.
-			Note that to keep libtcod from requiring the SDL headers, the callback parameter is a void pointer. You have to include SDL headers and cast it to SDL_Surface in your code.
-		@Cpp
-			class TCODLIB_API ITCODSDLRenderer {
-			public :
-				virtual void render(void *sdlSurface) = 0;
-			};
-			static void TCODSystem::registerSDLRenderer(ITCODSDLRenderer *callback);
-		@C
-			typedef void (*SDL_renderer_t) (void *sdl_surface);
-			void TCOD_sys_register_SDL_renderer(SDL_renderer_t callback)
-		@Py
-			def renderer ( sdl_surface ) : ...
-			TCOD_sys_register_SDL_renderer( callback )
-		@Param callback The renderer to call before swapping the screen buffer. If NULL, custom rendering is disabled
-		@CppEx
-			class MyRenderer : public ITCODSDLRenderer {
-			public :
-				void render(void *sdlSurface) {
-					SDL_Surface *s = (SDL_Surface *)sdlSurface;
-					... draw something on s
-				}
-			};
-			TCODSystem::registerSDLRenderer(new MyRenderer());
-		@CEx
-			void my_renderer( void *sdl_surface ) {
-				SDL_Surface *s = (SDL_Surface *)sdl_surface;
-				... draw something on s
-			}
-			TCOD_sys_register_SDL_renderer(my_renderer);
-		@Py
-			def my_renderer(sdl_surface) :
-				... draw something on sdl_surface using pygame
-			libtcod.sys_register_SDL_renderer(my_renderer)
-		*/
-		static void registerSDLRenderer(CallbackRender* renderer);
-
-		/**
-		@PageName system_sdlcbk
 		@FuncTitle Managing screen redraw
 		@FuncDesc libtcod is not aware of the part of the screen your SDL renderer has updated. If no change occured in the console, it won't redraw them except if you tell him to do so with this function
 		@Cpp void TCODConsole::setDirty(int x, int y, int w, int h)
