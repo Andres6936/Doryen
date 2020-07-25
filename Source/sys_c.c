@@ -41,27 +41,6 @@ static bool filename_match(const char *name, const char *pattern) {
 
 TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern) {
     TCOD_list_t list=TCOD_list_new();
-#ifdef TCOD_WINDOWS
-    WIN32_FIND_DATA FileData;
-    HANDLE          hList;
-	char dname[ 512 ];
-	sprintf(dname, "%s\\*",path);
-    hList = FindFirstFile(dname, &FileData);
-    if (hList == INVALID_HANDLE_VALUE)
-    {
-        return list;
-    }
-	do
-	{
-		if ( ! (strcmp(FileData.cFileName,".") == 0 || strcmp(FileData.cFileName,"..") == 0 ) )
-		{
-			if ( filename_match(FileData.cFileName,pattern) )
-				TCOD_list_push(list,TCOD_strdup(FileData.cFileName));
-		}
-
-	} while ( FindNextFile(hList, &FileData) );
-    FindClose(hList);
-#else
     DIR *dir = opendir(path);
     struct dirent *dirent = NULL;
     if ( ! dir ) return list;
@@ -74,6 +53,5 @@ TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern
 		}
 	}
 	closedir(dir);
-#endif
 	return list;
 }
