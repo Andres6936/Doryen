@@ -163,16 +163,6 @@ namespace Doryen
         */
 		static void forceFullscreenResolution(int width, int height);
 
-		/**
-		@PageName system_misc
-		@FuncTitle Get the current internal renderer
-		@Cpp static TCOD_renderer_t TCODSystem::getRenderer()
-		@C TCOD_renderer_t TCOD_sys_get_renderer()
-		@Py sys_get_renderer()
-		@C# static TCODRendererType TCODSystem::getRenderer();
-		*/
-		static TCOD_renderer_t getRenderer();
-
 	};
 }
 

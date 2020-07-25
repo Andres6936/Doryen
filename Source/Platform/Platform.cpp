@@ -62,11 +62,6 @@ void Doryen::Platform::forceFullscreenResolution( int width, int height )
 	TCOD_sys_force_fullscreen_resolution(width,height);
 }
 
-TCOD_renderer_t Doryen::Platform::getRenderer( )
-{
-	return TCOD_sys_get_renderer();
-}
-
 TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
 {
 	return TCOD_sys_get_directory_content(path,pattern);
