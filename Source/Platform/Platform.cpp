@@ -27,11 +27,6 @@
 
 #include "Doryen/Platform/Platform.hpp"
 
-int Doryen::Platform::getFps( )
-{
-    return TCOD_sys_get_fps( );
-}
-
 float Doryen::Platform::getLastFrameLength( )
 {
     return TCOD_sys_get_last_frame_length( );

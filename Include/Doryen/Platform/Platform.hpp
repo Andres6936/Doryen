@@ -45,15 +45,6 @@ namespace Doryen
 	public :
 
 		/**
-		 * @brief Get the number of frames rendered during the last second.
-		 *
-		 * @note The value returned by this function is updated every second.
-		 *
-		 * @return Number of frames rendered during the las second.
-		 */
-		static int getFps();
-
-		/**
 		 * @brief Get the duration of the last frame.
 		 *
 		 * This function returns the length in seconds of the last rendered frame.
