@@ -321,30 +321,10 @@ class TCODRandom {
 		*/
 		void restore(const TCODRandom *backup);
 
-	//dice
-	inline TCOD_dice_t dice(const char* s)
-	{
-		return TCOD_random_dice_new(s);
-	}
-
-	inline int diceRoll(TCOD_dice_t dice)
-	{
-		return TCOD_random_dice_roll(data, dice);
-	}
-
-	inline int diceRoll(const char* s)
-	{
-		return TCOD_random_dice_roll(data, TCOD_random_dice_new(s));
-	}
-
 protected :
 	friend class TCODNoise;
 
 	friend class TCODHeightMap;
-
-	friend class TCODNamegen;
-
-	friend class TCODNameGenerator;    // Used for SWIG interface, does NOT need TCODLIB_API
 
 public:
 	TCOD_random_t data;
