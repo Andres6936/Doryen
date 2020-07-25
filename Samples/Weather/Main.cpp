@@ -40,7 +40,7 @@ Doryen::Color lightningColor(220, 220, 255);
 
 Doryen::Image* ground;
 
-void update(float elapsed, const KeyCode& k)
+void update(float elapsed, const KeyCode& k, const std::uint32_t framePerSeconds)
 {
 	if (k == KeyCode::KP_ADD)
 	{
@@ -60,7 +60,7 @@ void update(float elapsed, const KeyCode& k)
 	dayTime += elapsed * 60 * 3; // 1 real sec = 3 min
 	if (dayTime >= 24 * 3600)
 	{ dayTime -= 24 * 3600; }
-	weather.update(elapsed);
+	weather.update(elapsed, framePerSeconds);
 	weather.calculateAmbient(dayTime);
 }
 
@@ -290,7 +290,7 @@ int main(int argc, char* argv[])
 		}
 
 		// update the game
-		update(console.getLastFrameLength(), keyPressed);
+		update(console.getLastFrameLength(), keyPressed, console.getFramePerSeconds());
 
 		// render the game screen
 		render(console);

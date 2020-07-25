@@ -31,7 +31,7 @@ class Weather
 public :
 	void init(int width, int height);
 
-	void update(float elapsed);
+	void update(float elapsed, std::uint32_t framePerSeconds);
 
 	float getCloud(int x, int y); // 0.0 : dark cloud, 1.0 : no cloud
 	float getLightning(int x, int y); // 0.0 : no lightning. 1.0 : full lightning light
@@ -40,7 +40,7 @@ public :
 	void move(int dx, int dy);
 
 	// description of current weather
-	const char *getWeather();
+	const char* getWeather();
 
 	const Doryen::Color &getAmbientLightColor( )
 	{ return ambientColor; }

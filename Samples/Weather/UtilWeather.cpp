@@ -48,7 +48,7 @@ void Weather::init(int width, int height)
 	dx = dy = noisex = noisey = 20000.0f;
 	indicatorDelta = 0.0f;
 	changeFactor = 1.0f;
-	update(0.1);
+	update(0.1, 0);
 }
 
 void Weather::move(int dx, int dy) {
@@ -67,21 +67,22 @@ const char *Weather::getWeather() {
 	else return "The storm is raging"; 	
 }
 
-void Weather::update(float elapsed) {
-	static float localElapsed=0.0f;
-	localElapsed+=elapsed;
-	float perlinx=changeFactor*localElapsed / 100.0f;
-	indicator=(1.0f+noise1d.get(&perlinx, TCOD_NOISE_SIMPLEX))*0.5f + indicatorDelta;
-	indicator=CLAMP(0.0f,1.0f,indicator);
-	float windspeed=1.0f-indicator;
-	perlinx*=2.0f;
-	float windDir = (2.0f*3.1415926f*0.5f)*(1.0f+noise1d.get(&perlinx, TCOD_NOISE_SIMPLEX));
-	dx += MAX_WIND_SPEED * windspeed * cosf(windDir)*elapsed;
-	dy += 0.5f * MAX_WIND_SPEED * windspeed * sinf(windDir) *elapsed;
+void Weather::update(float elapsed, const std::uint32_t framePerSeconds)
+{
+	static float localElapsed = 0.0f;
+	localElapsed += elapsed;
+	float perlinx = changeFactor * localElapsed / 100.0f;
+	indicator = (1.0f + noise1d.get(&perlinx, TCOD_NOISE_SIMPLEX)) * 0.5f + indicatorDelta;
+	indicator = CLAMP(0.0f, 1.0f, indicator);
+	float windspeed = 1.0f - indicator;
+	perlinx *= 2.0f;
+	float windDir = (2.0f * 3.1415926f * 0.5f) * (1.0f + noise1d.get(&perlinx, TCOD_NOISE_SIMPLEX));
+	dx += MAX_WIND_SPEED * windspeed * cosf(windDir) * elapsed;
+	dy += 0.5f * MAX_WIND_SPEED * windspeed * sinf(windDir) * elapsed;
 	if ( indicator < LIGHTNING_LEVEL ) {
 		float storm=(LIGHTNING_LEVEL-indicator)/LIGHTNING_LEVEL; // storm power 0-1
 		float lp = LIGHTNING_MIN_PROB + (int)((LIGHTNING_MAX_PROB-LIGHTNING_MIN_PROB) *storm); // nb of lightning per second
-        int fps = Doryen::Platform::getFps( );
+		const std::uint32_t fps = framePerSeconds;
 		if( fps > 0 ) {
 			int ilp=(int)(lp * fps);
 			if (TCODRandom::getInstance()->getInt(0,ilp)==0) {
