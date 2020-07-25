@@ -161,41 +161,29 @@ namespace Doryen
             tcod.system.forceFullscreenResolution(800,600) -- use 800x600 in fullscreen instead of 640x400
             tcod.console.initRoot(80,50,"",true) -- 80x50 console with 8x8 char => 640x400 default resolution
         */
-        static void forceFullscreenResolution( int width, int height );
+		static void forceFullscreenResolution(int width, int height);
 
-        /**
-        @PageName system_misc
-        @FuncTitle Get current resolution
-        @FuncDesc You can get the current screen resolution with getCurrentResolution. You can use it for example to get the desktop resolution before initializing the root console.
-        @Cpp static void TCODSystem::getCurrentResolution(int *width, int *height)
-        @C void TCOD_sys_get_current_resolution(int *width, int *height)
-        @Py sys_get_current_resolution() # returns w,h
-        @C# static void TCODSystem::getCurrentResolution(out int w, out int h);
-        @Param width,height contains current resolution when the function returns
-        */
-        static void getCurrentResolution( int *w, int *h );
+		/**
+		@PageName system_misc
+		@FuncTitle Get fullscreen offset
+		@FuncDesc If the fullscreen resolution does not matches the console size in pixels, black borders are added. This function returns the position in pixels of the console top left corner in the screen.
+		@Cpp static void TCODSystem::getFullscreenOffsets(int *offx, int *offy)
+		@C void TCOD_sys_get_fullscreen_offsets(int *offx, int *offy)
+		@C# static void TCODSystem::getFullscreenOffsets(out int offx, out int offy);
+		@Param offx,offy contains the position of the console on the screen when using fullscreen mode.
+		*/
+		static void getFullscreenOffsets(int* offx, int* offy);
 
-        /**
-        @PageName system_misc
-        @FuncTitle Get fullscreen offset
-        @FuncDesc If the fullscreen resolution does not matches the console size in pixels, black borders are added. This function returns the position in pixels of the console top left corner in the screen.
-        @Cpp static void TCODSystem::getFullscreenOffsets(int *offx, int *offy)
-        @C void TCOD_sys_get_fullscreen_offsets(int *offx, int *offy)
-        @C# static void TCODSystem::getFullscreenOffsets(out int offx, out int offy);
-        @Param offx,offy contains the position of the console on the screen when using fullscreen mode.
-        */
-        static void getFullscreenOffsets( int *offx, int *offy );
-
-        /**
-        @PageName system_misc
-        @FuncTitle Get the font size
-        @FuncDesc You can get the size of the characters in the font
-        @Cpp static void TCODSystem::getCharSize(int *width, int *height)
-        @C void TCOD_sys_get_char_size(int *width, int *height)
-        @Py sys_get_char_size() # returns w,h
-        @C# static void TCODSystem::getCharSize(out int w, out int h);
-        @Param width,height contains a character size when the function returns
-        */
+		/**
+		@PageName system_misc
+		@FuncTitle Get the font size
+		@FuncDesc You can get the size of the characters in the font
+		@Cpp static void TCODSystem::getCharSize(int *width, int *height)
+		@C void TCOD_sys_get_char_size(int *width, int *height)
+		@Py sys_get_char_size() # returns w,h
+		@C# static void TCODSystem::getCharSize(out int w, out int h);
+		@Param width,height contains a character size when the function returns
+		*/
         static void getCharSize( int *w, int *h );
 
         /**

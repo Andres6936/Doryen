@@ -72,11 +72,6 @@ TCOD_renderer_t Doryen::Platform::getRenderer( )
 	return TCOD_sys_get_renderer();
 }
 
-void Doryen::Platform::getCurrentResolution( int *w, int *h )
-{
-	TCOD_sys_get_current_resolution(w,h);
-}
-
 void Doryen::Platform::getFullscreenOffsets( int *offx, int *offy )
 {
 	TCOD_sys_get_fullscreen_offsets(offx,offy);
