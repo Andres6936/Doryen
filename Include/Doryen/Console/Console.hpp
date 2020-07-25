@@ -1168,6 +1168,13 @@ namespace Doryen
          */
 		float getLastFrameLength() const;
 
+		/**
+         * @brief Get the number of frames rendered during the last second.
+         *
+         * @note The value returned by this function is updated every second.
+         *
+         * @return Number of frames rendered during the las second.
+         */
 		unsigned int getFramePerSeconds() const;
 
 		Size getFontSize() const;
