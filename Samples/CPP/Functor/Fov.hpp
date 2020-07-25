@@ -16,6 +16,10 @@ namespace Functor
 
 	private:
 
+		const float TORCH_RADIUS = 10.0f;
+
+		const float SQUARED_TORCH_RADIUS = (TORCH_RADIUS * TORCH_RADIUS);
+
 		/**
 		 * The width of dungeon is get: std::strlen(dungeon.at(0))
 		 * The height of dungeon is get: dungeon.size()
@@ -71,6 +75,11 @@ namespace Functor
 		int playerX = 20;
 		int playerY = 10;
 
+		/**
+		 * Torch light position in the perlin noise
+		 */
+		float torchx = 0.0f;
+
 		Map map;
 
 		/**
@@ -78,7 +87,12 @@ namespace Functor
 		 */
 		TCODNoise noise{ 1 };
 
+		const Doryen::Color lightWall{ 130, 110, 50 };
+		const Doryen::Color lightGround{ 200, 180, 50 };
+
 		void drawPlayer();
+
+		void drawDungeon();
 
 		void drawTextHelp();
 

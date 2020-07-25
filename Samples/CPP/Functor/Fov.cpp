@@ -58,20 +58,79 @@ void Functor::FOV::drawPlayer()
 	sample.putChar(playerX, playerY, '@', BackgroundFlag::SET);
 }
 
+void Functor::FOV::drawDungeon()
+{
+	// torch position & intensity variation
+	float dx = 0.0f, dy = 0.0f, di = 0.0f;
+
+	if (torch)
+	{
+		// slightly change the perlin noise parameter
+		torchx += 0.2f;
+		// randomize the light position between -1.5 and 1.5
+		float tdx = torchx + 20.0f;
+		dx = noise.get(&tdx) * 1.5f;
+		tdx += 30.0f;
+		dy = noise.get(&tdx) * 1.5f;
+		// randomize the light intensity between -0.2 and 0.2
+		di = 0.2f * noise.get(&torchx);
+	}
+
+	for (int y = 0; y < sample.getHeight(); y++)
+	{
+		for (int x = 0; x < sample.getWidth(); x++)
+		{
+			bool visible = map.isInFov(x, y);
+			bool wall = dungeon[y][x] == '#';
+			if (!visible)
+			{
+				sample.setCharBackground(x, y, wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID,
+						BackgroundFlag::SET);
+			}
+			else
+			{
+				Doryen::Color light;
+				if (!torch)
+				{
+					if (wall)
+					{
+						light = lightWall;
+					}
+					else
+					{
+						light = lightGround;
+					}
+				}
+				else
+				{
+					// torch flickering fx
+					Doryen::Color base = (wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID);
+					light = (wall ? lightWall : lightGround);
+					// cell distance to torch (squared)
+					float r = (float)((x - playerX + dx) * (x - playerX + dx) +
+									  (y - playerY + dy) * (y - playerY + dy));
+					if (r < SQUARED_TORCH_RADIUS)
+					{
+						// l = 1.0 at player position, 0.0 at a radius of 10 cells
+						float l = (SQUARED_TORCH_RADIUS - r) / SQUARED_TORCH_RADIUS + di;
+						l = CLAMP(0.0f, 1.0f, l);
+						// interpolate the color
+						base = Doryen::Color::lerp(base, light, l);
+					}
+					light = base;
+				}
+				sample.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
+			}
+		}
+	}
+}
+
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
-	constexpr float TORCH_RADIUS = 10.0f;
-
-	constexpr float SQUARED_TORCH_RADIUS = (TORCH_RADIUS * TORCH_RADIUS);
-
 	static bool recomputeFov = true; // the player moved. must recompute fov
 
 	static Doryen::Color darkWall(0, 0, 100);
-	static Doryen::Color lightWall(130, 110, 50);
 	static Doryen::Color darkGround(50, 50, 150);
-	static Doryen::Color lightGround(200, 180, 50);
-
-	static float torchx = 0.0f; // torch light position in the perlin noise
 
 	static bool first = true;
 
@@ -118,68 +177,8 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		}
 	}
 
-	// torch position & intensity variation
-	float dx = 0.0f, dy = 0.0f, di = 0.0f;
+	drawDungeon();
 
-	if (torch)
-	{
-		// slightly change the perlin noise parameter
-		torchx += 0.2f;
-		// randomize the light position between -1.5 and 1.5
-		float tdx = torchx + 20.0f;
-		dx = noise.get(&tdx) * 1.5f;
-		tdx += 30.0f;
-		dy = noise.get(&tdx) * 1.5f;
-		// randomize the light intensity between -0.2 and 0.2
-		di = 0.2f * noise.get(&torchx);
-	}
-	// draw the dungeon
-	for (int y = 0; y < sample.getHeight(); y++)
-	{
-		for (int x = 0; x < sample.getWidth(); x++)
-		{
-			bool visible = map.isInFov(x, y);
-			bool wall = dungeon[y][x] == '#';
-			if (!visible)
-			{
-				sample.setCharBackground(x, y, wall ? darkWall : darkGround, Doryen::BackgroundFlag::SET);
-			}
-			else
-			{
-				Doryen::Color light;
-				if (!torch)
-				{
-					if (wall)
-					{
-						light = lightWall;
-					}
-					else
-					{
-						light = lightGround;
-					}
-				}
-				else
-				{
-					// torch flickering fx
-					Doryen::Color base = (wall ? darkWall : darkGround);
-					light = (wall ? lightWall : lightGround);
-					// cell distance to torch (squared)
-					float r = (float)((x - playerX + dx) * (x - playerX + dx) +
-									  (y - playerY + dy) * (y - playerY + dy));
-					if (r < SQUARED_TORCH_RADIUS)
-					{
-						// l = 1.0 at player position, 0.0 at a radius of 10 cells
-						float l = (SQUARED_TORCH_RADIUS - r) / SQUARED_TORCH_RADIUS + di;
-						l = CLAMP(0.0f, 1.0f, l);
-						// interpolate the color
-						base = Doryen::Color::lerp(base, light, l);
-					}
-					light = base;
-				}
-				sample.setCharBackground(x, y, light, Doryen::BackgroundFlag::SET);
-			}
-		}
-	}
 //    if ( key->c == 'I' || key->c == 'i' )
 //    {
 //        // player move north
