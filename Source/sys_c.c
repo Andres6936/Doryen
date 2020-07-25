@@ -78,11 +78,6 @@ char *strcasestr (const char *haystack, const char *needle) {
 }
 #endif
 
-void TCOD_sys_get_fullscreen_offsets(int *offx, int *offy) {
-	if ( offx ) *offx = TCOD_ctx.fullscreen_offsetx;
-	if ( offy ) *offy = TCOD_ctx.fullscreen_offsety;
-}
-
 
 static bool filename_match(const char *name, const char *pattern) {
 	char *ptr;
