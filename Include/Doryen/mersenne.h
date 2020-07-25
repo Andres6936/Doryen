@@ -46,24 +46,8 @@ TCOD_random_t TCOD_random_new_from_seed(TCOD_random_algo_t algo, uint32 seed);
 
 void TCOD_random_delete(TCOD_random_t mersenne);
 
-void TCOD_random_set_distribution (TCOD_random_t mersenne, TCOD_distribution_t distribution);
-
 int TCOD_random_get_int (TCOD_random_t mersenne, int min, int max);
 
 float TCOD_random_get_float (TCOD_random_t mersenne, float min, float max);
-
-double TCOD_random_get_double (TCOD_random_t mersenne, double min, double max);
-
-int TCOD_random_get_int_mean (TCOD_random_t mersenne, int min, int max, int mean);
-
-float TCOD_random_get_float_mean (TCOD_random_t mersenne, float min, float max, float mean);
-
-double TCOD_random_get_double_mean (TCOD_random_t mersenne, double min, double max, double mean);
-
-TCOD_dice_t TCOD_random_dice_new (const char * s);
-
-int TCOD_random_dice_roll (TCOD_random_t mersenne, TCOD_dice_t dice);
-
-int TCOD_random_dice_roll_s (TCOD_random_t mersenne, const char * s);
 
 #endif
