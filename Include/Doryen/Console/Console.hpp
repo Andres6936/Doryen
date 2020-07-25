@@ -1141,6 +1141,20 @@ namespace Doryen
 
 		void showCursor(bool show);
 
+		/**
+         * @brief  Allows you to limit the number of frames per second.
+         *
+         * If a frame is rendered faster than expected, the Console::flush
+         * function will wait so that the frame rate never exceed this value.
+         *
+         * @note You can call this function during your game initialization.
+         * @note You can dynamically change the frame rate. Just call this function
+         * once again.
+         * @note You should always limit the frame rate, except during benchmarks,
+         * else your game will use 100% of the CPU power
+         *
+         * @param val Maximum number of frames per second. 0 means unlimited frame rate.
+         */
 		void setFramePerSeconds(std::uint8_t _fps);
 
 		float getLastFrameLength() const;
