@@ -1,12 +1,46 @@
 // Joan Andrés (@Andres6936) Github.
 
+#include <iostream>
+#include <cstring>
+
 #include "Fov.hpp"
 
 using namespace Doryen;
 
 Functor::FOV::FOV(std::string _name, Console& _console) : ISample(_name, _console)
 {
+	prepareInstanceOfMap();
+}
 
+void Functor::FOV::prepareInstanceOfMap()
+{
+	const std::uint16_t width = sample.getWidth();
+	const std::uint16_t height = sample.getHeight();
+
+	map = { width, height };
+
+	// See documentation of the variable dungeon for see how
+	// get the size of dungeon {width and height}.
+	if (map.getWidth() not_eq std::strlen(dungeon.at(0)) or
+		map.getHeight() not_eq dungeon.size())
+	{
+		std::cerr << "The width or height of map not correspond with "
+				  << "the width or height of console.\n";
+		return;
+	}
+
+	for (int y = 0; y < sample.getHeight(); y++)
+	{
+		for (int x = 0; x < sample.getWidth(); x++)
+		{
+			if (dungeon[y][x] == ' ')
+			{
+				map.setProperties(x, y, true, true);// ground
+			}
+			else if (dungeon[y][x] == '=')
+			{ map.setProperties(x, y, true, false); } // window
+		}
+	}
 }
 
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
@@ -22,12 +56,11 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 
 	static bool recomputeFov = true; // the player moved. must recompute fov
 	static bool torch = false; // torch fx on ?
-	static Doryen::Map* map = NULL;
 	static Doryen::Color darkWall(0, 0, 100);
 	static Doryen::Color lightWall(130, 110, 50);
 	static Doryen::Color darkGround(50, 50, 150);
 	static Doryen::Color lightGround(200, 180, 50);
-	static TCODNoise* noise = NULL;
+
 	static bool light_walls = true;
 	static int algonum = 0;
 	static const char* algo_names[] = { "BASIC      ", "DIAMOND    ", "SHADOW     ",
@@ -35,27 +68,6 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 										"PERMISSIVE5", "PERMISSIVE6", "PERMISSIVE7", "PERMISSIVE8", "RESTRICTIVE" };
 
 	static float torchx = 0.0f; // torch light position in the perlin noise
-
-	if (!map)
-	{
-		// initialize the map for the fov toolkit
-		map = new Doryen::Map(sample.getWidth(), sample.getHeight());
-
-		for (int y = 0; y < sample.getHeight(); y++)
-		{
-			for (int x = 0; x < sample.getWidth(); x++)
-			{
-				if (dungeon[y][x] == ' ')
-				{
-					map->setProperties(x, y, true, true);// ground
-				}
-				else if (dungeon[y][x] == '=')
-				{ map->setProperties(x, y, true, false); } // window
-			}
-		}
-		// 1d noise used for the torch flickering
-		noise = new TCODNoise(1);
-	}
 
 	static bool first = true;
 
@@ -92,12 +104,12 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 
 		if (torch)
 		{
-			map->computeFov(playerX, playerY, (int)(TORCH_RADIUS), light_walls,
+			map.computeFov(playerX, playerY, (int)(TORCH_RADIUS), light_walls,
 					(TCOD_fov_algorithm_t)algonum);
 		}
 		else
 		{
-			map->computeFov(playerX, playerY, 0, light_walls, (TCOD_fov_algorithm_t)algonum);
+			map.computeFov(playerX, playerY, 0, light_walls, (TCOD_fov_algorithm_t)algonum);
 		}
 	}
 
@@ -110,18 +122,18 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		torchx += 0.2f;
 		// randomize the light position between -1.5 and 1.5
 		float tdx = torchx + 20.0f;
-		dx = noise->get(&tdx) * 1.5f;
+		dx = noise.get(&tdx) * 1.5f;
 		tdx += 30.0f;
-		dy = noise->get(&tdx) * 1.5f;
+		dy = noise.get(&tdx) * 1.5f;
 		// randomize the light intensity between -0.2 and 0.2
-		di = 0.2f * noise->get(&torchx);
+		di = 0.2f * noise.get(&torchx);
 	}
 	// draw the dungeon
 	for (int y = 0; y < sample.getHeight(); y++)
 	{
 		for (int x = 0; x < sample.getWidth(); x++)
 		{
-			bool visible = map->isInFov(x, y);
+			bool visible = map.isInFov(x, y);
 			bool wall = dungeon[y][x] == '#';
 			if (!visible)
 			{

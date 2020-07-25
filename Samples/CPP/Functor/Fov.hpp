@@ -3,7 +3,7 @@
 #ifndef DORYEN_FOV_HPP
 #define DORYEN_FOV_HPP
 
-#include <Doryen/Doryen.hpp>
+#include <array>
 
 #include "Interface/ISample.hpp"
 
@@ -45,6 +45,15 @@ namespace Functor
 				"########       #####      ####################",
 				"##############################################",
 		};
+
+		Map map;
+
+		/**
+		 * 1D noise used for the torch flickering.
+		 */
+		TCODNoise noise{ 1 };
+
+		void prepareInstanceOfMap();
 
 	public:
 
