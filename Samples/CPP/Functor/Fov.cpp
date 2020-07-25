@@ -43,6 +43,15 @@ void Functor::FOV::prepareInstanceOfMap()
 	}
 }
 
+void Functor::FOV::drawTextHelp()
+{
+	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
+	sample.print(1, 0, "IJKL : move around");
+	sample.print(1, 1, format("T : torch fx {}", torch ? "ON " : "OFF"));
+	sample.print(1, 2, format("W : light walls {}", light_walls ? "ON " : "OFF"));
+	sample.print(1, 3, format("+-: algo {}", algo_names[algonum]));
+}
+
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
 	constexpr float TORCH_RADIUS = 10.0f;
@@ -55,21 +64,19 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	static int playerY = 10;
 
 	static bool recomputeFov = true; // the player moved. must recompute fov
-	static bool torch = false; // torch fx on ?
+
 	static Doryen::Color darkWall(0, 0, 100);
 	static Doryen::Color lightWall(130, 110, 50);
 	static Doryen::Color darkGround(50, 50, 150);
 	static Doryen::Color lightGround(200, 180, 50);
 
-	static bool light_walls = true;
-	static int algonum = 0;
-	static const char* algo_names[] = { "BASIC      ", "DIAMOND    ", "SHADOW     ",
-										"PERMISSIVE0", "PERMISSIVE1", "PERMISSIVE2", "PERMISSIVE3", "PERMISSIVE4",
-										"PERMISSIVE5", "PERMISSIVE6", "PERMISSIVE7", "PERMISSIVE8", "RESTRICTIVE" };
-
 	static float torchx = 0.0f; // torch light position in the perlin noise
 
 	static bool first = true;
+
+	sample.clear();
+
+	drawTextHelp();
 
 	if (first)
 	{
@@ -80,9 +87,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		// the rest impacts only the background color
 		// draw the help text & player @
 		sample.clear();
-		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-		sample.print(1, 0, format("IJKL : move around\nT : torch fx {}\nW : light walls {}\n+-: algo {}",
-				torch ? "on " : "off", light_walls ? "on " : "off", algo_names[algonum]));
+
 		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_90);
 		sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 		// draw windows

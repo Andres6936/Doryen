@@ -46,12 +46,36 @@ namespace Functor
 				"##############################################",
 		};
 
+		constexpr static const std::array algo_names = {
+				"BASIC      ",
+				"DIAMOND    ",
+				"SHADOW     ",
+				"PERMISSIVE0",
+				"PERMISSIVE1",
+				"PERMISSIVE2",
+				"PERMISSIVE3",
+				"PERMISSIVE4",
+				"PERMISSIVE5",
+				"PERMISSIVE6",
+				"PERMISSIVE7",
+				"PERMISSIVE8",
+				"RESTRICTIVE"
+		};
+
+		bool torch = false;
+
+		bool light_walls = true;
+
+		int algonum = 0;
+
 		Map map;
 
 		/**
 		 * 1D noise used for the torch flickering.
 		 */
 		TCODNoise noise{ 1 };
+
+		void drawTextHelp();
 
 		void prepareInstanceOfMap();
 
