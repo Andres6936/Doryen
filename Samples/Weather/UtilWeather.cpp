@@ -84,16 +84,17 @@ void Weather::update(float elapsed, const std::uint32_t framePerSeconds)
 		float lp = LIGHTNING_MIN_PROB + (int)((LIGHTNING_MAX_PROB-LIGHTNING_MIN_PROB) *storm); // nb of lightning per second
 		const std::uint32_t fps = framePerSeconds;
 		if( fps > 0 ) {
-			int ilp=(int)(lp * fps);
-			if (TCODRandom::getInstance()->getInt(0,ilp)==0) {
+			int ilp = (int)(lp * fps);
+			if (Random::Number::nextInteger(0, ilp) == 0)
+			{
 				// new lightning
 				lightning_t l;
-				l.posx = TCODRandom::getInstance()->getInt(0,map->w);
-				l.posy = TCODRandom::getInstance()->getInt(0,map->h);
-				l.life = TCODRandom::getInstance()->getFloat(0.1,LIGHTNING_LIFE);
-				l.radius=TCODRandom::getInstance()->getInt(LIGHTNING_RADIUS,LIGHTNING_RADIUS*2);
-				l.noisex=TCODRandom::getInstance()->getFloat(0.0f,1000.0f);
-				l.intensity=0.0f;
+				l.posx = Random::Number::nextInteger(0, map->w);
+				l.posy = Random::Number::nextInteger(0, map->h);
+				l.life = Random::Number::nextFloat(0.1, LIGHTNING_LIFE);
+				l.radius = Random::Number::nextInteger(LIGHTNING_RADIUS, LIGHTNING_RADIUS * 2);
+				l.noisex = Random::Number::nextFloat(0.0f, 1000.0f);
+				l.intensity = 0.0f;
 				lightnings.push(l);
 			}
 		}
@@ -180,16 +181,20 @@ float Weather::getLightning(int x, int y) {
 	return CLAMP(0.0f,1.0f,ret);
 }
 
-bool Weather::hasRainDrop() {
-	if ( indicator >= 0.5f ) return false;
+bool Weather::hasRainDrop()
+{
+	if (indicator >= 0.5f) return false;
 	int prob;
-	if ( indicator >= 0.3f ) {
-		prob = (int)(RAIN_MIN_PROB+(RAIN_MED_PROB-RAIN_MIN_PROB)*(0.5f-indicator)*5);
-	} else {
-		prob = (int)(RAIN_MED_PROB+(RAIN_MAX_PROB-RAIN_MED_PROB)*(0.3f-indicator)*3.33f);
+	if (indicator >= 0.3f)
+	{
+		prob = (int)(RAIN_MIN_PROB + (RAIN_MED_PROB - RAIN_MIN_PROB) * (0.5f - indicator) * 5);
 	}
-	int rp=TCODRandom::getInstance()->getInt(0,prob);
-	return rp==0;
+	else
+	{
+		prob = (int)(RAIN_MED_PROB + (RAIN_MAX_PROB - RAIN_MED_PROB) * (0.3f - indicator) * 3.33f);
+	}
+	int rp = Random::Number::nextInteger(0, prob);
+	return rp == 0;
 }
 
 void Weather::calculateAmbient(float timeInSeconds) {

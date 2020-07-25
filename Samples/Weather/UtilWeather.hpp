@@ -26,6 +26,8 @@
 
 #include "Doryen/Doryen.hpp"
 
+using namespace Doryen;
+
 class Weather
 {
 public :
