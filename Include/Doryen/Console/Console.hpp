@@ -1050,8 +1050,8 @@ namespace Doryen
 		/**
 		 * @brief Blitting a console on another one
 		 *
-		 * This function allows you to blit a rectangular area of the source console
-		 * at a specific position on a destination console. It can also simulate alpha
+		 * This function allows you to blit a rectangular area of the source console <br>
+		 * at a specific position on a destination console. It can also simulate alpha <br>
 		 * transparency with the fade parameter.
 		 *
          * @param source The rectangular area of the source console that will be blitted.
@@ -1066,24 +1066,24 @@ namespace Doryen
          *  0 < fade < 1.0 => The source console is partially blitted, simulating real transparency. <br>
          *
          *  @example
-        @CppEx
-            // Cross-fading between two offscreen consoles. We use two offscreen consoles with the same size as the root console. We render a different screen on each offscreen console. When the user hits a key, we do a cross-fading from the first screen to the second screen.
-            TCODConsole *off1 = new TCODConsole(80,50);
-            TCODConsole *off2 = new TCODConsole(80,50);
-            ... print screen1 on off1
-            ... print screen2 of off2
-            // render screen1 in the game window
-            TCODConsole::blit(off1,0,0,80,50,TCODConsole::root,0,0);
-            TCODConsole::flush();
-            // wait or a keypress
-            TCODConsole::waitForKeypress(true);
-            // do a cross-fading from off1 to off2
-            for (int i=1; i <= 255; i++) {
-                TCODConsole::blit(off1,0,0,80,50,TCODConsole::root,0,0); // renders the first screen (opaque)
-                TCODConsole::blit(off2,0,0,80,50,TCODConsole::root,0,0,i/255.0,i/255.0); // renders the second screen (transparent)
-                TCODConsole::flush();
-            }
-        */
+         *  @code
+         *  // Cross-fading between two offscreen consoles.
+         *  // We use two offscreen consoles with
+         *  // the same size as the root console.
+         *  // We render a different screen on each offscreen console.
+         *  // When the user hits a key, we do a cross-fading from the
+         *  // first screen to the second screen.
+         *
+         *  Console off1 {80, 50};
+         *  Console off2 {20, 30};
+         *
+         *  ... print screen1 on off1
+         *  ... print screen2 of off2
+         *
+         *  // render screen1 in the game window
+         *  off1.blit({0, 0}, off2, {0,0});
+         *  @endcode
+         */
 		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 
