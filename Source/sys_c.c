@@ -24,11 +24,7 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include <ctype.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <sys/stat.h>
+
 #include <string.h>
 
 #if defined (__linux) && !defined (__ANDROID__) || defined (__FreeBSD__)
@@ -40,20 +36,13 @@
 #include <ApplicationServices/ApplicationServices.h>
 #endif
 
-#include "Doryen/libtcod.h"
 #include "Doryen/libtcod_int.h"
 
 #ifdef TCOD_WINDOWS
 #include <windows.h>
 #else
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <dirent.h>
-#include <errno.h>
-#include <pthread.h>
-#include <semaphore.h>
 #include <dlfcn.h>
 #endif
 
