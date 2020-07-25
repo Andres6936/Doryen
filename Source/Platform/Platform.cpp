@@ -42,11 +42,6 @@ float Doryen::Platform::getElapsedSeconds( )
 	return TCOD_sys_elapsed_seconds();
 }
 
-void Doryen::Platform::forceFullscreenResolution( int width, int height )
-{
-	TCOD_sys_force_fullscreen_resolution(width,height);
-}
-
 TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
 {
 	return TCOD_sys_get_directory_content(path,pattern);

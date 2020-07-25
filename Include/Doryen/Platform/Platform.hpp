@@ -96,37 +96,6 @@ namespace Doryen
 		@Param x,y,w,h Part of the root console you want to redraw even if nothing has changed in the console back/fore/char.
 		*/
 
-        /**
-        @PageName system_misc
-        @PageFather system
-        @PageTitle Miscellaneous utilities
-        @FuncTitle Using a custom resolution for the fullscreen mode
-        @FuncDesc This function allows you to force the use of a specific resolution in fullscreen mode.
-            The default resolution depends on the root console size and the font character size.
-        @Cpp static void TCODSystem::forceFullscreenResolution(int width, int height)
-        @C void TCOD_sys_force_fullscreen_resolution(int width, int height)
-        @Py sys_force_fullscreen_resolution(width, height)
-        @C# static void TCODSystem::forceFullscreenResolution(int width, int height);
-        @Lua tcod.system.forceFullscreenResolution(width,height)
-        @Param width,height Resolution to use when switching to fullscreen.
-            Will use the smallest available resolution so that :
-            resolution width >= width and resolution width >= root console width * font char width
-            resolution width >= height and resolution height >= root console height * font char height
-        @CppEx
-            TCODSystem::forceFullscreenResolution(800,600); // use 800x600 in fullscreen instead of 640x400
-            TCODConsole::initRoot(80,50,"",true); // 80x50 console with 8x8 char => 640x400 default resolution
-        @CEx
-            TCOD_sys_force_fullscreen_resolution(800,600);
-            TCOD_console_init_root(80,50,"",true);
-        @PyEx
-            libtcod.sys_force_fullscreen_resolution(800,600)
-            libtcod.console_init_root(80,50,"",True)
-        @LuaEx
-            tcod.system.forceFullscreenResolution(800,600) -- use 800x600 in fullscreen instead of 640x400
-            tcod.console.initRoot(80,50,"",true) -- 80x50 console with 8x8 char => 640x400 default resolution
-        */
-		static void forceFullscreenResolution(int width, int height);
-
 	};
 }
 

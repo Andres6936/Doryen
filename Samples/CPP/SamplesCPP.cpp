@@ -65,11 +65,6 @@ int main(int argc, char* argv[])
 	if (fontFlags == 0)
 	{ fontFlags = fontNewFlags; }
 
-	if (fullscreenWidth > 0)
-	{
-		Doryen::Platform::forceFullscreenResolution(fullscreenWidth, fullscreenHeight);
-	}
-
 	Console console = Console();
 
 	console.setCustomFont(font, fontFlags, nbCharHoriz, nbCharVertic);
