@@ -115,37 +115,6 @@ TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern
 	return list;
 }
 
-/* thread stuff */
-#ifdef TCOD_WINDOWS
-/* Helper function to count set bits in the processor mask. */
-static DWORD CountSetBits(ULONG_PTR bitMask)
-{
-    DWORD LSHIFT = sizeof(ULONG_PTR)*8 - 1;
-    DWORD bitSetCount = 0;
-    ULONG_PTR bitTest = (ULONG_PTR)1 << LSHIFT;
-    DWORD i;
-
-    for (i = 0; i <= LSHIFT; ++i)
-    {
-        bitSetCount += ((bitMask & bitTest)?1:0);
-        bitTest/=2;
-    }
-
-    return bitSetCount;
-}
-#endif
-
-#ifdef TCOD_WINDOWS
-/* poor win32 api has no thread conditions */
-typedef struct {
-	int nbSignals;
-	int nbWaiting;
-	TCOD_mutex_t mutex;
-	TCOD_semaphore_t waiting;
-	TCOD_semaphore_t waitDone;
-} cond_t;
-#endif
-
 /*clipboard stuff */
 #ifdef TCOD_WINDOWS
 void TCOD_sys_clipboard_set(const char *value)
