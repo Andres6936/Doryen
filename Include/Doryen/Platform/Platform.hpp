@@ -97,40 +97,6 @@ namespace Doryen
 		static float getElapsedSeconds();
 
 		/**
-        @PageName console_non_blocking_input
-        @FuncTitle Checking for any event (mouse or keyboard)
-        @FuncDesc There's a more generic function that checks if an event from the user is in the buffer. The eventMask shows what events we're waiting for.
-            The return value indicate what event was actually found. Values in key and mouse structures are updated accordingly.
-        @Cpp typedef enum {
-            TCOD_EVENT_KEY_PRESS=1,
-            TCOD_EVENT_KEY_RELEASE=2,
-            TCOD_EVENT_KEY=TCOD_EVENT_KEY_PRESS|TCOD_EVENT_KEY_RELEASE,
-            TCOD_EVENT_MOUSE_MOVE=4,
-            TCOD_EVENT_MOUSE_PRESS=8,
-            TCOD_EVENT_MOUSE_RELEASE=16,
-            TCOD_EVENT_MOUSE=TCOD_EVENT_MOUSE_MOVE|TCOD_EVENT_MOUSE_PRESS|TCOD_EVENT_MOUSE_RELEASE,
-            TCOD_EVENT_ANY=TCOD_EVENT_KEY|TCOD_EVENT_MOUSE,
-        } TCOD_event_t;
-        static TCOD_event_t TCODSystem::checkForEvent(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse)
-        @C TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse)
-        @Py sys_check_for_event(eventMask,key,mouse)
-        @Param eventMask event types to wait for (other types are discarded)
-        @Param key updated in case of a key event. Can be null if eventMask contains no key event type
-        @Param mouse updated in case of a mouse event. Can be null if eventMask contains no mouse event type
-        @CppEx
-            TCOD_key_t key;
-            TCOD_mouse_t mouse;
-            TCOD_event_t ev = TCODSystem::checkForEvent(TCOD_EVENT_ANY,&key,&mouse);
-            if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
-        @CEx
-            TCOD_key_t key;
-            TCOD_mouse_t mouse;
-            TCOD_event_t ev = TCOD_sys_check_for_event(TCOD_EVENT_ANY,&key,&mouse);
-            if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
-        */
-        static TCOD_event_t checkForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse );
-
-        /**
         @PageName system_screenshots
         @PageFather system
         @PageTitle Easy screenshots
