@@ -1157,6 +1157,15 @@ namespace Doryen
          */
 		void setFramePerSeconds(std::uint8_t _fps);
 
+		/**
+         * @brief Get the duration of the last frame.
+         *
+         * This function returns the length in seconds of the last rendered frame.
+         *
+         * @note You can use this value to update every time dependent object in the world.
+         *
+         * @return
+         */
 		float getLastFrameLength() const;
 
 		unsigned int getFramePerSeconds() const;
