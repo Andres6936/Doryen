@@ -344,7 +344,7 @@ namespace Doryen
 
 		virtual void showCursor(bool visible) = 0;
 
-		virtual std::uint32_t getElapseMilliseconds() const = 0;
+		virtual std::uint32_t getElapsedMilliseconds() const = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
 

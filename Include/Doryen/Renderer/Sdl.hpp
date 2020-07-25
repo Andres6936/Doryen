@@ -116,7 +116,7 @@ namespace Doryen
 
 		Mouse getMouseEvent() override;
 
-		std::uint32_t getElapseMilliseconds() const override;
+		std::uint32_t getElapsedMilliseconds() const override;
 
 		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
 	};
