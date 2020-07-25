@@ -165,20 +165,6 @@ namespace Doryen
 
 		/**
         @PageName system_misc
-        @FuncTitle Dynamically updating the font bitmap
-        @FuncDesc You can dynamically change the bitmap of a character in the font. All cells using this ascii code will be updated at next flush call.
-        @Cpp static void TCODSystem::updateChar(int asciiCode, int fontx, int fonty,const TCODImage *img,int x,int y)
-        @C void TCOD_sys_update_char(int asciiCode, int fontx, int fonty, TCOD_image_t img, int x, int y)
-        @Py sys_update_char(asciiCode,fontx,fonty,img,x,y)
-        @Param asciiCode ascii code corresponding to the character to update
-        @Param fontx,fonty coordinate of the character in the bitmap font (in characters, not pixels)
-        @Param img image containing the new character bitmap
-        @Param x,y position in pixels of the top-left corner of the character in the image
-        */
-		static void updateChar(int asciiCode, int fontx, int fonty, const Image* img, int x, int y);
-
-        /**
-        @PageName system_misc
         @FuncTitle Dynamically change libtcod's internal renderer
         @FuncDesc As of 1.5.1, libtcod contains 3 different renderers :
             * SDL : historic libtcod renderer. Should work and be pretty fast everywhere

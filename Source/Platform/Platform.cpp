@@ -72,11 +72,6 @@ TCOD_renderer_t Doryen::Platform::getRenderer( )
 	return TCOD_sys_get_renderer();
 }
 
-void Doryen::Platform::updateChar(int asciiCode, int fontx, int fonty, const Image* img, int x, int y)
-{
-	TCOD_sys_update_char(asciiCode, fontx, fonty, img->data, x, y);
-}
-
 TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
 {
 	return TCOD_sys_get_directory_content(path,pattern);
