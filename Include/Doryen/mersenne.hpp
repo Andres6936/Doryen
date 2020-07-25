@@ -183,20 +183,6 @@ class TCODRandom {
 		*/
 		virtual ~TCODRandom();
 
-	int get(int min, int max, int mean = 0);
-
-	inline float get(float min, float max, float mean = 0.0f)
-	{
-		return (mean <= 0.0f) ? TCOD_random_get_float(data, min, max) : TCOD_random_get_float_mean(data, min, max,
-				mean);
-	}
-
-	inline double get(double min, double max, double mean = 0.0f)
-	{
-		return (mean <= 0.0) ? TCOD_random_get_double(data, min, max) : TCOD_random_get_double_mean(data, min, max,
-				mean);
-	}
-
 	/**
 	@PageName random_use
 	@FuncTitle Saving a RNG state

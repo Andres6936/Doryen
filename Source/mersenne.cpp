@@ -31,11 +31,6 @@
 
 static TCODRandom* instance = (TCODRandom*)NULL;
 
-int TCODRandom::get(int min, int max, int mean)
-{
-	return (mean <= 0) ? TCOD_random_get_int(data, min, max) : TCOD_random_get_int_mean(data, min, max, mean);
-}
-
 TCODRandom* TCODRandom::getInstance(void)
 {
 	if (!instance)
