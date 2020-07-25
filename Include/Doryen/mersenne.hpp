@@ -183,63 +183,27 @@ class TCODRandom {
 		*/
 		virtual ~TCODRandom();
 
-		/**
-		@PageName random_distro
-		@PageFather random
-		@PageTitle Using a generator
-		@FuncTitle Setting the default RNG distribution
-		@FuncDesc Random numbers can be obtained using several different distributions. Linear is default, but if you wish to use one of the available Gaussian distributions, you can use this function to tell libtcod which is your preferred distribution. All random number getters will then use that distribution automatically to fetch your random numbers.
-The distributions available are as follows:
-1. TCOD_DISTRIBUTION_LINEAR
-This is the default distribution. It will return a number from a range min-max. The numbers will be evenly distributed, ie, each number from the range has the exact same chance of being selected.
-2. TCOD_DISTRIBUTION_GAUSSIAN
-This distribution does not have minimum and maximum values. Instead, a mean and a standard deviation are used. The mean is the central value. It will appear with the greatest frequency. The farther away from the mean, the less the probability of appearing the possible results have. Although extreme values are possible, 99.7% of the results will be within the radius of 3 standard deviations from the mean. So, if the mean is 0 and the standard deviation is 5, the numbers will mostly fall in the (-15,15) range.
-3. TCOD_DISTRIBUTION_GAUSSIAN_RANGE
-This one takes minimum and maximum values. Under the hood, it computes the mean (which falls right between the minimum and maximum) and the standard deviation and applies a standard Gaussian distribution to the values. The difference is that the result is always guaranteed to be in the min-max range.
-4. TCOD_DISTRIBUTION_GAUSSIAN_INVERSE
-Essentially, this is the same as TCOD_DISTRIBUTION_GAUSSIAN. The difference is that the values near +3 and -3 standard deviations from the mean have the highest possibility of appearing, while the mean has the lowest.
-5. TCOD_DISTRIBUTION_GAUSSIAN_RANGE_INVERSE
-Essentially, this is the same as TCOD_DISTRIBUTION_GAUSSIAN_RANGE, but the min and max values have the greatest probability of appearing, while the values between them, the lowest.
+	/**
+	@PageName random_use
+	@PageFather random
+	@PageTitle Using a generator
+	@FuncTitle Getting an integer
+	@FuncDesc Once you obtained a generator (using one of those methods), you can get random numbers using the following functions, using either the explicit or simplified API where applicable:
+	@Cpp
+		//explicit API:
+		int TCODRandom::getInt(int min, int max, int mean = 0)
 
-There exist functions to also specify both a min-max range AND a custom mean, which can be any value (possibly either min or max, but it can even be outside that range). In case such a function is used, the distributions will trigger a slihtly different behaviour:
-* TCOD_DISTRIBUTION_LINEAR
-* TCOD_DISTRIBUTION_GAUSSIAN
-* TCOD_DISTRIBUTION_GAUSSIAN_RANGE
-In these cases, the selected mean will have the highest probability of appearing.
-
-* TCOD_DISTRIBUTION_GAUSSIAN_INVERSE
-* TCOD_DISTRIBUTION_GAUSSIAN_RANGE_INVERSE
-In these cases, the selected mean will appear with the lowest frequency.
-		@Cpp void TCODRandom::setDistribution(TCOD_distribution_t distribution)
-		@C void TCOD_random_set_distribution(TCOD_random_t mersenne, TCOD_distribution_t distribution)
-		@Py
-		@C#
-		@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used..
-		@Param distribution The distribution constant from the available set:<ul><li>TCOD_DISTRIBUTION_LINEAR</li><li>TCOD_DISTRIBUTION_GAUSSIAN</li><li>TCOD_DISTRIBUTION_GAUSSIAN_RANGE</li><li>TCOD_DISTRIBUTION_GAUSSIAN_INVERSE</li><li>TCOD_DISTRIBUTION_GAUSSIAN_RANGE_INVERSE</li></ul>
-		*/
-		inline void setDistribution (TCOD_distribution_t distribution) { TCOD_random_set_distribution(data,distribution); }
-
-		/**
-		@PageName random_use
-		@PageFather random
-		@PageTitle Using a generator
-		@FuncTitle Getting an integer
-		@FuncDesc Once you obtained a generator (using one of those methods), you can get random numbers using the following functions, using either the explicit or simplified API where applicable:
-		@Cpp
-			//explicit API:
-			int TCODRandom::getInt(int min, int max, int mean = 0)
-
-			//simplified API:
-			int TCODRandom::get(int min, int max, int mean = 0)
-		@C
-			int TCOD_random_get_int(TCOD_random_t mersenne, int min, int max)
-			int TCOD_random_get_int_mean(TCOD_random_t mersenne, int min, int max, int mean)
-		@Py
-		@C#
-		@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used..
-		@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
-		@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
-		*/
+		//simplified API:
+		int TCODRandom::get(int min, int max, int mean = 0)
+	@C
+		int TCOD_random_get_int(TCOD_random_t mersenne, int min, int max)
+		int TCOD_random_get_int_mean(TCOD_random_t mersenne, int min, int max, int mean)
+	@Py
+	@C#
+	@Param mersenne	In the C and Python versions, the generator handler, returned by the initialization functions. If NULL, the default generator is used..
+	@Param min,max	Range of values returned. Each time you call this function, you get a number between (including) min and max
+	@Param mean This is used to set a custom mean, ie, not min+((max-min)/2). It can even be outside of the min-max range. Using a mean will force the use of a weighted (Gaussian) distribution, even if linear is set.
+	*/
 		int getInt(int min, int max, int mean = 0);
 
 	int get(int min, int max, int mean = 0);
