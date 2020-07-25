@@ -1105,24 +1105,6 @@ static void TCOD_sys_load_player_config()
 	{ TCOD_ctx.fullscreen_height = fullscreenHeight; }
 }
 
-void TCOD_sys_set_renderer(TCOD_renderer_t renderer)
-{
-	if (renderer == TCOD_ctx.renderer)
-	{ return; }
-	TCOD_ctx.renderer = renderer;
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-	if ( window ) {
-#else
-	if (screen)
-	{
-#endif
-		TCOD_sys_term();
-	}
-	TCOD_sys_init(TCOD_ctx.root->w, TCOD_ctx.root->h, TCOD_ctx.root->buf, TCOD_ctx.root->oldbuf, TCOD_ctx.fullscreen);
-	TCOD_console_set_window_title(TCOD_ctx.window_title);
-	TCOD_console_set_dirty(0, 0, TCOD_ctx.root->w, TCOD_ctx.root->h);
-}
-
 bool TCOD_sys_init(int w, int h, char_t* buf, char_t* oldbuf, bool fullscreen)
 {
 	static TCOD_renderer_t last_renderer = TCOD_RENDERER_SDL;
