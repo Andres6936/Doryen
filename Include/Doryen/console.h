@@ -93,8 +93,6 @@ int TCOD_console_get_height(TCOD_console_t con);
 
 void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col);
 
-void TCOD_console_blit(TCOD_console_t src,int xSrc, int ySrc, int wSrc, int hSrc, TCOD_console_t dst, int xDst, int yDst, float foreground_alpha, float background_alpha);
-
 void TCOD_console_credits();
 
 void TCOD_console_credits_reset();
