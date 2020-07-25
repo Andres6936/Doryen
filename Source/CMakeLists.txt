@@ -4,7 +4,7 @@ ADD_LIBRARY(Doryen.Core.C
         color_c.c console_c.c fov_c.c fov_diamond_raycasting.c fov_permissive2.c
         fov_restrictive.c image_c.c lex_c.c list_c.c mersenne_c.c namegen_c.c
         noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
-        tree_c.c zip_c.c SystemSDL.c)
+        zip_c.c SystemSDL.c)
 
 SET_TARGET_PROPERTIES(Doryen.Core.C PROPERTIES C_STANDARD 11)
 TARGET_LINK_LIBRARIES(Doryen.Core.C PUBLIC ${EXTERNAL_LIBS} dl)

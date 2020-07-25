@@ -162,7 +162,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #include "fov.h"
 #include "lex.h"
 #include "parser.h"
-#include "tree.h"
 #include "zip.h"
 #include "namegen.h"
 #ifdef __cplusplus
