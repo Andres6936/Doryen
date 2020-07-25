@@ -90,7 +90,6 @@ typedef void *TCOD_mutex_t;
 /* dynamic library */
 typedef void *TCOD_library_t;
 
-void TCOD_close_library(TCOD_library_t);
 /* SDL renderer callback */
 typedef void (*SDL_renderer_t) (void *sdl_surface);
 

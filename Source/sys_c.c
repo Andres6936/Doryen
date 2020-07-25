@@ -307,7 +307,4 @@ void TCOD_close_library(TCOD_library_t library) {
 }
 #else
 
-void TCOD_close_library(TCOD_library_t library) {
-	dlclose(library);
-}
 #endif
