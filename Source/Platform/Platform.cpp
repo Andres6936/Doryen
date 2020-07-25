@@ -62,11 +62,6 @@ void Doryen::Platform::forceFullscreenResolution( int width, int height )
 	TCOD_sys_force_fullscreen_resolution(width,height);
 }
 
-void Doryen::Platform::setRenderer( TCOD_renderer_t renderer )
-{
-	TCOD_sys_set_renderer(renderer);
-}
-
 TCOD_renderer_t Doryen::Platform::getRenderer( )
 {
 	return TCOD_sys_get_renderer();

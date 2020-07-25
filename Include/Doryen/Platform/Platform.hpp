@@ -164,22 +164,6 @@ namespace Doryen
 		static void forceFullscreenResolution(int width, int height);
 
 		/**
-        @PageName system_misc
-        @FuncTitle Dynamically change libtcod's internal renderer
-        @FuncDesc As of 1.5.1, libtcod contains 3 different renderers :
-            * SDL : historic libtcod renderer. Should work and be pretty fast everywhere
-            * OpenGL : requires OpenGL compatible video card. Might be much faster or much slower than SDL, depending on the drivers
-            * GLSDL : requires OpenGL 1.4 compatible video card with GL_ARB_shader_objects extension. Blazing fast if you have the proper hardware and drivers.
-            This function switches the current renderer dynamically.
-        @Cpp static void TCODSystem::setRenderer(TCOD_renderer_t renderer)
-        @C void TCOD_sys_set_renderer(TCOD_renderer_t renderer)
-        @Py sys_set_renderer(renderer)
-        @C# static void TCODSystem::setRenderer(TCODRendererType renderer);
-        @Param renderer Either TCOD_RENDERER_GLSL, TCOD_RENDERER_OPENGL or TCOD_RENDERER_SDL
-        */
-        static void setRenderer( TCOD_renderer_t renderer );
-
-		/**
 		@PageName system_misc
 		@FuncTitle Get the current internal renderer
 		@Cpp static TCOD_renderer_t TCODSystem::getRenderer()
