@@ -217,11 +217,6 @@ static void check_ascii_to_tcod()
 	}
 }
 
-void TCOD_sys_register_SDL_renderer(SDL_renderer_t renderer)
-{
-	TCOD_ctx.sdl_cbk = renderer;
-}
-
 void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY)
 {
 	if (asciiCode > 0 && asciiCode < TCOD_ctx.max_font_chars)
