@@ -149,7 +149,7 @@ void init(Console& console)
 	torchIndex = leftShader->addLight({ playerx, playery }, 10, Palette::GRAY_WARN_1);
 	rightShader->addLight({ playerx, playery }, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
-	timeSecond = Doryen::Platform::getElapsedMilli() / 1000;
+	timeSecond = console.getElapsedMilliseconds() / 1000;
 
 	if (enableGammaCorrection)
 	{
@@ -173,11 +173,11 @@ void render(Doryen::Console& console)
 {
 	// compute lights
 	framesCount++;
-	uint32 start = Doryen::Platform::getElapsedMilli();
+	uint32 start = console.getElapsedMilliseconds();
 	leftShader->compute();
-	uint32 leftEnd = Doryen::Platform::getElapsedMilli();
+	uint32 leftEnd = console.getElapsedMilliseconds();
 	rightShader->compute();
-	uint32 rightEnd = Doryen::Platform::getElapsedMilli();
+	uint32 rightEnd = console.getElapsedMilliseconds();
 	stdTime += (leftEnd - start) * 0.001f;
 	radTime += (rightEnd - leftEnd) * 0.001f;
 	if ((int)(start / 1000) != timeSecond)

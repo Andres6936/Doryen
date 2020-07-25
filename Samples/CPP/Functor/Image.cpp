@@ -29,7 +29,7 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	float scalex = 0.2f + 1.8f * (1.0f + cosf(Doryen::Platform::getElapsedSeconds() / 2)) / 2.0f;
 	float scaley = scalex;
 	float angle = Doryen::Platform::getElapsedSeconds();
-	long elapsed = Doryen::Platform::getElapsedMilli() / 2000;
+	long elapsed = sample.getElapsedMilliseconds() / 2000;
 	if (elapsed & 1)
 	{
 		// split the color channels of circle.png
