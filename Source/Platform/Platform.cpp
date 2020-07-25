@@ -67,11 +67,6 @@ void Doryen::Platform::setRenderer( TCOD_renderer_t renderer )
 	TCOD_sys_set_renderer(renderer);
 }
 
-TCOD_event_t Doryen::Platform::waitForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush )
-{
-	return TCOD_sys_wait_for_event(eventMask,key,mouse,flush);
-}
-
 TCOD_event_t Doryen::Platform::checkForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse )
 {
 	return TCOD_sys_check_for_event(eventMask,key,mouse);
