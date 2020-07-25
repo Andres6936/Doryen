@@ -34,6 +34,4 @@ typedef struct _TCOD_tree_t {
 	struct _TCOD_tree_t *sons;
 } TCOD_tree_t;
 
-void TCOD_tree_add_son(TCOD_tree_t *node, TCOD_tree_t *son);
-
 #endif

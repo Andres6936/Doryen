@@ -26,14 +26,3 @@
 */
 #include "Doryen/libtcod.h"
 
-void TCOD_tree_add_son(TCOD_tree_t *node, TCOD_tree_t *son) {
-	TCOD_tree_t *lastson = node->sons;
-	son->father=node;
-	while ( lastson && lastson->next ) lastson=lastson->next;
-	if ( lastson ) {
-		lastson->next=son;
-	} else {
-		node->sons=son;
-	}
-}
-
