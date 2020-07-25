@@ -86,7 +86,6 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 	{
 		first = false;
 
-		Doryen::Platform::setFps(30); // fps limited to 30
 		// we draw the foreground only the first time.
 		// during the player movement, only the @ is redrawn.
 		// the rest impacts only the background color

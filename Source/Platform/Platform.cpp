@@ -27,11 +27,6 @@
 
 #include "Doryen/Platform/Platform.hpp"
 
-void Doryen::Platform::setFps( int val )
-{
-    TCOD_sys_set_fps( val );
-}
-
 int Doryen::Platform::getFps( )
 {
     return TCOD_sys_get_fps( );

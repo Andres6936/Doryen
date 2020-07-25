@@ -40,44 +40,28 @@ namespace Doryen
      * @note Use them is you want your code to be easily portable.
      */
     class Platform
-    {
+	{
 
-    public :
+	public :
 
-        /**
-         * @brief  Allows you to limit the number of frames per second.
-         *
-         * If a frame is rendered faster than expected, the TCOD_console_flush
-         * function will wait so that the frame rate never exceed this value.
-         *
-         * @note You can call this function during your game initialization.
-         * @note You can dynamically change the frame rate. Just call this function
-         * once again.
-         * @note You should always limit the frame rate, except during benchmarks,
-         * else your game will use 100% of the CPU power
-         *
-         * @param val Maximum number of frames per second. 0 means unlimited frame rate.
-         */
-        static void setFps( int val );
+		/**
+		 * @brief Get the number of frames rendered during the last second.
+		 *
+		 * @note The value returned by this function is updated every second.
+		 *
+		 * @return Number of frames rendered during the las second.
+		 */
+		static int getFps();
 
-        /**
-         * @brief Get the number of frames rendered during the last second.
-         *
-         * @note The value returned by this function is updated every second.
-         *
-         * @return Number of frames rendered during the las second.
-         */
-        static int getFps( );
-
-        /**
-         * @brief Get the duration of the last frame.
-         *
-         * This function returns the length in seconds of the last rendered frame.
-         *
-         * @note You can use this value to update every time dependent object in the world.
-         *
-         * @return
-         */
+		/**
+		 * @brief Get the duration of the last frame.
+		 *
+		 * This function returns the length in seconds of the last rendered frame.
+		 *
+		 * @note You can use this value to update every time dependent object in the world.
+		 *
+		 * @return
+		 */
 		static float getLastFrameLength();
 
 		/**
