@@ -232,64 +232,7 @@ void TCOD_list_set_size(TCOD_list_t l, int size);
 
 /* color values */
 #define TCOD_BLACK 0,0,0
-#define TCOD_GREY 127,127,127
 #define TCOD_WHITE 255,255,255
-#define TCOD_SEPIA 127,101,63
-
-
-/* lightest */
-#define TCOD_LIGHTEST_YELLOW 255,255,191
-#define TCOD_LIGHTEST_BLUE 191,191,255
-
-/* lighter */
-#define TCOD_LIGHTER_BLUE 127,127,255
-
-/* light */
-#define TCOD_LIGHT_YELLOW 255,255,63
-#define TCOD_LIGHT_BLUE 63,63,255
-
-/* normal */
-#define TCOD_RED 255,0,0
-#define TCOD_FLAME 255,63,0
-#define TCOD_ORANGE 255,127,0
-#define TCOD_AMBER 255,191,0
-#define TCOD_YELLOW 255,255,0
-#define TCOD_LIME 191,255,0
-#define TCOD_CHARTREUSE 127,255,0
-#define TCOD_GREEN 0,255,0
-#define TCOD_SEA 0,255,127
-#define TCOD_TURQUOISE 0,255,191
-#define TCOD_CYAN 0,255,255
-#define TCOD_SKY 0,191,255
-#define TCOD_AZURE 0,127,255
-#define TCOD_BLUE 0,0,255
-#define TCOD_HAN 63,0,255
-#define TCOD_VIOLET 127,0,255
-#define TCOD_PURPLE 191,0,255
-#define TCOD_FUCHSIA 255,0,255
-#define TCOD_MAGENTA 255,0,191
-#define TCOD_PINK 255,0,127
-#define TCOD_CRIMSON 255,0,63
-
-/* dark */
-#define TCOD_DARK_YELLOW 191,191,0
-#define TCOD_DARK_BLUE 0,0,191
-
-/* darker */
-#define TCOD_DARKER_BLUE 0,0,127
-
-/* darkest */
-#define TCOD_DARKEST_FLAME 63,15,0
-
-/* metallic */
-#define TCOD_BRASS 191,151,96
-#define TCOD_COPPER 197,136,124
-#define TCOD_GOLD 229,191,0
-#define TCOD_SILVER 203,203,203
-
-/* miscellaneous */
-#define TCOD_CELADON 172,255,175
-#define TCOD_PEACH 255,159,127
 
 #ifdef __cplusplus
 }
