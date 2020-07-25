@@ -45,17 +45,6 @@ namespace Doryen
 	public :
 
 		/**
-		 * @brief Get the duration of the last frame.
-		 *
-		 * This function returns the length in seconds of the last rendered frame.
-		 *
-		 * @note You can use this value to update every time dependent object in the world.
-		 *
-		 * @return
-		 */
-		static float getLastFrameLength();
-
-		/**
 		 * @brief Get global timer in milliseconds.
 		 *
 		 * Returns the number of milliseconds since the program has started.

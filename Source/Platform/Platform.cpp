@@ -27,11 +27,6 @@
 
 #include "Doryen/Platform/Platform.hpp"
 
-float Doryen::Platform::getLastFrameLength( )
-{
-    return TCOD_sys_get_last_frame_length( );
-}
-
 void Doryen::Platform::saveScreenshot( const char *filename )
 {
     TCOD_sys_save_screenshot( filename );
