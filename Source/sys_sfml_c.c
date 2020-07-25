@@ -440,21 +440,6 @@ bool TCOD_sys_is_key_pressed(TCOD_keycode_t key) {
 	return key_status[key];
 }
 
-TCOD_key_t TCOD_sys_check_for_keypress(int flags) {
-	static TCOD_key_t noret={TCODK_NONE,0};
-	sfEvent ev;
-	TCOD_key_t retkey={TCODK_NONE,0};
-	bool event=false;
-
-	while ( sfRenderWindow_GetEvent(renderWindow, &ev) ) {
-		TCOD_key_t tmpretkey=TCOD_sys_SFMLtoTCOD(&ev, flags);
-		event=true;
-		if ( tmpretkey.vk != TCODK_NONE ) retkey=tmpretkey;
-	}
-	if ( event ) return retkey;
-	return noret;
-}
-
 TCOD_key_t TCOD_sys_wait_for_keypress(bool flush) {
 	sfEvent event;
 	TCOD_key_t ret={TCODK_NONE,0};

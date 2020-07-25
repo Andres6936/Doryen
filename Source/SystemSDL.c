@@ -2060,21 +2060,6 @@ TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t* key, TCOD_mouse
 }
 
 
-/* classic keyboard functions (based on generic events) */
-
-TCOD_key_t TCOD_sys_check_for_keypress(int flags)
-{
-	static TCOD_key_t noret = { TCODK_NONE, 0 };
-
-	TCOD_key_t key;
-	TCOD_event_t ev = TCOD_sys_check_for_event(flags & TCOD_EVENT_KEY, &key, NULL);
-
-	if ((ev & TCOD_EVENT_KEY) == 0)
-	{ return noret; }
-
-	return key;
-}
-
 TCOD_key_t TCOD_sys_wait_for_keypress(bool flush)
 {
 	static TCOD_key_t noret = { TCODK_NONE, 0 };
