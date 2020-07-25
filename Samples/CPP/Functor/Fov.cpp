@@ -138,6 +138,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 
 	drawPlayer();
 	drawTextHelp();
+	drawDungeon();
 
 	if (first)
 	{
@@ -176,8 +177,6 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 			map.computeFov(playerX, playerY, 0, light_walls, (TCOD_fov_algorithm_t)algonum);
 		}
 	}
-
-	drawDungeon();
 
 //    if ( key->c == 'I' || key->c == 'i' )
 //    {
