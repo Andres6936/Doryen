@@ -43,7 +43,6 @@
 #else
 
 #include <dirent.h>
-#include <dlfcn.h>
 #endif
 
 #if defined(TCOD_WINDOWS)
@@ -275,36 +274,3 @@ char *TCOD_sys_clipboard_get()
 }
 #endif
 
-
-/* library initialization function */
-#ifdef TCOD_WINDOWS
-BOOL APIENTRY DllMain( HANDLE hModule, DWORD reason, LPVOID reserved) {
-	switch (reason ) {
-		/* case DLL_PROCESS_ATTACH : TCOD_sys_startup(); break;  -- not safe, locks up in SDL2/RegisterClass call */
-		default : break;
-	}
-	return TRUE;
-}
-#else
-/* JBR03202012 Presumably there was a reason for this being if !MACOSOX, but it works fine for me
-	#ifndef TCOD_MACOSX */
-	void __attribute__ ((constructor)) DllMain() {
-		/* TCOD_sys_startup(); */
-	}
-/*	#endif */
-#endif
-
-/* dynamic library support */
-#ifdef TCOD_WINDOWS
-TCOD_library_t TCOD_load_library(const char *path) {
-	return (TCOD_library_t)LoadLibrary(path);
-}
-void * TCOD_get_function_address(TCOD_library_t library, const char *function_name) {
-	return (void *)GetProcAddress((HMODULE)library,function_name);	
-}
-void TCOD_close_library(TCOD_library_t library) {
-	FreeLibrary((HMODULE)library);
-}
-#else
-
-#endif
