@@ -1,3 +1,0 @@
-//
-
-#include "Plataform/Windows.hpp"
