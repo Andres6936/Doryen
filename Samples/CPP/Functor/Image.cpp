@@ -24,11 +24,11 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 
 	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_90);
 	sample.clear();
-	float x = sample.getWidth() / 2 + cosf(Doryen::Platform::getElapsedSeconds()) * 10.0f;
+	float x = sample.getWidth() / 2 + cosf(sample.getElapsedSeconds()) * 10.0f;
 	float y = (float)(sample.getHeight() / 2);
-	float scalex = 0.2f + 1.8f * (1.0f + cosf(Doryen::Platform::getElapsedSeconds() / 2)) / 2.0f;
+	float scalex = 0.2f + 1.8f * (1.0f + cosf(sample.getElapsedSeconds() / 2)) / 2.0f;
 	float scaley = scalex;
-	float angle = Doryen::Platform::getElapsedSeconds();
+	float angle = sample.getElapsedSeconds();
 	long elapsed = sample.getElapsedMilliseconds() / 2000;
 	if (elapsed & 1)
 	{

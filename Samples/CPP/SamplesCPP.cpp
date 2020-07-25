@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 		console.print(50, 47,
 				format("elapsed : {>5d} ms {>4.2f}s",
 						console.getElapsedMilliseconds(),
-						Doryen::Platform::getElapsedSeconds()));
+						console.getElapsedSeconds()));
 
 		console.print(2, 47,
 				format("{c}{c} : select a sample",

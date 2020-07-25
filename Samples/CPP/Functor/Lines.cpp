@@ -61,7 +61,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	bk.blit({ 0, 0 }, sample, { 0, 0 });
 	// render the gradient
 	int recty = (int)((sample.getHeight() - 2) *
-					  ((1.0f + cosf(Doryen::Platform::getElapsedSeconds())) / 2.0f));
+					  ((1.0f + cosf(sample.getElapsedSeconds())) / 2.0f));
 	for (int x = 0; x < sample.getWidth(); x++)
 	{
 		Doryen::Color col;
@@ -74,7 +74,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 		sample.setCharBackground(x, recty + 2, col, backFlag);
 	}
 	// calculate the segment ends
-	float angle = Doryen::Platform::getElapsedSeconds() * 2.0f;
+	float angle = sample.getElapsedSeconds() * 2.0f;
 	float cosAngle = cosf(angle);
 	float sinAngle = sinf(angle);
 	int xo = (int)(sample.getWidth() / 2 * (1 + cosAngle));

@@ -129,17 +129,17 @@ void SampleRenderer::effectBlur(int samplex, int sampley, int samplew, int sampl
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	f[2] = Doryen::Platform::getElapsedSeconds();
+	f[2] = sampleConsole.getElapsedSeconds();
 	for (int x = samplex; x < samplex + samplew; x++)
 	{
 		Uint8* p = (Uint8*)screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
-		f[ 0 ] = ( float ) ( x ) / samplew;
-		for (int y = sampley; y < sampley + sampleh; y++ )
+		f[0] = (float)(x) / samplew;
+		for (int y = sampley; y < sampley + sampleh; y++)
 		{
 			int ir = 0, ig = 0, ib = 0;
-			if (( y - sampley ) % 8 == 0 )
+			if ((y - sampley) % 8 == 0)
 			{
-				f[ 1 ] = ( float ) ( y ) / sampleh;
+				f[1] = (float)(y) / sampleh;
 				n = noise->getFbm( f, 3.0f );
 			}
 			int dec = ( int ) ( 3 * ( n + 1.0f ));
