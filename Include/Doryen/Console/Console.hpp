@@ -1151,6 +1151,25 @@ namespace Doryen
 
 		void unregisterCallback() const;
 
+		/**
+		 * @brief Draw custom graphics on top of the root console
+		 *
+		 * You can register a callback that will be called after the Doryen
+		 * rendering phase, but before the screen buffer is swapped.
+		 *
+		 * This callback receives the screen SDL_Surface reference.
+		 *
+		 * This makes it possible to use any SDL drawing functions (including
+		 * OpenGL) on top of the Doryen console.
+		 *
+		 * @note To disable the custom renderer, call the same method with a
+		 * NULL parameter. Note that to keep Doryen from requiring the SDL headers,
+		 * the callback parameter is a void pointer.
+		 *
+		 * You have to include SDL headers and cast it to SDL_Surface in your code.
+		 *
+		 * @param _render
+		 */
 		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
 
 	private:
