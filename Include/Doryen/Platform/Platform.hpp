@@ -86,16 +86,6 @@ namespace Doryen
 		*/
 		static TCOD_list_t getDirectoryContent(const char* path, const char* pattern);
 
-		/**
-		@PageName system_sdlcbk
-		@FuncTitle Managing screen redraw
-		@FuncDesc libtcod is not aware of the part of the screen your SDL renderer has updated. If no change occured in the console, it won't redraw them except if you tell him to do so with this function
-		@Cpp void TCODConsole::setDirty(int x, int y, int w, int h)
-		@C void TCOD_console_set_dirty(int x, int y, int w, int h)
-		@Py TCOD_console_set_dirty(x, y, w, h)
-		@Param x,y,w,h Part of the root console you want to redraw even if nothing has changed in the console back/fore/char.
-		*/
-
 	};
 }
 
