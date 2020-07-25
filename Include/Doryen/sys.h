@@ -46,8 +46,6 @@ void TCOD_sys_save_screenshot(const char* filename);
 
 void TCOD_sys_force_fullscreen_resolution(int width, int height);
 
-TCOD_renderer_t TCOD_sys_get_renderer();
-
 void TCOD_sys_set_fps(int val);
 
 int TCOD_sys_get_fps();
