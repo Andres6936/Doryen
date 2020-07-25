@@ -1995,37 +1995,6 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event* ev, TCOD_event_t eventMask,
 	return (retMask);
 }
 
-TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t* key, TCOD_mouse_t* mouse, bool flush)
-{
-	SDL_Event ev;
-	TCOD_event_t retMask = TCOD_EVENT_KEY_NONE;
-	if (eventMask == 0)
-	{ return TCOD_EVENT_KEY_NONE; }
-	SDL_PumpEvents();
-	if (flush)
-	{
-		while (SDL_PollEvent(&ev))
-		{
-			TCOD_sys_SDLtoTCOD(&ev, 0);
-		}
-	}
-	tcod_mouse.lbutton_pressed = false;
-	tcod_mouse.rbutton_pressed = false;
-	tcod_mouse.mbutton_pressed = false;
-	tcod_mouse.wheel_up = false;
-	tcod_mouse.wheel_down = false;
-	tcod_mouse.dx = 0;
-	tcod_mouse.dy = 0;
-	do
-	{
-		SDL_WaitEvent(&ev);
-		retMask = TCOD_sys_handle_event(&ev, (eventMask), key, &tcod_mouse);
-	} while (ev.type != SDL_QUIT && (retMask & TCOD_EVENT_KEY) == 0);
-	if (mouse)
-	{ *mouse = tcod_mouse; }
-	return retMask;
-}
-
 TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t* key, TCOD_mouse_t* mouse)
 {
 	SDL_Event ev;
