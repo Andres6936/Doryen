@@ -52,16 +52,17 @@ void Functor::FOV::drawTextHelp()
 	sample.print(1, 3, format("+-: algo {}", algo_names[algonum]));
 }
 
+void Functor::FOV::drawPlayer()
+{
+	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
+	sample.putChar(playerX, playerY, '@', BackgroundFlag::SET);
+}
+
 void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 {
 	constexpr float TORCH_RADIUS = 10.0f;
 
 	constexpr float SQUARED_TORCH_RADIUS = (TORCH_RADIUS * TORCH_RADIUS);
-
-	// Player position X.
-	static int playerX = 20;
-	// Player position Y.
-	static int playerY = 10;
 
 	static bool recomputeFov = true; // the player moved. must recompute fov
 
@@ -76,6 +77,7 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 
 	sample.clear();
 
+	drawPlayer();
 	drawTextHelp();
 
 	if (first)
@@ -88,8 +90,6 @@ void Functor::FOV::render(KeyCode key, const Mouse& mouse)
 		// draw the help text & player @
 		sample.clear();
 
-		sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_90);
-		sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 		// draw windows
 		for (int y = 0; y < sample.getHeight(); y++)
 		{

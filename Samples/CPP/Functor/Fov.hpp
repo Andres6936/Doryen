@@ -68,12 +68,17 @@ namespace Functor
 
 		int algonum = 0;
 
+		int playerX = 20;
+		int playerY = 10;
+
 		Map map;
 
 		/**
 		 * 1D noise used for the torch flickering.
 		 */
 		TCODNoise noise{ 1 };
+
+		void drawPlayer();
 
 		void drawTextHelp();
 
