@@ -33,7 +33,6 @@
 #include <vector>
 
 #include "Doryen/Algorithms/Util/Cell.hpp"
-#include "Doryen/fov.h"
 
 namespace Doryen
 {
@@ -79,8 +78,6 @@ namespace Doryen
 		int height;
 
 		std::vector<Cell> cells;
-
-		TCOD_map_t data;
 
 		Map();
 
