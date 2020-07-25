@@ -78,67 +78,58 @@ namespace Doryen
          *
          * @return
          */
-        static float getLastFrameLength( );
+		static float getLastFrameLength();
 
-        /**
-         * @brief Pause the app.
-         *
-         * Use this function to stop the program execution for a specified number of milliseconds.
-         *
-         * @param val number of milliseconds before the function returns.
-         */
-        static void sleepMilli( uint32 val );
+		/**
+		 * @brief Get global timer in milliseconds.
+		 *
+		 * Returns the number of milliseconds since the program has started.
+		 *
+		 * @return number of milliseconds since the program has started.
+		 */
+		static uint32 getElapsedMilli();
 
-        /**
-         * @brief Get global timer in milliseconds.
-         *
-         * Returns the number of milliseconds since the program has started.
-         *
-         * @return number of milliseconds since the program has started.
-         */
-        static uint32 getElapsedMilli( );
+		/**
+		 * Returns the number of seconds since the program has started.
+		 *
+		 * @return number of seconds since the program has started.
+		 */
+		static float getElapsedSeconds();
 
-        /**
-         * Returns the number of seconds since the program has started.
-         *
-         * @return number of seconds since the program has started.
-         */
-        static float getElapsedSeconds( );
-
-        /**
-        @PageName console_blocking_input
-        @FuncTitle Waiting for any event (mouse or keyboard)
-        @FuncDesc There's a more generic function that waits for an event from the user. The eventMask shows what events we're waiting for.
-            The return value indicate what event was actually triggered. Values in key and mouse structures are updated accordingly.
-            If flush is false, the function waits only if there are no pending events, else it returns the first event in the buffer.
-        @Cpp typedef enum {
-            TCOD_EVENT_KEY_PRESS=1,
-            TCOD_EVENT_KEY_RELEASE=2,
-            TCOD_EVENT_KEY=TCOD_EVENT_KEY_PRESS|TCOD_EVENT_KEY_RELEASE,
-            TCOD_EVENT_MOUSE_MOVE=4,
-            TCOD_EVENT_MOUSE_PRESS=8,
-            TCOD_EVENT_MOUSE_RELEASE=16,
-            TCOD_EVENT_MOUSE=TCOD_EVENT_MOUSE_MOVE|TCOD_EVENT_MOUSE_PRESS|TCOD_EVENT_MOUSE_RELEASE,
-            TCOD_EVENT_ANY=TCOD_EVENT_KEY|TCOD_EVENT_MOUSE,
-        } TCOD_event_t;
-        static TCOD_event_t TCODSystem::waitForEvent(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush)
-        @C TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush)
-        @Py sys_wait_for_event(eventMask,key,mouse,flush)
-        @Param eventMask event types to wait for (other types are discarded)
-        @Param key updated in case of a key event. Can be null if eventMask contains no key event type
-        @Param mouse updated in case of a mouse event. Can be null if eventMask contains no mouse event type
-        @Param flush if true, all pending events are flushed from the buffer. Else, return the first available event
-        @CppEx
-            TCOD_key_t key;
-            TCOD_mouse_t mouse;
-            TCOD_event_t ev = TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse,true);
-            if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
-        @CEx
-            TCOD_key_t key;
-            TCOD_mouse_t mouse;
-            TCOD_event_t ev = TCOD_sys_wait_for_event(TCOD_EVENT_ANY,&key,&mouse,true);
-            if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
-        */
+		/**
+		@PageName console_blocking_input
+		@FuncTitle Waiting for any event (mouse or keyboard)
+		@FuncDesc There's a more generic function that waits for an event from the user. The eventMask shows what events we're waiting for.
+			The return value indicate what event was actually triggered. Values in key and mouse structures are updated accordingly.
+			If flush is false, the function waits only if there are no pending events, else it returns the first event in the buffer.
+		@Cpp typedef enum {
+			TCOD_EVENT_KEY_PRESS=1,
+			TCOD_EVENT_KEY_RELEASE=2,
+			TCOD_EVENT_KEY=TCOD_EVENT_KEY_PRESS|TCOD_EVENT_KEY_RELEASE,
+			TCOD_EVENT_MOUSE_MOVE=4,
+			TCOD_EVENT_MOUSE_PRESS=8,
+			TCOD_EVENT_MOUSE_RELEASE=16,
+			TCOD_EVENT_MOUSE=TCOD_EVENT_MOUSE_MOVE|TCOD_EVENT_MOUSE_PRESS|TCOD_EVENT_MOUSE_RELEASE,
+			TCOD_EVENT_ANY=TCOD_EVENT_KEY|TCOD_EVENT_MOUSE,
+		} TCOD_event_t;
+		static TCOD_event_t TCODSystem::waitForEvent(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush)
+		@C TCOD_event_t TCOD_sys_wait_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush)
+		@Py sys_wait_for_event(eventMask,key,mouse,flush)
+		@Param eventMask event types to wait for (other types are discarded)
+		@Param key updated in case of a key event. Can be null if eventMask contains no key event type
+		@Param mouse updated in case of a mouse event. Can be null if eventMask contains no mouse event type
+		@Param flush if true, all pending events are flushed from the buffer. Else, return the first available event
+		@CppEx
+			TCOD_key_t key;
+			TCOD_mouse_t mouse;
+			TCOD_event_t ev = TCODSystem::waitForEvent(TCOD_EVENT_ANY,&key,&mouse,true);
+			if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
+		@CEx
+			TCOD_key_t key;
+			TCOD_mouse_t mouse;
+			TCOD_event_t ev = TCOD_sys_wait_for_event(TCOD_EVENT_ANY,&key,&mouse,true);
+			if ( ev == TCOD_EVENT_KEY_PRESS && key.c == 'i' ) { ... open inventory ... }
+		*/
         static TCOD_event_t waitForEvent( int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse, bool flush );
 
         /**

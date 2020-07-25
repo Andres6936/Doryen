@@ -42,11 +42,6 @@ float Doryen::Platform::getLastFrameLength( )
     return TCOD_sys_get_last_frame_length( );
 }
 
-void Doryen::Platform::sleepMilli( uint32 milliseconds )
-{
-    TCOD_sys_sleep_milli( milliseconds );
-}
-
 void Doryen::Platform::saveScreenshot( const char *filename )
 {
     TCOD_sys_save_screenshot( filename );
