@@ -73,12 +73,39 @@ std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 void DiamondRayCasting::mergeInput(Map& _map, const Geometry::Point2D<>& _origin,
 		DiamondRayCasting::Iterator _ray)
 {
-	std::uint32_t rayIdx = _ray->position.x + _origin.x +
-			(_ray->position.y + _origin.y) * _map.getWidth();
+	if (_ray->xInput not_eq nullptr)
+	{
+		processXInput(_ray, _ray->xInput);
+	}
+
+	if (_ray->yInput not_eq nullptr)
+	{
+		processYInput(_ray, _ray->yInput);
+	}
+
+	if (_ray->xInput == nullptr)
+	{
+		if (isObscure(_ray->yInput)) _ray->ignore = true;
+	}
+	else if (_ray->yInput == nullptr)
+	{
+		if (isObscure(_ray->xInput)) _ray->ignore = true;
+	}
+	else if (isObscure(_ray->xInput) and isObscure(_ray->yInput))
+	{
+		_ray->ignore = true;
+	}
+
+	if (not _ray->ignore and not _map.isTransparent(
+			_ray->position.x + _origin.x, _ray->position.y + _origin.y))
+	{
+		_ray->bresenham.x = _ray->obscurity.x = std::abs(_ray->position.x);
+		_ray->bresenham.y = _ray->obscurity.y = std::abs(_ray->position.y);
+	}
 }
 
 void DiamondRayCasting::processXInput(DiamondRayCasting::Iterator newRay,
-		DiamondRayCasting::Iterator xInput)
+		std::shared_ptr<RayData> xInput)
 {
 	if (xInput->obscurity.equals({0, 0}))
 	{
@@ -101,7 +128,7 @@ void DiamondRayCasting::processXInput(DiamondRayCasting::Iterator newRay,
 }
 
 void DiamondRayCasting::processYInput(DiamondRayCasting::Iterator newRay,
-		DiamondRayCasting::Iterator yInput)
+		std::shared_ptr<RayData> yInput)
 {
 	if (yInput->obscurity.equals({ 0, 0}))
 	{
@@ -121,4 +148,10 @@ void DiamondRayCasting::processYInput(DiamondRayCasting::Iterator newRay,
 		newRay->bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
 		newRay->obscurity = yInput->obscurity;
 	}
+}
+
+bool DiamondRayCasting::isObscure(std::shared_ptr<RayData> ray)
+{
+	return ((ray->bresenham.x > 0 and ray->bresenham.x <= ray->obscurity.x) or
+			(ray->bresenham.y > 0 and ray->bresenham.y <= ray->obscurity.y));
 }
