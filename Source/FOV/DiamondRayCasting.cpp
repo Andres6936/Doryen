@@ -36,7 +36,7 @@ void DiamondRayCasting::operator()(
 
 		if (distance <= r2)
 		{
-			mergeInput(map, { originX, originY }, ray);
+			mergeInput(map, ray);
 
 			if (not ray->ignore)
 			{
@@ -170,8 +170,7 @@ std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 	return it;
 }
 
-void DiamondRayCasting::mergeInput(Map& _map, const Geometry::Point2D<>& _origin,
-		DiamondRayCasting::Iterator _ray)
+void DiamondRayCasting::mergeInput(Map& _map, DiamondRayCasting::Iterator _ray)
 {
 	if (_ray->xInput not_eq nullptr)
 	{
@@ -197,7 +196,7 @@ void DiamondRayCasting::mergeInput(Map& _map, const Geometry::Point2D<>& _origin
 	}
 
 	if (not _ray->ignore and not _map.isTransparent(
-			_ray->position.x + _origin.x, _ray->position.y + _origin.y))
+			_ray->position.x + origin.x, _ray->position.y + origin.y))
 	{
 		_ray->bresenham.x = _ray->obscurity.x = std::abs(_ray->position.x);
 		_ray->bresenham.y = _ray->obscurity.y = std::abs(_ray->position.y);
