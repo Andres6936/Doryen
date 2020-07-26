@@ -69,3 +69,33 @@ std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 
 	return it;
 }
+
+void DiamondRayCasting::mergeInput(Map& _map, const Geometry::Point2D<>& _origin,
+		DiamondRayCasting::Iterator _ray)
+{
+	std::uint32_t rayIdx = _ray->position.x + _origin.x +
+			(_ray->position.y + _origin.y) * _map.getWidth();
+}
+
+void DiamondRayCasting::processXInput(DiamondRayCasting::Iterator newRay,
+		DiamondRayCasting::Iterator xInput)
+{
+	if (xInput->obscurity.equals({0, 0}))
+	{
+		return;
+	}
+
+	if (xInput->bresenham.x > 0 and newRay->obscurity.x == 0)
+	{
+		newRay->bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
+		newRay->bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
+		newRay->obscurity = xInput->obscurity;
+	}
+
+	if (xInput->bresenham.y <= 0 and newRay->obscurity.y > 0 and newRay->bresenham.x > 0)
+	{
+		newRay->bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
+		newRay->bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
+		newRay->obscurity = xInput->obscurity;
+	}
+}

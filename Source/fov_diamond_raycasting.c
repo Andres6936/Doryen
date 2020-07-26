@@ -83,10 +83,10 @@ static void process_x_input(ray_data_t *new_ray, ray_data_t *xinput) {
 		new_ray->yob=xinput->yob;
 	}
 	if ( xinput->yerr <= 0 && xinput->yob > 0 && xinput->xerr > 0) {
-		new_ray->yerr = xinput->yerr + xinput->yob;
 		new_ray->xerr = xinput->xerr - xinput->yob;
-		new_ray->xob=xinput->xob;
-		new_ray->yob=xinput->yob;
+		new_ray->yerr = xinput->yerr + xinput->yob;
+		new_ray->xob = xinput->xob;
+		new_ray->yob = xinput->yob;
 	}
 }
 

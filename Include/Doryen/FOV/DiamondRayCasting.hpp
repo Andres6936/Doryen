@@ -1,6 +1,7 @@
 #ifndef LIBTCOD_DIAMONDRAYCASTING_HPP
 #define LIBTCOD_DIAMONDRAYCASTING_HPP
 
+#include <memory>
 #include <cstdint>
 #include <optional>
 
@@ -35,6 +36,16 @@ namespace Doryen
 			Geometry::Point2D<> bresenham{};
 
 			/**
+			 * Offset of input rays.
+			 */
+			std::unique_ptr<RayData> xInput{ nullptr };
+
+			/**
+			 * Offset of input rays.
+			 */
+			std::unique_ptr<RayData> yInput{ nullptr };
+
+			/**
 			 * Already in the field of view.
 			 */
 			bool added = false;
@@ -59,6 +70,10 @@ namespace Doryen
 
 		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
 				const Geometry::Point2D<>& _origin);
+
+		void processXInput(Iterator newRay, Iterator xInput);
+
+		void mergeInput(Map& _map, const Geometry::Point2D<>& _origin, Iterator _ray);
 
 		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
 
