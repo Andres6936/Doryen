@@ -15,7 +15,7 @@ void DiamondRayCasting::operator()(
 
 	std::vector<RayData> perim;
 
-	perim.resize(map.getWidth() * map.getHeight());
+	perim.reserve(map.getWidth() * map.getHeight());
 	raymap.resize(map.getWidth() * map.getHeight());
 	raymap2.resize(map.getWidth() * map.getHeight());
 
@@ -91,7 +91,8 @@ void DiamondRayCasting::expandPerimeterFrom(
 		Geometry::Point2D<> position = ray.value().position;
 		position.x += 1;
 
-		processRay(map, perim, newRay(map, position), ray.value());
+		processRay(map, perim, newRay(map, position),
+				std::make_shared<RayData>(ray.value()));
 	}
 
 	if (ray.value().position.x <= 0)
@@ -99,7 +100,8 @@ void DiamondRayCasting::expandPerimeterFrom(
 		Geometry::Point2D<> position = ray.value().position;
 		position.x -= 1;
 
-		processRay(map, perim, newRay(map, position), ray.value());
+		processRay(map, perim, newRay(map, position),
+				std::make_shared<RayData>(ray.value()));
 	}
 
 	if (ray.value().position.y >= 0)
@@ -107,7 +109,8 @@ void DiamondRayCasting::expandPerimeterFrom(
 		Geometry::Point2D<> position = ray.value().position;
 		position.y += 1;
 
-		processRay(map, perim, newRay(map, position), ray.value());
+		processRay(map, perim, newRay(map, position),
+				std::make_shared<RayData>(ray.value()));
 	}
 
 	if (ray.value().position.y <= 0)
@@ -115,12 +118,14 @@ void DiamondRayCasting::expandPerimeterFrom(
 		Geometry::Point2D<> position = ray.value().position;
 		position.y -= 1;
 
-		processRay(map, perim, newRay(map, position), ray.value());
+		processRay(map, perim, newRay(map, position),
+				std::make_shared<RayData>(ray.value()));
 	}
 }
 
 void DiamondRayCasting::processRay(Map& _map, std::vector<RayData>& perim,
-		std::optional<DiamondRayCasting::RayData> newRay, DiamondRayCasting::RayData& inputRay)
+		std::optional<DiamondRayCasting::RayData> newRay,
+		std::shared_ptr<DiamondRayCasting::RayData> inputRay)
 {
 	if (newRay.has_value())
 	{
@@ -130,13 +135,13 @@ void DiamondRayCasting::processRay(Map& _map, std::vector<RayData>& perim,
 		const std::uint32_t mapY = origin.y + ray.position.y;
 		const std::uint32_t newRayIdx = mapX + mapY * _map.getWidth();
 
-		if (ray.position.y == inputRay.position.y)
+		if (ray.position.y == inputRay->position.y)
 		{
-			ray.xInput.reset(&inputRay);
+			ray.xInput = (inputRay);
 		}
 		else
 		{
-			ray.yInput.reset(&inputRay);
+			ray.yInput = (inputRay);
 		}
 
 		if (not ray.added)

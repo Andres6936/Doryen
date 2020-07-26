@@ -54,6 +54,17 @@ namespace Doryen
 			 * Not visible. Don't bother processing it.
 			 */
 			bool ignore = false;
+
+			// Construct
+
+			RayData() = default;
+
+			/**
+			 * Construct copy for default.
+			 *
+			 * @param _rhs Object to copy.
+			 */
+			RayData(const RayData& _rhs) = default;
 		};
 
 		using Iterator = std::vector<RayData>::iterator;
@@ -86,7 +97,7 @@ namespace Doryen
 		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<RayData> ray);
 
 		void processRay(Map& _map, std::vector<RayData>& perim, std::optional<RayData> newRay,
-				RayData& inputRay);
+				std::shared_ptr<RayData> inputRay);
 
 	public:
 
