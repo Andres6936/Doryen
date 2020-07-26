@@ -2,6 +2,7 @@
 #define LIBTCOD_DIAMONDRAYCASTING_HPP
 
 #include <cstdint>
+#include <optional>
 
 #include <Doryen/FOV/Fov.hpp>
 #include <Doryen/Geometry/Point2D.hpp>
@@ -56,10 +57,10 @@ namespace Doryen
 		 */
 		std::vector<std::vector<RayData>> raymap;
 
-		Iterator newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
+		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
 				const Geometry::Point2D<>& _origin);
 
-		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, Iterator ray);
+		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
 
 	public:
 

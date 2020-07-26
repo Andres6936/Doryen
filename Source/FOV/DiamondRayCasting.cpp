@@ -30,17 +30,25 @@ void DiamondRayCasting::operator()(
 }
 
 void DiamondRayCasting::expandPerimeterFrom(
-		Map& map, std::vector<RayData>& perim, Iterator ray)
+		Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray)
 {
 
 }
 
-DiamondRayCasting::Iterator DiamondRayCasting::newRay(
+std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 		Map& _map, const Geometry::Point2D<>& _coordinate,
 		const Geometry::Point2D<>& _origin)
 {
+	if (_coordinate.x + _origin.x >= _map.getWidth() or
+		_coordinate.y + _origin.y >= _map.getHeight())
+	{
+		return std::nullopt;
+	}
+
+	// Else
+
 	Iterator it = raymap2.begin() + (_coordinate.x + _origin.x +
-			(_coordinate.y + _origin.y) * _map.getWidth());
+									 (_coordinate.y + _origin.y) * _map.getWidth());
 
 	(*it).position = _coordinate;
 
