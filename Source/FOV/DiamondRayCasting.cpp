@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Doryen/FOV/DiamondRayCasting.hpp"
 
 using namespace Doryen;
@@ -25,7 +27,20 @@ void DiamondRayCasting::operator()(
 
 	while (perimidx < perim.size())
 	{
+		Iterator ray = perim.begin() + perimidx;
 
+		int distance = r2 > 0 ? std::pow(ray->position.x, 2) + std::pow(ray->position.y, 2) : 0;
+
+		perimidx += 1;
+
+		if (distance <= r2)
+		{
+
+		}
+		else
+		{
+			ray->ignore = true;
+		}
 	}
 }
 
