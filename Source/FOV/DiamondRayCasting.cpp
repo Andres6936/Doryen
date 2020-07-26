@@ -1,6 +1,8 @@
 #include "Doryen/FOV/DiamondRayCasting.hpp"
 
-void Doryen::DiamondRayCasting::operator()(
+using namespace Doryen;
+
+void DiamondRayCasting::operator()(
 		Doryen::Map& map, int playerX, int playerY,
 		int maxRadius, bool ligthWalls)
 {
@@ -10,5 +12,37 @@ void Doryen::DiamondRayCasting::operator()(
 	const std::int32_t originX = playerX;
 	const std::int32_t originY = playerY;
 
+	std::vector<RayData> perim;
 
+	perim.resize(map.getWidth() * map.getHeight());
+	raymap.resize(map.getWidth() * map.getHeight());
+	raymap2.resize(map.getWidth() * map.getHeight());
+
+	expandPerimeterFrom(map, perim, newRay(map,
+			{0, 0}, {originX, originY}));
+
+	std::uint32_t perimidx = 0;
+
+	while (perimidx < perim.size())
+	{
+
+	}
+}
+
+void DiamondRayCasting::expandPerimeterFrom(
+		Map& map, std::vector<RayData>& perim, Iterator ray)
+{
+
+}
+
+DiamondRayCasting::Iterator DiamondRayCasting::newRay(
+		Map& _map, const Geometry::Point2D<>& _coordinate,
+		const Geometry::Point2D<>& _origin)
+{
+	Iterator it = raymap2.begin() + (_coordinate.x + _origin.x +
+			(_coordinate.y + _origin.y) * _map.getWidth());
+
+	(*it).position = _coordinate;
+
+	return it;
 }

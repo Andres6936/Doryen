@@ -15,6 +15,9 @@ namespace Doryen
 
 		class RayData
 		{
+
+		public:
+
 			/**
 			 * Position in coordinate x and y.
 			 */
@@ -41,9 +44,26 @@ namespace Doryen
 			bool ignore = false;
 		};
 
+		using Iterator = std::vector<RayData>::iterator;
+
+		/**
+		 * Temporary rays
+		 */
+		std::vector<RayData> raymap2;
+
+		/**
+		 * Result rays
+		 */
+		std::vector<std::vector<RayData>> raymap;
+
+		Iterator newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
+				const Geometry::Point2D<>& _origin);
+
+		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, Iterator ray);
+
 	public:
 
-		void operator()(Doryen::Map& map, int playerX, int playerY,
+		void operator()(Map& map, int playerX, int playerY,
 				int maxRadius, bool ligthWalls);
 	};
 }
