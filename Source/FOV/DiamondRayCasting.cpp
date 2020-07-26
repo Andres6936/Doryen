@@ -14,6 +14,8 @@ void DiamondRayCasting::operator()(
 	const std::int32_t originX = playerX;
 	const std::int32_t originY = playerY;
 
+	origin = { originX, originY };
+
 	std::vector<RayData> perim;
 
 	perim.resize(map.getWidth() * map.getHeight());
@@ -21,7 +23,7 @@ void DiamondRayCasting::operator()(
 	raymap2.resize(map.getWidth() * map.getHeight());
 
 	expandPerimeterFrom(map, perim, newRay(map,
-			{0, 0}, {originX, originY}), {originX, originY});
+			{ 0, 0 }, { originX, originY }), { originX, originY });
 
 	std::uint32_t perimidx = 0;
 
@@ -94,7 +96,30 @@ void DiamondRayCasting::expandPerimeterFrom(
 void DiamondRayCasting::processRay(Map& _map, std::vector<RayData>& perim,
 		std::optional<DiamondRayCasting::Iterator> newRay, DiamondRayCasting::Iterator inputRay)
 {
+	if (newRay.has_value())
+	{
+		Iterator ray = newRay.value();
 
+		const std::uint32_t mapX = origin.x + ray->position.x;
+		const std::uint32_t mapY = origin.y + ray->position.y;
+		const std::uint32_t newRayIdx = mapX + mapY * _map.getWidth();
+
+		if (ray->position.y == inputRay->position.y)
+		{
+			ray->xInput.reset(&(*inputRay));
+		}
+		else
+		{
+			ray->yInput.reset(&(*inputRay));
+		}
+
+		if (not ray->added)
+		{
+			ray->added = true;
+			perim.push_back(*ray);
+			raymap.at(newRayIdx) = ray;
+		}
+	}
 }
 
 std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
