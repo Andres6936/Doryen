@@ -99,3 +99,26 @@ void DiamondRayCasting::processXInput(DiamondRayCasting::Iterator newRay,
 		newRay->obscurity = xInput->obscurity;
 	}
 }
+
+void DiamondRayCasting::processYInput(DiamondRayCasting::Iterator newRay,
+		DiamondRayCasting::Iterator yInput)
+{
+	if (yInput->obscurity.equals({ 0, 0}))
+	{
+		return;
+	}
+
+	if (yInput->bresenham.y > 0 and newRay->obscurity.y == 0)
+	{
+		newRay->bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
+		newRay->bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
+		newRay->obscurity = yInput->obscurity;
+	}
+
+	if (yInput->bresenham.x <= 0 and yInput->obscurity.x > 0 and yInput->bresenham.y > 0)
+	{
+		newRay->bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
+		newRay->bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
+		newRay->obscurity = yInput->obscurity;
+	}
+}

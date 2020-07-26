@@ -73,6 +73,8 @@ namespace Doryen
 
 		void processXInput(Iterator newRay, Iterator xInput);
 
+		void processYInput(Iterator newRay, Iterator yInput);
+
 		void mergeInput(Map& _map, const Geometry::Point2D<>& _origin, Iterator _ray);
 
 		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
