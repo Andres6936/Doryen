@@ -57,9 +57,9 @@ void DiamondRayCasting::operator()(
 		{
 			c->fov = false;
 		}
-		else if ((*r)->ignore or
-				 ((*r)->bresenham.x > 0 and (*r)->bresenham.x <= (*r)->obscurity.x) or
-				 ((*r)->bresenham.y > 0 and (*r)->bresenham.y <= (*r)->obscurity.y))
+		else if ((*r).ignore or
+				 ((*r).bresenham.x > 0 and (*r).bresenham.x <= (*r).obscurity.x) or
+				 ((*r).bresenham.y > 0 and (*r).bresenham.y <= (*r).obscurity.y))
 		{
 			c->fov = false;
 		}
@@ -79,40 +79,40 @@ void DiamondRayCasting::operator()(
 }
 
 void DiamondRayCasting::expandPerimeterFrom(
-		Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray)
+		Map& map, std::vector<RayData>& perim, std::optional<RayData> ray)
 {
 	if (not ray.has_value())
 	{
 		std::runtime_error("Pass of arguments with a parameter null.");
 	}
 
-	if (ray.value()->position.x >= 0)
+	if (ray.value().position.x >= 0)
 	{
-		Geometry::Point2D<> position = ray.value()->position;
+		Geometry::Point2D<> position = ray.value().position;
 		position.x += 1;
 
 		processRay(map, perim, newRay(map, position), ray.value());
 	}
 
-	if (ray.value()->position.x <= 0)
+	if (ray.value().position.x <= 0)
 	{
-		Geometry::Point2D<> position = ray.value()->position;
+		Geometry::Point2D<> position = ray.value().position;
 		position.x -= 1;
 
 		processRay(map, perim, newRay(map, position), ray.value());
 	}
 
-	if (ray.value()->position.y >= 0)
+	if (ray.value().position.y >= 0)
 	{
-		Geometry::Point2D<> position = ray.value()->position;
+		Geometry::Point2D<> position = ray.value().position;
 		position.y += 1;
 
 		processRay(map, perim, newRay(map, position), ray.value());
 	}
 
-	if (ray.value()->position.y <= 0)
+	if (ray.value().position.y <= 0)
 	{
-		Geometry::Point2D<> position = ray.value()->position;
+		Geometry::Point2D<> position = ray.value().position;
 		position.y -= 1;
 
 		processRay(map, perim, newRay(map, position), ray.value());
@@ -120,35 +120,35 @@ void DiamondRayCasting::expandPerimeterFrom(
 }
 
 void DiamondRayCasting::processRay(Map& _map, std::vector<RayData>& perim,
-		std::optional<DiamondRayCasting::Iterator> newRay, DiamondRayCasting::Iterator inputRay)
+		std::optional<DiamondRayCasting::RayData> newRay, DiamondRayCasting::RayData& inputRay)
 {
 	if (newRay.has_value())
 	{
-		Iterator ray = newRay.value();
+		RayData ray = newRay.value();
 
-		const std::uint32_t mapX = origin.x + ray->position.x;
-		const std::uint32_t mapY = origin.y + ray->position.y;
+		const std::uint32_t mapX = origin.x + ray.position.x;
+		const std::uint32_t mapY = origin.y + ray.position.y;
 		const std::uint32_t newRayIdx = mapX + mapY * _map.getWidth();
 
-		if (ray->position.y == inputRay->position.y)
+		if (ray.position.y == inputRay.position.y)
 		{
-			ray->xInput.reset(&(*inputRay));
+			ray.xInput.reset(&inputRay);
 		}
 		else
 		{
-			ray->yInput.reset(&(*inputRay));
+			ray.yInput.reset(&inputRay);
 		}
 
-		if (not ray->added)
+		if (not ray.added)
 		{
-			ray->added = true;
-			perim.push_back(*ray);
+			ray.added = true;
+			perim.push_back(ray);
 			raymap.at(newRayIdx) = ray;
 		}
 	}
 }
 
-std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
+std::optional<DiamondRayCasting::RayData> DiamondRayCasting::newRay(
 		Map& _map, const Geometry::Point2D<>& _coordinate)
 {
 	if (_coordinate.x + origin.x >= _map.getWidth() or
@@ -159,10 +159,10 @@ std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 
 	// Else
 
-	Iterator it = raymap2.begin() + (_coordinate.x + origin.x +
-									 (_coordinate.y + origin.y) * _map.getWidth());
+	RayData it = raymap2.at(_coordinate.x + origin.x +
+							(_coordinate.y + origin.y) * _map.getWidth());
 
-	(*it).position = _coordinate;
+	it.position = _coordinate;
 
 	return it;
 }

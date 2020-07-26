@@ -66,14 +66,14 @@ namespace Doryen
 		/**
 		 * Result rays
 		 */
-		std::vector<Iterator> raymap;
+		std::vector<RayData> raymap;
 
 		/**
 		 * Field of view origin.
 		 */
 		Geometry::Point2D<> origin;
 
-		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate);
+		std::optional<RayData> newRay(Map& _map, const Geometry::Point2D<>& _coordinate);
 
 		void mergeInput(Map& _map, RayData& _ray);
 
@@ -83,10 +83,10 @@ namespace Doryen
 
 		void processYInput(RayData& newRay, std::shared_ptr<RayData> yInput);
 
-		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
+		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<RayData> ray);
 
-		void processRay(Map& _map, std::vector<RayData>& perim, std::optional<Iterator> newRay,
-				Iterator inputRay);
+		void processRay(Map& _map, std::vector<RayData>& perim, std::optional<RayData> newRay,
+				RayData& inputRay);
 
 	public:
 
