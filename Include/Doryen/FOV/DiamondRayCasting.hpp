@@ -75,13 +75,13 @@ namespace Doryen
 
 		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate);
 
-		void mergeInput(Map& _map, Iterator _ray);
+		void mergeInput(Map& _map, RayData& _ray);
 
 		bool isObscure(std::shared_ptr<RayData> _ray);
 
-		void processXInput(Iterator newRay, std::shared_ptr<RayData> xInput);
+		void processXInput(RayData& newRay, std::shared_ptr<RayData> xInput);
 
-		void processYInput(Iterator newRay, std::shared_ptr<RayData> yInput);
+		void processYInput(RayData& newRay, std::shared_ptr<RayData> yInput);
 
 		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
 

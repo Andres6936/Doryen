@@ -25,9 +25,9 @@ void DiamondRayCasting::operator()(
 
 	while (perimidx < perim.size())
 	{
-		Iterator ray = perim.begin() + perimidx;
+		RayData ray = perim.at(perimidx);
 
-		int distance = r2 > 0 ? std::pow(ray->position.x, 2) + std::pow(ray->position.y, 2) : 0;
+		int distance = r2 > 0 ? std::pow(ray.position.x, 2) + std::pow(ray.position.y, 2) : 0;
 
 		perimidx += 1;
 
@@ -35,14 +35,14 @@ void DiamondRayCasting::operator()(
 		{
 			mergeInput(map, ray);
 
-			if (not ray->ignore)
+			if (not ray.ignore)
 			{
 				expandPerimeterFrom(map, perim, ray);
 			}
 		}
 		else
 		{
-			ray->ignore = true;
+			ray.ignore = true;
 		}
 	}
 
@@ -167,82 +167,82 @@ std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
 	return it;
 }
 
-void DiamondRayCasting::mergeInput(Map& _map, DiamondRayCasting::Iterator _ray)
+void DiamondRayCasting::mergeInput(Map& _map, DiamondRayCasting::RayData& _ray)
 {
-	if (_ray->xInput not_eq nullptr)
+	if (_ray.xInput not_eq nullptr)
 	{
-		processXInput(_ray, _ray->xInput);
+		processXInput(_ray, _ray.xInput);
 	}
 
-	if (_ray->yInput not_eq nullptr)
+	if (_ray.yInput not_eq nullptr)
 	{
-		processYInput(_ray, _ray->yInput);
+		processYInput(_ray, _ray.yInput);
 	}
 
-	if (_ray->xInput == nullptr)
+	if (_ray.xInput == nullptr)
 	{
-		if (isObscure(_ray->yInput)) _ray->ignore = true;
+		if (isObscure(_ray.yInput)) _ray.ignore = true;
 	}
-	else if (_ray->yInput == nullptr)
+	else if (_ray.yInput == nullptr)
 	{
-		if (isObscure(_ray->xInput)) _ray->ignore = true;
+		if (isObscure(_ray.xInput)) _ray.ignore = true;
 	}
-	else if (isObscure(_ray->xInput) and isObscure(_ray->yInput))
+	else if (isObscure(_ray.xInput) and isObscure(_ray.yInput))
 	{
-		_ray->ignore = true;
+		_ray.ignore = true;
 	}
 
-	if (not _ray->ignore and not _map.isTransparent(
-			_ray->position.x + origin.x, _ray->position.y + origin.y))
+	if (not _ray.ignore and not _map.isTransparent(
+			_ray.position.x + origin.x, _ray.position.y + origin.y))
 	{
-		_ray->bresenham.x = _ray->obscurity.x = std::abs(_ray->position.x);
-		_ray->bresenham.y = _ray->obscurity.y = std::abs(_ray->position.y);
+		_ray.bresenham.x = _ray.obscurity.x = std::abs(_ray.position.x);
+		_ray.bresenham.y = _ray.obscurity.y = std::abs(_ray.position.y);
 	}
 }
 
-void DiamondRayCasting::processXInput(DiamondRayCasting::Iterator newRay,
+void DiamondRayCasting::processXInput(DiamondRayCasting::RayData& newRay,
 		std::shared_ptr<RayData> xInput)
 {
-	if (xInput->obscurity.equals({0, 0}))
+	if (xInput->obscurity.equals({ 0, 0 }))
 	{
 		return;
 	}
 
-	if (xInput->bresenham.x > 0 and newRay->obscurity.x == 0)
+	if (xInput->bresenham.x > 0 and newRay.obscurity.x == 0)
 	{
-		newRay->bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
-		newRay->bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
-		newRay->obscurity = xInput->obscurity;
+		newRay.bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
+		newRay.bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
+		newRay.obscurity = xInput->obscurity;
 	}
 
-	if (xInput->bresenham.y <= 0 and newRay->obscurity.y > 0 and newRay->bresenham.x > 0)
+	if (xInput->bresenham.y <= 0 and newRay.obscurity.y > 0 and newRay.bresenham.x > 0)
 	{
-		newRay->bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
-		newRay->bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
-		newRay->obscurity = xInput->obscurity;
+		newRay.bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
+		newRay.bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
+		newRay.obscurity = xInput->obscurity;
 	}
 }
 
-void DiamondRayCasting::processYInput(DiamondRayCasting::Iterator newRay,
+void DiamondRayCasting::processYInput(DiamondRayCasting::RayData& newRay,
 		std::shared_ptr<RayData> yInput)
 {
-	if (yInput->obscurity.equals({ 0, 0}))
+	if (yInput->obscurity.equals({ 0, 0 }))
 	{
 		return;
 	}
 
-	if (yInput->bresenham.y > 0 and newRay->obscurity.y == 0)
+	if (yInput->bresenham.y > 0 and newRay.obscurity.y == 0)
 	{
-		newRay->bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
-		newRay->bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
-		newRay->obscurity = yInput->obscurity;
+		newRay.bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
+		newRay.bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
+		newRay.obscurity = yInput->obscurity;
 	}
 
 	if (yInput->bresenham.x <= 0 and yInput->obscurity.x > 0 and yInput->bresenham.y > 0)
 	{
-		newRay->bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
-		newRay->bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
-		newRay->obscurity = yInput->obscurity;
+		newRay.bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
+		newRay.bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
+		newRay.obscurity = yInput->obscurity;
 	}
 }
 
