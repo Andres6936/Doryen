@@ -73,8 +73,7 @@ namespace Doryen
 		 */
 		Geometry::Point2D<> origin;
 
-		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
-				const Geometry::Point2D<>& _origin);
+		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate);
 
 		bool isObscure(std::shared_ptr<RayData> _ray);
 
@@ -87,8 +86,7 @@ namespace Doryen
 		void processRay(Map& _map, std::vector<RayData>& perim, std::optional<Iterator> newRay,
 				Iterator inputRay);
 
-		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray,
-				const Geometry::Point2D<>& _origin);
+		void expandPerimeterFrom(Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray);
 
 	public:
 
