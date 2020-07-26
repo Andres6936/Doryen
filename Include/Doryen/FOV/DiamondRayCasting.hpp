@@ -71,7 +71,7 @@ namespace Doryen
 		/**
 		 * Field of view origin.
 		 */
-		Geometry::Point2D<>& origin;
+		Geometry::Point2D<> origin;
 
 		std::optional<Iterator> newRay(Map& _map, const Geometry::Point2D<>& _coordinate,
 				const Geometry::Point2D<>& _origin);

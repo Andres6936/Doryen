@@ -41,7 +41,7 @@ void DiamondRayCasting::operator()(
 
 			if (not ray->ignore)
 			{
-				expandPerimeterFrom(map, perim, ray, {originX, originY});
+				expandPerimeterFrom(map, perim, ray, { originX, originY });
 			}
 		}
 		else
@@ -49,6 +49,37 @@ void DiamondRayCasting::operator()(
 			ray->ignore = true;
 		}
 	}
+
+	std::uint32_t nbCells = map.getWidth() * map.getHeight();
+
+	auto c = map.getIteratorBegin();
+	auto r = raymap.begin();
+
+	while (nbCells not_eq 0)
+	{
+		if (r == raymap.end())
+		{
+			c->fov = false;
+		}
+		else if ((*r)->ignore or
+				 ((*r)->bresenham.x > 0 and (*r)->bresenham.x <= (*r)->obscurity.x) or
+				 ((*r)->bresenham.y > 0 and (*r)->bresenham.y <= (*r)->obscurity.y))
+		{
+			c->fov = false;
+		}
+		else
+		{
+			c->fov = true;
+		}
+
+		// Advance to next element.
+		std::advance(r, 1);
+		std::advance(c, 1);
+
+		nbCells -= 1;
+	}
+
+	map.setProperties(originX, originY, true, true);
 }
 
 void DiamondRayCasting::expandPerimeterFrom(

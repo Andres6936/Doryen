@@ -209,12 +209,22 @@ bool Doryen::Map::isWalkable( int x, int y ) const
     return false;
 }
 
-int Doryen::Map::getWidth( ) const
+int Doryen::Map::getWidth() const
 {
-    return width;
+	return width;
 }
 
-int Doryen::Map::getHeight( ) const
+int Doryen::Map::getHeight() const
 {
-    return height;
+	return height;
+}
+
+std::vector<Doryen::Cell>::iterator Doryen::Map::getIteratorBegin()
+{
+	return cells.begin();
+}
+
+std::vector<Doryen::Cell>::iterator Doryen::Map::getIteratorEnd()
+{
+	return cells.end();
 }

@@ -197,16 +197,20 @@ namespace Doryen
          */
         bool isWalkable( int x, int y ) const;
 
-        /**
-         * @return The width of the map.
-         */
-        int getWidth( ) const;
+		/**
+		 * @return The width of the map.
+		 */
+		int getWidth() const;
 
-        /**
-         * @return The height of the map.
-         */
-        int getHeight( ) const;
-    };
+		/**
+		 * @return The height of the map.
+		 */
+		int getHeight() const;
+
+		std::vector<Cell>::iterator getIteratorBegin();
+
+		std::vector<Cell>::iterator getIteratorEnd();
+	};
 
 }
 
