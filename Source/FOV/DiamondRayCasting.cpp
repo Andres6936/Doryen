@@ -35,7 +35,12 @@ void DiamondRayCasting::operator()(
 
 		if (distance <= r2)
 		{
+			mergeInput(map, { originX, originY }, ray);
 
+			if (not ray->ignore)
+			{
+				expandPerimeterFrom(map, perim, ray);
+			}
 		}
 		else
 		{
