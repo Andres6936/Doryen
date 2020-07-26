@@ -11,10 +11,7 @@ void DiamondRayCasting::operator()(
 	const std::int32_t r2 = maxRadius * maxRadius;
 
 	// Field of view origin
-	const std::int32_t originX = playerX;
-	const std::int32_t originY = playerY;
-
-	origin = { originX, originY };
+	origin = { playerX, playerY };
 
 	std::vector<RayData> perim;
 
@@ -78,7 +75,7 @@ void DiamondRayCasting::operator()(
 		nbCells -= 1;
 	}
 
-	map.setProperties(originX, originY, true, true);
+	map.setProperties(origin.x, origin.y, true, true);
 }
 
 void DiamondRayCasting::expandPerimeterFrom(
