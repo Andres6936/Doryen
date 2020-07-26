@@ -38,6 +38,9 @@
 namespace Doryen
 {
 
+	// Definition for allow consistence with names
+	using VectorCell = std::vector<Cell>;
+
 	/**
 	 * This toolkit allows to easily calculate the potential visible set of map
 	 * cells from the player position.
@@ -70,15 +73,13 @@ namespace Doryen
 	 *
 	 * Check http://roguecentral.org/libtcod/fov/fov.pdf this.
 	 */
-	class Map
+	class Map : public VectorCell
 	{
 
 	public :
 
 		int width;
 		int height;
-
-		std::vector<Cell> cells;
 
 		Map();
 
@@ -206,10 +207,6 @@ namespace Doryen
 		 * @return The height of the map.
 		 */
 		int getHeight() const;
-
-		std::vector<Cell>::iterator getIteratorBegin();
-
-		std::vector<Cell>::iterator getIteratorEnd();
 	};
 
 }

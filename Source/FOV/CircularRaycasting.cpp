@@ -23,7 +23,7 @@ void Doryen::CircularRaycasting::operator()(Doryen::Map& map, int playerX,
 		yMax = std::min(map.height, playerY + maxRadius + 1);
 	}
 
-	for (Cell& cell : map.cells)
+	for (Cell& cell : map)
 	{
 		cell.fov = false;
 	}
@@ -75,53 +75,53 @@ void Doryen::CircularRaycasting::castRay( Doryen::Map &map, int xo, int yo,
     int curX = xo;
     int curY = yo;
 
-    bool in = false;
-    bool blocked = false;
-    bool end = false;
+	bool in = false;
+	bool blocked = false;
+	bool end = false;
 
 	Algorithms::Line line = Algorithms::Line();
-    line.init( xo, yo, xd, yd );
+	line.init(xo, yo, xd, yd);
 
-    int offset = curX + map.width * curY;
+	int offset = curX + map.width * curY;
 
-	if (offset >= 0 && offset < map.cells.size())
+	if (offset >= 0 && offset < map.size())
 	{
 		in = true;
-		map.cells[offset].fov = true;
+		map[offset].fov = true;
 	}
 
-    while ( !end )
-    {
-        end = line.step( &curX, &curY );
+	while (!end)
+	{
+		end = line.step(&curX, &curY);
 
-        offset = curX + map.width * curY;
+		offset = curX + map.width * curY;
 
-        if ( radiusDouble > 0 )
-        {
-            int currentRadius = ( curX - xo ) * ( curX - xo ) + ( curY - yo ) * ( curY - yo );
+		if (radiusDouble > 0)
+		{
+			int currentRadius = (curX - xo) * (curX - xo) + (curY - yo) * (curY - yo);
 
-            if ( currentRadius > radiusDouble )
-            {
-                return;
-            }
-        }
+			if (currentRadius > radiusDouble)
+			{
+				return;
+			}
+		}
 
-		if (offset >= 0 && offset < map.cells.size())
+		if (offset >= 0 && offset < map.size())
 		{
 			in = true;
 
-			if (!blocked && !map.cells[offset].transparent)
+			if (!blocked && !map[offset].transparent)
 			{
 				blocked = true;
 			}
 			else if (blocked)
 			{
 				return;
-            }
+			}
 
-            if ( ligthWalls || !blocked )
-            {
-                map.cells[ offset ].fov = true;
+			if (ligthWalls || !blocked)
+			{
+				map[offset].fov = true;
             }
         }
         else if ( in )
@@ -137,44 +137,44 @@ void Doryen::CircularRaycasting::postProcessing( Doryen::Map &map, int x0,
     for ( int cx = x0; cx <= x1; cx++ )
     {
         for ( int cy = y0; cy <= y1; cy++ )
-        {
-            int x2 = cx + dx;
-            int y2 = cy + dy;
+		{
+			int x2 = cx + dx;
+			int y2 = cy + dy;
 
-            unsigned int offset = cx + map.width * cy;
+			unsigned int offset = cx + map.width * cy;
 
-			if (offset < map.cells.size() && map.cells[offset].fov == 1
-				&& map.cells[offset].transparent)
+			if (offset < map.size() && map[offset].fov == 1
+				&& map[offset].transparent)
 			{
 				if (x2 >= x0 && x2 <= x1)
 				{
 					unsigned int offset2 = x2 + map.width * cy;
 
-					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					if (offset2 < map.size() && !map[offset2].transparent)
 					{
-						map.cells[offset2].fov = true;
+						map[offset2].fov = true;
 					}
-                }
+				}
 
                 if ( y2 >= y0 && y2 <= y1 )
-                {
-                    unsigned int offset2 = cx + map.width * y2;
+				{
+					unsigned int offset2 = cx + map.width * y2;
 
-					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					if (offset2 < map.size() && !map[offset2].transparent)
 					{
-						map.cells[offset2].fov = true;
+						map[offset2].fov = true;
 					}
-                }
+				}
 
                 if ( x2 >= x0 && x2 <= x1 && y2 >= y0 && y2 <= y1 )
-                {
-                    unsigned int offset2 = x2 + map.width * y2;
+				{
+					unsigned int offset2 = x2 + map.width * y2;
 
-					if (offset2 < map.cells.size() && !map.cells[offset2].transparent)
+					if (offset2 < map.size() && !map[offset2].transparent)
 					{
-						map.cells[offset2].fov = true;
+						map[offset2].fov = true;
 					}
-                }
+				}
             }
         }
     }

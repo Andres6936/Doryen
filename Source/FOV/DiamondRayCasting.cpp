@@ -48,7 +48,7 @@ void DiamondRayCasting::operator()(
 
 	std::uint32_t nbCells = map.getWidth() * map.getHeight();
 
-	auto c = map.getIteratorBegin();
+	auto c = map.begin();
 	auto r = raymap.begin();
 
 	while (nbCells not_eq 0)

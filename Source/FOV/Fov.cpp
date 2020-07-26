@@ -50,16 +50,16 @@ Doryen::Map::Map(int width, int height)
     }
     else
     {
-        this->width = width;
-        this->height = height;
+		this->width = width;
+		this->height = height;
 
-		this->cells.resize(width * height);
-    }
+		this->resize(width * height);
+	}
 }
 
 void Doryen::Map::clear( bool transparent, bool walkable )
 {
-	for (Cell& cell : cells)
+	for (Cell& cell : *this)
 	{
 		cell.transparent = transparent;
 		cell.walkable = walkable;
@@ -74,17 +74,17 @@ void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkab
         // Throw Error
     }
     else
-    {
-        cells[ x + width * y ].transparent = isTransparent;
-        cells[ x + width * y ].walkable = isWalkable;
-    }
+	{
+		(*this)[x + width * y].transparent = isTransparent;
+		(*this)[x + width * y].walkable = isWalkable;
+	}
 }
 
 void Doryen::Map::copy( const Map &source )
 {
-	this->cells.clear();
+	this->clear();
 
-	std::copy(source.cells.begin(), source.cells.end(), std::back_inserter(this->cells));
+	std::copy(source.begin(), source.end(), std::back_inserter(*this));
 
 	this->width = source.width;
 	this->height = source.height;
@@ -183,7 +183,7 @@ bool Doryen::Map::isInFov( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return cells[ x + width * y ].fov;
+		return (*this)[x + width * y].fov;
     }
 
     return false;
@@ -193,7 +193,7 @@ bool Doryen::Map::isTransparent( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return cells[ x + width * y ].transparent;
+		return (*this)[x + width * y].transparent;
     }
 
     return false;
@@ -203,7 +203,7 @@ bool Doryen::Map::isWalkable( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
     {
-        return cells[ x + width * y ].walkable;
+		return (*this)[x + width * y].walkable;
     }
 
     return false;
@@ -217,14 +217,4 @@ int Doryen::Map::getWidth() const
 int Doryen::Map::getHeight() const
 {
 	return height;
-}
-
-std::vector<Doryen::Cell>::iterator Doryen::Map::getIteratorBegin()
-{
-	return cells.begin();
-}
-
-std::vector<Doryen::Cell>::iterator Doryen::Map::getIteratorEnd()
-{
-	return cells.end();
 }
