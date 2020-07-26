@@ -1,11 +1,13 @@
 #ifndef LIBTCOD_POINT2D_HPP
 #define LIBTCOD_POINT2D_HPP
 
+#include <cstdint>
+
 namespace Doryen
 {
-    namespace Geometry
+	namespace Geometry
 	{
-		template<typename T = int>
+		template<typename T = std::int32_t>
 		class Point2D
 		{
 
