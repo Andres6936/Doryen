@@ -52,7 +52,30 @@ void DiamondRayCasting::operator()(
 void DiamondRayCasting::expandPerimeterFrom(
 		Map& map, std::vector<RayData>& perim, std::optional<Iterator> ray)
 {
+	if (not ray.has_value())
+	{
+		std::runtime_error("Pass of arguments with a parameter null.");
+	}
 
+	if (ray.value()->position.x >= 0)
+	{
+
+	}
+
+	if (ray.value()->position.x <= 0)
+	{
+
+	}
+
+	if (ray.value()->position.y >= 0)
+	{
+
+	}
+
+	if (ray.value()->position.y <= 0)
+	{
+
+	}
 }
 
 std::optional<DiamondRayCasting::Iterator> DiamondRayCasting::newRay(
