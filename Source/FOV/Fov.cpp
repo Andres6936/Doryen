@@ -51,7 +51,7 @@ Doryen::Map::Map(int width, int height)
 	}
 }
 
-void Doryen::Map::clear( bool transparent, bool walkable )
+void Doryen::Map::clear(bool transparent, bool walkable)
 {
 	for (Cell& cell : *this)
 	{
@@ -61,9 +61,17 @@ void Doryen::Map::clear( bool transparent, bool walkable )
 	}
 }
 
-void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkable )
+void Doryen::Map::clearFieldView()
 {
-    if ( x < 0 || x >= width || y < 0 || y >= height )
+	for (Cell& cell : *this)
+	{
+		cell.fov = false;
+	}
+}
+
+void Doryen::Map::setProperties(int x, int y, bool isTransparent, bool isWalkable)
+{
+	if (x < 0 || x >= width || y < 0 || y >= height)
 	{
 		// Throw Error
 	}

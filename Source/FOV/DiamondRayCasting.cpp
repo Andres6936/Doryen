@@ -9,11 +9,12 @@ void DiamondRayCasting::operator()(
 		Doryen::Map& map, int playerX, int playerY,
 		int maxRadius, bool ligthWalls)
 {
-	map.setProperties(playerX, playerY, true, true);
+	map.clearFieldView();
+	map.setVisibleFieldView(playerX, playerY);
 
 	for (int octant = 0; octant < 8; ++octant)
 	{
-		compute(octant, { playerX, playerY }, maxRadius == 0 ? 40 : maxRadius, 1, { 1, 1 }, { 0, 1 });
+		compute(octant, { playerX, playerY }, maxRadius == 0 ? -1 : maxRadius, 1, { 1, 1 }, { 0, 1 });
 	}
 }
 

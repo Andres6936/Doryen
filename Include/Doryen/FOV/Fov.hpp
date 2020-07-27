@@ -130,17 +130,27 @@ namespace Doryen
 		 * @param transparent Whether the cells should be transparent.
 		 * @param walkable Whether the cells should be walkable.
 		 */
-        void clear( bool transparent = false, bool walkable = false );
+		void clear(bool transparent = false, bool walkable = false);
 
-        /**
-         * @brief Copying a map.
-         *
-         * You can copy an existing map into another. You have to allocate
-         * the destination map first.
-         *
-         * @param source The map containing the source data.
-         */
-        void copy( const Map &source );
+		/**
+		 * @brief Clearing the property fov of map.
+		 *
+		 * Set to false the field of view of all the cell in the map.
+		 *
+		 * This method is used for re-calculate the field of view
+		 * when the entity has been moved.
+		 */
+		void clearFieldView();
+
+		/**
+		 * @brief Copying a map.
+		 *
+		 * You can copy an existing map into another. You have to allocate
+		 * the destination map first.
+		 *
+		 * @param source The map containing the source data.
+		 */
+		void copy(const Map& source);
 
         /**
          * @brief Computing the field of view.
