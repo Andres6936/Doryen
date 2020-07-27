@@ -48,17 +48,18 @@ namespace Doryen
 	 * @note A cell is potentially visible if the line of sight from the player
 	 * to the cell in unobstructed.
 	 *
-	 * 1- <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
+	 * 1 - <b>FOV_BASIC</b>: classic libtcod fov algorithm (ray casted from the player
 	 * to all the cells on the submap perimeter).
 	 *
-	 * 2- <b>FOV_DIAMOND</b>: based on
-	 * http://www.geocities.com/temerra/los_rays.html this algorithm.
+	 * 2 - <b>FOV_DIAMOND</b>: based on
+	 * <a href="http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html#diamondcode">
+	 * Diamond Code</a>.
 	 *
-	 * 3- <b>FOV_SHADOW</b>: based on
+	 * 3 - <b>FOV_SHADOW</b>: based on
 	 * http://roguebasin.roguelikedevelopment.org/index.php?
 	 * title=FOV_using_recursive_shadowcasting this algorithm.
 	 *
-	 * 4- <b>FOV_PERMISSIVE_x</b>: based on
+	 * 4 - <b>FOV_PERMISSIVE_x</b>: based on
 	 * http://roguebasin.roguelikedevelopment.org/index.php?
 	 * title=Precise_Permissive_Field_of_View this algorithm.
 	 *
