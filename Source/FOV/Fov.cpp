@@ -61,7 +61,7 @@ void Doryen::Map::clear(bool transparent, bool walkable)
 	}
 }
 
-void Doryen::Map::clearFieldView()
+void Doryen::Map::resetFieldView()
 {
 	for (Cell& cell : *this)
 	{

@@ -133,14 +133,14 @@ namespace Doryen
 		void clear(bool transparent = false, bool walkable = false);
 
 		/**
-		 * @brief Clearing the property fov of map.
+		 * @brief Clearing the fov property of map.
 		 *
 		 * Set to false the field of view of all the cell in the map.
 		 *
 		 * This method is used for re-calculate the field of view
 		 * when the entity has been moved.
 		 */
-		void clearFieldView();
+		void resetFieldView();
 
 		/**
 		 * @brief Copying a map.
