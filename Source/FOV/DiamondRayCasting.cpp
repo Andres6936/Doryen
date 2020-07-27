@@ -13,7 +13,7 @@ void DiamondRayCasting::operator()(
 
 	for (int octant = 0; octant < 8; ++octant)
 	{
-		compute(octant, { playerX, playerY }, maxRadius, 1, { 1, 1 }, { 0, 1 });
+		compute(octant, { playerX, playerY }, maxRadius == 0 ? 5 : maxRadius, 1, { 1, 1 }, { 0, 1 });
 	}
 }
 
