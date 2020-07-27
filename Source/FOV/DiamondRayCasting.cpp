@@ -13,7 +13,7 @@ void DiamondRayCasting::operator()(
 
 	for (int octant = 0; octant < 8; ++octant)
 	{
-		compute(octant, { playerX, playerY }, maxRadius == 0 ? 5 : maxRadius, 1, { 1, 1 }, { 0, 1 });
+		compute(octant, { playerX, playerY }, maxRadius == 0 ? 40 : maxRadius, 1, { 1, 1 }, { 0, 1 });
 	}
 }
 
@@ -95,6 +95,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 			}
 
 			bool inRange = rangeLimit < 0 || getDistance(tx, ty) <= rangeLimit;
+			std::cout << "Distance: " << getDistance(tx, ty) << "\n";
 
 			if (inRange)
 			{
@@ -199,17 +200,17 @@ std::int32_t DiamondRayCasting::getDistance(const std::int32_t a,
 {
 	if (not(a >= 0))
 	{
-		throw std::logic_error("Invariant not satisfied A is zero.");
+		throw std::logic_error("Invariant not satisfied A is lesser that zero.");
 	}
 
 	if (not(b >= 0))
 	{
-		throw std::logic_error("Invariant not satisfied B is zero.");
+		throw std::logic_error("Invariant not satisfied B is lesser that zero.");
 	}
 
 	if (not(a >= b))
 	{
-		throw std::logic_error("Invariant not satisfied A not is greater that B.");
+		throw std::logic_error("Invariant not satisfied A not is greater or equals that B.");
 	}
 
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
