@@ -159,30 +159,6 @@ void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color
 	dat->buf[ offset ].back = back;
 }
 
-void TCOD_console_set_dirty(int dx, int dy, int dw, int dh) {
-	int x,y;
-	TCOD_console_data_t *dat=TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return;
-	TCOD_IFNOT(dx < dat->w && dy < dat->h && dx+dw >= 0 && dy+dh >= 0 ) return;
-	TCOD_IFNOT( dx >= 0 ) {
-		dw += dx;
-		dx = 0;
-	}
-	TCOD_IFNOT( dy >= 0 ) {
-		dh += dy;
-		dy = 0;
-	}
-	TCOD_IFNOT( dx+dw <= dat->w ) dw = dat->w-dx;
-	TCOD_IFNOT( dy+dh <= dat->h ) dh = dat->h-dy;
-
-	for (x=dx; x < dx+dw;x++) {
-		for (y=dy; y < dy+dh; y++) {
-			int off=x+dat->w*y;
-			dat->buf[off].dirt=1;
-		}
-	}
-}
-
 TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y) {
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
 	TCOD_IFNOT ( dat != NULL
