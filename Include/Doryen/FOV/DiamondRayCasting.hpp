@@ -124,6 +124,7 @@ namespace Doryen
 				std::uint32_t octant, const Geometry::Point2D<>& _origin);
 
 		/**
+		 * @param origin The location of the entity whose field of view will be calculated.
 		 * @param rangeLimit The maximum distance from the origin that tiles will be lit.
 		 *  If equal to -1, no limit will be applied.
 		 */
