@@ -329,17 +329,17 @@ SDL_Surface* ImageData::getRepresentation() const
 	return representation;
 }
 
-Size ImageData::getSize() const
+Geometry::Size ImageData::getSize() const
 {
 	if (representation == nullptr)
 	{
 		if (mipmaps.empty())
 		{
-			return Size(0, 0);
+			return { 0, 0 };
 		}
 		else
 		{
-			Size size;
+			Geometry::Size size;
 			size.w = (int)mipmaps[0].width;
 			size.h = (int)mipmaps[0].height;
 
@@ -348,7 +348,7 @@ Size ImageData::getSize() const
 	}
 	else
 	{
-		return Size(representation->w, representation->h);
+		return { representation->w, representation->h };
 	}
 }
 
@@ -525,7 +525,7 @@ const Color& ImageData::getMipmapPixel(
 
 void ImageData::initMipmaps()
 {
-	Size size = getSize();
+	Geometry::Size size = getSize();
 	mipmaps.resize(Mipmap::getLevels(size.w, size.h));
 	mipmaps[0].buf.resize(size.w * size.h);
 

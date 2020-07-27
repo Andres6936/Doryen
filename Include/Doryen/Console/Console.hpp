@@ -520,7 +520,8 @@ namespace Doryen
 				...);
 
 		void
-		writeText(const Geometry::Point2D<>& coordinate, const Size& size, BackgroundFlag flag, std::string_view text);
+		writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size, BackgroundFlag flag,
+				std::string_view text);
 
 		/**
 		@PageName console_print
@@ -1193,7 +1194,7 @@ namespace Doryen
 		 */
 		std::uint32_t getElapsedMilliseconds() const;
 
-		Size getFontSize() const;
+		Geometry::Size getFontSize() const;
 
 		void unregisterCallback() const;
 

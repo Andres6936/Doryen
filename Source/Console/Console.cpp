@@ -1051,7 +1051,7 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 }
 
 void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
-		const Size& size, BackgroundFlag flag, std::string_view text)
+		const Geometry::Size& size, BackgroundFlag flag, std::string_view text)
 {
 	if (text.size() > size.w)
 	{
@@ -1243,7 +1243,7 @@ void Console::unregisterCallback() const
 	renderer->unregisterCallback();
 }
 
-Size Console::getFontSize() const
+Geometry::Size Console::getFontSize() const
 {
 	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeigth() };
 }

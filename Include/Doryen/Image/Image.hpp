@@ -147,7 +147,7 @@ namespace Doryen
 		*/
 		void getSize(int* w, int* h) const;
 
-		Size getSize() const;
+		Geometry::Size getSize() const;
 
 		/**
 		@PageName image_read

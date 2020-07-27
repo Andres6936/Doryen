@@ -69,7 +69,7 @@ void Image::getSize(int* w, int* h) const
 	TCOD_image_get_size(data, w, h);
 }
 
-Size Image::getSize() const
+Geometry::Size Image::getSize() const
 {
 	return imageData.getSize();
 }
@@ -185,8 +185,8 @@ void Image::scale(int neww, int newh)
 	// Not compute necessary
 	if (neww == 0 and newh == 0) return;
 
-	const Size newSize = Size(neww, newh);
-	const Size originalSize = getSize();
+	const Geometry::Size newSize{ neww, newh };
+	const Geometry::Size originalSize = getSize();
 
 	if (newSize < originalSize)
 	{
@@ -292,9 +292,9 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 	Point destination(dx, dy);
 	Point source(sx, sy);
-	Size size(w, h);
+	Geometry::Size size(w, h);
 
-	Size imageSize = getSize();
+	Geometry::Size imageSize = getSize();
 
 	if (size.w == -1) size.w = imageSize.w;
 	if (size.h == -1) size.h = imageSize.h;
@@ -406,7 +406,7 @@ Image::blit(Console& _console,
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BackgroundFlag::NONE) return;
 
 	// Size of the image
-	Size size = imageData.getSize();
+	Geometry::Size size = imageData.getSize();
 
 	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
 	{
