@@ -36,7 +36,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 		{
 			// get the tile that the top vector enters from the left
 			topY = ((x * 2 - 1) * top.y + top.x) / (top.x * 2);
-			std::int32_t ay = (topY * 2 + 1) * top.x;
+			const std::int32_t ay = (topY * 2 + 1) * top.x;
 
 			// if the top tile is a wall...
 			if (blocksLight(x, topY, octant, origin))
@@ -58,7 +58,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 			}
 		}
 
-		std::int32_t bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
+		const std::int32_t bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
 
 		// 0:false, 1:true, -1:not applicable
 		std::int32_t wasOpaque = -1;
@@ -104,7 +104,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 				break;
 			}
 
-			bool inRange = rangeLimit < 0 || getDistance(tx, ty) <= rangeLimit;
+			const bool inRange = rangeLimit < 0 || getDistance(tx, ty) <= rangeLimit;
 
 			if (inRange)
 			{
