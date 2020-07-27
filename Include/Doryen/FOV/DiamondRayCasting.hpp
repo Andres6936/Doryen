@@ -123,6 +123,10 @@ namespace Doryen
 		bool blocksLight(std::int32_t x, std::int32_t y,
 				std::uint32_t octant, const Geometry::Point2D<>& _origin);
 
+		/**
+		 * @param rangeLimit The maximum distance from the origin that tiles will be lit.
+		 *  If equal to -1, no limit will be applied.
+		 */
 		void compute(std::uint32_t octant, Geometry::Point2D<> origin,
 				std::uint32_t rangeLimit, std::uint32_t x,
 				Slope top, Slope bottom);
