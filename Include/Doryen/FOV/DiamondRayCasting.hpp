@@ -21,23 +21,23 @@ namespace Doryen
 
 			// Construct
 
-			Slope(const std::int32_t x, const std::int32_t y) : Geometry::Point2D<>(x, y)
+			Slope(const std::int32_t y, const std::int32_t x) : Geometry::Point2D<>(x, y)
 			{
 			};
 
 			// Methods
 
-			bool greater(const std::uint32_t x, const std::uint32_t y) const
+			bool greater(const std::uint32_t y, const std::uint32_t x) const
 			{
 				return this->y * x > this->x * y;
 			}
 
-			bool greaterOrEqual(const std::uint32_t x, const std::uint32_t y) const
+			bool greaterOrEqual(const std::uint32_t y, const std::uint32_t x) const
 			{
 				return this->y * x >= this->x * y;
 			}
 
-			bool lessOrEqual(const std::uint32_t x, const std::uint32_t y) const
+			bool lessOrEqual(const std::uint32_t y, const std::uint32_t x) const
 			{
 				return this->y * x <= this->x * y;
 			}
