@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "Doryen/FOV/DiamondRayCasting.hpp"
 
@@ -50,17 +51,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 			}
 		}
 
-		std::int32_t bottomY;
-
-		if (bottom.x == 0)
-		{
-			bottomY = 0;
-		}
-		else
-		{
-			bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
-		}
-
+		std::int32_t bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
 		std::int32_t wasOpaque = -1; // 0:false, 1:true, -1:not applicable
 
 		for (int y = topY; y >= bottomY; --y)
@@ -107,6 +98,7 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 
 			if (inRange)
 			{
+				std::cout << "Set Visible\n";
 				_map.setVisibleFieldView(tx, ty);
 			}
 
