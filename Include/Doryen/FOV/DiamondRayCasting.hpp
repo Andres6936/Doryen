@@ -108,9 +108,11 @@ namespace Doryen
 		 *
 		 * <b>This implementation:</b>
 		 *
-		 * The conditions cannot be met. Deleted invariant: X >= Y
-		 * Modify invariant: X >= 0 to if X >= 0 then X = 0
-		 * Modify invariant: Y >= 0 to if Y >= 0 then Y = 0
+		 * The conditions cannot be met.
+		 *
+		 * Deleted invariant: X >= Y <br>
+		 * Modify invariant: X >= 0 to if X >= 0 then X = 0 <br>
+		 * Modify invariant: Y >= 0 to if Y >= 0 then Y = 0 <br>
 		 *
 		 * @param a Coordinate x.
 		 * @param b Coordinate y.
