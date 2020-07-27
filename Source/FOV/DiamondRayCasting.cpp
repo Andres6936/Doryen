@@ -6,11 +6,11 @@
 using namespace Doryen;
 
 void DiamondRayCasting::operator()(
-		Doryen::Map& map, int playerX, int playerY,
+		int playerX, int playerY,
 		int maxRadius, bool ligthWalls)
 {
-	map.resetFieldView();
-	map.setVisibleFieldView(playerX, playerY);
+	_map.resetFieldView();
+	_map.setVisibleFieldView(playerX, playerY);
 
 	for (int octant = 0; octant < 8; ++octant)
 	{

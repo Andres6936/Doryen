@@ -119,7 +119,7 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
 	{
 		Doryen::DiamondRayCasting diamondRayCasting{ *this };
 
-		diamondRayCasting(*this, x, y, maxRadius, light_walls);
+		diamondRayCasting(x, y, maxRadius, light_walls);
 	}
     else if ( algo == FOV_SHADOW )
 	{
