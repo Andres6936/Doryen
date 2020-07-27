@@ -194,22 +194,16 @@ DiamondRayCasting::blocksLight(std::int32_t x, std::int32_t y,
 	return _map.isTransparent(nx, ny);
 }
 
-std::int32_t DiamondRayCasting::getDistance(const std::int32_t a,
-		const std::int32_t b)
+std::int32_t DiamondRayCasting::getDistance(std::int32_t a, std::int32_t b)
 {
 	if (not(a >= 0))
 	{
-		throw std::logic_error("Invariant not satisfied A is lesser that zero.");
+		a = 1;
 	}
 
 	if (not(b >= 0))
 	{
-		throw std::logic_error("Invariant not satisfied B is lesser that zero.");
-	}
-
-	if (not(a >= b))
-	{
-		throw std::logic_error("Invariant not satisfied A not is greater or equals that B.");
+		b = 1;
 	}
 
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
