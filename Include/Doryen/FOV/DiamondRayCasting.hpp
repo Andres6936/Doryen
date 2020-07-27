@@ -66,6 +66,9 @@ namespace Doryen
 
 	private:
 
+		/**
+		 * Represents the slope Y/X as a rational number
+		 */
 		class Slope final : public Geometry::Point2D<>
 		{
 
