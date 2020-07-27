@@ -80,7 +80,7 @@ void Functor::FOV::drawDungeon()
 	{
 		for (int x = 0; x < sample.getWidth(); x++)
 		{
-			bool visible = map.isInFov(x, y);
+			bool visible = map.isVisibleFieldView(x, y);
 			bool wall = dungeon[y][x] == '#';
 			if (!visible)
 			{

@@ -188,7 +188,7 @@ namespace Doryen
          *
          * @return True if the cell is visible inside of fov, false otherwise.
          */
-        bool isInFov( int x, int y ) const;
+		bool isVisibleFieldView(int x, int y) const;
 
         /**
          * @brief Checking a cell transparency/walkability.

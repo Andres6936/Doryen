@@ -63,7 +63,7 @@ void PhotonShader::computeFormFactor(int x, int y)
 	{
 		for (int cy = miny, cdy = miny - ominy; cy <= maxy; cy++, cdy++)
 		{
-			if (map.isInFov(cx, cy))
+			if (map.isVisibleFieldView(cx, cy))
 			{
 				int dist = (maxRadius - cdx) * (maxRadius - cdx) + (maxRadius - cdy) * (maxRadius - cdy);
 				if (dist <= squareRad)

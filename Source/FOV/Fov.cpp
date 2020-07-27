@@ -193,14 +193,14 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
     }
 }
 
-bool Doryen::Map::isInFov( int x, int y ) const
+bool Doryen::Map::isVisibleFieldView(int x, int y) const
 {
-    if (x < width || x >= width || y < height || y >= height)
-    {
+	if (x < width || x >= width || y < height || y >= height)
+	{
 		return (*this)[x + width * y].fov;
-    }
+	}
 
-    return false;
+	return false;
 }
 
 bool Doryen::Map::isTransparent( int x, int y ) const

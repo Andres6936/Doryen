@@ -61,7 +61,7 @@ void StandardShader::compute()
 		{
 			for (int y = MIN_Y; y <= MAX_Y; y++)
 			{
-				if (lmap.isInFov(x - MIN_X, y - MIN_Y))
+				if (lmap.isVisibleFieldView(x - MIN_X, y - MIN_Y))
 				{
 					int squaredDist =
 							(light.coordinate.x - x) * (light.coordinate.x - x) +
