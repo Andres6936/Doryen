@@ -198,12 +198,12 @@ std::int32_t DiamondRayCasting::getDistance(std::int32_t a, std::int32_t b)
 {
 	if (not(a >= 0))
 	{
-		a = 1;
+		a = 0;
 	}
 
 	if (not(b >= 0))
 	{
-		b = 1;
+		b = 0;
 	}
 
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));

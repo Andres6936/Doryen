@@ -100,6 +100,22 @@ namespace Doryen
 
 		Map& _map;
 
+		/**
+		 * <b>Original Implementation:</b>
+		 *
+		 * A function that takes the X and Y coordinate of a point where X >= 0, Y >= 0,
+		 * and X >= Y, and returns the distance from the point to the origin (0,0).
+		 *
+		 * <b>This implementation:</b>
+		 *
+		 * The conditions cannot be met. Deleted invariant: X >= Y
+		 * Modify invariant: X >= 0 to if X >= 0 then X = 0
+		 * Modify invariant: Y >= 0 to if Y >= 0 then Y = 0
+		 *
+		 * @param a Coordinate x.
+		 * @param b Coordinate y.
+		 * @return The distance of two points.
+		 */
 		std::int32_t getDistance(const std::int32_t a, const std::int32_t b);
 
 		bool blocksLight(std::int32_t x, std::int32_t y,
