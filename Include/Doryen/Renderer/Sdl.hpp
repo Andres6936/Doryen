@@ -110,8 +110,6 @@ namespace Doryen
 
 		float getLasFrameLength() const;
 
-		float getElapsedSeconds() const;
-
 		Key getKeyPressed() override;
 
 		Mouse getMouseEvent() override;

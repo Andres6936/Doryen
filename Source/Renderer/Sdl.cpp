@@ -51,11 +51,6 @@ int Doryen::SDL::getElapsedMilli() const
 	return SDL_GetTicks();
 }
 
-float Doryen::SDL::getElapsedSeconds() const
-{
-	return SDL_GetTicks() * 1.0f / 1000.0f;
-}
-
 /**
  * Function private to file.
  *
