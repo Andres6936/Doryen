@@ -78,10 +78,10 @@ namespace Doryen
 
 	public :
 
-		int width;
-		int height;
+		int width = 0;
+		int height = 0;
 
-		Map();
+		Map() = default;
 
 		/**
 		 * @brief Building the map.
@@ -91,37 +91,45 @@ namespace Doryen
 		 * @param width The size of the map (in map cells).
 		 * @param height The size of the map (in map cells).
 		 */
-        Map( int width, int height );
+		Map(int width, int height);
 
-        /**
-         * @brief Defining the cell properties.
-         *
-         * Then, build your dungeon by defining which cells let the light pass
-         * and which cells are walkable.
-         *
-         * @note (by default, all cells block the light)
-         * @note (by default, all cells are not-walkable).
-         *
-         * @param x Coordinate of the cell that we want to update.
-         * @param y Coordinate of the cell that we want to update.
-         *
-         * @param isTransparent If true, this cell will let the light pass else
-         * it will block the light.
-         *
-         * @param isWalkable If true, creatures can walk true this cell (it is
-         * not a wall).
-         */
-        void setProperties( int x, int y, bool isTransparent, bool isWalkable );
+		/**
+		 * @brief Defining the cell properties.
+		 *
+		 * Then, build your dungeon by defining which cells let the light pass
+		 * and which cells are walkable.
+		 *
+		 * @note (by default, all cells block the light)
+		 * @note (by default, all cells are not-walkable).
+		 *
+		 * @param x Coordinate of the cell that we want to update.
+		 * @param y Coordinate of the cell that we want to update.
+		 *
+		 * @param isTransparent If true, this cell will let the light pass else
+		 * it will block the light.
+		 *
+		 * @param isWalkable If true, creatures can walk true this cell (it is
+		 * not a wall).
+		 */
+		void setProperties(int x, int y, bool isTransparent, bool isWalkable);
 
-        /**
-         * @brief Clearing the map.
-         *
-         * You can clear an existing map (setting all cells to the chosen
-         * walkable/transparent values).
-         *
-         * @param transparent Whether the cells should be transparent.
-         * @param walkable Whether the cells should be walkable.
-         */
+		/**
+		 * Marked the cell as visible in the field of view.
+		 *
+		 * @param x Coordinate of the cell that we want to update.
+		 * @param y Coordinate of the cell that we want to update.
+		 */
+		void setVisibleFieldView(int x, int y);
+
+		/**
+		 * @brief Clearing the map.
+		 *
+		 * You can clear an existing map (setting all cells to the chosen
+		 * walkable/transparent values).
+		 *
+		 * @param transparent Whether the cells should be transparent.
+		 * @param walkable Whether the cells should be walkable.
+		 */
         void clear( bool transparent = false, bool walkable = false );
 
         /**

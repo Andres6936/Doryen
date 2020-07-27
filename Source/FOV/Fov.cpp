@@ -36,12 +36,6 @@
 
 #include <algorithm>
 
-Doryen::Map::Map()
-{
-	width = 0;
-	height = 0;
-}
-
 Doryen::Map::Map(int width, int height)
 {
 	if (width < 0 || height < 0)
@@ -70,17 +64,29 @@ void Doryen::Map::clear( bool transparent, bool walkable )
 void Doryen::Map::setProperties( int x, int y, bool isTransparent, bool isWalkable )
 {
     if ( x < 0 || x >= width || y < 0 || y >= height )
-    {
-        // Throw Error
-    }
-    else
+	{
+		// Throw Error
+	}
+	else
 	{
 		(*this)[x + width * y].transparent = isTransparent;
 		(*this)[x + width * y].walkable = isWalkable;
 	}
 }
 
-void Doryen::Map::copy( const Map &source )
+void Doryen::Map::setVisibleFieldView(int x, int y)
+{
+	if (x < 0 || x >= width || y < 0 || y >= height)
+	{
+		// Throw Error
+	}
+	else
+	{
+		(*this)[x + width * y].fov = true;
+	}
+}
+
+void Doryen::Map::copy(const Map& source)
 {
 	this->clear();
 
@@ -103,7 +109,7 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
     }
     else if ( algo == FOV_DIAMOND )
 	{
-		Doryen::DiamondRayCasting diamondRayCasting;
+		Doryen::DiamondRayCasting diamondRayCasting{ *this };
 
 		diamondRayCasting(*this, x, y, maxRadius, light_walls);
 	}

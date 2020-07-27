@@ -8,251 +8,207 @@ void DiamondRayCasting::operator()(
 		Doryen::Map& map, int playerX, int playerY,
 		int maxRadius, bool ligthWalls)
 {
-	const std::int32_t r2 = maxRadius * maxRadius;
+	map.setProperties(playerX, playerY, true, true);
 
-	// Field of view origin
-	origin = { playerX, playerY };
-
-	std::vector<RayData> perim;
-
-	perim.reserve(map.getWidth() * map.getHeight());
-	raymap.resize(map.getWidth() * map.getHeight());
-	raymap2.resize(map.getWidth() * map.getHeight());
-
-	expandPerimeterFrom(map, perim, newRay(map, { 0, 0 }));
-
-	std::uint32_t perimidx = 0;
-
-	while (perimidx < perim.size())
+	for (int octant = 0; octant < 8; ++octant)
 	{
-		RayData ray = perim.at(perimidx);
+		compute(octant, { playerX, playerY }, maxRadius, 1, { 1, 1 }, { 0, 1 });
+	}
+}
 
-		int distance = r2 > 0 ? std::pow(ray.position.x, 2) + std::pow(ray.position.y, 2) : 0;
+void
+DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
+		std::uint32_t rangeLimit, std::uint32_t x,
+		DiamondRayCasting::Slope top, DiamondRayCasting::Slope bottom)
+{
+	for (; x <= rangeLimit; ++x)
+	{
+		std::int32_t topY = 0;
 
-		perimidx += 1;
-
-		if (distance <= r2)
+		if (top.x == 1)
 		{
-			mergeInput(map, ray);
+			topY = x;
+		}
+		else
+		{
+			topY = ((x * 2 - 1) * top.y + top.x) / (top.x * 2);
+			std::int32_t ay = (topY * 2 + 1) * top.x;
 
-			if (not ray.ignore)
+			if (blocksLight(x, topY, octant, origin))
 			{
-				expandPerimeterFrom(map, perim, ray);
+				if (top.greaterOrEqual(ay, x * 2))
+				{
+					topY += 1;
+				}
+			}
+			else
+			{
+				if (top.greater(ay, x * 2 + 1))
+				{
+					topY += 1;
+				}
 			}
 		}
-		else
+
+		std::int32_t bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
+		std::int32_t wasOpaque = -1; // 0:false, 1:true, -1:not applicable
+
+		for (int y = topY; y >= bottomY; --y)
 		{
-			ray.ignore = true;
-		}
-	}
+			std::int32_t tx = origin.x, ty = origin.y;
 
-	std::uint32_t nbCells = map.getWidth() * map.getHeight();
+			switch (octant) // translate local coordinates to map coordinates
+			{
+			case 0:
+				tx += x;
+				ty -= y;
+				break;
+			case 1:
+				tx += y;
+				ty -= x;
+				break;
+			case 2:
+				tx -= y;
+				ty -= x;
+				break;
+			case 3:
+				tx -= x;
+				ty -= y;
+				break;
+			case 4:
+				tx -= x;
+				ty += y;
+				break;
+			case 5:
+				tx -= y;
+				ty += x;
+				break;
+			case 6:
+				tx += y;
+				ty += x;
+				break;
+			case 7:
+				tx += x;
+				ty += y;
+				break;
+			}
 
-	auto c = map.begin();
-	auto r = raymap.begin();
+			bool inRange = rangeLimit < 0 || getDistance(tx, ty) <= rangeLimit;
 
-	while (nbCells not_eq 0)
-	{
-		if (r == raymap.end())
-		{
-			c->fov = false;
-		}
-		else if ((*r).ignore or
-				 ((*r).bresenham.x > 0 and (*r).bresenham.x <= (*r).obscurity.x) or
-				 ((*r).bresenham.y > 0 and (*r).bresenham.y <= (*r).obscurity.y))
-		{
-			c->fov = false;
-		}
-		else
-		{
-			c->fov = true;
-		}
+			if (inRange)
+			{
+				_map.setVisibleFieldView(tx, ty);
+			}
 
-		// Advance to next element.
-		std::advance(r, 1);
-		std::advance(c, 1);
+			bool isOpaque = !inRange || not _map.isTransparent(tx, ty);
+			// if y == topY or y == bottomY, make sure the sector actually intersects the wall tile. if not, don't consider
+			// it opaque to prevent the code below from moving the top vector up or the bottom vector down
+			if (isOpaque &&
+				(y == topY && top.lessOrEqual(y * 2 - 1, x * 2) && not blocksLight(x, y - 1, octant, origin) ||
+				 y == bottomY && bottom.greaterOrEqual(y * 2 + 1, x * 2) && not blocksLight(x, y + 1, octant, origin)))
+			{
+				isOpaque = false;
+			}
 
-		nbCells -= 1;
-	}
+			if (x not_eq rangeLimit)
+			{
+				if (isOpaque)
+				{
+					if (wasOpaque == 0)
+					{
+						if (!inRange || y == bottomY)
+						{
+							bottom = { y * 2 + 1, static_cast<int32_t>(x * 2) };
+							break;
+						}
+							// don't recurse unless necessary
+						else
+						{
+							compute(octant, origin, rangeLimit, x + 1, top,
+									{ y * 2 + 1, static_cast<int32_t>(x * 2) });
+						}
+					}
 
-	map.setProperties(origin.x, origin.y, true, true);
-}
+					wasOpaque = 1;
+				}
+				else
+				{
+					if (wasOpaque > 0)
+					{
+						top = { y * 2 + 1, static_cast<int32_t>(x * 2) };
+					}
 
-void DiamondRayCasting::expandPerimeterFrom(
-		Map& map, std::vector<RayData>& perim, std::optional<RayData> ray)
-{
-	if (not ray.has_value())
-	{
-		std::runtime_error("Pass of arguments with a parameter null.");
-	}
-
-	if (ray.value().position.x >= 0)
-	{
-		Geometry::Point2D<> position = ray.value().position;
-		position.x += 1;
-
-		processRay(map, perim, newRay(map, position),
-				std::make_shared<RayData>(ray.value()));
-	}
-
-	if (ray.value().position.x <= 0)
-	{
-		Geometry::Point2D<> position = ray.value().position;
-		position.x -= 1;
-
-		processRay(map, perim, newRay(map, position),
-				std::make_shared<RayData>(ray.value()));
-	}
-
-	if (ray.value().position.y >= 0)
-	{
-		Geometry::Point2D<> position = ray.value().position;
-		position.y += 1;
-
-		processRay(map, perim, newRay(map, position),
-				std::make_shared<RayData>(ray.value()));
-	}
-
-	if (ray.value().position.y <= 0)
-	{
-		Geometry::Point2D<> position = ray.value().position;
-		position.y -= 1;
-
-		processRay(map, perim, newRay(map, position),
-				std::make_shared<RayData>(ray.value()));
-	}
-}
-
-void DiamondRayCasting::processRay(Map& _map, std::vector<RayData>& perim,
-		std::optional<DiamondRayCasting::RayData> newRay,
-		std::shared_ptr<DiamondRayCasting::RayData> inputRay)
-{
-	if (newRay.has_value())
-	{
-		RayData ray = newRay.value();
-
-		const std::uint32_t mapX = origin.x + ray.position.x;
-		const std::uint32_t mapY = origin.y + ray.position.y;
-		const std::uint32_t newRayIdx = mapX + mapY * _map.getWidth();
-
-		if (ray.position.y == inputRay->position.y)
-		{
-			ray.xInput = (inputRay);
-		}
-		else
-		{
-			ray.yInput = (inputRay);
+					wasOpaque = 0;
+				}
+			}
 		}
 
-		if (not ray.added)
-		{
-			ray.added = true;
-			perim.push_back(ray);
-			raymap.at(newRayIdx) = ray;
-		}
+		if (wasOpaque not_eq 0) break;
 	}
 }
 
-std::optional<DiamondRayCasting::RayData> DiamondRayCasting::newRay(
-		Map& _map, const Geometry::Point2D<>& _coordinate)
+bool
+DiamondRayCasting::blocksLight(std::int32_t x, std::int32_t y,
+		std::uint32_t octant, const Geometry::Point2D<>& _origin)
 {
-	if (_coordinate.x + origin.x >= _map.getWidth() or
-		_coordinate.y + origin.y >= _map.getHeight())
+	int nx = _origin.x, ny = _origin.y;
+
+	switch (octant)
 	{
-		return std::nullopt;
+	case 0:
+		nx += x;
+		ny -= y;
+		break;
+	case 1:
+		nx += y;
+		ny -= x;
+		break;
+	case 2:
+		nx -= y;
+		ny -= x;
+		break;
+	case 3:
+		nx -= x;
+		ny -= y;
+		break;
+	case 4:
+		nx -= x;
+		ny += y;
+		break;
+	case 5:
+		nx -= y;
+		ny += x;
+		break;
+	case 6:
+		nx += y;
+		ny += x;
+		break;
+	case 7:
+		nx += x;
+		ny += y;
+		break;
 	}
 
-	// Else
-
-	RayData it = raymap2.at(_coordinate.x + origin.x +
-							(_coordinate.y + origin.y) * _map.getWidth());
-
-	it.position = _coordinate;
-
-	return it;
+	return _map.isTransparent(nx, ny);
 }
 
-void DiamondRayCasting::mergeInput(Map& _map, DiamondRayCasting::RayData& _ray)
+std::int32_t DiamondRayCasting::getDistance(const std::int32_t a,
+		const std::int32_t b)
 {
-	if (_ray.xInput not_eq nullptr)
+	if (not(a > 0))
 	{
-		processXInput(_ray, _ray.xInput);
+		throw std::logic_error("Invariant not satisfied A is zero.");
 	}
 
-	if (_ray.yInput not_eq nullptr)
+	if (not(b > 0))
 	{
-		processYInput(_ray, _ray.yInput);
+		throw std::logic_error("Invariant not satisfied B is zero.");
 	}
 
-	if (_ray.xInput == nullptr)
+	if (not(a > b))
 	{
-		if (isObscure(_ray.yInput)) _ray.ignore = true;
-	}
-	else if (_ray.yInput == nullptr)
-	{
-		if (isObscure(_ray.xInput)) _ray.ignore = true;
-	}
-	else if (isObscure(_ray.xInput) and isObscure(_ray.yInput))
-	{
-		_ray.ignore = true;
+		throw std::logic_error("Invariant not satisfied A not is greater that B.");
 	}
 
-	if (not _ray.ignore and not _map.isTransparent(
-			_ray.position.x + origin.x, _ray.position.y + origin.y))
-	{
-		_ray.bresenham.x = _ray.obscurity.x = std::abs(_ray.position.x);
-		_ray.bresenham.y = _ray.obscurity.y = std::abs(_ray.position.y);
-	}
-}
-
-void DiamondRayCasting::processXInput(DiamondRayCasting::RayData& newRay,
-		std::shared_ptr<RayData> xInput)
-{
-	if (xInput->obscurity.equals({ 0, 0 }))
-	{
-		return;
-	}
-
-	if (xInput->bresenham.x > 0 and newRay.obscurity.x == 0)
-	{
-		newRay.bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
-		newRay.bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
-		newRay.obscurity = xInput->obscurity;
-	}
-
-	if (xInput->bresenham.y <= 0 and newRay.obscurity.y > 0 and newRay.bresenham.x > 0)
-	{
-		newRay.bresenham.x = xInput->bresenham.x - xInput->obscurity.y;
-		newRay.bresenham.y = xInput->bresenham.y + xInput->obscurity.y;
-		newRay.obscurity = xInput->obscurity;
-	}
-}
-
-void DiamondRayCasting::processYInput(DiamondRayCasting::RayData& newRay,
-		std::shared_ptr<RayData> yInput)
-{
-	if (yInput->obscurity.equals({ 0, 0 }))
-	{
-		return;
-	}
-
-	if (yInput->bresenham.y > 0 and newRay.obscurity.y == 0)
-	{
-		newRay.bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
-		newRay.bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
-		newRay.obscurity = yInput->obscurity;
-	}
-
-	if (yInput->bresenham.x <= 0 and yInput->obscurity.x > 0 and yInput->bresenham.y > 0)
-	{
-		newRay.bresenham.y = yInput->bresenham.y - yInput->obscurity.x;
-		newRay.bresenham.x = yInput->bresenham.x + yInput->obscurity.x;
-		newRay.obscurity = yInput->obscurity;
-	}
-}
-
-bool DiamondRayCasting::isObscure(std::shared_ptr<RayData> ray)
-{
-	return ((ray->bresenham.x > 0 and ray->bresenham.x <= ray->obscurity.x) or
-			(ray->bresenham.y > 0 and ray->bresenham.y <= ray->obscurity.y));
+	return std::sqrt(std::pow(a, 2) + std::pow(a, 2));
 }
