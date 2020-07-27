@@ -50,7 +50,17 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 			}
 		}
 
-		std::int32_t bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
+		std::int32_t bottomY;
+
+		if (bottom.x == 0)
+		{
+			bottomY = 0;
+		}
+		else
+		{
+			bottomY = bottom.y == 0 ? 0 : ((x * 2 - 1) * bottom.y + bottom.x) / (bottom.x * 2);
+		}
+
 		std::int32_t wasOpaque = -1; // 0:false, 1:true, -1:not applicable
 
 		for (int y = topY; y >= bottomY; --y)
@@ -195,20 +205,20 @@ DiamondRayCasting::blocksLight(std::int32_t x, std::int32_t y,
 std::int32_t DiamondRayCasting::getDistance(const std::int32_t a,
 		const std::int32_t b)
 {
-	if (not(a > 0))
+	if (not(a >= 0))
 	{
 		throw std::logic_error("Invariant not satisfied A is zero.");
 	}
 
-	if (not(b > 0))
+	if (not(b >= 0))
 	{
 		throw std::logic_error("Invariant not satisfied B is zero.");
 	}
 
-	if (not(a > b))
+	if (not(a >= b))
 	{
 		throw std::logic_error("Invariant not satisfied A not is greater that B.");
 	}
 
-	return std::sqrt(std::pow(a, 2) + std::pow(a, 2));
+	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
 }
