@@ -95,11 +95,9 @@ DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
 			}
 
 			bool inRange = rangeLimit < 0 || getDistance(tx, ty) <= rangeLimit;
-			std::cout << "Distance: " << getDistance(tx, ty) << "\n";
 
 			if (inRange)
 			{
-				std::cout << "Set Visible\n";
 				_map.setVisibleFieldView(tx, ty);
 			}
 
