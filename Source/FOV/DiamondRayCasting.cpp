@@ -19,8 +19,8 @@ void DiamondRayCasting::operator()(
 }
 
 void
-DiamondRayCasting::compute(std::uint32_t octant, Geometry::Point2D<> origin,
-		std::uint32_t rangeLimit, std::uint32_t x,
+DiamondRayCasting::compute(const std::uint32_t octant, const Geometry::Point2D<>& origin,
+		const std::uint32_t rangeLimit, std::uint32_t x,
 		DiamondRayCasting::Slope top, DiamondRayCasting::Slope bottom)
 {
 	// rangeLimit < 0 || x <= rangeLimit
