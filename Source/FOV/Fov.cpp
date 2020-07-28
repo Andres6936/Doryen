@@ -104,93 +104,45 @@ void Doryen::Map::copy(const Map& source)
 	this->height = source.height;
 }
 
-void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
-                              TCOD_fov_algorithm_t algo )
+void Doryen::Map::computeFov(int x, int y, int maxRadius, bool light_walls,
+		TypeFOV algo)
 {
     // TCOD_map_compute_fov( data, x, y, maxRadius, light_walls, algo );
 
-    if ( algo == FOV_BASIC )
-    {
-        Doryen::CircularRaycasting circularRaycasting;
+	if (algo == TypeFOV::Basic)
+	{
+		Doryen::CircularRaycasting circularRaycasting;
 
-        circularRaycasting( *this, x, y, maxRadius, light_walls );
-    }
-    else if ( algo == FOV_DIAMOND )
+		circularRaycasting(*this, x, y, maxRadius, light_walls);
+	}
+	else if (algo == TypeFOV::Diamond)
 	{
 		Doryen::DiamondRayCasting diamondRayCasting{ *this };
 
 		diamondRayCasting(x, y, maxRadius, light_walls);
 	}
-    else if ( algo == FOV_SHADOW )
+	else if (algo == TypeFOV::Shadow)
 	{
 		Doryen::ShadowRayCasting shadowRayCasting;
 
 		shadowRayCasting(*this, x, y, maxRadius, light_walls);
 	}
-    else if ( algo == FOV_PERMISSIVE_0 )
+	else if (algo == TypeFOV::Permissive)
 	{
 		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 0);
 	}
-    else if ( algo == FOV_PERMISSIVE_1 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 1);
-	}
-    else if ( algo == FOV_PERMISSIVE_2 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 2);
-	}
-    else if ( algo == FOV_PERMISSIVE_3 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 3);
-	}
-    else if ( algo == FOV_PERMISSIVE_4 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 4);
-	}
-    else if ( algo == FOV_PERMISSIVE_5 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 5);
-	}
-    else if ( algo == FOV_PERMISSIVE_6 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 6);
-	}
-    else if ( algo == FOV_PERMISSIVE_7 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 7);
-	}
-    else if ( algo == FOV_PERMISSIVE_8 )
-	{
-		Doryen::Permissive permissive{ *this };
-
-		permissive(*this, x, y, maxRadius, light_walls, 8);
-	}
-    else if ( algo == FOV_RESTRICTIVE )
+	else if (algo == TypeFOV::Restrictive)
 	{
 		Doryen::Restrictive restrictive;
 
 		restrictive(*this, x, y, maxRadius, light_walls);
 	}
-    else
-    {
-        // Throw Error
-    }
+	else
+	{
+		// Throw Error
+	}
 }
 
 bool Doryen::Map::isVisibleFieldView(int x, int y) const

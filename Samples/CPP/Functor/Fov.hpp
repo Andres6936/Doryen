@@ -50,22 +50,6 @@ namespace Functor
 				"##############################################",
 		};
 
-		constexpr static const std::array algo_names = {
-				"BASIC      ",
-				"DIAMOND    ",
-				"SHADOW     ",
-				"PERMISSIVE0",
-				"PERMISSIVE1",
-				"PERMISSIVE2",
-				"PERMISSIVE3",
-				"PERMISSIVE4",
-				"PERMISSIVE5",
-				"PERMISSIVE6",
-				"PERMISSIVE7",
-				"PERMISSIVE8",
-				"RESTRICTIVE"
-		};
-
 		bool torch = false;
 
 		bool light_walls = true;
@@ -75,7 +59,7 @@ namespace Functor
 		 */
 		bool recomputeFov = true;
 
-		int algonum = 0;
+		TypeFOV algonum = TypeFOV::Basic;
 
 		int playerX = 20;
 		int playerY = 10;
@@ -103,7 +87,11 @@ namespace Functor
 
 		void movePlayer(KeyCode key);
 
+		void switchTypeFieldView();
+
 		void prepareInstanceOfMap();
+
+		std::string typeFOVString();
 
 	public:
 

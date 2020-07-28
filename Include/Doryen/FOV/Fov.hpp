@@ -38,6 +38,15 @@
 namespace Doryen
 {
 
+	enum class TypeFOV : unsigned char
+	{
+		Basic,
+		Diamond,
+		Shadow,
+		Permissive,
+		Restrictive,
+	};
+
 	// Definition for allow consistence with names
 	using VectorCell = std::vector<Cell>;
 
@@ -153,31 +162,31 @@ namespace Doryen
 		 */
 		void copy(const Map& source);
 
-        /**
-         * @brief Computing the field of view.
-         *
-         * Once your map is allocated and empty cells have been defined, you can
-         * calculate the field of view.
-         *
-         * @param playerX Position of the player in the map. 0 <= player_x < map width.
-         * @param playerY Position of the player in the map. 0 <= player_y < map height.
-         *
-         * @param maxRadius If > 0, the fov is only computed up to maxRadius cells
-         * away from the player. Else, the range is unlimited.
-         *
-         * @param light_walls Wether the wall cells near ground cells in fov must be
-         * in fov too.
-         *
-         * @param algo FOV algorithm to use. This are:
-         *
-         * 1- FOV_BASIC
-         * 2- FOV_DIAMOND
-         * 3- FOV_SHADOW
-         * 4- FOV_PERMISSIVE_x
-         * 5- FOV_RESTRICTIVE
-         */
-        void computeFov( int playerX, int playerY, int maxRadius = 0, bool light_walls = true,
-                         TCOD_fov_algorithm_t algo = FOV_BASIC );
+		/**
+		 * @brief Computing the field of view.
+		 *
+		 * Once your map is allocated and empty cells have been defined, you can
+		 * calculate the field of view.
+		 *
+		 * @param playerX Position of the player in the map. 0 <= player_x < map width.
+		 * @param playerY Position of the player in the map. 0 <= player_y < map height.
+		 *
+		 * @param maxRadius If > 0, the fov is only computed up to maxRadius cells
+		 * away from the player. Else, the range is unlimited.
+		 *
+		 * @param light_walls Wether the wall cells near ground cells in fov must be
+		 * in fov too.
+		 *
+		 * @param algo FOV algorithm to use. This are:
+		 *
+		 * 1- FOV_BASIC
+		 * 2- FOV_DIAMOND
+		 * 3- FOV_SHADOW
+		 * 4- FOV_PERMISSIVE_x
+		 * 5- FOV_RESTRICTIVE
+		 */
+		void computeFov(int playerX, int playerY, int maxRadius = 0, bool light_walls = true,
+				TypeFOV algo = TypeFOV::Basic);
 
         /**
          * @brief Checking if a cell is in fov.
