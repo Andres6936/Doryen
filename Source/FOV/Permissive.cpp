@@ -2,6 +2,8 @@
 
 #include "Doryen/FOV/Permissive.hpp"
 
+using namespace Doryen;
+
 void
 Doryen::Permissive::operator()(Doryen::Map& _map, int playerX, int playerY, int maxRadius, bool ligthWalls, int fovType)
 {
@@ -81,3 +83,31 @@ std::int32_t Doryen::Permissive::getDistance(std::int32_t a, std::int32_t b)
 
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
 }
+
+Permissive::Field& Permissive::checkField(Permissive::Field& currentField,
+		Permissive::Field& activeFields)
+{
+	return <#initializer#>;
+}
+
+void Permissive::addSteepBump(Permissive::Offset& point,
+		Permissive::Field& currentField, std::vector<Bump>& steepBumps)
+{
+
+}
+
+void
+Permissive::addShallowBump(Permissive::Offset& point,
+		Permissive::Field& currentField, std::vector<Bump>& shallowBumps)
+{
+
+}
+
+Permissive::Field&
+Permissive::visitSquare(Permissive::Offset& dest,
+		Permissive::Field& currentField, std::vector<Bump>& steepBumps,
+		std::vector<Bump>& shallowBumps, Permissive::LinkedList<Permissive::Field>& activeFields)
+{
+	return <#initializer#>;
+}
+
