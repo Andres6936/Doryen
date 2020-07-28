@@ -1,10 +1,10 @@
 #ifndef LIBTCOD_PERMISSIVE_HPP
 #define LIBTCOD_PERMISSIVE_HPP
 
+#include <list>
 #include <memory>
 #include <vector>
 #include <cstdint>
-#include <forward_list>
 
 #include "Doryen/Geometry/Point2D.hpp"
 #include <Doryen/FOV/Fov.hpp>
@@ -17,10 +17,13 @@ namespace Doryen
 
 	private:
 
-		// Definitions
+		// Definitions (Alias)
 
 		template<typename T>
-		using LinkedList = std::forward_list<T>;
+		using LinkedList = std::list<T>;
+
+		template<typename T>
+		using LinkedListNode = typename std::list<T>::iterator;
 
 		// Auxiliary Classes
 
@@ -114,6 +117,10 @@ namespace Doryen
 
 		};
 
+		// References
+
+		Map& map;
+
 		// Variables
 
 		Offset source{};
@@ -124,6 +131,28 @@ namespace Doryen
 		// Methods
 
 		void computeQuadrant();
+
+		bool actIsBlocked(const Offset& pos);
+
+		/**
+		 * <b>Original Implementation:</b>
+		 *
+		 * A function that takes the X and Y coordinate of a point where X >= 0, Y >= 0,
+		 * and X >= Y, and returns the distance from the point to the origin (0,0).
+		 *
+		 * <b>This implementation:</b>
+		 *
+		 * The conditions cannot be met.
+		 *
+		 * Deleted invariant: X >= Y <br>
+		 * Modify invariant: X >= 0 to if X >= 0 then X = 0 <br>
+		 * Modify invariant: Y >= 0 to if Y >= 0 then Y = 0 <br>
+		 *
+		 * @param a Coordinate x.
+		 * @param b Coordinate y.
+		 * @return The distance of two points.
+		 */
+		std::int32_t getDistance(const std::int32_t a, const std::int32_t b);
 
 	public:
 
