@@ -147,5 +147,12 @@ Permissive::visitSquare(Permissive::Offset& dest,
 	else
 	{
 		LinkedListNode <Field> steeper = currentField;
+		LinkedListNode <Field> shallower = activeFields.insert(currentField, *currentField);
+
+		addSteepBump(bottomRight, shallower, steepBumps);
+		checkField(shallower, activeFields);
+		addShallowBump(topLeft, steeper, shallowBumps);
+
+		return checkField(steeper, activeFields);
 	}
 }
