@@ -16,14 +16,14 @@ namespace Doryen
 
 	private:
 
-		class Offset final : public Geometry::Point2D<>
+		class Offset final : public Geometry::Point2D<std::int16_t>
 		{
 
 		public:
 
 			Offset() noexcept = default;
 
-			Offset(std::int32_t x, std::int32_t y) noexcept: Geometry::Point2D<>(x, y)
+			Offset(std::int16_t x, std::int16_t y) noexcept: Geometry::Point2D<std::int16_t>(x, y)
 			{
 			};
 
@@ -112,6 +112,10 @@ namespace Doryen
 		Offset quadrant{};
 
 		int rangeLimit{ -1 };
+
+		// Methods
+
+		void computeQuadrant();
 
 	public:
 
