@@ -49,6 +49,13 @@ namespace Doryen
 
 			std::shared_ptr<Bump> parent{ nullptr };
 
+			Bump() = default;
+
+			Bump(const Offset& _position, std::shared_ptr<Bump> _parent)
+					: position(_position), parent(_parent)
+			{
+			};
+
 		};
 
 		class Line final

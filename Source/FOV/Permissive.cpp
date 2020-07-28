@@ -90,14 +90,51 @@ void Permissive::addSteepBump(Permissive::Offset& point,
 		Permissive::LinkedListNode<Permissive::Field> currentField,
 		std::vector<Bump>& steepBumps)
 {
+	Field value = *currentField;
+	value.steep.far = point;
+	value.steepBump = { point, std::make_shared<Bump>(value.steepBump) };
+	steepBumps.push_back(value.steepBump);
 
+	std::shared_ptr<Bump> currentBump;
+
+	currentBump.reset(&value.shallowBump);
+
+	// Now look through the list of shallow bumps and see if any of them are below the line.
+	for (; currentBump not_eq nullptr; currentBump = currentBump->parent)
+	{
+		if (value.steep.isBelow(currentBump->position))
+		{
+			value.steep.near = currentBump->position;
+		}
+	}
+
+	*currentField = value;
 }
 
 void Permissive::addShallowBump(Permissive::Offset& point,
 		Permissive::LinkedListNode<Permissive::Field> currentField,
 		std::vector<Bump>& shallowBumps)
 {
+	Field value = *currentField;
+	value.shallow.far = point;
+	value.shallowBump = { point, std::make_shared<Bump>(value.shallowBump) };
+	shallowBumps.push_back(value.shallowBump);
 
+	std::shared_ptr<Bump> currentBump;
+
+	currentBump.reset(&value.steepBump);
+
+	while (currentBump not_eq nullptr)
+	{
+		if (value.shallow.isAbove(currentBump->position))
+		{
+			value.shallow.near = currentBump->position;
+		}
+
+		currentBump = currentBump->parent;
+	}
+
+	*currentField = value;
 }
 
 Permissive::LinkedListNode<Permissive::Field>
