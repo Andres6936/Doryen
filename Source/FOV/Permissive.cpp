@@ -48,6 +48,8 @@ void Doryen::Permissive::computeQuadrant()
 		{
 			dest.x = static_cast<std::int16_t>(i - j);
 			dest.y = static_cast<std::int16_t>(j);
+
+			current = visitSquare(dest, current, steepBumps, shallowBumps, activeFields);
 		}
 	}
 }
