@@ -129,55 +129,55 @@ void Doryen::Map::computeFov( int x, int y, int maxRadius, bool light_walls,
 	}
     else if ( algo == FOV_PERMISSIVE_0 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 0);
 	}
     else if ( algo == FOV_PERMISSIVE_1 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 1);
 	}
     else if ( algo == FOV_PERMISSIVE_2 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 2);
 	}
     else if ( algo == FOV_PERMISSIVE_3 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 3);
 	}
     else if ( algo == FOV_PERMISSIVE_4 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 4);
 	}
     else if ( algo == FOV_PERMISSIVE_5 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 5);
 	}
     else if ( algo == FOV_PERMISSIVE_6 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 6);
 	}
     else if ( algo == FOV_PERMISSIVE_7 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 7);
 	}
     else if ( algo == FOV_PERMISSIVE_8 )
 	{
-		Doryen::Permissive permissive;
+		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 8);
 	}

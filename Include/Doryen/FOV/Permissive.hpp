@@ -177,6 +177,10 @@ namespace Doryen
 
 	public:
 
+		Permissive(Map& _map) : map(_map)
+		{
+		};
+
 		void operator()(Doryen::Map& map, int playerX, int playerY,
 				int maxRadius, bool ligthWalls, int fovType);
 	};
