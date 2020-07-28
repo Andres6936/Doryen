@@ -22,6 +22,9 @@ namespace Doryen
 		template<typename T>
 		using LinkedList = std::list<T>;
 
+		template<typename T>
+		using LinkedListNode = typename std::list<T>::iterator;
+
 		// Auxiliary Classes
 
 		class Offset final : public Geometry::Point2D<std::int16_t>
@@ -151,15 +154,16 @@ namespace Doryen
 		 */
 		std::int32_t getDistance(const std::int32_t a, const std::int32_t b);
 
-		Field& checkField(Field& currentField, Field& activeFields);
-
-		void addSteepBump(Offset& point, Field& currentField,
+		void addSteepBump(Offset& point, LinkedListNode<Field> currentField,
 				std::vector<Bump>& steepBumps);
 
-		void addShallowBump(Offset& point, Field& currentField,
+		void addShallowBump(Offset& point, LinkedListNode<Field> currentField,
 				std::vector<Bump>& shallowBumps);
 
-		Field& visitSquare(Offset& dest, Field& currentField,
+		LinkedListNode<Field> checkField(LinkedListNode<Field> currentField,
+				LinkedList<Field>& activeFields);
+
+		LinkedListNode<Field> visitSquare(Offset& dest, LinkedListNode<Field> currentField,
 				std::vector<Bump>& steepBumps,
 				std::vector<Bump>& shallowBumps,
 				LinkedList<Field>& activeFields);

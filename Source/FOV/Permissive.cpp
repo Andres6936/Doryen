@@ -42,7 +42,7 @@ void Doryen::Permissive::computeQuadrant()
 	for (int i = 1; i < INFINITY_16 and activeFields.size() not_eq 0; ++i)
 	{
 		// Reference to current element
-		Field& current = activeFields.front();
+		LinkedListNode<Field> current = activeFields.begin();
 
 		for (int j = 0; j <= i; ++j)
 		{
@@ -86,30 +86,32 @@ std::int32_t Doryen::Permissive::getDistance(std::int32_t a, std::int32_t b)
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
 }
 
-Permissive::Field& Permissive::checkField(Permissive::Field& currentField,
-		Permissive::Field& activeFields)
-{
-	return <#initializer#>;
-}
-
 void Permissive::addSteepBump(Permissive::Offset& point,
-		Permissive::Field& currentField, std::vector<Bump>& steepBumps)
+		Permissive::LinkedListNode<Permissive::Field> currentField,
+		std::vector<Bump>& steepBumps)
 {
 
 }
 
-void
-Permissive::addShallowBump(Permissive::Offset& point,
-		Permissive::Field& currentField, std::vector<Bump>& shallowBumps)
+void Permissive::addShallowBump(Permissive::Offset& point,
+		Permissive::LinkedListNode<Permissive::Field> currentField,
+		std::vector<Bump>& shallowBumps)
 {
 
 }
 
-Permissive::Field&
+Permissive::LinkedListNode<Permissive::Field>
+Permissive::checkField(Permissive::LinkedListNode<Permissive::Field> currentField,
+		Permissive::LinkedList<Permissive::Field>& activeFields)
+{
+	return Doryen::Permissive::LinkedListNode<Permissive::Field>();
+}
+
+Permissive::LinkedListNode<Permissive::Field>
 Permissive::visitSquare(Permissive::Offset& dest,
-		Permissive::Field& currentField, std::vector<Bump>& steepBumps,
-		std::vector<Bump>& shallowBumps, Permissive::LinkedList<Permissive::Field>& activeFields)
+		Permissive::LinkedListNode<Field> currentField,
+		std::vector<Bump>& steepBumps, std::vector<Bump>& shallowBumps,
+		Permissive::LinkedList<Field>& activeFields)
 {
-	return <#initializer#>;
+	return Doryen::Permissive::LinkedListNode<Permissive::Field>();
 }
-
