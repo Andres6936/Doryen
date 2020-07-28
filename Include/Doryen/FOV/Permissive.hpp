@@ -48,6 +48,8 @@ namespace Doryen
 			Offset near{};
 			Offset far{};
 
+			Line() = default;
+
 			Line(const Offset& _near, const Offset& _far) : near(_near), far(_far)
 			{
 			};
