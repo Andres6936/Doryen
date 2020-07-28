@@ -8,7 +8,9 @@ void
 Doryen::Permissive::operator()(Doryen::Map& _map, int playerX, int playerY, int maxRadius, bool ligthWalls, int fovType)
 {
 	source = { static_cast<int16_t>(playerX), static_cast<int16_t>(playerY) };
-	rangeLimit = maxRadius;
+	rangeLimit = maxRadius == 0 ? -1 : maxRadius;
+
+	map.resetFieldView();
 
 	for (int q = 0; q < 4; ++q)
 	{
