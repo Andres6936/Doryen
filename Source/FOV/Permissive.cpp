@@ -104,7 +104,18 @@ Permissive::LinkedListNode<Permissive::Field>
 Permissive::checkField(Permissive::LinkedListNode<Permissive::Field> currentField,
 		Permissive::LinkedList<Permissive::Field>& activeFields)
 {
-	return Doryen::Permissive::LinkedListNode<Permissive::Field>();
+	LinkedListNode <Field> result = currentField;
+
+	if (currentField->shallow.doesContain(currentField->steep.near) and
+		currentField->shallow.doesContain(currentField->steep.far) and
+		(currentField->shallow.doesContain({ 0, 1 }) or
+		 currentField->shallow.doesContain({ 1, 0 })))
+	{
+		result = std::next(currentField, 1);
+		activeFields.erase(currentField);
+	}
+
+	return result;
 }
 
 Permissive::LinkedListNode<Permissive::Field>
