@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include <cstdint>
+#include <forward_list>
 
 #include "Doryen/Geometry/Point2D.hpp"
 #include <Doryen/FOV/Fov.hpp>
@@ -15,6 +16,13 @@ namespace Doryen
 	{
 
 	private:
+
+		// Definitions
+
+		template<typename T>
+		using LinkedList = std::forward_list<T>;
+
+		// Auxiliary Classes
 
 		class Offset final : public Geometry::Point2D<std::int16_t>
 		{
