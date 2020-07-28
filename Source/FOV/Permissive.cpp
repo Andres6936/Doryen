@@ -5,8 +5,8 @@ Doryen::Permissive::operator()(Doryen::Map& map, int playerX, int playerY, int m
 {
 	// Defines the parameters of the permissiveness.
 	// Derived values defining the actual part of the square used as a range.
-	std::int32_t offset = 8 - fovType;
-	std::int32_t limit = 8 + fovType;
+	offset = 8 - fovType;
+	limit = 8 + fovType;
 
 	map.resetFieldView();
 	map.setVisibleFieldView(playerX, playerY);
@@ -14,8 +14,8 @@ Doryen::Permissive::operator()(Doryen::Map& map, int playerX, int playerY, int m
 	views.resize(map.getWidth() * map.getHeight());
 	bumps.resize(map.getWidth() * map.getHeight());
 
-	std::int32_t minX {0};
-	std::int32_t maxX {0};
+	std::int32_t minX{ 0 };
+	std::int32_t maxX{ 0 };
 
 	std::int32_t minY {0};
 	std::int32_t maxY {0};
@@ -38,4 +38,26 @@ Doryen::Permissive::operator()(Doryen::Map& map, int playerX, int playerY, int m
 	}
 
 	// Calculate fov. precise permissive field of view
+	bumpIdx = 0;
+}
+
+void
+Doryen::Permissive::checkQuadrant(Doryen::Map& _map,
+		Doryen::Geometry::Point2D<> start, Doryen::Geometry::Point2D<> d,
+		Doryen::Geometry::Point2D<> extent, bool lightWalls)
+{
+	Line shallowLine{ offset, limit, extent.x * STEP_SIZE, 0 };
+	Line steepLine = { limit, offset, 0, extent.y * STEP_SIZE };
+
+	std::int32_t maxI = extent.x + extent.y;
+
+	auto view = views.begin() + (start.x + start.y * _map.getWidth());
+
+	view->shallowLine = shallowLine;
+	view->steepLine = steepLine;
+
+	std::vector<View> activeViews;
+	activeViews.push_back(*view);
+
+
 }

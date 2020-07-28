@@ -55,9 +55,20 @@ namespace Doryen
 
 		};
 
+		const std::uint8_t STEP_SIZE{ 16 };
+
+		std::int32_t limit{ 0 };
+
+		std::int32_t offset{ 0 };
+
+		std::int32_t bumpIdx{ 0 };
+
 		std::vector<View> views;
 
 		std::vector<ViewBump> bumps;
+
+		void checkQuadrant(Map& _map, Geometry::Point2D<> start, Geometry::Point2D<> d,
+				Geometry::Point2D<> extent, bool lightWalls);
 
 	public:
 
