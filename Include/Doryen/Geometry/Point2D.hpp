@@ -28,7 +28,7 @@ namespace Doryen
 			T x;
 			T y;
 
-			bool equals(const Point2D<T>& _rhs) const
+			bool equals(const Point2D<T>& _rhs) const noexcept
 			{
 				return this->x == _rhs.x and this->y == _rhs.y;
 			}

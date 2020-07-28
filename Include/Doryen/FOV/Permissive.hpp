@@ -16,14 +16,27 @@ namespace Doryen
 
 	private:
 
-		class ViewBump final : public Geometry::Point2D<>
+		class Offset final : public Geometry::Point2D<>
 		{
 
 		public:
 
-			std::int32_t refCount{ 0 };
+			Offset() noexcept = default;
 
-			std::shared_ptr<ViewBump> parent{ nullptr };
+			Offset(std::int32_t x, std::int32_t y) noexcept: Geometry::Point2D<>(x, y)
+			{
+			};
+
+		};
+
+		class Bump final
+		{
+
+		public:
+
+			Offset position{};
+
+			std::shared_ptr<Bump> parent{ nullptr };
 
 		};
 
@@ -32,43 +45,64 @@ namespace Doryen
 
 		public:
 
-			std::int32_t xi{ 0 };
-			std::int32_t yi{ 0 };
+			Offset near{};
+			Offset far{};
 
-			std::int32_t xf{ 0 };
-			std::int32_t yf{ 0 };
+			Line(const Offset& _near, const Offset& _far) : near(_near), far(_far)
+			{
+			};
+
+			// Methods
+
+			bool isBelow(const Offset& point)
+			{
+				return relativeSlope(point) > 0;
+			}
+
+			bool isBelowOrContains(const Offset& point)
+			{
+				return relativeSlope(point) >= 0;
+			}
+
+			bool isAbove(const Offset& point)
+			{
+				return relativeSlope(point) < 0;
+			}
+
+			bool isAboveOrContains(const Offset& point)
+			{
+				return relativeSlope(point) <= 0;
+			}
+
+			bool doesContain(const Offset& point)
+			{
+				return relativeSlope(point) == 0;
+			}
+
+			/**
+			 * @return negative if the line is above the point. <br>
+			 *  positive if the line is below the point. <br>
+			 *  0 if the line is on the point.
+			 */
+			std::int32_t relativeSlope(const Offset& point)
+			{
+				return (far.y - near.y) * (far.x - point.x) - (far.y - point.y) * (far.x - near.x);
+			}
 
 		};
 
-		class View final
+		class Field final
 		{
 
 		public:
 
-			Line shallowLine;
+			Bump steepBump{};
+			Bump shallowBump{};
 
-			Line steepLine;
-
-			std::vector<ViewBump> shallowBump;
-
-			std::vector<ViewBump> steepBump;
+			Line steep{};
+			Line shallow{};
 
 		};
-
-		const std::uint8_t STEP_SIZE{ 16 };
-
-		std::int32_t limit{ 0 };
-
-		std::int32_t offset{ 0 };
-
-		std::int32_t bumpIdx{ 0 };
-
-		std::vector<View> views;
-
-		std::vector<ViewBump> bumps;
-
-		void checkQuadrant(Map& _map, Geometry::Point2D<> start, Geometry::Point2D<> d,
-				Geometry::Point2D<> extent, bool lightWalls);
 
 	public:
 
