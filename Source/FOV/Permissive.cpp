@@ -113,5 +113,39 @@ Permissive::visitSquare(Permissive::Offset& dest,
 		std::vector<Bump>& steepBumps, std::vector<Bump>& shallowBumps,
 		Permissive::LinkedList<Field>& activeFields)
 {
-	return Doryen::Permissive::LinkedListNode<Permissive::Field>();
+	Offset topLeft{ dest.x, static_cast<int16_t>(dest.y + 1) };
+	Offset bottomRight{ static_cast<int16_t>(dest.x + 1), dest.y };
+
+	while (currentField not_eq activeFields.end() and currentField->steep.isBelowOrContains(bottomRight))
+	{
+		// Advance to next element
+		std::advance(currentField, 1);
+	}
+
+	if (currentField == activeFields.end() or currentField->shallow.isAboveOrContains(topLeft) or
+		not actIsBlocked(dest))
+	{
+		return currentField;
+	}
+
+	if (currentField->shallow.isAbove(bottomRight) and currentField->steep.isBelow(topLeft))
+	{
+		LinkedListNode <Field> next = std::next(currentField, 1);
+		activeFields.erase(currentField);
+		return next;
+	}
+	else if (currentField->shallow.isAbove(bottomRight))
+	{
+		addShallowBump(topLeft, currentField, shallowBumps);
+		return checkField(currentField, activeFields);
+	}
+	else if (currentField->steep.isBelow(topLeft))
+	{
+		addSteepBump(bottomRight, currentField, steepBumps);
+		return checkField(currentField, activeFields);
+	}
+	else
+	{
+		LinkedListNode <Field> steeper = currentField;
+	}
 }
