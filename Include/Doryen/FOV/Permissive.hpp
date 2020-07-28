@@ -106,6 +106,13 @@ namespace Doryen
 
 		};
 
+		// Variables
+
+		Offset source{};
+		Offset quadrant{};
+
+		int rangeLimit{ -1 };
+
 	public:
 
 		void operator()(Doryen::Map& map, int playerX, int playerY,
