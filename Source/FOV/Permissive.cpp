@@ -95,9 +95,7 @@ void Permissive::addSteepBump(Permissive::Offset& point,
 	value.steepBump = { point, std::make_shared<Bump>(value.steepBump) };
 	steepBumps.push_back(value.steepBump);
 
-	std::shared_ptr<Bump> currentBump;
-
-	currentBump.reset(&value.shallowBump);
+	std::shared_ptr<Bump> currentBump = std::make_shared<Bump>(value.shallowBump);
 
 	// Now look through the list of shallow bumps and see if any of them are below the line.
 	for (; currentBump not_eq nullptr; currentBump = currentBump->parent)
@@ -120,9 +118,7 @@ void Permissive::addShallowBump(Permissive::Offset& point,
 	value.shallowBump = { point, std::make_shared<Bump>(value.shallowBump) };
 	shallowBumps.push_back(value.shallowBump);
 
-	std::shared_ptr<Bump> currentBump;
-
-	currentBump.reset(&value.steepBump);
+	std::shared_ptr<Bump> currentBump = std::make_shared<Bump>(value.steepBump);
 
 	while (currentBump not_eq nullptr)
 	{
