@@ -45,13 +45,17 @@ namespace Doryen
 	 *  - Slow. <br>
 	 *  - No expanding pillar shadows. <br>
 	 *  - Perhaps too much visibility around corners.
+	 *
+	 * @attention Implemented from
+	 *  <a href="http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html#permissivecode">
+	 *  Permissive Code</a>
 	 */
 	class Permissive
 	{
 
 	private:
 
-		// Definitions (Alias)
+		// Definitions (Alias), allow consistence with the original code
 
 		template<typename T>
 		using LinkedList = std::list<T>;
