@@ -69,12 +69,8 @@ namespace Doryen
 	 * title=FOV_using_recursive_shadowcasting this algorithm.
 	 *
 	 * 4 - <b>FOV_PERMISSIVE_x</b>: based on
-	 * http://roguebasin.roguelikedevelopment.org/index.php?
-	 * title=Precise_Permissive_Field_of_View this algorithm.
-	 *
-	 * Permissive has a variable permissiveness parameter. You can either use the
-	 * constants FOV_PERMISSIVE_x, x between 0 (the less permissive) and 8 (the more
-	 * permissive).
+	 * <a href="http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html#permissivecode">
+	 * Permissive Code</a>
 	 *
 	 * 5- <b>FOV_RESTRICTIVE</b>: Mingos' Restrictive Precise Angle Shadowcasting (MRPAS).
 	 * Original implementation http://umbrarumregnum.110mb.com/download/mrpas here.
