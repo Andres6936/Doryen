@@ -33,14 +33,14 @@ namespace Doryen
 	 *
 	 * The permissive field of view algorithm is always symmetrical.
 	 *
-	 * <b>Pros:</b>
+	 * @note <b>Pros:</b>
 	 *
 	 *  - Symmetry. <br>
 	 *  - No blind corners. <br>
 	 *  - Expansive walls. <br>
 	 *  - Continuous point visibility.
 	 *
-	 * <b>Cons:</b>
+	 * @note <b>Cons:</b>
 	 *
 	 *  - Slow. <br>
 	 *  - No expanding pillar shadows. <br>
