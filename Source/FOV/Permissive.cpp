@@ -88,7 +88,7 @@ std::int32_t Doryen::Permissive::getDistance(std::int32_t a, std::int32_t b)
 	return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
 }
 
-void Permissive::addSteepBump(Permissive::Offset& point,
+void Permissive::addSteepBump(const Permissive::Offset& point,
 		Permissive::LinkedListNode<Permissive::Field> currentField,
 		std::vector<Bump>& steepBumps)
 {
@@ -111,7 +111,7 @@ void Permissive::addSteepBump(Permissive::Offset& point,
 	*currentField = value;
 }
 
-void Permissive::addShallowBump(Permissive::Offset& point,
+void Permissive::addShallowBump(const Permissive::Offset& point,
 		Permissive::LinkedListNode<Permissive::Field> currentField,
 		std::vector<Bump>& shallowBumps)
 {
@@ -136,7 +136,7 @@ void Permissive::addShallowBump(Permissive::Offset& point,
 }
 
 Permissive::LinkedListNode<Permissive::Field>
-Permissive::checkField(Permissive::LinkedListNode<Permissive::Field> currentField,
+Permissive::checkField(const Permissive::LinkedListNode<Permissive::Field> currentField,
 		Permissive::LinkedList<Permissive::Field>& activeFields)
 {
 	LinkedListNode <Field> result = currentField;
@@ -154,7 +154,7 @@ Permissive::checkField(Permissive::LinkedListNode<Permissive::Field> currentFiel
 }
 
 Permissive::LinkedListNode<Permissive::Field>
-Permissive::visitSquare(Permissive::Offset& dest,
+Permissive::visitSquare(const Permissive::Offset& dest,
 		Permissive::LinkedListNode<Field> currentField,
 		std::vector<Bump>& steepBumps, std::vector<Bump>& shallowBumps,
 		Permissive::LinkedList<Field>& activeFields)

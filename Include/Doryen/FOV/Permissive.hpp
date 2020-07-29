@@ -207,16 +207,16 @@ namespace Doryen
 		 */
 		std::int32_t getDistance(const std::int32_t a, const std::int32_t b);
 
-		void addSteepBump(Offset& point, LinkedListNode<Field> currentField,
+		void addSteepBump(const Offset& point, LinkedListNode<Field> currentField,
 				std::vector<Bump>& steepBumps);
 
-		void addShallowBump(Offset& point, LinkedListNode<Field> currentField,
+		void addShallowBump(const Offset& point, LinkedListNode<Field> currentField,
 				std::vector<Bump>& shallowBumps);
 
-		LinkedListNode<Field> checkField(LinkedListNode<Field> currentField,
+		LinkedListNode<Field> checkField(const LinkedListNode<Field> currentField,
 				LinkedList<Field>& activeFields);
 
-		LinkedListNode<Field> visitSquare(Offset& dest, LinkedListNode<Field> currentField,
+		LinkedListNode<Field> visitSquare(const Offset& dest, LinkedListNode<Field> currentField,
 				std::vector<Bump>& steepBumps,
 				std::vector<Bump>& shallowBumps,
 				LinkedList<Field>& activeFields);
