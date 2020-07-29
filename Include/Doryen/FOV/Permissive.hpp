@@ -60,6 +60,14 @@ namespace Doryen
 		template<typename T>
 		using LinkedList = std::list<T>;
 
+		/**
+		 * Allow the follow concepts:
+		 *
+		 * - Readable
+		 * - Writable
+		 * - Iterator
+		 * - Bidirectional Iterator
+		 */
 		template<typename T>
 		using LinkedListNode = typename std::list<T>::iterator;
 
