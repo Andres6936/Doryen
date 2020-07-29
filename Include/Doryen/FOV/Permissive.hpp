@@ -120,27 +120,27 @@ namespace Doryen
 
 			// Methods
 
-			bool isBelow(const Offset& point)
+			bool isBelow(const Offset& point) const
 			{
 				return relativeSlope(point) > 0;
 			}
 
-			bool isBelowOrContains(const Offset& point)
+			bool isBelowOrContains(const Offset& point) const
 			{
 				return relativeSlope(point) >= 0;
 			}
 
-			bool isAbove(const Offset& point)
+			bool isAbove(const Offset& point) const
 			{
 				return relativeSlope(point) < 0;
 			}
 
-			bool isAboveOrContains(const Offset& point)
+			bool isAboveOrContains(const Offset& point) const
 			{
 				return relativeSlope(point) <= 0;
 			}
 
-			bool doesContain(const Offset& point)
+			bool doesContain(const Offset& point) const
 			{
 				return relativeSlope(point) == 0;
 			}
@@ -150,7 +150,7 @@ namespace Doryen
 			 *  positive if the line is below the point. <br>
 			 *  0 if the line is on the point.
 			 */
-			std::int32_t relativeSlope(const Offset& point)
+			std::int32_t relativeSlope(const Offset& point) const
 			{
 				return (far.y - near.y) * (far.x - point.x) - (far.y - point.y) * (far.x - near.x);
 			}

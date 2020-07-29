@@ -159,8 +159,8 @@ Permissive::visitSquare(const Permissive::Offset& dest,
 		std::vector<Bump>& steepBumps, std::vector<Bump>& shallowBumps,
 		Permissive::LinkedList<Field>& activeFields)
 {
-	Offset topLeft{ dest.x, static_cast<int16_t>(dest.y + 1) };
-	Offset bottomRight{ static_cast<int16_t>(dest.x + 1), dest.y };
+	const Offset topLeft{ dest.x, static_cast<int16_t>(dest.y + 1) };
+	const Offset bottomRight{ static_cast<int16_t>(dest.x + 1), dest.y };
 
 	while (currentField not_eq activeFields.end() and currentField->steep.isBelowOrContains(bottomRight))
 	{
