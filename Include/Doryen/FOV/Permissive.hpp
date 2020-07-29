@@ -12,6 +12,40 @@
 namespace Doryen
 {
 
+	/**
+	 * Permissive field of view (tile-to-tile)
+	 *
+	 * The permissive field of view algorithm treats a tile as visible if there's an unobstructed
+	 * line from any part of the player's tile to any part of the target tile.
+	 *
+	 * Most implementations of this use an approximation, such as just testing the corners against
+	 * each other, which fails in some cases. Exact implementations work in all cases but tend to
+	 * be fairly slow.
+	 *
+	 * I provide an exact implementation (cleaned up and adapted from a demo by Jonathon Duerig).
+	 *
+	 * The main features of the algorithm are that it's symmetrical and allows peeking very far
+	 * around corners, but it's too permissive for my taste, so I haven't made any effort to
+	 * optimize the algorithm.
+	 *
+	 * That said, the algorithm looks and works much better if all creatures have a short sight
+	 * radius.
+	 *
+	 * The permissive field of view algorithm is always symmetrical.
+	 *
+	 * <b>Pros:</b>
+	 *
+	 *  - Symmetry. <br>
+	 *  - No blind corners. <br>
+	 *  - Expansive walls. <br>
+	 *  - Continuous point visibility.
+	 *
+	 * <b>Cons:</b>
+	 *
+	 *  - Slow. <br>
+	 *  - No expanding pillar shadows. <br>
+	 *  - Perhaps too much visibility around corners.
+	 */
 	class Permissive
 	{
 
