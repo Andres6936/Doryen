@@ -30,8 +30,8 @@
 #define CON_W 80
 #define CON_H 50
 
-#define IN_RECTANGLE(x,y,w,h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
-#define SQRDIST(x1,y1,x2,y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
+#define IN_RECTANGLE(x, y, w, h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
+#define SQRDIST(x1, y1, x2, y2) (((x1)-(x2))*((x1)-(x2))+((y1)-(y2))*((y1)-(y2)))
 
 #ifndef NDEBUG
 #define DBG(x) printf x
@@ -39,5 +39,5 @@
 #define DBG(x)
 #endif
 
-extern TCODNoise noise1d;
-extern TCODNoise noise2d;
+extern Noise noise1d;
+extern Noise noise2d;

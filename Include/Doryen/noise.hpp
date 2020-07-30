@@ -69,7 +69,7 @@ namespace Doryen
 		<tr><td>wavelet</td><td>53</td><td>32</td><td>14</td><td>X</td></tr>
 	</table>
  */
-	class TCODNoise
+	class Noise
 	{
 	public :
 		/**
@@ -119,13 +119,14 @@ namespace Doryen
 			# a 3D noise generator with a specific fractal parameters
 			noise3d = libtcod.noise_new(3, 0.7, 1.4)
 		*/
-		TCODNoise(int dimensions, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		Noise(int dimensions, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
-		TCODNoise(int dimensions, TCODRandom *random, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		Noise(int dimensions, TCODRandom* random, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
-		TCODNoise(int dimensions, float hurst, float lacunarity, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		Noise(int dimensions, float hurst, float lacunarity, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
-		TCODNoise(int dimensions, float hurst, float lacunarity, TCODRandom *random, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		Noise(int dimensions, float hurst, float lacunarity, TCODRandom* random,
+				TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
 		/**
 		@PageName noise_init
@@ -157,7 +158,7 @@ namespace Doryen
 			# destroy it
 			litbcod.noise_delete(noise)
 		*/
-		virtual ~TCODNoise();
+		virtual ~Noise();
 
 		/**
 		@PageName noise_setType

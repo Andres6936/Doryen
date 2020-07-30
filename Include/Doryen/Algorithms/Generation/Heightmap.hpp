@@ -317,7 +317,7 @@ namespace Doryen
 		@Param noise is between -1.0 and 1.0
 		*/
 		void
-		addFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
+		addFbm(Noise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
 				float scale);
 
 		/**
@@ -330,7 +330,7 @@ namespace Doryen
 		@C# void TCODHeightMap::scaleFbm(TCODNoise noise, float mulx, float muly, float addx, float addy, float octaves, float delta, float scale)
 		*/
 		void
-		scaleFbm(TCODNoise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
+		scaleFbm(Noise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
 				float scale);
 
 		/**

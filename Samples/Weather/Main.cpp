@@ -29,9 +29,9 @@
 
 using namespace Doryen;
 
-TCODNoise noise1d(1);
+Noise noise1d(1);
 
-TCODNoise noise2d(2);
+Noise noise2d(2);
 
 Weather weather;
 

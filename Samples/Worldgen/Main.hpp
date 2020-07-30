@@ -30,7 +30,7 @@
 #define CON_W 80
 #define CON_H 50
 
-#define IN_RECTANGLE(x,y,w,h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
+#define IN_RECTANGLE(x, y, w, h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
 
-extern TCODNoise noise1d;
-extern TCODNoise noise2d;
+extern Noise noise1d;
+extern Noise noise2d;

@@ -28,8 +28,8 @@
 
 using namespace Doryen;
 
-TCODNoise noise2d(2);
-TCODNoise noise3d(3);
+Noise noise2d(2);
+Noise noise3d(3);
 RippleManager* rippleManager;
 
 Doryen::Image* ground, * ground2;
@@ -38,8 +38,8 @@ Doryen::Color mapGradient[256];
 #define MAX_COLOR_KEY 8
 
 // TCOD's land color map
-float sandHeight=0.3f;
-float grassHeight=0.5f;
+float sandHeight = 0.3f;
+float grassHeight = 0.5f;
 float snowHeight=0.9f;
 
 static int keyIndex[MAX_COLOR_KEY] = {0,

@@ -1237,7 +1237,7 @@ void WorldGenerator::generate(TCODRandom* wRng)
 
 	generateSmoothColorMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
-	noise = new TCODNoise(2, wgRng);
+	noise = new Noise(2, wgRng);
 
 	float timeEnd = Doryen::Platform::getElapsedSeconds();
 	printf("Initialization... %g\n", timeEnd - timeStart);

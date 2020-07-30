@@ -112,7 +112,7 @@ public :
 	/**
 	 * Noise.
 	 */
-	TCODNoise* noise;
+	Noise* noise;
 
 	/**
 	 * World light intensity map (shadow map).

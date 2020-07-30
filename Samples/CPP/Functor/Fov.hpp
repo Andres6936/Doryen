@@ -74,7 +74,7 @@ namespace Functor
 		/**
 		 * 1D noise used for the torch flickering.
 		 */
-		TCODNoise noise{ 1 };
+		Noise noise{ 1 };
 
 		const Doryen::Color lightWall{ 130, 110, 50 };
 		const Doryen::Color lightGround{ 200, 180, 50 };

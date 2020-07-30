@@ -26,7 +26,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 			"9 : wavelet turbulence ",
 	};
 	static int func = PERLIN;
-	static TCODNoise* noise = NULL;
+	static Noise* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
 	static float hurst = TCOD_NOISE_DEFAULT_HURST;
@@ -35,7 +35,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	static float zoom = 3.0f;
 	if (!noise)
 	{
-		noise = new TCODNoise(2, hurst, lacunarity);
+		noise = new Noise(2, hurst, lacunarity);
 		img = new Doryen::Image(sample.getWidth() * 2, sample.getHeight() * 2);
 	}
 
