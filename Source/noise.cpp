@@ -26,7 +26,9 @@
 */
 #include <stdlib.h>
 
-#include "Doryen/Doryen.hpp"
+#include "Doryen/noise.hpp"
+
+using namespace Doryen;
 
 TCODNoise::TCODNoise(int dimensions, TCOD_noise_type_t type)
 {
