@@ -33,7 +33,6 @@
 #include <vector>
 
 #include "Doryen/Algorithms/Util/Cell.hpp"
-#include "Doryen/fov_types.h"
 
 namespace Doryen
 {

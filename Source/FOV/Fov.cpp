@@ -32,10 +32,6 @@
 #include <Doryen/FOV/ShadowCasting.hpp>
 #include <Doryen/FOV/Fov.hpp>
 
-#include "Doryen/fov_types.h"
-
-#include <algorithm>
-
 Doryen::Map::Map(int width, int height)
 {
 	if (width < 0 || height < 0)

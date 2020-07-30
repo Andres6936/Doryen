@@ -30,6 +30,4 @@
 
 typedef void *TCOD_map_t;
 
-#include "fov_types.h"
-
 #endif
