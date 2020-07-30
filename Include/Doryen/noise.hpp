@@ -31,8 +31,56 @@
 #include "noise_defaults.h"
 #include "noise.h"
 
+#include <array>
+#include <vector>
+#include <cstdint>
+
 namespace Doryen
 {
+
+	enum class TypeNoise : unsigned char
+	{
+		Perlin,
+		Simplex,
+		Wavelet,
+		Default,
+	};
+
+	class Perlin
+	{
+
+	private:
+
+		const static std::uint8_t MAX_OCTAVES = 128;
+		const static std::uint8_t MAX_DIMENSIONS = 4;
+
+		constexpr static float DEFAULT_HURST = 0.5f;
+		constexpr static float DEFAULT_LACUNARITY = 2.0f;
+
+		float H {0.0f};
+		float lacunarity {0.0f};
+
+		std::int32_t nDim {0};
+
+		TypeNoise type = TypeNoise::Default;
+
+		std::vector<float> waveletTileData;
+
+		std::array<float, MAX_OCTAVES> exponent;
+
+		/**
+		 * Randomized map of indexes into buffer.
+		 */
+		std::array<std::uint8_t, 256> map;
+
+		/**
+		 * Random 256 x ndim buffer.
+		 */
+		std::array<float, 256 * MAX_DIMENSIONS> buffer;
+
+	public:
+
+	};
 
 /**
  @PageName noise
