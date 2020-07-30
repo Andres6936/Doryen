@@ -6,6 +6,8 @@ ADD_LIBRARY(Doryen.Core.C
         noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
         zip_c.c SystemSDL.c)
 
+ADD_LIBRARY(Doryen::Core::C ALIAS Doryen.Core.C)
+
 SET_TARGET_PROPERTIES(Doryen.Core.C PROPERTIES C_STANDARD 11)
 TARGET_LINK_LIBRARIES(Doryen.Core.C PUBLIC ${EXTERNAL_LIBS} dl)
 TARGET_INCLUDE_DIRECTORIES(Doryen.Core.C PUBLIC
@@ -29,6 +31,8 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp Image/PNG/HuffmanTree.cpp
         Image/PNG/Adler32.cpp SystemSDLImagePNG.cpp Renderer/Renderer.cpp Console/Char.cpp
         Event/Key.cpp Event/Mouse.cpp)
+
+ADD_LIBRARY(Doryen::Core::Cpp ALIAS Doryen.Core.Cpp)
 
 SET_TARGET_PROPERTIES(Doryen.Core.Cpp PROPERTIES CXX_STANDARD 17)
 TARGET_LINK_LIBRARIES(Doryen.Core.Cpp PUBLIC Doryen.Core.C)
