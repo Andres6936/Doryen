@@ -29,7 +29,6 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	static Doryen::Noise* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
-	static float hurst = TCOD_NOISE_DEFAULT_HURST;
 	static float lacunarity = TCOD_NOISE_DEFAULT_LACUNARITY;
 	static Doryen::Image* img = NULL;
 	static float zoom = 3.0f;
@@ -122,7 +121,6 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	sample.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
 	if (func > WAVELET)
 	{
-		sample.print(2, 12, format("E/D : hurst {2.1f}", hurst));
 		sample.print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
 		sample.print(2, 14, format("T/G : octaves {2.1f}", octaves));
 	}
