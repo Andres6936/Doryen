@@ -63,11 +63,11 @@ public:
 
 	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
 
-	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
+	float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 
 	/* fractal stuff */
 	float lacunarity;
-	float exponent[TCOD_NOISE_MAX_OCTAVES];
+	float exponent[MAX_OCTAVES];
 	float* waveletTileData;
 
 	/* noise type */
@@ -120,17 +120,17 @@ TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity)
 		data->map[i] = (unsigned char)i;
 		for (j = 0; j < data->ndim; j++)
 			data->buffer[i][j] = Random::Number::nextFloat(-0.5, 0.5);
-		normalize(data,data->buffer[i]);
+		normalize(data, data->buffer[i]);
 	}
 
-	while(--i)
+	while (--i)
 	{
 		j = Random::Number::nextInteger(0, 255);
 		SWAP(data->map[i], data->map[j], tmp);
 	}
 
 	data->lacunarity = lacunarity;
-	for(i=0; i<TCOD_NOISE_MAX_OCTAVES; i++)
+	for (i = 0; i < perlin_data_t::MAX_OCTAVES; i++)
 	{
 		/*exponent[i] = powf(f, -H); */
 		data->exponent[i] = 1.0f / f;
@@ -142,21 +142,21 @@ TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity)
 
 float TCOD_noise_perlin( TCOD_noise_t noise, float *f )
 {
-	perlin_data_t *data=(perlin_data_t *)noise;
-	int n[TCOD_NOISE_MAX_DIMENSIONS];			/* Indexes to pass to lattice function */
+	perlin_data_t* data = (perlin_data_t*)noise;
+	int n[perlin_data_t::MAX_DIMENSIONS];            /* Indexes to pass to lattice function */
 	int i;
-	float r[TCOD_NOISE_MAX_DIMENSIONS];		/* Remainders to pass to lattice function */
-	float w[TCOD_NOISE_MAX_DIMENSIONS];		/* Cubic values to pass to interpolation function */
+	float r[perlin_data_t::MAX_DIMENSIONS];        /* Remainders to pass to lattice function */
+	float w[perlin_data_t::MAX_DIMENSIONS];        /* Cubic values to pass to interpolation function */
 	float value;
 
-	for(i=0; i<data->ndim; i++)
+	for (i = 0; i < data->ndim; i++)
 	{
 		n[i] = FLOOR(f[i]);
 		r[i] = f[i] - n[i];
 		w[i] = CUBIC(r[i]);
 	}
 
-	switch(data->ndim)
+	switch (data->ndim)
 	{
 		case 1:
 			value = LERP(lattice(data,n[0], r[0],0,0,0,0,0,0),
@@ -539,18 +539,19 @@ float TCOD_noise_simplex(TCOD_noise_t noise, float *f) {
 
 typedef float (*TCOD_noise_func_t)( TCOD_noise_t noise, float *f );
 
-static float TCOD_noise_fbm_int(TCOD_noise_t noise,  float *f, float octaves, TCOD_noise_func_t func ) {
-	float tf[TCOD_NOISE_MAX_DIMENSIONS];
-	perlin_data_t *data=(perlin_data_t *)noise;
+static float TCOD_noise_fbm_int(TCOD_noise_t noise,  float *f, float octaves, TCOD_noise_func_t func )
+{
+	float tf[perlin_data_t::MAX_DIMENSIONS];
+	perlin_data_t* data = (perlin_data_t*)noise;
 	/* Initialize locals */
 	double value = 0;
-	int i,j;
-	memcpy(tf,f,sizeof(float)*data->ndim);
+	int i, j;
+	memcpy(tf, f, sizeof(float) * data->ndim);
 
 	/* Inner loop of spectral construction, where the fractal is built */
-	for(i=0; i<(int)octaves; i++)
+	for (i = 0; i < (int)octaves; i++)
 	{
-		value += (double)(func(noise,tf)) * data->exponent[i];
+		value += (double)(func(noise, tf)) * data->exponent[i];
 		for (j=0; j < data->ndim; j++) tf[j] *= data->lacunarity;
 	}
 
@@ -573,17 +574,17 @@ float TCOD_noise_fbm_simplex( TCOD_noise_t noise,  float *f, float octaves )
 
 static float TCOD_noise_turbulence_int( TCOD_noise_t noise, float *f, float octaves, TCOD_noise_func_t func )
 {
-	float tf[TCOD_NOISE_MAX_DIMENSIONS];
-	perlin_data_t *data=(perlin_data_t *)noise;
+	float tf[perlin_data_t::MAX_DIMENSIONS];
+	perlin_data_t* data = (perlin_data_t*)noise;
 	/* Initialize locals */
 	double value = 0;
-	int i,j;
-	memcpy(tf,f,sizeof(float)*data->ndim);
+	int i, j;
+	memcpy(tf, f, sizeof(float) * data->ndim);
 
 	/* Inner loop of spectral construction, where the fractal is built */
-	for(i=0; i<(int)octaves; i++)
+	for (i = 0; i < (int)octaves; i++)
 	{
-		float nval=func(noise,tf);
+		float nval = func(noise, tf);
 		value += (double)(ABS(nval)) * data->exponent[i];
 		for (j=0; j < data->ndim; j++) tf[j] *= data->lacunarity;
 	}
