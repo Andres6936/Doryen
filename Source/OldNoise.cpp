@@ -45,6 +45,8 @@ using namespace Doryen;
 #define LERP(a, b, x) ( a + x * (b - a) )
 
 #include <cstdint>
+#include <vector>
+#include <array>
 
 class perlin_data_t
 {
@@ -58,7 +60,9 @@ public:
 	constexpr static float DEFAULT_LACUNARITY = 2.0f;
 
 	int ndim;
-	unsigned char map[256]; /* Randomized map of indexes into buffer */
+
+	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
+
 	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 	/* fractal stuff */
 	float H;
