@@ -29,7 +29,7 @@
 #define _TCOD_PERLIN_HPP
 
 #include "noise_defaults.h"
-#include "noise.h"
+#include "OldNoise.hpp"
 
 #include <array>
 #include <vector>

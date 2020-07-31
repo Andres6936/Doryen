@@ -3,7 +3,7 @@
 ADD_LIBRARY(Doryen.Core.C
         color_c.c console_c.c
         fov_restrictive.c image_c.c lex_c.c list_c.c mersenne_c.c namegen_c.c
-        noise_c.c parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
+        parser_c.c sys_c.c sys_opengl_c.c sys_sdl_img_bmp.c
         zip_c.c SystemSDL.c)
 
 ADD_LIBRARY(Doryen::Core::C ALIAS Doryen.Core.C)
@@ -19,7 +19,7 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Core.C PUBLIC
 # Library for C++
 
 ADD_LIBRARY(Doryen.Core.Cpp
-        Algorithms/Drawing/Bresenham.cpp
+        Algorithms/Drawing/Bresenham.cpp OldNoise.cpp
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Graphics/Color/Color.cpp
         Console/Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
         Image/Mipmap.cpp
