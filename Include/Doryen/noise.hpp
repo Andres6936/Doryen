@@ -57,10 +57,10 @@ namespace Doryen
 		constexpr static float DEFAULT_HURST = 0.5f;
 		constexpr static float DEFAULT_LACUNARITY = 2.0f;
 
-		float H {0.0f};
-		float lacunarity {0.0f};
+		float H{ DEFAULT_HURST };
+		float lacunarity{ DEFAULT_LACUNARITY };
 
-		std::int32_t nDim {0};
+		std::int32_t nDim{ 0 };
 
 		TypeNoise type = TypeNoise::Default;
 
@@ -78,7 +78,13 @@ namespace Doryen
 		 */
 		std::array<float, 256 * MAX_DIMENSIONS> buffer;
 
+		// Methods
+
+		void normalize();
+
 	public:
+
+		Perlin() noexcept;
 
 	};
 
@@ -119,6 +125,11 @@ namespace Doryen
  */
 	class Noise
 	{
+
+	private:
+
+		Perlin perlin{};
+
 	public :
 		/**
 		@PageName noise_init

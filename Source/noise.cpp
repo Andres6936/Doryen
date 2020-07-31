@@ -27,6 +27,7 @@
 #include <stdlib.h>
 
 #include "Doryen/noise.hpp"
+#include <Doryen/Random/Number.hpp>
 
 using namespace Doryen;
 
@@ -81,4 +82,52 @@ float Noise::getTurbulence(float* f, float octaves, TCOD_noise_type_t type)
 Noise::~Noise()
 {
 	TCOD_noise_delete(data);
+}
+
+Perlin::Perlin() noexcept
+{
+	for (int i = 0; i < map.size(); ++i)
+	{
+		map[i] = i;
+
+		for (int j = 0; j < nDim; ++j)
+		{
+			buffer[i + j * buffer.size()] = Random::Number::nextFloat(-0.5f, 0.5f);
+		}
+
+		normalize();
+	}
+
+	int counter = map.size();
+
+	while (--counter not_eq 0)
+	{
+		int j = Random::Number::nextInteger(0, 255);
+		std::swap(map[counter], map[j]);
+	}
+
+	float f = 1.0f;
+
+	for (int i = 0; i < MAX_OCTAVES; ++i)
+	{
+		exponent[i] = 1.0f / f;
+		f *= lacunarity;
+	}
+}
+
+void Perlin::normalize()
+{
+	float magnitude = 0.0f;
+
+	for (int i = 0; i < nDim; ++i)
+	{
+		magnitude += std::pow(buffer[i], 2);
+	}
+
+	magnitude = 1.0f / std::sqrt(magnitude);
+
+	for (int i = 0; i < nDim; ++i)
+	{
+		buffer[i] *= magnitude;
+	}
 }
