@@ -61,14 +61,16 @@ public:
 
 	int ndim;
 
-	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
-
 	float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 
 	/* fractal stuff */
 	float lacunarity;
-	float exponent[MAX_OCTAVES];
+
 	float* waveletTileData;
+
+	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
+
+	std::array<float, MAX_OCTAVES> exponent;
 
 	/* noise type */
 	TCOD_noise_type_t noise_type;
