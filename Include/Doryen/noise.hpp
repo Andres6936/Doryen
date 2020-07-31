@@ -180,7 +180,7 @@ namespace Doryen
 		*/
 		Noise(int dimensions, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
-		Noise(int dimensions, float hurst, float lacunarity, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
+		Noise(int dimensions, float lacunarity, TCOD_noise_type_t type = TCOD_NOISE_DEFAULT);
 
 		/**
 		@PageName noise_init

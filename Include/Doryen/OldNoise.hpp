@@ -40,7 +40,7 @@ typedef enum {
 #include "noise_defaults.h"
 
 /* create a new noise object */
-TCOD_noise_t TCOD_noise_new(int dimensions, float hurst, float lacunarity);
+TCOD_noise_t TCOD_noise_new(int dimensions, float lacunarity);
 
 /* simplified API */
 void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type);

@@ -107,7 +107,7 @@ static void normalize(perlin_data_t *data, float *f)
 }
 
 
-TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity)
+TCOD_noise_t TCOD_noise_new(int ndim, float lacunarity)
 {
 	perlin_data_t* data = (perlin_data_t*)calloc(sizeof(perlin_data_t), 1);
 	int i, j;

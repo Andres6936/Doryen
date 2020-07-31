@@ -35,7 +35,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	static float zoom = 3.0f;
 	if (!noise)
 	{
-		noise = new Doryen::Noise(2, hurst, lacunarity);
+		noise = new Doryen::Noise(2, lacunarity);
 		img = new Doryen::Image(sample.getWidth() * 2, sample.getHeight() * 2);
 	}
 
