@@ -589,7 +589,7 @@ bool TCOD_console_credits_render(int x, int y, bool alpha)
 	static float xstr;
 	static TCOD_color_t colmap[64];
 	static TCOD_color_t colmap_light[64];
-	static TCOD_noise_t noise;
+//	static TCOD_noise_t noise;
 	static TCOD_color_t colkeys[4] = {
 			{ 255, 255, 204 },
 			{ 255, 204, 0 },
@@ -625,7 +625,7 @@ bool TCOD_console_credits_render(int x, int y, bool alpha)
 		TCOD_color_gen_map(colmap, 4, colkeys, colpos);
 		TCOD_color_gen_map(colmap_light, 4, colkeys_light, colpos);
 		sprintf(poweredby, "Powered by\n%s", version_string);
-		noise = TCOD_noise_new(1, TCOD_NOISE_DEFAULT_HURST, TCOD_NOISE_DEFAULT_LACUNARITY, NULL);
+//		noise = TCOD_noise_new(1, TCOD_NOISE_DEFAULT_HURST, TCOD_NOISE_DEFAULT_LACUNARITY, NULL);
 		len = strlen(poweredby);
 		len1 = 11; /* sizeof "Powered by\n" */
 		left = MAX(x - 4, 0);
@@ -682,7 +682,7 @@ bool TCOD_console_credits_render(int x, int y, bool alpha)
 		sparkley = (float)y + 1;
 	}
 	noisex = xstr * 6;
-	sparklerad = 3.0f + 2 * TCOD_noise_get(noise, &noisex);
+//	sparklerad = 3.0f + 2 * TCOD_noise_get(noise, &noisex);
 	if (xstr >= len - 1) sparklerad -= (xstr - len + 1) * 4.0f;
 	else if (xstr < 0.0f) sparklerad += xstr * 4.0f;
 	else if (poweredby[(int)(xstr + 0.5f)] == ' ' || poweredby[(int)(xstr + 0.5f)] == '\n') sparklerad /= 2;

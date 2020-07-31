@@ -29,7 +29,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Doryen/libtcod.h"
+#include "Doryen/OldNoise.hpp"
+#include "Doryen/Random/Number.hpp"
+
+using namespace Doryen;
 
 #define WAVELET_TILE_SIZE 32
 #define WAVELET_ARAD 16
@@ -37,20 +40,35 @@
 #define SIMPLEX_SCALE 0.5f
 #define WAVELET_SCALE 2.0f
 
-typedef struct
+#define ABS(a) ((a)<0?-(a):(a))
+#define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
+#define LERP(a, b, x) ( a + x * (b - a) )
+
+#include <cstdint>
+
+class perlin_data_t
 {
+
+public:
+
+	const static std::uint8_t MAX_OCTAVES = 128;
+	const static std::uint8_t MAX_DIMENSIONS = 4;
+
+	constexpr static float DEFAULT_HURST = 0.5f;
+	constexpr static float DEFAULT_LACUNARITY = 2.0f;
+
 	int ndim;
 	unsigned char map[256]; /* Randomized map of indexes into buffer */
-	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS]; 	/* Random 256 x ndim buffer */
+	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 	/* fractal stuff */
 	float H;
 	float lacunarity;
 	float exponent[TCOD_NOISE_MAX_OCTAVES];
-	float *waveletTileData;
-	TCOD_random_t rand;
+	float* waveletTileData;
+
 	/* noise type */
 	TCOD_noise_type_t noise_type;
-} perlin_data_t;
+};
 
 static float lattice( perlin_data_t *data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
@@ -85,25 +103,25 @@ static void normalize(perlin_data_t *data, float *f)
 }
 
 
-TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity, TCOD_random_t random)
+TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity)
 {
-	perlin_data_t *data=(perlin_data_t *)calloc(sizeof(perlin_data_t),1);
+	perlin_data_t* data = (perlin_data_t*)calloc(sizeof(perlin_data_t), 1);
 	int i, j;
 	unsigned char tmp;
 	float f = 1;
-	data->rand = random ? random : TCOD_random_get_instance();
+
 	data->ndim = ndim;
-	for(i=0; i<256; i++)
+	for (i = 0; i < 256; i++)
 	{
 		data->map[i] = (unsigned char)i;
-		for(j=0; j<data->ndim; j++)
-			data->buffer[i][j] = TCOD_random_get_float(data->rand,-0.5, 0.5);
+		for (j = 0; j < data->ndim; j++)
+			data->buffer[i][j] = Random::Number::nextFloat(-0.5, 0.5);
 		normalize(data,data->buffer[i]);
 	}
 
 	while(--i)
 	{
-		j = TCOD_random_get_int(data->rand,0, 255);
+		j = Random::Number::nextInteger(0, 255);
 		SWAP(data->map[i], data->map[j], tmp);
 	}
 
@@ -629,8 +647,10 @@ static void TCOD_noise_wavelet_init(TCOD_noise_t pnoise) {
 	float *temp2=(float *)malloc(sz);
 	float *noise=(float *)malloc(sz);
 	int offset;
-	for (i=0; i < WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE; i++ ) {
-		noise[i]=TCOD_random_get_float(data->rand,-1.0f,1.0f);
+	for (i=0; i < WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE; i++ )
+	{
+
+		noise[i] = Random::Number::nextFloat(-1.0f, 1.0f);
 	}
 	for (iy=0; iy < WAVELET_TILE_SIZE; iy++ ) {
 		for (iz=0; iz < WAVELET_TILE_SIZE; iz++ ) {
