@@ -64,8 +64,8 @@ public:
 	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
 
 	float buffer[256][TCOD_NOISE_MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
+
 	/* fractal stuff */
-	float H;
 	float lacunarity;
 	float exponent[TCOD_NOISE_MAX_OCTAVES];
 	float* waveletTileData;
@@ -129,7 +129,6 @@ TCOD_noise_t TCOD_noise_new(int ndim, float hurst, float lacunarity)
 		SWAP(data->map[i], data->map[j], tmp);
 	}
 
-	data->H = hurst;
 	data->lacunarity = lacunarity;
 	for(i=0; i<TCOD_NOISE_MAX_OCTAVES; i++)
 	{
