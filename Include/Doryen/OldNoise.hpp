@@ -37,8 +37,6 @@ typedef enum {
 	TCOD_NOISE_DEFAULT = 0
 } TCOD_noise_type_t;
 
-#include "noise_defaults.h"
-
 /* create a new noise object */
 TCOD_noise_t TCOD_noise_new(int dimensions, float lacunarity);
 

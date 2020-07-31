@@ -33,7 +33,7 @@ using namespace Doryen;
 
 Noise::Noise(int dimensions, TCOD_noise_type_t type)
 {
-	data = TCOD_noise_new(dimensions, TCOD_NOISE_DEFAULT_LACUNARITY);
+	data = TCOD_noise_new(dimensions, 2.0f);
 	TCOD_noise_set_type(data, type);
 }
 

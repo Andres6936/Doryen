@@ -29,7 +29,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	static Doryen::Noise* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
-	static float lacunarity = TCOD_NOISE_DEFAULT_LACUNARITY;
+	static float lacunarity = 2.0f;
 	static Doryen::Image* img = NULL;
 	static float zoom = 3.0f;
 	if (!noise)
