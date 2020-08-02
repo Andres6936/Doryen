@@ -136,16 +136,6 @@ namespace Doryen
         Console( int w, int h );
 
         /**
-         * Create an offscreen console from a .asc or .apf file.
-         *
-         * You can create an offscreen console from a file
-         * created with Dorpy with this constructor.
-         *
-         * @param filename path to the .asc or .apf file created with Dorpy.
-         */
-        Console( const char *filename );
-
-        /**
          * Destroy an offscreen console and release any resources allocated.
          *
          * @note Don't use it on the root console.
