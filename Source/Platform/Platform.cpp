@@ -37,7 +37,18 @@ float Doryen::Platform::getElapsedSeconds( )
 	return TCOD_sys_elapsed_seconds();
 }
 
-TCOD_list_t Doryen::Platform::getDirectoryContent( const char *path, const char *pattern )
+std::vector<std::filesystem::directory_entry> Doryen::Platform::getDirectoryContent(
+		const std::filesystem::path& path, std::string_view pattern)
 {
-	return TCOD_sys_get_directory_content(path,pattern);
+	std::vector<std::filesystem::directory_entry> entries;
+
+	for (const std::filesystem::directory_entry& directory: std::filesystem::directory_iterator(path))
+	{
+		if (directory.path().extension() == pattern)
+		{
+			entries.push_back(directory);
+		}
+	}
+
+	return entries;
 }

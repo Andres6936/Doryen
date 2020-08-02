@@ -19,13 +19,13 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 	int i;
 	if (nbSets == 0)
 	{
-		TCODList<char*> files = Doryen::Platform::getDirectoryContent("Data/namegen", "*.cfg");
+		std::vector<std::filesystem::directory_entry> files =
+				Doryen::Platform::getDirectoryContent("Data/namegen", ".cfg");
+
 		// parse all the files
-		for (char** it = files.begin(); it != files.end(); it++)
+		for (auto it = files.begin(); it != files.end(); it++)
 		{
-			char tmp[256];
-			sprintf(tmp, "Data/namegen/%s", *it);
-			TCODNamegen::parse(tmp);
+			TCODNamegen::parse(it->path());
 		}
 		// get the sets list
 		sets = TCODNamegen::getSets();

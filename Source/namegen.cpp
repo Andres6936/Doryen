@@ -31,8 +31,9 @@
 
 #include "Doryen/Doryen.hpp"
 
-void TCODNamegen::parse (const char * filename, TCODRandom * random) {
-	TCOD_namegen_parse (filename, random ? random->data : NULL);
+void TCODNamegen::parse(const std::filesystem::path& filename, TCODRandom* random)
+{
+	TCOD_namegen_parse(filename, random ? random->data : NULL);
 }
 
 char * TCODNamegen::generate (char * name, bool allocate) {

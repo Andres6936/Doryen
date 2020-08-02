@@ -28,16 +28,20 @@
 #ifndef _TCOD_SYS_HPP
 #define _TCOD_SYS_HPP
 
+#include <vector>
+#include <filesystem>
+#include <string_view>
+
 #include "Doryen/libtcod.h"
 
 namespace Doryen
 {
 
-    /**
-     * This toolkit contains some system specific miscellaneous utilities.
-     *
-     * @note Use them is you want your code to be easily portable.
-     */
+	/**
+	 * This toolkit contains some system specific miscellaneous utilities.
+	 *
+	 * @note Use them is you want your code to be easily portable.
+	 */
     class Platform
 	{
 
@@ -74,7 +78,8 @@ namespace Doryen
 		@Param path a directory
 		@Param pattern If NULL or empty, returns all directory entries. Else returns only entries matching the pattern. The pattern is NOT a regular expression. It can only handle one '*' wildcard. Examples : *.png, saveGame*, font*.png
 		*/
-		static TCOD_list_t getDirectoryContent(const char* path, const char* pattern);
+		static std::vector<std::filesystem::directory_entry> getDirectoryContent(
+				const std::filesystem::path& path, std::string_view pattern);
 
 	};
 }

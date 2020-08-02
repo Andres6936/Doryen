@@ -32,40 +32,43 @@
 #ifndef _TCOD_NAMEGEN_HPP
 #define _TCOD_NAMEGEN_HPP
 
+#include <filesystem>
+
 /**
  @PageName namegen
  @PageCategory Roguelike toolkits
  @PageTitle Name generator
  @PageDesc This tool allows to generate random names out of custom made syllable sets.
  */
-class TCODNamegen {
-	public:
-		/**
-		@PageName namegen_init
-		@PageFather namegen
-		@PageTitle Creating a generator
-		@FuncDesc In order to be able to generate names, the name generator needs to be fed proper data. It will then be ready to generate random names defined in the file(s) it is fed. Syllable set parsing is achieved via the following.
-			Note 1: Each file will be parsed once only. If, for some reason, you would like to parse the same file twice, you will need to destroy the generator first, which will empty the list of parsed files along with erasing all the data retrieved from those files.
-			
-			Note 2: The generator can be fed data multiple times if you have it in separate files. Just make sure the structure names in them aren't duplicated, otherwise they will be silently ignored.
-			
-			Note 3: In the C++ version, you are not obliged to specify the random number generator. If you skip it in the function call, the generator will assume you would like to use an instance of the default generator.
+class TCODNamegen
+{
+public:
+	/**
+	@PageName namegen_init
+	@PageFather namegen
+	@PageTitle Creating a generator
+	@FuncDesc In order to be able to generate names, the name generator needs to be fed proper data. It will then be ready to generate random names defined in the file(s) it is fed. Syllable set parsing is achieved via the following.
+		Note 1: Each file will be parsed once only. If, for some reason, you would like to parse the same file twice, you will need to destroy the generator first, which will empty the list of parsed files along with erasing all the data retrieved from those files.
 
-		@Cpp static void TCODNamegen::parse (const char * filename, TCODRandom * random = NULL)
-		@C void TCOD_namegen_parse (const char * filename, TCOD_random_t random)
-		@Py namegen_parse (filename, random = 0)
-		@C#
-			static void TCODNameGenerator::parse(string filename)
-			static void TCODNameGenerator::parse(string filename, TCODRandom random)
-		@Param filename 	The file where the desired syllable set is saved, along with its relative parh, for instance, "data/names.txt".
-		@Param random 	A random number generator object. Use NULL for the default random number generator
-		@CppEx 
-			TCODNamegen::parse("data/names.txt",TCODRandom::getInstance());
-			TCODNamegen::parse("data/names2.txt");
-		@CEx TCOD_namegen_parse("data/names.txt",TCOD_random_get_instance());
-		@PyEx libtcod.namegen_parse('data/names.txt')
-		*/
-		static void parse (const char * filename, TCODRandom * random = NULL);
+		Note 2: The generator can be fed data multiple times if you have it in separate files. Just make sure the structure names in them aren't duplicated, otherwise they will be silently ignored.
+
+		Note 3: In the C++ version, you are not obliged to specify the random number generator. If you skip it in the function call, the generator will assume you would like to use an instance of the default generator.
+
+	@Cpp static void TCODNamegen::parse (const char * filename, TCODRandom * random = NULL)
+	@C void TCOD_namegen_parse (const char * filename, TCOD_random_t random)
+	@Py namegen_parse (filename, random = 0)
+	@C#
+		static void TCODNameGenerator::parse(string filename)
+		static void TCODNameGenerator::parse(string filename, TCODRandom random)
+	@Param filename 	The file where the desired syllable set is saved, along with its relative parh, for instance, "data/names.txt".
+	@Param random 	A random number generator object. Use NULL for the default random number generator
+	@CppEx
+		TCODNamegen::parse("data/names.txt",TCODRandom::getInstance());
+		TCODNamegen::parse("data/names2.txt");
+	@CEx TCOD_namegen_parse("data/names.txt",TCOD_random_get_instance());
+	@PyEx libtcod.namegen_parse('data/names.txt')
+	*/
+	static void parse(const std::filesystem::path& filename, TCODRandom* random = NULL);
 
 		/**
 		@PageName namegen_init
