@@ -74,10 +74,6 @@ typedef enum {
 
 TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t *key, TCOD_mouse_t *mouse);
 
-/* filesystem stuff */
-
-TCOD_list_t TCOD_sys_get_directory_content(const char *path, const char *pattern);
-
 /* SDL renderer callback */
 typedef void (*SDL_renderer_t) (void *sdl_surface);
 
