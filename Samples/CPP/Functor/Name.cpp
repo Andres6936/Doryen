@@ -56,9 +56,10 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 	for (i = 0; i < names.size(); i++)
 	{
 		char* name = names.get(i);
+
 		if (strlen(name) < sample.getWidth())
 		{
-			sample.printEx(sample.getWidth() - 2, 2 + i, TCOD_BKGND_NONE, TCOD_RIGHT, name);
+			sample.print(30, 2 + i, name);
 		}
 	}
 
