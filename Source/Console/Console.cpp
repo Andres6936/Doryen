@@ -49,8 +49,6 @@ Doryen::Console::Console()
 	buffer.resize(width * height);
 	oldBuffer.resize(width * height);
 
-	windowClose = false;
-
 	for (int i = 0; i < TCOD_COLCTRL_NUMBER; i++)
 	{
 		controlBackground[i] = Doryen::Color(0, 0, 0); // Black
@@ -67,8 +65,6 @@ Doryen::Console::Console(int w, int h)
 
 		buffer.resize(width * height);
 		oldBuffer.resize(width * height);
-
-		windowClose = false;
 
 		for (int i = 0; i < TCOD_COLCTRL_NUMBER; i++)
 		{

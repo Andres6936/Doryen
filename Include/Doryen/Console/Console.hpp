@@ -69,8 +69,6 @@ namespace Doryen
 
 		inline static std::unique_ptr<Renderer> renderer = std::make_unique<SDL>();
 
-		bool windowClose = false;
-
 		/**
 		 * Only exist a root console during all execute of program.
 		 */
