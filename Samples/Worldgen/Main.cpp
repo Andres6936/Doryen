@@ -173,7 +173,7 @@ int main(int argc, char* argv[])
 		{ endCredits = Console::renderCredits(4, 4, true); }
 
 		// flush updates to screen
-		console.flush();
+		console.draw();
 	}
 	return 0;
 }

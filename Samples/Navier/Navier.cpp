@@ -377,6 +377,6 @@ int main(int argc, char* argv[])
 		}
 
 		// flush updates to screen
-		console.flush();
+		console.draw();
 	}
 }

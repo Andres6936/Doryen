@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
 		sampleConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
 
 		// update the game screen
-		console.flush();
+		console.draw();
 
 		if (_key == KeyCode::DOWN)
 		{

@@ -825,7 +825,7 @@ namespace Doryen
         @C# static void TCODConsole::flush()
         @Lua tcod.console.flush()
         */
-        static void flush( );
+		static void draw();
 
         /**
         @PageName console_ascii

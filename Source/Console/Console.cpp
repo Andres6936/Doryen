@@ -418,7 +418,7 @@ bool Doryen::Console::isFullscreen()
 }
 
 
-void Doryen::Console::flush()
+void Doryen::Console::draw()
 {
 	renderer->draw();
 }
