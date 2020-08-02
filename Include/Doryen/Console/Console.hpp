@@ -31,6 +31,7 @@
 #include <string_view>
 #include <cstdint>
 #include <string>
+#include <memory>
 #include <vector>
 #include <array>
 
@@ -66,7 +67,7 @@ namespace Doryen
 
 	private:
 
-		static Renderer* renderer;
+		inline static std::unique_ptr<Renderer> renderer = std::make_unique<SDL>();
 
 		bool windowClose = false;
 

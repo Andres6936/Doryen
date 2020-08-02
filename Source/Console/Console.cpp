@@ -37,8 +37,6 @@ using namespace Doryen;
 
 // Static Members
 
-Doryen::Renderer* Doryen::Console::renderer = new SDL();
-
 Doryen::Console* Doryen::Console::root = nullptr;
 
 // Constructs
@@ -90,8 +88,6 @@ Doryen::Console::~Console()
 	if (isConsoleRoot)
 	{
 		renderer->onExit();
-
-		delete renderer;
 	}
 }
 
