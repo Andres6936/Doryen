@@ -43,7 +43,7 @@ using namespace Doryen;
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 #define LERP(a, b, x) ( a + x * (b - a) )
 
-float perlin_data_t::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
+float Perlin::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
 	std::array<int, 4> n = { ix, iy, iz, iw };
 
@@ -66,7 +66,7 @@ float perlin_data_t::lattice(int ix, float fx, int iy, float fy, int iz, float f
 	return value;
 }
 
-static float lattice(perlin_data_t* data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
+static float lattice(Perlin* data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
 	return data->lattice(ix, fx, iy, fy, iz, fz, iw, fw);
 }
@@ -78,21 +78,21 @@ static float lattice(perlin_data_t* data, int ix, float fx, int iy, float fy, in
 #define FLOOR(a) ((a)> 0 ? ((int)a) : (((int)a)-1) )
 #define CUBIC(a)	( a * a * (3 - 2*a) )
 
-static void normalize(perlin_data_t *data, float *f)
+static void normalize(Perlin* data, float* f)
 {
 	float magnitude = 0;
 	int i;
-	for(i=0; i<data->ndim; i++)
-		magnitude += f[i]*f[i];
+	for (i = 0; i < data->ndim; i++)
+		magnitude += f[i] * f[i];
 	magnitude = 1.0f / (float)sqrt(magnitude);
-	for(i=0; i<data->ndim; i++)
+	for (i = 0; i < data->ndim; i++)
 		f[i] *= magnitude;
 }
 
 
 TCOD_noise_t TCOD_noise_new(int ndim, float lacunarity)
 {
-	perlin_data_t* data = (perlin_data_t*)calloc(sizeof(perlin_data_t), 1);
+	Perlin* data = (Perlin*)calloc(sizeof(Perlin), 1);
 	int i, j;
 	unsigned char tmp;
 	float f = 1;
@@ -113,7 +113,7 @@ TCOD_noise_t TCOD_noise_new(int ndim, float lacunarity)
 	}
 
 	data->lacunarity = lacunarity;
-	for (i = 0; i < perlin_data_t::MAX_OCTAVES; i++)
+	for (i = 0; i < Perlin::MAX_OCTAVES; i++)
 	{
 		/*exponent[i] = powf(f, -H); */
 		data->exponent[i] = 1.0f / f;
@@ -125,11 +125,11 @@ TCOD_noise_t TCOD_noise_new(int ndim, float lacunarity)
 
 float TCOD_noise_perlin( TCOD_noise_t noise, float *f )
 {
-	perlin_data_t* data = (perlin_data_t*)noise;
-	int n[perlin_data_t::MAX_DIMENSIONS];            /* Indexes to pass to lattice function */
+	Perlin* data = (Perlin*)noise;
+	int n[Perlin::MAX_DIMENSIONS];            /* Indexes to pass to lattice function */
 	int i;
-	float r[perlin_data_t::MAX_DIMENSIONS];        /* Remainders to pass to lattice function */
-	float w[perlin_data_t::MAX_DIMENSIONS];        /* Cubic values to pass to interpolation function */
+	float r[Perlin::MAX_DIMENSIONS];        /* Remainders to pass to lattice function */
+	float w[Perlin::MAX_DIMENSIONS];        /* Cubic values to pass to interpolation function */
 	float value;
 
 	for (i = 0; i < data->ndim; i++)
@@ -233,18 +233,20 @@ static float simplex[64][4] = {
 
 };
 
-float TCOD_noise_simplex(TCOD_noise_t noise, float *f) {
-	perlin_data_t *data=(perlin_data_t *)noise;
-	switch(data->ndim) {
-		case 1 :
-		{
-			int i0=(int)FLOOR(f[0]*SIMPLEX_SCALE);
-			int i1=i0+1;
-			float x0 = f[0]*SIMPLEX_SCALE - i0;
-			float x1 = x0 - 1.0f;
-			float t0 = 1.0f - x0*x0;
-			float t1 = 1.0f - x1*x1;
-			float n0,n1;
+float TCOD_noise_simplex(TCOD_noise_t noise, float *f)
+{
+	Perlin* data = (Perlin*)noise;
+	switch (data->ndim)
+	{
+	case 1 :
+	{
+		int i0 = (int)FLOOR(f[0] * SIMPLEX_SCALE);
+		int i1 = i0 + 1;
+		float x0 = f[0] * SIMPLEX_SCALE - i0;
+		float x1 = x0 - 1.0f;
+		float t0 = 1.0f - x0 * x0;
+		float t1 = 1.0f - x1 * x1;
+		float n0, n1;
 			t0 = t0*t0;
 			t1 = t1*t1;
 			i0=data->map[i0&0xFF];
@@ -524,8 +526,8 @@ typedef float (*TCOD_noise_func_t)( TCOD_noise_t noise, float *f );
 
 static float TCOD_noise_fbm_int(TCOD_noise_t noise,  float *f, float octaves, TCOD_noise_func_t func )
 {
-	float tf[perlin_data_t::MAX_DIMENSIONS];
-	perlin_data_t* data = (perlin_data_t*)noise;
+	float tf[Perlin::MAX_DIMENSIONS];
+	Perlin* data = (Perlin*)noise;
 	/* Initialize locals */
 	double value = 0;
 	int i, j;
@@ -535,7 +537,7 @@ static float TCOD_noise_fbm_int(TCOD_noise_t noise,  float *f, float octaves, TC
 	for (i = 0; i < (int)octaves; i++)
 	{
 		value += (double)(func(noise, tf)) * data->exponent[i];
-		for (j=0; j < data->ndim; j++) tf[j] *= data->lacunarity;
+		for (j = 0; j < data->ndim; j++) tf[j] *= data->lacunarity;
 	}
 
 	/* Take care of remainder in octaves */
@@ -557,8 +559,8 @@ float TCOD_noise_fbm_simplex( TCOD_noise_t noise,  float *f, float octaves )
 
 static float TCOD_noise_turbulence_int( TCOD_noise_t noise, float *f, float octaves, TCOD_noise_func_t func )
 {
-	float tf[perlin_data_t::MAX_DIMENSIONS];
-	perlin_data_t* data = (perlin_data_t*)noise;
+	float tf[Perlin::MAX_DIMENSIONS];
+	Perlin* data = (Perlin*)noise;
 	/* Initialize locals */
 	double value = 0;
 	int i, j;
@@ -627,14 +629,15 @@ static void TCOD_noise_wavelet_upsample(float *from, float *to, int stride) {
 	}
 }
 
-static void TCOD_noise_wavelet_init(TCOD_noise_t pnoise) {
-	perlin_data_t *data=(perlin_data_t *)pnoise;
-	int ix,iy,iz,i,sz=WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*sizeof(float);
-	float *temp1=(float *)malloc(sz);
-	float *temp2=(float *)malloc(sz);
-	float *noise=(float *)malloc(sz);
+static void TCOD_noise_wavelet_init(TCOD_noise_t pnoise)
+{
+	Perlin* data = (Perlin*)pnoise;
+	int ix, iy, iz, i, sz = WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * sizeof(float);
+	float* temp1 = (float*)malloc(sz);
+	float* temp2 = (float*)malloc(sz);
+	float* noise = (float*)malloc(sz);
 	int offset;
-	for (i=0; i < WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE; i++ )
+	for (i = 0; i < WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE; i++)
 	{
 
 		noise[i] = Random::Number::nextFloat(-1.0f, 1.0f);
@@ -683,18 +686,20 @@ static void TCOD_noise_wavelet_init(TCOD_noise_t pnoise) {
 	free(temp2);
 }
 
-float TCOD_noise_wavelet (TCOD_noise_t noise, float *f) {
-	perlin_data_t *data=(perlin_data_t *)noise;
+float TCOD_noise_wavelet (TCOD_noise_t noise, float *f)
+{
+	Perlin* data = (Perlin*)noise;
 	float pf[3];
 	int i;
-	int p[3],c[3],mid[3],n=WAVELET_TILE_SIZE;
-	float w[3][3],t,result=0.0f;
-	if ( data->ndim > 3 ) return 0.0f; /* not supported */
-	if (! data->waveletTileData ) TCOD_noise_wavelet_init(noise);
-	for (i=0; i < data->ndim; i++ ) pf[i]=f[i]*WAVELET_SCALE;
-	for (i=data->ndim; i < 3; i++ ) pf[i]=0.0f;
-	for (i=0; i < 3; i++ ) {
-		mid[i]=(int)ceil(pf[i]-0.5f);
+	int p[3], c[3], mid[3], n = WAVELET_TILE_SIZE;
+	float w[3][3], t, result = 0.0f;
+	if (data->ndim > 3) return 0.0f; /* not supported */
+	if (!data->waveletTileData) TCOD_noise_wavelet_init(noise);
+	for (i = 0; i < data->ndim; i++) pf[i] = f[i] * WAVELET_SCALE;
+	for (i = data->ndim; i < 3; i++) pf[i] = 0.0f;
+	for (i = 0; i < 3; i++)
+	{
+		mid[i] = (int)ceil(pf[i] - 0.5f);
 		t=mid[i] - (pf[i]-0.5f);
 		w[i][0]=t*t*0.5f;
 		w[i][2]=(1.0f-t)*(1.0f-t)*0.5f;
@@ -723,8 +728,9 @@ float TCOD_noise_turbulence_wavelet(TCOD_noise_t noise, float *f, float octaves)
 	return TCOD_noise_turbulence_int(noise,f,octaves,TCOD_noise_wavelet);
 }
 
-void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type) {
-	((perlin_data_t *)noise)->noise_type = type;
+void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type)
+{
+	((Perlin*)noise)->noise_type = type;
 }
 
 float TCOD_noise_get_ex (TCOD_noise_t noise, float *f, TCOD_noise_type_t type) {
@@ -732,13 +738,22 @@ float TCOD_noise_get_ex (TCOD_noise_t noise, float *f, TCOD_noise_type_t type) {
 		case (TCOD_NOISE_PERLIN): return TCOD_noise_perlin(noise,f); break;
 		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_simplex(noise,f); break;
 		case (TCOD_NOISE_WAVELET): return TCOD_noise_wavelet(noise,f); break;
+	default:
+		switch (((Perlin*)noise)->noise_type)
+		{
+		case (TCOD_NOISE_PERLIN):
+			return TCOD_noise_perlin(noise, f);
+			break;
+		case (TCOD_NOISE_SIMPLEX):
+			return TCOD_noise_simplex(noise, f);
+			break;
+		case (TCOD_NOISE_WAVELET):
+			return TCOD_noise_wavelet(noise, f);
+			break;
 		default:
-			switch (((perlin_data_t *)noise)->noise_type) {
-				case (TCOD_NOISE_PERLIN): return TCOD_noise_perlin(noise,f); break;
-				case (TCOD_NOISE_SIMPLEX): return TCOD_noise_simplex(noise,f); break;
-				case (TCOD_NOISE_WAVELET): return TCOD_noise_wavelet(noise,f); break;
-				default: return TCOD_noise_simplex(noise,f); break;
-			}
+			return TCOD_noise_simplex(noise, f);
+			break;
+		}
 			break;
 	}
 }
@@ -748,13 +763,22 @@ float TCOD_noise_get_fbm_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_n
 		case (TCOD_NOISE_PERLIN): return TCOD_noise_fbm_perlin(noise,f,octaves); break;
 		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_fbm_simplex(noise,f,octaves); break;
 		case (TCOD_NOISE_WAVELET): return TCOD_noise_fbm_wavelet(noise,f,octaves); break;
+	default:
+		switch (((Perlin*)noise)->noise_type)
+		{
+		case (TCOD_NOISE_PERLIN):
+			return TCOD_noise_fbm_perlin(noise, f, octaves);
+			break;
+		case (TCOD_NOISE_SIMPLEX):
+			return TCOD_noise_fbm_simplex(noise, f, octaves);
+			break;
+		case (TCOD_NOISE_WAVELET):
+			return TCOD_noise_fbm_wavelet(noise, f, octaves);
+			break;
 		default:
-			switch (((perlin_data_t *)noise)->noise_type) {
-				case (TCOD_NOISE_PERLIN): return TCOD_noise_fbm_perlin(noise,f,octaves); break;
-				case (TCOD_NOISE_SIMPLEX): return TCOD_noise_fbm_simplex(noise,f,octaves); break;
-				case (TCOD_NOISE_WAVELET): return TCOD_noise_fbm_wavelet(noise,f,octaves); break;
-				default: return TCOD_noise_fbm_simplex(noise,f,octaves); break;
-			}
+			return TCOD_noise_fbm_simplex(noise, f, octaves);
+			break;
+		}
 			break;
 	}
 }
@@ -764,44 +788,84 @@ float TCOD_noise_get_turbulence_ex (TCOD_noise_t noise, float *f, float octaves,
 		case (TCOD_NOISE_PERLIN): return TCOD_noise_turbulence_perlin(noise,f,octaves); break;
 		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_turbulence_simplex(noise,f,octaves); break;
 		case (TCOD_NOISE_WAVELET): return TCOD_noise_turbulence_wavelet(noise,f,octaves); break;
+	default:
+		switch (((Perlin*)noise)->noise_type)
+		{
+		case (TCOD_NOISE_PERLIN):
+			return TCOD_noise_turbulence_perlin(noise, f, octaves);
+			break;
+		case (TCOD_NOISE_SIMPLEX):
+			return TCOD_noise_turbulence_simplex(noise, f, octaves);
+			break;
+		case (TCOD_NOISE_WAVELET):
+			return TCOD_noise_turbulence_wavelet(noise, f, octaves);
+			break;
 		default:
-			switch (((perlin_data_t *)noise)->noise_type) {
-				case (TCOD_NOISE_PERLIN): return TCOD_noise_turbulence_perlin(noise,f,octaves); break;
-				case (TCOD_NOISE_SIMPLEX): return TCOD_noise_turbulence_simplex(noise,f,octaves); break;
-				case (TCOD_NOISE_WAVELET): return TCOD_noise_turbulence_wavelet(noise,f,octaves); break;
-				default: return TCOD_noise_turbulence_simplex(noise,f,octaves); break;
-			}
+			return TCOD_noise_turbulence_simplex(noise, f, octaves);
+			break;
+		}
 			break;
 	}
 }
 
-float TCOD_noise_get (TCOD_noise_t noise, float *f) {
-	switch (((perlin_data_t *)noise)->noise_type) {
-		case (TCOD_NOISE_PERLIN): return TCOD_noise_perlin(noise,f); break;
-		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_simplex(noise,f); break;
-		case (TCOD_NOISE_WAVELET): return TCOD_noise_wavelet(noise,f); break;
-		default: return TCOD_noise_simplex(noise,f); break;
+float TCOD_noise_get (TCOD_noise_t noise, float *f)
+{
+	switch (((Perlin*)noise)->noise_type)
+	{
+	case (TCOD_NOISE_PERLIN):
+		return TCOD_noise_perlin(noise, f);
+		break;
+	case (TCOD_NOISE_SIMPLEX):
+		return TCOD_noise_simplex(noise, f);
+		break;
+	case (TCOD_NOISE_WAVELET):
+		return TCOD_noise_wavelet(noise, f);
+		break;
+	default:
+		return TCOD_noise_simplex(noise, f);
+		break;
 	}
 }
 
-float TCOD_noise_get_fbm (TCOD_noise_t noise, float *f, float octaves) {
-	switch (((perlin_data_t *)noise)->noise_type) {
-		case (TCOD_NOISE_PERLIN): return TCOD_noise_fbm_perlin(noise,f,octaves); break;
-		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_fbm_simplex(noise,f,octaves); break;
-		case (TCOD_NOISE_WAVELET): return TCOD_noise_fbm_wavelet(noise,f,octaves); break;
-		default: return TCOD_noise_fbm_simplex(noise,f,octaves); break;
+float TCOD_noise_get_fbm (TCOD_noise_t noise, float *f, float octaves)
+{
+	switch (((Perlin*)noise)->noise_type)
+	{
+	case (TCOD_NOISE_PERLIN):
+		return TCOD_noise_fbm_perlin(noise, f, octaves);
+		break;
+	case (TCOD_NOISE_SIMPLEX):
+		return TCOD_noise_fbm_simplex(noise, f, octaves);
+		break;
+	case (TCOD_NOISE_WAVELET):
+		return TCOD_noise_fbm_wavelet(noise, f, octaves);
+		break;
+	default:
+		return TCOD_noise_fbm_simplex(noise, f, octaves);
+		break;
 	}
 }
 
-float TCOD_noise_get_turbulence (TCOD_noise_t noise, float *f, float octaves) {
-	switch (((perlin_data_t *)noise)->noise_type) {
-		case (TCOD_NOISE_PERLIN): return TCOD_noise_turbulence_perlin(noise,f,octaves); break;
-		case (TCOD_NOISE_SIMPLEX): return TCOD_noise_turbulence_simplex(noise,f,octaves); break;
-		case (TCOD_NOISE_WAVELET): return TCOD_noise_turbulence_wavelet(noise,f,octaves); break;
-		default: return TCOD_noise_turbulence_simplex(noise,f,octaves); break;
+float TCOD_noise_get_turbulence (TCOD_noise_t noise, float *f, float octaves)
+{
+	switch (((Perlin*)noise)->noise_type)
+	{
+	case (TCOD_NOISE_PERLIN):
+		return TCOD_noise_turbulence_perlin(noise, f, octaves);
+		break;
+	case (TCOD_NOISE_SIMPLEX):
+		return TCOD_noise_turbulence_simplex(noise, f, octaves);
+		break;
+	case (TCOD_NOISE_WAVELET):
+		return TCOD_noise_turbulence_wavelet(noise, f, octaves);
+		break;
+	default:
+		return TCOD_noise_turbulence_simplex(noise, f, octaves);
+		break;
 	}
 }
 
-void TCOD_noise_delete(TCOD_noise_t noise) {
-	free((perlin_data_t *)noise);
+void TCOD_noise_delete(TCOD_noise_t noise)
+{
+	free((Perlin*)noise);
 }

@@ -42,7 +42,7 @@ typedef enum
 	TCOD_NOISE_DEFAULT = 0
 } TCOD_noise_type_t;
 
-class perlin_data_t
+class Perlin
 {
 
 public:
