@@ -45,48 +45,6 @@ namespace Doryen
 		Default,
 	};
 
-	class Perlin
-	{
-
-	private:
-
-		const static std::uint8_t MAX_OCTAVES = 128;
-		const static std::uint8_t MAX_DIMENSIONS = 4;
-
-		constexpr static float DEFAULT_HURST = 0.5f;
-		constexpr static float DEFAULT_LACUNARITY = 2.0f;
-
-		float H{ DEFAULT_HURST };
-		float lacunarity{ DEFAULT_LACUNARITY };
-
-		std::int32_t nDim{ 0 };
-
-		TypeNoise type = TypeNoise::Default;
-
-		std::vector<float> waveletTileData;
-
-		std::array<float, MAX_OCTAVES> exponent;
-
-		/**
-		 * Randomized map of indexes into buffer.
-		 */
-		std::array<std::uint8_t, 256> map;
-
-		/**
-		 * Random 256 x ndim buffer.
-		 */
-		std::array<float, 256 * MAX_DIMENSIONS> buffer;
-
-		// Methods
-
-		void normalize();
-
-	public:
-
-		Perlin() noexcept;
-
-	};
-
 /**
  @PageName noise
  @PageCategory Base toolkits
@@ -124,10 +82,6 @@ namespace Doryen
  */
 	class Noise
 	{
-
-	private:
-
-		Perlin perlin{};
 
 	public :
 		/**
