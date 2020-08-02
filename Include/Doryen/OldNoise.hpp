@@ -28,24 +28,57 @@
 #ifndef _TCOD_PERLIN_H
 #define _TCOD_PERLIN_H
 
-typedef void *TCOD_noise_t;
+typedef void* TCOD_noise_t;
 
-typedef enum {
+typedef enum
+{
 	TCOD_NOISE_PERLIN = 1,
 	TCOD_NOISE_SIMPLEX = 2,
 	TCOD_NOISE_WAVELET = 4,
 	TCOD_NOISE_DEFAULT = 0
 } TCOD_noise_type_t;
 
+class perlin_data_t
+{
+
+public:
+
+	const static std::uint8_t MAX_OCTAVES = 128;
+	const static std::uint8_t MAX_DIMENSIONS = 4;
+
+	constexpr static float DEFAULT_HURST = 0.5f;
+	constexpr static float DEFAULT_LACUNARITY = 2.0f;
+
+	int ndim;
+
+	float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
+
+	/* fractal stuff */
+	float lacunarity;
+
+	float* waveletTileData;
+
+	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
+
+	std::array<float, MAX_OCTAVES> exponent;
+
+	/* noise type */
+	TCOD_noise_type_t noise_type;
+
+	// Methods
+
+	float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
+};
+
 /* create a new noise object */
 TCOD_noise_t TCOD_noise_new(int dimensions, float lacunarity);
 
 /* simplified API */
-void TCOD_noise_set_type (TCOD_noise_t noise, TCOD_noise_type_t type);
+void TCOD_noise_set_type(TCOD_noise_t noise, TCOD_noise_type_t type);
 
-float TCOD_noise_get_ex (TCOD_noise_t noise, float *f, TCOD_noise_type_t type);
+float TCOD_noise_get_ex(TCOD_noise_t noise, float* f, TCOD_noise_type_t type);
 
-float TCOD_noise_get_fbm_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
+float TCOD_noise_get_fbm_ex(TCOD_noise_t noise, float* f, float octaves, TCOD_noise_type_t type);
 
 float TCOD_noise_get_turbulence_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
 

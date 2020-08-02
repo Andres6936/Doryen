@@ -48,38 +48,6 @@ using namespace Doryen;
 #include <vector>
 #include <array>
 
-class perlin_data_t
-{
-
-public:
-
-	const static std::uint8_t MAX_OCTAVES = 128;
-	const static std::uint8_t MAX_DIMENSIONS = 4;
-
-	constexpr static float DEFAULT_HURST = 0.5f;
-	constexpr static float DEFAULT_LACUNARITY = 2.0f;
-
-	int ndim;
-
-	float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
-
-	/* fractal stuff */
-	float lacunarity;
-
-	float* waveletTileData;
-
-	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
-
-	std::array<float, MAX_OCTAVES> exponent;
-
-	/* noise type */
-	TCOD_noise_type_t noise_type;
-
-	// Methods
-
-	float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
-};
-
 float perlin_data_t::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
 	std::array<int, 4> n = { ix, iy, iz, iw };
