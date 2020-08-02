@@ -74,25 +74,43 @@ public:
 
 	/* noise type */
 	TCOD_noise_type_t noise_type;
+
+	// Methods
+
+	float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
 };
 
-static float lattice( perlin_data_t *data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
+float perlin_data_t::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
-	int n[4] = {ix, iy, iz, iw};
-	float f[4] = {fx, fy, fz, fw};
+	std::array<int, 4> n = { ix, iy, iz, iw };
+
+	std::array<float, 4> f = { fx, fy, fz, fw };
+
 	int nIndex = 0;
-	int i;
+
+	for (int i = 0; i < ndim; i++)
+	{
+		nIndex = map[(nIndex + n[i]) & 0xFF];
+	}
+
 	float value = 0;
-	for(i=0; i<data->ndim; i++)
-		nIndex = data->map[(nIndex + n[i]) & 0xFF];
-	for(i=0; i<data->ndim; i++)
-		value += data->buffer[nIndex][i] * f[i];
+
+	for (int i = 0; i < ndim; i++)
+	{
+		value += buffer[nIndex][i] * f[i];
+	}
+
 	return value;
 }
 
+static float lattice(perlin_data_t* data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
+{
+	return data->lattice(ix, fx, iy, fy, iz, fz, iw, fw);
+}
+
 #define DEFAULT_SEED 0x15687436
-#define DELTA				1e-6f
-#define SWAP(a, b, t)		t = a; a = b; b = t
+#define DELTA                1e-6f
+#define SWAP(a, b, t)        t = a; a = b; b = t
 
 #define FLOOR(a) ((a)> 0 ? ((int)a) : (((int)a)-1) )
 #define CUBIC(a)	( a * a * (3 - 2*a) )
