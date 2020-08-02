@@ -439,7 +439,7 @@ Doryen::Color Doryen::Console::getFadingColor()
 	return renderer->getFadingColor();
 }
 
-void Doryen::Console::putChar(int x, int y, int c, BackgroundFlag flag)
+void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 {
 	// Asserts
 	if (x < 0 || y < 0 || c < 0 || c > renderer->getMaxFontChars())
@@ -804,7 +804,7 @@ void Doryen::Console::hline(int x, int y, int l, BackgroundFlag flag)
 	for (int i = x; i < x + l; ++i)
 	{
 		// Character 196 ASCII, see table ASCII.
-		putChar(i, y, 196, flag);
+		writeChar(i, y, 196, flag);
 	}
 }
 
@@ -813,17 +813,17 @@ void Doryen::Console::vline(int x, int y, int l, BackgroundFlag flag)
 	for (int i = y; i < y + l; ++i)
 	{
 		// Character 179 ASCII, see table ASCII.
-		putChar(x, i, 179, flag);
+		writeChar(x, i, 179, flag);
 	}
 }
 
 void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty, BackgroundFlag flag)
 {
 	//Draw the edges
-	putChar(start.x, start.y, 218, flag);
-	putChar(start.x + end.x - 1, start.y, 191, flag);
-	putChar(start.x, start.y + end.y - 1, 192, flag);
-	putChar(start.x + end.x - 1, start.y + end.y - 1, 217, flag);
+	writeChar(start.x, start.y, 218, flag);
+	writeChar(start.x + end.x - 1, start.y, 191, flag);
+	writeChar(start.x, start.y + end.y - 1, 192, flag);
+	writeChar(start.x + end.x - 1, start.y + end.y - 1, 217, flag);
 
 	// Draw the border of frame
 	hline(start.x + 1, start.y, end.x - 2, flag);
@@ -880,7 +880,7 @@ void Doryen::Console::print(int x, int y, const std::string& fmt)
 
 	for (int i = 0; i < fmt.size(); ++i)
 	{
-		putChar(x + i, y, fmt[i]);
+		writeChar(x + i, y, fmt[i]);
 	}
 }
 

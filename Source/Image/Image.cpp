@@ -382,13 +382,13 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 				{
 					dest.setDefaultBackground(cols.at(0));
 					dest.setDefaultForeground(cols.at(1));
-					dest.putChar(conX, conY, ASCII, BackgroundFlag::SET);
+					dest.writeChar(conX, conY, ASCII, BackgroundFlag::SET);
 				}
 				else
 				{
 					dest.setDefaultBackground(cols.at(1));
 					dest.setDefaultForeground(cols.at(0));
-					dest.putChar(conX, conY, -ASCII, BackgroundFlag::SET);
+					dest.writeChar(conX, conY, -ASCII, BackgroundFlag::SET);
 				}
 			}
 		}

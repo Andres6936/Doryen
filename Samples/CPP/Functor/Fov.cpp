@@ -55,7 +55,7 @@ void Functor::FOV::drawTextHelp()
 void Functor::FOV::drawPlayer()
 {
 	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-	sample.putChar(playerX, playerY, '@', BackgroundFlag::SET);
+	sample.writeChar(playerX, playerY, '@', BackgroundFlag::SET);
 }
 
 void Functor::FOV::drawDungeon()
@@ -123,7 +123,7 @@ void Functor::FOV::drawDungeon()
 			}
 
 			// Draw the window
-			if (dungeon[y][x] == '=') sample.putChar(x, y, TCOD_CHAR_DHLINE, BackgroundFlag::SET);
+			if (dungeon[y][x] == '=') sample.writeChar(x, y, TCOD_CHAR_DHLINE, BackgroundFlag::SET);
 		}
 	}
 }

@@ -381,7 +381,7 @@ namespace Doryen
         @Param c the new ASCII code for the cell. You can use ASCII constants
         @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
         */
-		void putChar(int x, int y, int c, BackgroundFlag flag = BackgroundFlag::NONE);
+		void writeChar(int x, int y, int c, BackgroundFlag flag = BackgroundFlag::NONE);
 
         /**
         @PageName console_draw_basic

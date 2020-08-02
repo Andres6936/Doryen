@@ -66,7 +66,7 @@ void Functor::Path::drawDungeon()
 			else if (dungeon[y][x] == '=')
 			{
 				// The character 205 represent a double wall
-				sample.putChar(x, y, 205, BackgroundFlag::NONE);
+				sample.writeChar(x, y, 205, BackgroundFlag::NONE);
 			}
 			else
 			{
@@ -176,7 +176,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 			if (!AStar.isEmpty())
 			{
-				sample.putChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+				sample.writeChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
 
 				try
 				{
@@ -185,7 +185,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 					playerX = point.x;
 					playerY = point.y;
 
-					sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+					sample.writeChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 				}
 				catch (Doryen::Exceptions::IllegalMethodCall& e)
 				{
@@ -225,7 +225,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			destinationY = MOUSE_Y;
 
 			recalculatePath = true;
-			sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+			sample.writeChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 		}
 	}
 }
@@ -262,7 +262,7 @@ bool Functor::Path::moveDestination(KeyCode key)
 
 void Functor::Path::drawDestinationPoint()
 {
-	sample.putChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+	sample.writeChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
 }
 
 void Functor::Path::drawHelpMessage()
@@ -291,5 +291,5 @@ bool Functor::Path::changeAlgorithm(KeyCode key)
 
 void Functor::Path::drawPlayer()
 {
-	sample.putChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+	sample.writeChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
 }

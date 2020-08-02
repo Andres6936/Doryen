@@ -333,7 +333,7 @@ void render(Console& root)
 
 	root.setDefaultForeground(Palette::GRAY_WARN_1);
 	root.print(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
-	root.putChar(playerx, playery, '@');
+	root.writeChar(playerx, playery, '@');
 }
 
 int main(int argc, char* argv[])

@@ -93,7 +93,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			}
 
 			sample.setDefaultForeground(col);
-			sample.putChar(x, y, c, Doryen::BackgroundFlag::NONE);
+			sample.writeChar(x, y, c, Doryen::BackgroundFlag::NONE);
 		}
 	}
 	sample.setDefaultForeground(textColor);
