@@ -48,7 +48,10 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 	sample.setDefaultBackground(Doryen::Palette::PRIMARY_LIGHT);
 	sample.clear();
 	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-	sample.print(1, 1, format("{}\n\n+ : next generator\n- : prev generator", sets.get(curSet)));
+
+	sample.print(1, 1, format("{}", sets.get(curSet)));
+	sample.print(1, 3, "+ : next generator");
+	sample.print(1, 4, "- : prev generator");
 
 	for (i = 0; i < names.size(); i++)
 	{
