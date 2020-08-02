@@ -330,21 +330,19 @@ namespace Doryen
         void setCharForeground( int x, int y, const Doryen::Color &col );
 
         /**
-        @PageName console_draw_basic
-        @FuncTitle Setting the ASCII code of a cell
-        @FuncDesc This function modifies the ASCII code of a cell, leaving other properties (background and foreground colors) unchanged.
-            Note that since a clear console has both background and foreground colors set to black for every cell, using setchar will produce black characters on black background. Use putchar instead.
-        @Cpp void TCODConsole::setChar(int x, int y, int c)
-        @C void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c)
-        @Py console_set_char(con, x,  y, c)
-        @C# void TCODConsole::setChar(int x, int y, int c)
-        @Lua Console:setChar(x, y, c)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param c the new ASCII code for the cell. You can use ASCII constants
-        */
+         * @brief Setting the ASCII code of a cell
+         *
+         * This function modifies the ASCII code of a cell, leaving other
+         * properties (background and foreground colors) unchanged.
+         *
+         * @note since that clear console has both background and foreground
+         * colors set to black for every cell, using setChar will produce
+         * black characters on black background. Use writeChar instead.
+         *
+         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+         * @param c the new ASCII code for the cell. You can use ASCII constants.
+         */
         void setChar( int x, int y, int c );
 
         /**
