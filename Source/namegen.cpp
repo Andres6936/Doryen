@@ -33,7 +33,7 @@
 
 void TCODNamegen::parse(const std::filesystem::path& filename, TCODRandom* random)
 {
-	TCOD_namegen_parse(filename, random ? random->data : NULL);
+	TCOD_namegen_parse(filename.c_str(), random ? random->data : NULL);
 }
 
 char * TCODNamegen::generate (char * name, bool allocate) {

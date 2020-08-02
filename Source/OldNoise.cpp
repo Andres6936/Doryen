@@ -27,6 +27,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <cstring>
 
 #include "Doryen/OldNoise.hpp"
 #include "Doryen/Random/Number.hpp"
@@ -531,7 +532,7 @@ static float TCOD_noise_fbm_int(TCOD_noise_t noise,  float *f, float octaves, TC
 	/* Initialize locals */
 	double value = 0;
 	int i, j;
-	memcpy(tf, f, sizeof(float) * data->ndim);
+	std::memcpy(tf, f, sizeof(float) * data->ndim);
 
 	/* Inner loop of spectral construction, where the fractal is built */
 	for (i = 0; i < (int)octaves; i++)
