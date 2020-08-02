@@ -28,6 +28,10 @@
 #ifndef _TCOD_PERLIN_H
 #define _TCOD_PERLIN_H
 
+#include <cstdint>
+#include <vector>
+#include <array>
+
 typedef void* TCOD_noise_t;
 
 typedef enum

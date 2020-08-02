@@ -27,7 +27,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "Doryen/OldNoise.hpp"
 #include "Doryen/Random/Number.hpp"
@@ -43,10 +42,6 @@ using namespace Doryen;
 #define ABS(a) ((a)<0?-(a):(a))
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 #define LERP(a, b, x) ( a + x * (b - a) )
-
-#include <cstdint>
-#include <vector>
-#include <array>
 
 float perlin_data_t::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
 {
