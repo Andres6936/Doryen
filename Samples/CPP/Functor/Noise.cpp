@@ -113,16 +113,16 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 		else
 		{
 			sample.setDefaultForeground(Palette::GRAY_WARN_30);
-			sample.print(2, 2 + curfunc, funcName[curfunc]);
+			sample.write(2, 2 + curfunc, funcName[curfunc]);
 		}
 	}
 	// draw parameters
 	sample.setDefaultForeground(Palette::GRAY_WARN_1);
-	sample.print(2, 11, format("Y/H : zoom {2.1f}", zoom));
+	sample.write(2, 11, format("Y/H : zoom {2.1f}", zoom));
 	if (func > WAVELET)
 	{
-		sample.print(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
-		sample.print(2, 14, format("T/G : octaves {2.1f}", octaves));
+		sample.write(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
+		sample.write(2, 14, format("T/G : octaves {2.1f}", octaves));
 	}
 	// handle keypress
 	if (key == KeyCode::NONE) return;

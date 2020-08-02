@@ -90,7 +90,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	objLine.line(xo, yo, xd, yd, listener);
 
 	// print the current flag
-	sample.print(2, 2, format("{} (ENTER to change)", flagNames[(int)backFlag]));
+	sample.write(2, 2, format("{} (ENTER to change)", flagNames[(int)backFlag]));
 }
 
 

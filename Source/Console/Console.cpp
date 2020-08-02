@@ -849,13 +849,13 @@ void Doryen::Console::drawFrameTitle(std::string_view _title,
 	// Overflow caused for that the title is greater than length of frame
 	if (_title.size() > lengthFrame)
 	{
-		print(_start.x, _start.y, _title.data());
+		write(_start.x, _start.y, _title.data());
 		return;
 	}
 
 	// If not exit overflow, center the title
 	std::uint16_t centerX = (lengthFrame - _title.size()) / 2;
-	print(centerX, _start.y, _title.data());
+	write(centerX, _start.y, _title.data());
 }
 
 
@@ -867,7 +867,7 @@ void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
 	drawFrameTitle(name, { x, y }, w);
 }
 
-void Doryen::Console::print(int x, int y, const std::string& fmt)
+void Doryen::Console::write(int x, int y, const std::string& fmt)
 {
 //	va_list ap;
 //	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
@@ -1068,13 +1068,13 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 				continue;
 			}
 
-			print(coordinate.x, currentY, _text);
+			write(coordinate.x, currentY, _text);
 			currentY += 1;
 		}
 	}
 	else
 	{
-		print(coordinate.x, coordinate.y, text.data());
+		write(coordinate.x, coordinate.y, text.data());
 	}
 }
 

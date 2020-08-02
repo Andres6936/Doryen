@@ -97,33 +97,33 @@ int main(int argc, char* argv[])
 			}
 
 			// print the sample name
-			console.print(2, 46 - (samples.size() - i), samples[i]->getName());
+			console.write(2, 46 - (samples.size() - i), samples[i]->getName());
 		}
 
 		// print the help message
 		console.setDefaultForeground(Palette::GRAY_WARN_30);
-		console.print(50, 46,
+		console.write(50, 46,
 				format("last frame : {>2.0f} ms ({} fps)",
 						console.getLastFrameLength() * 1000,
 						console.getFramePerSeconds()));
 
-		console.print(50, 47,
+		console.write(50, 47,
 				format("elapsed : {>5d} ms {>4.2f}s",
 						console.getElapsedMilliseconds(),
 						console.getElapsedSeconds()));
 
-		console.print(2, 47,
+		console.write(2, 47,
 				format("{c}{c} : select a sample",
 						(char)TCOD_CHAR_ARROW_N,
 						(char)TCOD_CHAR_ARROW_S));
 
 		if (Console::isFullscreen())
 		{
-			console.print(2, 48, "ALT-ENTER : switch to windowed mode");
+			console.write(2, 48, "ALT-ENTER : switch to windowed mode");
 		}
 		else
 		{
-			console.print(2, 48, "ALT-ENTER : switch to fullscreen mode");
+			console.write(2, 48, "ALT-ENTER : switch to fullscreen mode");
 		}
 
 		const KeyCode _key = console.getKeyPressed().getKeyCode();

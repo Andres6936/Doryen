@@ -332,7 +332,7 @@ void render(Console& root)
 	img.blit2x(root, 0, 0);
 
 	root.setDefaultForeground(Palette::GRAY_WARN_1);
-	root.print(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
+	root.write(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
 	root.writeChar(playerx, playery, '@');
 }
 
@@ -368,7 +368,7 @@ int main(int argc, char* argv[])
 		// render the game screen
 		render(console);
 
-		console.print(5, 49, "Arrows to move, left mouse button to cast");
+		console.write(5, 49, "Arrows to move, left mouse button to cast");
 
 		// render libtcod credits
 		if (!endCredits)

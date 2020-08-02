@@ -445,7 +445,7 @@ namespace Doryen
 			* TCOD_RIGHT : rightmost character of the string
 		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
 		*/
-		void print(int x, int y, const std::string& fmt);
+		void write(int x, int y, const std::string& fmt);
 
 		/**
 		@PageName console_print

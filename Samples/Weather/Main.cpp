@@ -146,17 +146,17 @@ void render(Console& root)
 	}
 	root.setDefaultForeground(Palette::GRAY_WARN_1);
 
-	root.print(5, CON_H - 12, "Doryen Weather System:");
-	root.print(5, CON_H - 11, "- Wind with varying speed and direction");
-	root.print(5, CON_H - 10, "- Rain");
-	root.print(5, CON_H - 9, "- Lightnings");
-	root.print(5, CON_H - 8, "- Day/Night cycle");
-	root.print(5, CON_H - 7, format("Day time : {}", getDaytime()));
-	root.print(5, CON_H - 6, format("Weather : {}", weather.getWeather()));
+	root.write(5, CON_H - 12, "Doryen Weather System:");
+	root.write(5, CON_H - 11, "- Wind with varying speed and direction");
+	root.write(5, CON_H - 10, "- Rain");
+	root.write(5, CON_H - 9, "- Lightnings");
+	root.write(5, CON_H - 8, "- Day/Night cycle");
+	root.write(5, CON_H - 7, format("Day time : {}", getDaytime()));
+	root.write(5, CON_H - 6, format("Weather : {}", weather.getWeather()));
 
-	root.print(5, CON_H - 4, "Weather evolves automatically");
-	root.print(5, CON_H - 3, format("but you can alter it by holding + or - : {.1f}", weather.getIndicatorDelta()));
-	root.print(5, CON_H - 2, "Accelerate time with ENTER");
+	root.write(5, CON_H - 4, "Weather evolves automatically");
+	root.write(5, CON_H - 3, format("but you can alter it by holding + or - : {.1f}", weather.getIndicatorDelta()));
+	root.write(5, CON_H - 2, "Accelerate time with ENTER");
 }
 
 

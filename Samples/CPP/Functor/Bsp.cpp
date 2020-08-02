@@ -52,14 +52,14 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 	}
 	sample.clear();
 	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-	sample.print(1, 1,
+	sample.write(1, 1,
 			format("ENTER : rebuild bsp\nSPACE : rebuild dungeon\n+-: bsp depth {}\n*/: room size {}\n1 : random room size {}",
 					bspDepth, minRoomSize,
 					randomRoom ? "ON" : "OFF"));
 
 	if (randomRoom)
 	{
-		sample.print(1, 6, format("2 : room walls {}",
+		sample.write(1, 6, format("2 : room walls {}",
 				roomWalls ? "ON" : "OFF"));
 	}
 	// render the level

@@ -46,10 +46,10 @@ void Functor::FOV::prepareInstanceOfMap()
 void Functor::FOV::drawTextHelp()
 {
 	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
-	sample.print(1, 0, "IJKL : move around");
-	sample.print(1, 1, format("T : torch fx {}", torch ? "ON " : "OFF"));
-	sample.print(1, 2, format("W : light walls {}", light_walls ? "ON " : "OFF"));
-	sample.print(1, 3, format("+-: algo {}", typeFOVString()));
+	sample.write(1, 0, "IJKL : move around");
+	sample.write(1, 1, format("T : torch fx {}", torch ? "ON " : "OFF"));
+	sample.write(1, 2, format("W : light walls {}", light_walls ? "ON " : "OFF"));
+	sample.write(1, 3, format("+-: algo {}", typeFOVString()));
 }
 
 void Functor::FOV::drawPlayer()

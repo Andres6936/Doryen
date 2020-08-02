@@ -73,16 +73,18 @@ void update(float elapsed, const Mouse& mouse)
 
 void render(Console& console) {
 	// copy ground into ground2. damn libtcod should have that...
-	for (int x=0; x < CON_W*2;x++) {
-		for (int y=0; y < CON_H*2;y++) {
-			ground2->putPixel(x,y,ground->getPixel(x,y));
+	for (int x = 0; x < CON_W * 2; x++)
+	{
+		for (int y = 0; y < CON_H * 2; y++)
+		{
+			ground2->putPixel(x, y, ground->getPixel(x, y));
 		}
 	}
-	rippleManager->renderRipples(ground,ground2);
-    ground2->blit2x( console, 0, 0 );
+	rippleManager->renderRipples(ground, ground2);
+	ground2->blit2x(console, 0, 0);
 
-    console.setDefaultForeground( Palette::GRAY_WARN_1 );
-    console.print( 3, 49, "Click in water to trigger ripples" );
+	console.setDefaultForeground(Palette::GRAY_WARN_1);
+	console.write(3, 49, "Click in water to trigger ripples");
 }
 
 /**
