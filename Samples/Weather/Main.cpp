@@ -139,7 +139,7 @@ void render(Console& root)
 					col = recoveryLightingColor;
 				}
 
-				root.setChar(x, y, '/');
+				root.writeUnobtrusiveChar(x, y, '/');
 				root.setCharForeground(x, y, col);
 			}
 		}

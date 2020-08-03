@@ -343,7 +343,7 @@ namespace Doryen
          * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
          * @param c the new ASCII code for the cell. You can use ASCII constants.
          */
-        void setChar( int x, int y, int c );
+		void writeUnobtrusiveChar(int x, int y, int c);
 
         /**
         @PageName console_draw_basic

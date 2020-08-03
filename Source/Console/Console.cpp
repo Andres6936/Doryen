@@ -556,7 +556,7 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 	}
 }
 
-void Doryen::Console::setChar(int x, int y, int c)
+void Doryen::Console::writeUnobtrusiveChar(int x, int y, int c)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -1093,7 +1093,7 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			// See the documentation internal of initRoot method for see details of an
 			// buf produce for this method [blit]
 			// Actually, this method [blit] is free of bugs
-			destination.setChar(dx, dy, dstChar.getC());
+			destination.writeUnobtrusiveChar(dx, dy, dstChar.getC());
 			destination.setCharForeground(dx, dy, dstChar.getForeground());
 			destination.setCharBackground(dx, dy, dstChar.getBackground());
 		}
