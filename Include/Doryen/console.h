@@ -89,8 +89,6 @@ int TCOD_console_get_width(TCOD_console_t con);
 
 int TCOD_console_get_height(TCOD_console_t con);
 
-void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col);
-
 void TCOD_console_credits();
 
 void TCOD_console_credits_reset();

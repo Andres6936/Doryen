@@ -568,14 +568,6 @@ bool TCOD_console_is_key_pressed(TCOD_keycode_t key)
 	return TCOD_sys_is_key_pressed(key);
 }
 
-void TCOD_console_set_key_color(TCOD_console_t con, TCOD_color_t col)
-{
-	TCOD_console_data_t* dat = con ? (TCOD_console_data_t*)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return;
-	dat->key = col;
-	dat->haskey = true;
-}
-
 static bool init2 = false;
 
 bool TCOD_console_credits_render(int x, int y, bool alpha)
