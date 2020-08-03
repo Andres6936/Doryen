@@ -767,19 +767,6 @@ void Doryen::Console::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignme
 //	va_end(ap);
 }
 
-int Doryen::Console::printRect(int x, int y, int w, int h, const char* fmt, ...)
-{
-	va_list ap;
-	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
-	TCOD_IFNOT (dat != NULL)
-	{ return 0; }
-	va_start(ap, fmt);
-	int ret = TCOD_console_print_internal(data, x, y, w, h, dat->bkgnd_flag, dat->alignment,
-			TCOD_console_vsprint(fmt, ap), true, false);
-	va_end(ap);
-	return ret;
-}
-
 int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
 		TCOD_alignment_t alignment, const char* fmt, ...)
 {
