@@ -377,25 +377,23 @@ namespace Doryen
          */
 		void writeChar(int x, int y, int c, BackgroundFlag flag = BackgroundFlag::NONE);
 
-        /**
-        @PageName console_draw_basic
-        @FuncTitle Setting every property of a cell using specific colors
-        @FuncDesc This function modifies every property of a cell :
-            * set the cell's background color to back.
-            * set the cell's foreground color to fore.
-            * set the cell's ASCII code to c.
-        @Cpp void TCODConsole::putCharEx(int x, int y, int c, const Doryen::TCODColor & fore, const Doryen::TCODColor & back)
-        @C void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back)
-        @Py console_put_char_ex( con, x,  y, c, fore, back)
-        @C# void TCODConsole::putCharEx(int x, int y, int c, Doryen::TCODColor fore, Doryen::TCODColor back)
-        @Lua Console:putCharEx(x, y, c, fore, back)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param c the new ASCII code for the cell. You can use ASCII constants
-        @Param fore,back new foreground and background colors for this cell
-        */
+		/**
+		 * @brief Setting every property of a cell using specific colors
+		 *
+		 * This function modifies every property of a cell:
+		 *
+		 * - Set the cell's background color to background color pass for parameter.
+		 *
+		 * - Set the cell's foreground color to foreground color pass for parameter.
+		 *
+		 * - Set the cell's ASCII code to c
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param c the new ASCII code for the cell. You can use ASCII constants.
+		 * @param foreground Foreground color for this cell.
+		 * @param background Background color for this cell.
+		 */
 		void writeChar(int x, int y, int c, const Color& foreground, const Color& background);
 
 		void writeChar(int x, int y, int c, const Color& foreground, const Color& background, BackgroundFlag flag);
