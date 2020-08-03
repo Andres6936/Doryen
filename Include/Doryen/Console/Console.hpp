@@ -480,9 +480,26 @@ namespace Doryen
 		printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt,
 				...);
 
-		void
-		writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size, BackgroundFlag flag,
-				std::string_view text);
+		/**
+		 * @brief Writing a string with default parameters and auto-wrap.
+		 *
+		 * This function draws a string in a rectangle inside the console,
+		 * using default colors, alignment and background mode.
+		 *
+		 * If the string reaches the borders of the rectangle, carriage
+		 * returns are inserted.
+		 *
+		 * If h > 0 and the bottom of the rectangle is reached, the string
+		 * is truncated. If h = 0, the string is only truncated if it reaches
+		 * the bottom of the console.
+		 *
+		 * @param coordinate Initial point upper-left of rectangle.
+		 * @param size Size of rectangle, where the text is rendering.
+		 * @param flag this flag defines how the cell's background color is modified.
+		 * @param text Text to draw in the area of rectangle.
+		 */
+		void writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size,
+				BackgroundFlag flag, std::string_view text);
 
 
 		/**
