@@ -307,14 +307,6 @@ unsigned char * TCOD_console_forward(unsigned char *s,int l) {
 	return s;
 }
 
-unsigned char *TCOD_console_strchr(unsigned char *s, unsigned char c) {
-	while ( *s && *s != c ) {
-		if ( *s == (int)TCOD_COLCTRL_FORE_RGB || *s == (int)TCOD_COLCTRL_BACK_RGB ) s+=3;
-		s++;
-	}
-	return (*s ? s : NULL);
-}
-
 bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen) {
 	int i;
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
