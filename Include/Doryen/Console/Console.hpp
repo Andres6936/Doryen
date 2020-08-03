@@ -124,8 +124,6 @@ namespace Doryen
 
 		TCOD_console_t data;
 
-		static Console* root;
-
 		explicit Console(TCOD_console_t con) : data(con)
 		{
 		}
