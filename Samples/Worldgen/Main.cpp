@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
 	bool endCredits = false;
 
 	// generate the world with all data (rain, temperature and so on...)
-	worldGen.generate(NULL);
+	worldGen.generate();
 
 	// compute light intensity on ground (depends on light direction and ground slope)
 	static float lightDir[3] = {
