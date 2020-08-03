@@ -29,12 +29,12 @@ namespace Doryen
 		/**
 		 * Foreground color
 		 */
-		Color foreground = Color(255, 255, 255);
+		Color foreground{ 255, 255, 255 };
 
 		/**
 		 * Background Color
 		 */
-		Color background = Color(0, 0, 0);
+		Color background{ 0, 0, 0 };
 
 		/**
 		 * Cell modified since last flush?
