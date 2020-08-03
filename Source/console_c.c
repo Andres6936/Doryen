@@ -287,17 +287,6 @@ void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c) {
 }
 
 
-/* non public methods */
-int TCOD_console_stringLength(const unsigned char *s) {
-	int l=0;
-	while (*s) {
-		if ( *s == (int)TCOD_COLCTRL_FORE_RGB || *s == (int)TCOD_COLCTRL_BACK_RGB ) s+=3;
-		else if ( (unsigned)(*s) > (unsigned)TCOD_COLCTRL_STOP ) l++;
-		s++;
-	}
-	return l;
-}
-
 bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen) {
 	int i;
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
