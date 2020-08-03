@@ -147,18 +147,6 @@ void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_fl
 	TCOD_console_set_char_background(con,x,y,dat->back,(TCOD_bkgnd_flag_t)flag);
 }
 
-void TCOD_console_put_char_ex(TCOD_console_t con,int x, int y, int c, TCOD_color_t fore, TCOD_color_t back) {
-	int offset;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL && (unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h ) return;
-	TCOD_IFNOT (c >= 0 && c < TCOD_ctx.max_font_chars ) return;
-	offset = y * dat->w + x;
-	dat->buf[ offset ].c = c;
-	dat->buf[ offset ].cf = TCOD_ctx.ascii_to_tcod[c];
-	dat->buf[ offset ].fore = fore;
-	dat->buf[ offset ].back = back;
-}
-
 TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y) {
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
 	TCOD_IFNOT ( dat != NULL
