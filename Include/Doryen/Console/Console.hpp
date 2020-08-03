@@ -396,6 +396,24 @@ namespace Doryen
 		 */
 		void writeChar(int x, int y, int c, const Color& foreground, const Color& background);
 
+		/**
+		 * @brief Setting every property of a cell using specific colors
+		 *
+		 * This function modifies every property of a cell:
+		 *
+		 * - Set the cell's background color to background color pass for parameter.
+		 *
+		 * - Set the cell's foreground color to foreground color pass for parameter.
+		 *
+		 * - Set the cell's ASCII code to c
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param c the new ASCII code for the cell. You can use ASCII constants.
+		 * @param foreground Foreground color for this cell.
+		 * @param background Background color for this cell.
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
 		void writeChar(int x, int y, int c, const Color& foreground, const Color& background, BackgroundFlag flag);
 
 		/**
