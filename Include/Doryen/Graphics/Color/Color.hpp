@@ -47,21 +47,37 @@ namespace Doryen
 	 * the cell's existing background color:
 	 *
 	 * @li <b>NONE</b> : the cell's background color is not modified.
+	 *
 	 * @li <b>SET</b> : the cell's background color is replaced by the console's
-	 *   default background color : newbk = curbk.
+	 *  default background color : new background is current background.
+	 *
 	 * @li <b>MULTIPLY</b> : the cell's background color is multiplied by the
-	 *   console's default background color : newbk = oldbk * curbk
-	 * @li <b>LIGHTEN</b> : newbk = MAX(oldbk,curbk) <br>
-	 * @li <b>DARKEN</b> : newbk = MIN(oldbk,curbk) <br>
-	 * @li <b>SCREEN</b> : newbk = white - (white - oldbk) * (white - curbk)
-	 *   // inverse of multiply : (1-newbk) = (1-oldbk)*(1-curbk)
-	 * @li <b>COLOR_DODGE</b> : newbk = curbk / (white - oldbk)
-	 * @li <b>COLOR_BURN</b> : newbk = white - (white - oldbk) / curbk
-	 * @li <b>ADD</b> : newbk = oldbk + curbk
-	 * @li <b>ADDALPHA</b>(alpha) : newbk = oldbk + alpha*curbk
-	 * @li <b>BURN</b> : newbk = oldbk + curbk - white
-	 * @li <b>OVERLAY</b> : newbk = curbk.x <= 0.5 ? 2*curbk*oldbk : white - 2*(white-curbk)*(white-oldbk)
-	 * @li <b>ALPHA</b> : newbk = (1.0f-alpha)*oldbk + alpha*(curbk-oldbk)
+	 *  console's default background color : new background is old background * current background
+	 *   
+	 * @li <b>LIGHTEN</b> : new background is the maximum between the old
+	 *  background and the current background <br>
+	 *
+	 * @li <b>DARKEN</b> : new background is MIN(old background,current background) <br>
+	 *
+	 * @li <b>SCREEN</b> : new background is white - (white - old background) * (white - current background)
+	 *   // inverse of multiply : (1-new background is) = (1-old background)*(1-current background)
+	 *
+	 * @li <b>COLOR_DODGE</b> : new background is current background / (white - old background)
+	 *
+	 * @li <b>COLOR_BURN</b> : new background is white - (white - old background) / current background
+	 *
+	 * @li <b>ADD</b> : new background is old background + current background
+	 *
+	 * @li <b>ADDALPHA</b>(alpha) : new background is old background + alpha*current background
+	 *
+	 * @li <b>BURN</b> : new background is old background + current background - white
+	 *
+	 * @li <b>OVERLAY</b> : new background is current background.x <= 0.5 ? 2 * current
+	 *  background * old background : white - 2*(white-current background)*(white-old background)
+	 *
+	 * @li <b>ALPHA</b> : new background is (1.0f-alpha)*old background +
+	 *  alpha * (current background-old background)
+	 *
 	 * @li <b>DEFAULT</b> : use the console's default background flag
 	 */
 	enum class BackgroundFlag : short
