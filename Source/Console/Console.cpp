@@ -943,12 +943,6 @@ bool Doryen::Console::isKeyPressed(TCOD_keycode_t key)
 	return TCOD_console_is_key_pressed(key) != 0;
 }
 
-void Doryen::Console::setKeyColor(const Doryen::Color& col)
-{
-	TCOD_color_t c = { col.r, col.g, col.b };
-	TCOD_console_set_key_color(data, c);
-}
-
 void Doryen::Console::credits()
 {
 	TCOD_console_credits();

@@ -1005,20 +1005,6 @@ namespace Doryen
 
 
 		/**
-		@PageName console_offscreen
-		@FuncTitle Define a blit-transparent color
-		@FuncDesc This function defines a transparent background color for an offscreen console. All cells with this background color are ignored by the blit operation. You can use it to blit only some parts of the console.
-		@Cpp void TCODConsole::setKeyColor(const Doryen::TCODColor &col)
-		@C void TCOD_console_set_key_color(TCOD_console_t con,TCOD_color_t col)
-		@Py console_set_key_color(con,col)
-		@C# void TCODConsole::setKeyColor(Doryen::TCODColor col)
-		@Lua Console:setKeyColor(col)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param col the transparent background color
-		*/
-        void setKeyColor( const Doryen::Color &col );
-
-		/**
 		@PageName console_key_t
 		@PageTitle 	Keyboard event structure
 		@PageFather console_input
