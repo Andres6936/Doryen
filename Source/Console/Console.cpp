@@ -330,6 +330,23 @@ Doryen::Color Doryen::Console::getFadingColor()
 
 void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 {
+	if (isConsoleRoot)
+	{
+		writeChar(x, y, c, renderer->getForeground(), renderer->getBackground(), flag);
+	}
+	else
+	{
+		writeChar(x, y, c, foreground, background, flag);
+	}
+}
+
+void Doryen::Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background)
+{
+	writeChar(x, y, c, _foreground, _background, BackgroundFlag::NONE);
+}
+
+void Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background, BackgroundFlag flag)
+{
 	// Asserts
 	if (x < 0 || y < 0 || c < 0 || c > renderer->getMaxFontChars())
 	{
@@ -353,10 +370,10 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 			_char.setCharacter(c);
 			_char.setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
-			_char.setForeground(renderer->getForeground());
+			_char.setForeground(_foreground);
 
 			Color b = renderer->getBackgroundOfCharacterInBufferAt(offset);
-			b.trasformColor(renderer->getBackground(), flag);
+			b.trasformColor(_background, flag);
 
 			_char.setBackground(b);
 
@@ -379,23 +396,16 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 			_char.setCharacter(c);
 			_char.setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
-			_char.setForeground(foreground);
+			_char.setForeground(_foreground);
 
 			Color b = buffer[offset].getBackground();
-			b.trasformColor(background, flag);
+			b.trasformColor(_background, flag);
 
 			_char.setBackground(b);
 
 			buffer[offset] = _char;
 		}
 	}
-}
-
-void Doryen::Console::putCharEx(int x, int y, int c, const Doryen::Color& fore, const Doryen::Color& back)
-{
-	TCOD_color_t f = { fore.r, fore.g, fore.b };
-	TCOD_color_t b = { back.r, back.g, back.b };
-	TCOD_console_put_char_ex(data, x, y, c, f, b);
 }
 
 void Doryen::Console::clear()

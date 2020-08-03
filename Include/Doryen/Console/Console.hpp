@@ -396,7 +396,9 @@ namespace Doryen
         @Param c the new ASCII code for the cell. You can use ASCII constants
         @Param fore,back new foreground and background colors for this cell
         */
-        void putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back );
+		void writeChar(int x, int y, int c, const Color& foreground, const Color& background);
+
+		void writeChar(int x, int y, int c, const Color& foreground, const Color& background, BackgroundFlag flag);
 
 		/**
 		 * Write a string in the console. You can use the function format for formatter
