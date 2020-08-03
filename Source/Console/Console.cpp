@@ -342,7 +342,7 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 void Doryen::Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background)
 {
-	writeChar(x, y, c, _foreground, _background, BackgroundFlag::NONE);
+	writeChar(x, y, c, _foreground, _background, BackgroundFlag::SET);
 }
 
 void Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background, BackgroundFlag flag)
