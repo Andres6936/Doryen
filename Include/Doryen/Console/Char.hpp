@@ -45,7 +45,7 @@ namespace Doryen
 
 		// Construct
 
-		Char() = default;
+		Char() noexcept = default;
 
 		// Getters
 
