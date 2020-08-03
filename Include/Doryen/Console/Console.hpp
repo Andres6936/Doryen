@@ -484,25 +484,6 @@ namespace Doryen
 		writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size, BackgroundFlag flag,
 				std::string_view text);
 
-		/**
-		@PageName console_print
-		@FuncTitle Compute the height of an autowrapped string
-		@FuncDesc This function returns the expected height of an autowrapped string without actually printing the string with printRect or printRectEx
-		@Cpp int TCODConsole::getHeightRect(int x, int y, int w, int h, const char *fmt, ...)
-
-		@C int TCOD_console_get_height_rect(TCOD_console_t con,int x, int y, int w, int h, const char *fmt, ...)
-		@Py console_get_height_rect(con, x, y, w, h, fmt)
-		@C# int TCODConsole::getHeightRect(int x, int y, int w, int h, string fmt)
-		@Lua Console:getHeightRect(x, y, w, h, fmt)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y coordinate of the rectangle upper-left corner in the console
-		@Param w,h size of the rectangle
-			x <= x+w < console width
-			y <= y+h < console height
-		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-		*/
-		int getHeightRect(int x, int y, int w, int h, const char* fmt, ...);
-
 
 		/**
 		@PageName console_advanced

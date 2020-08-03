@@ -967,16 +967,6 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 	}
 }
 
-int Doryen::Console::getHeightRect(int x, int y, int w, int h, const char* fmt, ...)
-{
-	va_list ap;
-	va_start(ap, fmt);
-	int ret = TCOD_console_print_internal(data, x, y, w, h, TCOD_BKGND_NONE, TCOD_LEFT, TCOD_console_vsprint(fmt, ap),
-			true, true);
-	va_end(ap);
-	return ret;
-}
-
 void Doryen::Console::setKeyboardRepeat(int initialDelay, int interval)
 {
 	TCOD_console_set_keyboard_repeat(initialDelay, interval);
