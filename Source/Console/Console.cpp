@@ -566,30 +566,6 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 	}
 }
 
-void Doryen::Console::writeUnobtrusiveChar(int x, int y, int c)
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		throw "ExceptionIllegalArgument";
-	}
-
-	if (isConsoleRoot)
-	{
-		unsigned offset = x + renderer->getWidth() * y;
-
-		renderer->setCharOfCharacterInBufferAt(offset, c);
-	}
-	else
-	{
-		unsigned offset = x + width * y;
-
-		buffer[offset].setCharacter(c);
-		buffer[offset].setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
-	}
-}
-
 using Point = Doryen::Geometry::Point2D<>;
 
 // Private function

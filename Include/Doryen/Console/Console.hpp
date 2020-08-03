@@ -339,42 +339,26 @@ namespace Doryen
 			0 <= y < console height
 		@Param col the foreground color to use. You can use color constants
 		*/
-        void setCharForeground( int x, int y, const Doryen::Color &col );
+		void setCharForeground(int x, int y, const Doryen::Color& col);
 
-        /**
-         * @brief Setting the ASCII code of a cell
-         *
-         * This function modifies the ASCII code of a cell, leaving other
-         * properties (background and foreground colors) unchanged.
-         *
-         * @note since that clear console has both background and foreground
-         * colors set to black for every cell, using setChar will produce
-         * black characters on black background. Use writeChar instead.
-         *
-         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-         * @param c the new ASCII code for the cell. You can use ASCII constants.
-         */
-		void writeUnobtrusiveChar(int x, int y, int c);
-
-        /**
-         * @brief Setting every property of a cell using default colors
-         *
-         * This function modifies every property of a cell:
-         *
-         * - Update the cell's background color according to the console
-         *   default background color.
-         *
-         * - Set the cell's foreground color to the console default
-         *   foreground color.
-         *
-         * - Set the cell's ASCII code to c
-         *
-         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-         * @param c the new ASCII code for the cell. You can use ASCII constants.
-         * @param flag this flag defines how the cell's background color is modified.
-         */
+		/**
+		 * @brief Setting every property of a cell using default colors
+		 *
+		 * This function modifies every property of a cell:
+		 *
+		 * - Update the cell's background color according to the console
+		 *   default background color.
+		 *
+		 * - Set the cell's foreground color to the console default
+		 *   foreground color.
+		 *
+		 * - Set the cell's ASCII code to c
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param c the new ASCII code for the cell. You can use ASCII constants.
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
 		void writeChar(int x, int y, int c, BackgroundFlag flag = BackgroundFlag::NONE);
 
 		/**
