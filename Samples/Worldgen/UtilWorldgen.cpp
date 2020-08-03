@@ -1230,7 +1230,7 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 	}
 }
 
-void WorldGenerator::generate(TCODRandom* wRng)
+void WorldGenerator::generate()
 {
 	float timeTotalStart = Doryen::Platform::getElapsedSeconds();
 	float timeStart = Doryen::Platform::getElapsedSeconds();

@@ -105,11 +105,6 @@ public :
 	MapData* mapData = new MapData[HM_WIDTH * HM_HEIGHT];
 
 	/**
-	 * Random Generation.
-	 */
-	TCODRandom* wgRng = TCODRandom::getInstance();
-
-	/**
 	 * Noise.
 	 */
 	Noise* noise;
@@ -140,7 +135,7 @@ public :
 
 	// Methods
 
-	void generate(TCODRandom* wRng);
+	void generate();
 
 	bool isOnSea(float x, float y) const;
 
