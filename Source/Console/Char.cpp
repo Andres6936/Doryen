@@ -1,23 +1,23 @@
 #include "Doryen/Console/Char.hpp"
 
-int Doryen::Char::getC() const
+int Doryen::Char::getCharacter() const
 {
-	return c;
+	return character;
 }
 
-void Doryen::Char::setC(int _c)
+void Doryen::Char::setCharacter(int _c)
 {
-	c = _c;
+	character = _c;
 }
 
-int Doryen::Char::getCf() const
+int Doryen::Char::getCharacterFont() const
 {
-	return cf;
+	return characterFont;
 }
 
-void Doryen::Char::setCf(int _cf)
+void Doryen::Char::setCharacterFont(int _cf)
 {
-	cf = _cf;
+	characterFont = _cf;
 }
 
 const Doryen::Color& Doryen::Char::getForeground() const

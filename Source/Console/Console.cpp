@@ -351,8 +351,8 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 			Char _char = Char();
 
-			_char.setC(c);
-			_char.setCf(renderer->getCharacterInLayoutCharacteres(c));
+			_char.setCharacter(c);
+			_char.setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
 			_char.setForeground(renderer->getForeground());
 
 			Color b = renderer->getBackgroundOfCharacterInBufferAt(offset);
@@ -377,8 +377,8 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 			Char _char = Char();
 
-			_char.setC(c);
-			_char.setCf(renderer->getCharacterInLayoutCharacteres(c));
+			_char.setCharacter(c);
+			_char.setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
 			_char.setForeground(foreground);
 
 			Color b = buffer[offset].getBackground();
@@ -408,8 +408,8 @@ void Doryen::Console::clear()
 	{
 		for (Char& c: buffer)
 		{
-			c.setC(' ');
-			c.setCf(renderer->getCharacterInLayoutCharacteres(' '));
+			c.setCharacter(' ');
+			c.setCharacterFont(renderer->getCharacterInLayoutCharacteres(' '));
 			c.setForeground(foreground);
 			c.setBackground(background);
 			c.setDirt(false);
@@ -505,7 +505,7 @@ int Doryen::Console::getChar(int x, int y) const
 	{
 		unsigned offset = x + width * y;
 
-		return buffer[offset].getC();
+		return buffer[offset].getCharacter();
 	}
 }
 
@@ -575,8 +575,8 @@ void Doryen::Console::writeUnobtrusiveChar(int x, int y, int c)
 	{
 		unsigned offset = x + width * y;
 
-		buffer[offset].setC(c);
-		buffer[offset].setCf(renderer->getCharacterInLayoutCharacteres(c));
+		buffer[offset].setCharacter(c);
+		buffer[offset].setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
 	}
 }
 
@@ -679,8 +679,8 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BackgroundF
 					{
 						unsigned index = cx + width * cy;
 
-						buffer[index].setC(' ');
-						buffer[index].setCf(renderer->getCharacterInLayoutCharacteres(' '));
+						buffer[index].setCharacter(' ');
+						buffer[index].setCharacterFont(renderer->getCharacterInLayoutCharacteres(' '));
 					}
 				}
 			}
@@ -1044,26 +1044,26 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			}
 			else
 			{
-				dstChar.setC(destination.getChar(dest.x, dest.y));
+				dstChar.setCharacter(destination.getChar(dest.x, dest.y));
 				dstChar.setBackground(destination.getCharBackground(dest.x, dest.y));
 				dstChar.setForeground(destination.getCharForeground(dest.x, dest.y));
 
 				dstChar.setBackground(Color::lerp(dstChar.getBackground(),
 						srcChar.getBackground(), backgroundAlpha));
 
-				if (srcChar.getC() == ' ')
+				if (srcChar.getCharacter() == ' ')
 				{
 					dstChar.setForeground(Color::lerp(dstChar.getForeground(),
 							srcChar.getBackground(), backgroundAlpha));
 				}
-				else if (dstChar.getC() == ' ')
+				else if (dstChar.getCharacter() == ' ')
 				{
-					dstChar.setC(srcChar.getC());
-					dstChar.setCf(srcChar.getCf());
+					dstChar.setCharacter(srcChar.getCharacter());
+					dstChar.setCharacterFont(srcChar.getCharacterFont());
 					dstChar.setForeground(Color::lerp(dstChar.getBackground(),
 							srcChar.getForeground(), foregroundAlpha));
 				}
-				else if (dstChar.getC() == srcChar.getC())
+				else if (dstChar.getCharacter() == srcChar.getCharacter())
 				{
 					dstChar.setForeground(Color::lerp(dstChar.getForeground(),
 							srcChar.getForeground(), foregroundAlpha));
@@ -1077,8 +1077,8 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 					}
 					else
 					{
-						dstChar.setC(srcChar.getC());
-						dstChar.setCf(srcChar.getCf());
+						dstChar.setCharacter(srcChar.getCharacter());
+						dstChar.setCharacterFont(srcChar.getCharacterFont());
 						dstChar.setForeground(Color::lerp(dstChar.getBackground(),
 								srcChar.getForeground(), (foregroundAlpha - 0.5f) * 2));
 					}
@@ -1093,7 +1093,7 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			// See the documentation internal of initRoot method for see details of an
 			// buf produce for this method [blit]
 			// Actually, this method [blit] is free of bugs
-			destination.writeUnobtrusiveChar(dx, dy, dstChar.getC());
+			destination.writeUnobtrusiveChar(dx, dy, dstChar.getCharacter());
 			destination.setCharForeground(dx, dy, dstChar.getForeground());
 			destination.setCharBackground(dx, dy, dstChar.getBackground());
 		}

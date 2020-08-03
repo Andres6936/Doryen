@@ -19,12 +19,12 @@ namespace Doryen
 		/**
 		 * Character ASCII code
 		 */
-		int c = ' ';
+		int character = ' ';
 
 		/**
 		 * Character number in font
 		 */
-		int cf = -1;
+		int characterFont = -1;
 
 		/**
 		 * Foreground color
@@ -51,9 +51,9 @@ namespace Doryen
 
 		bool isDirt() const;
 
-		int getC() const;
+		int getCharacter() const;
 
-		int getCf() const;
+		int getCharacterFont() const;
 
 		const Color& getForeground() const;
 
@@ -61,9 +61,9 @@ namespace Doryen
 
 		// Setters
 
-		void setC(int _c);
+		void setCharacter(int _c);
 
-		void setCf(int _cf);
+		void setCharacterFont(int _cf);
 
 		void setForeground(const Color& _foreground);
 

@@ -865,9 +865,9 @@ void Doryen::SDL::draw()
 			SDL_Rect sourceRect;
 			SDL_Rect destinRect;
 
-			if (character.getCf() == -1)
+			if (character.getCharacterFont() == -1)
 			{
-				character.setCf(getCharacterInLayoutCharacteres(character.getC()));
+				character.setCharacterFont(getCharacterInLayoutCharacteres(character.getCharacter()));
 			}
 
 			character.setDirt(false);
@@ -879,9 +879,9 @@ void Doryen::SDL::draw()
 				changed = false;
 
 				if (character.isDirt() ||
-					character.getC() != previousCharacter.getC() ||
-					character.getCf() != previousCharacter.getCf() ||
-					isCharacterUpdated(character.getC()) ||
+					character.getCharacter() != previousCharacter.getCharacter() ||
+					character.getCharacterFont() != previousCharacter.getCharacterFont() ||
+					isCharacterUpdated(character.getCharacter()) ||
 					!character.getBackground().equals(previousCharacter.getBackground()) ||
 					!character.getForeground().equals(previousCharacter.getForeground()))
 				{
@@ -927,7 +927,7 @@ void Doryen::SDL::draw()
 
 				SDL_FillRect(bitmap, &destinRect, SDLBack);
 
-				if (character.getC() != ' ')
+				if (character.getCharacter() != ' ')
 				{
 					// Draw Foreground
 					Color foreground = character.getForeground();
@@ -948,7 +948,7 @@ void Doryen::SDL::draw()
 					}
 
 					// Only draw character if foreground color != background color
-					if (isCharacterUpdated(character.getC()) ||
+					if (isCharacterUpdated(character.getCharacter()) ||
 						!character.getBackground().equals(character.getForeground()))
 					{
 						if (charmap->format->Amask == 0 && foreground.equals(getFontKeyColor()))
@@ -970,23 +970,24 @@ void Doryen::SDL::draw()
 							}
 						}
 
-						sourceRect.x = (character.getCf() % getFontCharHorizontalSize()) * getFontWidth();
-						sourceRect.y = (character.getCf() / getFontCharHorizontalSize()) * getFontHeigth();
+						sourceRect.x = (character.getCharacterFont() % getFontCharHorizontalSize()) * getFontWidth();
+						sourceRect.y = (character.getCharacterFont() / getFontCharHorizontalSize()) * getFontHeigth();
 						sourceRect.w = getFontWidth();
 						sourceRect.h = getFontHeigth();
 
-						Color curtext = getColorInCharacterColorAt(character.getCf());
+						Color curtext = getColorInCharacterColorAt(character.getCharacterFont());
 
-						if (isCharacterDrawed(character.getCf()) || !curtext.equals(character.getForeground()))
+						if (isCharacterDrawed(character.getCharacterFont()) ||
+							!curtext.equals(character.getForeground()))
 						{
 							// change the character color in the font
-							setCharacterDrawed(character.getCf(), false);
+							setCharacterDrawed(character.getCharacterFont(), false);
 
 							unsigned int SDLFore =
 									SDL_MapRGB(charmap->format, foreground.r, foreground.g, foreground.b) &
 									getRgbMask();
 
-							setColorInCharacterColorAt(character.getCf(), character.getForeground());
+							setColorInCharacterColorAt(character.getCharacterFont(), character.getForeground());
 
 							if (bpp == 4)
 							{
@@ -996,7 +997,7 @@ void Doryen::SDL::draw()
 
 								int h = (int)getFontHeigth();
 
-								if (!isCharacterColored(character.getCf()))
+								if (!isCharacterColored(character.getCharacterFont()))
 								{
 									while (h--)
 									{
@@ -1060,7 +1061,7 @@ void Doryen::SDL::draw()
 
 								int h = (int)getFontHeigth();
 
-								if (!isCharacterColored(character.getCf()))
+								if (!isCharacterColored(character.getCharacterFont()))
 								{
 									while (h--)
 									{

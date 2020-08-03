@@ -488,7 +488,7 @@ void Doryen::Renderer::setBackgroundOfCharacterInBufferAt(unsigned index, const 
 
 int Doryen::Renderer::getCharOfCharacterInBufferAt(unsigned index) const
 {
-	return buffer[index].getC();
+	return buffer[index].getCharacter();
 }
 
 void Doryen::Renderer::setForeground(const Doryen::Color& _foreground)
@@ -505,8 +505,8 @@ void Doryen::Renderer::clearBuffer()
 {
 	for (Char& c : buffer)
 	{
-		c.setC(' ');
-		c.setCf(getCharacterInLayoutCharacteres(' '));
+		c.setCharacter(' ');
+		c.setCharacterFont(getCharacterInLayoutCharacteres(' '));
 		c.setForeground(foreground);
 		c.setBackground(background);
 		c.setDirt(false);
@@ -525,8 +525,8 @@ const Doryen::Color& Doryen::Renderer::getForegroundOfCharacterInBufferAt(unsign
 
 void Doryen::Renderer::setCharOfCharacterInBufferAt(unsigned index, int _char)
 {
-	buffer[index].setC(_char);
-	buffer[index].setCf(getCharacterInLayoutCharacteres(_char));
+	buffer[index].setCharacter(_char);
+	buffer[index].setCharacterFont(getCharacterInLayoutCharacteres(_char));
 }
 
 void Doryen::Renderer::setFontfile(const std::string& _fontfile)
