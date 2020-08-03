@@ -126,8 +126,8 @@ void init(Console& console)
 			leftShader->addLight(walkableCoordinate, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 			rightShader->addLight(walkableCoordinate, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 
-			console.writeUnobtrusiveChar(walkableCoordinate.x, walkableCoordinate.y, '*');
-			console.writeUnobtrusiveChar(walkableCoordinate.x + CON_WIDTH / 2, walkableCoordinate.y, '*');
+			console.writeChar(walkableCoordinate.x, walkableCoordinate.y, '*');
+			console.writeChar(walkableCoordinate.x + CON_WIDTH / 2, walkableCoordinate.y, '*');
 		}
 		catch (std::out_of_range& e)
 		{
@@ -142,8 +142,8 @@ void init(Console& console)
 	findPos(&playerx, &playery);
 
 	playerBack = console.getChar(playerx, playery);
-	console.writeUnobtrusiveChar(playerx, playery, '@');
-	console.writeUnobtrusiveChar(playerx + CON_WIDTH / 2, playery, '@');
+	console.writeChar(playerx, playery, '@');
+	console.writeChar(playerx + CON_WIDTH / 2, playery, '@');
 
 	// add the player's torch
 	torchIndex = leftShader->addLight({ playerx, playery }, 10, Palette::GRAY_WARN_1);
@@ -230,15 +230,15 @@ void move(int dx, int dy, Doryen::Console& console)
 	if (bsp.getReferenceToMap().isWalkable(playerx + dx, playery + dy))
 	{
 		// restore the previous map char
-		console.writeUnobtrusiveChar(playerx, playery, playerBack);
-		console.writeUnobtrusiveChar(playerx + CON_WIDTH / 2, playery, playerBack);
+		console.writeChar(playerx, playery, playerBack);
+		console.writeChar(playerx + CON_WIDTH / 2, playery, playerBack);
 		// move the player
 		playerx += dx;
 		playery += dy;
 		playerBack = console.getChar(playerx, playery);
 		// render the player
-		console.writeUnobtrusiveChar(playerx, playery, '@');
-		console.writeUnobtrusiveChar(playerx + CON_WIDTH / 2, playery, '@');
+		console.writeChar(playerx, playery, '@');
+		console.writeChar(playerx + CON_WIDTH / 2, playery, '@');
 		// update the player's torch position
 		leftShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
 		rightShader->updateLight(torchIndex, playerx, playery, LIGHT_RADIUS, Palette::GRAY_WARN_1);
