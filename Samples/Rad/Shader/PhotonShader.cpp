@@ -150,7 +150,7 @@ void PhotonShader::propagate()
 
 		if (data[i].emission.r > 0 || data[i].emission.g > 0 || data[i].emission.b > 0)
 		{
-			lightsCoord.push(Coord(i % map.getWidth(), i / map.getWidth()));
+			lightsCoord.push_back(Coord(i % map.getWidth(), i / map.getWidth()));
 		}
 	}
 }

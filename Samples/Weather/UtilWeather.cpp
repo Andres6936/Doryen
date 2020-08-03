@@ -95,7 +95,7 @@ void Weather::update(float elapsed, const std::uint32_t framePerSeconds)
 				l.radius = Random::Number::nextInteger(LIGHTNING_RADIUS, LIGHTNING_RADIUS * 2);
 				l.noisex = Random::Number::nextFloat(0.0f, 1000.0f);
 				l.intensity = 0.0f;
-				lightnings.push(l);
+				lightnings.push_back(l);
 			}
 		}
 	} 
@@ -112,25 +112,30 @@ void Weather::update(float elapsed, const std::uint32_t framePerSeconds)
 		bx--;
 	}
 	while ( dy >= 1.0f ) {
-		dy-= 1.0f;
-		noisey+=1.0f;
+		dy -= 1.0f;
+		noisey += 1.0f;
 		by++;
-	} 
-	while ( dy <= -1.0f ) {
-		dy+= 1.0f;
-		noisey-=1.0f;
+	}
+	while (dy <= -1.0f)
+	{
+		dy += 1.0f;
+		noisey -= 1.0f;
 		by--;
 	}
 	// update lightnings
-	for (lightning_t *l=lightnings.begin(); l!= lightnings.end(); l++) {
-		l->life-= elapsed;
-		l->noisex+=elapsed*LIGHTNING_INTENSITY_SPEED;
-		if (l->life<= 0) {
-			l=lightnings.remove(l);
-		} else {
-			l->intensity=0.5f*noise1d.get(&l->noisex, TCOD_NOISE_SIMPLEX)+1.0f;
-			l->posx-=bx;
-			l->posy-=by;
+	for (auto l = lightnings.begin(); l != lightnings.end(); l++)
+	{
+		l->life -= elapsed;
+		l->noisex += elapsed * LIGHTNING_INTENSITY_SPEED;
+		if (l->life <= 0)
+		{
+			lightnings.erase(l);
+		}
+		else
+		{
+			l->intensity = 0.5f * noise1d.get(&l->noisex, TCOD_NOISE_SIMPLEX) + 1.0f;
+			l->posx -= bx;
+			l->posy -= by;
 		}
 	}
 		
@@ -159,26 +164,29 @@ float Weather::getCloud(int x, int y) {
 	return val;
 }
 
-float Weather::getLightning(int x, int y) {
+float Weather::getLightning(int x, int y)
+{
 	if (indicator >= 0.3f) return 0.0f;
-	if ( dx >= 0 ) x++;
-	if ( dy >= 0 ) y++;
-	float res=0.0f;
-	float cloud=map->getValue(x,y);
+	if (dx >= 0) x++;
+	if (dy >= 0) y++;
+	float res = 0.0f;
+	float cloud = map->getValue(x, y);
 	cloud = 1.0f - cloud; // inverted cloud. 0 = sky, 1=dark cloud
 	cloud -= 0.6f; // no lightning under 0.6f. cloud is now 0 - 0.4
-	if ( cloud <= 0.0f ) return 0.0f;
+	if (cloud <= 0.0f) return 0.0f;
 	cloud = cloud / 0.4f; // now back to 0-1 range (but only for really cloudy zones) 
-	for (lightning_t *l=lightnings.begin(); l!= lightnings.end(); l++) {
-		int dx=l->posx-x;
-		int dy=l->posy-y;
-		int dist=dx*dx+dy*dy;
-		if ( dist < l->radius) {
-			res+= l->intensity * (float)(l->radius-dist)/l->radius;
-		} 
+	for (auto l = lightnings.begin(); l != lightnings.end(); l++)
+	{
+		int dx = l->posx - x;
+		int dy = l->posy - y;
+		int dist = dx * dx + dy * dy;
+		if (dist < l->radius)
+		{
+			res += l->intensity * (float)(l->radius - dist) / l->radius;
+		}
 	}
-	float ret= cloud * res;
-	return CLAMP(0.0f,1.0f,ret);
+	float ret = cloud * res;
+	return CLAMP(0.0f, 1.0f, ret);
 }
 
 bool Weather::hasRainDrop()

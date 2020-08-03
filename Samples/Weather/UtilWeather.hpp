@@ -75,6 +75,6 @@ protected :
 	float dx, dy; // sub cell cloud map position
 	float changeFactor;
 	Doryen::Heightmap* map;
-	TCODList <lightning_t> lightnings;
+	std::vector<lightning_t> lightnings;
 	Doryen::Color ambientColor;
 };

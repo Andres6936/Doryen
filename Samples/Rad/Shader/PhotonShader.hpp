@@ -47,7 +47,7 @@ protected :
 		}
 	};
 
-	TCODList<Coord> lightsCoord;
+	std::vector<Coord> lightsCoord;
 
 	// color not limited to 0-255 range
 	class FColor

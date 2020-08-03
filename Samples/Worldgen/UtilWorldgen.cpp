@@ -673,9 +673,9 @@ void WorldGenerator::generateRivers()
 		}
 		h = heightmap->getValue(sx, sy);
 	}
-	TCODList<int> tree;
-	TCODList<int> randPt;
-	tree.push(sx + sy * HM_WIDTH);
+	std::vector<int> tree;
+	std::vector<int> randPt;
+	tree.push_back(sx + sy * HM_WIDTH);
 	riverId++;
 	dx = sx;
 	dy = sy;
@@ -686,21 +686,21 @@ void WorldGenerator::generateRivers()
 //	    if ( IN_RECTANGLE(rx,ry,HM_WIDTH,HM_HEIGHT) ) {
 //	        float h=heightmap->getValue(rx,ry);
 //	        if ( h >= sandHeight ) {
-		randPt.push(rx + ry * HM_WIDTH);
+		randPt.push_back(rx + ry * HM_WIDTH);
 //	        }
 //	    }
 	}
 	for (int i = 0; i < randPt.size(); i++)
 	{
-		int rx = randPt.get(i) % HM_WIDTH;
-		int ry = randPt.get(i) / HM_WIDTH;
+		int rx = randPt.at(i) % HM_WIDTH;
+		int ry = randPt.at(i) / HM_WIDTH;
 
 		float minDist = 1E10;
 		int bestx = -1, besty = -1;
 		for (int j = 0; j < tree.size(); j++)
 		{
-			int tx = tree.get(j) % HM_WIDTH;
-			int ty = tree.get(j) / HM_WIDTH;
+			int tx = tree.at(j) % HM_WIDTH;
+			int ty = tree.at(j) / HM_WIDTH;
 			float dist = (tx - rx) * (tx - rx) + (ty - ry) * (ty - ry);
 			if (dist < minDist)
 			{
@@ -737,7 +737,7 @@ void WorldGenerator::generateRivers()
 		int newNode = cx + cy * HM_WIDTH;
 		if (newNode != bestx + besty * HM_WIDTH)
 		{
-			tree.push(newNode);
+			tree.push_back(newNode);
 		}
 	}
 }
