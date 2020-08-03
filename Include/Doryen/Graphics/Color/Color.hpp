@@ -39,6 +39,31 @@
 
 namespace Doryen
 {
+	/**
+	 * <b>Background effect flags</b>
+	 *
+	 * This flag is used by most functions that modify a cell background color.
+	 * It defines how the console's current background color is used to modify
+	 * the cell's existing background color:
+	 *
+	 * @li <b>NONE</b> : the cell's background color is not modified.
+	 * @li <b>SET</b> : the cell's background color is replaced by the console's
+	 *   default background color : newbk = curbk.
+	 * @li <b>MULTIPLY</b> : the cell's background color is multiplied by the
+	 *   console's default background color : newbk = oldbk * curbk
+	 * @li <b>LIGHTEN</b> : newbk = MAX(oldbk,curbk) <br>
+	 * @li <b>DARKEN</b> : newbk = MIN(oldbk,curbk) <br>
+	 * @li <b>SCREEN</b> : newbk = white - (white - oldbk) * (white - curbk)
+	 *   // inverse of multiply : (1-newbk) = (1-oldbk)*(1-curbk)
+	 * @li <b>COLOR_DODGE</b> : newbk = curbk / (white - oldbk)
+	 * @li <b>COLOR_BURN</b> : newbk = white - (white - oldbk) / curbk
+	 * @li <b>ADD</b> : newbk = oldbk + curbk
+	 * @li <b>ADDALPHA</b>(alpha) : newbk = oldbk + alpha*curbk
+	 * @li <b>BURN</b> : newbk = oldbk + curbk - white
+	 * @li <b>OVERLAY</b> : newbk = curbk.x <= 0.5 ? 2*curbk*oldbk : white - 2*(white-curbk)*(white-oldbk)
+	 * @li <b>ALPHA</b> : newbk = (1.0f-alpha)*oldbk + alpha*(curbk-oldbk)
+	 * @li <b>DEFAULT</b> : use the console's default background flag
+	 */
 	enum class BackgroundFlag : short
 	{
 		NONE,

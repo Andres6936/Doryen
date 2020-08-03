@@ -44,6 +44,18 @@
 #include "Doryen/libtcod.h"
 #include "Doryen/console_types.h"
 
+/**
+        @PageName console_bkgnd_flag_t
+        @PageTitle Background effect flags
+        @PageFather console_draw
+        @PageDesc
+
+            Note that TCOD_BKGND_ALPHA and TCOD_BKGND_ADDALPHA are MACROS that needs a float parameter between (0.0 and 1.0). TCOD_BKGND_ALPH and TCOD_BKGND_ADDA should not be used directly (else they will have the same effect as TCOD_BKGND_NONE).
+            For python, remove TCOD_ : libtcod.BKGND_NONE
+            For C# : None, Set, Multiply, Lighten, Darken, Screen, ColodDodge, ColorBurn, Add, Burn Overlay, Default
+            With lua, use tcod.None, ..., tcod.Default, BUT tcod.console.Alpha(value) and tcod.console.AddAlpha(value)
+        */
+
 namespace Doryen
 {
 	/**
@@ -385,31 +397,6 @@ namespace Doryen
         @Param fore,back new foreground and background colors for this cell
         */
         void putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back );
-
-        /**
-        @PageName console_bkgnd_flag_t
-        @PageTitle Background effect flags
-        @PageFather console_draw
-        @PageDesc This flag is used by most functions that modify a cell background color. It defines how the console's current background color is used to modify the cell's existing background color :
-            TCOD_BKGND_NONE : the cell's background color is not modified.
-            TCOD_BKGND_SET : the cell's background color is replaced by the console's default background color : newbk = curbk.
-            TCOD_BKGND_MULTIPLY : the cell's background color is multiplied by the console's default background color : newbk = oldbk * curbk
-            TCOD_BKGND_LIGHTEN : newbk = MAX(oldbk,curbk)
-            TCOD_BKGND_DARKEN : newbk = MIN(oldbk,curbk)
-            TCOD_BKGND_SCREEN : newbk = white - (white - oldbk) * (white - curbk) // inverse of multiply : (1-newbk) = (1-oldbk)*(1-curbk)
-            TCOD_BKGND_COLOR_DODGE : newbk = curbk / (white - oldbk)
-            TCOD_BKGND_COLOR_BURN : newbk = white - (white - oldbk) / curbk
-            TCOD_BKGND_ADD : newbk = oldbk + curbk
-            TCOD_BKGND_ADDALPHA(alpha) : newbk = oldbk + alpha*curbk
-            TCOD_BKGND_BURN : newbk = oldbk + curbk - white
-            TCOD_BKGND_OVERLAY : newbk = curbk.x <= 0.5 ? 2*curbk*oldbk : white - 2*(white-curbk)*(white-oldbk)
-            TCOD_BKGND_ALPHA(alpha) : newbk = (1.0f-alpha)*oldbk + alpha*(curbk-oldbk)
-            TCOD_BKGND_DEFAULT : use the console's default background flag
-            Note that TCOD_BKGND_ALPHA and TCOD_BKGND_ADDALPHA are MACROS that needs a float parameter between (0.0 and 1.0). TCOD_BKGND_ALPH and TCOD_BKGND_ADDA should not be used directly (else they will have the same effect as TCOD_BKGND_NONE).
-            For python, remove TCOD_ : libtcod.BKGND_NONE
-            For C# : None, Set, Multiply, Lighten, Darken, Screen, ColodDodge, ColorBurn, Add, Burn Overlay, Default
-            With lua, use tcod.None, ..., tcod.Default, BUT tcod.console.Alpha(value) and tcod.console.AddAlpha(value)
-        */
 
 		/**
 		@PageName console_print
