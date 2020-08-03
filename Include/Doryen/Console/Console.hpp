@@ -399,21 +399,13 @@ namespace Doryen
         void putCharEx( int x, int y, int c, const Doryen::Color &fore, const Doryen::Color &back );
 
 		/**
-		@PageName console_print
-		@FuncTitle Printing a string with default parameters
-		@FuncDesc This function print a string at a specific position using current default alignment, background flag, foreground and background colors.
-		@Cpp void TCODConsole::print(int x, int y, const char *fmt, ...)
-		@C void TCOD_console_print(TCOD_console_t con,int x, int y, const char *fmt, ...)
-		@Py console_print(con, x, y, fmt)
-		@C# void TCODConsole::print(int x, int y, string fmt)
-		@Lua Console:print(x, y, fmt)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y coordinate of the character in the console, depending on the default alignment for this console :
-			* TCOD_LEFT : leftmost character of the string
-			* TCOD_CENTER : center character of the string
-			* TCOD_RIGHT : rightmost character of the string
-		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-		*/
+		 * Write a string in the console. You can use the function format for formatter
+		 * the string before of that it will be wrote in the console.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param fmt String to write in the console.
+		 */
 		void write(int x, int y, const std::string& fmt);
 
 		/**
