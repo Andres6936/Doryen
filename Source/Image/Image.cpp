@@ -374,7 +374,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				// Single Color
 				dest.setCharBackground(conX, conY, cols.at(0), BackgroundFlag::SET);
-				dest.writeUnobtrusiveChar(conX, conY, ' ');
+				dest.writeChar(conX, conY, ' ');
 			}
 			else
 			{
