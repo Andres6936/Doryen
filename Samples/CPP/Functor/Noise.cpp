@@ -108,7 +108,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 		{
 			sample.setDefaultForeground(Palette::GRAY_WARN_1);
 			sample.setDefaultBackground(Palette::PRIMARY_LIGHT);
-			sample.printEx(2, 2 + curfunc, TCOD_BKGND_SET, TCOD_LEFT, funcName[curfunc]);
+			sample.write(2, 2 + curfunc, funcName[curfunc]);
 		}
 		else
 		{

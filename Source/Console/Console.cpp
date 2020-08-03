@@ -35,10 +35,6 @@
 
 using namespace Doryen;
 
-// Static Members
-
-Doryen::Console* Doryen::Console::root = nullptr;
-
 // Constructs
 
 Doryen::Console::Console()
