@@ -287,44 +287,6 @@ void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c) {
 }
 
 
-char *TCOD_console_vsprint(const char *fmt, va_list ap) {
-	#define NB_BUFFERS 10
-	#define INITIAL_SIZE 512
-	/* several static buffers in case the function is used more than once in a single function call */
-	static char *msg[NB_BUFFERS]={NULL};
-	static int buflen[NB_BUFFERS]={0};
-	static int curbuf=0;
-	char *ret;
-	bool ok=false;
-	if (!msg[0]) {
-		int i;
-		for (i=0; i < NB_BUFFERS; i++) {
-			buflen[i]=INITIAL_SIZE;
-			msg[i]=(char *)calloc(sizeof(char),INITIAL_SIZE);
-		}
-	}
-	do {
-		/* warning ! depending on the compiler, vsnprintf return -1 or
-		 the expected string length if the buffer is not big enough */
-		int len = vsnprintf(msg[curbuf],buflen[curbuf],fmt,ap);
-		ok=true;
-		if (len < 0 || len >= buflen[curbuf]) {
-			/* buffer too small. */
-			if ( len > 0 ) {
-				while ( buflen[curbuf] < len+1 ) buflen[curbuf]*=2;
-			} else {
-				buflen[curbuf]*=2;
-			}
-			free( msg[curbuf] );
-			msg[curbuf]=(char *)calloc(sizeof(char),buflen[curbuf]);
-			ok=false;
-		}
-	} while (! ok);
-	ret=msg[curbuf];
-	curbuf = (curbuf+1)%NB_BUFFERS;
-	return ret;
-}
-
 /* non public methods */
 int TCOD_console_stringLength(const unsigned char *s) {
 	int l=0;
