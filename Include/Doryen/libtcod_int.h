@@ -185,7 +185,7 @@ void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x
 
 /* Console non public methods*/
 bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen);
-int TCOD_console_print_internal(TCOD_console_t con,int x,int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t align, char *msg, bool can_split, bool count_only);
+
 int TCOD_console_stringLength(const unsigned char *s);
 unsigned char * TCOD_console_forward(unsigned char *s,int l);
 void TCOD_console_set_window_closed();
