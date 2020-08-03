@@ -410,26 +410,6 @@ namespace Doryen
 
 		/**
 		@PageName console_print
-		@FuncTitle Printing a string with specific alignment and background mode
-		@FuncDesc This function print a string at a specific position using specific alignment and background flag, but default foreground and background colors.
-		@Cpp void TCODConsole::printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-		@C void TCOD_console_print_ex(TCOD_console_t con,int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-		@Py console_print_ex(con, x, y, flag, alignment, fmt)
-		@C# void TCODConsole::printEx(int x, int y, TCODBackgroundFlag flag, TCODAlignment alignment, string fmt)
-		@Lua Console::printEx(x, y, flag, alignment, fmt)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y coordinate of the character in the console, depending on the alignment :
-			* TCOD_LEFT : leftmost character of the string
-			* TCOD_CENTER : center character of the string
-			* TCOD_RIGHT : rightmost character of the string
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		@Param alignment defines how the strings are printed on screen.
-		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-		*/
-		void printEx(int x, int y, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt, ...);
-
-		/**
-		@PageName console_print
 		@FuncTitle Printing a string with specific alignment and background mode and autowrap
 		@FuncDesc This function draws a string in a rectangle inside the console, using default colors, but specific alignment and background mode.
 			If the string reaches the borders of the rectangle, carriage returns are inserted.
