@@ -139,7 +139,7 @@ void render(Console& root)
 					col = recoveryLightingColor;
 				}
 
-				root.writeUnobtrusiveChar(x, y, '/');
+				root.writeChar(x, y, '/');
 				root.setCharForeground(x, y, col);
 			}
 		}
@@ -286,7 +286,7 @@ int main(int argc, char* argv[])
 		else if (keyPressed == KeyCode::SPACE)
 		{
 			// switch fullscreen
-			Doryen::Console::setWindowInFullscreen();
+			//Doryen::Console::setWindowInFullscreen();
 		}
 
 		// update the game
