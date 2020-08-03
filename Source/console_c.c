@@ -298,15 +298,6 @@ int TCOD_console_stringLength(const unsigned char *s) {
 	return l;
 }
 
-unsigned char * TCOD_console_forward(unsigned char *s,int l) {
-	while ( *s && l > 0 ) {
-		if ( *s == (int)TCOD_COLCTRL_FORE_RGB || *s == (int)TCOD_COLCTRL_BACK_RGB ) s+=3;
-		else if ( *s > (int)TCOD_COLCTRL_STOP ) l--;
-		s++;
-	}
-	return s;
-}
-
 bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen) {
 	int i;
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
