@@ -122,21 +122,6 @@ static void TCOD_image_init_mipmaps(image_data_t *img) {
 	img->mipmaps[0].dirty=false;
 }
 
-void TCOD_image_clear(TCOD_image_t image, TCOD_color_t color) {
-	int i;
-	image_data_t *img=(image_data_t *)image;
-	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
-	if ( ! img->mipmaps ) {
-		TCOD_image_init_mipmaps(img);
-	}
-	for (i=0; i< img->mipmaps[0].width*img->mipmaps[0].height; i++) {
-		img->mipmaps[0].buf[i] = color;
-	}
-	for ( i=1; i < img->nb_mipmaps; i++) {
-		img->mipmaps[i].dirty=true;
-	}
-}
-
 TCOD_image_t TCOD_image_new(int width, int height) {
 	int i;
 	float fw,fh;
