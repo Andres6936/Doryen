@@ -248,20 +248,12 @@ namespace Doryen
 		void clear(const Color col);
 
 		/**
-		@PageName image_update
-		@FuncTitle 	Changing the color of a pixel
-		@Cpp Doryen::TCODColor TCODImage::putPixel(int x, int y, const Doryen::TCODColor col)
-		@C void TCOD_image_put_pixel(TCOD_image_t image,int x, int y,TCOD_color_t col)
-		@Py image_put_pixel(image,x, y,col)
-		@C# Doryen::TCODColor TCODImage::putPixel(int x, int y, Doryen::TCODColor col)
-		@Param image	In the C version, the image handler, obtained with the load function.
-		@Param x,y	The pixel coordinates inside the image.
-			0 <= x < width
-			0 <= y < height
-		@Param col	The new color of the pixel.
-		*/
-		void putPixel(int x, int y, const Color col);
-
+		 * @brief Changing the color of a pixel
+		 *
+		 * @param x Coordinates in x of pixel inside the image.
+		 * @param y Coordinates in y of pixel inside the image.
+		 * @param _color The new color of the pixel.
+		 */
 		void setPixel(int x, int y, const Color& _color);
 
 		/**

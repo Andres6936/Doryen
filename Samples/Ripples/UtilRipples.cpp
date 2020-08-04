@@ -143,7 +143,7 @@ void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* gr
 					Doryen::Color col = ground->getPixel(x + (int)(xOffset), y + (int)(yOffset));
 					col = Palette::GRAY_WARN_1;
 					col.multiply(xOffset * 0.1f);
-					groundWithRipples->putPixel(x, y, col);
+					groundWithRipples->setPixel(x, y, col);
 				}
 			}
 		}

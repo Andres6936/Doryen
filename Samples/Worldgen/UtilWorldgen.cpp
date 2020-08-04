@@ -1097,29 +1097,29 @@ void WorldGenerator::computeColors()
 			temp += 10 * (clouds[HM_WIDTH - 1 - x][HM_HEIGHT - 1 - y]); // cheap 2D noise ;)
 			if (temp < -10.0f && h < sandHeight)
 			{
-				imageWorldmap.putPixel(x, y,
+				imageWorldmap.setPixel(x, y,
 						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f));
 			}
 			else if (temp < -8.0f && h < sandHeight)
 			{
-				imageWorldmap.putPixel(x, y,
+				imageWorldmap.setPixel(x, y,
 						Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c,
 								0.3f + 0.7f * (10.0f +
 											   temp) /
 									   2.0f));
 			}
 			else if (temp < -2.0f && h >= sandHeight)
-			{ imageWorldmap.putPixel(x, y, Doryen::Palette::GRAY_WARN_1); }
+			{ imageWorldmap.setPixel(x, y, Doryen::Palette::GRAY_WARN_1); }
 			else if (temp < 2.0f && h >= sandHeight)
 			{
 				//Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
 				c = Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c, (temp + 2) / 4.0f);
-				imageWorldmap.putPixel(x, y, c);
+				imageWorldmap.setPixel(x, y, c);
 			}
 			else
 			{
-				imageWorldmap.putPixel(x, y, c);
+				imageWorldmap.setPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1134,7 +1134,7 @@ void WorldGenerator::computeColors()
 			{
 				Doryen::Color c = imageWorldmap.getPixel(x, y);
 				c = Doryen::Color::lerp(c, Doryen::Palette::BLUE, 0.3f);
-				imageWorldmap.putPixel(x, y, c);
+				imageWorldmap.setPixel(x, y, c);
 			}
 			md++;
 		}
@@ -1164,7 +1164,7 @@ void WorldGenerator::computeColors()
 			r /= count;
 			g /= count;
 			b /= count;
-			imageWorldmap.putPixel(x, y, Doryen::Color(r, g, b));
+			imageWorldmap.setPixel(x, y, Doryen::Color(r, g, b));
 		}
 	}
 	drawCoasts(&imageWorldmap);
@@ -1312,7 +1312,7 @@ void WorldGenerator::drawCoasts(Doryen::Image* img)
 			if ((h < sandHeight && h2 >= sandHeight)
 				|| (h2 < sandHeight && h >= sandHeight))
 			{
-				img->putPixel(x, y, Doryen::Palette::GRAY_WARN_90);
+				img->setPixel(x, y, Doryen::Palette::GRAY_WARN_90);
 			}
 			else
 			{
@@ -1321,7 +1321,7 @@ void WorldGenerator::drawCoasts(Doryen::Image* img)
 				if ((h < sandHeight && h2 >= sandHeight)
 					|| (h2 < sandHeight && h >= sandHeight))
 				{
-					img->putPixel(x, y, Doryen::Palette::GRAY_WARN_90);
+					img->setPixel(x, y, Doryen::Palette::GRAY_WARN_90);
 				}
 			}
 		}
@@ -1371,9 +1371,9 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 		{
 			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
-			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
+			{ img.setPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
-			{ img.putPixel(x, y, biomeColors[biomeMap[x + y * HM_WIDTH]]); }
+			{ img.setPixel(x, y, biomeColors[biomeMap[x + y * HM_WIDTH]]); }
 		}
 	}
 	drawCoasts(&img);
@@ -1383,7 +1383,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	{
 		for (int y = 0; y < legendHeight; y++)
 		{
-			img.putPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
+			img.setPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
 		}
 	}
 	// fill legend colors
@@ -1393,7 +1393,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 		{
 			for (int y = 4 + i * 14; y < 14 + i * 14; y++)
 			{
-				img.putPixel(legendx + x, HM_HEIGHT + y, biomeColors[i]);
+				img.setPixel(legendx + x, HM_HEIGHT + y, biomeColors[i]);
 			}
 		}
 	}
@@ -1403,7 +1403,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 		{
 			for (int y = 4 + (i - 6) * 14; y < 14 + (i - 6) * 14; y++)
 			{
-				img.putPixel(legendx + x, HM_HEIGHT + y, biomeColors[i]);
+				img.setPixel(legendx + x, HM_HEIGHT + y, biomeColors[i]);
 			}
 		}
 	}
@@ -1435,14 +1435,14 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 		{
 			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
-			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
+			{ img.setPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
 			{
 				float temp = temperature->getValue(x, y);
 				temp = (temp - minTemp) / (maxTemp - minTemp);
 				int colorIdx = (int)(temp * 255);
 				colorIdx = CLAMP(0, 255, colorIdx);
-				img.putPixel(x, y, tempGradient[colorIdx]);
+				img.setPixel(x, y, tempGradient[colorIdx]);
 			}
 		}
 	}
@@ -1454,7 +1454,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	{
 		for (int y = 0; y < legendHeight; y++)
 		{
-			img.putPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
+			img.setPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
 		}
 	}
 	img.save(filename);
@@ -1480,7 +1480,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 		{
 			float h = heightmap->getValue(x, y);
 			if (h < sandHeight)
-			{ img.putPixel(x, y, Doryen::Color(100, 100, 255)); }
+			{ img.setPixel(x, y, Doryen::Color(100, 100, 255)); }
 			else
 			{
 				float prec = precipitation->getValue(x, y);
@@ -1489,7 +1489,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 				while (colorIdx < MAX_PREC_KEY && iprec > precIndexes[colorIdx])
 				{ colorIdx++; }
 				colorIdx = CLAMP(0, MAX_PREC_KEY, colorIdx);
-				img.putPixel(x, y, precColors[colorIdx]);
+				img.setPixel(x, y, precColors[colorIdx]);
 			}
 		}
 	}
@@ -1501,7 +1501,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 	{
 		for (int y = 0; y < legendHeight; y++)
 		{
-			img.putPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
+			img.setPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
 		}
 	}
 	img.save(filename);
@@ -1531,7 +1531,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 			float h = heightmap->getValue(x, y);
 			int ialt = (int)(h * 256);
 			ialt = CLAMP(0, 255, ialt);
-			img.putPixel(x, y, altGradient[ialt]);
+			img.setPixel(x, y, altGradient[ialt]);
 		}
 	}
 
@@ -1541,7 +1541,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	{
 		for (int y = 0; y < legendHeight; y++)
 		{
-			img.putPixel(HM_WIDTH + x, legendy + y, legend->getPixel(x, y));
+			img.setPixel(HM_WIDTH + x, legendy + y, legend->getPixel(x, y));
 		}
 	}
 	img.save(filename);

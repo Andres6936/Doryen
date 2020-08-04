@@ -77,7 +77,7 @@ void render(Console& console) {
 	{
 		for (int y = 0; y < CON_H * 2; y++)
 		{
-			ground2->putPixel(x, y, ground->getPixel(x, y));
+			ground2->setPixel(x, y, ground->getPixel(x, y));
 		}
 	}
 	rippleManager->renderRipples(ground, ground2);
@@ -177,8 +177,8 @@ int main (int argc, char *argv[])
 			bool isWater = h < sandHeight;
 			waterMap.setProperties(x, y, isWater, isWater);
 			int ih = (int)(h * 256);
-			ih=CLAMP(0,255,ih);
-			ground->putPixel(x,y,mapGradient[ih]);
+			ih = CLAMP(0, 255, ih);
+			ground->setPixel(x, y, mapGradient[ih]);
 		}
 	}
 	rippleManager = new RippleManager(&waterMap);

@@ -91,7 +91,7 @@ void render(Console& console)
 			// world texel coordinate (with fisheye distorsion)
 			float wx = px + curwx;
 			float wy = py + curwy;
-			map.putPixel(px, py, getMapShadedColor(wx, wy, true));
+			map.setPixel(px, py, getMapShadedColor(wx, wy, true));
 		}
 	}
 

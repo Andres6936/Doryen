@@ -111,7 +111,7 @@ void render(Console& root)
 			r = groundCol.r * r / 200;
 			g = groundCol.g * g / 200;
 			b = groundCol.b * b / 200;
-			img.putPixel(x, y, Doryen::Color(r, g, b));
+			img.setPixel(x, y, Doryen::Color(r, g, b));
 		}
 	}
 	img.blit2x(root, 0, 0);
@@ -264,7 +264,7 @@ int main(int argc, char* argv[])
 			Color col = gradinatMapIndex;
 			// add some noise
 			col.multiply(Random::Number::nextFloat(0.95f, 1.05f));
-			ground->putPixel(x, y, col);
+			ground->setPixel(x, y, col);
 		}
 	}
 

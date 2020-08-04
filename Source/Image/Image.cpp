@@ -96,11 +96,6 @@ Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
 	return Color(c.r, c.g, c.b);
 }
 
-void Image::putPixel(int x, int y, const Color col)
-{
-	imageData.setPixel(x, y, col);
-}
-
 void
 Image::blit(Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex,
 		float scaley,
