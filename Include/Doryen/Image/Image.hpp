@@ -363,29 +363,24 @@ namespace Doryen
 				float scaleX, float scaleY, float angle);
 
 		/**
-		@PageName image_blit
-		@FuncTitle Blitting with a mask
-		@FuncDesc When blitting an image, you can define a key color that will be ignored by the blitting function. This makes it possible to blit non rectangular images or images with transparent pixels.
-		@Cpp void TCODImage::setKeyColor(const Doryen::TCODColor keyColor)
-		@C void TCOD_image_set_key_color(TCOD_image_t image, TCOD_color_t keyColor)
-		@Py image_set_key_color(image, keyColor)
-		@C# void TCODImage::setKeyColor(Doryen::TCODColor keyColor)
-		@Param image	In the C and python version, the image handler, obtained with the load function.
-		@Param color	Pixels with this color will be skipped by blitting functions.
-		@CppEx
-			TCODImage *pix = TCODImage("mypix.bmp");
-			pix->setKeyColor(Doryen::TCODColor::red);
-			// blitting the image, omitting red pixels
-			pix->blitRect(Doryen::TCODConsole::root,40,25);
-		@CEx
-			TCOD_image_t pix = TCOD_image_new(10,10);
-			TCOD_image_set_key_color(pix,TCOD_red);
-			TCOD_image_blit_rect(pix,NULL,40,25,5,5,TCOD_BKGND_SET);
-		@PyEx
-			pix = libtcod.image_new(10,10)
-			libtcod.image_set_key_color(pix,libtcod.red)
-			libtcod.image_blit_rect(pix,0,40,25,5,5,libtcod.BKGND_SET)
-		*/
+		 * @brief Blitting with a mask
+		 *
+		 * When blitting an image, you can define a key color that will be
+		 * ignored by the blitting function. This makes it possible to blit
+		 * non rectangular images or images with transparent pixels.
+		 *
+		 * @example
+		 * @code
+		 * Image pix {"myPix.bmp"};
+		 * pix.setKeyColor(Palette::Red);
+		 *
+		 * // Blitting the image, omitting red pixels
+		 * pix.blitRect(console, 40, 25);
+		 * @endcode
+		 *
+		 * @param keyColor Pixels with this color will be skipped by
+		 *  blitting functions.
+		 */
 		void setKeyColor(const Color& keyColor);
 
 		/**
