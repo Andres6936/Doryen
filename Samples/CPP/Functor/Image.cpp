@@ -36,22 +36,22 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 		// the red channel
 		sample.setDefaultBackground(Doryen::Palette::RED);
 		sample.rect(0, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sample, 0, 3, -1, -1, TCOD_BKGND_MULTIPLY);
+		circle->blitRect(sample, 0, 3, -1, -1, BackgroundFlag::MULTIPLY);
 		// the green channel
 		sample.setDefaultBackground(green);
 		sample.rect(15, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sample, 15, 3, -1, -1, TCOD_BKGND_MULTIPLY);
+		circle->blitRect(sample, 15, 3, -1, -1, BackgroundFlag::MULTIPLY);
 		// the blue channel
 		sample.setDefaultBackground(blue);
 		sample.rect(30, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(&sample, 30, 3, -1, -1, TCOD_BKGND_MULTIPLY);
+		circle->blitRect(sample, 30, 3, -1, -1, BackgroundFlag::MULTIPLY);
 	}
 	else
 	{
 		// render circle.png with normal blitting
-		circle->blitRect(&sample, 0, 3, -1, -1, TCOD_BKGND_SET);
-		circle->blitRect(&sample, 15, 3, -1, -1, TCOD_BKGND_SET);
-		circle->blitRect(&sample, 30, 3, -1, -1, TCOD_BKGND_SET);
+		circle->blitRect(sample, 0, 3);
+		circle->blitRect(sample, 15, 3);
+		circle->blitRect(sample, 30, 3);
 	}
 
 	img->blit(sample, { static_cast<int>(x), static_cast<int>(y) },
