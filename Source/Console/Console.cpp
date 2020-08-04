@@ -957,6 +957,40 @@ bool Doryen::Console::renderCredits(int x, int y, bool alpha)
 {
 	//return TCOD_console_credits_render(x, y, alpha) != 0;
 
+	std::array<float, 128> charHeat;
+	std::array<char, 128> poweredBy;
+	std::array<int, 128> charX;
+	std::array<int, 128> charY;
+
+	bool init1 = false;
+
+	float xStr = 0.0f;
+
+	std::int32_t len = 0;
+	std::int32_t len1 = 0;
+
+	std::int32_t cw = -1;
+	std::int32_t ch = -1;
+
+	std::array<Color, 64> colMap;
+	std::array<Color, 64> colMapLight;
+
+	std::array<Color, 4> colKeys;
+
+	colKeys[0] = { 255, 255, 204 };
+	colKeys[1] = { 255, 204, 0 };
+	colKeys[2] = { 255, 102, 0 };
+	colKeys[3] = { 102, 153, 255 };
+
+	std::array<Color, 4> colKeysLight;
+
+	colKeysLight[0] = { 255, 255, 204 };
+	colKeysLight[1] = { 128, 128, 77 };
+	colKeysLight[2] = { 51, 51, 31 };
+	colKeysLight[3] = { 0, 0, 0 };
+
+	std::array<int, 4> colPos = { 0, 21, 42, 63 };
+
 	return true;
 }
 
