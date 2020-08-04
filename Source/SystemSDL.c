@@ -2142,11 +2142,6 @@ void TCOD_sys_restore_fps()
 	min_frame_length = min_frame_length_backup;
 }
 
-int TCOD_sys_get_fps()
-{
-	return fps;
-}
-
 float TCOD_sys_get_last_frame_length()
 {
 	return last_frame_length;

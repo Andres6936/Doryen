@@ -46,8 +46,6 @@ void TCOD_sys_save_screenshot(const char* filename);
 
 void TCOD_sys_set_fps(int val);
 
-int TCOD_sys_get_fps();
-
 float TCOD_sys_get_last_frame_length();
 
 void TCOD_sys_get_current_resolution(int *w, int *h);
