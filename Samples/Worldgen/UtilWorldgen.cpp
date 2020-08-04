@@ -593,8 +593,7 @@ Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 
 Doryen::Color WorldGenerator::getInterpolatedColor(Doryen::Image* img, float x, float y)
 {
-	int w, h;
-	img->getSize(&w, &h);
+	const auto[w, h] = img->getSize();
 	float wx = CLAMP(0.0f, w - 1, x);
 	float wy = CLAMP(0.0f, h - 1, y);
 	int iwx = (int)wx;
@@ -1359,7 +1358,11 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	if (legend == NULL)
 	{
 		legend = new Doryen::Image("Data/img/legend_biome.png");
-		legend->getSize(&legendWidth, &legendHeight);
+
+		const auto[width, height] = legend->getSize();
+
+		legendWidth = width;
+		legendHeight = height;
 	}
 	if (filename == NULL)
 	{ filename = "world_biome.png"; }
@@ -1419,7 +1422,12 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	if (legend == NULL)
 	{
 		legend = new Doryen::Image("Data/img/legend_temperature.png");
-		legend->getSize(&legendWidth, &legendHeight);
+
+		const auto[width, height] = legend->getSize();
+
+		legendWidth = width;
+		legendHeight = height;
+
 		generateSmoothColorMap(tempGradient, MAX_TEMP_KEY, tempKeyColor, tempIndexes);
 	}
 
@@ -1467,7 +1475,11 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 	if (legend == NULL)
 	{
 		legend = new Doryen::Image("Data/img/legend_precipitation.png");
-		legend->getSize(&legendWidth, &legendHeight);
+
+		const auto[width, height] = legend->getSize();
+
+		legendWidth = width;
+		legendHeight = height;
 	}
 
 	if (filename == NULL)
@@ -1516,7 +1528,12 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	if (legend == NULL)
 	{
 		legend = new Doryen::Image("Data/img/legend_altitude.png");
-		legend->getSize(&legendWidth, &legendHeight);
+
+		const auto[width, height] = legend->getSize();
+
+		legendWidth = width;
+		legendHeight = height;
+
 		generateSmoothColorMap(altGradient, MAX_ALT_KEY, altColors, altIndexes);
 	}
 

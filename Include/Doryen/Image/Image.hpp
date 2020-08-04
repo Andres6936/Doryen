@@ -121,32 +121,10 @@ namespace Doryen
 		void refreshConsole(const Console* console);
 
 		/**
-		@PageName image_read
-		@PageTitle Reading data from a TCODImage
-		@PageFather image
-		@FuncTitle Getting the size of an image
-		@FuncDesc You can read the size of an image in pixels with this function.
-		@Cpp void TCODImage::getSize(int *w,int *h) const
-		@C void TCOD_image_get_size(TCOD_image_t image, int *w,int *h)
-		@Py image_get_size(image) # returns w,h
-		@C# void TCODImage::getSize(out int w, out int h)
-		@Param image In the C version, the image handler, obtained with the load function.
-		@Param w,h When the function returns, those variables contain the size of the image.
-		@CppEx
-			TCODImage *pix = new TCODImage(80,50);
-			int w,h;
-			pix->getSize(&w,&h); // w = 80, h = 50
-		@CEx
-			TCOD_image_t pix = TCOD_image_new(80,50);
-			int w,h;
-			TCOD_image_get_size(pix,&w,&h); // w = 80, h = 50
-		@PyEx
-			pix = libtcod.image_new(80,50)
-			w,h=libtcod.image_get_size(pix)
-			# w = 80, h = 50
-		*/
-		void getSize(int* w, int* h) const;
-
+		 * @brief Getting the size of an image.
+		 *
+		 * @return The size of image in pixels.
+		 */
 		Geometry::Size getSize() const;
 
 		/**

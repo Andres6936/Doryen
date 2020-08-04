@@ -55,11 +55,6 @@ Image::Image(const Console& console)
 	imageData.createBitmapFrom(console);
 }
 
-void Image::getSize(int* w, int* h) const
-{
-	TCOD_image_get_size(data, w, h);
-}
-
 Geometry::Size Image::getSize() const
 {
 	return imageData.getSize();
