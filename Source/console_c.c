@@ -83,12 +83,6 @@ void TCOD_fatal_nopar(const char *msg) {
 void TCOD_console_set_window_closed() {
 }
 
-void TCOD_console_set_fullscreen(bool fullscreen) {
-	TCOD_IFNOT(TCOD_ctx.root != NULL) return;
-	TCOD_sys_set_fullscreen(fullscreen);
-	TCOD_ctx.fullscreen=fullscreen;
-}
-
 
 void TCOD_console_flush() {
 	TCOD_console_data_t *dat=TCOD_ctx.root;
