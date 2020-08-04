@@ -78,11 +78,6 @@ void TCOD_console_disable_keyboard_repeat();
 
 bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
 
-/* ASCII paint file support */
-
-
-TCOD_console_t TCOD_console_new(int w, int h);
-
 int TCOD_console_get_width(TCOD_console_t con);
 
 int TCOD_console_get_height(TCOD_console_t con);

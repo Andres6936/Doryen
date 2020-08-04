@@ -80,22 +80,6 @@ void TCOD_fatal_nopar(const char *msg) {
 	exit (1);
 }
 
-TCOD_console_t TCOD_console_new(int w, int h)  {
-	TCOD_IFNOT(w > 0 && h > 0 ) {
-		return NULL;
-	} else {
-		TCOD_console_data_t *con=(TCOD_console_data_t *)calloc(sizeof(TCOD_console_data_t),1);
-		con->w=w;
-		con->h=h;
-		TCOD_console_init(con,NULL,false);
-		if(TCOD_ctx.root) {
-			con->alignment=TCOD_ctx.root->alignment;
-			con->bkgnd_flag=TCOD_ctx.root->bkgnd_flag;
-		}
-		return (TCOD_console_t)con;
-	}
-}
-
 void TCOD_console_set_window_closed() {
 }
 
