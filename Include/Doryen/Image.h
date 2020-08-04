@@ -66,7 +66,5 @@ void TCOD_image_blit_2x(TCOD_image_t image, TCOD_console_t dest, int dx, int dy,
 
 void TCOD_image_delete(TCOD_image_t image);
 
-void TCOD_image_set_key_color(TCOD_image_t image, TCOD_color_t key_color);
-
 bool TCOD_image_is_pixel_transparent(TCOD_image_t image, int x, int y);
 

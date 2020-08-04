@@ -402,11 +402,6 @@ void TCOD_image_save(TCOD_image_t image, const char *filename) {
 	}
 }
 
-void TCOD_image_set_key_color(TCOD_image_t image, TCOD_color_t key_color) {
-	image_data_t *img=(image_data_t *)image;
-	img->has_key_color=true;
-	img->key_color=key_color;
-}
 void TCOD_image_invert(TCOD_image_t image) {
 	int i,mip;
 	int width,height;
