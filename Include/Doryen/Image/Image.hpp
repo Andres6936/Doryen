@@ -347,29 +347,18 @@ namespace Doryen
 				TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET) const;
 
 		/**
-		@PageName image_blit
-		@FuncTitle Blitting with scaling and/or rotation
-		@FuncDesc This function allows you to specify the floating point coordinates of the center
-			of the image, its scale and its rotation angle.
-		@Cpp void TCODImage::blit(Doryen::TCODConsole *console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET, float scalex=1.0f, float scaley=1.0f, float angle=0.0f) const
-		@C void TCOD_image_blit(TCOD_image_t image, TCOD_console_t console, int x, int y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex, float scaley, float angle)
-		@Py image_blit(image, console, x, y, bkgnd_flag, scalex, scaley, angle)
-		@C#
-			void TCODImage::blit(Doryen::TCODConsole console, float x, float y)
-			void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag)
-			void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex)
-			void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley)
-			void TCODImage::blit(Doryen::TCODConsole console, float x, float y, TCODBackgroundFlag bkgnd_flag, float scalex, float scaley, float angle)
-		@Param image	In the C version, the image handler, obtained with the load function.
-		@Param console	The console on which the image will be drawn. In the C version, use NULL for the root console.
-		@Param x,y	Coordinates in the console of the center of the image.
-		@Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
-		@Param scalex,scaley	Scale coefficient. Must be > 0.0.
-		@Param angle	Rotation angle in radians.
-		*/
-		void blit(Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET,
-				float scalex = 1.0f, float scaley = 1.0f, float angle = 0.0f) const;
-
+		 * @brief Blitting with scaling and/or rotation
+		 *
+		 * This function allows you to specify the floating point coordinates
+		 * of the center of the image, its scale and its rotation angle.
+		 *
+		 * @param _console The console on which the image will be drawn.
+		 * @param _center Coordinates in the console of the center of the image.
+		 * @param _flag This flag defines how the cell's background color is modified.
+		 * @param scaleX Scale coefficient. Must be > 0.0.
+		 * @param scaleY Scale coefficient. Must be > 0.0.
+		 * @param angle Rotation angle in radians.
+		 */
 		void blit(Console& _console, const Point& _center, BackgroundFlag _flag,
 				float scaleX, float scaleY, float angle);
 

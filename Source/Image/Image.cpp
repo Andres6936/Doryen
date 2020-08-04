@@ -88,14 +88,6 @@ Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
 }
 
 void
-Image::blit(Console* console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scalex,
-		float scaley,
-		float angle) const
-{
-	TCOD_image_blit(data,console->data,x,y,bkgnd_flag,scalex,scaley,angle);
-}
-
-void
 Image::blitRect(Console* console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) const
 {
 	TCOD_image_blit_rect(data, console->data, x, y, w, h, bkgnd_flag);
