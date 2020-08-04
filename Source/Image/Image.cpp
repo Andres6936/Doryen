@@ -49,8 +49,6 @@ Image::Image(const char* filename) : deleteData(true)
 
 Image::Image(const Console& console)
 {
-//	data = (void*)TCOD_image_from_console(console->data);
-
 	imageData = ImageData();
 	imageData.createBitmapFrom(console);
 }
