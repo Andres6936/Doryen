@@ -2055,12 +2055,6 @@ float TCOD_sys_elapsed_seconds()
 	return SDL_GetTicks() * div;
 }
 
-void TCOD_sys_force_fullscreen_resolution(int width, int height)
-{
-	TCOD_ctx.fullscreen_width = width;
-	TCOD_ctx.fullscreen_height = height;
-}
-
 /*
 void * TCOD_sys_create_bitmap(int width, int height, TCOD_color_t *buf) {
 	int x,y;
