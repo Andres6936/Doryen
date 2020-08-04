@@ -369,19 +369,6 @@ void TCOD_image_blit(TCOD_image_t image, TCOD_console_t console, float x, float 
 	}
 }
 
-void TCOD_image_blit_rect(TCOD_image_t image, TCOD_console_t console, int x, int y,
-	int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) {
-	int width,height;
-	float scalex,scaley;
-	TCOD_image_get_size(image,&width,&height);
-	if ( w == -1 ) w=width;
-	if ( h == -1 ) h=height;
-	if ( w <= 0 || h <= 0 || bkgnd_flag == TCOD_BKGND_NONE ) return;
-	scalex = (float)(w)/width;
-	scaley = (float)(h)/height;
-	TCOD_image_blit(image,console,x+w*0.5f,y+h*0.5f,bkgnd_flag,scalex,scaley,0.0f);
-}
-
 TCOD_image_t TCOD_image_from_console(TCOD_console_t console) {
 	image_data_t *ret;
 	void *bitmap=TCOD_sys_create_bitmap_for_console(console);
