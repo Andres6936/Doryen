@@ -310,10 +310,6 @@ char_t *TCOD_console_get_buf(TCOD_console_t con) {
 	return dat->buf;
 }
 
-void TCOD_console_set_custom_font(const char *fontFile, int flags,int nb_char_horiz, int nb_char_vertic) {
-	TCOD_sys_set_custom_font(fontFile, nb_char_horiz, nb_char_vertic, flags);
-}
-
 void TCOD_console_set_keyboard_repeat(int initial_delay, int interval) {
 	TCOD_sys_set_keyboard_repeat(initial_delay,interval);
 }
