@@ -443,42 +443,6 @@ void TCOD_sys_load_font()
 	}
 }
 
-void TCOD_sys_set_custom_font(const char* fontFile, int nb_ch, int nb_cv, int flags)
-{
-	strcpy(TCOD_ctx.font_file, fontFile);
-	/* if layout not defined, assume ASCII_INCOL */
-	if (flags == 0 || flags == TCOD_FONT_TYPE_GREYSCALE)
-	{ flags |= TCOD_FONT_LAYOUT_ASCII_INCOL; }
-	TCOD_ctx.font_in_row = ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) != 0);
-	TCOD_ctx.font_greyscale = ((flags & TCOD_FONT_TYPE_GREYSCALE) != 0);
-	TCOD_ctx.font_tcod_layout = ((flags & TCOD_FONT_LAYOUT_TCOD) != 0);
-	if (nb_ch > 0)
-	{
-		TCOD_ctx.fontNbCharHoriz = nb_ch;
-		TCOD_ctx.fontNbCharVertic = nb_cv;
-	}
-	else
-	{
-		if ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) || (flags & TCOD_FONT_LAYOUT_ASCII_INCOL))
-		{
-			TCOD_ctx.fontNbCharHoriz = 16;
-			TCOD_ctx.fontNbCharVertic = 16;
-		}
-		else
-		{
-			TCOD_ctx.fontNbCharHoriz = 32;
-			TCOD_ctx.fontNbCharVertic = 8;
-		}
-	}
-	if (TCOD_ctx.font_tcod_layout)
-	{ TCOD_ctx.font_in_row = true; }
-	check_ascii_to_tcod();
-	/*
-	screw up things on linux64. apparently, useless
-	TCOD_sys_load_font();
-	*/
-}
-
 static void find_resolution()
 {
 #if SDL_VERSION_ATLEAST(2, 0, 0)
