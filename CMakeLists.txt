@@ -8,20 +8,17 @@ OPTION(DORYEN_SAMPLES "Generate Doryen Samples" ON)
 OPTION(DORYEN_TESTS "Execute Doryen Test" ON)
 
 FIND_LIBRARY(M_LIB m)
-FIND_PACKAGE(X11 REQUIRED)
 FIND_PACKAGE(SDL REQUIRED)
 FIND_PACKAGE(OpenGL REQUIRED)
 FIND_PACKAGE(Threads REQUIRED)
 
 SET(EXTERNAL_LIBS
-        ${X11_LIBRARIES}
         ${SDL_LIBRARY} # this sucks, it's LIBRARY not LIBRARIES
         ${CMAKE_THREAD_LIBS_INIT} # this comes from find_package(Threads ..)
         ${M_LIB_LIBRARIES}
         ${OPENGL_LIBRARIES}
         m) # This is Math library
 SET(EXTERNAL_INCLUDES
-        ${X11_INCLUDE_DIRS}
         ${SDL_INCLUDE_DIR} # again, singular...
         ${M_LIB_INCLUDE_DIRS}
         ${X11_INCLUDE_DIRS}
