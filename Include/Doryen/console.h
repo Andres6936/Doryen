@@ -35,8 +35,6 @@ typedef void* TCOD_console_t;
 
 typedef unsigned char uint8;
 
-void TCOD_console_set_window_title(const char* title);
-
 
 void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t col);
 
