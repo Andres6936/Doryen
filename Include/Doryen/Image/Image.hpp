@@ -233,21 +233,6 @@ namespace Doryen
 		Color getMipmapPixel(float x0, float y0, float x1, float y1);
 
 		/**
-		@PageName image_update
-		@PageTitle Updating an image
-		@PageFather image
-		@FuncTitle Filling an image with a color
-		@FuncDesc You can fill the whole image with a color with :
-		@Cpp void TCODImage::clear(const Doryen::TCODColor color)
-		@C void TCOD_image_clear(TCOD_image_t image, TCOD_color_t color)
-		@Py image_clear(image,color)
-		@C# void TCODImage::clear(Doryen::TCODColor color)
-		@Param image	In the C and python version, the image to fill.
-		@Param color	The color to use.
-		*/
-		void clear(const Color col);
-
-		/**
 		 * @brief Changing the color of a pixel
 		 *
 		 * @param x Coordinates in x of pixel inside the image.
