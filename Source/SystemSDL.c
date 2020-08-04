@@ -121,10 +121,6 @@ static bool mousebr = false;
 
 static bool mouse_force_bl = false;
 
-static bool mouse_force_bm = false;
-
-static bool mouse_force_br = false;
-
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 static bool mouse_touch=true;
 #endif
@@ -1887,12 +1883,12 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event* ev, TCOD_event_t eventMask,
 				break;
 			case SDL_BUTTON_MIDDLE :
 				if (mousebm)
-				{ mouse->mbutton_pressed = mouse_force_bm = true; }
+				{ mouse->mbutton_pressed = true; }
 				mouse->mbutton = mousebm = false;
 				break;
 			case SDL_BUTTON_RIGHT :
 				if (mousebr)
-				{ mouse->rbutton_pressed = mouse_force_br = true; }
+				{ mouse->rbutton_pressed = true; }
 				mouse->rbutton = mousebr = false;
 				break;
 			}
