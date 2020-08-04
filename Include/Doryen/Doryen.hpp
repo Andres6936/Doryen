@@ -35,7 +35,6 @@
 #include "mersenne.hpp"
 #include "noise.hpp"
 #include "FOV/Fov.hpp"
-#include "zip.hpp"
 #include "namegen.hpp"
 
 #include "Random/Number.hpp"
