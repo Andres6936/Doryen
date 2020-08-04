@@ -63,9 +63,6 @@ TCOD_internal_context_t TCOD_ctx={
 	{0,0,0}, 255,
 };
 
-static TCOD_color_t color_control_fore[TCOD_COLCTRL_NUMBER];
-static TCOD_color_t color_control_back[TCOD_COLCTRL_NUMBER];
-
 void TCOD_fatal(const char *fmt, ...) {
 	va_list ap;
 	TCOD_sys_term();
