@@ -83,9 +83,23 @@ Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
 }
 
 void
-Image::blitRect(Console* console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag) const
+Image::blitRect(Console& console, int x, int y, int w, int h, BackgroundFlag flag)
 {
-	TCOD_image_blit_rect(data, console->data, x, y, w, h, bkgnd_flag);
+	const auto[width, height] = getSize();
+
+	if (w == -1) w = width;
+	if (h == -1) h = height;
+
+	// Not satisfied invariants
+	if (w <= 0 or h <= 0 || flag == BackgroundFlag::NONE) return;
+
+	const float scaleX = w / width;
+	const float scaleY = h / height;
+
+	const int X = static_cast<int>(x + w * 0.5f);
+	const int Y = static_cast<int>(y + h * 0.5f);
+
+	blit(console, { X, Y }, flag, scaleX, scaleY, 0.0f);
 }
 
 void Image::save(const char* filename) const

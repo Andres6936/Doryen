@@ -321,8 +321,8 @@ namespace Doryen
 		@Param w,h	Dimension of the image on the console. Use -1,-1 to use the image size.
 		@Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
 		*/
-		void blitRect(Console* console, int x, int y, int w = -1, int h = -1,
-				TCOD_bkgnd_flag_t bkgnd_flag = TCOD_BKGND_SET) const;
+		void blitRect(Console& console, int x, int y, int w = -1, int h = -1,
+				BackgroundFlag flag = BackgroundFlag::SET);
 
 		/**
 		 * @brief Blitting with scaling and/or rotation
