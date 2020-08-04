@@ -184,7 +184,6 @@ void * TCOD_opengl_get_screen();
 void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
 
 /* Console non public methods*/
-bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen);
 
 void TCOD_console_set_window_closed();
 

@@ -268,28 +268,6 @@ void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c) {
 }
 
 
-bool TCOD_console_init(TCOD_console_t con,const char *title, bool fullscreen) {
-	int i;
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return false;
-	dat->fore=TCOD_white;
-	dat->back=TCOD_black;
-	dat->fade=255;
-	dat->buf = (char_t *)calloc(sizeof(char_t),dat->w*dat->h);
-	dat->oldbuf = (char_t *)calloc(sizeof(char_t),dat->w*dat->h);
-	dat->bkgnd_flag=TCOD_BKGND_NONE;
-	dat->alignment=TCOD_LEFT;
-	for (i=0; i< dat->w*dat->h; i++) {
-		dat->buf[i].c=' ';
-		dat->buf[i].cf=-1;
-	}
-	if ( title ) {
-		if (! TCOD_sys_init(dat->w,dat->h,dat->buf,dat->oldbuf,fullscreen) ) return false;
-		TCOD_sys_set_window_title(title);
-	}
-	return true;
-}
-
 void TCOD_console_set_default_foreground(TCOD_console_t con,TCOD_color_t col) {
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
 	TCOD_IFNOT(dat != NULL) return;
