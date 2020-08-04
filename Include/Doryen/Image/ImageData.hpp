@@ -101,6 +101,8 @@ namespace Doryen
 		// Setters
 
 		void setPixel(int x, int y, const Color& _color);
+
+		void setKeyColor(const Color& _keyColor);
 	};
 }
 

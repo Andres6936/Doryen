@@ -386,7 +386,7 @@ namespace Doryen
 			libtcod.image_set_key_color(pix,libtcod.red)
 			libtcod.image_blit_rect(pix,0,40,25,5,5,libtcod.BKGND_SET)
 		*/
-		void setKeyColor(const Color keyColor);
+		void setKeyColor(const Color& keyColor);
 
 		/**
 		@PageName image_blit

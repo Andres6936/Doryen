@@ -98,10 +98,9 @@ void Image::save(const char* filename) const
 	TCOD_image_save(data, filename);
 }
 
-void Image::setKeyColor(const Color keyColor)
+void Image::setKeyColor(const Color& keyColor)
 {
-	TCOD_color_t ccol = { keyColor.r, keyColor.g, keyColor.b };
-	TCOD_image_set_key_color(data, ccol);
+	imageData.setKeyColor(keyColor);
 }
 
 bool Image::isPixelTransparent(int x, int y) const

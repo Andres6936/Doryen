@@ -633,3 +633,9 @@ void ImageData::setPixel(int x, int y, const Color& _color)
 		}
 	}
 }
+
+void ImageData::setKeyColor(const Color& _keyColor)
+{
+	keyColor = _keyColor;
+	hasKeyColor = true;
+}
