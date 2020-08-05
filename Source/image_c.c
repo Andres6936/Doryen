@@ -187,43 +187,6 @@ int TCOD_image_get_alpha(TCOD_image_t image,int x, int y) {
 	} else return 255;
 }
 
-TCOD_color_t TCOD_image_get_mipmap_pixel(TCOD_image_t image,float x0,float y0, float x1, float y1) {
-	int texel_xsize, texel_ysize, texel_size, texel_x, texel_y;
-	int cur_size = 1;
-	int mip = 0;
-	image_data_t* img = (image_data_t*)image;
-	if (!img->mipmaps && !img->sys_img) return TCOD_black; /* no image data */
-	if (!img->mipmaps) TCOD_image_init_mipmaps(img);
-	texel_xsize = (int)(x1 - x0);
-	texel_ysize = (int)(y1 - y0);
-
-	if (texel_xsize < texel_ysize)
-	{
-		texel_size = texel_ysize;
-	}
-	else
-	{
-		texel_size = texel_xsize;
-	}
-
-	while (mip < img->nb_mipmaps - 1 && cur_size < texel_size)
-	{
-		mip++;
-		cur_size <<= 1;
-	}
-	if (mip > 0) mip--;
-	texel_x = (int)(x0 * (img->mipmaps[mip].width) / img->mipmaps[0].fwidth);
-	texel_y = (int)(y0 * (img->mipmaps[mip].height) / img->mipmaps[0].fheight);
-
-	if (img->mipmaps[mip].buf == NULL || img->mipmaps[mip].dirty)
-	{
-		TCOD_image_generate_mip(img,mip);
-	}
-	if ( texel_x < 0 || texel_y < 0 || texel_x >= img->mipmaps[mip].width || texel_y >= img->mipmaps[mip].height )
-		return TCOD_black;
-	return img->mipmaps[mip].buf[texel_x+texel_y*img->mipmaps[mip].width];
-}
-
 void TCOD_image_delete_internal(TCOD_image_t image) {
 	image_data_t *img=(image_data_t *)image;
 	if ( img->mipmaps ) {
