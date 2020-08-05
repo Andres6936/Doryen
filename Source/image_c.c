@@ -315,20 +315,6 @@ void TCOD_image_invert(TCOD_image_t image) {
 	}
 }
 
-void TCOD_image_hflip(TCOD_image_t image) {
-	int px,py;
-	int width,height;
-	TCOD_image_get_size(image,&width,&height);
-	for (py = 0; py < height; py++ ) {
-		for (px = 0; px < width/2; px++ ) {
-			TCOD_color_t col1=TCOD_image_get_pixel(image,px,py);
-			TCOD_color_t col2=TCOD_image_get_pixel(image,width-1-px,py);
-			TCOD_image_put_pixel(image,px,py,col2);
-			TCOD_image_put_pixel(image,width-1-px,py,col1);
-		}
-	}
-}
-
 void TCOD_image_vflip(TCOD_image_t image) {
 	int px,py;
 	int width,height;

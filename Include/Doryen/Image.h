@@ -37,8 +37,6 @@ TCOD_image_t TCOD_image_load(const char* filename);
 
 void TCOD_image_invert(TCOD_image_t image);
 
-void TCOD_image_hflip(TCOD_image_t image);
-
 void TCOD_image_rotate90(TCOD_image_t image, int numRotations);
 
 void TCOD_image_vflip(TCOD_image_t image);
