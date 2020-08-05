@@ -901,17 +901,6 @@ namespace Doryen
         */
         static void setKeyboardRepeat( int initialDelay, int interval );
 
-        /**
-        @PageName console_keyboard_repeat
-        @FuncDesc You can also disable the keyboard repeat feature with this function (it's equivalent to setKeyboardRepeat(0,0) ).
-        @Cpp static void TCODConsole::disableKeyboardRepeat()
-        @C void TCOD_console_disable_keyboard_repeat()
-        @Py console_disable_keyboard_repeat()
-        @C# static void TCODConsole::disableKeyboardRepeat()
-        @Lua tcod.console.disableKeyboardRepeat()
-        */
-        static void disableKeyboardRepeat( );
-
 		/**
 		 * @brief Blitting a console on another one
 		 *
@@ -919,36 +908,36 @@ namespace Doryen
 		 * at a specific position on a destination console. It can also simulate alpha <br>
 		 * transparency with the fade parameter.
 		 *
-         * @param source The rectangular area of the source console that will be blitted.
-         *  If wSrc and/or hSrc == 0, the source console width/height are used
-         * @param destination The source console that must be blitted on another one.
-         * @param dest Where to blit the upper-left corner of the source area in the destination console.
-         * @param foregroundAlpha Alpha transparency of the blitted console.
-         * @param backgroundAlpha Alpha transparency of the blitted console.
-         *
-         *  0.0 => The source console is completely transparent. This function does nothing. <br>
-         *  1.0 => The source console is opaque. Its cells replace the destination cells. <br>
-         *  0 < fade < 1.0 => The source console is partially blitted, simulating real transparency. <br>
-         *
-         *  @example
-         *  @code
-         *  // Cross-fading between two offscreen consoles.
-         *  // We use two offscreen consoles with
-         *  // the same size as the root console.
-         *  // We render a different screen on each offscreen console.
-         *  // When the user hits a key, we do a cross-fading from the
-         *  // first screen to the second screen.
-         *
-         *  Console off1 {80, 50};
-         *  Console off2 {20, 30};
-         *
-         *  ... print screen1 on off1
-         *  ... print screen2 of off2
-         *
-         *  // render screen1 in the game window
-         *  off1.blit({0, 0}, off2, {0,0});
-         *  @endcode
-         */
+		 * @param source The rectangular area of the source console that will be blitted.
+		 *  If wSrc and/or hSrc == 0, the source console width/height are used
+		 * @param destination The source console that must be blitted on another one.
+		 * @param dest Where to blit the upper-left corner of the source area in the destination console.
+		 * @param foregroundAlpha Alpha transparency of the blitted console.
+		 * @param backgroundAlpha Alpha transparency of the blitted console.
+		 *
+		 *  0.0 => The source console is completely transparent. This function does nothing. <br>
+		 *  1.0 => The source console is opaque. Its cells replace the destination cells. <br>
+		 *  0 < fade < 1.0 => The source console is partially blitted, simulating real transparency. <br>
+		 *
+		 *  @example
+		 *  @code
+		 *  // Cross-fading between two offscreen consoles.
+		 *  // We use two offscreen consoles with
+		 *  // the same size as the root console.
+		 *  // We render a different screen on each offscreen console.
+		 *  // When the user hits a key, we do a cross-fading from the
+		 *  // first screen to the second screen.
+		 *
+		 *  Console off1 {80, 50};
+		 *  Console off2 {20, 30};
+		 *
+		 *  ... print screen1 on off1
+		 *  ... print screen2 of off2
+		 *
+		 *  // render screen1 in the game window
+		 *  off1.blit({0, 0}, off2, {0,0});
+		 *  @endcode
+		 */
 		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 

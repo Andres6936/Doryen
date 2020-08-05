@@ -254,6 +254,3 @@ void TCOD_console_set_keyboard_repeat(int initial_delay, int interval) {
 	TCOD_sys_set_keyboard_repeat(initial_delay,interval);
 }
 
-void TCOD_console_disable_keyboard_repeat() {
-	TCOD_sys_set_keyboard_repeat(0,0);
-}

@@ -933,11 +933,6 @@ void Doryen::Console::setKeyboardRepeat(int initialDelay, int interval)
 	TCOD_console_set_keyboard_repeat(initialDelay, interval);
 }
 
-void Doryen::Console::disableKeyboardRepeat()
-{
-	TCOD_console_disable_keyboard_repeat();
-}
-
 float Doryen::Console::getLastFrameLength() const
 {
 	return renderer->getLastFrameLength();
