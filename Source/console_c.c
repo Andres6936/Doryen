@@ -84,19 +84,6 @@ void TCOD_console_set_window_closed() {
 }
 
 
-void TCOD_console_flush() {
-	TCOD_console_data_t *dat=TCOD_ctx.root;
-	TCOD_IFNOT(TCOD_ctx.root != NULL) return;
-	TCOD_sys_flush(true);
-	memcpy(dat->oldbuf,dat->buf,sizeof(char_t)*
-		dat->w*dat->h);
-}
-
-void TCOD_console_set_fade(uint8 val, TCOD_color_t fadecol) {
-	TCOD_ctx.fade=val;
-	TCOD_ctx.fading_color=fadecol;
-}
-
 uint8 TCOD_console_get_fade() {
 	return TCOD_ctx.fade;
 }
@@ -124,31 +111,6 @@ TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y) {
 		&& (unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h )
 		return TCOD_black;
 	return dat->buf[ y * dat->w + x ].back;
-}
-
-void TCOD_console_set_char_foreground(TCOD_console_t con,int x,int y, TCOD_color_t col) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	if ( (unsigned)(x) >= (unsigned)dat->w || (unsigned)(y) >= (unsigned)dat->h ) return;
-	TCOD_IFNOT ( dat != NULL
-		&& (unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h )
-		return;
-	dat->buf[ y * dat->w + x ].fore=col;
-}
-
-TCOD_color_t TCOD_console_get_char_foreground(TCOD_console_t con,int x, int y) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL
-		&& (unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h )
-		return TCOD_white;
-	return dat->buf[ y * dat->w + x ].fore;
-}
-
-int TCOD_console_get_char(TCOD_console_t con,int x, int y) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT ( dat != NULL
-		&& (unsigned)(x) < (unsigned)dat->w && (unsigned)(y) < (unsigned)dat->h )
-		return 0;
-	return dat->buf[ y * dat->w + x ].c;
 }
 
 void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_color_t col, TCOD_bkgnd_flag_t flag) {
@@ -268,18 +230,6 @@ void TCOD_console_set_default_background(TCOD_console_t con,TCOD_color_t col) {
 	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
 	TCOD_IFNOT(dat != NULL) return;
 	dat->back=col;
-}
-
-TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return TCOD_white;
-	return dat->fore;
-}
-
-TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con) {
-	TCOD_console_data_t *dat=con ? (TCOD_console_data_t *)con : TCOD_ctx.root;
-	TCOD_IFNOT(dat != NULL) return TCOD_black;
-	return dat->back;
 }
 
 int TCOD_console_get_width(TCOD_console_t con) {
