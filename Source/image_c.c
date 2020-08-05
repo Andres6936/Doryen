@@ -230,13 +230,4 @@ void TCOD_image_invert(TCOD_image_t image) {
 }
 
 
-/* distance between two colors */
-int rgbdist(const TCOD_color_t *c1,const TCOD_color_t *c2) {
-	int dr=(int)(c1->r)-c2->r;
-	int dg=(int)(c1->g)-c2->g;
-	int db=(int)(c1->b)-c2->b;
-	return dr*dr+dg*dg+db*db;
-}
-
-
 
