@@ -60,39 +60,6 @@ static int TCOD_image_get_mipmap_levels(int width, int height) {
 	return nb_mipmap;
 }
 
-static void TCOD_image_generate_mip(image_data_t *img, int mip) {
-	mipmap_t *orig=&img->mipmaps[0];
-	mipmap_t *cur =&img->mipmaps[mip];
-	int x,y;
-	if (! cur->buf) {
-		cur->buf=(TCOD_color_t *)calloc(sizeof(TCOD_color_t),cur->width*cur->height);
-	}
-	cur->dirty=false;
-	for (x=0; x < cur->width; x++) {
-		for (y=0; y < cur->height; y++) {
-			int r=0,g=0,b=0, count=0;
-			int sx,sy;
-			TCOD_color_t *col;
-			for (sx=(x << mip); sx < ((x+1)<<mip); sx ++) {
-				for (sy=(y << mip); sy < ((y+1)<<mip); sy ++) {
-					int offset=sx+sy*orig->width;
-					count++;
-					r+=orig->buf[offset].r;
-					g+=orig->buf[offset].g;
-					b+=orig->buf[offset].b;
-				}
-			}
-			r /= count;
-			g /= count;
-			b /= count;
-			col = &cur->buf[x+y*cur->width];
-			col->r=r;
-			col->g=g;
-			col->b=b;
-		}
-	}
-}
-
 static void TCOD_image_init_mipmaps(image_data_t *img) {
 	int w,h,i,x,y;
 	float fw,fh;
