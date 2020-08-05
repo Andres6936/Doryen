@@ -58,8 +58,6 @@ void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
 
 void TCOD_console_disable_keyboard_repeat();
 
-bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
-
 int TCOD_console_get_width(TCOD_console_t con);
 
 int TCOD_console_get_height(TCOD_console_t con);

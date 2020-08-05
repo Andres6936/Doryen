@@ -257,8 +257,3 @@ void TCOD_console_set_keyboard_repeat(int initial_delay, int interval) {
 void TCOD_console_disable_keyboard_repeat() {
 	TCOD_sys_set_keyboard_repeat(0,0);
 }
-
-bool TCOD_console_is_key_pressed(TCOD_keycode_t key)
-{
-	return TCOD_sys_is_key_pressed(key);
-}

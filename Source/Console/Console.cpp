@@ -938,11 +938,6 @@ void Doryen::Console::disableKeyboardRepeat()
 	TCOD_console_disable_keyboard_repeat();
 }
 
-bool Doryen::Console::isKeyPressed(TCOD_keycode_t key)
-{
-	return TCOD_console_is_key_pressed(key) != 0;
-}
-
 float Doryen::Console::getLastFrameLength() const
 {
 	return renderer->getLastFrameLength();
