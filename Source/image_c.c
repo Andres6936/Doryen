@@ -224,22 +224,6 @@ TCOD_color_t TCOD_image_get_mipmap_pixel(TCOD_image_t image,float x0,float y0, f
 	return img->mipmaps[mip].buf[texel_x+texel_y*img->mipmaps[mip].width];
 }
 
-void TCOD_image_put_pixel(TCOD_image_t image,int x, int y,TCOD_color_t col) {
-	image_data_t *img=(image_data_t *)image;
-	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
-	if ( ! img->mipmaps ) {
-		TCOD_image_init_mipmaps(img);
-	}
-	if ( x >= 0 && x < img->mipmaps[0].width
-		&& y >= 0 && y < img->mipmaps[0].height ) {
-		int mip;
-		img->mipmaps[0].buf[x+y*img->mipmaps[0].width] = col;
-		for (mip=1; mip < img->nb_mipmaps; mip++) {
-			img->mipmaps[mip].dirty=true;
-		}
-	}
-}
-
 void TCOD_image_delete_internal(TCOD_image_t image) {
 	image_data_t *img=(image_data_t *)image;
 	if ( img->mipmaps ) {
