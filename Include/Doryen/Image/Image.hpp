@@ -233,15 +233,9 @@ namespace Doryen
 		void scale(int neww, int newh);
 
 		/**
-		@PageName image_update
-		@FuncTitle Flipping the image horizontally
-		@Cpp void TCODImage::hflip()
-		@C void TCOD_image_hflip(TCOD_image_t image)
-		@Py image_hflip(image)
-		@C# void TCODImage::hflip()
-		@Param image	In the C and python version, the image handler, obtained with the load function.
-		*/
-		void hflip();
+		 * Flipping the image horizontally
+		 */
+		void flippingHorizontally();
 
 		/**
 		@PageName image_update

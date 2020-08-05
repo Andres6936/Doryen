@@ -125,9 +125,21 @@ void Image::invert()
 	TCOD_image_invert(data);
 }
 
-void Image::hflip()
+void Image::flippingHorizontally()
 {
-	TCOD_image_hflip(data);
+	const auto[width, height] = getSize();
+
+	for (int py = 0; py < height; ++py)
+	{
+		for (int px = 0; px < width / 2; ++px)
+		{
+			const Color col1 = getPixel(px, py);
+			const Color col2 = getPixel(width - 1 - px, py);
+
+			setPixel(px, py, col2);
+			setPixel(width - 1 - px, py, col1);
+		}
+	}
 }
 
 void Image::rotate90(int numRotations)
