@@ -887,21 +887,6 @@ namespace Doryen
 		static Mouse getMouseEvent();
 
 		/**
-        @PageName console_keyboard_repeat
-        @PageTitle Changing keyboard repeat delay
-        @PageFather console_input
-        @FuncDesc This function changes the keyboard repeat times.
-        @Cpp static void TCODConsole::setKeyboardRepeat(int initialDelay, int interval)
-        @C void TCOD_console_set_keyboard_repeat(int initial_delay, int interval)
-        @Py console_set_keyboard_repeat(initial_delay, interval)
-        @C# static void TCODConsole::setKeyboardRepeat(int initialDelay, int interval)
-        @Lua tcod.console.setKeyboardRepeat(initialDelay, interval)
-        @Param initialDelay delay in millisecond between the time when a key is pressed, and keyboard repeat begins. If 0, keyboard repeat is disabled
-        @Param interval interval in millisecond between keyboard repeat events
-        */
-        static void setKeyboardRepeat( int initialDelay, int interval );
-
-		/**
 		 * @brief Blitting a console on another one
 		 *
 		 * This function allows you to blit a rectangular area of the source console <br>

@@ -928,11 +928,6 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 	}
 }
 
-void Doryen::Console::setKeyboardRepeat(int initialDelay, int interval)
-{
-	TCOD_console_set_keyboard_repeat(initialDelay, interval);
-}
-
 float Doryen::Console::getLastFrameLength() const
 {
 	return renderer->getLastFrameLength();

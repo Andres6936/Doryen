@@ -250,7 +250,3 @@ char_t *TCOD_console_get_buf(TCOD_console_t con) {
 	return dat->buf;
 }
 
-void TCOD_console_set_keyboard_repeat(int initial_delay, int interval) {
-	TCOD_sys_set_keyboard_repeat(initial_delay,interval);
-}
-

@@ -54,8 +54,6 @@ uint8 TCOD_console_get_fade();
 TCOD_color_t TCOD_console_get_fading_color();
 
 
-void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
-
 int TCOD_console_get_width(TCOD_console_t con);
 
 int TCOD_console_get_height(TCOD_console_t con);
