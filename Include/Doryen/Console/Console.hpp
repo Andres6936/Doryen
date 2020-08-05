@@ -231,42 +231,32 @@ namespace Doryen
 		 */
 		static void setWindowTitle(const std::string& _title);
 
-        /**
-         * When you start the program, this returns true. Once a "close window"
-         * event has been sent by the window manager, it will allways return
-         * false. You're supposed to exit cleanly the game.
-         *
-         * @return false if the user not want exit the app, true otherwise.
-         */
+		/**
+		 * When you start the program, this returns true. Once a "close window"
+		 * event has been sent by the window manager, it will allways return
+		 * false. You're supposed to exit cleanly the game.
+		 *
+		 * @return false if the user not want exit the app, true otherwise.
+		 */
 		bool isRunning();
 
-        /**
-         * Display credits, as seen in the samples.
-         *
-         * You can print a "Powered by libtcod x.y.z" screen during your game
-         * startup simply by calling this function after initRoot.
-         *
-         * @note The credits screen can be skipped by pressing any key.
-         */
-        static void credits( );
+		/**
+		 * @brief Restart the credits animation.
+		 *
+		 * When using rederCredits, you can restart the credits animation
+		 * from the begining before it's finished by calling this function.
+		 */
+		static void resetCredits();
 
-        /**
-         * @brief Restart the credits animation.
-         *
-         * When using rederCredits, you can restart the credits animation
-         * from the begining before it's finished by calling this function.
-         */
-        static void resetCredits( );
-
-        /**
-         * @brief Setting the default background color.
-         *
-         * Changes the default background color for a console. The default
-         * background color is used by several drawing functions like
-         * clear, putChar, ...
-         *
-         * @param back the new default background color for this console.
-         */
+		/**
+		 * @brief Setting the default background color.
+		 *
+		 * Changes the default background color for a console. The default
+		 * background color is used by several drawing functions like
+		 * clear, putChar, ...
+		 *
+		 * @param back the new default background color for this console.
+		 */
 		void setDefaultBackground(const Color& back);
 
 		/**
