@@ -251,25 +251,6 @@ namespace Doryen
         static void credits( );
 
         /**
-         * You can also print the credits on one of your game screens (your
-         * main menu for example) by calling this function in your main loop.
-         *
-         * This function returns true when the credits screen is finished,
-         * indicating that you no longer need to call it.
-         *
-         * @param x coordiante in x of the credits text in your root console.
-         * @param y coordiante in y of the credits text in your root console.
-         * @param alpha if true, credits are transparently added on top of
-         * the existing screen.
-         *
-         * @note For this to work, this function must be placed between
-         * your screen rendering code and the console flush.
-         *
-         * @return true when the credits screen is finished, false otherwise.
-         */
-        static bool renderCredits( int x, int y, bool alpha );
-
-        /**
          * @brief Restart the credits animation.
          *
          * When using rederCredits, you can restart the credits animation

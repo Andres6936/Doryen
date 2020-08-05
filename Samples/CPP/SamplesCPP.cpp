@@ -75,11 +75,6 @@ int main(int argc, char* argv[])
 
 	while (console.isRunning())
 	{
-		if (!creditsEnd)
-		{
-			creditsEnd = Console::renderCredits(60, 43, false);
-		}
-
 		// print the list of samples
 		for (int i = 0; i < samples.size(); i++)
 		{

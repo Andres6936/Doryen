@@ -203,9 +203,7 @@ int main (int argc, char *argv[])
 
 		// render the game screen
 		render(console);
-		// render libtcod credits
-		if (!endCredits)
-		{ endCredits = Doryen::Console::renderCredits(4, 4, true); }
+
 		// flush updates to screen
 		console.draw();
 	}

@@ -370,12 +370,6 @@ int main(int argc, char* argv[])
 
 		console.write(5, 49, "Arrows to move, left mouse button to cast");
 
-		// render libtcod credits
-		if (!endCredits)
-		{
-			endCredits = Console::renderCredits(4, 4, true);
-		}
-
 		// flush updates to screen
 		console.draw();
 	}
