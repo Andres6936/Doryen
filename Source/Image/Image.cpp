@@ -147,9 +147,21 @@ void Image::rotate90(int numRotations)
 	TCOD_image_rotate90(data, numRotations);
 }
 
-void Image::vflip()
+void Image::flippingVertically()
 {
-	TCOD_image_vflip(data);
+	const auto[width, height] = getSize();
+
+	for (int px = 0; px < width; ++px)
+	{
+		for (int py = 0; py < height / 2; ++py)
+		{
+			const Color col1 = getPixel(px, py);
+			const Color col2 = getPixel(px, height - 1 - py);
+
+			setPixel(px, py, col2);
+			setPixel(px, height - 1 - py, col1);
+		}
+	}
 }
 
 float Image::calculateFractionalEdge(Color& _color,

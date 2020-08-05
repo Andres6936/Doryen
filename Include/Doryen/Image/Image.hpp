@@ -238,15 +238,9 @@ namespace Doryen
 		void flippingHorizontally();
 
 		/**
-		@PageName image_update
-		@FuncTitle Flipping the image vertically
-		@Cpp void TCODImage::vflip()
-		@C void TCOD_image_vflip(TCOD_image_t image)
-		@Py image_vflip(image)
-		@C# void TCODImage::vflip()
-		@Param image	In the C and python version, the image handler, obtained with the load function.
-		*/
-		void vflip();
+		 * Flipping the image vertically
+		 */
+		void flippingVertically();
 
 		/**
 		@PageName image_update
