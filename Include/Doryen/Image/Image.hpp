@@ -182,35 +182,6 @@ namespace Doryen
 		bool isPixelTransparent(int x, int y) const;
 
 		/**
-		@PageName image_read
-		@FuncTitle Getting the average color of a part of the image
-		@FuncDesc This method uses mipmaps to get the average color of an arbitrary rectangular region of the image.
-			It can be used to draw a scaled-down version of the image. It's used by libtcod's blitting functions.
-		@Cpp Doryen::TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
-		@C TCOD_color_t TCOD_image_get_mipmap_pixel(TCOD_image_t image,float x0,float y0, float x1, float y1)
-		@Py image_get_mipmap_pixel(image,x0,y0, x1, y1)
-		@C# Doryen::TCODColor TCODImage::getMipmapPixel(float x0,float y0, float x1, float y1)
-		@Param image	In the C version, the image handler, obtained with the load function.
-		@Param x0,y0	Coordinates in pixels of the upper-left corner of the region.
-			0.0 <= x0 < x1
-			0.0 <= y0 < y1
-		@Param x1,y1	Coordinates in pixels of the lower-right corner of the region.
-			x0 < x1 < width
-			y0 < y1 < height
-		@CppEx
-			// Get the average color of a 5x5 "superpixel" in the center of the image.
-			TCODImage *pix = new TCODImage(80,50);
-			Doryen::TCODColor col=pix->getMipMapPixel(37.5f, 22.5f, 42.5f, 28.5f);
-		@CEx
-			TCOD_image_t pix = TCOD_image_new(80,50);
-			TCOD_color_t col=TCOD_image_get_mipmap_pixel(pix,37.5f, 22.5f, 42.5f, 28.5f);
-		@PyEx
-			pix = libtcod.image_new(80,50)
-			col=libtcod.image_get_mipmap_pixel(pix,37.5, 22.5, 42.5, 28.5)
-		*/
-		Color getMipmapPixel(float x0, float y0, float x1, float y1);
-
-		/**
 		 * @brief Changing the color of a pixel
 		 *
 		 * @param x Coordinates in x of pixel inside the image.

@@ -74,12 +74,6 @@ int Image::getAlpha(int x, int y) const
 	return imageData.getAlpha(x, y);
 }
 
-Color Image::getMipmapPixel(float x0, float y0, float x1, float y1)
-{
-	TCOD_color_t c = TCOD_image_get_mipmap_pixel(data, x0, y0, x1, y1);
-	return Color(c.r, c.g, c.b);
-}
-
 void
 Image::blitRect(Console& console, int x, int y, int w, int h, BackgroundFlag flag)
 {
