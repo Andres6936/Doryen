@@ -35,8 +35,6 @@ void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console);
 
 TCOD_image_t TCOD_image_load(const char* filename);
 
-void TCOD_image_invert(TCOD_image_t image);
-
 void TCOD_image_save(TCOD_image_t image, const char *filename);
 
 void TCOD_image_get_size(TCOD_image_t image, int *w,int *h);

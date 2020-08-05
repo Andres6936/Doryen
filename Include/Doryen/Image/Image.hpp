@@ -214,17 +214,6 @@ namespace Doryen
 		void flippingVertically();
 
 		/**
-		@PageName image_update
-		@FuncTitle Inverting the colors of the image
-		@Cpp void TCODImage::invert()
-		@C void TCOD_image_invert(TCOD_image_t image)
-		@Py image_invert(image)
-		@C# void TCODImage::invert()
-		@Param image	In the C and python version, the image handler, obtained with the load function.
-		*/
-		void invert();
-
-		/**
 		@PageName image_save
 		@PageFather image
 		@PageTitle Saving an image to a bmp or png file.

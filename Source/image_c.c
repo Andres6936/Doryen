@@ -208,26 +208,5 @@ void TCOD_image_save(TCOD_image_t image, const char *filename) {
 	}
 }
 
-void TCOD_image_invert(TCOD_image_t image) {
-	int i,mip;
-	int width,height;
-	image_data_t *img=(image_data_t *)image;
-	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
-	if ( ! img->mipmaps ) {
-		TCOD_image_init_mipmaps(img);
-	}
-	TCOD_image_get_size(image,&width,&height);
-	for (i=0; i< width*height; i++) {
-		TCOD_color_t col=img->mipmaps[0].buf[i];
-		col.r=255-col.r;
-		col.g=255-col.g;
-		col.b=255-col.b;
-		img->mipmaps[0].buf[i] = col;
-	}
-	for (mip=1; mip < img->nb_mipmaps; mip++) {
-		img->mipmaps[mip].dirty=true;
-	}
-}
-
 
 

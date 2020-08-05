@@ -114,11 +114,6 @@ void Image::refreshConsole(const Console* console)
 	TCOD_image_refresh_console(data, console->data);
 }
 
-void Image::invert()
-{
-	TCOD_image_invert(data);
-}
-
 void Image::flippingHorizontally()
 {
 	const auto[width, height] = getSize();
