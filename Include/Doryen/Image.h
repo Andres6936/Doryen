@@ -31,8 +31,6 @@ typedef void* TCOD_image_t;
 
 TCOD_image_t TCOD_image_new(int width, int height);
 
-TCOD_image_t TCOD_image_from_console(TCOD_console_t console);
-
 void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console);
 
 TCOD_image_t TCOD_image_load(const char* filename);

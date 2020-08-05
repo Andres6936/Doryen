@@ -270,15 +270,6 @@ bool TCOD_image_is_pixel_transparent(TCOD_image_t image, int x, int y) {
 	return false;
 }
 
-TCOD_image_t TCOD_image_from_console(TCOD_console_t console) {
-	image_data_t *ret;
-	void *bitmap=TCOD_sys_create_bitmap_for_console(console);
-	ret=(image_data_t *)calloc(sizeof(image_data_t),1);
-	ret->sys_img=bitmap;
-	TCOD_image_refresh_console((TCOD_image_t)ret,console);
-	return (TCOD_image_t)ret;
-}
-
 void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console) {
 	image_data_t *img=(image_data_t *)image;
 	TCOD_sys_console_to_bitmap(img->sys_img, TCOD_console_get_width(console), TCOD_console_get_height(console),
