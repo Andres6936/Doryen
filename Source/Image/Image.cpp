@@ -142,11 +142,6 @@ void Image::flippingHorizontally()
 	}
 }
 
-void Image::rotate90(int numRotations)
-{
-	TCOD_image_rotate90(data, numRotations);
-}
-
 void Image::flippingVertically()
 {
 	const auto[width, height] = getSize();
