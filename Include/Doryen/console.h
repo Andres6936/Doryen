@@ -78,8 +78,4 @@ int TCOD_console_get_width(TCOD_console_t con);
 
 int TCOD_console_get_height(TCOD_console_t con);
 
-void TCOD_console_credits();
-
-void TCOD_console_credits_reset();
-
 #endif
