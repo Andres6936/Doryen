@@ -241,14 +241,6 @@ namespace Doryen
 		bool isRunning();
 
 		/**
-		 * @brief Restart the credits animation.
-		 *
-		 * When using rederCredits, you can restart the credits animation
-		 * from the begining before it's finished by calling this function.
-		 */
-		static void resetCredits();
-
-		/**
 		 * @brief Setting the default background color.
 		 *
 		 * Changes the default background color for a console. The default

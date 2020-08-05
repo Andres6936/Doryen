@@ -943,11 +943,6 @@ bool Doryen::Console::isKeyPressed(TCOD_keycode_t key)
 	return TCOD_console_is_key_pressed(key) != 0;
 }
 
-void Doryen::Console::resetCredits()
-{
-	TCOD_console_credits_reset();
-}
-
 float Doryen::Console::getLastFrameLength() const
 {
 	return renderer->getLastFrameLength();
