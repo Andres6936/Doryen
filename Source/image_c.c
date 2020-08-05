@@ -60,35 +60,6 @@ static int TCOD_image_get_mipmap_levels(int width, int height) {
 	return nb_mipmap;
 }
 
-static void TCOD_image_init_mipmaps(image_data_t *img) {
-	int w,h,i,x,y;
-	float fw,fh;
-	if (! img->sys_img ) return;
-	TCOD_sys_get_image_size(img->sys_img,&w,&h);
-	img->nb_mipmaps=TCOD_image_get_mipmap_levels(w,h);
-	img->mipmaps = (mipmap_t *)calloc(sizeof(mipmap_t),img->nb_mipmaps);
-	img->mipmaps[0].buf = (TCOD_color_t *)calloc(sizeof(TCOD_color_t),w*h);
-	for (x=0; x < w; x++) {
-		for (y=0;y < h; y++) {
-			img->mipmaps[0].buf[x+y*w]=TCOD_sys_get_image_pixel(img->sys_img,x,y);
-		}
-	}
-	fw=(float)w;
-	fh=(float)h;
-	for ( i=0; i < img->nb_mipmaps; i++) {
-		img->mipmaps[i].width=w;
-		img->mipmaps[i].height=h;
-		img->mipmaps[i].fwidth=fw;
-		img->mipmaps[i].fheight=fh;
-		img->mipmaps[i].dirty=true;
-		w >>= 1;
-		h >>= 1;
-		fw *= 0.5f;
-		fh *= 0.5f;
-	}
-	img->mipmaps[0].dirty=false;
-}
-
 TCOD_image_t TCOD_image_new(int width, int height) {
 	int i;
 	float fw,fh;
