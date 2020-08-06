@@ -55,10 +55,6 @@ static void TCOD_list_allocate_int(TCOD_list_t l)
 	LIST(l)->allocSize=newSize;
 }
 
-void TCOD_list_set_size(TCOD_list_t l, int size) {
-	LIST(l)->fillSize=MIN(size,LIST(l)->allocSize);
-}
-
 TCOD_list_t TCOD_list_new() {
 	return (TCOD_list_t)calloc(1,sizeof(TCOD_list_int_t));
 }

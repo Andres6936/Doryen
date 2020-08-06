@@ -107,22 +107,6 @@ typedef struct {
     int cur;
 } mersenne_data_t;
 
-#if defined(__ANDROID__) && !defined(NDEBUG)
-#include <android/log.h>
-#ifdef printf
-#undef printf
-#endif
-#ifdef vprintf
-#undef vprintf
-#endif
-#define printf(args...) __android_log_print(ANDROID_LOG_INFO, "libtcod", ## args)
-#define vprintf(args...) __android_log_vprint(ANDROID_LOG_INFO, "libtcod", ## args)
-
-#ifdef assert
-#undef assert
-#endif
-#define assert(cond) if(!(cond)) __android_log_assert(#cond, "libtcod", "assertion failed: %s", #cond)
-#endif
 
 #ifdef NDEBUG
 #define TCOD_IF(x) if (x)
@@ -135,19 +119,6 @@ typedef struct {
 #define TCOD_ASSERT(x) assert(x)
 #define TCOD_LOG(x) printf x
 #endif
-
-#ifndef NO_OPENGL
-
-#endif
-
-void TCOD_fatal_nopar(const char *msg);
-
-/* TCOD_list nonpublic methods */
-void TCOD_list_set_size(TCOD_list_t l, int size);
-
-/* color values */
-#define TCOD_BLACK 0,0,0
-#define TCOD_WHITE 255,255,255
 
 #ifdef __cplusplus
 }
