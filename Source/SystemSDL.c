@@ -185,25 +185,6 @@ static bool* ascii_updated = NULL;
 
 static bool any_ascii_updated = false;
 
-static void alloc_ascii_tables()
-{
-	if (TCOD_ctx.ascii_to_tcod)
-	{ free(TCOD_ctx.ascii_to_tcod); }
-	if (ascii_updated)
-	{ free(ascii_updated); }
-	if (charcols)
-	{
-		free(charcols);
-		free(first_draw);
-	}
-
-	TCOD_ctx.ascii_to_tcod = (int*)calloc(sizeof(int), TCOD_ctx.max_font_chars);
-	ascii_updated = (bool*)calloc(sizeof(bool), TCOD_ctx.max_font_chars);
-	charcols = (TCOD_color_t*)calloc(sizeof(TCOD_color_t), TCOD_ctx.max_font_chars);
-	first_draw = (bool*)calloc(sizeof(bool), TCOD_ctx.max_font_chars);
-	memcpy(TCOD_ctx.ascii_to_tcod, init_ascii_to_tcod, sizeof(int) * 256);
-}
-
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
 	Uint32 rmask, gmask, bmask, amask;
