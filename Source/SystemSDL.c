@@ -439,13 +439,6 @@ void TCOD_sys_load_font()
 	}
 }
 
-void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval)
-{
-#if !SDL_VERSION_ATLEAST(2, 0, 0)
-	SDL_EnableKeyRepeat(initial_delay, interval);
-#endif
-}
-
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
 	Uint32 rmask, gmask, bmask, amask;
