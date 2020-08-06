@@ -2,7 +2,7 @@
 
 ADD_LIBRARY(Doryen.Core.C
         color_c.c console_c.c
-        fov_restrictive.c image_c.c lex_c.c list_c.c mersenne_c.c namegen_c.c
+        fov_restrictive.c lex_c.c list_c.c mersenne_c.c namegen_c.c
         parser_c.c sys_sdl_img_bmp.c
         SystemSDL.c)
 
