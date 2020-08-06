@@ -31,38 +31,38 @@
 
 using namespace Doryen;
 
-Noise::Noise(int dimensions, TCOD_noise_type_t type)
+Noise::Noise(int dimensions, TypeNoise type)
 {
 	data = new Perlin(dimensions, 2.0f);
 	TCOD_noise_set_type(data, type);
 }
 
-Noise::Noise(int dimensions, float lacunarity, TCOD_noise_type_t type)
+Noise::Noise(int dimensions, float lacunarity, TypeNoise type)
 {
 	data = new Perlin(dimensions, lacunarity);
 	TCOD_noise_set_type(data, type);
 }
 
-void Noise::setType(TCOD_noise_type_t type)
+void Noise::setType(TypeNoise type)
 {
 	TCOD_noise_set_type(data, type);
 }
 
-float Noise::get(float* f, TCOD_noise_type_t type)
+float Noise::get(float* f, TypeNoise type)
 {
-	if (type == TCOD_NOISE_DEFAULT) return TCOD_noise_get(data, f);
+	if (type == TypeNoise::Default) return TCOD_noise_get(data, f);
 	else return TCOD_noise_get_ex(data, f, type);
 }
 
-float Noise::getFbm(float* f, float octaves, TCOD_noise_type_t type)
+float Noise::getFbm(float* f, float octaves, TypeNoise type)
 {
-	if (type == TCOD_NOISE_DEFAULT) return TCOD_noise_get_fbm(data, f, octaves);
+	if (type == TypeNoise::Default) return TCOD_noise_get_fbm(data, f, octaves);
 	else return TCOD_noise_get_fbm_ex(data, f, octaves, type);
 }
 
-float Noise::getTurbulence(float* f, float octaves, TCOD_noise_type_t type)
+float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
 {
-	if (type == TCOD_NOISE_DEFAULT) return TCOD_noise_get_turbulence(data, f, octaves);
+	if (type == TypeNoise::Default) return TCOD_noise_get_turbulence(data, f, octaves);
 	else return TCOD_noise_get_turbulence_ex(data, f, octaves, type);
 }
 

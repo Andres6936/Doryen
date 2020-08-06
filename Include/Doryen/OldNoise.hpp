@@ -34,13 +34,13 @@
 
 typedef void* TCOD_noise_t;
 
-typedef enum
+enum class TypeNoise : unsigned char
 {
-	TCOD_NOISE_PERLIN = 1,
-	TCOD_NOISE_SIMPLEX = 2,
-	TCOD_NOISE_WAVELET = 4,
-	TCOD_NOISE_DEFAULT = 0
-} TCOD_noise_type_t;
+	Perlin,
+	Simplex,
+	Wavelet,
+	Default,
+};
 
 class Perlin
 {
@@ -67,7 +67,7 @@ public:
 	std::array<float, MAX_OCTAVES> exponent;
 
 	/* noise type */
-	TCOD_noise_type_t noise_type;
+	TypeNoise noise_type = TypeNoise::Default;
 
 	// Construct
 
@@ -84,13 +84,13 @@ public:
 
 
 /* simplified API */
-void TCOD_noise_set_type(Perlin* noise, TCOD_noise_type_t type);
+void TCOD_noise_set_type(Perlin* noise, TypeNoise type);
 
-float TCOD_noise_get_ex(Perlin* noise, float* f, TCOD_noise_type_t type);
+float TCOD_noise_get_ex(Perlin* noise, float* f, TypeNoise type);
 
-float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TCOD_noise_type_t type);
+float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TypeNoise type);
 
-float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TCOD_noise_type_t type);
+float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TypeNoise type);
 
 float TCOD_noise_get(Perlin* noise, float* f);
 
