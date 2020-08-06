@@ -59,20 +59,5 @@ void TCOD_image_get_size(TCOD_image_t image, int *w,int *h) {
 	}
 }
 
-TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y) {
-	image_data_t *img=(image_data_t *)image;
-	if ( !img->mipmaps && !img->sys_img) return TCOD_black; /* no image data */
-	if ( img->mipmaps ) {
-		if ( x >= 0 && x < img->mipmaps[0].width
-			&& y >= 0 && y < img->mipmaps[0].height ) {
-			return img->mipmaps[0].buf[x+y*img->mipmaps[0].width];
-		} else {
-			return TCOD_black;
-		}
-	} else {
-		return TCOD_sys_get_image_pixel(img->sys_img,x,y);
-	}
-}
-
 
 

@@ -31,5 +31,3 @@ typedef void* TCOD_image_t;
 
 void TCOD_image_get_size(TCOD_image_t image, int *w,int *h);
 
-TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y);
-
