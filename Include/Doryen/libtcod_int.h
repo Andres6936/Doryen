@@ -140,8 +140,6 @@ typedef struct {
 
 #endif
 
-void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
-
 void TCOD_fatal_nopar(const char *msg);
 
 /* TCOD_list nonpublic methods */
