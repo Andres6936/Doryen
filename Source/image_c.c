@@ -48,18 +48,6 @@ typedef struct
 	bool has_key_color;
 } image_data_t;
 
-static int TCOD_image_get_mipmap_levels(int width, int height) {
-	int curw=width;
-	int curh=height;
-	int nb_mipmap=0;
-	while ( curw > 0 && curh > 0 ) {
-		nb_mipmap++;
-		curw >>= 1;
-		curh >>= 1;
-	}
-	return nb_mipmap;
-}
-
 void TCOD_image_get_size(TCOD_image_t image, int *w,int *h) {
 	image_data_t *img=(image_data_t *)image;
 	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
