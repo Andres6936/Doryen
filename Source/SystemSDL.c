@@ -177,16 +177,6 @@ void* TCOD_sys_get_surface(int width, int height, bool alpha)
 void CustomSDLMain();
 #endif
 
-void TCOD_sys_save_bitmap(void* bitmap, const char* filename)
-{
-	image_support_t* img = image_type;
-	while (img->extension != NULL && strcasestr(filename, img->extension) == NULL)
-	{ img++; }
-	if (img->extension == NULL || img->write == NULL)
-	{ img = image_type; } /* default to bmp */
-	img->write((SDL_Surface*)bitmap, filename);
-}
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
