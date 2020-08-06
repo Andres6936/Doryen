@@ -57,41 +57,6 @@ void TCOD_sys_get_image_size(const void* image, int* w, int* h)
 	*h = surf->h;
 }
 
-TCOD_color_t TCOD_sys_get_image_pixel(const void* image, int x, int y)
-{
-	TCOD_color_t ret;
-	SDL_Surface* surf = (SDL_Surface*)image;
-	Uint8 bpp;
-	Uint8* bits;
-	if (x < 0 || y < 0 || x >= surf->w || y >= surf->h)
-	{ return TCOD_black; }
-	bpp = surf->format->BytesPerPixel;
-	bits = ((Uint8*)surf->pixels) + y * surf->pitch + x * bpp;
-	switch (bpp)
-	{
-	case 1 :
-	{
-		if (surf->format->palette)
-		{
-			SDL_Color col = surf->format->palette->colors[(*bits)];
-			ret.r = col.r;
-			ret.g = col.g;
-			ret.b = col.b;
-		}
-		else
-		{ return TCOD_black; }
-	}
-		break;
-	default :
-		ret.r = *((bits) + surf->format->Rshift / 8);
-		ret.g = *((bits) + surf->format->Gshift / 8);
-		ret.b = *((bits) + surf->format->Bshift / 8);
-		break;
-	}
-
-	return ret;
-}
-
 float TCOD_sys_elapsed_seconds()
 {
 	static float div = 1.0f / 1000.0f;

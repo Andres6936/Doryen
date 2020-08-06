@@ -190,7 +190,6 @@ void TCOD_fatal_nopar(const char *msg);
 void TCOD_sys_term();
 
 void TCOD_sys_get_image_size(const void *image, int *w,int *h);
-TCOD_color_t TCOD_sys_get_image_pixel(const void *image,int x, int y);
 
 /* TCOD_list nonpublic methods */
 void TCOD_list_set_size(TCOD_list_t l, int size);
