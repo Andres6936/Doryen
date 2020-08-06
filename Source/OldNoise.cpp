@@ -842,10 +842,6 @@ void Perlin::setNoiseType(TypeNoise _noiseType)
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
-#define FLOOR(a) ((a)> 0 ? ((int)a) : (((int)a)-1) )
-
-typedef float (* TCOD_noise_func_t)(Perlin* noise, float* f);
-
 static float TCOD_noise_fbm_int(Perlin* noise, float* f, float octaves)
 {
 	float tf[Perlin::MAX_DIMENSIONS];
