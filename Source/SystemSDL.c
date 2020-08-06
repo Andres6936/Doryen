@@ -50,13 +50,6 @@ void TCOD_sys_term()
 #endif
 }
 
-void TCOD_sys_get_image_size(const void* image, int* w, int* h)
-{
-	SDL_Surface* surf = (SDL_Surface*)image;
-	*w = surf->w;
-	*h = surf->h;
-}
-
 float TCOD_sys_elapsed_seconds()
 {
 	static float div = 1.0f / 1000.0f;

@@ -189,8 +189,6 @@ void TCOD_fatal_nopar(const char *msg);
 /* close the window */
 void TCOD_sys_term();
 
-void TCOD_sys_get_image_size(const void *image, int *w,int *h);
-
 /* TCOD_list nonpublic methods */
 void TCOD_list_set_size(TCOD_list_t l, int size);
 
