@@ -63,22 +63,6 @@ typedef struct
 	uint8 dirt;    /* cell modified since last flush ? */
 } char_t;
 
-/* Console non public data */
-typedef struct {
-	char_t *buf; /* current console */
-	char_t *oldbuf; /* console for last frame */
-	/* console width and height (in characters,not pixels) */
-	int w,h;
-	/* default background operator for print & print_rect functions */
-	TCOD_bkgnd_flag_t bkgnd_flag;
-	/* default alignment for print & print_rect functions */
-	TCOD_alignment_t alignment;
-	/* foreground (text), background and key colors */
-	TCOD_color_t fore,back,key;
-	uint8 fade;
-	bool haskey; /* a key color has been defined */
-} TCOD_console_data_t;
-
 /* fov internal stuff */
 typedef struct {
 	bool transparent:1;
