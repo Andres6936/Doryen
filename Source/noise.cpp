@@ -112,5 +112,5 @@ float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
 
 Noise::~Noise()
 {
-	TCOD_noise_delete(data);
+	delete data;
 }

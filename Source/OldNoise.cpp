@@ -985,7 +985,3 @@ float TCOD_noise_get_fbm(Perlin* noise, float* f, float octaves)
 	}
 }
 
-void TCOD_noise_delete(Perlin* noise)
-{
-	free(noise);
-}
