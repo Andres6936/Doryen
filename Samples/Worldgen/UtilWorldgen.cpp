@@ -1410,7 +1410,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 			}
 		}
 	}
-	img.save(filename);
+	//img.save(filename);
 }
 
 void WorldGenerator::saveTemperatureMap(const char* filename)
@@ -1465,7 +1465,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 			img.setPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
 		}
 	}
-	img.save(filename);
+//	img.save(filename);
 }
 
 void WorldGenerator::savePrecipitationMap(const char* filename)
@@ -1516,7 +1516,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 			img.setPixel(legendx + x, HM_HEIGHT + y, legend->getPixel(x, y));
 		}
 	}
-	img.save(filename);
+//	img.save(filename);
 }
 
 void WorldGenerator::saveAltitudeMap(const char* filename)
@@ -1561,7 +1561,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 			img.setPixel(HM_WIDTH + x, legendy + y, legend->getPixel(x, y));
 		}
 	}
-	img.save(filename);
+//	img.save(filename);
 }
 
 WorldGenerator::~WorldGenerator()
