@@ -2137,11 +2137,6 @@ void TCOD_sys_save_fps()
 	min_frame_length_backup = min_frame_length;
 }
 
-float TCOD_sys_get_last_frame_length()
-{
-	return last_frame_length;
-}
-
 void TCOD_sys_get_char_size(int* w, int* h)
 {
 	*w = TCOD_ctx.font_width;
