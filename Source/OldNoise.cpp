@@ -541,33 +541,30 @@ float TCOD_noise_simplex(Perlin* noise, float* f)
 			float wo = l-t;
 			float x0 = f[0]*SIMPLEX_SCALE-xo;
 			float y0 = f[1]*SIMPLEX_SCALE-yo;
-			float z0 = f[2]*SIMPLEX_SCALE-zo;
-			float w0 = f[3]*SIMPLEX_SCALE-wo;
+			float z0 = f[2] * SIMPLEX_SCALE - zo;
+			float w0 = f[3] * SIMPLEX_SCALE - wo;
 			int c1 = (x0 > y0 ? 32 : 0);
 			int c2 = (x0 > z0 ? 16 : 0);
 			int c3 = (y0 > z0 ? 8 : 0);
 			int c4 = (x0 > w0 ? 4 : 0);
 			int c5 = (y0 > w0 ? 2 : 0);
 			int c6 = (z0 > w0 ? 1 : 0);
-			int c = c1+c2+c3+c4+c5+c6;
+			int c = c1 + c2 + c3 + c4 + c5 + c6;
 
+			const int i1 = simplex[c][0] >= 3 ? 1 : 0;
+			const int j1 = simplex[c][1] >= 3 ? 1 : 0;
+			const int k1 = simplex[c][2] >= 3 ? 1 : 0;
+			const int l1 = simplex[c][3] >= 3 ? 1 : 0;
 
-			int i1,j1,k1,l1,i2,j2,k2,l2,i3,j3,k3,l3,ii,jj,kk,ll;
+			const int i2 = simplex[c][0] >= 2 ? 1 : 0;
+			const int j2 = simplex[c][1] >= 2 ? 1 : 0;
+			const int k2 = simplex[c][2] >= 2 ? 1 : 0;
+			const int l2 = simplex[c][3] >= 2 ? 1 : 0;
 
-			i1 = simplex[c][0] >= 3 ? 1:0;
-			j1 = simplex[c][1] >= 3 ? 1:0;
-			k1 = simplex[c][2] >= 3 ? 1:0;
-			l1 = simplex[c][3] >= 3 ? 1:0;
-
-			i2 = simplex[c][0] >= 2 ? 1 : 0;
-			j2 = simplex[c][1] >= 2 ? 1 : 0;
-			k2 = simplex[c][2] >= 2 ? 1 : 0;
-			l2 = simplex[c][3] >= 2 ? 1 : 0;
-
-			i3 = simplex[c][0] >= 1 ? 1 : 0;
-			j3 = simplex[c][1] >= 1 ? 1 : 0;
-			k3 = simplex[c][2] >= 1 ? 1 : 0;
-			l3 = simplex[c][3] >= 1 ? 1 : 0;
+			const int i3 = simplex[c][0] >= 1 ? 1 : 0;
+			const int j3 = simplex[c][1] >= 1 ? 1 : 0;
+			const int k3 = simplex[c][2] >= 1 ? 1 : 0;
+			const int l3 = simplex[c][3] >= 1 ? 1 : 0;
 
 			const float x1 = x0 - i1 + G4;
 			const float y1 = y0 - j1 + G4;
@@ -586,10 +583,10 @@ float TCOD_noise_simplex(Perlin* noise, float* f)
 			const float z4 = z0 - 1.0f + 4.0f * G4;
 			const float w4 = w0 - 1.0f + 4.0f * G4;
 
-			ii = i % 256;
-			jj = j % 256;
-			kk = k % 256;
-			ll = l % 256;
+			const int ii = i % 256;
+			const int jj = j % 256;
+			const int kk = k % 256;
+			const int ll = l % 256;
 
 			float t0 = 0.6f - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
 			if (t0 < 0.0f) n0 = 0.0f;
