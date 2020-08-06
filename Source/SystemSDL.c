@@ -238,11 +238,6 @@ TCOD_color_t TCOD_sys_get_image_pixel(const void* image, int x, int y)
 	return ret;
 }
 
-uint32 TCOD_sys_elapsed_milli()
-{
-	return (uint32)SDL_GetTicks();
-}
-
 float TCOD_sys_elapsed_seconds()
 {
 	static float div = 1.0f / 1000.0f;

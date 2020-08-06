@@ -36,8 +36,6 @@
 typedef unsigned char uint8;
 typedef unsigned int uint32;
 
-uint32 TCOD_sys_elapsed_milli();
-
 float TCOD_sys_elapsed_seconds();
 
 void TCOD_sys_sleep_milli(uint32 val);
