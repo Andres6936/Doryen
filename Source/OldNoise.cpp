@@ -1000,11 +1000,6 @@ float TCOD_noise_turbulence_wavelet(Perlin* noise, float* f, float octaves)
 	return TCOD_noise_turbulence_int(noise, f, octaves);
 }
 
-void TCOD_noise_set_type(Perlin* noise, TypeNoise type)
-{
-	(noise)->noise_type = type;
-}
-
 float TCOD_noise_get_ex(Perlin* noise, float* f, TypeNoise type)
 {
 	switch (type)

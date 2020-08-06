@@ -34,18 +34,18 @@ using namespace Doryen;
 Noise::Noise(int dimensions, TypeNoise type)
 {
 	data = new Perlin(dimensions, 2.0f);
-	TCOD_noise_set_type(data, type);
+	data->setNoiseType(type);
 }
 
 Noise::Noise(int dimensions, float lacunarity, TypeNoise type)
 {
 	data = new Perlin(dimensions, lacunarity);
-	TCOD_noise_set_type(data, type);
+	data->setNoiseType(type);
 }
 
 void Noise::setType(TypeNoise type)
 {
-	TCOD_noise_set_type(data, type);
+	data->setNoiseType(type);
 }
 
 float Noise::get(float* f, TypeNoise type)

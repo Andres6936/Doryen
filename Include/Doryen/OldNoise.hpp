@@ -99,9 +99,6 @@ public:
 };
 
 
-/* simplified API */
-void TCOD_noise_set_type(Perlin* noise, TypeNoise type);
-
 float TCOD_noise_get_ex(Perlin* noise, float* f, TypeNoise type);
 
 float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TypeNoise type);
