@@ -107,48 +107,6 @@ typedef struct {
     int cur;
 } mersenne_data_t;
 
-typedef struct {
-	/* number of characters in the bitmap font */
-	int fontNbCharHoriz;
-	int fontNbCharVertic;
-	/* font type and layout */
-	bool font_tcod_layout;
-	bool font_in_row;
-	bool font_greyscale;
-	/* character size in font */
-	int font_width;
-	int font_height;
-	char font_file[512];
-	char window_title[512];
-	/* ascii code to tcod layout converter */
-	int *ascii_to_tcod;
-	/* whether each character in the font is a colored tile */
-	bool *colored;
-	/* the root console */
-	TCOD_console_data_t *root;
-	/* nb chars in the font */
-	int max_font_chars;
-	/* fullscreen data */
-	bool fullscreen;
-	int fullscreen_offsetx;
-	int fullscreen_offsety;
-	/* asked by the user */
-	int fullscreen_width;
-	int fullscreen_height;
-	/* actual resolution */
-	int actual_fullscreen_width;
-	int actual_fullscreen_height;
-	/* renderer to use */
-	TCOD_renderer_t renderer;
-	/* user post-processing callback */
-	SDL_renderer_t sdl_cbk;
-	/* fading data */
-	TCOD_color_t fading_color;
-	uint8 fade;
-} TCOD_internal_context_t;
-
-extern TCOD_internal_context_t TCOD_ctx;
-
 #if defined(__ANDROID__) && !defined(NDEBUG)
 #include <android/log.h>
 #ifdef printf
