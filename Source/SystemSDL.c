@@ -517,55 +517,6 @@ void* TCOD_sys_create_bitmap_for_console(TCOD_console_t console)
 	return TCOD_sys_get_surface(w, h, false);
 }
 
-static void TCOD_sys_render(void* vbitmap, int console_width, int console_height, char_t* console_buffer,
-		char_t* prev_console_buffer)
-{
-#if SDL_VERSION_ATLEAST(2, 0, 0) && defined(USE_SDL2_RENDERER)
-	SDL_Texture *screentexture;
-#endif
-	if (TCOD_ctx.renderer == TCOD_RENDERER_SDL)
-	{
-		TCOD_sys_console_to_bitmap(vbitmap, console_width, console_height, console_buffer, prev_console_buffer);
-		if (TCOD_ctx.sdl_cbk)
-		{
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																																	#	if defined (USE_SDL2_RENDERER)
-			printf("TCOD_sys_render call to renderer unsupported yet, in SDL2\n");
-#	else
-			TCOD_ctx.sdl_cbk((void *)SDL_GetWindowSurface(window));
-#	endif
-#else
-			TCOD_ctx.sdl_cbk((void*)screen);
-#endif
-		}
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																																#   ifdef USE_SDL2_RENDERER
-		screentexture = SDL_CreateTextureFromSurface(renderer, screen);
-		SDL_RenderCopy(renderer, screentexture, NULL, NULL);
-		SDL_RenderPresent(renderer);
-		SDL_DestroyTexture(screentexture);
-#   else
-		SDL_UpdateWindowSurface(window);
-#   endif
-#else
-		SDL_Flip(screen);
-#endif
-	}
-#ifndef NO_OPENGL
-	else
-	{
-		TCOD_opengl_render(oldFade, ascii_updated, console_buffer, prev_console_buffer);
-		TCOD_opengl_swap();
-	}
-#endif
-	oldFade = (int)TCOD_console_get_fade();
-	if (any_ascii_updated)
-	{
-		memset(ascii_updated, 0, sizeof(bool) * TCOD_ctx.max_font_chars);
-		any_ascii_updated = false;
-	}
-}
-
 void TCOD_sys_console_to_bitmap(void* vbitmap, int console_width, int console_height, char_t* console_buffer,
 		char_t* prev_console_buffer)
 {
