@@ -47,12 +47,6 @@ Image::Image(const char* filename) : deleteData(true)
 	imageData = ImageData(filename);
 }
 
-Image::Image(const Console& console)
-{
-	imageData = ImageData();
-	imageData.createBitmapFrom(console);
-}
-
 Geometry::Size Image::getSize() const
 {
 	return imageData.getSize();

@@ -79,22 +79,6 @@ namespace Doryen
 		explicit Image(const char* filename);
 
 		/**
-		 * Creating an image from a console.
-		 *
-		 * You can create an image from any console (either
-		 * the root console or an offscreen console).
-		 *
-		 * The image size will depend on the console size
-		 * and the font characters size.
-		 *
-		 * You can then save the image to a file with the
-		 * save function.
-		 *
-		 * @param console The console to convert.
-		 */
-		explicit Image(const Console& console);
-
-		/**
 		 * @brief Getting the size of an image.
 		 *
 		 * @return The size of image in pixels.
