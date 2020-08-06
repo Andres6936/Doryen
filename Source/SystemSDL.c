@@ -99,54 +99,6 @@ static SDL_Surface* screen = NULL;
 
 #endif
 
-static SDL_Surface* charmap = NULL;
-
-static char_t* consoleBuffer = NULL;
-
-static char_t* prevConsoleBuffer = NULL;
-
-static bool has_startup = false;
-
-/* font transparent color */
-static TCOD_color_t fontKeyCol = { 0, 0, 0 };
-
-static Uint32 sdl_key = 0, rgb_mask = 0, nrgb_mask = 0;
-
-/* mouse stuff */
-static bool mousebl = false;
-
-static bool mousebm = false;
-
-static bool mousebr = false;
-
-static bool mouse_force_bl = false;
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-static bool mouse_touch=true;
-#endif
-
-/* minimum length for a frame (when fps are limited) */
-static int min_frame_length = 0;
-
-static int min_frame_length_backup = 0;
-
-/* number of frames in the last second */
-static int fps = 0;
-
-/* current number of frames */
-static int cur_fps = 0;
-
-/* length of the last rendering loop */
-static float last_frame_length = 0.0f;
-
-static TCOD_color_t* charcols = NULL;
-
-static bool* first_draw = NULL;
-
-static bool key_status[TCODK_CHAR + 1];
-
-static int oldFade = -1;
-
 /* convert SDL vk to a char (depends on the keyboard layout) */
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 																														typedef struct {
@@ -160,10 +112,6 @@ static vk_to_c_entry vk_to_c[NUM_VK_TO_C_ENTRIES];
 static char vk_to_c[SDLK_LAST];
 
 #endif
-
-static bool* ascii_updated = NULL;
-
-static bool any_ascii_updated = false;
 
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
