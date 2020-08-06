@@ -194,7 +194,6 @@ void TCOD_fatal_nopar(const char *msg);
 
 /* Platform non public methods */
 void TCOD_sys_startup();
-bool TCOD_sys_init(int w,int h, char_t *buf, char_t *oldbuf, bool fullscreen);
 
 void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY);
 void *TCOD_sys_create_bitmap_for_console(TCOD_console_t console);
