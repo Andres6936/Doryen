@@ -1277,16 +1277,6 @@ void TCOD_sys_save_screenshot(const char* filename)
 }
 
 
-void TCOD_sys_set_window_title(const char* title)
-{
-	strcpy(TCOD_ctx.window_title, title);
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-	SDL_SetWindowTitle(window, title);
-#else
-	SDL_WM_SetCaption(title, NULL);
-#endif
-}
-
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
 	SDL_Delay(milliseconds);

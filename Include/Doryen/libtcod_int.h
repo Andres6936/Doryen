@@ -204,7 +204,6 @@ void TCOD_sys_console_to_bitmap(void *bitmap, int console_width, int console_hei
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval);
 void *TCOD_sys_get_surface(int width, int height, bool alpha);
 
-void TCOD_sys_set_window_title(const char *title);
 /* close the window */
 void TCOD_sys_term();
 
