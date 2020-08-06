@@ -553,85 +553,98 @@ float TCOD_noise_simplex(Perlin* noise, float* f)
 
 
 			int i1,j1,k1,l1,i2,j2,k2,l2,i3,j3,k3,l3,ii,jj,kk,ll;
-			float x1,y1,z1,w1,x2,y2,z2,w2,x3,y3,z3,w3,x4,y4,z4,w4,t0,t1,t2,t3,t4;
+
 			i1 = simplex[c][0] >= 3 ? 1:0;
 			j1 = simplex[c][1] >= 3 ? 1:0;
 			k1 = simplex[c][2] >= 3 ? 1:0;
 			l1 = simplex[c][3] >= 3 ? 1:0;
 
-			i2 = simplex[c][0] >= 2 ? 1:0;
-			j2 = simplex[c][1] >= 2 ? 1:0;
-			k2 = simplex[c][2] >= 2 ? 1:0;
-			l2 = simplex[c][3] >= 2 ? 1:0;
+			i2 = simplex[c][0] >= 2 ? 1 : 0;
+			j2 = simplex[c][1] >= 2 ? 1 : 0;
+			k2 = simplex[c][2] >= 2 ? 1 : 0;
+			l2 = simplex[c][3] >= 2 ? 1 : 0;
 
-			i3 = simplex[c][0] >= 1 ? 1:0;
-			j3 = simplex[c][1] >= 1 ? 1:0;
-			k3 = simplex[c][2] >= 1 ? 1:0;
-			l3 = simplex[c][3] >= 1 ? 1:0;
+			i3 = simplex[c][0] >= 1 ? 1 : 0;
+			j3 = simplex[c][1] >= 1 ? 1 : 0;
+			k3 = simplex[c][2] >= 1 ? 1 : 0;
+			l3 = simplex[c][3] >= 1 ? 1 : 0;
 
-			x1 = x0 -i1 + G4;
-			y1 = y0 -j1 + G4;
-			z1 = z0 -k1 + G4;
-			w1 = w0 -l1 + G4;
-			x2 = x0 -i2 + 2.0f*G4;
-			y2 = y0 -j2 + 2.0f*G4;
-			z2 = z0 -k2 + 2.0f*G4;
-			w2 = w0 -l2 + 2.0f*G4;
-			x3 = x0 -i3 + 3.0f*G4;
-			y3 = y0 -j3 + 3.0f*G4;
-			z3 = z0 -k3 + 3.0f*G4;
-			w3 = w0 -l3 + 3.0f*G4;
-			x4 = x0 - 1.0f +4.0f * G4;
-			y4 = y0 - 1.0f +4.0f * G4;
-			z4 = z0 - 1.0f +4.0f * G4;
-			w4 = w0 - 1.0f +4.0f * G4;
+			const float x1 = x0 - i1 + G4;
+			const float y1 = y0 - j1 + G4;
+			const float z1 = z0 - k1 + G4;
+			const float w1 = w0 - l1 + G4;
+			const float x2 = x0 - i2 + 2.0f * G4;
+			const float y2 = y0 - j2 + 2.0f * G4;
+			const float z2 = z0 - k2 + 2.0f * G4;
+			const float w2 = w0 - l2 + 2.0f * G4;
+			const float x3 = x0 - i3 + 3.0f * G4;
+			const float y3 = y0 - j3 + 3.0f * G4;
+			const float z3 = z0 - k3 + 3.0f * G4;
+			const float w3 = w0 - l3 + 3.0f * G4;
+			const float x4 = x0 - 1.0f + 4.0f * G4;
+			const float y4 = y0 - 1.0f + 4.0f * G4;
+			const float z4 = z0 - 1.0f + 4.0f * G4;
+			const float w4 = w0 - 1.0f + 4.0f * G4;
 
-			ii = i%256;
-			jj = j%256;
-			kk = k%256;
-			ll = l%256;
+			ii = i % 256;
+			jj = j % 256;
+			kk = k % 256;
+			ll = l % 256;
 
-			t0 = 0.6f - x0*x0 -y0*y0 -z0*z0 -w0*w0;
-			if ( t0 < 0.0f ) n0 = 0.0f;
-			else {
-				int idx = data->map[ (ii + data->map[ (jj + data->map[ (kk + data->map[ ll ] ) &0xFF]) &0xFF ])& 0xFF ];
+			float t0 = 0.6f - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
+			if (t0 < 0.0f) n0 = 0.0f;
+			else
+			{
+				int idx = data->map[(ii + data->map[(jj + data->map[(kk + data->map[ll]) & 0xFF]) & 0xFF]) & 0xFF];
 				t0 *= t0;
-				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n0,idx,x0,y0,z0,w0);
-				n0 *= t0*t0;
+				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n0, idx, x0, y0, z0, w0);
+				n0 *= t0 * t0;
 			}
-			t1 = 0.6f - x1*x1 -y1*y1 -z1*z1 -w1*w1;
-			if ( t1 < 0.0f ) n1 = 0.0f;
-			else {
-				int idx = data->map[ (ii + i1 +  data->map[ (jj + j1 + data->map[ (kk + k1 + data->map[ (ll+l1)&0xFF])& 0xFF ]) &0xFF ])& 0xFF ];
+			float t1 = 0.6f - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1;
+			if (t1 < 0.0f) n1 = 0.0f;
+			else
+			{
+				int idx = data->map[(ii + i1 +
+									 data->map[(jj + j1 + data->map[(kk + k1 + data->map[(ll + l1) & 0xFF]) & 0xFF]) &
+											   0xFF]) & 0xFF];
 				t1 *= t1;
-				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n1,idx,x1,y1,z1,w1);
-				n1 *= t1*t1;
+				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n1, idx, x1, y1, z1, w1);
+				n1 *= t1 * t1;
 			}
-			t2 = 0.6f - x2*x2 -y2*y2 -z2*z2 -w2*w2;
-			if ( t2 < 0.0f ) n2 = 0.0f;
-			else {
-				int idx = data->map[ (ii + i2 +  data->map[ (jj + j2 + data->map[ (kk + k2 + data->map[(ll+l2)&0xFF])& 0xFF ]) &0xFF ])& 0xFF ];
+			float t2 = 0.6f - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2;
+			if (t2 < 0.0f) n2 = 0.0f;
+			else
+			{
+				int idx = data->map[(ii + i2 +
+									 data->map[(jj + j2 + data->map[(kk + k2 + data->map[(ll + l2) & 0xFF]) & 0xFF]) &
+											   0xFF]) & 0xFF];
 				t2 *= t2;
-				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n2,idx,x2,y2,z2,w2);
-				n2 *= t2*t2;
+				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n2, idx, x2, y2, z2, w2);
+				n2 *= t2 * t2;
 			}
-			t3 = 0.6f - x3*x3 -y3*y3 -z3*z3 -w3*w3;
-			if ( t3 < 0.0f ) n3 = 0.0f;
-			else {
-				int idx = data->map[ (ii + i3 +  data->map[ (jj + j3 + data->map[ (kk + k3 + data->map[(ll+l3)&0xFF])& 0xFF ]) &0xFF ])& 0xFF ];
+			float t3 = 0.6f - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3;
+			if (t3 < 0.0f) n3 = 0.0f;
+			else
+			{
+				int idx = data->map[(ii + i3 +
+									 data->map[(jj + j3 + data->map[(kk + k3 + data->map[(ll + l3) & 0xFF]) & 0xFF]) &
+											   0xFF]) & 0xFF];
 				t3 *= t3;
-				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n3,idx,x3,y3,z3,w3);
-				n3 *= t3*t3;
+				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n3, idx, x3, y3, z3, w3);
+				n3 *= t3 * t3;
 			}
-			t4 = 0.6f - x4*x4 -y4*y4 -z4*z4 -w4*w4;
-			if ( t4 < 0.0f ) n4 = 0.0f;
-			else {
-				int idx = data->map[ (ii + 1 +  data->map[ (jj + 1 + data->map[ (kk + 1 + data->map[(ll+1)&0xFF])& 0xFF ]) &0xFF ])& 0xFF ];
+			float t4 = 0.6f - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4;
+			if (t4 < 0.0f) n4 = 0.0f;
+			else
+			{
+				int idx = data->map[(ii + 1 +
+									 data->map[(jj + 1 + data->map[(kk + 1 + data->map[(ll + 1) & 0xFF]) & 0xFF]) &
+											   0xFF]) & 0xFF];
 				t4 *= t4;
-				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n4,idx,x4,y4,z4,w4);
-				n4 *= t4*t4;
+				TCOD_NOISE_SIMPLEX_GRADIENT_4D(n4, idx, x4, y4, z4, w4);
+				n4 *= t4 * t4;
 			}
-			return 27.0f * (n0+n1+n2+n3+n4);
+			return 27.0f * (n0 + n1 + n2 + n3 + n4);
 
 		}
 		break;
