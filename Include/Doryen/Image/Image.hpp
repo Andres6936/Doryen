@@ -49,8 +49,6 @@ namespace Doryen
 
 		ImageData imageData;
 
-		bool deleteData;
-
 		/**
 		 * Creating an empty image.
 		 *

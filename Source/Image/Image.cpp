@@ -33,12 +33,12 @@
 
 using namespace Doryen;
 
-Image::Image(int width, int height) : deleteData(true)
+Image::Image(int width, int height)
 {
 	imageData = ImageData(width, height);
 }
 
-Image::Image(const char* filename) : deleteData(true)
+Image::Image(const char* filename)
 {
 	imageData = ImageData(filename);
 }
