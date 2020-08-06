@@ -26,54 +26,11 @@
 */
 
 #include <string.h>
-#include <stdio.h>
-#include <ctype.h>
-
-#if defined (__HAIKU__) || defined(__ANDROID__)
-#include <SDL.h>
-#elif defined (TCOD_SDL2)
-#include <SDL2/SDL.h>
-#else
-
 #include <SDL/SDL.h>
-
-#endif
-
-#include "Doryen/libtcod.h"
 #include "Doryen/libtcod_int.h"
 
-/* to enable bitmap locking. Is there any use ?? makes the OSX port renderer to fail */
-/*#define USE_SDL_LOCKS */
-
-
-/* image support stuff */
-
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														static SDL_Window* window=NULL;
-#   ifdef USE_SDL2_RENDERER
-static SDL_Renderer* renderer=NULL;
-static SDL_Surface* screen=NULL;
-#   endif
-#else
-
 static SDL_Surface* screen = NULL;
-
-#endif
-
-/* convert SDL vk to a char (depends on the keyboard layout) */
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														typedef struct {
-	SDL_Keycode	sdl_key;
-	int tcod_key;
-} vk_to_c_entry;
-#define NUM_VK_TO_C_ENTRIES 10
-static vk_to_c_entry vk_to_c[NUM_VK_TO_C_ENTRIES];
-#else
-
 static char vk_to_c[SDLK_LAST];
-
-#endif
 
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
@@ -134,11 +91,6 @@ void* TCOD_sys_get_surface(int width, int height, bool alpha)
 	}
 	return (void*)bitmap;
 }
-
-#ifdef TCOD_MACOSX
-void CustomSDLMain();
-#endif
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
@@ -205,18 +157,3 @@ float TCOD_sys_elapsed_seconds()
 	static float div = 1.0f / 1000.0f;
 	return SDL_GetTicks() * div;
 }
-
-/* image stuff */
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														void *TCOD_sys_get_sdl_window() {
-	return (void *)window;
-}
-#endif
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														void TCOD_mouse_includes_touch(bool enable) {
-	mouse_touch = enable;
-}
-#endif
-
