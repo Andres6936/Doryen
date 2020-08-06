@@ -125,42 +125,5 @@ bool _CheckGL_Error(const char* GLcall, const char* file, const int line)
     return true;
 }
 
-/* console size (power of 2 and cells) */
-static int POTconwidth, POTconheight, conwidth, conheight;
-/* programs and shaders handles */
-static GLuint conProgram, conVertShader, conFragShader;
-/* font texture handle */
-static GLuint font_tex;
-/* font power of 2 size and pixels */
-static int POTfontwidth,POTfontheight, fontwidth,fontheight;
-/* console data */
-static GLuint Tex[ConsoleDataEnumSize];
-static unsigned char *data[ConsoleDataEnumSize];
-static bool dirty[ConsoleDataEnumSize];
-
-/* extension function pointers */
-static PFNGLCREATESHADEROBJECTARBPROC glCreateShaderObjectARB=0;
-static PFNGLGETOBJECTPARAMETERIVARBPROC glGetObjectParameterivARB=0;
-static PFNGLSHADERSOURCEARBPROC glShaderSourceARB=0;
-static PFNGLCOMPILESHADERARBPROC glCompileShaderARB=0;
-static PFNGLGETINFOLOGARBPROC glGetInfoLogARB=0;
-static PFNGLCREATEPROGRAMOBJECTARBPROC glCreateProgramObjectARB=0;
-static PFNGLATTACHOBJECTARBPROC glAttachObjectARB=0;
-static PFNGLLINKPROGRAMARBPROC glLinkProgramARB=0;
-static PFNGLUSEPROGRAMOBJECTARBPROC glUseProgramObjectARB=0;
-static PFNGLUNIFORM2FARBPROC glUniform2fARB=0;
-static PFNGLGETUNIFORMLOCATIONARBPROC glGetUniformLocationARB=0;
-static PFNGLUNIFORM1FARBPROC glUniform1fARB=0;
-static PFNGLUNIFORM1IARBPROC glUniform1iARB=0;
-#ifdef TCOD_WINDOWS
-static PFNGLACTIVETEXTUREPROC glActiveTexture=0;
-#endif
-                                        
-/* call after creating window */
-
-void TCOD_opengl_swap() {
-	SDL_GL_SwapBuffers();
-}
-
 #endif
 
