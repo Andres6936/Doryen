@@ -1739,11 +1739,6 @@ static TCOD_key_t TCOD_sys_SDLtoTCOD(SDL_Event* ev, int flags)
 	return ret;
 }
 
-bool TCOD_sys_is_key_pressed(TCOD_keycode_t key)
-{
-	return key_status[key];
-}
-
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 																														static void TCOD_sys_mouse_touch_conversion(SDL_Event *ev, TCOD_mouse_t *mouse) {
 	SDL_TouchFingerEvent *tfe=&ev->tfinger;
