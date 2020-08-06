@@ -118,13 +118,6 @@ TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y) {
 	}
 }
 
-int TCOD_image_get_alpha(TCOD_image_t image,int x, int y) {
-	image_data_t *img=(image_data_t *)image;
-	if ( img->sys_img ) {
-		return TCOD_sys_get_image_alpha(img->sys_img,x,y);
-	} else return 255;
-}
-
 void TCOD_image_delete_internal(TCOD_image_t image) {
 	image_data_t *img=(image_data_t *)image;
 	if ( img->mipmaps ) {
@@ -142,17 +135,6 @@ void TCOD_image_delete_internal(TCOD_image_t image) {
 void TCOD_image_delete(TCOD_image_t image) {
 	TCOD_image_delete_internal(image);
 	free(image);
-}
-
-bool TCOD_image_is_pixel_transparent(TCOD_image_t image, int x, int y) {
-	image_data_t *img=(image_data_t *)image;
-	TCOD_color_t col=TCOD_image_get_pixel(image,x,y);
-	if ( img->has_key_color && img->key_color.r == col.r
-		&& img->key_color.g == col.g && img->key_color.b == col.b ) {
-		return true;
-	}
-	if ( TCOD_image_get_alpha(image,x,y) == 0 ) return true;
-	return false;
 }
 
 void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console) {
