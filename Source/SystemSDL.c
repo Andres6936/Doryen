@@ -213,14 +213,6 @@ static void check_ascii_to_tcod()
 	}
 }
 
-void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY)
-{
-	if (asciiCode > 0 && asciiCode < TCOD_ctx.max_font_chars)
-	{
-		TCOD_ctx.ascii_to_tcod[asciiCode] = fontCharX + fontCharY * TCOD_ctx.fontNbCharHoriz;
-	}
-}
-
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
 	Uint32 rmask, gmask, bmask, amask;
