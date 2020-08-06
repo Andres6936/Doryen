@@ -5,15 +5,42 @@
 
 using namespace Doryen;
 
+void Functor::Noise::switchNoise(const KeyCode& key)
+{
+	switch (key)
+	{
+	case KeyCode::K_1:
+		func = NoiseRender::PERLIN;
+		break;
+	case KeyCode::K_2:
+		func = NoiseRender::SIMPLEX;
+		break;
+	case KeyCode::K_3:
+		func = NoiseRender::WAVELET;
+		break;
+	case KeyCode::K_4:
+		func = NoiseRender::FBM_PERLIN;
+		break;
+	case KeyCode::K_5:
+		func = NoiseRender::TURBULENCE_PERLIN;
+		break;
+	case KeyCode::K_6:
+		func = NoiseRender::FBM_SIMPLEX;
+		break;
+	case KeyCode::K_7:
+		func = NoiseRender::TURBULENCE_SIMPLEX;
+		break;
+	case KeyCode::K_8:
+		func = NoiseRender::FBM_WAVELET;
+		break;
+	case KeyCode::K_9:
+		func = NoiseRender::TURBULENCE_WAVELET;
+		break;
+	}
+}
+
 void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 {
-	enum
-	{
-		PERLIN, SIMPLEX, WAVELET,
-		FBM_PERLIN, TURBULENCE_PERLIN,
-		FBM_SIMPLEX, TURBULENCE_SIMPLEX,
-		FBM_WAVELET, TURBULENCE_WAVELET
-	}; // which function we render
 	static const char* funcName[] = {
 			"1 : perlin noise       ",
 			"2 : simplex noise      ",
@@ -25,7 +52,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 			"8 : wavelet fbm        ",
 			"9 : wavelet turbulence ",
 	};
-	static int func = PERLIN;
+
 	static Doryen::Noise* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
@@ -52,31 +79,31 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 			float value = 0.0f;
 			switch (func)
 			{
-			case PERLIN :
+			case NoiseRender::PERLIN :
 				value = noise->get(f, TypeNoise::Perlin);
 				break;
-			case SIMPLEX :
+			case NoiseRender::SIMPLEX :
 				value = noise->get(f, TypeNoise::Simplex);
 				break;
-			case WAVELET :
+			case NoiseRender::WAVELET :
 				value = noise->get(f, TypeNoise::Wavelet);
 				break;
-			case FBM_PERLIN :
+			case NoiseRender::FBM_PERLIN :
 				value = noise->getFbm(f, octaves, TypeNoise::Perlin);
 				break;
-			case TURBULENCE_PERLIN :
+			case NoiseRender::TURBULENCE_PERLIN :
 				value = noise->getTurbulence(f, octaves, TypeNoise::Perlin);
 				break;
-			case FBM_SIMPLEX :
+			case NoiseRender::FBM_SIMPLEX :
 				value = noise->getFbm(f, octaves, TypeNoise::Simplex);
 				break;
-			case TURBULENCE_SIMPLEX :
+			case NoiseRender::TURBULENCE_SIMPLEX :
 				value = noise->getTurbulence(f, octaves, TypeNoise::Simplex);
 				break;
-			case FBM_WAVELET :
+			case NoiseRender::FBM_WAVELET :
 				value = noise->getFbm(f, octaves, TypeNoise::Wavelet);
 				break;
-			case TURBULENCE_WAVELET :
+			case NoiseRender::TURBULENCE_WAVELET :
 				value = noise->getTurbulence(f, octaves, TypeNoise::Wavelet);
 				break;
 			}
@@ -90,8 +117,8 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	img->blit2x(sample, 0, 0);
 	// draw a transparent rectangle
 	sample.setDefaultBackground(Palette::GRAY_WARN_30);
-	sample.rect(2, 2, 23, (func <= WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
-	for (int y = 2; y < 2 + (func <= WAVELET ? 10 : 13); y++)
+	sample.rect(2, 2, 23, (func <= NoiseRender::WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
+	for (int y = 2; y < 2 + (func <= NoiseRender::WAVELET ? 10 : 13); y++)
 	{
 		for (int x = 2; x < 2 + 23; x++)
 		{
@@ -102,24 +129,25 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	}
 
 	// draw the text
-	for (int curfunc = PERLIN; curfunc <= TURBULENCE_WAVELET; curfunc++)
-	{
-		if (curfunc == func)
-		{
-			sample.setDefaultForeground(Palette::GRAY_WARN_1);
-			sample.setDefaultBackground(Palette::PRIMARY_LIGHT);
-			sample.write(2, 2 + curfunc, funcName[curfunc]);
-		}
-		else
-		{
-			sample.setDefaultForeground(Palette::GRAY_WARN_30);
-			sample.write(2, 2 + curfunc, funcName[curfunc]);
-		}
-	}
+//	for (int curfunc = NoiseRender::PERLIN; curfunc <= NoiseRender::TURBULENCE_WAVELET; curfunc++)
+//	{
+//		if (curfunc == func)
+//		{
+//			sample.setDefaultForeground(Palette::GRAY_WARN_1);
+//			sample.setDefaultBackground(Palette::PRIMARY_LIGHT);
+//			sample.write(2, 2 + curfunc, funcName[curfunc]);
+//		}
+//		else
+//		{
+//			sample.setDefaultForeground(Palette::GRAY_WARN_30);
+//			sample.write(2, 2 + curfunc, funcName[curfunc]);
+//		}
+//	}
+
 	// draw parameters
 	sample.setDefaultForeground(Palette::GRAY_WARN_1);
 	sample.write(2, 11, format("Y/H : zoom {2.1f}", zoom));
-	if (func > WAVELET)
+	if (func > NoiseRender::WAVELET)
 	{
 		sample.write(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
 		sample.write(2, 14, format("T/G : octaves {2.1f}", octaves));
@@ -127,59 +155,52 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	// handle keypress
 	if (key == KeyCode::NONE) return;
 
-//    if ( key->c >= '1' && key->c <= '9' )
-//    {
-//        // change the noise function
-//        func = key->c - '1';
-//    }
-//    else if ( key->c == 'E' || key->c == 'e' )
-//    {
-//        // increase hurst
-//        hurst += 0.1f;
-//        delete noise;
-//        noise = new TCODNoise( 2, hurst, lacunarity );
-//    }
-//    else if ( key->c == 'D' || key->c == 'd' )
-//    {
-//        // decrease hurst
-//        hurst -= 0.1f;
-//        delete noise;
-//        noise = new TCODNoise( 2, hurst, lacunarity );
-//    }
-//    else if ( key->c == 'R' || key->c == 'r' )
-//    {
-//        // increase lacunarity
-//        lacunarity += 0.5f;
-//        delete noise;
-//        noise = new TCODNoise( 2, hurst, lacunarity );
-//    }
-//    else if ( key->c == 'F' || key->c == 'f' )
-//    {
-//        // decrease lacunarity
-//        lacunarity -= 0.5f;
-//        delete noise;
-//        noise = new TCODNoise( 2, hurst, lacunarity );
-//    }
-//    else if ( key->c == 'T' || key->c == 't' )
-//    {
-//        // increase octaves
-//        octaves += 0.5f;
-//    }
-//    else if ( key->c == 'G' || key->c == 'g' )
-//    {
-//        // decrease octaves
-//        octaves -= 0.5f;
-//    }
-//    else if ( key->c == 'Y' || key->c == 'y' )
-//    {
-//        // increase zoom
-//        zoom += 0.2f;
-//    }
-//    else if ( key->c == 'H' || key->c == 'h' )
-//    {
-//        // decrease zoom
-//        zoom -= 0.2f;
-//    }
+	switchNoise(key);
+
+	if (key == KeyCode::E)
+	{
+		delete noise;
+		noise = new Doryen::Noise(2, lacunarity);
+	}
+	else if (key == KeyCode::D)
+	{
+		delete noise;
+		noise = new Doryen::Noise(2, lacunarity);
+	}
+	else if (key == KeyCode::R)
+	{
+		// increase lacunarity
+		lacunarity += 0.5f;
+		delete noise;
+		noise = new Doryen::Noise(2, lacunarity);
+	}
+	else if (key == KeyCode::F)
+	{
+		// decrease lacunarity
+		lacunarity -= 0.5f;
+		delete noise;
+		noise = new Doryen::Noise(2, lacunarity);
+	}
+	else if (key == KeyCode::T)
+	{
+		// increase octaves
+		octaves += 0.5f;
+	}
+	else if (key == KeyCode::G)
+	{
+		// decrease octaves
+		octaves -= 0.5f;
+	}
+	else if (key == KeyCode::Y)
+	{
+		// increase zoom
+		zoom += 0.2f;
+	}
+	else if (key == KeyCode::H)
+	{
+		// decrease zoom
+		zoom -= 0.2f;
+	}
 }
 
 Functor::Noise::Noise(std::string _name, Console& _console) : ISample(_name, _console)
