@@ -41,7 +41,7 @@ void Functor::Noise::switchNoise(const KeyCode& key)
 
 void Functor::Noise::drawTextNoiseRender()
 {
-	sample.setDefaultForeground(Palette::RED);
+	sample.setDefaultForeground(Palette::GRAY_WARN_1);
 
 	for (int i = 0; i < funcName.size(); ++i)
 	{
@@ -113,24 +113,16 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	}
 	// blit the noise image on the console with subcell resolution
 	img->blit2x(sample, 0, 0);
+
 	// draw a transparent rectangle
-	sample.setDefaultBackground(Palette::GRAY_WARN_30);
-	sample.rect(2, 2, 23, (func <= NoiseRender::WAVELET ? 10 : 13), false, Doryen::BackgroundFlag::MULTIPLY);
-	for (int y = 2; y < 2 + (func <= NoiseRender::WAVELET ? 10 : 13); y++)
-	{
-		for (int x = 2; x < 2 + 23; x++)
-		{
-			Color col = sample.getCharForeground(x, y);
-			col.multiply(Palette::GRAY_WARN_30);
-			sample.setCharForeground(x, y, col);
-		}
-	}
+	sample.setDefaultBackground(Palette::GRAY_WARN_90);
+	sample.rect(2, 2, 23, 10, false, Doryen::BackgroundFlag::SET);
 
 	drawTextNoiseRender();
 
 	// draw parameters
 	sample.setDefaultForeground(Palette::GRAY_WARN_1);
-	sample.write(2, 11, format("Y/H : zoom {2.1f}", zoom));
+	sample.write(2, 11, format("Y/H : zoom {2.1f}         ", zoom));
 	if (func > NoiseRender::WAVELET)
 	{
 		sample.write(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
