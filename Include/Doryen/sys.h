@@ -44,8 +44,6 @@ void TCOD_sys_sleep_milli(uint32 val);
 
 void TCOD_sys_save_screenshot(const char* filename);
 
-void TCOD_sys_get_current_resolution(int *w, int *h);
-
 void TCOD_sys_get_char_size(int *w, int *h);
 
 void *TCOD_sys_get_sdl_window();

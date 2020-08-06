@@ -308,30 +308,6 @@ void TCOD_sys_get_char_size(int* w, int* h)
 	*h = TCOD_ctx.font_height;
 }
 
-void TCOD_sys_get_current_resolution(int* w, int* h)
-{
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																															int displayidx;
-	SDL_Rect rect = { 0, 0, 0, 0 };
-	if (window) {
-		TCOD_IFNOT(window) return;
-		displayidx = SDL_GetWindowDisplay(window);
-		TCOD_IFNOT(displayidx >= 0) return;
-	} else {
-		/* No window if no console, but user can want to know res before opening one. */
-		TCOD_IFNOT(SDL_GetNumVideoDisplays() > 0) return;
-		displayidx = 0;
-	}
-	TCOD_IFNOT(SDL_GetDisplayBounds(displayidx, &rect) == 0) return;
-	*w=rect.w;
-	*h=rect.h;
-#else
-	const SDL_VideoInfo* info = SDL_GetVideoInfo();
-	*w = info->current_w;
-	*h = info->current_h;
-#endif
-}
-
 /* image stuff */
 bool TCOD_sys_check_magic_number(const char* filename, int size, uint8* data)
 {
