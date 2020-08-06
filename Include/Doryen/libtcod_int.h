@@ -200,7 +200,7 @@ void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY);
 void *TCOD_sys_create_bitmap_for_console(TCOD_console_t console);
 void TCOD_sys_save_bitmap(void *bitmap, const char *filename);
 void *TCOD_sys_create_bitmap(int width, int height, TCOD_color_t *buf);
-void TCOD_sys_delete_bitmap(void *bitmap);
+
 void TCOD_sys_console_to_bitmap(void *bitmap, int console_width, int console_height, char_t *console_buffer, char_t *prev_console_buffer);
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval);
 void *TCOD_sys_get_surface(int width, int height, bool alpha);

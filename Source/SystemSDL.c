@@ -2119,11 +2119,6 @@ void* TCOD_sys_create_bitmap(int width, int height, TCOD_color_t* buf)
 	return (void*)bitmap;
 }
 
-void TCOD_sys_delete_bitmap(void* bitmap)
-{
-	SDL_FreeSurface((SDL_Surface*)bitmap);
-}
-
 void TCOD_sys_set_fps(int val)
 {
 	if (val == 0)
