@@ -900,18 +900,6 @@ float Perlin::noiseFBM(float* f, float octaves)
 }
 
 
-float TCOD_noise_fbm_perlin(Perlin* noise, float* f, float octaves)
-{
-	noise->setNoiseType(TypeNoise::Perlin);
-	return noise->noiseFBM(f, octaves);
-}
-
-float TCOD_noise_fbm_simplex(Perlin* noise, float* f, float octaves)
-{
-	noise->setNoiseType(TypeNoise::Simplex);
-	return noise->noiseFBM(f, octaves);
-}
-
 static float TCOD_noise_turbulence_int(Perlin* noise, float* f, float octaves)
 {
 	float tf[Perlin::MAX_DIMENSIONS];
@@ -988,12 +976,6 @@ float TCOD_noise_turbulence_simplex(Perlin* noise, float* f, float octaves)
 	return TCOD_noise_turbulence_int(noise, f, octaves);
 }
 
-float TCOD_noise_fbm_wavelet(Perlin* noise, float* f, float octaves)
-{
-	noise->setNoiseType(TypeNoise::Wavelet);
-	return noise->noiseFBM(f, octaves);
-}
-
 float TCOD_noise_turbulence_wavelet(Perlin* noise, float* f, float octaves)
 {
 	noise->setNoiseType(TypeNoise::Wavelet);
@@ -1005,16 +987,20 @@ float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TypeNoise ty
 	switch (type)
 	{
 	case (TypeNoise::Perlin):
-		return TCOD_noise_fbm_perlin(noise, f, octaves);
+		noise->setNoiseType(TypeNoise::Perlin);
+		return noise->noiseFBM(f, octaves);
 
 	case (TypeNoise::Simplex):
-		return TCOD_noise_fbm_simplex(noise, f, octaves);
+		noise->setNoiseType(TypeNoise::Simplex);
+		return noise->noiseFBM(f, octaves);
 
 	case (TypeNoise::Wavelet):
-		return TCOD_noise_fbm_wavelet(noise, f, octaves);
+		noise->setNoiseType(TypeNoise::Wavelet);
+		return noise->noiseFBM(f, octaves);
 
 	default:
-		return TCOD_noise_fbm_perlin(noise, f, octaves);
+		noise->setNoiseType(TypeNoise::Perlin);
+		return noise->noiseFBM(f, octaves);
 	}
 }
 
@@ -1041,17 +1027,20 @@ float TCOD_noise_get_fbm(Perlin* noise, float* f, float octaves)
 	switch ((noise)->noise_type)
 	{
 	case (TypeNoise::Perlin):
-		return TCOD_noise_fbm_perlin(noise, f, octaves);
-		break;
+		noise->setNoiseType(TypeNoise::Perlin);
+		return noise->noiseFBM(f, octaves);
+
 	case (TypeNoise::Simplex):
-		return TCOD_noise_fbm_simplex(noise, f, octaves);
-		break;
+		noise->setNoiseType(TypeNoise::Simplex);
+		return noise->noiseFBM(f, octaves);
+
 	case (TypeNoise::Wavelet):
-		return TCOD_noise_fbm_wavelet(noise, f, octaves);
-		break;
+		noise->setNoiseType(TypeNoise::Wavelet);
+		return noise->noiseFBM(f, octaves);
+
 	default:
-		return TCOD_noise_fbm_simplex(noise, f, octaves);
-		break;
+		noise->setNoiseType(TypeNoise::Simplex);
+		return noise->noiseFBM(f, octaves);
 	}
 }
 
