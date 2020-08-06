@@ -1360,42 +1360,6 @@ void TCOD_sys_set_window_title(const char* title)
 #endif
 }
 
-void TCOD_sys_flush(bool render)
-{
-	static uint32 old_time, new_time = 0, elapsed = 0;
-	int32 frame_time, time_to_wait;
-	if (render)
-	{
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-		TCOD_sys_render(NULL,TCOD_console_get_width(NULL),TCOD_console_get_height(NULL),consoleBuffer, prevConsoleBuffer);
-#else
-		TCOD_sys_render(screen, TCOD_console_get_width(NULL), TCOD_console_get_height(NULL), consoleBuffer,
-				prevConsoleBuffer);
-#endif
-	}
-	old_time = new_time;
-	new_time = TCOD_sys_elapsed_milli();
-	if (new_time / 1000 != elapsed)
-	{
-		/* update fps every second */
-		fps = cur_fps;
-		cur_fps = 0;
-		elapsed = new_time / 1000;
-	}
-	/* if too fast, wait */
-	frame_time = (new_time - old_time);
-	last_frame_length = frame_time * 0.001f;
-	cur_fps++;
-	time_to_wait = min_frame_length - frame_time;
-	if (old_time > 0 && time_to_wait > 0)
-	{
-		TCOD_sys_sleep_milli(time_to_wait);
-		new_time = TCOD_sys_elapsed_milli();
-		frame_time = (new_time - old_time);
-	}
-	last_frame_length = frame_time * 0.001f;
-}
-
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 																														static char TCOD_sys_get_vk(SDL_Keycode sdl_key) {
 	int i;

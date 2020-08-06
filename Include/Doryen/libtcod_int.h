@@ -206,7 +206,6 @@ void *TCOD_sys_get_surface(int width, int height, bool alpha);
 
 /* switch fullscreen mode */
 void TCOD_sys_set_fullscreen(bool fullscreen);
-void TCOD_sys_flush(bool render);
 
 void TCOD_sys_set_window_title(const char *title);
 /* close the window */
