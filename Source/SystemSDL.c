@@ -2119,14 +2119,6 @@ void* TCOD_sys_create_bitmap(int width, int height, TCOD_color_t* buf)
 	return (void*)bitmap;
 }
 
-void TCOD_sys_set_fps(int val)
-{
-	if (val == 0)
-	{ min_frame_length = 0; }
-	else
-	{ min_frame_length = 1000 / val; }
-}
-
 void TCOD_sys_get_char_size(int* w, int* h)
 {
 	*w = TCOD_ctx.font_width;
