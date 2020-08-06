@@ -88,10 +88,5 @@ void TCOD_image_delete_internal(TCOD_image_t image) {
 	}
 }
 
-void TCOD_image_delete(TCOD_image_t image) {
-	TCOD_image_delete_internal(image);
-	free(image);
-}
-
 
 
