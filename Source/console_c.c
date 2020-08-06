@@ -63,17 +63,6 @@ TCOD_internal_context_t TCOD_ctx={
 	{0,0,0}, 255,
 };
 
-void TCOD_fatal(const char *fmt, ...) {
-	va_list ap;
-	TCOD_sys_term();
-	printf("%s\n",version_string);
-	va_start(ap,fmt);
-	vprintf(fmt,ap);
-	va_end(ap);
-	printf ("\n");
-	exit (1);
-}
-
 void TCOD_fatal_nopar(const char *msg) {
 	TCOD_sys_term();
 	printf("%s\n%s\n",version_string,msg);

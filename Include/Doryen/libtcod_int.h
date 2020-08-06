@@ -182,8 +182,7 @@ void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x
 void TCOD_console_set_window_closed();
 
 char_t *TCOD_console_get_buf(TCOD_console_t con);
-/* fatal errors */
-void TCOD_fatal(const char *fmt, ...);
+
 void TCOD_fatal_nopar(const char *msg);
 
 /* close the window */
