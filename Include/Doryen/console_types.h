@@ -234,11 +234,6 @@ typedef enum {
 	TCOD_BKGND_DEFAULT
 } TCOD_bkgnd_flag_t;
 
-typedef enum {
-	TCOD_KEY_PRESSED=1,
-	TCOD_KEY_RELEASED=2,
-} TCOD_key_status_t;
-
 /* custom font flags */
 typedef enum {
 	TCOD_FONT_LAYOUT_ASCII_INCOL=1,
@@ -247,13 +242,6 @@ typedef enum {
 	TCOD_FONT_TYPE_GRAYSCALE=4,
 	TCOD_FONT_LAYOUT_TCOD=8,
 } TCOD_font_flags_t;
-
-typedef enum {
-	TCOD_RENDERER_GLSL,
-	TCOD_RENDERER_OPENGL,
-	TCOD_RENDERER_SDL,
-	TCOD_NB_RENDERERS,
-} TCOD_renderer_t;
 
 typedef enum {
 	TCOD_LEFT, 
