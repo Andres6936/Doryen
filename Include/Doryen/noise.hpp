@@ -231,7 +231,7 @@ float TCOD_noise_get_ex(TCOD_noise_t noise, float *f, TypeNoise type)
 		 # get a 2d perlin value
 		 value = libtcod.noise_get(noise2d,[0.5,0.7], libtcod.NOISE_PERLIN)
 		*/
-		float get(float* f, TypeNoise type = TypeNoise::Default);
+		float get(float* f, TypeNoise type = TypeNoise::Simplex);
 
 		/**
 		@PageName noise_get_fbm

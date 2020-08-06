@@ -50,8 +50,20 @@ void Noise::setType(TypeNoise type)
 
 float Noise::get(float* f, TypeNoise type)
 {
-	if (type == TypeNoise::Default) return TCOD_noise_get(data, f);
-	else return TCOD_noise_get_ex(data, f, type);
+	switch (data->getNoiseType())
+	{
+	case (TypeNoise::Perlin):
+		return data->noisePerlin(f);
+
+	case (TypeNoise::Simplex):
+		return data->noiseSimplex(f);
+
+	case (TypeNoise::Wavelet):
+		return data->noiseWavelet(f);
+
+	default:
+		return data->noiseSimplex(f);
+	}
 }
 
 float Noise::getFbm(float* f, float octaves, TypeNoise type)

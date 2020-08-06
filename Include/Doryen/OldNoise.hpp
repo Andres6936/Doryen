@@ -99,8 +99,6 @@ public:
 };
 
 
-float TCOD_noise_get_ex(Perlin* noise, float* f, TypeNoise type);
-
 float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TypeNoise type);
 
 float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TypeNoise type);
