@@ -44,8 +44,6 @@ void TCOD_console_set_char_background(TCOD_console_t con,int x, int y, TCOD_colo
 
 void TCOD_console_set_char(TCOD_console_t con,int x, int y, int c);
 
-void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_flag_t flag);
-
 
 TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y);
 
