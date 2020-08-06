@@ -353,11 +353,7 @@ int main(int argc, char* argv[])
 		const KeyCode key = Console::getKeyPressed().getKeyCode();
 		const Mouse mouse = Console::getMouseEvent();
 
-		if (key == KeyCode::PRINT_SCREEN)
-		{
-			Platform::saveScreenshot(nullptr);
-		}
-		else if (Console::getKeyPressed().isLeftAltPressed() and (key == KeyCode::ENTER))
+		if (Console::getKeyPressed().isLeftAltPressed() and (key == KeyCode::ENTER))
 		{
 			Console::setWindowInFullscreen();
 		}

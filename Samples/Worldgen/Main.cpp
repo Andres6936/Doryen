@@ -153,12 +153,7 @@ int main(int argc, char* argv[])
 		const KeyCode k = console.getKeyPressed().getKeyCode();
 		const Mouse mouse = console.getMouseEvent();
 
-		if (k == KeyCode::PRINT_SCREEN)
-		{
-			// screenshot
-			Platform::saveScreenshot(NULL);
-		}
-		else if (k == KeyCode::ENTER)
+		if (k == KeyCode::ENTER)
 		{
 			// switch fullscreen
 			Console::setWindowInFullscreen();

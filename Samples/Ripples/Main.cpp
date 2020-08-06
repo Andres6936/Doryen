@@ -188,12 +188,7 @@ int main (int argc, char *argv[])
 		const Key k = console.getKeyPressed();
 		const Mouse mouse = console.getMouseEvent();
 
-		if (k.getKeyCode() == KeyCode::PRINT_SCREEN)
-		{
-			// screenshot
-			Doryen::Platform::saveScreenshot(NULL);
-		}
-		else if (k.isLeftAltPressed() and k.getKeyCode() == KeyCode::ENTER)
+		if (k.isLeftAltPressed() and k.getKeyCode() == KeyCode::ENTER)
 		{
 			// switch fullscreen
 			Doryen::Console::setWindowInFullscreen();

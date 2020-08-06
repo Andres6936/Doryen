@@ -282,11 +282,6 @@ int main()
 			move(1, 0, console);
 			break;
 
-		case KeyCode::PRINT_SCREEN :
-
-			Doryen::Platform::saveScreenshot(NULL);
-			break;
-
 		default:
 			break;
 		}

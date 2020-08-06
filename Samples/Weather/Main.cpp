@@ -278,12 +278,7 @@ int main(int argc, char* argv[])
 		//	read keyboard
 		const KeyCode keyPressed = console.getKeyPressed().getKeyCode();
 
-		if (keyPressed == KeyCode::PRINT_SCREEN)
-		{
-			// screenshot
-			Doryen::Platform::saveScreenshot(NULL);
-		}
-		else if (keyPressed == KeyCode::SPACE)
+		if (keyPressed == KeyCode::SPACE)
 		{
 			// switch fullscreen
 			//Doryen::Console::setWindowInFullscreen();
