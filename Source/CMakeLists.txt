@@ -2,7 +2,7 @@
 
 ADD_LIBRARY(Doryen.Core.C
         fov_restrictive.c lex_c.c list_c.c mersenne_c.c namegen_c.c
-        parser_c.c sys_sdl_img_bmp.c
+        parser_c.c
         SystemSDL.c)
 
 ADD_LIBRARY(Doryen::Core::C ALIAS Doryen.Core.C)
