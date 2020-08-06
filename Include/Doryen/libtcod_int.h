@@ -204,7 +204,6 @@ void TCOD_sys_delete_bitmap(void *bitmap);
 void TCOD_sys_console_to_bitmap(void *bitmap, int console_width, int console_height, char_t *console_buffer, char_t *prev_console_buffer);
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval);
 void *TCOD_sys_get_surface(int width, int height, bool alpha);
-void TCOD_sys_save_fps();
 
 /* switch fullscreen mode */
 void TCOD_sys_set_fullscreen(bool fullscreen);

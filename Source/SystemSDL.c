@@ -2132,11 +2132,6 @@ void TCOD_sys_set_fps(int val)
 	{ min_frame_length = 1000 / val; }
 }
 
-void TCOD_sys_save_fps()
-{
-	min_frame_length_backup = min_frame_length;
-}
-
 void TCOD_sys_get_char_size(int* w, int* h)
 {
 	*w = TCOD_ctx.font_width;
