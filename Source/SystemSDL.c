@@ -898,36 +898,6 @@ void* TCOD_sys_get_surface(int width, int height, bool alpha)
 void CustomSDLMain();
 #endif
 
-void TCOD_sys_startup()
-{
-	if (has_startup)
-	{ return; }
-#ifdef TCOD_MACOSX
-		CustomSDLMain();
-#endif
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																																#ifndef NDEBUG
-	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
-#endif
-#endif
-	TCOD_IFNOT(SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) >= 0)
-	{ return; }
-#ifndef    TCOD_WINDOWS
-	/* not needed and might crash on windows */
-	atexit(SDL_Quit);
-#endif
-#if !SDL_VERSION_ATLEAST(2, 0, 0)
-	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
-#endif
-	TCOD_ctx.max_font_chars = 256;
-	alloc_ascii_tables();
-#ifndef NO_OPENGL
-	TCOD_opengl_init_attributes();
-#endif
-
-	has_startup = true;
-}
-
 void TCOD_sys_save_bitmap(void* bitmap, const char* filename)
 {
 	image_support_t* img = image_type;
