@@ -187,49 +187,6 @@ void TCOD_sys_save_bitmap(void* bitmap, const char* filename)
 	img->write((SDL_Surface*)bitmap, filename);
 }
 
-void TCOD_sys_save_screenshot(const char* filename)
-{
-	char buf[128];
-	if (filename == NULL)
-	{
-		/* generate filename */
-		int idx = 0;
-		do
-		{
-			FILE* f = NULL;
-			sprintf(buf, "./screenshot%03d.png", idx);
-			f = fopen(buf, "rb");
-			if (!f)
-			{ filename = buf; }
-			else
-			{
-				idx++;
-				fclose(f);
-			}
-		} while (!filename);
-	}
-	if (TCOD_ctx.renderer == TCOD_RENDERER_SDL)
-	{
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																																#   ifdef USE_SDL2_RENDERER
-		/* somethign with SDL_SetRenderTarget? */
-#	else
-		TCOD_sys_save_bitmap((void *)SDL_GetWindowSurface(window),filename);
-#	endif
-#else
-		TCOD_sys_save_bitmap((void*)screen, filename);
-#endif
-#ifndef NO_OPENGL
-	}
-	else
-	{
-		SDL_Surface* screenshot = (SDL_Surface*)TCOD_opengl_get_screen();
-		TCOD_sys_save_bitmap((void*)screenshot, filename);
-		SDL_FreeSurface(screenshot);
-#endif
-	}
-}
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
