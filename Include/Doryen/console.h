@@ -49,10 +49,6 @@ void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_fl
 
 TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y);
 
-uint8 TCOD_console_get_fade();
-
-TCOD_color_t TCOD_console_get_fading_color();
-
 
 int TCOD_console_get_width(TCOD_console_t con);
 

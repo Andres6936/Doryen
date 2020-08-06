@@ -69,18 +69,6 @@ void TCOD_fatal_nopar(const char *msg) {
 	exit (1);
 }
 
-void TCOD_console_set_window_closed() {
-}
-
-
-uint8 TCOD_console_get_fade() {
-	return TCOD_ctx.fade;
-}
-
-TCOD_color_t TCOD_console_get_fading_color() {
-	return TCOD_ctx.fading_color;
-}
-
 
 void TCOD_console_put_char(TCOD_console_t con,int x, int y, int c, TCOD_bkgnd_flag_t flag) {
 	int offset;

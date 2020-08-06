@@ -177,10 +177,6 @@ extern TCOD_internal_context_t TCOD_ctx;
 
 void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
 
-/* Console non public methods*/
-
-void TCOD_console_set_window_closed();
-
 char_t *TCOD_console_get_buf(TCOD_console_t con);
 
 void TCOD_fatal_nopar(const char *msg);
