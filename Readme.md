@@ -61,6 +61,7 @@ For regions, cities, dungeons building.
 
 ##### Requirements
 
+- Compiler with Support to C++17 (GCC, Clang, MSV, etc ...)
 - CMake Version >= 3.15
 - SDL Version === 1.2.15
 - SDL Version >= 2.0.4
