@@ -137,11 +137,5 @@ void TCOD_image_delete(TCOD_image_t image) {
 	free(image);
 }
 
-void TCOD_image_refresh_console(TCOD_image_t image, TCOD_console_t console) {
-	image_data_t *img=(image_data_t *)image;
-	TCOD_sys_console_to_bitmap(img->sys_img, TCOD_console_get_width(console), TCOD_console_get_height(console),
-		TCOD_console_get_buf(console),NULL);
-}
-
 
 
