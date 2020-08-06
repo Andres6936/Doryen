@@ -117,11 +117,6 @@ bool Image::isPixelTransparent(int x, int y) const
 	return false;
 }
 
-void Image::refreshConsole(const Console* console)
-{
-	TCOD_image_refresh_console(data, console->data);
-}
-
 void Image::flippingHorizontally()
 {
 	const auto[width, height] = getSize();

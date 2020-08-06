@@ -95,32 +95,6 @@ namespace Doryen
 		explicit Image(const Console& console);
 
 		/**
-		 * Refreshing an image created from a console.
-		 *
-		 * If you need to refresh the image with the console's
-		 * new content, you don't have to delete it and create
-		 * another one. Instead, use this function. Note that
-		 * you must use the same console that was used in
-		 * the TCOD_image_from_console call (or at least a
-		 * console with the same size).
-		 *
-		 * @example
-		 *
-		 * @code
-		 *
-		 * Image pix = Image(Console::root); // Create an image from the root console.
-		 *
-		 * // ... Modify the console.
-		 *
-		 * pix.refreshConsole(Console::root); // Update the image with the console's new content
-		 *
-		 * @endcode
-		 *
-		 * @param console The console to capture.
-		 */
-		void refreshConsole(const Console* console);
-
-		/**
 		 * @brief Getting the size of an image.
 		 *
 		 * @return The size of image in pixels.
