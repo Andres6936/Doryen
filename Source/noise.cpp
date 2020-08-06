@@ -33,13 +33,13 @@ using namespace Doryen;
 
 Noise::Noise(int dimensions, TCOD_noise_type_t type)
 {
-	data = TCOD_noise_new(dimensions, 2.0f);
+	data = new Perlin(dimensions, 2.0f);
 	TCOD_noise_set_type(data, type);
 }
 
 Noise::Noise(int dimensions, float lacunarity, TCOD_noise_type_t type)
 {
-	data = TCOD_noise_new(dimensions, lacunarity);
+	data = new Perlin(dimensions, lacunarity);
 	TCOD_noise_set_type(data, type);
 }
 

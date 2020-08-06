@@ -69,29 +69,36 @@ public:
 	/* noise type */
 	TCOD_noise_type_t noise_type;
 
+	// Construct
+
+	Perlin() = default;
+
+	Perlin(std::int32_t _dimensions, float _lacunarity);
+
 	// Methods
+
+	void normalize(float* f);
 
 	float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
 };
 
-/* create a new noise object */
-TCOD_noise_t TCOD_noise_new(int dimensions, float lacunarity);
 
 /* simplified API */
-void TCOD_noise_set_type(TCOD_noise_t noise, TCOD_noise_type_t type);
+void TCOD_noise_set_type(Perlin* noise, TCOD_noise_type_t type);
 
-float TCOD_noise_get_ex(TCOD_noise_t noise, float* f, TCOD_noise_type_t type);
+float TCOD_noise_get_ex(Perlin* noise, float* f, TCOD_noise_type_t type);
 
-float TCOD_noise_get_fbm_ex(TCOD_noise_t noise, float* f, float octaves, TCOD_noise_type_t type);
+float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TCOD_noise_type_t type);
 
-float TCOD_noise_get_turbulence_ex (TCOD_noise_t noise, float *f, float octaves, TCOD_noise_type_t type);
+float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TCOD_noise_type_t type);
 
-float TCOD_noise_get (TCOD_noise_t noise, float *f);
+float TCOD_noise_get(Perlin* noise, float* f);
 
-float TCOD_noise_get_fbm (TCOD_noise_t noise, float *f, float octaves);
+float TCOD_noise_get_fbm(Perlin* noise, float* f, float octaves);
 
-float TCOD_noise_get_turbulence (TCOD_noise_t noise, float *f, float octaves);
+float TCOD_noise_get_turbulence(Perlin* noise, float* f, float octaves);
+
 /* delete the noise object */
-void TCOD_noise_delete(TCOD_noise_t noise);
+void TCOD_noise_delete(Perlin* noise);
 
 #endif
