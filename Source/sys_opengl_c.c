@@ -185,16 +185,6 @@ static GLuint loadShader(const char *txt, GLuint type) {
 	return v;
 }
 
-static void updateChar(ConsoleDataEnum dataType, int BufferPos, unsigned char *c, int length, int offset) {
-	int i;
-	dirty[dataType] = true;		/* Set dirty so Texture gets updated next frame */
-
-	for(i = 0; i<length; i++) {
-		data[dataType][BufferPos*ConsoleDataAlignment[dataType] + i + offset] = c[i];
-	}
-
-}
-
 void TCOD_opengl_swap() {
 	SDL_GL_SwapBuffers();
 }
