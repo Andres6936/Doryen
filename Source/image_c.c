@@ -74,19 +74,5 @@ TCOD_color_t TCOD_image_get_pixel(TCOD_image_t image,int x, int y) {
 	}
 }
 
-void TCOD_image_delete_internal(TCOD_image_t image) {
-	image_data_t *img=(image_data_t *)image;
-	if ( img->mipmaps ) {
-		int i;
-		for ( i=0; i < img->nb_mipmaps; i++) {
-			if ( img->mipmaps[i].buf ) free(img->mipmaps[i].buf);
-		}
-		free(img->mipmaps);
-	}
-	if ( img->sys_img ) {
-		TCOD_sys_delete_bitmap(img->sys_img);
-	}
-}
-
 
 
