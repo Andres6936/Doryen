@@ -34,6 +34,4 @@
 typedef unsigned char uint8;
 typedef unsigned int uint32;
 
-float TCOD_sys_elapsed_seconds();
-
 #endif

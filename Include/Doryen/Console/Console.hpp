@@ -992,7 +992,7 @@ namespace Doryen
 		 *
 		 * @return number of seconds since the program has started.
 		 */
-		float getElapsedSeconds() const;
+		static float getElapsedSeconds();
 
 		/**
          * @brief Get the number of frames rendered during the last second.

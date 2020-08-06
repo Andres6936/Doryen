@@ -27,11 +27,6 @@
 
 #include "Doryen/Platform/Platform.hpp"
 
-float Doryen::Platform::getElapsedSeconds( )
-{
-	return TCOD_sys_elapsed_seconds();
-}
-
 std::vector<std::filesystem::directory_entry> Doryen::Platform::getDirectoryContent(
 		const std::filesystem::path& path, std::string_view pattern)
 {

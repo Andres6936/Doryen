@@ -48,13 +48,6 @@ namespace Doryen
 	public :
 
 		/**
-		 * Returns the number of seconds since the program has started.
-		 *
-		 * @return number of seconds since the program has started.
-		 */
-		static float getElapsedSeconds();
-
-		/**
 		@PageName system_filesystem
 		@FuncTitle List files in a directory
 		@FuncDesc To get the list of entries in a directory (including sub-directories, except . and ..).

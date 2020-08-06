@@ -475,11 +475,6 @@ uint32 TCOD_sys_elapsed_milli() {
 	return (uint32)(sfClock_GetTime(clock)*1000);
 }
 
-float TCOD_sys_elapsed_seconds() {
-	if (!clock) clock=sfClock_Create();
-	return sfClock_GetTime(clock);
-}
-
 void TCOD_sys_force_fullscreen_resolution(int width, int height) {
 	fullscreen_width=width;
 	fullscreen_height=height;

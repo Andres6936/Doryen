@@ -252,7 +252,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 {
 	// fix land mass. We want a proportion of landMass above sea level
 #ifndef NDEBUG
-	float t0 = Doryen::Platform::getElapsedSeconds();
+	float t0 = Console::getElapsedSeconds();
 #endif
 	int heightcount[256];
 	memset(heightcount, 0, sizeof(heightcount));
@@ -293,18 +293,18 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 		}
 	}
 #ifndef NDEBUG
-	float t1 = Doryen::Platform::getElapsedSeconds();
+	float t1 = Console::getElapsedSeconds();
 	printf("  Landmass... %g\n", t1 - t0);
 #endif
 }
 
 void WorldGenerator::buildBaseMap()
 {
-	float timeStart = Doryen::Platform::getElapsedSeconds();
+	float timeStart = Console::getElapsedSeconds();
 
 	addHill(600, 16.0 * HM_WIDTH / 200, 0.7, 0.3);
 	heightmap->normalize();
-	float timeEnd = Doryen::Platform::getElapsedSeconds();
+	float timeEnd = Console::getElapsedSeconds();
 	printf("\tHills... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -312,7 +312,7 @@ void WorldGenerator::buildBaseMap()
 	heightmap->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
 	heightmap->normalize();
 	heightmapWithoutErosion->copy(heightmap);
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("\tFbm... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -334,7 +334,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("\tFlatten plains... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -354,7 +354,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("\tInit clouds... %g\n", timeEnd - timeStart);
 }
 
@@ -368,14 +368,14 @@ void WorldGenerator::smoothMap()
 	static const float smoothKernelWeight[9] = { 2, 8, 2, 8, 20, 8, 2, 8, 2 };
 
 #ifndef NDEBUG
-	float t0 = Doryen::Platform::getElapsedSeconds();
+	float t0 = Console::getElapsedSeconds();
 #endif
 	heightmap->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight, -1000, 1000);
 	heightmapWithoutErosion->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight,
 			-1000, 1000);
 	heightmap->normalize();
 #ifndef NDEBUG
-	float t1 = Doryen::Platform::getElapsedSeconds();
+	float t1 = Console::getElapsedSeconds();
 	printf("  Blur... %g\n", t1 - t0);
 #endif
 }
@@ -778,7 +778,7 @@ void WorldGenerator::computePrecipitations()
 	static const float slopeCoef = 2.0f;
 	static const float basePrecip = 0.01f; // precipitation coef when slope == 0
 
-	float timeStart = Doryen::Platform::getElapsedSeconds();
+	float timeStart = Console::getElapsedSeconds();
 
 	// north/south winds
 	for (int diry = -1; diry <= 1; diry += 2)
@@ -816,7 +816,7 @@ void WorldGenerator::computePrecipitations()
 		}
 	}
 
-	float timeEnd = Doryen::Platform::getElapsedSeconds();
+	float timeEnd = Console::getElapsedSeconds();
 	printf("\tNorth/south winds... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -856,7 +856,7 @@ void WorldGenerator::computePrecipitations()
 			}
 		}
 	}
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("\tEast/west winds... %g\n", timeEnd - timeStart);
 	timeStart = timeEnd;
 
@@ -879,7 +879,7 @@ void WorldGenerator::computePrecipitations()
 			precipitation->setValue(x, y, precip);
 		}
 	}
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("\tlatitude... %g\n", timeEnd - timeStart);
 	timeStart = timeEnd;
 
@@ -917,7 +917,7 @@ void WorldGenerator::computePrecipitations()
 
 void WorldGenerator::smoothPrecipitations()
 {
-	float t0 = Doryen::Platform::getElapsedSeconds();
+	float t0 = Console::getElapsedSeconds();
 
 	// better quality polishing blur using a 5x5 kernel
 	// faster than TCODHeightmap kernelTransform function
@@ -971,12 +971,12 @@ void WorldGenerator::smoothPrecipitations()
 	}
 	precipitation->copy(&temphm);
 
-	float t1 = Doryen::Platform::getElapsedSeconds();
+	float t1 = Console::getElapsedSeconds();
 	printf("  Blur... %g\n", t1 - t0);
 	t0 = t1;
 
 	precipitation->normalize();
-	t1 = Doryen::Platform::getElapsedSeconds();
+	t1 = Console::getElapsedSeconds();
 	printf("  Normalization... %g\n", t1 - t0);
 	t0 = t1;
 
@@ -1231,38 +1231,38 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 
 void WorldGenerator::generate()
 {
-	float timeTotalStart = Doryen::Platform::getElapsedSeconds();
-	float timeStart = Doryen::Platform::getElapsedSeconds();
+	float timeTotalStart = Console::getElapsedSeconds();
+	float timeStart = Console::getElapsedSeconds();
 
 	generateSmoothColorMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
 	noise = new Noise(2);
 
-	float timeEnd = Doryen::Platform::getElapsedSeconds();
+	float timeEnd = Console::getElapsedSeconds();
 	printf("Initialization... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	buildBaseMap();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Heightmap construction... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computePrecipitations();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Precipitation map... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	erodeMap();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Erosion... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	smoothMap();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Smooth... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -1274,28 +1274,28 @@ void WorldGenerator::generate()
 		generateRivers();
 	}
 
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Rivers... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	smoothPrecipitations();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Smooth precipitations... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computeTemperaturesAndBiomes();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Temperature map... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computeColors();
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("Color map... %g\n", timeEnd - timeStart);
 
-	timeEnd = Doryen::Platform::getElapsedSeconds();
+	timeEnd = Console::getElapsedSeconds();
 	printf("TOTAL TIME... %g\n", timeEnd - timeTotalStart);
 }
 
