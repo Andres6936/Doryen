@@ -1360,47 +1360,6 @@ void TCOD_sys_set_window_title(const char* title)
 #endif
 }
 
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														static char TCOD_sys_get_vk(SDL_Keycode sdl_key) {
-	int i;
-	for (i = 0; i < NUM_VK_TO_C_ENTRIES; i++) {
-		if (vk_to_c[i].sdl_key == sdl_key)
-			return vk_to_c[i].tcod_key;
-	}
-	return 0;
-}
-
-static void TCOD_sys_set_vk(SDL_Keycode sdl_key, char tcod_key) {
-	int i;
-	for (i = 0; i < NUM_VK_TO_C_ENTRIES; i++) {
-		if (vk_to_c[i].sdl_key == 0) {
-			vk_to_c[i].tcod_key = tcod_key;
-			break;
-		}
-	}
-}
-#endif
-
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																														static void TCOD_sys_mouse_touch_conversion(SDL_Event *ev, TCOD_mouse_t *mouse) {
-	SDL_TouchFingerEvent *tfe=&ev->tfinger;
-	SDL_Touch *touch=SDL_GetTouch(tfe->touchId);
-	int charWidth, charHeight;
-	int windowWidth, windowHeight;
-	TCOD_sys_get_current_resolution(&windowWidth, &windowHeight);
-	mouse->dx += (tfe->dx * windowWidth)/touch->xres;
-	mouse->dy += (tfe->dy * windowHeight)/touch->yres;
-	mouse->x = (tfe->x * windowWidth)/touch->xres;
-	mouse->y = (tfe->y * windowHeight)/touch->yres;
-	TCOD_sys_get_char_size(&charWidth,&charHeight);
-	mouse->cx = (mouse->x - TCOD_ctx.fullscreen_offsetx) / charWidth;
-	mouse->cy = (mouse->y - TCOD_ctx.fullscreen_offsety) / charHeight;
-	mouse->dcx = mouse->dx / charWidth;
-	mouse->dcy = mouse->dy / charHeight;
-}
-#endif
-
-
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
 	SDL_Delay(milliseconds);
