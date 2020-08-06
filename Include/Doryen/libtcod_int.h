@@ -200,8 +200,6 @@ void TCOD_sys_term();
 void TCOD_sys_get_image_size(const void *image, int *w,int *h);
 TCOD_color_t TCOD_sys_get_image_pixel(const void *image,int x, int y);
 
-bool TCOD_sys_check_magic_number(const char *filename, int size, uint8 *data);
-
 /* TCOD_list nonpublic methods */
 void TCOD_list_set_size(TCOD_list_t l, int size);
 

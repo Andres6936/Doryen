@@ -38,40 +38,4 @@
 #include "Doryen/libtcod.h"
 #include "Doryen/libtcod_int.h"
 
-bool TCOD_sys_check_bmp(const char* filename)
-{
-	static uint8 magic_number[] = { 0x42, 0x4d };
-	return TCOD_sys_check_magic_number(filename, sizeof(magic_number), magic_number);
-}
-
-SDL_Surface* TCOD_sys_read_bmp(const char* filename)
-{
-	SDL_Surface* ret = SDL_LoadBMP(filename);
-	if (!ret) TCOD_fatal("SDL : %s", SDL_GetError());
-	/* convert low color images to 24 bits */
-	if ( ret->format->BytesPerPixel != 3 ) {
-		Uint32 rmask,gmask,bmask;
-        SDL_Surface * tmp;
-		if ( SDL_BYTEORDER == SDL_LIL_ENDIAN ) {
-			rmask=0xFF0000;
-			gmask=0x00FF00;
-			bmask=0x0000FF;
-		} else {
-			rmask=0x0000FF;
-			gmask=0x00FF00;
-			bmask=0xFF0000;
-		}
-		tmp=SDL_CreateRGBSurface(SDL_SWSURFACE,ret->w,ret->h,24, rmask, gmask, bmask, 0);
-		SDL_BlitSurface(ret,NULL,tmp,NULL);
-		SDL_FreeSurface(ret);
-		ret=tmp;
-	}
-
-	return ret;
-}
-
-void TCOD_sys_write_bmp(const SDL_Surface *surf, const char *filename) {
-	SDL_SaveBMP((SDL_Surface *)surf,filename);
-}
-
 

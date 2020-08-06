@@ -47,38 +47,6 @@
 
 
 /* image support stuff */
-bool TCOD_sys_check_bmp(const char* filename);
-
-SDL_Surface* TCOD_sys_read_bmp(const char* filename);
-
-void TCOD_sys_write_bmp(const SDL_Surface* surf, const char* filename);
-
-bool TCOD_sys_check_png(const char* filename)
-{
-	static uint8 magic_number[] = { 137, 80, 78, 71, 13, 10, 26, 10 };
-	return TCOD_sys_check_magic_number(filename, sizeof(magic_number), magic_number);
-}
-
-SDL_Surface* TCOD_sys_read_png(const char* filename)
-{
-	return NULL;
-}
-
-void TCOD_sys_write_png(const SDL_Surface* surf, const char* filename)
-{
-
-}
-
-typedef struct
-{
-	char* extension;
-
-	bool (* check_type)(const char* filename);
-
-	SDL_Surface* (* read)(const char* filename);
-
-	void (* write)(const SDL_Surface* surf, const char* filename);
-} image_support_t;
 
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
@@ -239,36 +207,6 @@ float TCOD_sys_elapsed_seconds()
 }
 
 /* image stuff */
-bool TCOD_sys_check_magic_number(const char* filename, int size, uint8* data)
-{
-	uint8 tmp[128];
-	int i;
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																															SDL_RWops *rwops =  SDL_RWFromFile(filename, "rb");
-	if (! rwops) return false;
-	if ( (i = rwops->read(rwops,tmp,size,1)) != 1 ) {
-		rwops->close(rwops);
-		return false;
-	}
-	rwops->close(rwops);
-#else
-	FILE* f = fopen(filename, "rb");
-	if (!f)
-	{ return false; }
-	if (fread(tmp, 1, 128, f) < (unsigned)size)
-	{
-		fclose(f);
-		return false;
-	}
-	fclose(f);
-#endif
-	for (i = 0; i < size; i++)
-	{
-		if (tmp[i] != data[i])
-		{ return false; }
-	}
-	return true;
-}
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 																														void *TCOD_sys_get_sdl_window() {
