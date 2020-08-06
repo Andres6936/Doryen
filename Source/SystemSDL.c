@@ -80,12 +80,6 @@ typedef struct
 	void (* write)(const SDL_Surface* surf, const char* filename);
 } image_support_t;
 
-static image_support_t image_type[] = {
-		{ "BMP", TCOD_sys_check_bmp, TCOD_sys_read_bmp, TCOD_sys_write_bmp },
-		{ "PNG", TCOD_sys_check_png, TCOD_sys_read_png, TCOD_sys_write_png },
-		{ NULL, NULL, NULL, NULL },
-};
-
 
 #if SDL_VERSION_ATLEAST(2, 0, 0)
 																														static SDL_Window* window=NULL;
