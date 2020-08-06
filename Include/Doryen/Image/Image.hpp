@@ -167,18 +167,16 @@ namespace Doryen
 		int getAlpha(int x, int y) const;
 
 		/**
-		@PageName image_read
-		@FuncTitle Checking if a pixel is transparent
-		@FuncDesc You can use this simpler version (for images with alpha layer, returns true only if alpha == 0) :
-		@Cpp bool TCODImage::isPixelTransparent(int x,int y) const
-		@C bool TCOD_image_is_pixel_transparent(TCOD_image_t image,int x, int y)
-		@Py image_is_pixel_transparent(image, x, y)
-		@C# bool TCODImage::isPixelTransparent(int x,int y)
-		@Param image In the C and python version, the image handler, obtained with the load function.
-		@Param x,y The pixel coordinates inside the image.
-			0 <= x < width
-			0 <= y < height
-		*/
+		 * @brief Checking if a pixel is transparent.
+		 *
+		 * You can use this simpler version (for images with alpha layer,
+		 * returns true only if alpha == 0)
+		 *
+		 * @param x Coordinates in x of pixel inside the image.
+		 * @param y Coordinates in y of pixel inside the image.
+		 * @return True if the channel alpha is 0 or the pixel is equal
+		 *  to key color, false otherwise.
+		 */
 		bool isPixelTransparent(int x, int y) const;
 
 		/**

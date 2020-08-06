@@ -101,7 +101,20 @@ void Image::setKeyColor(const Color& keyColor)
 
 bool Image::isPixelTransparent(int x, int y) const
 {
-	return TCOD_image_is_pixel_transparent(data, x, y) != 0;
+	if (imageData.isHasKeyColor())
+	{
+		if (getPixel(x, y).equals(imageData.getKeyColor()))
+		{
+			return true;
+		}
+	}
+
+	if (getPixel(x, y).getAlpha() == 0)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void Image::refreshConsole(const Console* console)
