@@ -121,11 +121,6 @@ void Perlin::normalize(float* f)
 	}
 }
 
-static float lattice(Perlin* data, int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
-{
-	return data->lattice(ix, fx, iy, fy, iz, fz, iw, fw);
-}
-
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
@@ -151,68 +146,72 @@ float TCOD_noise_perlin(Perlin* noise, float* f)
 	switch (data->ndim)
 	{
 		case 1:
-			value = LERP(lattice(data,n[0], r[0],0,0,0,0,0,0),
-						  lattice(data,n[0]+1, r[0]-1,0,0,0,0,0,0),
-						  w[0]);
+			value = LERP(data->lattice(n[0], r[0], 0, 0, 0, 0, 0, 0),
+					data->lattice(n[0] + 1, r[0] - 1, 0, 0, 0, 0, 0, 0),
+					w[0]);
 			break;
-		case 2:
-			value = LERP(LERP(lattice(data,n[0], r[0], n[1], r[1],0,0,0,0),
-							   lattice(data,n[0]+1, r[0]-1, n[1], r[1],0,0,0,0),
-							   w[0]),
-						  LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1,0,0,0,0),
-							   lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1,0,0,0,0),
-							   w[0]),
-						  w[1]);
+	case 2:
+		value = LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], 0, 0, 0, 0),
+				data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], 0, 0, 0, 0),
+				w[0]),
+				LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, 0, 0, 0, 0),
+						data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, 0, 0, 0, 0),
+						w[0]),
+				w[1]);
 			break;
-		case 3:
-			value = LERP(LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2], r[2],0,0),
-									lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2], r[2],0,0),
-									w[0]),
-							   LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2], r[2],0,0),
-									lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2], r[2],0,0),
-									w[0]),
-							   w[1]),
-						  LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2]+1, r[2]-1,0,0),
-									lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2]+1, r[2]-1,0,0),
-									w[0]),
-							   LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2]+1, r[2]-1,0,0),
-									lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2]+1, r[2]-1,0,0),
-									w[0]),
-							   w[1]),
-						  w[2]);
+	case 3:
+		value = LERP(LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2], r[2], 0, 0),
+				data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2], r[2], 0, 0),
+				w[0]),
+				LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2], r[2], 0, 0),
+						data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2], r[2], 0, 0),
+						w[0]),
+				w[1]),
+				LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2] + 1, r[2] - 1, 0, 0),
+						data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2] + 1, r[2] - 1, 0, 0),
+						w[0]),
+						LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1, 0, 0),
+								data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1, 0, 0),
+								w[0]),
+						w[1]),
+				w[2]);
 			break;
 		case 4:
 		default:
-			value = LERP(LERP(LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2], r[2], n[3], r[3]),
-										 lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2], r[2], n[3], r[3]),
-										 w[0]),
-									LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2], r[2], n[3], r[3]),
-										 lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2], r[2], n[3], r[3]),
-										 w[0]),
+			value = LERP(LERP(LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2], r[2], n[3], r[3]),
+					data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2], r[2], n[3], r[3]),
+					w[0]),
+					LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2], r[2], n[3], r[3]),
+							data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2], r[2], n[3], r[3]),
+							w[0]),
+					w[1]),
+					LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2] + 1, r[2] - 1, n[3], r[3]),
+							data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2] + 1, r[2] - 1, n[3], r[3]),
+							w[0]),
+							LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1, 0, 0),
+									data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1, n[3],
+											r[3]),
+									w[0]),
+							w[1]),
+					w[2]),
+					LERP(LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2], r[2], n[3] + 1, r[3] - 1),
+							data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2], r[2], n[3] + 1, r[3] - 1),
+							w[0]),
+							LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2], r[2], n[3] + 1, r[3] - 1),
+									data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2], r[2], n[3] + 1,
+											r[3] - 1),
+									w[0]),
+							w[1]),
+							LERP(LERP(data->lattice(n[0], r[0], n[1], r[1], n[2] + 1, r[2] - 1, n[3] + 1, r[3] - 1),
+									data->lattice(n[0] + 1, r[0] - 1, n[1], r[1], n[2] + 1, r[2] - 1, n[3] + 1,
+											r[3] - 1),
+									w[0]),
+									LERP(data->lattice(n[0], r[0], n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1, 0, 0),
+											data->lattice(n[0] + 1, r[0] - 1, n[1] + 1, r[1] - 1, n[2] + 1, r[2] - 1,
+													n[3] + 1, r[3] - 1),
+											w[0]),
 									w[1]),
-									LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2]+1, r[2]-1, n[3], r[3]),
-										 lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2]+1, r[2]-1, n[3], r[3]),
-										 w[0]),
-									LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2]+1, r[2]-1,0,0),
-										 lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2]+1, r[2]-1, n[3], r[3]),
-										 w[0]),
-									w[1]),
-							   w[2]),
-						  LERP(LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2], r[2], n[3]+1, r[3]-1),
-										 lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2], r[2], n[3]+1, r[3]-1),
-										 w[0]),
-									LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2], r[2], n[3]+1, r[3]-1),
-										 lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2], r[2], n[3]+1, r[3]-1),
-										 w[0]),
-									w[1]),
-									LERP(LERP(lattice(data,n[0], r[0], n[1], r[1], n[2]+1, r[2]-1, n[3]+1, r[3]-1),
-										 lattice(data,n[0]+1, r[0]-1, n[1], r[1], n[2]+1, r[2]-1, n[3]+1, r[3]-1),
-										 w[0]),
-									LERP(lattice(data,n[0], r[0], n[1]+1, r[1]-1, n[2]+1, r[2]-1,0,0),
-										 lattice(data,n[0]+1, r[0]-1, n[1]+1, r[1]-1, n[2]+1, r[2]-1, n[3]+1, r[3]-1),
-										 w[0]),
-									w[1]),
-							   w[2]),
+							w[2]),
 						  w[3]);
 			break;
 	}
