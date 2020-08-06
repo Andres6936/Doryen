@@ -37,19 +37,6 @@ void TCOD_sys_sleep_milli(uint32 milliseconds)
 	SDL_Delay(milliseconds);
 }
 
-void TCOD_sys_term()
-{
-	SDL_Quit();
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-																															#   ifdef USE_SDL2_RENDERER
-	renderer=NULL;
-#   endif
-	window=NULL;
-#else
-	screen = NULL;
-#endif
-}
-
 float TCOD_sys_elapsed_seconds()
 {
 	static float div = 1.0f / 1000.0f;

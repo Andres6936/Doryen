@@ -181,9 +181,6 @@ char_t *TCOD_console_get_buf(TCOD_console_t con);
 
 void TCOD_fatal_nopar(const char *msg);
 
-/* close the window */
-void TCOD_sys_term();
-
 /* TCOD_list nonpublic methods */
 void TCOD_list_set_size(TCOD_list_t l, int size);
 
