@@ -49,8 +49,6 @@ namespace Doryen
 
 		ImageData imageData;
 
-		void* data;
-
 		bool deleteData;
 
 		/**
@@ -255,8 +253,6 @@ namespace Doryen
 		@Param sx,sy,w,h	Part of the image to blit. Use -1 in w and h to blit the whole image.
 		*/
 		void blit2x(Console& dest, int dx, int dy, int sx = 0, int sy = 0, int w = -1, int h = -1) const;
-
-		virtual ~Image();
 
 	private:
 

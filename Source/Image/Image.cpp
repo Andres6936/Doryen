@@ -35,27 +35,17 @@ using namespace Doryen;
 
 Image::Image(int width, int height) : deleteData(true)
 {
-	data = (void*)TCOD_image_new(width, height);
-
 	imageData = ImageData(width, height);
 }
 
 Image::Image(const char* filename) : deleteData(true)
 {
-	data = (void*)TCOD_image_load(filename);
-
 	imageData = ImageData(filename);
 }
 
 Geometry::Size Image::getSize() const
 {
 	return imageData.getSize();
-}
-
-Image::~Image()
-{
-	if (deleteData)
-	{ TCOD_image_delete(data); }
 }
 
 Color Image::getPixel(int x, int y) const
