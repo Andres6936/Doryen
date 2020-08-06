@@ -185,43 +185,6 @@ static GLuint loadShader(const char *txt, GLuint type) {
 	return v;
 }
 
-static bool loadProgram(const char *vertShaderCode, const char *fragShaderCode,
-	GLuint *vertShader, GLuint *fragShader, GLuint *prog) {
-	/* Create and load Program and Shaders */
-	int success;
-	*prog = DBGCHECKGL(glCreateProgramObjectARB());
-
-	*vertShader = loadShader(vertShaderCode, GL_VERTEX_SHADER);
-	if ( *vertShader == 0 ) return false;
-	glAttachObjectARB(*prog, *vertShader);
-
-	*fragShader = loadShader(fragShaderCode, GL_FRAGMENT_SHADER);
-	if ( *fragShader == 0 ) return false;
-	glAttachObjectARB(*prog, *fragShader);
-
-	glLinkProgramARB(*prog);
-
-	glGetObjectParameterivARB(*prog, GL_LINK_STATUS, &success);
-	if(success!=GL_TRUE)
-	{
-		/* something went wrong */
-		int infologLength = 0;
-		int charsWritten = 0;
-		char *infoLog;
-		glGetObjectParameterivARB(*prog, GL_INFO_LOG_LENGTH,&infologLength);
-		if (infologLength > 0)
-	    {
-	        infoLog = (char *)malloc(infologLength);
-	        glGetInfoLogARB(*prog, infologLength, &charsWritten, infoLog);
-			printf("OPENGL ERROR: Program link Error");
-			printf("%s\n",infoLog);
-	        free(infoLog);
-	    }
-		return false;
-	}
-	return true;
-}
-
 static void updateChar(ConsoleDataEnum dataType, int BufferPos, unsigned char *c, int length, int offset) {
 	int i;
 	dirty[dataType] = true;		/* Set dirty so Texture gets updated next frame */
