@@ -60,12 +60,6 @@ static int TCOD_image_get_mipmap_levels(int width, int height) {
 	return nb_mipmap;
 }
 
-TCOD_image_t TCOD_image_load(const char *filename) {
-	image_data_t *ret=(image_data_t *)calloc(sizeof(image_data_t),1);
-	ret->sys_img=TCOD_sys_load_image(filename);
-	return (TCOD_image_t)ret;
-}
-
 void TCOD_image_get_size(TCOD_image_t image, int *w,int *h) {
 	image_data_t *img=(image_data_t *)image;
 	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
