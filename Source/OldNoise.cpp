@@ -28,6 +28,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <cstring>
+#include <iostream>
 
 #include "Doryen/OldNoise.hpp"
 #include "Doryen/Random/Number.hpp"
@@ -824,6 +825,20 @@ float Perlin::noiseWavelet(float* f)
 	return CLAMP(-1.0f, 1.0f, result);
 }
 
+// Getters
+
+TypeNoise Perlin::getNoiseType() const
+{
+	return noise_type;
+}
+
+// Setters
+
+void Perlin::setNoiseType(TypeNoise _noiseType)
+{
+	noise_type = _noiseType;
+}
+
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
@@ -1236,7 +1251,7 @@ float TCOD_noise_simplex(Perlin* noise, float* f)
 
 typedef float (* TCOD_noise_func_t)(Perlin* noise, float* f);
 
-static float TCOD_noise_fbm_int(Perlin* noise, float* f, float octaves, TCOD_noise_func_t func)
+static float TCOD_noise_fbm_int(Perlin* noise, float* f, float octaves)
 {
 	float tf[Perlin::MAX_DIMENSIONS];
 	Perlin* data = noise;
@@ -1248,25 +1263,62 @@ static float TCOD_noise_fbm_int(Perlin* noise, float* f, float octaves, TCOD_noi
 	/* Inner loop of spectral construction, where the fractal is built */
 	for (i = 0; i < (int)octaves; i++)
 	{
-		value += (double)(func(noise, tf)) * data->exponent[i];
+		if (noise->getNoiseType() == TypeNoise::Perlin)
+		{
+			value += noise->noisePerlin(tf) * data->exponent[i];
+		}
+		else if (noise->getNoiseType() == TypeNoise::Simplex)
+		{
+			value += noise->noiseSimplex(tf) * data->exponent[i];
+		}
+		else if (noise->getNoiseType() == TypeNoise::Wavelet)
+		{
+			value += noise->noiseWavelet(tf) * data->exponent[i];
+		}
+		else
+		{
+			std::cerr << "Problem, type noise unknown\n";
+		}
+
 		for (j = 0; j < data->ndim; j++) tf[j] *= data->lacunarity;
 	}
 
 	/* Take care of remainder in octaves */
 	octaves -= (int)octaves;
-	if(octaves > DELTA)
-		value += (double)(octaves * func(noise,tf)) * data->exponent[i];
+
+	if (octaves > DELTA)
+	{
+		if (noise->getNoiseType() == TypeNoise::Perlin)
+		{
+			value += octaves * noise->noisePerlin(tf) * data->exponent[i];
+		}
+		else if (noise->getNoiseType() == TypeNoise::Simplex)
+		{
+			value += octaves * noise->noiseSimplex(tf) * data->exponent[i];
+		}
+		else if (noise->getNoiseType() == TypeNoise::Wavelet)
+		{
+			value += octaves * noise->noiseWavelet(tf) * data->exponent[i];
+		}
+		else
+		{
+			std::cerr << "Problem, type noise unknown\n";
+		}
+	}
+
 	return CLAMP(-0.99999f, 0.99999f, (float)value);
 }
 
 float TCOD_noise_fbm_perlin(Perlin* noise, float* f, float octaves)
 {
-	return TCOD_noise_fbm_int(noise, f, octaves, TCOD_noise_perlin);
+	noise->setNoiseType(TypeNoise::Perlin);
+	return TCOD_noise_fbm_int(noise, f, octaves);
 }
 
 float TCOD_noise_fbm_simplex(Perlin* noise, float* f, float octaves)
 {
-	return TCOD_noise_fbm_int(noise, f, octaves, TCOD_noise_simplex);
+	noise->setNoiseType(TypeNoise::Simplex);
+	return TCOD_noise_fbm_int(noise, f, octaves);
 }
 
 static float TCOD_noise_turbulence_int(Perlin* noise, float* f, float octaves, TCOD_noise_func_t func)
@@ -1349,7 +1401,8 @@ float TCOD_noise_wavelet(Perlin* noise, float* f)
 
 float TCOD_noise_fbm_wavelet(Perlin* noise, float* f, float octaves)
 {
-	return TCOD_noise_fbm_int(noise, f, octaves, TCOD_noise_wavelet);
+	noise->setNoiseType(TypeNoise::Wavelet);
+	return TCOD_noise_fbm_int(noise, f, octaves);
 }
 
 float TCOD_noise_turbulence_wavelet(Perlin* noise, float* f, float octaves)
