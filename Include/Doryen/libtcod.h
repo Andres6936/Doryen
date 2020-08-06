@@ -153,7 +153,6 @@ char *strcasestr (const char *haystack, const char *needle);
 #define LERP(a, b, x) ( a + x * (b - a) )
 
 #include "list.h"
-#include "Color.h"
 #include "console.h"
 #include "Image.h"
 #include "sys.h"

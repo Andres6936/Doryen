@@ -6,7 +6,6 @@
 #include <memory>
 #include <cstdint>
 
-#include "Doryen/Color.h"
 #include "Doryen/Event/Key.hpp"
 #include "Doryen/Event/Mouse.hpp"
 #include "Doryen/Console/Char.hpp"

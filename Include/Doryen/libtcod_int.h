@@ -34,7 +34,6 @@
 
 #include <Doryen/fov.h>
 #include <Doryen/sys.h>
-#include <Doryen/Color.h>
 #include <Doryen/console_types.h>
 #include <Doryen/mersenne_types.h>
 
