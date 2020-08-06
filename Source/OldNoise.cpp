@@ -664,6 +664,124 @@ float Perlin::noiseSimplex(float* f)
 	return 0.0f;
 }
 
+/* wavelet noise, adapted from Robert L. Cook and Tony Derose 'Wavelet noise' paper */
+
+static int absmod(int x, int n)
+{
+	int m = x % n;
+	return m < 0 ? m + n : m;
+}
+
+static void TCOD_noise_wavelet_downsample(float* from, float* to, int stride)
+{
+	static float acoeffs[2 * WAVELET_ARAD] = {
+			0.000334f, -0.001528f, 0.000410f, 0.003545f, -0.000938f, -0.008233f, 0.002172f, 0.019120f,
+			-0.005040f, -0.044412f, 0.011655f, 0.103311f, -0.025936f, -0.243780f, 0.033979f, 0.655340f,
+			0.655340f, 0.033979f, -0.243780f, -0.025936f, 0.103311f, 0.011655f, -0.044412f, -0.005040f,
+			0.019120f, 0.002172f, -0.008233f, -0.000938f, 0.003546f, 0.000410f, -0.001528f, 0.000334f,
+	};
+	static float* a = &acoeffs[WAVELET_ARAD];
+	int i;
+	for (i = 0; i < WAVELET_TILE_SIZE / 2; i++)
+	{
+		int k;
+		to[i * stride] = 0;
+		for (k = 2 * i - WAVELET_ARAD; k < 2 * i + WAVELET_ARAD; k++)
+		{
+			to[i * stride] += a[k - 2 * i] * from[absmod(k, WAVELET_TILE_SIZE) * stride];
+		}
+	}
+}
+
+static void TCOD_noise_wavelet_upsample(float* from, float* to, int stride)
+{
+	static float pcoeffs[4] = { 0.25f, 0.75f, 0.75f, 0.25f };
+	static float* p = &pcoeffs[2];
+	int i;
+	for (i = 0; i < WAVELET_TILE_SIZE; i++)
+	{
+		int k;
+		to[i * stride] = 0;
+		for (k = i / 2; k < i / 2 + 1; k++)
+		{
+			to[i * stride] += p[i - 2 * k] * from[absmod(k, WAVELET_TILE_SIZE / 2) * stride];
+		}
+	}
+}
+
+void Perlin::prepareNoiseWavelet()
+{
+	int ix, iy, iz, i, sz = WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * sizeof(float);
+
+	std::vector<float> temp1;
+	temp1.resize(sz);
+
+	std::vector<float> temp2;
+	temp2.resize(sz);
+
+	std::vector<float> noise;
+	noise.resize(sz);
+
+	int offset;
+	for (i = 0; i < WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE; i++)
+	{
+
+		noise[i] = Random::Number::nextFloat(-1.0f, 1.0f);
+	}
+	for (iy = 0; iy < WAVELET_TILE_SIZE; iy++)
+	{
+		for (iz = 0; iz < WAVELET_TILE_SIZE; iz++)
+		{
+			i = iy * WAVELET_TILE_SIZE + iz * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE;
+			TCOD_noise_wavelet_downsample(&noise[i], &temp1[i], 1);
+			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], 1);
+		}
+	}
+	for (ix = 0; ix < WAVELET_TILE_SIZE; ix++)
+	{
+		for (iz = 0; iz < WAVELET_TILE_SIZE; iz++)
+		{
+			i = ix + iz * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE;
+			TCOD_noise_wavelet_downsample(&temp2[i], &temp1[i], WAVELET_TILE_SIZE);
+			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], WAVELET_TILE_SIZE);
+		}
+	}
+	for (ix = 0; ix < WAVELET_TILE_SIZE; ix++)
+	{
+		for (iy = 0; iy < WAVELET_TILE_SIZE; iy++)
+		{
+			i = ix + iy * WAVELET_TILE_SIZE;
+			TCOD_noise_wavelet_downsample(&temp2[i], &temp1[i], WAVELET_TILE_SIZE * WAVELET_TILE_SIZE);
+			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], WAVELET_TILE_SIZE * WAVELET_TILE_SIZE);
+		}
+	}
+	for (i = 0; i < WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE; i++)
+	{
+		noise[i] -= temp2[i];
+	}
+	offset = WAVELET_TILE_SIZE / 2;
+	if ((offset & 1) == 0) offset++;
+	for (i = 0, ix = 0; ix < WAVELET_TILE_SIZE; ix++)
+	{
+		for (iy = 0; iy < WAVELET_TILE_SIZE; iy++)
+		{
+			for (iz = 0; iz < WAVELET_TILE_SIZE; iz++)
+			{
+				temp1[i++] = noise[absmod(ix + offset, WAVELET_TILE_SIZE)
+								   + absmod(iy + offset, WAVELET_TILE_SIZE) * WAVELET_TILE_SIZE
+								   + absmod(iz + offset, WAVELET_TILE_SIZE) * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE
+				];
+			}
+		}
+	}
+	for (i = 0; i < WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE; i++)
+	{
+		noise[i] += temp1[i];
+	}
+
+	std::copy(noise.begin(), noise.end(), std::back_inserter(waveletTileData));
+}
+
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
@@ -1145,101 +1263,6 @@ float TCOD_noise_turbulence_simplex(Perlin* noise, float* f, float octaves)
 	return TCOD_noise_turbulence_int(noise, f, octaves, TCOD_noise_simplex);
 }
 
-/* wavelet noise, adapted from Robert L. Cook and Tony Derose 'Wavelet noise' paper */
-
-static int absmod(int x, int n) {
-	int m=x%n;
-	return m < 0 ? m+n : m;
-}
-
-static void TCOD_noise_wavelet_downsample(float *from, float *to, int stride) {
-	static float acoeffs[2*WAVELET_ARAD]= {
-		0.000334f, -0.001528f, 0.000410f, 0.003545f, -0.000938f, -0.008233f, 0.002172f, 0.019120f,
-		-0.005040f,-0.044412f, 0.011655f, 0.103311f, -0.025936f, -0.243780f, 0.033979f, 0.655340f,
-		 0.655340f, 0.033979f,-0.243780f,-0.025936f,  0.103311f,  0.011655f,-0.044412f,-0.005040f,
-		0.019120f,  0.002172f,-0.008233f,-0.000938f,  0.003546f,  0.000410f,-0.001528f, 0.000334f,
-	};
-	static float *a = &acoeffs[WAVELET_ARAD];
-	int i;
-	for (i=0; i < WAVELET_TILE_SIZE/2; i++) {
-		int k;
-		to[i*stride]=0;
-		for (k=2*i-WAVELET_ARAD; k <2*i+WAVELET_ARAD; k++) {
-			to[i*stride] += a[k-2*i]* from[ absmod(k,WAVELET_TILE_SIZE) * stride ];
-		}
-	}
-}
-
-static void TCOD_noise_wavelet_upsample(float *from, float *to, int stride) {
-	static float pcoeffs[4]= { 0.25f, 0.75f, 0.75f, 0.25f };
-	static float *p = &pcoeffs[2];
-	int i;
-	for (i=0; i < WAVELET_TILE_SIZE; i++) {
-		int k;
-		to[i*stride]=0;
-		for (k=i/2; k <i/2+1; k++) {
-			to[i*stride] += p[i-2*k]* from[ absmod(k,WAVELET_TILE_SIZE/2) * stride ];
-		}
-	}
-}
-
-static void TCOD_noise_wavelet_init(Perlin* pnoise)
-{
-	Perlin* data = pnoise;
-	int ix, iy, iz, i, sz = WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * sizeof(float);
-	float* temp1 = (float*)malloc(sz);
-	float* temp2 = (float*)malloc(sz);
-	float* noise = (float*)malloc(sz);
-	int offset;
-	for (i = 0; i < WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE; i++)
-	{
-
-		noise[i] = Random::Number::nextFloat(-1.0f, 1.0f);
-	}
-	for (iy=0; iy < WAVELET_TILE_SIZE; iy++ ) {
-		for (iz=0; iz < WAVELET_TILE_SIZE; iz++ ) {
-			i = iy * WAVELET_TILE_SIZE + iz * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE;
-			TCOD_noise_wavelet_downsample(&noise[i], &temp1[i], 1);
-			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], 1);
-		}
-	}
-	for (ix=0; ix < WAVELET_TILE_SIZE; ix++ ) {
-		for (iz=0; iz < WAVELET_TILE_SIZE; iz++ ) {
-			i = ix + iz * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE;
-			TCOD_noise_wavelet_downsample(&temp2[i], &temp1[i], WAVELET_TILE_SIZE);
-			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], WAVELET_TILE_SIZE);
-		}
-	}
-	for (ix=0; ix < WAVELET_TILE_SIZE; ix++ ) {
-		for (iy=0; iy < WAVELET_TILE_SIZE; iy++ ) {
-			i = ix + iy * WAVELET_TILE_SIZE;
-			TCOD_noise_wavelet_downsample(&temp2[i], &temp1[i], WAVELET_TILE_SIZE * WAVELET_TILE_SIZE);
-			TCOD_noise_wavelet_upsample(&temp1[i], &temp2[i], WAVELET_TILE_SIZE * WAVELET_TILE_SIZE);
-		}
-	}
-	for (i=0; i < WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE; i++ ) {
-		noise[i] -= temp2[i];
-	}
-	offset = WAVELET_TILE_SIZE/2;
-	if ( (offset & 1) == 0 ) offset++;
-	for (i=0,ix=0; ix < WAVELET_TILE_SIZE; ix++ ) {
-		for (iy=0; iy < WAVELET_TILE_SIZE; iy++ ) {
-			for (iz=0; iz < WAVELET_TILE_SIZE; iz++ ) {
-				temp1[i++]=noise[ absmod(ix+offset,WAVELET_TILE_SIZE)
-					+ absmod(iy+offset,WAVELET_TILE_SIZE)*WAVELET_TILE_SIZE
-					+ absmod(iz+offset,WAVELET_TILE_SIZE)*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE
-					];
-			}
-		}
-	}
-	for (i=0; i < WAVELET_TILE_SIZE*WAVELET_TILE_SIZE*WAVELET_TILE_SIZE; i++ ) {
-		noise[i] += temp1[i];
-	}
-	data->waveletTileData=noise;
-	free(temp1);
-	free(temp2);
-}
-
 float TCOD_noise_wavelet(Perlin* noise, float* f)
 {
 	Perlin* data = noise;
@@ -1248,7 +1271,8 @@ float TCOD_noise_wavelet(Perlin* noise, float* f)
 	int p[3], c[3], mid[3], n = WAVELET_TILE_SIZE;
 	float w[3][3], t, result = 0.0f;
 	if (data->ndim > 3) return 0.0f; /* not supported */
-	if (!data->waveletTileData) TCOD_noise_wavelet_init(noise);
+
+	if (data->waveletTileData.empty()) data->prepareNoiseWavelet();
 
 	for (int i = 0; i < data->ndim; i++) pf[i] = f[i] * WAVELET_SCALE;
 

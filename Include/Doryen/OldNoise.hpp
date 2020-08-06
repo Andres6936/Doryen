@@ -60,7 +60,7 @@ public:
 	/* fractal stuff */
 	float lacunarity;
 
-	float* waveletTileData;
+	std::vector<float> waveletTileData;
 
 	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
 
@@ -76,6 +76,8 @@ public:
 	Perlin(std::int32_t _dimensions, float _lacunarity);
 
 	// Methods
+
+	void prepareNoiseWavelet();
 
 	void normalize(float* f);
 
