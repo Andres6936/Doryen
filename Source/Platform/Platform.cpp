@@ -27,11 +27,6 @@
 
 #include "Doryen/Platform/Platform.hpp"
 
-void Doryen::Platform::saveScreenshot( const char *filename )
-{
-    TCOD_sys_save_screenshot( filename );
-}
-
 float Doryen::Platform::getElapsedSeconds( )
 {
 	return TCOD_sys_elapsed_seconds();

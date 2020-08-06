@@ -55,20 +55,6 @@ namespace Doryen
 		static float getElapsedSeconds();
 
 		/**
-        @PageName system_screenshots
-        @PageFather system
-        @PageTitle Easy screenshots
-        @FuncDesc This function allows you to save the current game screen in a png file, or possibly a bmp file if you provide a filename ending with .bmp.
-        @Cpp static void TCODSystem::saveScreenshot(const char *filename)
-        @C void TCOD_sys_save_screenshot(const char *filename)
-        @Py sys_save_screenshot(filename)
-        @C# static void TCODSystem::saveScreenshot(string filename);
-        @Lua tcod.system.saveScreenshot(filename)
-        @Param filename Name of the file. If NULL, a filename is automatically generated with the form "./screenshotNNN.png", NNN being the first free number (if a file named screenshot000.png already exist, screenshot001.png will be used, and so on...).
-        */
-		static void saveScreenshot(const char* filename);
-
-		/**
 		@PageName system_filesystem
 		@FuncTitle List files in a directory
 		@FuncDesc To get the list of entries in a directory (including sub-directories, except . and ..).
