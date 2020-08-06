@@ -1926,39 +1926,6 @@ static TCOD_event_t TCOD_sys_handle_event(SDL_Event* ev, TCOD_event_t eventMask,
 	return (retMask);
 }
 
-TCOD_event_t TCOD_sys_check_for_event(int eventMask, TCOD_key_t* key, TCOD_mouse_t* mouse)
-{
-	SDL_Event ev;
-	TCOD_event_t retMask = TCOD_EVENT_KEY_NONE;
-	if (eventMask == 0)
-	{ return TCOD_EVENT_KEY_NONE; }
-	SDL_PumpEvents();
-	tcod_mouse.lbutton_pressed = false;
-	tcod_mouse.rbutton_pressed = false;
-	tcod_mouse.mbutton_pressed = false;
-	tcod_mouse.wheel_up = false;
-	tcod_mouse.wheel_down = false;
-	tcod_mouse.dx = 0;
-	tcod_mouse.dy = 0;
-	if (key)
-	{
-		key->vk = TCODK_NONE;
-		key->c = 0;
-	}
-	while (SDL_PollEvent(&ev))
-	{
-		retMask = TCOD_sys_handle_event(&ev, (eventMask), key, &tcod_mouse);
-		if ((retMask & TCOD_EVENT_KEY) != 0)
-		{
-			/* only one key event per frame */
-			break;
-		}
-	}
-	if (mouse)
-	{ *mouse = tcod_mouse; }
-	return retMask;
-}
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
