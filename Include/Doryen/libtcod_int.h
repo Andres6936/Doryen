@@ -186,8 +186,6 @@ char_t *TCOD_console_get_buf(TCOD_console_t con);
 void TCOD_fatal(const char *fmt, ...);
 void TCOD_fatal_nopar(const char *msg);
 
-void *TCOD_sys_get_surface(int width, int height, bool alpha);
-
 /* close the window */
 void TCOD_sys_term();
 

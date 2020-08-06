@@ -32,66 +32,6 @@
 static SDL_Surface* screen = NULL;
 static char vk_to_c[SDLK_LAST];
 
-void* TCOD_sys_get_surface(int width, int height, bool alpha)
-{
-	Uint32 rmask, gmask, bmask, amask;
-	SDL_Surface* bitmap;
-	int flags = SDL_SWSURFACE;
-
-	if (alpha)
-	{
-		if (SDL_BYTEORDER == SDL_LIL_ENDIAN)
-		{
-			rmask = 0x000000FF;
-			gmask = 0x0000FF00;
-			bmask = 0x00FF0000;
-			amask = 0xFF000000;
-		}
-		else
-		{
-			rmask = 0xFF000000;
-			gmask = 0x00FF0000;
-			bmask = 0x0000FF00;
-			amask = 0x000000FF;
-		}
-#if !SDL_VERSION_ATLEAST(2, 0, 0)
-		flags |= SDL_SRCALPHA;
-#endif
-	}
-	else
-	{
-		if (SDL_BYTEORDER == SDL_LIL_ENDIAN)
-		{
-			rmask = 0x0000FF;
-			gmask = 0x00FF00;
-			bmask = 0xFF0000;
-		}
-		else
-		{
-			rmask = 0xFF0000;
-			gmask = 0x00FF00;
-			bmask = 0x0000FF;
-		}
-		amask = 0;
-	}
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-	bitmap=SDL_CreateRGBSurface(flags,width,height,
-#else
-	bitmap = SDL_AllocSurface(flags, width, height,
-#endif
-			alpha ? 32 : 24,
-			rmask, gmask, bmask, amask);
-	if (alpha)
-	{
-#if SDL_VERSION_ATLEAST(2, 0, 0)
-		SDL_SetSurfaceAlphaMod(bitmap, 255);
-#else
-		SDL_SetAlpha(bitmap, SDL_SRCALPHA, 255);
-#endif
-	}
-	return (void*)bitmap;
-}
-
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
 	SDL_Delay(milliseconds);
