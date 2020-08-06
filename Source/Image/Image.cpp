@@ -94,11 +94,6 @@ Image::blitRect(Console& console, int x, int y, int w, int h, BackgroundFlag fla
 	blit(console, { X, Y }, flag, scaleX, scaleY, 0.0f);
 }
 
-void Image::save(const char* filename) const
-{
-	TCOD_image_save(data, filename);
-}
-
 void Image::setKeyColor(const Color& keyColor)
 {
 	imageData.setKeyColor(keyColor);

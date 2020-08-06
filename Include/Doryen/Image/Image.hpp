@@ -214,29 +214,6 @@ namespace Doryen
 		void flippingVertically();
 
 		/**
-		@PageName image_save
-		@PageFather image
-		@PageTitle Saving an image to a bmp or png file.
-		@PageDesc You can save an image to a 24 bits .bmp or .png file.
-		@Cpp void TCODImage::save(const char *filename)
-		@C void TCOD_image_save(TCOD_image_t image, const char *filename)
-		@Py image_save(image, filename)
-		@C# void TCODImage::save(string filename)
-		@Param image	In the C version, the image handler, obtained with any image creation function.
-		@Param filename	Name of the .bmp or .png file.
-		@CppEx
-			TCODImage *pix = new TCODImage(10,10);
-			pix->save("mypic.bmp");
-		@CEx
-			TCOD_image_t pix = TCOD_image_from_console(my_offscreen_console);
-			TCOD_image_save(pix,"mypic.bmp");
-		@PyEx
-			pix = libtcod.image_from_console(my_offscreen_console)
-			libtcod.image_save(pix,"mypic.bmp")
-		  */
-		void save(const char* filename) const;
-
-		/**
 		@PageName image_blit
 		@PageFather image
 		@PageTitle Blitting an image on a console
