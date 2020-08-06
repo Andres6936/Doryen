@@ -204,15 +204,6 @@ static void alloc_ascii_tables()
 	memcpy(TCOD_ctx.ascii_to_tcod, init_ascii_to_tcod, sizeof(int) * 256);
 }
 
-static void check_ascii_to_tcod()
-{
-	if (TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic != TCOD_ctx.max_font_chars)
-	{
-		TCOD_ctx.max_font_chars = TCOD_ctx.fontNbCharHoriz * TCOD_ctx.fontNbCharVertic;
-		alloc_ascii_tables();
-	}
-}
-
 void* TCOD_sys_get_surface(int width, int height, bool alpha)
 {
 	Uint32 rmask, gmask, bmask, amask;
