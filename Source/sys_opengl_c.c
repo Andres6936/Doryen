@@ -353,32 +353,6 @@ static bool loadProgram(const char *vertShaderCode, const char *fragShaderCode,
 	return true;
 }
 
-static bool updateTex(ConsoleDataEnum dataType) {
-	GLenum Type=0;
-	DBGCHECKGL(glBindTexture(GL_TEXTURE_2D, Tex[dataType]));
-
-	switch(ConsoleDataAlignment[dataType])
-	{
-	case 1:
-		Type = GL_RED;
-		break;
-	/*case 2:
-		Type = GL_RG;
-		break; */
-	case 3:
-		Type = GL_RGB;
-		break;
-	case 4:
-		Type = GL_RGBA;
-		break;
-	}
-    /*glPixelStorei(GL_UNPACK_ALIGNMENT, 1); */
-	DBGCHECKGL(glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, conwidth, conheight, Type, GL_UNSIGNED_BYTE, data[dataType]));
-
-	DBGCHECKGL(glBindTexture(GL_TEXTURE_2D,0));
-	return true;
-}
-
 static void updateChar(ConsoleDataEnum dataType, int BufferPos, unsigned char *c, int length, int offset) {
 	int i;
 	dirty[dataType] = true;		/* Set dirty so Texture gets updated next frame */
