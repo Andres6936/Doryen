@@ -2137,11 +2137,6 @@ void TCOD_sys_save_fps()
 	min_frame_length_backup = min_frame_length;
 }
 
-void TCOD_sys_restore_fps()
-{
-	min_frame_length = min_frame_length_backup;
-}
-
 float TCOD_sys_get_last_frame_length()
 {
 	return last_frame_length;
