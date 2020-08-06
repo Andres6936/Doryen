@@ -29,7 +29,7 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Algorithms/Util/Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
         Image/PNG/LodePNG.cpp Image/PNG/Info.cpp Image/PNG/State.cpp
         Image/PNG/ColorMode.cpp Image/PNG/DecompressSettings.cpp Image/PNG/HuffmanTree.cpp
-        Image/PNG/Adler32.cpp SystemSDLImagePNG.cpp Renderer/Renderer.cpp Console/Char.cpp
+        Image/PNG/Adler32.cpp Renderer/Renderer.cpp Console/Char.cpp
         Event/Key.cpp Event/Mouse.cpp)
 
 ADD_LIBRARY(Doryen::Core::Cpp ALIAS Doryen.Core.Cpp)
