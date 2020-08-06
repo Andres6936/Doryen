@@ -926,30 +926,15 @@ float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TypeN
 	{
 	case (TypeNoise::Perlin):
 		return TCOD_noise_turbulence_perlin(noise, f, octaves);
-		break;
+
 	case (TypeNoise::Simplex):
 		return TCOD_noise_turbulence_simplex(noise, f, octaves);
-		break;
+
 	case (TypeNoise::Wavelet):
 		return TCOD_noise_turbulence_wavelet(noise, f, octaves);
-		break;
+
 	default:
-		switch ((noise)->noise_type)
-		{
-		case (TypeNoise::Perlin):
-			return TCOD_noise_turbulence_perlin(noise, f, octaves);
-			break;
-		case (TypeNoise::Simplex):
-			return TCOD_noise_turbulence_simplex(noise, f, octaves);
-			break;
-		case (TypeNoise::Wavelet):
-			return TCOD_noise_turbulence_wavelet(noise, f, octaves);
-			break;
-		default:
-			return TCOD_noise_turbulence_simplex(noise, f, octaves);
-			break;
-		}
-			break;
+		return TCOD_noise_turbulence_perlin(noise, f, octaves);
 	}
 }
 
@@ -959,16 +944,15 @@ float TCOD_noise_get(Perlin* noise, float* f)
 	{
 	case (TypeNoise::Perlin):
 		return noise->noisePerlin(f);
-		break;
+
 	case (TypeNoise::Simplex):
 		return TCOD_noise_simplex(noise, f);
-		break;
+
 	case (TypeNoise::Wavelet):
 		return TCOD_noise_wavelet(noise, f);
-		break;
+
 	default:
 		return TCOD_noise_simplex(noise, f);
-		break;
 	}
 }
 
