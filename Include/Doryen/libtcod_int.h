@@ -177,7 +177,7 @@ void TCOD_opengl_init_attributes();
 bool TCOD_opengl_init_state(int conw, int conh, void *font_tex);
 
 void TCOD_opengl_swap();
-void * TCOD_opengl_get_screen();
+
 #endif
 
 void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
