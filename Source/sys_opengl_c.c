@@ -353,60 +353,6 @@ static bool loadProgram(const char *vertShaderCode, const char *fragShaderCode,
 	return true;
 }
 
-bool TCOD_opengl_init_shaders() {
-	int i;
-	TCOD_color_t *fCol;
-	if ( TCOD_ctx.renderer == TCOD_RENDERER_GLSL ) {
-		if (! loadProgram(TCOD_con_vertex_shader, TCOD_con_pixel_shader, &conVertShader, &conFragShader, &conProgram ) ) return false;
-	}
-	/* Host side data init */
-	for(i = 0; i< ConsoleDataEnumSize; i++)
-	{
-		data[i] = (unsigned char *)calloc(conwidth*conheight,ConsoleDataAlignment[i]);
-		dirty[i]=true;
-	}
-	/* Initialize ForeCol to 255, 255, 255, 255 */
-	fCol = (TCOD_color_t *)data[ForeCol];
-	for( i = 0; i < conwidth*conheight; i++)
-	{
-	    fCol[i].r=255;
-	    fCol[i].g=255;
-	    fCol[i].b=255;
-	}
-
-    /* Generate Textures */
-	glGenTextures(3, Tex);
-
-	/* Character Texture */
-	CHECKGL(glBindTexture(GL_TEXTURE_2D, Tex[Character]));
-
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ));
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ));
-
-    CHECKGL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, POTconwidth, POTconheight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, 0));
-
-
-    /* ForeCol Texture */
-	CHECKGL(glBindTexture(GL_TEXTURE_2D, Tex[ForeCol]));
-
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ));
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ));
-
-	CHECKGL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, POTconwidth, POTconheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0));
-
-    /* BackCol Texture */
-	CHECKGL(glBindTexture(GL_TEXTURE_2D, Tex[BackCol]));
-
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST ));
-    CHECKGL(glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST ));
-
-	CHECKGL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, POTconwidth, POTconheight, 0, GL_RGB, GL_UNSIGNED_BYTE, 0));
-
-	CHECKGL(glBindTexture(GL_TEXTURE_2D, 0));
-	
-	return true;
-}
-
 static bool updateTex(ConsoleDataEnum dataType) {
 	GLenum Type=0;
 	DBGCHECKGL(glBindTexture(GL_TEXTURE_2D, Tex[dataType]));
