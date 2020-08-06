@@ -53,16 +53,6 @@ typedef struct
 	int b;
 } TCOD_color_t;
 
-/* a cell in the console */
-typedef struct
-{
-	int c;        /* character ascii code */
-	int cf;        /* character number in font */
-	TCOD_color_t fore;    /* foreground color */
-	TCOD_color_t back;    /* background color */
-	uint8 dirt;    /* cell modified since last flush ? */
-} char_t;
-
 /* fov internal stuff */
 typedef struct {
 	bool transparent:1;
