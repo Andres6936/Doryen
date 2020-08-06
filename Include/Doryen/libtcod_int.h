@@ -193,7 +193,7 @@ void TCOD_fatal(const char *fmt, ...);
 void TCOD_fatal_nopar(const char *msg);
 
 void TCOD_sys_map_ascii_to_font(int asciiCode, int fontCharX, int fontCharY);
-void *TCOD_sys_create_bitmap_for_console(TCOD_console_t console);
+
 void TCOD_sys_save_bitmap(void *bitmap, const char *filename);
 
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval);

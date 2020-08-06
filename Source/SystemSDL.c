@@ -439,14 +439,6 @@ void TCOD_sys_load_font()
 	}
 }
 
-void* TCOD_sys_create_bitmap_for_console(TCOD_console_t console)
-{
-	int w, h;
-	w = TCOD_console_get_width(console) * TCOD_ctx.font_width;
-	h = TCOD_console_get_height(console) * TCOD_ctx.font_height;
-	return TCOD_sys_get_surface(w, h, false);
-}
-
 void TCOD_sys_set_keyboard_repeat(int initial_delay, int interval)
 {
 #if !SDL_VERSION_ATLEAST(2, 0, 0)
