@@ -158,33 +158,6 @@ static PFNGLACTIVETEXTUREPROC glActiveTexture=0;
                                         
 /* call after creating window */
 
-static GLuint loadShader(const char *txt, GLuint type) {
-	int success;
-	int infologLength = 0;
-	int charsWritten = 0;
-    char *infoLog;
-	GLuint v = glCreateShaderObjectARB(type);
-	glShaderSourceARB(v, 1, &txt, 0);
-	glCompileShaderARB(v);
-
-	glGetObjectParameterivARB(v, GL_COMPILE_STATUS, &success);
-	if(success!=GL_TRUE)
-	{
-	    /* something went wrong */
-		glGetObjectParameterivARB(v, GL_INFO_LOG_LENGTH,&infologLength);
-		if(infologLength>0)
-		{
-			infoLog = (char *)malloc(infologLength);
-			glGetInfoLogARB(v, infologLength, &charsWritten, infoLog);
-			printf("GLSL ERROR : %s\n",infoLog);
-			free(infoLog);
-		}
-		return 0;
-	}
-
-	return v;
-}
-
 void TCOD_opengl_swap() {
 	SDL_GL_SwapBuffers();
 }
