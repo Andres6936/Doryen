@@ -1763,8 +1763,6 @@ bool TCOD_sys_is_key_pressed(TCOD_keycode_t key)
 }
 #endif
 
-static TCOD_mouse_t tcod_mouse = { 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false };
-
 
 void TCOD_sys_sleep_milli(uint32 milliseconds)
 {
