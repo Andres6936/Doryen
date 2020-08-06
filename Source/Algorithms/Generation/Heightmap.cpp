@@ -190,7 +190,7 @@ Doryen::Heightmap::addFbm(Noise* noise, float mulx, float muly, float addx, floa
 		{
 			f[1] = (y + addy) * ycoef;
 
-			float value = delta + TCOD_noise_get_fbm(noise->data, f, octaves) * scale;
+			float value = delta + noise->getFbm(f, octaves) * scale;
 
 			this->values[offset] += value;
 
@@ -224,7 +224,7 @@ Doryen::Heightmap::scaleFbm(Noise* noise, float mulx, float muly, float addx, fl
 		{
 			f[1] = (y + addy) * ycoef;
 
-			this->values[offset] *= (delta + TCOD_noise_get_fbm(noise->data, f, octaves) * scale);
+			this->values[offset] *= (delta + noise->getFbm(f, octaves) * scale);
 
 			offset += this->w;
 		}
