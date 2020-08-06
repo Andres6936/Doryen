@@ -199,8 +199,6 @@ void *TCOD_sys_get_surface(int width, int height, bool alpha);
 /* close the window */
 void TCOD_sys_term();
 
-/* image manipulation */
-void *TCOD_sys_load_image(const char *filename);
 void TCOD_sys_get_image_size(const void *image, int *w,int *h);
 TCOD_color_t TCOD_sys_get_image_pixel(const void *image,int x, int y);
 

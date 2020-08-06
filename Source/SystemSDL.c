@@ -249,16 +249,6 @@ void TCOD_sys_term()
 #endif
 }
 
-void* TCOD_sys_load_image(const char* filename)
-{
-	image_support_t* img = image_type;
-	while (img->extension != NULL && !img->check_type(filename))
-	{ img++; }
-	if (img->extension == NULL || img->read == NULL)
-	{ return NULL; } /* unknown format */
-	return img->read(filename);
-}
-
 void TCOD_sys_get_image_size(const void* image, int* w, int* h)
 {
 	SDL_Surface* surf = (SDL_Surface*)image;
