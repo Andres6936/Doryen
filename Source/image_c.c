@@ -60,32 +60,6 @@ static int TCOD_image_get_mipmap_levels(int width, int height) {
 	return nb_mipmap;
 }
 
-TCOD_image_t TCOD_image_new(int width, int height) {
-	int i;
-	float fw,fh;
-	image_data_t *ret=(image_data_t *)calloc(sizeof(image_data_t),1);
-	ret->nb_mipmaps=TCOD_image_get_mipmap_levels(width,height);
-	ret->mipmaps = (mipmap_t *)calloc(sizeof(mipmap_t),ret->nb_mipmaps);
-	ret->mipmaps[0].buf = (TCOD_color_t *)calloc(sizeof(TCOD_color_t),width*height);
-
-	for (i=0; i< width*height; i++) {
-		ret->mipmaps[0].buf[i] = TCOD_black;
-	}
-	fw=(float)width;
-	fh=(float)height;
-	for ( i=0; i < ret->nb_mipmaps; i++) {
-		ret->mipmaps[i].width=width;
-		ret->mipmaps[i].height=height;
-		ret->mipmaps[i].fwidth=fw;
-		ret->mipmaps[i].fheight=fh;
-		width >>= 1;
-		height >>= 1;
-		fw *= 0.5f;
-		fh *= 0.5f;
-	}
-	return (TCOD_image_t)ret;
-}
-
 TCOD_image_t TCOD_image_load(const char *filename) {
 	image_data_t *ret=(image_data_t *)calloc(sizeof(image_data_t),1);
 	ret->sys_img=TCOD_sys_load_image(filename);
