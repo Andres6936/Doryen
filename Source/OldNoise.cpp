@@ -522,34 +522,39 @@ float TCOD_noise_simplex(Perlin* noise, float* f)
 		break;
 		case 4 :
 		{
-			#define F4 0.309016994f /* (sqrtf(5.0f)-1.0f)/4.0f */
-			#define G4 0.138196601f /* (5.0f - sqrtf(5.0f))/20.0f */
-			float n0,n1,n2,n3,n4;
-			float s = (f[0]+f[1]+f[2]+f[3])*F4 * SIMPLEX_SCALE;
-			float xs=f[0]*SIMPLEX_SCALE+s;
-			float ys=f[1]*SIMPLEX_SCALE+s;
-			float zs=f[2]*SIMPLEX_SCALE+s;
-			float ws=f[3]*SIMPLEX_SCALE+s;
-			int i=FLOOR(xs);
-			int j=FLOOR(ys);
-			int k=FLOOR(zs);
-			int l=FLOOR(ws);
-			float t=(float)(i+j+k+l)*G4;
-			float xo = i-t;
-			float yo = j-t;
-			float zo = k-t;
-			float wo = l-t;
-			float x0 = f[0]*SIMPLEX_SCALE-xo;
-			float y0 = f[1]*SIMPLEX_SCALE-yo;
-			float z0 = f[2] * SIMPLEX_SCALE - zo;
-			float w0 = f[3] * SIMPLEX_SCALE - wo;
-			int c1 = (x0 > y0 ? 32 : 0);
-			int c2 = (x0 > z0 ? 16 : 0);
-			int c3 = (y0 > z0 ? 8 : 0);
-			int c4 = (x0 > w0 ? 4 : 0);
-			int c5 = (y0 > w0 ? 2 : 0);
-			int c6 = (z0 > w0 ? 1 : 0);
-			int c = c1 + c2 + c3 + c4 + c5 + c6;
+#define F4 0.309016994f /* (sqrtf(5.0f)-1.0f)/4.0f */
+#define G4 0.138196601f /* (5.0f - sqrtf(5.0f))/20.0f */
+			float n0, n1, n2, n3, n4;
+
+			const float s = (f[0] + f[1] + f[2] + f[3]) * F4 * SIMPLEX_SCALE;
+			const float xs = f[0] * SIMPLEX_SCALE + s;
+			const float ys = f[1] * SIMPLEX_SCALE + s;
+			const float zs = f[2] * SIMPLEX_SCALE + s;
+			const float ws = f[3] * SIMPLEX_SCALE + s;
+
+			const int i = FLOOR(xs);
+			const int j = FLOOR(ys);
+			const int k = FLOOR(zs);
+			const int l = FLOOR(ws);
+
+			const float t = (float)(i + j + k + l) * G4;
+			const float xo = i - t;
+			const float yo = j - t;
+			const float zo = k - t;
+			const float wo = l - t;
+
+			const float x0 = f[0] * SIMPLEX_SCALE - xo;
+			const float y0 = f[1] * SIMPLEX_SCALE - yo;
+			const float z0 = f[2] * SIMPLEX_SCALE - zo;
+			const float w0 = f[3] * SIMPLEX_SCALE - wo;
+
+			const int c1 = (x0 > y0 ? 32 : 0);
+			const int c2 = (x0 > z0 ? 16 : 0);
+			const int c3 = (y0 > z0 ? 8 : 0);
+			const int c4 = (x0 > w0 ? 4 : 0);
+			const int c5 = (y0 > w0 ? 2 : 0);
+			const int c6 = (z0 > w0 ? 1 : 0);
+			const int c = c1 + c2 + c3 + c4 + c5 + c6;
 
 			const int i1 = simplex[c][0] >= 3 ? 1 : 0;
 			const int j1 = simplex[c][1] >= 3 ? 1 : 0;
