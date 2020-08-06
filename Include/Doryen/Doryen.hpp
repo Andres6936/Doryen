@@ -32,7 +32,6 @@
 
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
-#include "mersenne.hpp"
 #include "noise.hpp"
 #include "FOV/Fov.hpp"
 #include "namegen.hpp"

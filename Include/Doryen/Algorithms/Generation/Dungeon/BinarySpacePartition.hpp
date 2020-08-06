@@ -29,7 +29,6 @@
 #define _TCOD_BSP_HPP
 
 #include <Doryen/FOV/Fov.hpp>
-#include <Doryen/mersenne.hpp>
 #include <Doryen/Algorithms/Util/Tree.hpp>
 #include <Doryen/Algorithms/Generation/Dungeon/Util/BinarySpacePartitionListener.hpp>
 

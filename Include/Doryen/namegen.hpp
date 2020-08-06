@@ -68,7 +68,7 @@ public:
 	@CEx TCOD_namegen_parse("data/names.txt",TCOD_random_get_instance());
 	@PyEx libtcod.namegen_parse('data/names.txt')
 	*/
-	static void parse(const std::filesystem::path& filename, TCODRandom* random = NULL);
+	static void parse(const std::filesystem::path& filename);
 
 		/**
 		@PageName namegen_init
