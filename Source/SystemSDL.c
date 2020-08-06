@@ -2030,20 +2030,6 @@ TCOD_color_t TCOD_sys_get_image_pixel(const void* image, int x, int y)
 	return ret;
 }
 
-int TCOD_sys_get_image_alpha(const void* image, int x, int y)
-{
-	SDL_Surface* surf = (SDL_Surface*)image;
-	Uint8 bpp;
-	Uint8* bits;
-	if (x < 0 || y < 0 || x >= surf->w || y >= surf->h)
-	{ return 255; }
-	bpp = surf->format->BytesPerPixel;
-	if (bpp != 4)
-	{ return 255; }
-	bits = ((Uint8*)surf->pixels) + y * surf->pitch + x * bpp;
-	return *((bits) + surf->format->Ashift / 8);
-}
-
 uint32 TCOD_sys_elapsed_milli()
 {
 	return (uint32)SDL_GetTicks();
