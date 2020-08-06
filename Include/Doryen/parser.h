@@ -28,8 +28,11 @@
 #ifndef _TCOD_PARSER_H
 #define _TCOD_PARSER_H
 
+#include <Doryen/libtcod_int.h>
+
 /* generic type */
-typedef enum {
+typedef enum
+{
 	TCOD_TYPE_NONE,
 	TCOD_TYPE_BOOL,
 	TCOD_TYPE_CHAR,

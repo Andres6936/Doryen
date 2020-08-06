@@ -45,6 +45,14 @@ extern "C" {
 typedef unsigned char uint8;
 typedef unsigned int uint32;
 
+typedef struct
+{
+	int a;
+	int r;
+	int g;
+	int b;
+} TCOD_color_t;
+
 /* a cell in the console */
 typedef struct
 {
@@ -175,8 +183,6 @@ extern TCOD_internal_context_t TCOD_ctx;
 #endif
 
 void TCOD_map_compute_fov_restrictive_shadowcasting(TCOD_map_t map, int player_x, int player_y, int max_radius, bool light_walls);
-
-char_t *TCOD_console_get_buf(TCOD_console_t con);
 
 void TCOD_fatal_nopar(const char *msg);
 

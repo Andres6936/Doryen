@@ -122,12 +122,6 @@ namespace Doryen
 
 	public :
 
-		TCOD_console_t data;
-
-		explicit Console(TCOD_console_t con) : data(con)
-		{
-		}
-
 		/**
 		 * Create an offscreen console.
 		 *

@@ -14,8 +14,6 @@ static int minRoomSize = 4;
 static bool randomRoom = false; // a room fills a random part of the node or the maximum available space ?
 static bool roomWalls = true; // if true, there is always a wall on north & west side of a room
 
-typedef char map_t[SAMPLE_SCREEN_WIDTH][SAMPLE_SCREEN_HEIGHT];
-
 // the class building the dungeon from the bsp nodes
 //#include <stdio.h>
 class BspListener : public Doryen::Algorithms::BinarySpacePartitionCallback
