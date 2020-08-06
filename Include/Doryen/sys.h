@@ -29,7 +29,6 @@
 #define _TCOD_SYS_H
 
 #include <Doryen/list.h>
-#include <Doryen/mouse_types.h>
 #include <Doryen/console_types.h>
 
 typedef unsigned char uint8;
