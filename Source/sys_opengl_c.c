@@ -125,21 +125,6 @@ bool _CheckGL_Error(const char* GLcall, const char* file, const int line)
     return true;
 }
 
-/* called before creating window */
-void TCOD_opengl_init_attributes() {
-	static bool first=true;
-	if ( first ) {
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,8);
-		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32 );
-		/* ATI driver bug : enabling this might result in red screen */
-		/* SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); */
-		first=false;
-	}
-}
-
 /* console size (power of 2 and cells) */
 static int POTconwidth, POTconheight, conwidth, conheight;
 /* programs and shaders handles */

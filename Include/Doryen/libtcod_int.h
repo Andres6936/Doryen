@@ -172,8 +172,6 @@ extern TCOD_internal_context_t TCOD_ctx;
 #endif
 
 #ifndef NO_OPENGL
-/* opengl utilities */
-void TCOD_opengl_init_attributes();
 
 void TCOD_opengl_swap();
 
