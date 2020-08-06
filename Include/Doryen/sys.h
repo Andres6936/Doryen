@@ -42,8 +42,6 @@ float TCOD_sys_elapsed_seconds();
 
 void TCOD_sys_sleep_milli(uint32 val);
 
-void TCOD_sys_get_char_size(int *w, int *h);
-
 void *TCOD_sys_get_sdl_window();
 
 typedef enum {

@@ -249,12 +249,6 @@ float TCOD_sys_elapsed_seconds()
 	return SDL_GetTicks() * div;
 }
 
-void TCOD_sys_get_char_size(int* w, int* h)
-{
-	*w = TCOD_ctx.font_width;
-	*h = TCOD_ctx.font_height;
-}
-
 /* image stuff */
 bool TCOD_sys_check_magic_number(const char* filename, int size, uint8* data)
 {
