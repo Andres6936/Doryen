@@ -39,20 +39,18 @@ void Functor::Noise::switchNoise(const KeyCode& key)
 	}
 }
 
+void Functor::Noise::drawTextNoiseRender()
+{
+	sample.setDefaultForeground(Palette::RED);
+
+	for (int i = 0; i < funcName.size(); ++i)
+	{
+		sample.write(2, 2 + i, funcName[i]);
+	}
+}
+
 void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 {
-	static const char* funcName[] = {
-			"1 : perlin noise       ",
-			"2 : simplex noise      ",
-			"3 : wavelet noise      ",
-			"4 : perlin fbm         ",
-			"5 : perlin turbulence  ",
-			"6 : simplex fbm        ",
-			"7 : simplex turbulence ",
-			"8 : wavelet fbm        ",
-			"9 : wavelet turbulence ",
-	};
-
 	static Doryen::Noise* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
@@ -128,21 +126,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 		}
 	}
 
-	// draw the text
-//	for (int curfunc = NoiseRender::PERLIN; curfunc <= NoiseRender::TURBULENCE_WAVELET; curfunc++)
-//	{
-//		if (curfunc == func)
-//		{
-//			sample.setDefaultForeground(Palette::GRAY_WARN_1);
-//			sample.setDefaultBackground(Palette::PRIMARY_LIGHT);
-//			sample.write(2, 2 + curfunc, funcName[curfunc]);
-//		}
-//		else
-//		{
-//			sample.setDefaultForeground(Palette::GRAY_WARN_30);
-//			sample.write(2, 2 + curfunc, funcName[curfunc]);
-//		}
-//	}
+	drawTextNoiseRender();
 
 	// draw parameters
 	sample.setDefaultForeground(Palette::GRAY_WARN_1);

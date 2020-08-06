@@ -29,10 +29,24 @@ namespace Functor
 			TURBULENCE_WAVELET
 		};
 
+		constexpr static std::array funcName = {
+				"1 : Perlin Noise       ",
+				"2 : Simplex Noise      ",
+				"3 : Wavelet Noise      ",
+				"4 : Perlin Fbm         ",
+				"5 : Perlin Turbulence  ",
+				"6 : Simplex Fbm        ",
+				"7 : Simplex Turbulence ",
+				"8 : Wavelet Fbm        ",
+				"9 : Wavelet Turbulence ",
+		};
+
 		/**
 		 * Which function of noise we render
 		 */
 		NoiseRender func = NoiseRender::PERLIN;
+
+		void drawTextNoiseRender();
 
 		void switchNoise(const KeyCode& key);
 
