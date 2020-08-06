@@ -963,28 +963,6 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 	return CLAMP(-0.99999f, 0.99999f, (float)value);
 }
 
-float TCOD_noise_get_fbm_ex(Perlin* noise, float* f, float octaves, TypeNoise type)
-{
-	switch (type)
-	{
-	case (TypeNoise::Perlin):
-		noise->setNoiseType(TypeNoise::Perlin);
-		return noise->noiseFBM(f, octaves);
-
-	case (TypeNoise::Simplex):
-		noise->setNoiseType(TypeNoise::Simplex);
-		return noise->noiseFBM(f, octaves);
-
-	case (TypeNoise::Wavelet):
-		noise->setNoiseType(TypeNoise::Wavelet);
-		return noise->noiseFBM(f, octaves);
-
-	default:
-		noise->setNoiseType(TypeNoise::Perlin);
-		return noise->noiseFBM(f, octaves);
-	}
-}
-
 float TCOD_noise_get_turbulence_ex(Perlin* noise, float* f, float octaves, TypeNoise type)
 {
 	switch (type)

@@ -68,8 +68,24 @@ float Noise::get(float* f, TypeNoise type)
 
 float Noise::getFbm(float* f, float octaves, TypeNoise type)
 {
-	if (type == TypeNoise::Default) return TCOD_noise_get_fbm(data, f, octaves);
-	else return TCOD_noise_get_fbm_ex(data, f, octaves, type);
+	switch (data->getNoiseType())
+	{
+	case (TypeNoise::Perlin):
+		data->setNoiseType(TypeNoise::Perlin);
+		return data->noiseFBM(f, octaves);
+
+	case (TypeNoise::Simplex):
+		data->setNoiseType(TypeNoise::Simplex);
+		return data->noiseFBM(f, octaves);
+
+	case (TypeNoise::Wavelet):
+		data->setNoiseType(TypeNoise::Wavelet);
+		return data->noiseFBM(f, octaves);
+
+	default:
+		data->setNoiseType(TypeNoise::Simplex);
+		return data->noiseFBM(f, octaves);
+	}
 }
 
 float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
