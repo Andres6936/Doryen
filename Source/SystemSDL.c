@@ -32,11 +32,6 @@
 static SDL_Surface* screen = NULL;
 static char vk_to_c[SDLK_LAST];
 
-void TCOD_sys_sleep_milli(uint32 milliseconds)
-{
-	SDL_Delay(milliseconds);
-}
-
 float TCOD_sys_elapsed_seconds()
 {
 	static float div = 1.0f / 1000.0f;
