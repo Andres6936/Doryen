@@ -132,17 +132,6 @@ static float lattice(Perlin* data, int ix, float fx, int iy, float fy, int iz, f
 #define FLOOR(a) ((a)> 0 ? ((int)a) : (((int)a)-1) )
 #define CUBIC(a)	( a * a * (3 - 2*a) )
 
-static void normalize(Perlin* data, float* f)
-{
-	float magnitude = 0;
-	int i;
-	for (i = 0; i < data->ndim; i++)
-		magnitude += f[i] * f[i];
-	magnitude = 1.0f / (float)sqrt(magnitude);
-	for (i = 0; i < data->ndim; i++)
-		f[i] *= magnitude;
-}
-
 float TCOD_noise_perlin(Perlin* noise, float* f)
 {
 	Perlin* data = noise;
