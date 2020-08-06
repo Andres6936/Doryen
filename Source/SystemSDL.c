@@ -894,48 +894,6 @@ void* TCOD_sys_get_surface(int width, int height, bool alpha)
 	return (void*)bitmap;
 }
 
-void TCOD_sys_update_char(int asciiCode, int fontx, int fonty, TCOD_image_t img, int x, int y)
-{
-	int px, py;
-	int iw, ih;
-	static TCOD_color_t pink = { 255, 0, 255 };
-	TCOD_sys_map_ascii_to_font(asciiCode, fontx, fonty);
-	TCOD_image_get_size(img, &iw, &ih);
-	for (px = 0; px < TCOD_ctx.font_width; px++)
-	{
-		for (py = 0; py < TCOD_ctx.font_height; py++)
-		{
-			TCOD_color_t col = TCOD_white;
-			Uint8* pixel;
-			Uint8 bpp;
-			if ((unsigned)(x + px) < (unsigned)iw && (unsigned)(y + py) < (unsigned)ih)
-			{
-				col = TCOD_image_get_pixel(img, x + px, y + py);
-			}
-			pixel = (Uint8*)(charmap->pixels) + (fonty * TCOD_ctx.font_height + py) * charmap->pitch +
-					(fontx * TCOD_ctx.font_width + px) * charmap->format->BytesPerPixel;
-			bpp = charmap->format->BytesPerPixel;
-			if (bpp == 4)
-			{
-				*((pixel) + charmap->format->Ashift / 8) = col.r;
-				*((pixel) + charmap->format->Rshift / 8) = 255;
-				*((pixel) + charmap->format->Gshift / 8) = 255;
-				*((pixel) + charmap->format->Bshift / 8) = 255;
-			}
-			else
-			{
-				*((pixel) + charmap->format->Rshift / 8) = col.r;
-				*((pixel) + charmap->format->Gshift / 8) = col.g;
-				*((pixel) + charmap->format->Bshift / 8) = col.b;
-			}
-		}
-	}
-	/* TODO : improve this. */
-	charcols[asciiCode] = pink;
-	ascii_updated[asciiCode] = true;
-	any_ascii_updated = true;
-}
-
 #ifdef TCOD_MACOSX
 void CustomSDLMain();
 #endif

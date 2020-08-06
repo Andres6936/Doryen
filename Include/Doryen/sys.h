@@ -46,8 +46,6 @@ void TCOD_sys_save_screenshot(const char* filename);
 
 void TCOD_sys_get_current_resolution(int *w, int *h);
 
-void TCOD_sys_update_char(int asciiCode, int fontx, int fonty, TCOD_image_t img, int x, int y);
-
 void TCOD_sys_get_char_size(int *w, int *h);
 
 void *TCOD_sys_get_sdl_window();
