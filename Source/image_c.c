@@ -48,16 +48,5 @@ typedef struct
 	bool has_key_color;
 } image_data_t;
 
-void TCOD_image_get_size(TCOD_image_t image, int *w,int *h) {
-	image_data_t *img=(image_data_t *)image;
-	if ( !img->mipmaps && !img->sys_img) return; /* no image data */
-	if ( img->mipmaps ) {
-		*w = img->mipmaps[0].width;
-		*h = img->mipmaps[0].height;
-	} else {
-		TCOD_sys_get_image_size(img->sys_img,w,h);
-	}
-}
-
 
 
