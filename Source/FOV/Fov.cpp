@@ -28,7 +28,6 @@
 #include <Doryen/FOV/CircularRaycasting.hpp>
 #include <Doryen/FOV/DiamondRayCasting.hpp>
 #include <Doryen/FOV/Permissive.hpp>
-#include <Doryen/FOV/Restrictive.hpp>
 #include <Doryen/FOV/ShadowCasting.hpp>
 #include <Doryen/FOV/Fov.hpp>
 
@@ -128,12 +127,6 @@ void Doryen::Map::computeFov(int x, int y, int maxRadius, bool light_walls,
 		Doryen::Permissive permissive{ *this };
 
 		permissive(*this, x, y, maxRadius, light_walls, 0);
-	}
-	else if (algo == TypeFOV::Restrictive)
-	{
-		Doryen::Restrictive restrictive;
-
-		restrictive(*this, x, y, maxRadius, light_walls);
 	}
 	else
 	{

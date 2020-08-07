@@ -17,7 +17,6 @@ ADD_LIBRARY(Doryen.Core.Cpp
         FOV/CircularRaycasting.cpp
         FOV/DiamondRayCasting.cpp
         FOV/Permissive.cpp
-        FOV/Restrictive.cpp
         FOV/ShadowCasting.cpp
         FOV/Fov.cpp
         Random/Number.cpp

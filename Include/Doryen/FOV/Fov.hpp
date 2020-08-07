@@ -43,7 +43,6 @@ namespace Doryen
 		Diamond,
 		Shadow,
 		Permissive,
-		Restrictive,
 	};
 
 	// Definition for allow consistence with names
