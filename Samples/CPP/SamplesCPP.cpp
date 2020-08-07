@@ -15,7 +15,6 @@
 #include "Functor/Image.hpp"
 #include "Functor/Lines.hpp"
 #include "Functor/Mouse.hpp"
-#include "Functor/Name.hpp"
 #include "Functor/Noise.hpp"
 #include "Functor/Offscreen.hpp"
 #include "Functor/Path.hpp"
@@ -42,8 +41,7 @@ std::array<std::unique_ptr<Functor::ISample>, 11> configureExamples(std::referen
 	pointers[6] = std::make_unique<Functor::BSP>("Bsp toolkit"s, _console);;
 	pointers[7] = std::make_unique<Functor::Image>("Image toolkit"s, _console);;
 	pointers[8] = std::make_unique<Functor::Mouse>("Mouse support"s, _console);;
-	pointers[9] = std::make_unique<Functor::Name>("Name generator"s, _console);;
-	pointers[10] = std::make_unique<Functor::SDL>("SDL callback"s, _console);;
+	pointers[9] = std::make_unique<Functor::SDL>("SDL callback"s, _console);;
 
 	return pointers;
 }
