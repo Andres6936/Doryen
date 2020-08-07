@@ -86,50 +86,36 @@ namespace Doryen
 		void setType(TypeNoise type);
 
 		/**
-		@PageName noise_get
-	 @PageFather noise
-	 @PageTitle Getting flat noise
-	 @FuncDesc This function returns the noise function value between -1.0 and 1.0 at given coordinates.
-	 @Cpp float TCODNoise::get(float *f, TypeNoise type = TypeNoise::Default)
-	 @C	float TCOD_noise_get(TCOD_noise_t noise, float *f)
-float TCOD_noise_get_ex(TCOD_noise_t noise, float *f, TypeNoise type)
-	 @Py noise_get(noise, f, type=NOISE_DEFAULT)
-	 @C# float TCODNoise::get(float[] f, type=NoiseDefault)
-	 @Param noise	In the C version, the generator handler, returned by the initialization function.
-	 @Param f	An array of coordinates, depending on the generator dimensions (between 1 and 4). The same array of coordinates will always return the same value.
-	 @Param type	The algorithm to use. If not defined, use the default one (set with setType or simplex if not set)
-	 @CppEx
-		 // 1d noise
-		 TCODNoise * noise1d = new TCODNoise(1);
-		 float p=0.5f;
-		 // get a 1d simplex value
-		 float value = noise1d->get(&p);
-		 // 2d noise
-		 TCODNoise * noise2d = new TCODNoise(2);
-		 float p[2]={0.5f,0.7f};
-		 // get a 2D Perlin value
-		 float value = noise2d->get(p, TCOD_NOISE_PERLIN);
-	 @CEx
-		 // 1d noise
-		 TCOD_noise_t noise1d = TCOD_noise_new(1,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-		 float p=0.5f;
-		 // get a 1d simplex value
-		 float value = TCOD_noise_get(noise1d,&p);
-		 // 2d noise
-		 TCOD_noise_t noise2d = TCOD_noise_new(2,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-		 float p[2]={0.5f,0.7f};
-		 // get a 2d perlin value
-		 float value = TCOD_noise_get_ex(noise2d,p,TCOD_NOISE_PERLIN);
-	 @PyEx
-		 # 1d noise
-		 noise1d = libtcod.noise_new(1)
-		 # get a 1d simplex value
-		 value = libtcod.noise_get(noise1d,[0.5])
-		 # 2d noise
-		 noise2d = libtcod.noise_new(2)
-		 # get a 2d perlin value
-		 value = libtcod.noise_get(noise2d,[0.5,0.7], libtcod.NOISE_PERLIN)
-		*/
+		 * This function returns the noise function value between -1.0 and 1.0
+		 * at given coordinates.
+		 *
+		 * @example
+		 * @code
+		 *
+		 * // 1 Dimension noise
+		 * Noise noise1d {1};
+		 * float p=0.5f;
+		 *
+		 * // get a 1d simplex value
+		 * float value = noise1d.get(&p);
+		 *
+		 * // 2 Dimension noise
+		 * Noise noise2d {2};
+		 * float p[2]={0.5f,0.7f};
+		 *
+		 * // get a 2D Perlin value
+		 * float value = noise2d.get(p, TCOD_NOISE_PERLIN);
+		 * @endcode
+		 *
+		 * @param f An array of coordinates, depending on the generator
+		 *  dimensions (between 1 and 4). The same array of coordinates
+		 *  will always return the same value.
+		 *
+		 * @param type The algorithm to use. If not defined, use the
+		 *  default one (set with setType or simplex if not set).
+		 *
+		 * @return noise function value between -1.0 and 1.0.
+		 */
 		float get(float* f, TypeNoise type = TypeNoise::Simplex);
 
 		/**
