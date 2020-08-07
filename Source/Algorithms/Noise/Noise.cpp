@@ -24,10 +24,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#include <stdlib.h>
 
-#include "Doryen/noise.hpp"
-#include <Doryen/Random/Number.hpp>
+#include "Doryen/Algorithms/Noise/Noise.hpp"
 
 using namespace Doryen;
 

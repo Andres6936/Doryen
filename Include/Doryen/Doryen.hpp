@@ -32,7 +32,6 @@
 
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
-#include "noise.hpp"
 #include "FOV/Fov.hpp"
 #include "namegen.hpp"
 
@@ -42,6 +41,7 @@
 #include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
 #include "Graphics/Color/Color.hpp"
+#include "Algorithms/Noise/Noise.hpp"
 #include "Graphics/Color/Palette.hpp"
 #include "Graphics/Callback/Render.hpp"
 #include "Exceptions/IllegalMethodCall.hpp"
