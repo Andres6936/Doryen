@@ -75,28 +75,14 @@ namespace Doryen
 		virtual ~Noise();
 
 		/**
-		@PageName noise_setType
-	 @PageFather noise
-	 @PageTitle Choosing a noise type
-	 @FuncTitle Choosing a noise type
-	 @FuncDesc Use this function to define the default algorithm used by the noise functions.
-		 The default algorithm is simplex. It's much faster than Perlin, especially in 4 dimensions. It has a better contrast too.
-	 @Cpp void TCODNoise::setType(TypeNoise type)
-	 @C void TCOD_noise_set_type(TCOD_noise_t noise, TypeNoise type)
-	 @Py noise_set_type(noise, type)
-	 @C# void TCODNoise::setType(type)
-	 @Param noise	In the C version, the generator handler, returned by the initialization function.
-	 @Param type		The algorithm to use, either TCOD_NOISE_SIMPLEX, TCOD_NOISE_PERLIN or TCOD_NOISE_WAVELET.
-	 @CppEx
-		 TCODNoise * noise1d = new TCODNoise(1);
-		 noise1d->setType(TCOD_NOISE_PERLIN);
-	 @CEx
-		 TCOD_noise_t noise1d = TCOD_noise_new(1,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-		 TCOD_noise_set_type(noise1d,TCOD_NOISE_PERLIN);
-	 @PyEx
-		 noise1d = libtcod.noise_new(1)
-		 libtcod.noise_set_type(noise1d,libtcod.NOISE_PERLIN)
-		*/
+		 * Use this function to define the default algorithm used by the noise
+		 * functions.
+		 *
+		 * The default algorithm is simplex. It's much faster than Perlin,
+		 * especially in 4 dimensions. It has a better contrast too.
+		 *
+		 * @param type The algorithm to use, either Simplex, Perlin or Wavelet.
+		 */
 		void setType(TypeNoise type);
 
 		/**
