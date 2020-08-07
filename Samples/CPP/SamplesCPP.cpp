@@ -58,16 +58,15 @@ int main(int argc, char* argv[])
 	int fullscreenWidth = 0;
 	int fullscreenHeight = 0;
 	bool fullscreen = false;
-    int fontFlags = TCOD_FONT_TYPE_GREYSCALE | TCOD_FONT_LAYOUT_TCOD, fontNewFlags = 0;
-    bool creditsEnd = false;
-    int cur_renderer = 0;
+	bool creditsEnd = false;
+	int cur_renderer = 0;
 
-	if (fontFlags == 0)
-	{ fontFlags = fontNewFlags; }
+	const std::uint8_t FONT_TYPE_GREYSCALE = 4;
+	const std::uint8_t FONT_LAYOUT_TCOD = 8;
 
 	Console console = Console();
 
-	console.setCustomFont(font, fontFlags, nbCharHoriz, nbCharVertic);
+	console.setCustomFont(font, FONT_TYPE_GREYSCALE | FONT_LAYOUT_TCOD, nbCharHoriz, nbCharVertic);
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen);
 

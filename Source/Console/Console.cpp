@@ -121,17 +121,23 @@ void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen
 
 void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)
 {
+	const std::uint8_t FONT_LAYOUT_ASCII_INCOL = 1;
+	const std::uint8_t FONT_LAYOUT_ASCII_INROW = 2;
+	const std::uint8_t FONT_TYPE_GREYSCALE = 4;
+	const std::uint8_t FONT_TYPE_GRAYSCALE = 4;
+	const std::uint8_t FONT_LAYOUT_TCOD = 8;
+
 	renderer->setFontfile(fontFile);
 
 	// if layout not defined, assume ASCII_INCOL
-	if (flags == 0 || flags == TCOD_FONT_TYPE_GREYSCALE)
+	if (flags == 0 || flags == FONT_TYPE_GREYSCALE)
 	{
-		flags |= TCOD_FONT_LAYOUT_ASCII_INCOL;
+		flags |= FONT_LAYOUT_ASCII_INCOL;
 	}
 
-	renderer->setFontHasRowLayout(((flags & TCOD_FONT_LAYOUT_ASCII_INROW) != 0));
-	renderer->setFontGrayscale((flags & TCOD_FONT_TYPE_GREYSCALE) != 0);
-	renderer->setFontHasDoryenLayout((flags & TCOD_FONT_LAYOUT_TCOD) != 0);
+	renderer->setFontHasRowLayout(((flags & FONT_LAYOUT_ASCII_INROW) != 0));
+	renderer->setFontGrayscale((flags & FONT_TYPE_GREYSCALE) != 0);
+	renderer->setFontHasDoryenLayout((flags & FONT_LAYOUT_TCOD) != 0);
 
 	if (nbCharHoriz > 0)
 	{
@@ -140,7 +146,7 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 	}
 	else
 	{
-		if ((flags & TCOD_FONT_LAYOUT_ASCII_INROW) || (flags & TCOD_FONT_LAYOUT_ASCII_INCOL))
+		if ((flags & FONT_LAYOUT_ASCII_INROW) || (flags & FONT_LAYOUT_ASCII_INCOL))
 		{
 			renderer->setFontCharHorizontalSize(16);
 			renderer->setFontCharVerticalSize(16);

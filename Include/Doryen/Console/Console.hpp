@@ -192,7 +192,7 @@ namespace Doryen
 		 * @note If set to 0 nbCharHoriz or nbCharVertic, there are deduced from
 		 * the font layout flag.
 		 */
-		void setCustomFont(const char* fontFile, int flags = TCOD_FONT_LAYOUT_ASCII_INCOL, int nbCharHoriz = 0,
+		void setCustomFont(const char* fontFile, int flags = 1, int nbCharHoriz = 0,
 				int nbCharVertic = 0);
 
         /**

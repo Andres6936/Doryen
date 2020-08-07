@@ -27,8 +27,7 @@ void Functor::Offscreen::render(KeyCode key, const Mouse& mouse)
 				"Offscreen console");
 
 		secondary.printRectEx(sample.getWidth() / 4, 2, sample.getWidth() / 2 - 2,
-				sample.getHeight() / 2,
-				TCOD_BKGND_NONE, TCOD_CENTER,
+				sample.getHeight() / 2, BackgroundFlag::NONE, 1,
 				"You can render to an offscreen console and blit in on another one, simulating alpha transparency.");
 	}
 
