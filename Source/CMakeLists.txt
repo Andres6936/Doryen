@@ -17,7 +17,7 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Core.C PUBLIC
 # Library for C++
 
 ADD_LIBRARY(Doryen.Core.Cpp
-        Algorithms/Drawing/Bresenham.cpp Perlin.cpp
+        Algorithms/Drawing/Bresenham.cpp Algorithms/Noise/Perlin.cpp
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Graphics/Color/Color.cpp
         Console/Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
         Image/Mipmap.cpp
