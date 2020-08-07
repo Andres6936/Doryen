@@ -1,7 +1,7 @@
 #ifndef LIBTCOD_MAPDATA_HPP
 #define LIBTCOD_MAPDATA_HPP
 
-#include <Doryen/libtcod.h>
+#include <cstdint>
 
 class MapData
 {
@@ -11,9 +11,9 @@ public:
 	/**
 	 * Direction of lowest neighbour
 	 */
-	uint8 flowDir = 0;
+	std::uint8_t flowDir = 0;
 	float slope = 0;
-	uint8 riverId = 0;
+	std::uint8_t riverId = 0;
 
 	MapData();
 

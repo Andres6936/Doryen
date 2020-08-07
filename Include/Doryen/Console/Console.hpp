@@ -41,8 +41,6 @@
 #include "Doryen/Geometry/Size.hpp"
 #include "Doryen/Renderer/Sdl.hpp"
 
-#include "Doryen/libtcod.h"
-
 /**
         @PageName console_bkgnd_flag_t
         @PageTitle Background effect flags

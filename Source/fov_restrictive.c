@@ -33,8 +33,6 @@
 
 #include <stdlib.h> /* for NULL in VS */
 
-#include "Doryen/libtcod.h"
-
 /* angle ranges */
 double* start_angle = NULL;
 double* end_angle = NULL;
