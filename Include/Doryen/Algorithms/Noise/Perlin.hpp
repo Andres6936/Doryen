@@ -32,69 +32,78 @@
 #include <vector>
 #include <array>
 
-enum class TypeNoise : unsigned char
-{
-	Perlin,
-	Simplex,
-	Wavelet,
-};
-
-class Perlin
+namespace Doryen
 {
 
-public:
+	enum class TypeNoise : unsigned char
+	{
+		Perlin,
+		Simplex,
+		Wavelet,
+	};
 
-	const static std::uint8_t MAX_OCTAVES = 128;
-	const static std::uint8_t MAX_DIMENSIONS = 4;
+	namespace Algorithms
+	{
 
-	int ndim;
+		class Perlin
+		{
 
-	float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
+		public:
 
-	/* fractal stuff */
-	float lacunarity;
+			const static std::uint8_t MAX_OCTAVES = 128;
+			const static std::uint8_t MAX_DIMENSIONS = 4;
 
-	std::vector<float> waveletTileData;
+			int ndim;
 
-	std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
+			float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 
-	std::array<float, MAX_OCTAVES> exponent;
+			/* fractal stuff */
+			float lacunarity;
 
-	/* noise type */
-	TypeNoise noise_type = TypeNoise::Simplex;
+			std::vector<float> waveletTileData;
 
-	// Construct
+			std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
 
-	Perlin() = default;
+			std::array<float, MAX_OCTAVES> exponent;
 
-	Perlin(std::int32_t _dimensions, float _lacunarity);
+			/* noise type */
+			TypeNoise noise_type = TypeNoise::Simplex;
 
-	// Methods
+			// Construct
 
-	void prepareNoiseWavelet();
+			Perlin() = default;
 
-	void normalize(float* f);
+			Perlin(std::int32_t _dimensions, float _lacunarity);
 
-	float noisePerlin(float* f);
+			// Methods
 
-	float noiseSimplex(float* f);
+			void prepareNoiseWavelet();
 
-	float noiseWavelet(float* f);
+			void normalize(float* f);
 
-	float noiseFBM(float* f, float octaves);
+			float noisePerlin(float* f);
 
-	float noiseTurbulence(float* f, float octaves);
+			float noiseSimplex(float* f);
 
-	float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
+			float noiseWavelet(float* f);
 
-	// Getters
+			float noiseFBM(float* f, float octaves);
 
-	TypeNoise getNoiseType() const;
+			float noiseTurbulence(float* f, float octaves);
 
-	// Setters
+			float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
 
-	void setNoiseType(TypeNoise _noiseType);
-};
+			// Getters
 
+			TypeNoise getNoiseType() const;
+
+			// Setters
+
+			void setNoiseType(TypeNoise _noiseType);
+		};
+
+
+	}
+}
 
 #endif

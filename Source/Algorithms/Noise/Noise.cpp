@@ -31,13 +31,13 @@ using namespace Doryen;
 
 Noise::Noise(int dimensions, TypeNoise type)
 {
-	data = new Perlin(dimensions, 2.0f);
+	data = new Algorithms::Perlin(dimensions, 2.0f);
 	data->setNoiseType(type);
 }
 
 Noise::Noise(int dimensions, float lacunarity, TypeNoise type)
 {
-	data = new Perlin(dimensions, lacunarity);
+	data = new Algorithms::Perlin(dimensions, lacunarity);
 	data->setNoiseType(type);
 }
 

@@ -34,6 +34,7 @@
 #include "Doryen/Random/Number.hpp"
 
 using namespace Doryen;
+using namespace Doryen::Algorithms;
 
 #define WAVELET_TILE_SIZE 32
 #define WAVELET_ARAD 16

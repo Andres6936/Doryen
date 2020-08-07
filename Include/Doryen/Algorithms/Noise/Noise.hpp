@@ -333,7 +333,7 @@ float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, 
 
 	public:
 
-		Perlin* data;
+		Algorithms::Perlin* data;
 	};
 
 }
