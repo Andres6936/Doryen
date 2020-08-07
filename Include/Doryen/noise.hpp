@@ -28,7 +28,7 @@
 #ifndef _TCOD_PERLIN_HPP
 #define _TCOD_PERLIN_HPP
 
-#include "OldNoise.hpp"
+#include "Perlin.hpp"
 
 #include <array>
 #include <vector>

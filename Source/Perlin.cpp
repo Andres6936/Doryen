@@ -30,7 +30,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "Doryen/OldNoise.hpp"
+#include "Doryen/Perlin.hpp"
 #include "Doryen/Random/Number.hpp"
 
 using namespace Doryen;

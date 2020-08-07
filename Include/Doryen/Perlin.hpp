@@ -32,8 +32,6 @@
 #include <vector>
 #include <array>
 
-typedef void* TCOD_noise_t;
-
 enum class TypeNoise : unsigned char
 {
 	Perlin,
@@ -49,9 +47,6 @@ public:
 
 	const static std::uint8_t MAX_OCTAVES = 128;
 	const static std::uint8_t MAX_DIMENSIONS = 4;
-
-	constexpr static float DEFAULT_HURST = 0.5f;
-	constexpr static float DEFAULT_LACUNARITY = 2.0f;
 
 	int ndim;
 
