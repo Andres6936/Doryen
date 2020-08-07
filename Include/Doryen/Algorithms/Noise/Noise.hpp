@@ -110,36 +110,6 @@ namespace Doryen
 
 		Noise(int dimensions, float lacunarity, TypeNoise type = TypeNoise::Simplex);
 
-		/**
-		@PageName noise_init
-		@FuncDesc To release ressources used by a generator, use those functions :
-		@Cpp TCODNoise::~TCODNoise()
-		@C void TCOD_noise_delete(TCOD_noise_t noise)
-		@Py noise_delete(noise)
-		@C# void TCODNoise::Dispose()
-		@Param noise	In the C and python versions, the generator handler, returned by the initialization function.
-		@CppEx
-			// create a generator
-			TCODNoise *noise = new TCODNoise(2);
-			// use it
-			...
-			// destroy it
-			delete noise;
-		@CEx
-			// create a generator
-			TCOD_noise_t noise = TCOD_noise_new(2,TypeNoise::Default_HURST, TCOD_NOISE_DEFAUT_LACUNARITY, NULL);
-			// use it
-			...
-			// destroy it
-			TCOD_noise_delete(noise);
-		@PyEx
-			# create a generator
-			noise = libtcod.noise_new(2,litbcod.NOISE_DEFAULT_HURST, litbcod.NOISE_DEFAUT_LACUNARITY, 0)
-			# use it
-			...
-			# destroy it
-			litbcod.noise_delete(noise)
-		*/
 		virtual ~Noise();
 
 		/**
