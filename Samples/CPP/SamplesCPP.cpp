@@ -108,9 +108,7 @@ int main(int argc, char* argv[])
 						console.getElapsedSeconds()));
 
 		console.write(2, 47,
-				format("{c}{c} : select a sample",
-						(char)TCOD_CHAR_ARROW_N,
-						(char)TCOD_CHAR_ARROW_S));
+				format("{c}{c} : select a sample", (char)24, (char)25));
 
 		if (Console::isFullscreen())
 		{

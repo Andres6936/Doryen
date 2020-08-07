@@ -123,7 +123,7 @@ void Functor::FOV::drawDungeon()
 			}
 
 			// Draw the window
-			if (dungeon[y][x] == '=') sample.writeChar(x, y, TCOD_CHAR_DHLINE, BackgroundFlag::SET);
+			if (dungeon[y][x] == '=') sample.writeChar(x, y, (char)205, BackgroundFlag::SET);
 		}
 	}
 }
