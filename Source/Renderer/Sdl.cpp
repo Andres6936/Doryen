@@ -1,4 +1,3 @@
-#include <fstream>
 #include <iostream>
 
 #include <Doryen/Image/Image.hpp>
