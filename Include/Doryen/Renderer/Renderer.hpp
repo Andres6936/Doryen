@@ -21,8 +21,6 @@ namespace Doryen
 		// Private for common class, public for inheritance class
 	protected:
 
-		static bool hasInstanceActive;
-
 		std::vector<Char> buffer;
 
 		std::vector<Char> oldBuffer;

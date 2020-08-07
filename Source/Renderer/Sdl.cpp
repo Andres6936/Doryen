@@ -83,115 +83,80 @@ int filterMovementMouse(const SDL_Event* event)
 
 void Doryen::SDL::onRenderer()
 {
-	if (hasInstanceActive)
+	if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) == -1)
 	{
 		// TODO: Throw Error
 	}
+
+	if (SDL_EnableKeyRepeat(
+			SDL_DEFAULT_REPEAT_DELAY,
+			SDL_DEFAULT_REPEAT_INTERVAL) == -1)
+	{
+		// TODO: Throw Error
+	}
+
+	createTablesOfCharacteres();
+
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+
+	if (charmap == nullptr)
+	{
+		// reload the font when switching
+		// renderer to restore original character colors
+		loadFont();
+	}
+
+	// Create the buffer for render
+	// characteres in the console
+	createBuffer();
+
+	if (isFullscreen())
+	{
+		setWindowInFullscreen();
+	}
+		// No is fullscreen
 	else
 	{
-		if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) == -1)
-		{
-			// TODO: Throw Error
-		}
-
-		if (SDL_EnableKeyRepeat(
-				SDL_DEFAULT_REPEAT_DELAY,
-				SDL_DEFAULT_REPEAT_INTERVAL) == -1)
-		{
-			// TODO: Throw Error
-		}
-
-		createTablesOfCharacteres();
-
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
-
-		std::string filename = "./libtcod.cfg";
-
-		unsigned filesize = 0;
-		unsigned char* buffer;
-
-		std::ifstream stream;
-
-		stream.open(filename, std::ifstream::binary);
-
-		if (stream.is_open())
-		{
-			stream.seekg(0, std::ifstream::end);
-			filesize = stream.tellg();
-			stream.seekg(0, std::ifstream::beg);
-
-			buffer = new unsigned char[filesize];
-
-			stream.read((char*)buffer, filesize);
-
-			// TODO: Parser file
-
-			delete[] buffer;
-
-			stream.close();
-		}
-
-		if (charmap == nullptr)
-		{
-			// reload the font when switching
-			// renderer to restore original character colors
-			loadFont();
-		}
-
-		// Create the buffer for render
-		// characteres in the console
-		createBuffer();
-
-		if (isFullscreen())
-		{
-			setWindowInFullscreen();
-		}
-			// No is fullscreen
-		else
-		{
-			screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
-		}
-
-		std::cout << "Using SDL Renderer.\n";
-
-		SDL_EnableUNICODE(1);
-
-		hasInstanceActive = true;
-
-		// An problem with the support to event
-		// generate for the mouse, is that SDL
-		// have the option of process the events
-		// of two ways, the first is added the
-		// event generate in a queue and the second
-		// is get the last event generate.
-
-		// Actually the second of process the event
-		// is used for Doryen and is that in the past
-		// Libtcod used the first way of process event
-		// but this have the problem that the events
-		// generate in an frame concrete not was all
-		// process at same time, and if this events
-		// are much, the event can will process inside
-		// of 15 or more frames later.
-
-		// This change produce that the movement
-		// relatives of mouse cannot be get, but
-		// in other case, the event generate for the
-		// mouse and keyboard can be get with a flow
-		// const without affect the one to other.
-
-		// The events generate for the movement mouse
-		// are too many and can be fill the queue of only
-		// events that not necessary will be process
-		// sequentially if not immediately, for it, is
-		// needed filter the events and allow only events
-		// that NOT ARE ABOVE MOVEMENT MOUSE.
-		SDL_SetEventFilter(filterMovementMouse);
+		screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
 	}
+
+	std::cout << "Using SDL Renderer.\n";
+
+	SDL_EnableUNICODE(1);
+
+	// An problem with the support to event
+	// generate for the mouse, is that SDL
+	// have the option of process the events
+	// of two ways, the first is added the
+	// event generate in a queue and the second
+	// is get the last event generate.
+
+	// Actually the second of process the event
+	// is used for Doryen and is that in the past
+	// Libtcod used the first way of process event
+	// but this have the problem that the events
+	// generate in an frame concrete not was all
+	// process at same time, and if this events
+	// are much, the event can will process inside
+	// of 15 or more frames later.
+
+	// This change produce that the movement
+	// relatives of mouse cannot be get, but
+	// in other case, the event generate for the
+	// mouse and keyboard can be get with a flow
+	// const without affect the one to other.
+
+	// The events generate for the movement mouse
+	// are too many and can be fill the queue of only
+	// events that not necessary will be process
+	// sequentially if not immediately, for it, is
+	// needed filter the events and allow only events
+	// that NOT ARE ABOVE MOVEMENT MOUSE.
+	SDL_SetEventFilter(filterMovementMouse);
 }
 
 void Doryen::SDL::loadFont()

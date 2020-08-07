@@ -2,8 +2,6 @@
 
 // Static Members
 
-bool Doryen::Renderer::hasInstanceActive = false;
-
 const std::array<int, 256> Doryen::Renderer::layoutAsciiCode =
 
 		{
