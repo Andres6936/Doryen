@@ -36,7 +36,6 @@
 #include "Random/Number.hpp"
 #include "Format/Flossy.hpp"
 #include "Console/Console.hpp"
-#include "Platform/Platform.hpp"
 #include "Exceptions/Exception.hpp"
 #include "Graphics/Color/Color.hpp"
 #include "Algorithms/Noise/Noise.hpp"

@@ -1,4 +1,3 @@
-#include <Doryen/Platform/Platform.hpp>
 #include "Doryen/Renderer/Renderer.hpp"
 
 // Static Members

@@ -21,7 +21,7 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp Graphics/Color/Color.cpp
         Console/Console.cpp FOV/Fov.cpp Algorithms/Generation/Heightmap.cpp Image/Image.cpp Image/ImageData.cpp
         Image/Mipmap.cpp
-        Algorithms/Noise/Noise.cpp Platform/Platform.cpp Renderer/Sdl.cpp
+        Algorithms/Noise/Noise.cpp Renderer/Sdl.cpp
         FOV/CircularRaycasting.cpp FOV/DiamondRayCasting.cpp FOV/Permissive.cpp FOV/Restrictive.cpp
         FOV/ShadowCasting.cpp Random/Number.cpp
         Algorithms/Util/Cell.cpp Algorithms/Util/Node.cpp Algorithms/Pathfinding/AStar.cpp
