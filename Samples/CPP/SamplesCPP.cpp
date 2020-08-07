@@ -24,12 +24,12 @@ using namespace Doryen;
 
 using namespace std::string_literals;
 
-std::array<std::unique_ptr<Functor::ISample>, 11> configureExamples(std::reference_wrapper<Console> _console)
+std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::reference_wrapper<Console> _console)
 {
 	// Although we declare a pointer to ISample, the reality is that
 	// needed a instance of object derived of ISample, the aim is
 	// allow save the pointer in an array and use its like a scene manager.
-	std::array<std::unique_ptr<Functor::ISample>, 11> pointers;
+	std::array<std::unique_ptr<Functor::ISample>, 10> pointers;
 
 	// Respect the sort original of the examples
 	pointers[0] = std::make_unique<Functor::Color>("True colors"s, _console);;
