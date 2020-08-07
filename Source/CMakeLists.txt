@@ -1,7 +1,7 @@
 # Library for C
 
 ADD_LIBRARY(Doryen.Core.C
-        fov_restrictive.c lex_c.c list_c.c mersenne_c.c namegen_c.c
+        fov_restrictive.c lex_c.c list_c.c mersenne_c.c
         parser_c.c)
 
 ADD_LIBRARY(Doryen::Core::C ALIAS Doryen.Core.C)
