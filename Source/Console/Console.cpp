@@ -25,13 +25,11 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <cstdio>
 #include <cstring>
 #include <iostream>
 
 #include "Doryen/Console/Console.hpp"
 #include "Doryen/Doryen.hpp"
-#include "Doryen/libtcod_int.h"
 
 using namespace Doryen;
 
