@@ -232,10 +232,6 @@ void Functor::FOV::switchTypeFieldView()
 		break;
 
 	case TypeFOV::Permissive:
-		algonum = TypeFOV::Restrictive;
-		break;
-
-	case TypeFOV::Restrictive:
 		algonum = TypeFOV::Basic;
 		break;
 	}
@@ -257,8 +253,5 @@ std::string Functor::FOV::typeFOVString()
 
 	case TypeFOV::Permissive:
 		return "PERMISSIVE";
-
-	case TypeFOV::Restrictive:
-		return "RESTRICTIVE";
 	}
 }
