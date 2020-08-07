@@ -328,9 +328,6 @@ float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, 
 		*/
 		float getTurbulence(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
-	protected :
-		friend class TCODHeightMap;
-
 	public:
 
 		Algorithms::Perlin* data;
