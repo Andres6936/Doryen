@@ -1,20 +1,21 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
 PROJECT(Doryen VERSION 2020.0807 LANGUAGES CXX)
 
-OPTION(DORYEN_SAMPLES "Generate Doryen Samples" ON)
-OPTION(DORYEN_TESTS "Execute Doryen Test" OFF)
+OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" ON)
+OPTION(DORYEN_TESTS "Generate and Execute the Doryen Test" OFF)
 
-ADD_SUBDIRECTORY(Source) #Needs to come first since Samples depend on it
+# Needs to come first since Samples depend on it
+ADD_SUBDIRECTORY(Source)
 
 # Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the Samples (eg. library API changes).
 IF (DORYEN_SAMPLES)
     ADD_SUBDIRECTORY(Samples/CPP)
-    ADD_SUBDIRECTORY(Samples/Frost) # Frost effect demo
-    ADD_SUBDIRECTORY(Samples/Navier) # Navier demo
-    ADD_SUBDIRECTORY(Samples/Rad) # Radiosity demo
-    ADD_SUBDIRECTORY(Samples/Ripples) # Water ripples demo
-    ADD_SUBDIRECTORY(Samples/Weather) # Weather + Day/Night demo
-    ADD_SUBDIRECTORY(Samples/Worldgen) # WorldGen demo
+    ADD_SUBDIRECTORY(Samples/Frost)
+    ADD_SUBDIRECTORY(Samples/Navier)
+    ADD_SUBDIRECTORY(Samples/Rad)
+    ADD_SUBDIRECTORY(Samples/Ripples)
+    ADD_SUBDIRECTORY(Samples/Weather)
+    ADD_SUBDIRECTORY(Samples/Worldgen)
 ENDIF ()
 
 IF (DORYEN_TESTS)
