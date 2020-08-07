@@ -27,9 +27,6 @@
 
 #pragma once
 
-#include "libtcod.h"
-#include "list.hpp"
-
 #include "FOV/Fov.hpp"
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
