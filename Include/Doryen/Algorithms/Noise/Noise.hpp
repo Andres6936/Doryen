@@ -59,53 +59,15 @@ namespace Doryen
 	{
 
 	public :
+
 		/**
-		@PageName noise_init
-		@PageFather noise
-		@PageTitle Creating a noise generator
-		@FuncDesc Those functions initialize a noise generator from a number of dimensions (from 1 to 4), some fractal parameters and a random number generator.
-			The C++ version provides several constructors. When the hurst and lacunarity parameters are omitted, default values (TypeNoise::Default_HURST = 0.5f and TypeNoise::Default_LACUNARITY = 2.0f) are used.
-		@Cpp
-			TCODNoise::TCODNoise(int dimensions, TypeNoise type = TypeNoise::Default)
-			TCODNoise::TCODNoise(int dimensions, TCODRandom *random, TypeNoise type = TypeNoise::Default)
-			TCODNoise::TCODNoise(int dimensions, float hurst, float lacunarity, TypeNoise type = TypeNoise::Default)
-			TCODNoise::TCODNoise(int dimensions, float hurst, float lacunarity, TCODRandom *random, TypeNoise type = TypeNoise::Default)
-		@C TCOD_noise_t TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_random_t random)
-		@Py noise_new(dimensions, hurst=TypeNoise::Default_HURST, lacunarity=TypeNoise::Default_LACUNARITY, random=0)
-		@C#
-			TCODNoise::TCODNoise(int dimensions)
-			TCODNoise::TCODNoise(int dimensions, TCODRandom random)
-			TCODNoise::TCODNoise(int dimensions, float hurst, float lacunarity)
-			TCODNoise::TCODNoise(int dimensions, float hurst, float lacunarity, TCODRandom random)
-		@Param dimensions	From 1 to 4.
-		@Param hurst	For fractional brownian motion and turbulence, the fractal Hurst exponent. You can use the default value TypeNoise::Default_HURST = 0.5f.
-		@Param lacunarity	For fractional brownian motion and turbulence, the fractal lacunarity. You can use the default value TypeNoise::Default_LACUNARITY = 2.0f.
-		@Param random	A random number generator obtained with the Mersenne twister toolkit or NULL to use the default random number generator.
-		@CppEx
-			// 1 dimension generator
-			TCODNoise * noise1d = new TCODNoise(1);
-			// 2D noise with a predefined random number generator
-			TCODRandom *myRandom = new TCODRandom();
-			TCODNoise *noise2d = new TCODNoise(2,myRandom);
-			// a 3D noise generator with a specific fractal parameters
-			TCODNoise *noise3d = new TCODNoise(3,0.7f,1.4f);
-		@CEx
-			// 1 dimension generator
-			TCOD_noise_t noise1d = TCOD_noise_new(1,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-			// 2D noise with a predefined random number generator
-			TCOD_random_t my_random = TCOD_random_new();
-			TCOD_noise_t noise2d = TCOD_noise_new(2,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,my_random);
-			// a 3D noise generator with a specific fractal parameters
-			TCOD_noise_t noise3d = TCOD_noise_new(3,0.7f, 1.4f,NULL);
-		@PyEx
-			# 1 dimension generator
-			noise1d = libtcod.noise_new(1)
-			# 2D noise with a predefined random number generator
-			my_random = libtcod.random_new();
-			noise2d = libtcod.noise_new(2,libtcod.NOISE_DEFAULT_HURST, libtcod.NOISE_DEFAULT_LACUNARITY,my_random)
-			# a 3D noise generator with a specific fractal parameters
-			noise3d = libtcod.noise_new(3, 0.7, 1.4)
-		*/
+		 * Those functions initialize a noise generator from a number of
+		 * dimensions (from 1 to 4), some fractal parameters and a random
+		 * number generator.
+		 *
+		 * @param dimensions From 1 to 4.
+		 * @param type Type of algorithm to used for generate the noise.
+		 */
 		Noise(int dimensions, TypeNoise type = TypeNoise::Simplex);
 
 		Noise(int dimensions, float lacunarity, TypeNoise type = TypeNoise::Simplex);
