@@ -30,11 +30,9 @@
 #include "libtcod.h"
 #include "list.hpp"
 
+#include "FOV/Fov.hpp"
 #include "Image/Image.hpp"
 #include "Renderer/Sdl.hpp"
-#include "FOV/Fov.hpp"
-#include "namegen.hpp"
-
 #include "Random/Number.hpp"
 #include "Format/Flossy.hpp"
 #include "Console/Console.hpp"

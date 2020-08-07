@@ -25,10 +25,10 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 		// parse all the files
 		for (auto it = files.begin(); it != files.end(); it++)
 		{
-			TCODNamegen::parse(it->path());
+			Name::parse(it->path());
 		}
 		// get the sets list
-		sets = TCODNamegen::getSets();
+		sets = Name::getSets();
 		nbSets = sets.size();
 	}
 
@@ -68,7 +68,7 @@ void Functor::Name::render(KeyCode key, const Mouse& mouse)
 	{
 		delay -= 0.5f;
 		// add a new name to the list
-		names.push(TCODNamegen::generate(sets.get(curSet), true));
+		names.push(Name::generate(sets.get(curSet), true));
 	}
 	if (key == KeyCode::KP_ADD)
 	{
