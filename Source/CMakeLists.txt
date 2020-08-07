@@ -1,12 +1,12 @@
-FIND_PACKAGE(SDL REQUIRED)
+FIND_PACKAGE(SDL)
 
 IF (NOT SDL_FOUND)
-    MESSAGE("Cannot found SDL Version 1.2.15" FATAL_ERROR)
+    MESSAGE(FATAL_ERROR "Cannot found SDL Version 1.2.15")
 ENDIF ()
 
-MESSAGE("Version found of SDL ${SDL_VERSION_STRING}")
+MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
 
-ADD_LIBRARY(Doryen.Core.Cpp
+ADD_LIBRARY(Doryen.Framework
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
         Algorithms/Generation/Heightmap.cpp
         Algorithms/Pathfinding/AStar.cpp
@@ -40,11 +40,11 @@ ADD_LIBRARY(Doryen.Core.Cpp
         Event/Key.cpp
         )
 
-ADD_LIBRARY(Doryen::Core::Cpp ALIAS Doryen.Core.Cpp)
+ADD_LIBRARY(Doryen::Framework ALIAS Doryen.Framework)
 
-SET_TARGET_PROPERTIES(Doryen.Core.Cpp PROPERTIES CXX_STANDARD 17)
-TARGET_LINK_LIBRARIES(Doryen.Core.Cpp PRIVATE ${SDL_LIBRARY})
-TARGET_INCLUDE_DIRECTORIES(Doryen.Core.Cpp
+SET_TARGET_PROPERTIES(Doryen.Framework PROPERTIES CXX_STANDARD 17)
+TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
+TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
         $<INSTALL_INTERFACE:../Include/>
