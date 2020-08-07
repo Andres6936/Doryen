@@ -1,22 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
-
-PROJECT(Doryen VERSION 2020.0804 LANGUAGES CXX C)
-
-# All projects need "Include" directory
+PROJECT(Doryen VERSION 2020.0807 LANGUAGES CXX)
 
 OPTION(DORYEN_SAMPLES "Generate Doryen Samples" ON)
-OPTION(DORYEN_TESTS "Execute Doryen Test" ON)
-
-FIND_PACKAGE(SDL REQUIRED)
-
-SET(EXTERNAL_LIBS
-        ${SDL_LIBRARY} # this sucks, it's LIBRARY not LIBRARIES
-        )
-
-SET(EXTERNAL_INCLUDES
-        ${SDL_INCLUDE_DIR} # again, singular...
-        )
-
+OPTION(DORYEN_TESTS "Execute Doryen Test" OFF)
 
 ADD_SUBDIRECTORY(Source) #Needs to come first since Samples depend on it
 
