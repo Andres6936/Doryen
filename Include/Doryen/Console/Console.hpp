@@ -42,7 +42,6 @@
 #include "Doryen/Renderer/Sdl.hpp"
 
 #include "Doryen/libtcod.h"
-#include "Doryen/console_types.h"
 
 /**
         @PageName console_bkgnd_flag_t
@@ -390,7 +389,7 @@ namespace Doryen
 		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
 		*/
 		int
-		printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char* fmt,
+		printRectEx(int x, int y, int w, int h, BackgroundFlag flag, int alignment, const char* fmt,
 				...);
 
 		/**

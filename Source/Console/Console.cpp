@@ -755,8 +755,8 @@ void Doryen::Console::write(int x, int y, const std::string& fmt)
 	}
 }
 
-int Doryen::Console::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag,
-		TCOD_alignment_t alignment, const char* fmt, ...)
+int Doryen::Console::printRectEx(int x, int y, int w, int h, BackgroundFlag flag,
+		int alignment, const char* fmt, ...)
 {
 //	va_list ap;
 //	va_start(ap, fmt);

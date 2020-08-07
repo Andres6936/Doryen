@@ -33,7 +33,6 @@
 #include <stdbool.h>
 
 #include <Doryen/fov.h>
-#include <Doryen/console_types.h>
 #include <Doryen/mersenne_types.h>
 
 /* tcodlib internal stuff */

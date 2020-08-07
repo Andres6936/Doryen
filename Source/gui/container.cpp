@@ -30,10 +30,12 @@ void Container::render() {
 	}
 }
 
-void Container::update(const TCOD_key_t k) {
+void Container::update(const Doryen::Key k)
+{
 	Widget::update(k);
-	for ( Widget **wid=content.begin(); wid != content.end(); wid ++ ) {
-		if ( (*wid)->isVisible() ) (*wid)->update(k);
+	for (Widget** wid = content.begin(); wid != content.end(); wid++)
+	{
+		if ((*wid)->isVisible()) (*wid)->update(k);
 	}
 }
 
