@@ -37,7 +37,6 @@ enum class TypeNoise : unsigned char
 	Perlin,
 	Simplex,
 	Wavelet,
-	Default,
 };
 
 class Perlin
@@ -62,7 +61,7 @@ public:
 	std::array<float, MAX_OCTAVES> exponent;
 
 	/* noise type */
-	TypeNoise noise_type = TypeNoise::Default;
+	TypeNoise noise_type = TypeNoise::Simplex;
 
 	// Construct
 

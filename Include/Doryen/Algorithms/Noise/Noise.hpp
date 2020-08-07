@@ -125,9 +125,9 @@ namespace Doryen
 			# a 3D noise generator with a specific fractal parameters
 			noise3d = libtcod.noise_new(3, 0.7, 1.4)
 		*/
-		Noise(int dimensions, TypeNoise type = TypeNoise::Default);
+		Noise(int dimensions, TypeNoise type = TypeNoise::Simplex);
 
-		Noise(int dimensions, float lacunarity, TypeNoise type = TypeNoise::Default);
+		Noise(int dimensions, float lacunarity, TypeNoise type = TypeNoise::Simplex);
 
 		/**
 		@PageName noise_init
@@ -279,7 +279,7 @@ float TCOD_noise_get_fbm(TCOD_noise_t noise, float *f, float octaves, TypeNoise 
 			# 2d perlin fbm
 			value = libtcod.noise_get_fbm(noise2d,[0.5,0.7],32.0, libtcod.NOISE_PERLIN)
 		*/
-		float getFbm(float* f, float octaves, TypeNoise type = TypeNoise::Default);
+		float getFbm(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 		/**
 		@PageName noise_get_turbulence
@@ -326,7 +326,7 @@ float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, 
 			# 2d perlin turbulence
 			value = libtcod.noise_get_turbulence(noise2d,[0.5,0.7],32.0,libtcod.NOISE_PERLIN)
 		*/
-		float getTurbulence(float* f, float octaves, TypeNoise type = TypeNoise::Default);
+		float getTurbulence(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 	protected :
 		friend class TCODHeightMap;
