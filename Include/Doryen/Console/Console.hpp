@@ -105,10 +105,6 @@ namespace Doryen
 		 */
 		Color background = Palette::GRAY_WARN_90;
 
-		Color controlBackground[TCOD_COLCTRL_NUMBER];
-
-		Color controlForeground[TCOD_COLCTRL_NUMBER];
-
 		/**
 		 * Current console.
 		 */
