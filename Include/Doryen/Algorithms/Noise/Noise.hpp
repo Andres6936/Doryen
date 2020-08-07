@@ -137,50 +137,21 @@ namespace Doryen
 		float getFbm(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 		/**
-		@PageName noise_get_turbulence
-		@PageFather noise
-		@PageTitle Getting turbulence
-		@FuncDesc This function returns the turbulence function value between -1.0 and 1.0 at given coordinates, using fractal hurst and lacunarity defined when the generator has been created.
-		@Cpp float TCODNoise::getTurbulence(float *f, float octaves, TypeNoise type = TypeNoise::Default)
-		@C	float TCOD_noise_get_turbulence(TCOD_noise_t noise, float *f, float octaves)
-float TCOD_noise_get_turbulence_ex(TCOD_noise_t noise, float *f, float octaves, TypeNoise)
-		@Py noise_get_turbulence(noise, f, octaves, type=NOISE_DEFAULT)
-		@C# float TCODNoise::getTurbulence(float[] f, float octaves, type=NoiseDefault)
-		@Param noise	In the C version, the generator handler, returned by the initialization function.
-		@Param f	An array of coordinates, depending on the generator dimensions (between 1 and 4). The same array of coordinates will always return the same value.
-		@Param octaves	Number of iterations. Must be < TCOD_NOISE_MAX_OCTAVES = 128
-		@CppEx
-			// 1d fbm
-			TCODNoise * noise1d = new TCODNoise(1);
-			float p=0.5f;
-			// a 1d simplex turbulence
-			float value = noise1d->getTurbulence(&p,32.0f);
-			// 2d fbm
-			TCODNoise * noise2d = new TCODNoise(2);
-			float p[2]={0.5f,0.7f};
-			// a 2d perlin turbulence
-			float value = noise2d->getTurbulence(p,32.0f, TCOD_NOISE_PERLIN);
-		@CEx
-			// 1d fbm
-			TCOD_noise_t noise1d = TCOD_noise_new(1,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-			float p=0.5f;
-			// a 1d simplex turbulence
-			float value = TCOD_noise_get_turbulence(noise1d,&p,32.0f);
-			// 2d fbm
-			TCOD_noise_t noise2d = TCOD_noise_new(2,TypeNoise::Default_HURST, TypeNoise::Default_LACUNARITY,NULL);
-			float p[2]={0.5f,0.7f};
-			// a 2d perlin turbulence
-			float value = TCOD_noise_get_turbulence_ex(noise2d,p,32.0f, TCOD_NOISE_PERLIN);
-		@PyEx
-			# 1d noise
-			noise1d = libtcod.noise_new(1)
-			# 1d simplex turbulence
-			value = libtcod.noise_get_turbulence(noise1d,[0.5],32.0)
-			# 2d noise
-			noise2d = libtcod.noise_new(2)
-			# 2d perlin turbulence
-			value = libtcod.noise_get_turbulence(noise2d,[0.5,0.7],32.0,libtcod.NOISE_PERLIN)
-		*/
+		 * This function returns the turbulence function value between -1.0
+		 * and 1.0 at given coordinates, using fractal hurst and lacunarity
+		 * defined when the generator has been created.
+		 *
+		 * @param f An array of coordinates, depending on the generator
+		 *  dimensions (between 1 and 4). The same array of coordinates
+		 *  will always return the same value.
+		 *
+		 * @param octaves Number of iterations. Must be < MAX_OCTAVES = 128
+		 *
+		 * @param type The algorithm to use. If not defined, use the default
+		 *  one (set with setType or simplex if not set)
+		 *
+		 * @return the turbulence function value between -1.0 and 1.0.
+		 */
 		float getTurbulence(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 	public:
