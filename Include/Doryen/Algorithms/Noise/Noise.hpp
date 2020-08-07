@@ -37,43 +37,24 @@
 namespace Doryen
 {
 
-
-
-/**
- @PageName noise
- @PageCategory Base toolkits
- @PageTitle Noise generator
- @PageDesc This toolkit provides several functions to generate Perlin noise and other derived noises. It can handle noise functions from 1 to 4 dimensions.
- @FuncDesc
-	Usage example:
-	1D noise : the variation of a torch intensity
-	2D fbm : heightfield generation or clouds
-	3D fbm : animated smoke
-	If you don't know what is Perlin noise and derived functions, or what is the influence of the different fractal parameters, check the Perlin noise sample included with the library.
-	<table width="800px" class="none">
-		<tr><td align="center">Simplex noise, fbm, turbulence</td>
-		<td align="center"><img border="1" src="simplex.png"></td>
-		<td align="center"><img border="1" src="fbm_simplex.png"></td>
-		<td align="center"><img border="1" src="turbulence_simplex.png"></td></tr>
-		<tr><td align="center">Perlin noise, fbm, turbulence</td>
-		<td align="center"><img border="1" src="perlin.png"></td>
-		<td align="center"><img border="1" src="fbm_perlin.png"></td>
-		<td align="center"><img border="1" src="turbulence_perlin.png"></td></tr>
-		<tr><td align="center">Wavelet noise, fbm, turbulence</td>
-		<td align="center"><img border="1" src="wavelet.png"></td>
-		<td align="center"><img border="1" src="fbm_wavelet.png"></td>
-		<td align="center"><img border="1" src="turbulence_wavelet.png"></td></tr>
-	</table>
-	<h6>Noise functions relative times</h6>
-
-	For example, in 4D, Perlin noise is 17 times slower than simplex noise.
-	<table border="1">
-		<tr><td></td><td>1D</td><td>2D</td><td>3D</td><td>4D</td></tr>
-		<tr><td>simplex</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-		<tr><td>Perlin</td><td>1.3</td><td>4</td><td>5</td><td>17</td></tr>
-		<tr><td>wavelet</td><td>53</td><td>32</td><td>14</td><td>X</td></tr>
-	</table>
- */
+	/**
+	 * This toolkit provides several functions to generate Perlin noise and
+	 * other derived noises.
+	 *
+	 * @note It can handle noise functions from 1 to 4 dimensions.
+	 *
+	 * Usage example:
+	 *
+	 * @li 1D noise : the variation of a torch intensity
+	 * @li 2D fbm : heightfield generation or clouds
+	 * @li 3D fbm : animated smoke
+	 *
+	 * If you don't know what is Perlin noise and derived functions, or what
+	 * is the influence of the different fractal parameters, check the Perlin
+	 * noise sample included with the library.
+	 *
+	 * In 4D, Perlin noise is 17 times slower than simplex noise.
+	 */
 	class Noise
 	{
 
