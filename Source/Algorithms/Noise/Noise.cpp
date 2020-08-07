@@ -48,6 +48,8 @@ void Noise::setType(TypeNoise type)
 
 float Noise::get(float* f, TypeNoise type)
 {
+	data->setNoiseType(type);
+
 	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
@@ -66,44 +68,40 @@ float Noise::get(float* f, TypeNoise type)
 
 float Noise::getFbm(float* f, float octaves, TypeNoise type)
 {
+	data->setNoiseType(type);
+
 	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
-		data->setNoiseType(TypeNoise::Perlin);
 		return data->noiseFBM(f, octaves);
 
 	case (TypeNoise::Simplex):
-		data->setNoiseType(TypeNoise::Simplex);
 		return data->noiseFBM(f, octaves);
 
 	case (TypeNoise::Wavelet):
-		data->setNoiseType(TypeNoise::Wavelet);
 		return data->noiseFBM(f, octaves);
 
 	default:
-		data->setNoiseType(TypeNoise::Simplex);
 		return data->noiseFBM(f, octaves);
 	}
 }
 
 float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
 {
-	switch (type)
+	data->setNoiseType(type);
+
+	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
-		data->setNoiseType(TypeNoise::Perlin);
 		return data->noiseTurbulence(f, octaves);
 
 	case (TypeNoise::Simplex):
-		data->setNoiseType(TypeNoise::Simplex);
 		return data->noiseTurbulence(f, octaves);
 
 	case (TypeNoise::Wavelet):
-		data->setNoiseType(TypeNoise::Wavelet);
 		return data->noiseTurbulence(f, octaves);
 
 	default:
-		data->setNoiseType(TypeNoise::Perlin);
 		return data->noiseTurbulence(f, octaves);
 	}
 }
