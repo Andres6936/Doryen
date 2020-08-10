@@ -350,7 +350,8 @@ void WorldGenerator::buildBaseMap()
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
 			f[1] = 6.0f * ((float)(y) / HM_HEIGHT);
-			clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f, 4.0f, TCOD_NOISE_SIMPLEX));
+			noise->setType(TypeNoise::Simplex);
+			clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f, 4.0f));
 		}
 	}
 
@@ -643,7 +644,8 @@ void WorldGenerator::updateClouds(float elapsedTime)
 				f[0] = 6.0f * ((float)(x + cdx) / HM_WIDTH);
 				f[1] = 6.0f * ((float)(y) / HM_HEIGHT);
 				// clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbmSimplex(f,4.0f));
-				clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f, 4.0f, TCOD_NOISE_SIMPLEX));
+				noise->setType(TypeNoise::Simplex);
+				clouds[x][y] = 0.5f * (1.0f + 0.8f * noise->getFbm(f, 4.0f));
 			}
 		}
 	}
@@ -787,7 +789,8 @@ void WorldGenerator::computePrecipitations()
 		{
 			float noisex = (float)(x) * 5 / HM_WIDTH;
 			// float waterAmount=(1.0f+noise1d.getFbmSimplex(&noisex,3.0f));
-			float waterAmount = (1.0f + noise1d.getFbm(&noisex, 3.0f, TCOD_NOISE_SIMPLEX));
+			noise1d.setType(TypeNoise::Simplex);
+			float waterAmount = (1.0f + noise1d.getFbm(&noisex, 3.0f));
 			int starty = (diry == -1 ? HM_HEIGHT - 1 : 0);
 			int endy = (diry == -1 ? -1 : HM_HEIGHT);
 			for (int y = starty; y != endy; y += diry)
@@ -828,7 +831,8 @@ void WorldGenerator::computePrecipitations()
 		{
 			float noisey = (float)(y) * 5 / HM_HEIGHT;
 			// float waterAmount=(1.0f+noise1d.getFbmSimplex(&noisey,3.0f));
-			float waterAmount = (1.0f + noise1d.getFbm(&noisey, 3.0f, TCOD_NOISE_SIMPLEX));
+			noise1d.setType(TypeNoise::Simplex);
+			float waterAmount = (1.0f + noise1d.getFbm(&noisey, 3.0f));
 			int startx = (dirx == -1 ? HM_WIDTH - 1 : 0);
 			int endx = (dirx == -1 ? -1 : HM_WIDTH);
 			for (int x = startx; x != endx; x += dirx)
@@ -873,7 +877,8 @@ void WorldGenerator::computePrecipitations()
 		{
 			float f[2] = { (float)(x) / HM_WIDTH, (float)(y) / HM_HEIGHT };
 			// float xcoef = coef + 0.5f*noise2d.getFbmSimplex(f,3.0f);
-			float xcoef = coef + 0.5f * noise2d.getFbm(f, 3.0f, TCOD_NOISE_SIMPLEX);
+			noise2d.setType(TypeNoise::Simplex);
+			float xcoef = coef + 0.5f * noise2d.getFbm(f, 3.0f);
 			float precip = precipitation->getValue(x, y);
 			precip += (max - min) * xcoef * 0.1f;
 			precipitation->setValue(x, y, precip);

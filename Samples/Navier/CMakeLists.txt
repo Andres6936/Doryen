@@ -2,3 +2,7 @@ ADD_EXECUTABLE(Navier Navier.hpp Navier.cpp)
 
 SET_TARGET_PROPERTIES(Navier PROPERTIES CXX_STANDARD 17)
 TARGET_LINK_LIBRARIES(Navier PRIVATE Doryen::Framework)
+
+# Moving directory with resources needed
+FILE(COPY ../../Data/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Data)
+FILE(COPY ../../Terminal.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
