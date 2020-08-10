@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <math.h>
+#include <cmath>
 
 #include "Doryen/Graphics/Color/Color.hpp"
 
@@ -75,12 +75,9 @@ void Color::setAlpha(const std::uint8_t _a)
 	a = _a;
 }
 
-Color::Color(std::uint8_t r, std::uint8_t g, std::uint8_t b) noexcept
+Color::Color(std::int32_t r, std::int32_t g, std::int32_t b) noexcept: Color(r, g, b, 255)
 {
-	this->r = r;
-	this->g = g;
-	this->b = b;
-	this->a = 255;
+	// Delegate the construction of Color to another construct
 }
 
 Color::Color() noexcept
@@ -91,12 +88,19 @@ Color::Color() noexcept
 	a = 255;
 }
 
-Color::Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a) noexcept
+Color::Color(std::int32_t r, std::int32_t g, std::int32_t b, std::int32_t a) noexcept
 {
-	this->r = r;
-	this->g = g;
-	this->b = b;
-	this->a = a;
+	// Invariants (Values lesser that zero)
+	if (r < 0) this->r = 0;
+	if (g < 0) this->g = 0;
+	if (b < 0) this->b = 0;
+	if (a < 0) this->a = 0;
+
+	// Invariant (Values greater that 255)
+	this->r = std::min(255, r);
+	this->g = std::min(255, g);
+	this->b = std::min(255, b);
+	this->a = std::min(255, a);
 }
 
 bool Color::equals(const Color& c) const noexcept

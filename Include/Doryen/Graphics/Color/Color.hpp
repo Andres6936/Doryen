@@ -156,7 +156,7 @@ namespace Doryen
 		 * @param g The green component.
 		 * @param b The blue component.
 		 */
-		Color(std::uint8_t r, std::uint8_t g, std::uint8_t b) noexcept;
+		Color(std::int32_t r, std::int32_t g, std::int32_t b) noexcept;
 
 		/**
 		 * Creates an sRGB color with the specified red, green, blue, and alpha
@@ -167,7 +167,7 @@ namespace Doryen
 		 * @param b The blue component.
 		 * @param a The alpha component
 		 */
-		Color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a) noexcept;
+		Color(std::int32_t r, std::int32_t g, std::int32_t b, std::int32_t a) noexcept;
 
 		/**
 		 * Determines whether another Color is equal to this Color.
