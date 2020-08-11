@@ -27,6 +27,7 @@
 
 #include <cmath>
 
+#include <Doryen/Graphics/Color/ColorTranslator.hpp>
 #include "Doryen/Graphics/Color/Color.hpp"
 
 using namespace Doryen;
@@ -327,7 +328,7 @@ void Color::multiply(float value) noexcept
 	this->b = std::min(255, static_cast<std::int32_t>(this->b * value));
 }
 
-void Color::add(const Color& other)
+void Color::add(const Color& other) noexcept
 {
 	this->r = std::min(255, this->r + other.r);
 	this->g = std::min(255, this->g + other.g);
@@ -353,4 +354,9 @@ void Color::operator=(const Color& _rhs) noexcept
 std::string Color::toString() const
 {
 	return { '{' + std::to_string(r) + ' ' + std::to_string(g) + ' ' + std::to_string(b) + '}' };
+}
+
+Color Color::fromString(std::string_view string)
+{
+	return ColorTranslator::fromHTML(string);
 }

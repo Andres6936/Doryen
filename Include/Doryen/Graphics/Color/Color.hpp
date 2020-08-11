@@ -208,7 +208,7 @@ namespace Doryen
 		 */
 		void multiply(float value) noexcept;
 
-		void add(const Color& other);
+		void add(const Color& other) noexcept;
 
 		/**
 		@PageName color
@@ -237,6 +237,10 @@ namespace Doryen
 			ret.b = (a.b + (b.b - a.b) * coef);
 			return ret;
 		}
+
+		// Static methods
+
+		static Color fromString(std::string_view string);
 
 		// Debug
 

@@ -15,6 +15,7 @@ ADD_LIBRARY(Doryen.Framework
         Algorithms/Noise/Noise.cpp
         Algorithms/Util/Cell.cpp
         Algorithms/Util/Node.cpp
+        Graphics/Color/ColorTranslator.cpp
         Graphics/Color/Color.cpp
         Console/Console.cpp
         Console/Char.cpp
