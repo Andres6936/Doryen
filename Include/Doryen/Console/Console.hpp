@@ -41,18 +41,6 @@
 #include "Doryen/Geometry/Size.hpp"
 #include "Doryen/Renderer/Sdl.hpp"
 
-/**
-        @PageName console_bkgnd_flag_t
-        @PageTitle Background effect flags
-        @PageFather console_draw
-        @PageDesc
-
-            Note that TCOD_BKGND_ALPHA and TCOD_BKGND_ADDALPHA are MACROS that needs a float parameter between (0.0 and 1.0). TCOD_BKGND_ALPH and TCOD_BKGND_ADDA should not be used directly (else they will have the same effect as TCOD_BKGND_NONE).
-            For python, remove TCOD_ : libtcod.BKGND_NONE
-            For C# : None, Set, Multiply, Lighten, Darken, Screen, ColodDodge, ColorBurn, Add, Burn Overlay, Default
-            With lua, use tcod.None, ..., tcod.Default, BUT tcod.console.Alpha(value) and tcod.console.AddAlpha(value)
-        */
-
 namespace Doryen
 {
 	/**
