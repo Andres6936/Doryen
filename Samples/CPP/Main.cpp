@@ -44,6 +44,24 @@ std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::referen
 	return pointers;
 }
 
+void drawHelpMessages(Console& console)
+{
+	console.setDefaultForeground(Palette::GRAY_WARN_30);
+
+	const std::string lastFrame = format("Last Frame : {>2.0f} ms ({} fps)",
+			console.getLastFrameLength() * 1000,
+			console.getFramePerSeconds());
+
+	const std::string timeElapsed = format("Elapsed : {>5d} ms {>4.2f}s",
+			console.getElapsedMilliseconds(),
+			console.getElapsedSeconds());
+
+	console.write(50, 46, lastFrame);
+	console.write(50, 47, timeElapsed);
+
+	console.write(2, 47, format("{c}{c} : Change of Sample", (char)24, (char)25));
+}
+
 int main(int argc, char* argv[])
 {
 	int curSample = 0; // index of the current sample
@@ -86,29 +104,7 @@ int main(int argc, char* argv[])
 			console.write(2, 46 - (samples.size() - i), samples[i]->getName());
 		}
 
-		// print the help message
-		console.setDefaultForeground(Palette::GRAY_WARN_30);
-		console.write(50, 46,
-				format("last frame : {>2.0f} ms ({} fps)",
-						console.getLastFrameLength() * 1000,
-						console.getFramePerSeconds()));
-
-		console.write(50, 47,
-				format("elapsed : {>5d} ms {>4.2f}s",
-						console.getElapsedMilliseconds(),
-						console.getElapsedSeconds()));
-
-		console.write(2, 47,
-				format("{c}{c} : select a sample", (char)24, (char)25));
-
-		if (Console::isFullscreen())
-		{
-			console.write(2, 48, "ALT-ENTER : switch to windowed mode");
-		}
-		else
-		{
-			console.write(2, 48, "ALT-ENTER : switch to fullscreen mode");
-		}
+		drawHelpMessages(console);
 
 		const KeyCode _key = console.getKeyPressed().getKeyCode();
 		const Mouse mouse = console.getMouseEvent();
