@@ -69,8 +69,6 @@ namespace Doryen
 
 		// Setters
 
-		void setWindowInFullscreen() override;
-
 		void showCursor(bool visible) override;
 
 		void setWindowTitle(const std::string& _title) override;

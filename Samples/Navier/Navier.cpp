@@ -353,11 +353,6 @@ int main(int argc, char* argv[])
 		const KeyCode key = Console::getKeyPressed().getKeyCode();
 		const Mouse mouse = Console::getMouseEvent();
 
-		if (Console::getKeyPressed().isLeftAltPressed() and (key == KeyCode::ENTER))
-		{
-			Console::setWindowInFullscreen();
-		}
-
 		// update the game
 		update(console.getLastFrameLength(), key, mouse);
 

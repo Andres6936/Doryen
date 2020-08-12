@@ -81,15 +81,7 @@ void Doryen::SDL::onRenderer()
 	// characteres in the console
 	createBuffer();
 
-	if (isFullscreen())
-	{
-		setWindowInFullscreen();
-	}
-		// No is fullscreen
-	else
-	{
-		screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
-	}
+	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
 
 	std::cout << "Using SDL Renderer.\n";
 
@@ -736,24 +728,6 @@ void Doryen::SDL::convertToGenericEvent(SDL_Event& event, Doryen::Key& key)
 		key.setKeyCode(KeyCode::F12);
 		break;
 	}
-}
-
-void Doryen::SDL::setWindowInFullscreen()
-{
-	findResolution();
-
-	screen = SDL_SetVideoMode((int)getActualFullscreenWidth(), (int)getActualFullscreenHeigth(), 32,
-			SDL_FULLSCREEN);
-
-	setActualFullscreenWidth(getWidthPixels());
-	setActualFullscreenHeigth(getHeightPixels());
-
-	SDL_FillRect(screen, nullptr, 0);
-
-	SDL_UpdateRect(screen, 0, 0, 0, 0);
-
-	// Neccessary for methods that not set the variable manually.
-	setFullscreen(true);
 }
 
 void Doryen::SDL::draw()

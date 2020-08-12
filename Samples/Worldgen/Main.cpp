@@ -153,11 +153,6 @@ int main(int argc, char* argv[])
 		const KeyCode k = console.getKeyPressed().getKeyCode();
 		const Mouse mouse = console.getMouseEvent();
 
-		if (k == KeyCode::ENTER)
-		{
-			// switch fullscreen
-			Console::setWindowInFullscreen();
-		}
 		// update the game
 		update(console.getLastFrameLength(), k, mouse);
 

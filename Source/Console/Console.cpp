@@ -284,11 +284,6 @@ void Doryen::Console::setWindowTitle(const std::string& _title)
 	renderer->setWindowTitle(_title);
 }
 
-void Doryen::Console::setWindowInFullscreen()
-{
-	renderer->setWindowInFullscreen();
-}
-
 bool Doryen::Console::isFullscreen()
 {
 	return renderer->isFullscreen();

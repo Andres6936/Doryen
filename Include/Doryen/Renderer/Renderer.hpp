@@ -339,8 +339,6 @@ namespace Doryen
 
 		virtual Mouse getMouseEvent() = 0;
 
-		virtual void setWindowInFullscreen() = 0;
-
 		virtual void showCursor(bool visible) = 0;
 
 		virtual std::uint32_t getElapsedMilliseconds() const = 0;

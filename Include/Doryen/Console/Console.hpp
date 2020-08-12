@@ -186,17 +186,6 @@ namespace Doryen
          */
         static bool isFullscreen( );
 
-        /**
-         * Switches the root console to fullscreen or windowed mode.
-         *
-         * @note Note that there is no predefined key combination to
-         * switch to/from fullscreen. You have to do this in your own code.
-         *
-         * @param fullscreen true to switch to fullscreen mode, false to
-         * switch to windowed mode.
-         */
-		static void setWindowInFullscreen();
-
 		/**
 		 * Dynamically changes the title of the game window.
 		 *

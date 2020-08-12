@@ -188,11 +188,6 @@ int main (int argc, char *argv[])
 		const Key k = console.getKeyPressed();
 		const Mouse mouse = console.getMouseEvent();
 
-		if (k.isLeftAltPressed() and k.getKeyCode() == KeyCode::ENTER)
-		{
-			// switch fullscreen
-			Doryen::Console::setWindowInFullscreen();
-		}
 		// update the game
 		update(console.getLastFrameLength(), mouse);
 
