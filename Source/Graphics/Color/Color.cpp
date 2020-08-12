@@ -210,13 +210,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 	case BackgroundFlag::BURN:
 
-		nr = (std::uint8_t)(this->r + another.r - 255);
-		ng = (std::uint8_t)(this->g + another.g - 255);
-		nb = (std::uint8_t)(this->b + another.b - 255);
-
-		this->r = clamp(0u, 255u, nr);
-		this->g = clamp(0u, 255u, ng);
-		this->b = clamp(0u, 255u, nb);
+		this->r = std::clamp(this->r + another.r - 255, 0, 255);
+		this->g = std::clamp(this->g + another.g - 255, 0, 255);
+		this->b = std::clamp(this->b + another.b - 255, 0, 255);
 		break;
 
 	case BackgroundFlag::OVERLAY:
