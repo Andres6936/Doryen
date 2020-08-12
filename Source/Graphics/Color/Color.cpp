@@ -110,7 +110,8 @@ bool Color::equals(const Color& c) const noexcept
 }
 
 // Private function
-std::uint8_t clamp(std::uint8_t a, std::uint8_t b, std::uint8_t x)
+template<typename T>
+T clamp(const T a, const T b, const T x)
 {
 	if (x < a)
 	{
@@ -131,9 +132,9 @@ std::uint8_t clamp(std::uint8_t a, std::uint8_t b, std::uint8_t x)
 
 void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noexcept
 {
-	std::uint8_t nr = 0;
-	std::uint8_t ng = 0;
-	std::uint8_t nb = 0;
+	std::uint32_t nr = 0;
+	std::uint32_t ng = 0;
+	std::uint32_t nb = 0;
 
 	switch (flag)
 	{
@@ -206,9 +207,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 			nb = 255;
 		}
 
-		this->r = clamp(0, 255, nr);
-		this->g = clamp(0, 255, ng);
-		this->b = clamp(0, 255, nb);
+		this->r = clamp(0u, 255u, nr);
+		this->g = clamp(0u, 255u, ng);
+		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::COLOR_BURN:
@@ -240,9 +241,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 			nb = 255;
 		}
 
-		this->r = clamp(0, 255, nr);
-		this->g = clamp(0, 255, ng);
-		this->b = clamp(0, 255, nb);
+		this->r = clamp(0u, 255u, nr);
+		this->g = clamp(0u, 255u, ng);
+		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::ADD:
@@ -262,9 +263,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 		ng = (std::uint8_t)(this->g + another.g - 255);
 		nb = (std::uint8_t)(this->b + another.b - 255);
 
-		this->r = clamp(0, 255, nr);
-		this->g = clamp(0, 255, ng);
-		this->b = clamp(0, 255, nb);
+		this->r = clamp(0u, 255u, nr);
+		this->g = clamp(0u, 255u, ng);
+		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::OVERLAY:
@@ -296,9 +297,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 			nb = (std::uint8_t)(255 - 2 * (255 - another.b) * (255 - this->b) / 255);
 		}
 
-		this->r = clamp(0, 255, nr);
-		this->g = clamp(0, 255, ng);
-		this->b = clamp(0, 255, nb);
+		this->r = clamp(0u, 255u, nr);
+		this->g = clamp(0u, 255u, ng);
+		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::ALPH:
