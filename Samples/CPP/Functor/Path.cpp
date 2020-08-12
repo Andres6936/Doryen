@@ -133,7 +133,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar.getPoint2DAt(i);
 
-				sample.setCharBackground(point.x, point.y, LIGHT_GROUND, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(point.x, point.y, Palette::YELLOW, Doryen::BackgroundFlag::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{

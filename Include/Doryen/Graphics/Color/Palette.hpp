@@ -61,6 +61,7 @@ namespace Doryen::Palette
 	const inline Color ACCENT_COOL_DARK{ 40, 160, 203 };
 	const inline Color ACCENT_COOL_DARKER{ 7, 100, 141 };
 
+	const inline Color ACCENT_WARN{ 250, 148, 65 };
 	const inline Color ACCENT_WARN_LIGHT{ 255, 188, 120 };
 
 }

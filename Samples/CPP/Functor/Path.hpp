@@ -48,23 +48,9 @@ namespace Functor
 				"##############################################",
 		};
 
-		// Const Fields
-
-		const Doryen::Color DARK_WALL = { 0, 0, 100 };
-		const Doryen::Color DARK_GROUND = { 50, 50, 150 };
-		const Doryen::Color LIGHT_GROUND = { 200, 180, 50 };
-
 		// Fields
 
 		bool usingAStar = true;
-
-		/**
-		 * Determine if the map has been initialized correctly.
-		 * It mean the size of map should be same to size of dungeon.
-		 *
-		 * @pre The method {prepareInstanceOfMap} has been called.
-		 */
-		bool mapHaveSizeCorrect = false;
 
 		int playerX = 20;
 		int playerY = 10;
