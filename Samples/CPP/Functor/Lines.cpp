@@ -35,7 +35,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	if (key == KeyCode::ENTER or key == KeyCode::KP_ENTER)
 	{
 		// switch to the next blending mode
-		switchBackgroundFlag(backFlag);
+		backFlag = switchBackgroundFlag(backFlag);
 	}
 
 	// TODO: Here, I break code, Fix. See Git
@@ -96,64 +96,48 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 
 Doryen::BackgroundFlag Functor::Lines::switchBackgroundFlag(Doryen::BackgroundFlag flag)
 {
-	using namespace Doryen;
-
 	switch (flag)
 	{
 	case BackgroundFlag::NONE:
-		flag = BackgroundFlag::SET;
-		break;
+		return BackgroundFlag::SET;
 
 	case BackgroundFlag::SET:
-		flag = BackgroundFlag::MULTIPLY;
-		break;
+		return BackgroundFlag::MULTIPLY;
 
 	case BackgroundFlag::MULTIPLY:
-		flag = BackgroundFlag::LIGHTEN;
-		break;
+		return BackgroundFlag::LIGHTEN;
 
 	case BackgroundFlag::LIGHTEN:
-		flag = BackgroundFlag::DARKEN;
-		break;
+		return BackgroundFlag::DARKEN;
 
 	case BackgroundFlag::DARKEN:
-		flag = BackgroundFlag::SCREEN;
-		break;
+		return BackgroundFlag::SCREEN;
 
 	case BackgroundFlag::SCREEN:
-		flag = BackgroundFlag::COLOR_DODGE;
-		break;
+		return BackgroundFlag::COLOR_DODGE;
 
 	case BackgroundFlag::COLOR_DODGE:
-		flag = BackgroundFlag::COLOR_BURN;
-		break;
+		return BackgroundFlag::COLOR_BURN;
 
 	case BackgroundFlag::COLOR_BURN:
-		flag = BackgroundFlag::ADD;
-		break;
+		return BackgroundFlag::ADD;
 
 	case BackgroundFlag::ADD:
-		flag = BackgroundFlag::ADDA;
-		break;
+		return BackgroundFlag::ADDA;
 
 	case BackgroundFlag::ADDA:
-		flag = BackgroundFlag::BURN;
-		break;
+		return BackgroundFlag::BURN;
 
 	case BackgroundFlag::BURN:
-		flag = BackgroundFlag::OVERLAY;
-		break;
+		return BackgroundFlag::OVERLAY;
 
 	case BackgroundFlag::OVERLAY:
-		flag = BackgroundFlag::ALPH;
-		break;
+		return BackgroundFlag::ALPH;
 
 	case BackgroundFlag::ALPH:
-		flag = BackgroundFlag::DEFAULT;
-		break;
+		return BackgroundFlag::DEFAULT;
 
 	case BackgroundFlag::DEFAULT:
-		flag = BackgroundFlag::NONE;
-		break;
+		return BackgroundFlag::NONE;
 	}
 }
