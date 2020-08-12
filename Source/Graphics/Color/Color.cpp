@@ -180,36 +180,11 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 	case BackgroundFlag::COLOR_DODGE:
 
-		if (this->r != 255)
-		{
-			nr = (std::uint8_t)((255 * another.r) / (255 - this->r));
-		}
-		else
-		{
-			nr = 255;
-		}
+		// The component in R, G or B should be different of 255 for avoid division by zero
+		if (this->r not_eq 255) this->r = std::min(255, (255 * another.r) / (255 - this->r));
+		if (this->g not_eq 255) this->g = std::min(255, (255 * another.g) / (255 - this->g));
+		if (this->b not_eq 255) this->b = std::min(255, (255 * another.b) / (255 - this->b));
 
-		if (this->g != 255)
-		{
-			ng = (std::uint8_t)((255 * another.g) / (255 - this->g));
-		}
-		else
-		{
-			ng = 255;
-		}
-
-		if (this->b != 255)
-		{
-			nb = (std::uint8_t)((255 * another.b) / (255 - this->b));
-		}
-		else
-		{
-			nb = 255;
-		}
-
-		this->r = clamp(0u, 255u, nr);
-		this->g = clamp(0u, 255u, ng);
-		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::COLOR_BURN:
