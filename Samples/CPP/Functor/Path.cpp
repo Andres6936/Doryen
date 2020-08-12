@@ -26,9 +26,6 @@ void Functor::Path::prepareInstanceOfMap()
 	{
 		std::cerr << "The width or height of map not correspond with "
 				  << "the width or height of console.\n";
-
-		// Complete pre-condition
-		mapHaveSizeCorrect = false;
 		return;
 	}
 
@@ -49,8 +46,6 @@ void Functor::Path::prepareInstanceOfMap()
 
 	// TODO: Initialize the map Dijkstra
 	AStar = Algorithms::Pathfinding::AStar(map);
-
-	mapHaveSizeCorrect = true;
 }
 
 void Functor::Path::drawDungeon()
