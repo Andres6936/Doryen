@@ -14,31 +14,6 @@ namespace Doryen
 		bool eventPending = false;
 
 		/**
-		 * Minimum length for a frame (when fps are limited)
-		 */
-		int minimunFrameLength = 0;
-
-		/**
-		 * Minimum length for a frame (when fps are limited)
-		 */
-		int minimunFrameLengthBackup = 0;
-
-        /**
-         * Length of the last rendering loop.
-         */
-        float lastFrameLength = 0.0f;
-
-		/**
-		 * Number of frames in the last second.
-		 */
-		short framePerSecond = 0;
-
-		/**
-		 * Current number of frames.
-		 */
-		short currentFramePerSecond = 0;
-
-		/**
 		 * Mouse event
 		 */
 		Mouse mouse;
@@ -86,11 +61,7 @@ namespace Doryen
 
 		void loadFont() override;
 
-		void sleepMilli(int milliseconds);
-
 		// Setters
-
-		void setFps(short value);
 
 		void setWindowInFullscreen() override;
 
@@ -100,15 +71,9 @@ namespace Doryen
 
 		// Getters
 
-		short getFps() const;
-
-		int getElapsedMilli() const;
-
 		unsigned getWidthInPixeles() const;
 
 		unsigned getHeigthInPixeles() const;
-
-		float getLasFrameLength() const;
 
 		Key getKeyPressed() override;
 

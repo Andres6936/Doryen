@@ -18,38 +18,6 @@ Doryen::SDL::~SDL()
 
 // Methods
 
-void Doryen::SDL::setFps(const short value)
-{
-	if (value == 0)
-	{
-		minimunFrameLength = 0;
-	}
-	else
-	{
-		minimunFrameLength = 1000 / value;
-	}
-}
-
-short Doryen::SDL::getFps() const
-{
-	return framePerSecond;
-}
-
-float Doryen::SDL::getLasFrameLength() const
-{
-	return lastFrameLength;
-}
-
-void Doryen::SDL::sleepMilli(int milliseconds)
-{
-	SDL_Delay(milliseconds);
-}
-
-int Doryen::SDL::getElapsedMilli() const
-{
-	return SDL_GetTicks();
-}
-
 /**
  * Function private to file.
  *
