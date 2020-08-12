@@ -17,8 +17,6 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 	static bool generate = true;
 	static bool refresh = false;
 	static Map map{ SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT };
-	static Color darkWall(0, 0, 100);
-	static Color darkGround(50, 50, 150);
 	static BspListener listener;
 
 	if (generate || refresh)
