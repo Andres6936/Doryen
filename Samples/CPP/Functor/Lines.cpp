@@ -139,5 +139,8 @@ Doryen::BackgroundFlag Functor::Lines::switchBackgroundFlag(Doryen::BackgroundFl
 
 	case BackgroundFlag::DEFAULT:
 		return BackgroundFlag::NONE;
+
+	default:
+		return BackgroundFlag::SET;
 	}
 }
