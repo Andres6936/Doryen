@@ -22,8 +22,6 @@
 
 using namespace Doryen;
 
-using namespace std::string_literals;
-
 std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::reference_wrapper<Console> _console)
 {
 	// Although we declare a pointer to ISample, the reality is that
