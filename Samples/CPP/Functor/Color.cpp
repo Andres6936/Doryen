@@ -6,7 +6,7 @@
 
 using namespace Doryen;
 
-Functor::Color::Color(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::Color::Color(Console& _console) : ISample("True colors", _console)
 {
 	prepareRandomCornerColors();
 }

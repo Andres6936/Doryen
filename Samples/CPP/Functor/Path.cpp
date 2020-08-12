@@ -7,7 +7,7 @@
 
 using namespace Doryen;
 
-Functor::Path::Path(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::Path::Path(Console& _console) : ISample("Path finding", _console)
 {
 	prepareInstanceOfMap();
 }

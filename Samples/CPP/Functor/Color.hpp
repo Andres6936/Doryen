@@ -27,7 +27,7 @@ namespace Functor
 
 	public:
 
-		Color(const std::string _name, Console& _console);
+		Color(Console& _console);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 

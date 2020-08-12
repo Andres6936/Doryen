@@ -4,7 +4,7 @@
 
 using namespace Doryen;
 
-Functor::Offscreen::Offscreen(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::Offscreen::Offscreen(Console& _console) : ISample("Offscreen Console", _console)
 {
 
 }

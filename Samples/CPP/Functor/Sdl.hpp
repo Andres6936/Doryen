@@ -37,7 +37,7 @@ namespace Functor
 
 	public:
 
-		SDL(const std::string _name, Console& _console);
+		SDL(Console& _console);
 
 		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 

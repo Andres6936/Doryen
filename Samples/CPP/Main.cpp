@@ -32,16 +32,16 @@ std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::referen
 	std::array<std::unique_ptr<Functor::ISample>, 10> pointers;
 
 	// Respect the sort original of the examples
-	pointers[0] = std::make_unique<Functor::Color>("True colors"s, _console);;
-	pointers[1] = std::make_unique<Functor::Offscreen>("Offscreen Console"s, _console);;
-	pointers[2] = std::make_unique<Functor::Lines>("Line drawing"s, _console);;
-	pointers[3] = std::make_unique<Functor::Noise>("Noise"s, _console);;
-	pointers[4] = std::make_unique<Functor::FOV>("Field of view"s, _console);;
-	pointers[5] = std::make_unique<Functor::Path>("Path finding"s, _console);;
-	pointers[6] = std::make_unique<Functor::BSP>("Bsp toolkit"s, _console);;
-	pointers[7] = std::make_unique<Functor::Image>("Image toolkit"s, _console);;
-	pointers[8] = std::make_unique<Functor::Mouse>("Mouse support"s, _console);;
-	pointers[9] = std::make_unique<Functor::SDL>("SDL callback"s, _console);;
+	pointers[0] = std::make_unique<Functor::Color>(_console);;
+	pointers[1] = std::make_unique<Functor::Offscreen>(_console);;
+	pointers[2] = std::make_unique<Functor::Lines>(_console);;
+	pointers[3] = std::make_unique<Functor::Noise>(_console);;
+	pointers[4] = std::make_unique<Functor::FOV>(_console);;
+	pointers[5] = std::make_unique<Functor::Path>(_console);;
+	pointers[6] = std::make_unique<Functor::BSP>(_console);;
+	pointers[7] = std::make_unique<Functor::Image>(_console);;
+	pointers[8] = std::make_unique<Functor::Mouse>(_console);;
+	pointers[9] = std::make_unique<Functor::SDL>(_console);;
 
 	return pointers;
 }

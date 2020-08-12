@@ -17,7 +17,7 @@ namespace Functor
 
 	public:
 
-		Image(const std::string _name, Console& _console);
+		Image(Console& _console);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 

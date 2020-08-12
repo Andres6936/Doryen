@@ -23,7 +23,7 @@ namespace Functor
 
 	public:
 
-		Mouse(const std::string _name, Console& _console);
+		Mouse(Console& _console);
 
 		void render(KeyCode key, const Doryen::Mouse& mouse) override;
 

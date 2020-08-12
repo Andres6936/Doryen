@@ -7,7 +7,7 @@
 
 using namespace Doryen;
 
-Functor::FOV::FOV(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::FOV::FOV(Console& _console) : ISample("Field of view", _console)
 {
 	prepareInstanceOfMap();
 }

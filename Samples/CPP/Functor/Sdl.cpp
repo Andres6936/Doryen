@@ -6,7 +6,7 @@
 
 using namespace Doryen;
 
-Functor::SDL::SDL(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::SDL::SDL(Console& _console) : ISample("SDL callback", _console)
 {
 
 }

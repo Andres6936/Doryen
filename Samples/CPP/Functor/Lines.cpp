@@ -5,7 +5,7 @@
 
 using namespace Doryen;
 
-Functor::Lines::Lines(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::Lines::Lines(Console& _console) : ISample("Line drawing", _console)
 {
 
 }

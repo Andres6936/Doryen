@@ -4,7 +4,7 @@
 
 using namespace Doryen;
 
-Functor::Mouse::Mouse(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::Mouse::Mouse(Console& _console) : ISample("Mouse support", _console)
 {
 
 }

@@ -95,7 +95,7 @@ namespace Functor
 
 	public:
 
-		FOV(const std::string _name, Console& _console);
+		FOV(Console& _console);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 

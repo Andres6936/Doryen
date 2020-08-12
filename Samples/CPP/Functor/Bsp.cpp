@@ -5,7 +5,7 @@
 
 using namespace Doryen;
 
-Functor::BSP::BSP(std::string _name, Console& _console) : ISample(_name, _console)
+Functor::BSP::BSP(Console& _console) : ISample("Bsp toolkit", _console)
 {
 
 }
