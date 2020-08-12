@@ -26,6 +26,7 @@
 */
 
 #include <cmath>
+#include <algorithm>
 
 #include <Doryen/Graphics/Color/ColorTranslator.hpp>
 #include "Doryen/Graphics/Color/Color.hpp"
@@ -189,36 +190,11 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 	case BackgroundFlag::COLOR_BURN:
 
-		if (another.r > 0)
-		{
-			nr = (std::uint8_t)(255 - (255 * (255 - this->r)) / another.r);
-		}
-		else
-		{
-			nr = 255;
-		}
+		// The component in R, G or B should be greater that 0 for avoid division by zero
+		if (another.r > 0) this->r = std::clamp((255 - (255 * (255 - this->r)) / another.r), 0, 255);
+		if (another.g > 0) this->g = std::clamp((255 - (255 * (255 - this->g)) / another.g), 0, 255);
+		if (another.b > 0) this->b = std::clamp((255 - (255 * (255 - this->b)) / another.b), 0, 255);
 
-		if (another.g > 0)
-		{
-			ng = (std::uint8_t)(255 - (255 * (255 - this->g)) / another.g);
-		}
-		else
-		{
-			ng = 255;
-		}
-
-		if (another.b > 0)
-		{
-			nb = (std::uint8_t)(255 - (255 * (255 - this->b)) / another.b);
-		}
-		else
-		{
-			nb = 255;
-		}
-
-		this->r = clamp(0u, 255u, nr);
-		this->g = clamp(0u, 255u, ng);
-		this->b = clamp(0u, 255u, nb);
 		break;
 
 	case BackgroundFlag::ADD:
