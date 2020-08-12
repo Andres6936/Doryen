@@ -53,8 +53,6 @@ namespace Doryen
 
 		void onRenderer() override;
 
-		void onExit() override;
-
 		void draw() override;
 
 		void loadFont() override;

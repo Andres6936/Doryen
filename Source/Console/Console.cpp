@@ -63,10 +63,7 @@ Doryen::Console::Console(int w, int h)
 
 Doryen::Console::~Console()
 {
-	if (isConsoleRoot)
-	{
-		renderer->onExit();
-	}
+
 }
 
 void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen)

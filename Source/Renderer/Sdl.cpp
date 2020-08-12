@@ -405,11 +405,6 @@ void Doryen::SDL::setWindowTitle(const std::string& _title)
 	SDL_WM_SetCaption(_title.c_str(), nullptr);
 }
 
-void Doryen::SDL::onExit()
-{
-	SDL_Quit();
-}
-
 Doryen::Key Doryen::SDL::getKeyPressed()
 {
 	return keyPressed;

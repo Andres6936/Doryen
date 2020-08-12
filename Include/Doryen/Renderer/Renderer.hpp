@@ -329,8 +329,6 @@ namespace Doryen
 
 		virtual void onRenderer() = 0;
 
-		virtual void onExit() = 0;
-
 		virtual void draw() = 0;
 
 		virtual void loadFont() = 0;
