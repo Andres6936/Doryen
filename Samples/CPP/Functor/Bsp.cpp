@@ -68,7 +68,8 @@ void Functor::BSP::render(KeyCode key, const Mouse& mouse)
 		for (int x = 0; x < SAMPLE_SCREEN_WIDTH; x++)
 		{
 			bool wall = map.isWalkable(x, y);
-			sample.setCharBackground(x, y, wall ? darkGround : darkWall, Doryen::BackgroundFlag::SET);
+			sample.setCharBackground(x, y, wall ? Palette::PRIMARY_VIVID : Palette::PRIMARY_DARK,
+					Doryen::BackgroundFlag::SET);
 		}
 	}
 	if (key == KeyCode::ENTER || key == KeyCode::PRINT_SCREEN)
