@@ -35,16 +35,16 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 		// split the color channels of circle.png
 		// the red channel
 		sample.setDefaultBackground(Doryen::Palette::RED);
-		sample.rect(0, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(sample, 0, 3, -1, -1, BackgroundFlag::MULTIPLY);
+		sample.rect(0, 3, 15, 15, false, Doryen::BlendModes::SET);
+		circle->blitRect(sample, 0, 3, -1, -1, BlendModes::MULTIPLY);
 		// the green channel
 		sample.setDefaultBackground(green);
-		sample.rect(15, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(sample, 15, 3, -1, -1, BackgroundFlag::MULTIPLY);
+		sample.rect(15, 3, 15, 15, false, Doryen::BlendModes::SET);
+		circle->blitRect(sample, 15, 3, -1, -1, BlendModes::MULTIPLY);
 		// the blue channel
 		sample.setDefaultBackground(blue);
-		sample.rect(30, 3, 15, 15, false, Doryen::BackgroundFlag::SET);
-		circle->blitRect(sample, 30, 3, -1, -1, BackgroundFlag::MULTIPLY);
+		sample.rect(30, 3, 15, 15, false, Doryen::BlendModes::SET);
+		circle->blitRect(sample, 30, 3, -1, -1, BlendModes::MULTIPLY);
 	}
 	else
 	{
@@ -55,5 +55,5 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	}
 
 	img->blit(sample, { static_cast<int>(x), static_cast<int>(y) },
-			BackgroundFlag::SET, scalex, scaley, angle);
+			BlendModes::SET, scalex, scaley, angle);
 }

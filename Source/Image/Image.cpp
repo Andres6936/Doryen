@@ -58,7 +58,7 @@ int Image::getAlpha(int x, int y) const
 }
 
 void
-Image::blitRect(Console& console, int x, int y, int w, int h, BackgroundFlag flag)
+Image::blitRect(Console& console, int x, int y, int w, int h, BlendModes flag)
 {
 	const auto[width, height] = getSize();
 
@@ -66,7 +66,7 @@ Image::blitRect(Console& console, int x, int y, int w, int h, BackgroundFlag fla
 	if (h == -1) h = height;
 
 	// Not satisfied invariants
-	if (w <= 0 or h <= 0 || flag == BackgroundFlag::NONE) return;
+	if (w <= 0 or h <= 0 || flag == BlendModes::NONE) return;
 
 	const float scaleX = w / width;
 	const float scaleY = h / height;
@@ -351,7 +351,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			if (numberColors == 1)
 			{
 				// Single Color
-				dest.setCharBackground(conX, conY, cols.at(0), BackgroundFlag::SET);
+				dest.setCharBackground(conX, conY, cols.at(0), BlendModes::SET);
 				dest.writeChar(conX, conY, ' ');
 			}
 			else
@@ -360,13 +360,13 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 				{
 					dest.setDefaultBackground(cols.at(0));
 					dest.setDefaultForeground(cols.at(1));
-					dest.writeChar(conX, conY, ASCII, BackgroundFlag::SET);
+					dest.writeChar(conX, conY, ASCII, BlendModes::SET);
 				}
 				else
 				{
 					dest.setDefaultBackground(cols.at(1));
 					dest.setDefaultForeground(cols.at(0));
-					dest.writeChar(conX, conY, -ASCII, BackgroundFlag::SET);
+					dest.writeChar(conX, conY, -ASCII, BlendModes::SET);
 				}
 			}
 		}
@@ -376,12 +376,12 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 void
 Image::blit(Console& _console,
 		const Point& _center,
-		const BackgroundFlag _flag,
+		const BlendModes _flag,
 		const float scaleX,
 		const float scaleY,
 		const float angle)
 {
-	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BackgroundFlag::NONE) return;
+	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BlendModes::NONE) return;
 
 	// Size of the image
 	Geometry::Size size = imageData.getSize();

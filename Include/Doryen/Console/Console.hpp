@@ -270,7 +270,7 @@ namespace Doryen
          *
          * @see TCOD_bkgnd_flag_t
          */
-		void setCharBackground(int x, int y, const Doryen::Color& col, BackgroundFlag flag = BackgroundFlag::SET);
+		void setCharBackground(int x, int y, const Doryen::Color& col, BlendModes flag = BlendModes::SET);
 
 		/**
 		@PageName console_draw_basic
@@ -307,7 +307,7 @@ namespace Doryen
 		 * @param c the new ASCII code for the cell. You can use ASCII constants.
 		 * @param flag this flag defines how the cell's background color is modified.
 		 */
-		void writeChar(int x, int y, int c, BackgroundFlag flag = BackgroundFlag::NONE);
+		void writeChar(int x, int y, int c, BlendModes flag = BlendModes::NONE);
 
 		/**
 		 * @brief Setting every property of a cell using specific colors
@@ -346,7 +346,7 @@ namespace Doryen
 		 * @param background Background color for this cell.
 		 * @param flag this flag defines how the cell's background color is modified.
 		 */
-		void writeChar(int x, int y, int c, const Color& foreground, const Color& background, BackgroundFlag flag);
+		void writeChar(int x, int y, int c, const Color& foreground, const Color& background, BlendModes flag);
 
 		/**
 		 * Write a string in the console. You can use the function format for formatter
@@ -383,7 +383,7 @@ namespace Doryen
 		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
 		*/
 		int
-		printRectEx(int x, int y, int w, int h, BackgroundFlag flag, int alignment, const char* fmt,
+		printRectEx(int x, int y, int w, int h, BlendModes flag, int alignment, const char* fmt,
 				...);
 
 		/**
@@ -405,7 +405,7 @@ namespace Doryen
 		 * @param text Text to draw in the area of rectangle.
 		 */
 		void writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size,
-				BackgroundFlag flag, std::string_view text);
+				BlendModes flag, std::string_view text);
 
 
 		/**
@@ -436,7 +436,7 @@ namespace Doryen
 			If false, only the background color is modified
 		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
 		*/
-		void rect(int x, int y, int rw, int rh, bool clear, BackgroundFlag flag = BackgroundFlag::DEFAULT);
+		void rect(int x, int y, int rw, int rh, bool clear, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
 		@PageName console_advanced
@@ -458,29 +458,29 @@ namespace Doryen
 		@Param l The length of the line in cells 1 <= l <= console width - x
 		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
 		*/
-		void hline(int x, int y, int l, BackgroundFlag flag = BackgroundFlag::DEFAULT);
+		void hline(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
 
-        /**
-        @PageName console_advanced
-        @FuncTitle Drawing an vertical line
-        @FuncDesc Draws an vertical line in the console, using ASCII code TCOD_CHAR_VLINE (179), and the console's default background/foreground colors.
-        @Cpp void TCODConsole::vline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-        @C void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
-        @Py console_vline(con,x,y,l,flag=BKGND_DEFAULT)
-        @C#
-            void TCODConsole::vline(int x,int y, int l)
-            void TCODConsole::vline(int x,int y, int l, TCODBackgroundFlag flag)
-        @Lua
-            Console:vline(x,y, l)
-            Console:vline(x,y, l, flag)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y Coordinates of the line's upper end in the console.
-            0 <= x < console width
-            0 <= y < console height
-        @Param l The length of the line in cells 1 <= l <= console height - y
-        @Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-        */
-		void vline(int x, int y, int l, BackgroundFlag flag = BackgroundFlag::DEFAULT);
+		/**
+		@PageName console_advanced
+		@FuncTitle Drawing an vertical line
+		@FuncDesc Draws an vertical line in the console, using ASCII code TCOD_CHAR_VLINE (179), and the console's default background/foreground colors.
+		@Cpp void TCODConsole::vline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
+		@C void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
+		@Py console_vline(con,x,y,l,flag=BKGND_DEFAULT)
+		@C#
+			void TCODConsole::vline(int x,int y, int l)
+			void TCODConsole::vline(int x,int y, int l, TCODBackgroundFlag flag)
+		@Lua
+			Console:vline(x,y, l)
+			Console:vline(x,y, l, flag)
+		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
+		@Param x,y Coordinates of the line's upper end in the console.
+			0 <= x < console width
+			0 <= y < console height
+		@Param l The length of the line in cells 1 <= l <= console height - y
+		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
+		*/
+		void vline(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
 		@PageName console_advanced
@@ -512,7 +512,7 @@ namespace Doryen
 		@Param fmt if NULL, the funtion only draws a rectangle.
 			Else, printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string.
 		*/
-		void printFrame(int x, int y, int w, int h, bool clear = true, BackgroundFlag flag = BackgroundFlag::DEFAULT,
+		void printFrame(int x, int y, int w, int h, bool clear = true, BlendModes flag = BlendModes::DEFAULT,
 				const std::string& name = "");
 
         /**
@@ -1033,7 +1033,7 @@ namespace Doryen
 	private:
 
 		void drawFrame(const Geometry::Point2D<>& start,
-				const Geometry::Point2D<>& end, bool empty, BackgroundFlag flag);
+				const Geometry::Point2D<>& end, bool empty, BlendModes flag);
 
 		/**
 		 * Draw the tittle for a frame.

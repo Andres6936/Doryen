@@ -23,11 +23,11 @@ void Functor::Offscreen::render(KeyCode key, const Mouse& mouse)
 	{
 		init = true;
 		secondary.printFrame(0, 0, sample.getWidth() / 2, sample.getHeight() / 2, false,
-				Doryen::BackgroundFlag::SET,
+				Doryen::BlendModes::SET,
 				"Offscreen console");
 
 		secondary.printRectEx(sample.getWidth() / 4, 2, sample.getWidth() / 2 - 2,
-				sample.getHeight() / 2, BackgroundFlag::NONE, 1,
+				sample.getHeight() / 2, BlendModes::NONE, 1,
 				"You can render to an offscreen console and blit in on another one, simulating alpha transparency.");
 	}
 

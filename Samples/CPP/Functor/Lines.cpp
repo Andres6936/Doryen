@@ -51,7 +51,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 				col.r = (uint8)(x * 255 / (sample.getWidth() - 1));
 				col.g = (uint8)((x + y) * 255 / (sample.getWidth() - 1 + sample.getHeight() - 1));
 				col.b = (uint8)(y * 255 / (sample.getHeight() - 1));
-				bk.setCharBackground(x, y, col, Doryen::BackgroundFlag::SET);
+				bk.setCharBackground(x, y, col, Doryen::BlendModes::SET);
 			}
 		}
 		init = true;
@@ -94,53 +94,53 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 }
 
 
-Doryen::BackgroundFlag Functor::Lines::switchBackgroundFlag(Doryen::BackgroundFlag flag)
+Doryen::BlendModes Functor::Lines::switchBackgroundFlag(Doryen::BlendModes flag)
 {
 	switch (flag)
 	{
-	case BackgroundFlag::NONE:
-		return BackgroundFlag::SET;
+	case BlendModes::NONE:
+		return BlendModes::SET;
 
-	case BackgroundFlag::SET:
-		return BackgroundFlag::MULTIPLY;
+	case BlendModes::SET:
+		return BlendModes::MULTIPLY;
 
-	case BackgroundFlag::MULTIPLY:
-		return BackgroundFlag::LIGHTEN;
+	case BlendModes::MULTIPLY:
+		return BlendModes::LIGHTEN;
 
-	case BackgroundFlag::LIGHTEN:
-		return BackgroundFlag::DARKEN;
+	case BlendModes::LIGHTEN:
+		return BlendModes::DARKEN;
 
-	case BackgroundFlag::DARKEN:
-		return BackgroundFlag::SCREEN;
+	case BlendModes::DARKEN:
+		return BlendModes::SCREEN;
 
-	case BackgroundFlag::SCREEN:
-		return BackgroundFlag::COLOR_DODGE;
+	case BlendModes::SCREEN:
+		return BlendModes::COLOR_DODGE;
 
-	case BackgroundFlag::COLOR_DODGE:
-		return BackgroundFlag::COLOR_BURN;
+	case BlendModes::COLOR_DODGE:
+		return BlendModes::COLOR_BURN;
 
-	case BackgroundFlag::COLOR_BURN:
-		return BackgroundFlag::ADD;
+	case BlendModes::COLOR_BURN:
+		return BlendModes::ADD;
 
-	case BackgroundFlag::ADD:
-		return BackgroundFlag::ADDA;
+	case BlendModes::ADD:
+		return BlendModes::ADDA;
 
-	case BackgroundFlag::ADDA:
-		return BackgroundFlag::BURN;
+	case BlendModes::ADDA:
+		return BlendModes::BURN;
 
-	case BackgroundFlag::BURN:
-		return BackgroundFlag::OVERLAY;
+	case BlendModes::BURN:
+		return BlendModes::OVERLAY;
 
-	case BackgroundFlag::OVERLAY:
-		return BackgroundFlag::ALPH;
+	case BlendModes::OVERLAY:
+		return BlendModes::ALPH;
 
-	case BackgroundFlag::ALPH:
-		return BackgroundFlag::DEFAULT;
+	case BlendModes::ALPH:
+		return BlendModes::DEFAULT;
 
-	case BackgroundFlag::DEFAULT:
-		return BackgroundFlag::NONE;
+	case BlendModes::DEFAULT:
+		return BlendModes::NONE;
 
 	default:
-		return BackgroundFlag::SET;
+		return BlendModes::SET;
 	}
 }

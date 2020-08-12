@@ -186,7 +186,7 @@ namespace Doryen
 		@Param flag	This flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t.
 		*/
 		void blitRect(Console& console, int x, int y, int w = -1, int h = -1,
-				BackgroundFlag flag = BackgroundFlag::SET);
+				BlendModes flag = BlendModes::SET);
 
 		/**
 		 * @brief Blitting with scaling and/or rotation
@@ -201,7 +201,7 @@ namespace Doryen
 		 * @param scaleY Scale coefficient. Must be > 0.0.
 		 * @param angle Rotation angle in radians.
 		 */
-		void blit(Console& _console, const Point& _center, BackgroundFlag _flag,
+		void blit(Console& _console, const Point& _center, BlendModes _flag,
 				float scaleX, float scaleY, float angle);
 
 		/**

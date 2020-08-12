@@ -80,7 +80,7 @@ namespace Doryen
 	 *
 	 * @li <b>DEFAULT</b> : use the console's default background flag
 	 */
-	enum class BackgroundFlag : short
+	enum class BlendModes : short
 	{
 		NONE,
 		SET,
@@ -187,7 +187,7 @@ namespace Doryen
 		 * @param another Color to add
 		 * @param flag Operation to make
 		 */
-		void trasformColor(const Color& another, BackgroundFlag flag) noexcept;
+		void trasformColor(const Color& another, BlendModes flag) noexcept;
 
 		// Operators
 

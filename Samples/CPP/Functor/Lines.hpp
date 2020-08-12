@@ -18,7 +18,7 @@ namespace Functor
 
 		Lines(Console& _console);
 
-		BackgroundFlag switchBackgroundFlag(BackgroundFlag flag);
+		BlendModes switchBackgroundFlag(BlendModes flag);
 
 		void render(KeyCode key, const Mouse& mouse) override;
 

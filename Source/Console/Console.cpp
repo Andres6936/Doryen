@@ -316,7 +316,7 @@ Doryen::Color Doryen::Console::getFadingColor()
 	return renderer->getFadingColor();
 }
 
-void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
+void Doryen::Console::writeChar(int x, int y, int c, BlendModes flag)
 {
 	if (isConsoleRoot)
 	{
@@ -330,10 +330,10 @@ void Doryen::Console::writeChar(int x, int y, int c, BackgroundFlag flag)
 
 void Doryen::Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background)
 {
-	writeChar(x, y, c, _foreground, _background, BackgroundFlag::SET);
+	writeChar(x, y, c, _foreground, _background, BlendModes::SET);
 }
 
-void Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background, BackgroundFlag flag)
+void Console::writeChar(int x, int y, int c, const Color& _foreground, const Color& _background, BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0 || c < 0 || c > renderer->getMaxFontChars())
@@ -507,7 +507,7 @@ int Doryen::Console::getChar(int x, int y) const
 	}
 }
 
-void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, Doryen::BackgroundFlag flag)
+void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -582,7 +582,7 @@ void consoleClamp(const Point& start, const Point& end, Point& first, Point& sec
 	}
 }
 
-void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BackgroundFlag flag)
+void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0 || rw < 0 || rh < 0)
@@ -662,7 +662,7 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BackgroundF
 	}
 }
 
-void Doryen::Console::hline(int x, int y, int l, BackgroundFlag flag)
+void Doryen::Console::hline(int x, int y, int l, BlendModes flag)
 {
 	for (int i = x; i < x + l; ++i)
 	{
@@ -671,7 +671,7 @@ void Doryen::Console::hline(int x, int y, int l, BackgroundFlag flag)
 	}
 }
 
-void Doryen::Console::vline(int x, int y, int l, BackgroundFlag flag)
+void Doryen::Console::vline(int x, int y, int l, BlendModes flag)
 {
 	for (int i = y; i < y + l; ++i)
 	{
@@ -680,7 +680,7 @@ void Doryen::Console::vline(int x, int y, int l, BackgroundFlag flag)
 	}
 }
 
-void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty, BackgroundFlag flag)
+void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty, BlendModes flag)
 {
 	//Draw the edges
 	writeChar(start.x, start.y, 218, flag);
@@ -723,7 +723,7 @@ void Doryen::Console::drawFrameTitle(std::string_view _title,
 
 
 void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
-		Doryen::BackgroundFlag flag, const std::string& name)
+		Doryen::BlendModes flag, const std::string& name)
 {
 	// Curly braces for create a Point directly.
 	drawFrame({ x, y }, { w, h }, clear, flag);
@@ -747,7 +747,7 @@ void Doryen::Console::write(int x, int y, const std::string& fmt)
 	}
 }
 
-int Doryen::Console::printRectEx(int x, int y, int w, int h, BackgroundFlag flag,
+int Doryen::Console::printRectEx(int x, int y, int w, int h, BlendModes flag,
 		int alignment, const char* fmt, ...)
 {
 //	va_list ap;
@@ -893,7 +893,7 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 }
 
 void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
-		const Geometry::Size& size, BackgroundFlag flag, std::string_view text)
+		const Geometry::Size& size, BlendModes flag, std::string_view text)
 {
 	if (text.size() > size.w)
 	{

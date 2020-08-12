@@ -56,16 +56,16 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.setCharBackground(x, y, Palette::PRIMARY_DARK, BackgroundFlag::SET);
+				sample.setCharBackground(x, y, Palette::PRIMARY_DARK, BlendModes::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
 				// The character 205 represent a double wall
-				sample.writeChar(x, y, 205, BackgroundFlag::NONE);
+				sample.writeChar(x, y, 205, BlendModes::NONE);
 			}
 			else
 			{
-				sample.setCharBackground(x, y, Palette::PRIMARY_VIVID, BackgroundFlag::SET);
+				sample.setCharBackground(x, y, Palette::PRIMARY_VIVID, BlendModes::SET);
 			}
 		}
 	}
@@ -128,7 +128,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar.getPoint2DAt(i);
 
-				sample.setCharBackground(point.x, point.y, Palette::YELLOW, Doryen::BackgroundFlag::SET);
+				sample.setCharBackground(point.x, point.y, Palette::YELLOW, Doryen::BlendModes::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{
@@ -171,7 +171,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 		{
 			if (!AStar.isEmpty())
 			{
-				sample.writeChar(playerX, playerY, ' ', Doryen::BackgroundFlag::NONE);
+				sample.writeChar(playerX, playerY, ' ', Doryen::BlendModes::NONE);
 
 				try
 				{
@@ -180,7 +180,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 					playerX = point.x;
 					playerY = point.y;
 
-					sample.writeChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+					sample.writeChar(playerX, playerY, '@', Doryen::BlendModes::NONE);
 				}
 				catch (Doryen::Exceptions::IllegalMethodCall& e)
 				{
@@ -220,7 +220,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			destinationY = MOUSE_Y;
 
 			recalculatePath = true;
-			sample.writeChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+			sample.writeChar(destinationX, destinationY, '+', Doryen::BlendModes::NONE);
 		}
 	}
 }
@@ -257,7 +257,7 @@ bool Functor::Path::moveDestination(KeyCode key)
 
 void Functor::Path::drawDestinationPoint()
 {
-	sample.writeChar(destinationX, destinationY, '+', Doryen::BackgroundFlag::NONE);
+	sample.writeChar(destinationX, destinationY, '+', Doryen::BlendModes::NONE);
 }
 
 void Functor::Path::drawHelpMessage()
@@ -286,5 +286,5 @@ bool Functor::Path::changeAlgorithm(KeyCode key)
 
 void Functor::Path::drawPlayer()
 {
-	sample.writeChar(playerX, playerY, '@', Doryen::BackgroundFlag::NONE);
+	sample.writeChar(playerX, playerY, '@', Doryen::BlendModes::NONE);
 }

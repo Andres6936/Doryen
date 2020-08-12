@@ -110,7 +110,7 @@ bool Color::equals(const Color& c) const noexcept
 	return r == c.r && g == c.g && b == c.b && a == c.a;
 }
 
-void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noexcept
+void Color::trasformColor(const Color& another, Doryen::BlendModes flag) noexcept
 {
 	std::int32_t nr = 0;
 	std::int32_t ng = 0;
@@ -120,11 +120,11 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 	{
 
 		// Noping
-	case BackgroundFlag::NONE:
-	case BackgroundFlag::DEFAULT:
+	case BlendModes::NONE:
+	case BlendModes::DEFAULT:
 		break;
 
-	case BackgroundFlag::SET:
+	case BlendModes::SET:
 
 		// Copy information color
 		this->r = another.r;
@@ -132,33 +132,33 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 		this->b = another.b;
 		break;
 
-	case BackgroundFlag::MULTIPLY:
+	case BlendModes::MULTIPLY:
 
 		this->multiply(another);
 		break;
 
-	case BackgroundFlag::LIGHTEN:
+	case BlendModes::LIGHTEN:
 
 		this->r = std::max(this->r, another.r);
 		this->g = std::max(this->g, another.g);
 		this->b = std::max(this->b, another.b);
 		break;
 
-	case BackgroundFlag::DARKEN:
+	case BlendModes::DARKEN:
 
 		this->r = std::min(this->r, another.r);
 		this->g = std::min(this->g, another.g);
 		this->b = std::min(this->b, another.b);
 		break;
 
-	case BackgroundFlag::SCREEN:
+	case BlendModes::SCREEN:
 
 		this->r = (std::uint8_t)(255 - (255 - this->r) * (255 - another.r) / 255);
 		this->g = (std::uint8_t)(255 - (255 - this->g) * (255 - another.g) / 255);
 		this->b = (std::uint8_t)(255 - (255 - this->b) * (255 - another.b) / 255);
 		break;
 
-	case BackgroundFlag::COLOR_DODGE:
+	case BlendModes::COLOR_DODGE:
 
 		// The component in R, G or B should be different of 255 for avoid division by zero
 		if (this->r not_eq 255) this->r = std::min(255, (255 * another.r) / (255 - this->r));
@@ -167,7 +167,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 		break;
 
-	case BackgroundFlag::COLOR_BURN:
+	case BlendModes::COLOR_BURN:
 
 		// The component in R, G or B should be greater that 0 for avoid division by zero
 		if (another.r > 0) this->r = std::clamp((255 - (255 * (255 - this->r)) / another.r), 0, 255);
@@ -176,25 +176,25 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 		break;
 
-	case BackgroundFlag::ADD:
+	case BlendModes::ADD:
 
 		this->add(another);
 		break;
 
-	case BackgroundFlag::ADDA:
+	case BlendModes::ADDA:
 
 		// TODO: Implemented Alpha Sum
 		this->add(another);
 		break;
 
-	case BackgroundFlag::BURN:
+	case BlendModes::BURN:
 
 		this->r = std::clamp(this->r + another.r - 255, 0, 255);
 		this->g = std::clamp(this->g + another.g - 255, 0, 255);
 		this->b = std::clamp(this->b + another.b - 255, 0, 255);
 		break;
 
-	case BackgroundFlag::OVERLAY:
+	case BlendModes::OVERLAY:
 
 		if (another.r <= 128)
 		{
@@ -228,7 +228,7 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 		this->b = std::clamp(nb, 0, 255);
 		break;
 
-	case BackgroundFlag::ALPH:
+	case BlendModes::ALPH:
 
 		// TODO: Implemented Alpha
 		break;

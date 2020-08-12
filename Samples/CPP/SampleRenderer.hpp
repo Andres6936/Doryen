@@ -23,7 +23,7 @@ static Doryen::Console sampleConsole( SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT 
 /**
  * current blending mode
  */
-static Doryen::BackgroundFlag backFlag = Doryen::BackgroundFlag::SET;
+static Doryen::BlendModes backFlag = Doryen::BlendModes::SET;
 
 class SampleRenderer : public Doryen::CallbackRender
 {

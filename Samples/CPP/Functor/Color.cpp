@@ -63,7 +63,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			float ycoef = (float)(y) / (sample.getHeight() - 1);
 			// get the current cell color
 			Doryen::Color curColor = Doryen::Color::lerp(top, bottom, ycoef);
-			sample.setCharBackground(x, y, curColor, Doryen::BackgroundFlag::SET);
+			sample.setCharBackground(x, y, curColor, Doryen::BlendModes::SET);
 		}
 	}
 
@@ -93,14 +93,14 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			}
 
 			sample.setDefaultForeground(col);
-			sample.writeChar(x, y, c, Doryen::BackgroundFlag::NONE);
+			sample.writeChar(x, y, c, Doryen::BlendModes::NONE);
 		}
 	}
 	sample.setDefaultForeground(textColor);
 	// the background behind the text is slightly darkened using the BKGND_MULTIPLY flag
 	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_30);
 	sample.printRectEx(sample.getWidth() / 2, 5, sample.getWidth() - 2,
-			sample.getHeight() - 1, BackgroundFlag::MULTIPLY, 1,
+			sample.getHeight() - 1, BlendModes::MULTIPLY, 1,
 			"The Doryen library uses 24 bits colors, for both background and foreground.");
 }
 
