@@ -28,3 +28,10 @@ TEST_CASE ("The lerping with coefficient 0.0f return the start point (color a)")
 
 			CHECK(c.equals({ 126, 126, 126 }));
 }
+
+TEST_CASE ("The lerping with coefficient 1.0f return the end point (color b)")
+{
+	Color c = Color::lerp({ 126, 126, 126 }, { 33, 33, 33 }, 1.0f);
+
+			CHECK(c.equals({ 33, 33, 33 }));
+}
