@@ -83,7 +83,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	int yd = (int)(sample.getHeight() / 2 - sinAngle * sample.getWidth() / 2);
 
 	// render the line
-	RenderLine listener;
+	RenderLine listener{ sample };
 
 	Doryen::Algorithms::Line objLine = Doryen::Algorithms::Line();
 

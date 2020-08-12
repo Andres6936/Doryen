@@ -8,7 +8,15 @@
 class RenderLine : public Doryen::Algorithms::LineListener
 {
 
+private:
+
+	Doryen::Console& console;
+
 public :
+
+	RenderLine(Doryen::Console& _console) : console(_console)
+	{
+	};
 
 	bool drawPoint(int x, int y) override;
 };

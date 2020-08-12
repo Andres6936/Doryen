@@ -76,11 +76,14 @@ int main(int argc, char* argv[])
 
 	Console console = Console();
 
+	// The offscreen console in which the samples are rendered
+	Console innerConsole(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
+
 	console.setCustomFont(font, FONT_TYPE_GREYSCALE | FONT_LAYOUT_TCOD, nbCharHoriz, nbCharVertic);
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen);
 
-	std::array samples = configureExamples(std::ref(sampleConsole));
+	std::array samples = configureExamples(std::ref(innerConsole));
 
 	while (console.isRunning())
 	{
@@ -113,7 +116,7 @@ int main(int argc, char* argv[])
 		samples[curSample]->render(_key, mouse);
 
 		// blit the sample console on the root console
-		sampleConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
+		innerConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
 
 		// update the game screen
 		console.draw();

@@ -25,7 +25,7 @@ void Functor::SDL::render(KeyCode key, const Mouse& mouse)
 		{
 			if (not renderingCallback)
 			{
-				sample.registerCallback(std::make_unique<SampleRenderer>());
+				sample.registerCallback(std::make_unique<SampleRenderer>(sample));
 				renderingCallback = true;
 			}
 		}

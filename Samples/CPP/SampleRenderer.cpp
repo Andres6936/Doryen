@@ -18,13 +18,13 @@ void SampleRenderer::render(std::any sdlSurface)
 
 	// now we have almighty access to the screen's precious pixels !!
 	// get the font character size
-	const auto[CHAR_WIDTH, CHAR_HEIGHT] = sampleConsole.getFontSize();
+	const auto[CHAR_WIDTH, CHAR_HEIGHT] = console.getFontSize();
 
 	// compute the sample console position in pixels
 	const int SAMPLE_X = SAMPLE_SCREEN_X * CHAR_WIDTH;
 	const int SAMPLE_Y = SAMPLE_SCREEN_Y * CHAR_HEIGHT;
 
-	delay -= sampleConsole.getLastFrameLength();
+	delay -= console.getLastFrameLength();
 
 	if (delay < 0.0f)
 	{
@@ -129,7 +129,7 @@ void SampleRenderer::effectBlur(int samplex, int sampley, int samplew, int sampl
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;
-	f[2] = sampleConsole.getElapsedSeconds();
+	f[2] = console.getElapsedSeconds();
 	for (int x = samplex; x < samplex + samplew; x++)
 	{
 		Uint8* p = (Uint8*)screen->pixels + x * screen->format->BytesPerPixel + sampley * screen->pitch;
