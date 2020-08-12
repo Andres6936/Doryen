@@ -211,32 +211,19 @@ namespace Doryen
 		void add(const Color& other) noexcept;
 
 		/**
-		@PageName color
-		@FuncTitle Interpolate between two colors
-		@FuncDesc   c1 = lerp (c2, c3, coef) => c1.r = c2.r  + (c3.r - c2.r ) * coef
-								  c1.g = c2.g  + (c3.g - c2.g ) * coef
-								  c1.b = c2.b  + (c3.b - c2.b ) * coef
-	coef should be between 0.0 and 1.0 but you can as well use other values
-	<table><tr><td style="background-color: rgb(96, 96, 96); color: rgb(255, 255, 255);" align="center">coef == 0.0f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr>
-		<tr><td style="background-color: rgb(135, 72, 72); color: rgb(255, 255, 255);" align="center">coef == 0.25f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr>
-		<tr><td style="background-color: rgb(175, 48, 48); color: rgb(255, 255, 255);" align="center">coef == 0.5f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr>
-
-		<tr><td style="background-color: rgb(215, 24, 24); color: rgb(255, 255, 255);" align="center">coef == 0.75f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr>
-		<tr><td style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);" align="center">coef == 1.0f</td><td style="background-color: rgb(96, 96, 96); width: 60px;"></td><td style="background-color: rgb(255, 0, 0); width: 60px;"></td></tr></table>
-		@CppEx Doryen::TCODColor myColor = Doryen::TCODColor::lerp ( Doryen::TCODColor::darkGrey, Doryen::TCODColor::lightRed,coef );
-		@CEx TCOD_color_t my_color = TCOD_color_lerp ( TCOD_dark_grey, TCOD_light_red,coef);
-		@PyEx my_color = libtcod.color_lerp ( libtcod.dark_grey, litbcod.light_red,coef)
-		@C#Ex Doryen::TCODColor myColor = Doryen::TCODColor.Interpolate( Doryen::TCODColor.darkGrey, Doryen::TCODColor.lightRed, coef );
-		@LuaEx myColor = tcod.color.Interpolate( tcod.color.darkGrey, tcod.color.lightRed, coef )
+		 * @brief Interpolate between two colors.
+		 *
+		 * Interpolation is a technique that allows you to “fill a gap” between
+		 * two numbers.
+		 *
+		 * When coefficient == 0, a is returned. <br>
+		 * When coefficient == 1, a + (b - a) == b is returned instead.
+		 *
+		 * @param a The starting point.
+		 * @param b The ending point.
+		 * @param coefficient Range between 0.0 and 1.0
 		*/
-		static Color lerp(const Color& a, const Color& b, float coef)
-		{
-			Color ret;
-			ret.r = (a.r + (b.r - a.r) * coef);
-			ret.g = (a.g + (b.g - a.g) * coef);
-			ret.b = (a.b + (b.b - a.b) * coef);
-			return ret;
-		}
+		static Color lerp(const Color& a, const Color& b, float coefficient);
 
 		// Static methods
 

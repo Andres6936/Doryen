@@ -287,3 +287,12 @@ Color Color::fromString(std::string_view string)
 {
 	return ColorTranslator::fromHTML(string);
 }
+
+Color Color::lerp(const Color& a, const Color& b, float coefficient)
+{
+	const std::int32_t cR = (a.r + (b.r - a.r) * coefficient);
+	const std::int32_t cG = (a.g + (b.g - a.g) * coefficient);
+	const std::int32_t cB = (a.b + (b.b - a.b) * coefficient);
+
+	return { cR, cG, cB };
+}
