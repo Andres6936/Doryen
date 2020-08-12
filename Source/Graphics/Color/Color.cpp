@@ -110,32 +110,11 @@ bool Color::equals(const Color& c) const noexcept
 	return r == c.r && g == c.g && b == c.b && a == c.a;
 }
 
-// Private function
-template<typename T>
-T clamp(const T a, const T b, const T x)
-{
-	if (x < a)
-	{
-		return a;
-	}
-	else
-	{
-		if (x > b)
-		{
-			return b;
-		}
-		else
-		{
-			return x;
-		}
-	}
-}
-
 void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noexcept
 {
-	std::uint32_t nr = 0;
-	std::uint32_t ng = 0;
-	std::uint32_t nb = 0;
+	std::int32_t nr = 0;
+	std::int32_t ng = 0;
+	std::int32_t nb = 0;
 
 	switch (flag)
 	{
@@ -219,34 +198,34 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 		if (another.r <= 128)
 		{
-			nr = (std::uint8_t)(2 * (another.r) * this->r / 255);
+			nr = 2 * (another.r) * this->r / 255;
 		}
 		else
 		{
-			nr = (std::uint8_t)(255 - 2 * (255 - another.r) * (255 - this->r) / 255);
+			nr = 255 - 2 * (255 - another.r) * (255 - this->r) / 255;
 		}
 
 		if (another.g <= 128)
 		{
-			ng = (std::uint8_t)(2 * (another.g) * this->g / 255);
+			ng = 2 * (another.g) * this->g / 255;
 		}
 		else
 		{
-			ng = (std::uint8_t)(255 - 2 * (255 - another.g) * (255 - this->g) / 255);
+			ng = 255 - 2 * (255 - another.g) * (255 - this->g) / 255;
 		}
 
 		if (another.b <= 128)
 		{
-			nb = (std::uint8_t)(2 * (another.b) * this->b / 255);
+			nb = 2 * (another.b) * this->b / 255;
 		}
 		else
 		{
-			nb = (std::uint8_t)(255 - 2 * (255 - another.b) * (255 - this->b) / 255);
+			nb = 255 - 2 * (255 - another.b) * (255 - this->b) / 255;
 		}
 
-		this->r = clamp(0u, 255u, nr);
-		this->g = clamp(0u, 255u, ng);
-		this->b = clamp(0u, 255u, nb);
+		this->r = std::clamp(nr, 0, 255);
+		this->g = std::clamp(ng, 0, 255);
+		this->b = std::clamp(nb, 0, 255);
 		break;
 
 	case BackgroundFlag::ALPH:
