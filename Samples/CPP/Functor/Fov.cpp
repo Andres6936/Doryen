@@ -94,18 +94,18 @@ void Functor::FOV::drawDungeon()
 				{
 					if (wall)
 					{
-						light = lightWall;
+						light = Palette::GOLD;
 					}
 					else
 					{
-						light = lightGround;
+						light = Palette::YELLOW;
 					}
 				}
 				else
 				{
 					// torch flickering fx
 					Doryen::Color base = (wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID);
-					light = (wall ? lightWall : lightGround);
+					light = (wall ? Palette::GOLD : Palette::YELLOW);
 					// cell distance to torch (squared)
 					float r = (float)((x - playerX + dx) * (x - playerX + dx) +
 									  (y - playerY + dy) * (y - playerY + dy));

@@ -76,9 +76,6 @@ namespace Functor
 		 */
 		Noise noise{ 1 };
 
-		const Doryen::Color lightWall{ 130, 110, 50 };
-		const Doryen::Color lightGround{ 200, 180, 50 };
-
 		void drawPlayer();
 
 		void drawDungeon();
