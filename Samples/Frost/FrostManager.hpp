@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include <vector>
-#include "libtcod.hpp"
-#include "libtcod_int.h"
+#include "Doryen/Doryen.hpp"
+
+using namespace Doryen;
 
 class Frost;
 
@@ -14,27 +14,29 @@ class FrostManager
 
 private:
 
-    /**
-     * The width.
-     */
-    int w;
+	/**
+	 * The width.
+	 */
+	int w;
 
-    /**
-     * The height.
-     */
-    int h;
+	/**
+	 * The height.
+	 */
+	int h;
 
-    float *grid;
+	float* grid;
 
-    Doryen::Color frostColor[256];
+	Console& console;
 
-    std::vector <Frost> frost;
+	Doryen::Color frostColor[256];
 
-    Doryen::Image* img;
+	std::vector<Frost> frost;
+
+	Doryen::Image* img;
 
 public :
 
-    FrostManager( int width, int height );
+	FrostManager(int width, int height, Console& _console);
 
     ~FrostManager( );
 
@@ -47,18 +49,22 @@ public :
     void clear( );
 
     inline float getValue( int cx, int cy )
-    {
-        TCOD_IFNOT( cx + cy * w >= 0 && cx + cy * w < w * h )
-        { return 0.0f; }
-        return grid[ cx + cy * w ];
-    }
+	{
+		if (cx + cy * w >= 0 && cx + cy * w < w * h)
+		{
+			return grid[cx + cy * w];
+		}
+
+		return 0.0f;
+	}
 
     inline void setValue( int cx, int cy, float v )
-    {
-        TCOD_IFNOT( cx + cy * w >= 0 && cx + cy * w < w * h )
-        { return; }
-        grid[ cx + cy * w ] = v;
-    }
+	{
+		if (cx + cy * w >= 0 && cx + cy * w < w * h)
+		{
+			grid[cx + cy * w] = v;
+		}
+	}
 
     Doryen::Color *getFrostColor( );
 

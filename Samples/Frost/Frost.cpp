@@ -1,16 +1,16 @@
 #include "Frost.hpp"
-#include "Algorithms/Drawing/Bresenham.hpp"
-#include "Image/Image.hpp"
 
-Frost::Frost( int x, int y, FrostManager *nFrostManager ) : x( x ), y( y ), manager( nFrostManager )
+#include <Doryen/Doryen.hpp>
+
+Frost::Frost(int x, int y, FrostManager* nFrostManager) : x(x), y(y), manager(nFrostManager)
 {
-    bestx = 0;
-    besty = 0;
+	bestx = 0;
+	besty = 0;
 
-    rx = 0;
-    ry = 0;
+	rx = 0;
+	ry = 0;
 
-    ra = 0;
+	ra = 0;
     rr = 0;
 
     border = 0;
@@ -24,20 +24,20 @@ bool Frost::update( float elapsed )
         timer -= elapsed;
 
         if ( timer <= 0 )
-        {
-            // find a new random frost direction
-            ra = TCODRandom::getInstance( )->getFloat( 0.0f, 2 * 3.1415926f );
-            rr = TCODRandom::getInstance( )->getFloat( 0, 2 * RANGE );
+		{
+			// find a new random frost direction
+			ra = Random::Number::nextFloat(0.0f, 2 * 3.1415926f);
+			rr = Random::Number::nextFloat(0, 2 * RANGE);
 
-            timer = ANGLE_DELAY;
+			timer = ANGLE_DELAY;
 
-            rx = ( int ) ( RANGE + rr * cosf( ra ));
-            ry = ( int ) ( RANGE + rr * sinf( ra ));
+			rx = (int)(RANGE + rr * cosf(ra));
+			ry = (int)(RANGE + rr * sinf(ra));
 
-            int minDist = 100000;
+			int minDist = 100000;
 
-            // find closest frost pixel
-            for ( int cx = 1; cx < 2 * RANGE; cx++ )
+			// find closest frost pixel
+			for (int cx = 1; cx < 2 * RANGE; cx++)
             {
                 if (( unsigned ) ( x - RANGE + cx ) < ( unsigned ) manager->w )
                 {
@@ -122,22 +122,20 @@ bool Frost::update( float elapsed )
 
 void Frost::render(Doryen::Image* img)
 {
-	int w, h;
-
-	img->getSize(&w, &h);
+	const auto[w, h] = img->getSize();
 
 	for (int cx = x - RANGE; cx <= x + RANGE; cx++)
 	{
 		if ((unsigned)cx < (unsigned)w)
 		{
 			for (int cy = y - RANGE; cy <= y + RANGE; cy++)
-            {
-                if (( unsigned ) cy < ( unsigned ) h )
-                {
-                    float f = getValue( cx - ( x - RANGE ), cy - ( y - RANGE ));
+			{
+				if ((unsigned)cy < (unsigned)h)
+				{
+					float f = getValue(cx - (x - RANGE), cy - (y - RANGE));
                     int idx = ( int ) ( f * 255 );
-                    idx = MIN( 255, idx );
-                    img->putPixel( cx, cy, manager->getFrostColor( )[ idx ] );
+					idx = MIN(255, idx);
+					img->setPixel(cx, cy, manager->getFrostColor()[idx]);
                 }
             }
         }

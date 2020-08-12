@@ -1,7 +1,7 @@
 #include "FrostManager.hpp"
 #include "Frost.hpp"
 
-FrostManager::FrostManager( int width, int height )
+FrostManager::FrostManager(int width, int height, Console& _console) : console(_console)
 {
     w = width;
     h = height;
@@ -25,7 +25,6 @@ void FrostManager::addFrost( int x, int y )
 
 void FrostManager::clear( )
 {
-    img->clear( Doryen::Color::black );
     memset( grid, 0, sizeof( float ) * w * h );
 }
 
@@ -48,7 +47,7 @@ void FrostManager::render( )
         temp.render( img );
     }
 
-    img->blit2x( Doryen::Console::root, 0, 0 );
+	img->blit2x(console, 0, 0);
 }
 
 Doryen::Color *FrostManager::getFrostColor( )
