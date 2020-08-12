@@ -61,7 +61,7 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.setCharBackground(x, y, DARK_WALL, BackgroundFlag::SET);
+				sample.setCharBackground(x, y, Palette::PRIMARY_DARK, BackgroundFlag::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
@@ -70,7 +70,7 @@ void Functor::Path::drawDungeon()
 			}
 			else
 			{
-				sample.setCharBackground(x, y, DARK_GROUND, BackgroundFlag::SET);
+				sample.setCharBackground(x, y, Palette::PRIMARY_VIVID, BackgroundFlag::SET);
 			}
 		}
 	}
