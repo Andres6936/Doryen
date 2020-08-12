@@ -12,8 +12,8 @@ Doryen::SDL::SDL() : Renderer()
 
 Doryen::SDL::~SDL()
 {
-	//delete screen;
-	delete charmap;
+	SDL_FreeSurface(charmap);
+	SDL_Quit();
 }
 
 // Methods
