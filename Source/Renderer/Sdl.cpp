@@ -462,12 +462,12 @@ void Doryen::SDL::findResolution()
 	}
 }
 
-unsigned Doryen::SDL::getWidthInPixeles() const
+std::int32_t Doryen::SDL::getWidthPixels() const
 {
 	return screen->w;
 }
 
-unsigned Doryen::SDL::getHeigthInPixeles() const
+std::int32_t Doryen::SDL::getHeightPixels() const
 {
 	return screen->h;
 }
@@ -745,8 +745,8 @@ void Doryen::SDL::setWindowInFullscreen()
 	screen = SDL_SetVideoMode((int)getActualFullscreenWidth(), (int)getActualFullscreenHeigth(), 32,
 			SDL_FULLSCREEN);
 
-	setActualFullscreenWidth(getWidthInPixeles());
-	setActualFullscreenHeigth(getHeigthInPixeles());
+	setActualFullscreenWidth(getWidthPixels());
+	setActualFullscreenHeigth(getHeightPixels());
 
 	SDL_FillRect(screen, nullptr, 0);
 

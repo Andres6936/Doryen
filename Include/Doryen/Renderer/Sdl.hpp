@@ -43,6 +43,12 @@ namespace Doryen
 
 		static void convertToGenericEvent(SDL_Event& event, Key& key);
 
+		// Getters
+
+		std::int32_t getWidthPixels() const;
+
+		std::int32_t getHeightPixels() const;
+
 	public:
 
 		// Construct
@@ -70,10 +76,6 @@ namespace Doryen
 		void setWindowTitle(const std::string& _title) override;
 
 		// Getters
-
-		unsigned getWidthInPixeles() const;
-
-		unsigned getHeigthInPixeles() const;
 
 		Key getKeyPressed() override;
 
