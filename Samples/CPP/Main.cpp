@@ -4,6 +4,7 @@
  * It's in the public domain.
  */
 
+#include <chrono>
 #include <memory>
 #include <iostream>
 
@@ -74,6 +75,8 @@ int main(int argc, char* argv[])
 	const std::uint8_t FONT_TYPE_GREYSCALE = 4;
 	const std::uint8_t FONT_LAYOUT_TCOD = 8;
 
+	const auto beginTime = std::chrono::high_resolution_clock::now();
+
 	Console console = Console();
 
 	// The offscreen console in which the samples are rendered
@@ -82,6 +85,11 @@ int main(int argc, char* argv[])
 	console.setCustomFont(font, FONT_TYPE_GREYSCALE | FONT_LAYOUT_TCOD, nbCharHoriz, nbCharVertic);
 
 	console.initRoot(80, 50, "libtcod C++ sample", fullscreen);
+
+	const auto endTime = std::chrono::high_resolution_clock::now();
+
+	std::cout << "Total time : " << std::chrono::duration_cast<std::chrono::microseconds>(endTime - beginTime).count()
+			  << " microseconds\n";
 
 	std::array samples = configureExamples(std::ref(innerConsole));
 
