@@ -21,3 +21,10 @@ TEST_CASE ("Parser color from hexadecimal string variable (Not null terminated)"
 
 			CHECK(c.equals({ 25, 40, 86 }));
 }
+
+TEST_CASE ("The lerping with coefficient 0.0f return the start point (color a)")
+{
+	Color c = Color::lerp({ 126, 126, 126 }, { 33, 33, 33 }, 0.0f);
+
+			CHECK(c.equals({ 126, 126, 126 }));
+}
