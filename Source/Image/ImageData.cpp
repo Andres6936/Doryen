@@ -38,6 +38,7 @@ bool ImageData::isTypeImageBMP(const std::string& filename)
 	else
 	{
 		// Throw Exception
+		throw std::runtime_error("The type of image cannot will be opened.\n");
 	}
 }
 
@@ -71,7 +72,7 @@ bool ImageData::isTypeImagePNG(const std::string& filename)
 	}
 	else
 	{
-		// Throw Exception
+		throw std::runtime_error("The type of image cannot will be opened.\n");
 	}
 }
 

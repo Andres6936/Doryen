@@ -253,5 +253,8 @@ std::string Functor::FOV::typeFOVString()
 
 	case TypeFOV::Permissive:
 		return "PERMISSIVE";
+
+	default:
+		return "UNKNOWN";
 	}
 }
