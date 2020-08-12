@@ -19,7 +19,7 @@ TEST_CASE ("Overflow for operations of multiply for another color")
 	Color neutral{ 1, 1, 1 };
 	neutral.multiply({ 255, 255, 255 });
 
-			CHECK(neutral.equals({ 255, 255, 255 }));
+			CHECK(neutral.equals({ 1, 1, 1 }));
 
 	// Element Total
 	Color black{ 255, 255, 255 };
