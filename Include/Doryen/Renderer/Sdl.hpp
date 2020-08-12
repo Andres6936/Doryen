@@ -31,8 +31,6 @@ namespace Doryen
 
 		// Methods
 
-		void findResolution();
-
 		void updateKeyEvents();
 
 		void updateMouseEvents();
@@ -42,12 +40,6 @@ namespace Doryen
 		void processEventsOfExit();
 
 		static void convertToGenericEvent(SDL_Event& event, Key& key);
-
-		// Getters
-
-		std::int32_t getWidthPixels() const;
-
-		std::int32_t getHeightPixels() const;
 
 	public:
 
