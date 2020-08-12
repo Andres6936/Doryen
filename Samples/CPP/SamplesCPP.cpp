@@ -53,11 +53,8 @@ int main(int argc, char* argv[])
 
 	const char* font = "Data/fonts/consolas10x10_gs_tc.png";
 	int nbCharHoriz = 0, nbCharVertic = 0;
-	int fullscreenWidth = 0;
-	int fullscreenHeight = 0;
+
 	bool fullscreen = false;
-	bool creditsEnd = false;
-	int cur_renderer = 0;
 
 	const std::uint8_t FONT_TYPE_GREYSCALE = 4;
 	const std::uint8_t FONT_LAYOUT_TCOD = 8;
