@@ -311,9 +311,9 @@ void Color::trasformColor(const Color& another, Doryen::BackgroundFlag flag) noe
 
 void Color::multiply(const Color& other) noexcept
 {
-	this->r = std::min(255, this->r * other.r);
-	this->g = std::min(255, this->g * other.g);
-	this->b = std::min(255, this->b * other.b);
+	this->r = std::min(255, this->r * other.r / 255);
+	this->g = std::min(255, this->g * other.g / 255);
+	this->b = std::min(255, this->b * other.b / 255);
 }
 
 void Color::multiply(float value) noexcept
