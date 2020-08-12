@@ -47,7 +47,6 @@ std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::referen
 int main(int argc, char* argv[])
 {
 	int curSample = 0; // index of the current sample
-	bool first = true; // first time we render a sample
 
 	const char* font = "Data/fonts/consolas10x10_gs_tc.png";
 	int nbCharHoriz = 0, nbCharVertic = 0;
@@ -116,8 +115,6 @@ int main(int argc, char* argv[])
 
 		// render current sample
 		samples[curSample]->render(_key, mouse);
-
-		first = false;
 
 		// blit the sample console on the root console
 		sampleConsole.blit({ 0, 0 }, console, { SAMPLE_SCREEN_X, SAMPLE_SCREEN_Y });
