@@ -30,94 +30,91 @@
 // ********** bresenham line drawing **********
 void Doryen::Algorithms::Line::init(int xFrom, int yFrom, int xTo, int yTo)
 {
-    origx = xFrom;
-    origy = yFrom;
-    destx = xTo;
-    desty = yTo;
-    deltax = xTo - xFrom;
-    deltay = yTo - yFrom;
+	delta = { xTo - xFrom, yTo - yFrom };
+	origin = { xFrom, yFrom };
+	destination = { xTo, yTo };
 
-    if (deltax > 0)
-    {
-        stepx = 1;
-    }
-    else if ( deltax < 0 )
-    {
-        stepx = -1;
-    }
-    else
-    {
-        stepx = 0;
-    }
+	if (delta.x > 0)
+	{
+		stepCoordinate.x = 1;
+	}
+	else if (delta.x < 0)
+	{
+		stepCoordinate.x = -1;
+	}
+	else
+	{
+		stepCoordinate.x = 0;
+	}
 
-    if ( deltay > 0 )
-    {
-        stepy = 1;
-    }
-    else if ( deltay < 0 )
-    {
-        stepy = -1;
-    }
-    else
-    {
-        stepy = 0;
-    }
+	if (delta.y > 0)
+	{
+		stepCoordinate.y = 1;
+	}
+	else if (delta.y < 0)
+	{
+		stepCoordinate.y = -1;
+	}
+	else
+	{
+		stepCoordinate.y = 0;
+	}
 
-    if ( stepx * deltax > stepy * deltay )
-    {
-        e = stepx * deltax;
+	if (stepCoordinate.x * delta.x > stepCoordinate.y * delta.y)
+	{
+		e = stepCoordinate.x * delta.x;
 
-        deltax = deltax * 2;
-        deltay = deltay * 2;
-    }
-    else
-    {
-        e = stepy * deltay;
+		delta.x = delta.x * 2;
+		delta.y = delta.y * 2;
+	}
+	else
+	{
+		e = stepCoordinate.y * delta.y;
 
-        deltax = deltax * 2;
-        deltay = deltay * 2;
-    }
+		delta.x = delta.x * 2;
+		delta.y = delta.y * 2;
+	}
 }
 
 bool Doryen::Algorithms::Line::step(int* xCur, int* yCur)
 {
-    if (stepx * deltax > stepy * deltay)
-    {
-        if (origx == destx)
-        {
-            return true;
-        }
+	if (stepCoordinate.x * delta.x > stepCoordinate.y * delta.y)
+	{
+		if (origin.x == destination.x)
+		{
+			return true;
+		}
 
-        origx = origx + stepx;
-        e = e - stepy * deltay;
+		origin.x = origin.x + stepCoordinate.x;
+		e = e - stepCoordinate.y * delta.y;
 
-        if ( e < 0 )
-        {
-            origy = origy + stepy;
-            e = e + stepx * deltax;
-        }
-    }
+		if (e < 0)
+		{
+			origin.y = origin.y + stepCoordinate.y;
+			e = e + stepCoordinate.x * delta.x;
+		}
+	}
     else
-    {
-        if ( origy == desty )
-        {
-            return true;
-        }
+	{
+		if (origin.y == destination.y)
+		{
+			return true;
+		}
 
-        origy = origy + stepy;
-        e = e - stepx * deltax;
+		origin.y = origin.y + stepCoordinate.y;
+		e = e - stepCoordinate.x * delta.x;
 
-        if ( e < 0 )
-        {
-            origx = origx + stepx;
-            e = e + stepy * deltay;
-        }
-    }
+		if (e < 0)
+		{
+			origin.x = origin.x + stepCoordinate.x;
+			e = e + stepCoordinate.y * delta.y;
+		}
+	}
 
-    *xCur = origx;
-    *yCur = origy;
+	*xCur = origin.x;
+	*yCur = origin.y;
 
-    return false;
+	return false;
 }
 
 bool Doryen::Algorithms::Line::line(int xFrom, int yFrom, int xTo, int yTo, Doryen::Algorithms::LineListener& plistener)
@@ -140,15 +137,7 @@ bool Doryen::Algorithms::Line::line(int xFrom, int yFrom, int xTo, int yTo, Dory
 
 Doryen::Algorithms::Line::Line()
 {
-    stepx = 0;
-    stepy = 0;
     e = 0;
-    deltax = 0;
-    deltay = 0;
-    origx = 0;
-    origy = 0;
-    destx = 0;
-    desty = 0;
 }
 
 

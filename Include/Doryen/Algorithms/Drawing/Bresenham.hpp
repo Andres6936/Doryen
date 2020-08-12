@@ -28,6 +28,8 @@
 #ifndef _TCOD_BRESENHAM_HPP
 #define _TCOD_BRESENHAM_HPP
 
+#include <Doryen/Geometry/Point2D.hpp>
+
 namespace Doryen
 {
 
@@ -57,15 +59,12 @@ namespace Doryen
 
 		private:
 
-			int stepx;
-			int stepy;
+			Geometry::Point2D<> stepCoordinate{};
+			Geometry::Point2D<> delta{};
+			Geometry::Point2D<> origin{};
+			Geometry::Point2D<> destination{};
+
 			int e;
-			int deltax;
-			int deltay;
-			int origx;
-			int origy;
-			int destx;
-			int desty;
 
 		public :
 
