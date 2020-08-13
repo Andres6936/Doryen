@@ -94,7 +94,6 @@ void Doryen::Console::setConsoleModeRoot()
 	renderer->setFade(255);
 
 	renderer->onRenderer();
-	renderer->loadFont();
 }
 
 void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)
