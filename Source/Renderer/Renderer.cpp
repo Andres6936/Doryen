@@ -65,15 +65,15 @@ void Doryen::Renderer::createTablesOfCharacters()
 	characterColor.clear();
 	characterColor.resize(getMaxFontChars());
 
-	layoutCharacteres.clear();
-	layoutCharacteres.resize(getMaxFontChars(), 0);
+	layoutCharacters.clear();
+	layoutCharacters.resize(getMaxFontChars(), 0);
 
 	colored.clear();
 	colored.resize(getMaxFontChars(), false);
 
-	for (int i = 0; i < layoutCharacteres.size(); ++i)
+	for (int i = 0; i < layoutCharacters.size(); ++i)
 	{
-		layoutCharacteres[i] = layoutAsciiCode[i];
+		layoutCharacters[i] = layoutAsciiCode[i];
 	}
 }
 
@@ -94,7 +94,7 @@ void Doryen::Renderer::setFontWidth(std::uint32_t _fontWidth)
 
 void Doryen::Renderer::setFontHeight(std::uint32_t _fontHeight)
 {
-	fontHeigth = _fontHeight;
+	fontHeight = _fontHeight;
 }
 
 std::uint32_t Doryen::Renderer::getMaxFontChars() const
@@ -124,7 +124,7 @@ std::uint32_t Doryen::Renderer::getFontWidth() const
 
 std::uint32_t Doryen::Renderer::getFontHeight() const
 {
-	return fontHeigth;
+	return fontHeight;
 }
 
 bool Doryen::Renderer::isFontHasRowLayout() const
@@ -194,19 +194,19 @@ void Doryen::Renderer::checkTableOfCharacteres()
 		colored.clear();
 		colored.resize(getMaxFontChars(), false);
 
-		layoutCharacteres.clear();
-		layoutCharacteres.resize(getMaxFontChars(), 0);
+		layoutCharacters.clear();
+		layoutCharacters.resize(getMaxFontChars(), 0);
 
-		for (int i = 0; i < layoutCharacteres.size(); ++i)
+		for (int i = 0; i < layoutCharacters.size(); ++i)
 		{
-			layoutCharacteres[i] = layoutAsciiCode[i];
+			layoutCharacters[i] = layoutAsciiCode[i];
 		}
 	}
 }
 
 void Doryen::Renderer::setLayoutCharacter(std::uint32_t index, std::uint32_t code)
 {
-	layoutCharacteres[index] = code;
+	layoutCharacters[index] = code;
 }
 
 bool Doryen::Renderer::isRunning() const
@@ -226,7 +226,7 @@ void Doryen::Renderer::setWidth(std::uint32_t _width)
 
 void Doryen::Renderer::setHeight(std::uint32_t _height)
 {
-	heigth = _height;
+	height = _height;
 }
 
 std::uint32_t Doryen::Renderer::getWidth() const
@@ -236,7 +236,7 @@ std::uint32_t Doryen::Renderer::getWidth() const
 
 std::uint32_t Doryen::Renderer::getHeight() const
 {
-	return heigth;
+	return height;
 }
 
 void Doryen::Renderer::createBuffer()
@@ -380,7 +380,7 @@ void Doryen::Renderer::setLastFrameLength(float _lastFrameLength)
 
 std::uint32_t Doryen::Renderer::getMinimumFrameLength() const
 {
-	return minimunFrameLength;
+	return minimumFrameLength;
 }
 
 void Doryen::Renderer::fillOldBuffer()
@@ -393,7 +393,7 @@ void Doryen::Renderer::fillOldBuffer()
 
 int Doryen::Renderer::getCharacterInLayoutCharacteres(std::uint32_t index) const
 {
-	return layoutCharacteres[index];
+	return layoutCharacters[index];
 }
 
 short Doryen::Renderer::getOldFade() const
@@ -541,7 +541,7 @@ void Doryen::Renderer::setRunning(bool _running)
 
 void Doryen::Renderer::setMinimumFrameLength(std::uint32_t _frameLength)
 {
-	minimunFrameLength = _frameLength;
+	minimumFrameLength = _frameLength;
 }
 
 void Doryen::Renderer::unregisterCallback()

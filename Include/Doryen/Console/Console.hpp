@@ -77,7 +77,7 @@ namespace Doryen
 		unsigned width = 0;
 
 		/**
-		 *  Console heigth (in characters,not pixels).
+		 *  Console height (in characters,not pixels).
 		 */
 		unsigned height = 0;
 

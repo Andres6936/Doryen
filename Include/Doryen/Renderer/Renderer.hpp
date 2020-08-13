@@ -51,7 +51,7 @@ namespace Doryen
 
 		std::uint32_t width = 0;
 
-		std::uint32_t heigth = 0;
+		std::uint32_t height = 0;
 
 		std::uint32_t maxFontChars = 256;
 
@@ -61,7 +61,7 @@ namespace Doryen
 
 		std::uint32_t fontWidth = 0;
 
-		std::uint32_t fontHeigth = 0;
+		std::uint32_t fontHeight = 0;
 
 		std::uint32_t SDLKey = 0;
 
@@ -82,7 +82,7 @@ namespace Doryen
 		/**
 		 * Minimum length for a frame (when fps are limited)
 		 */
-		std::uint32_t minimunFrameLength = 0;
+		std::uint32_t minimumFrameLength = 0;
 
 		bool anyCharacterUpdated = false;
 
@@ -109,7 +109,7 @@ namespace Doryen
 
 		std::vector<bool> characterDrawed;
 
-		std::vector<int> layoutCharacteres;
+		std::vector<int> layoutCharacters;
 
 		std::vector<Color> characterColor;
 
