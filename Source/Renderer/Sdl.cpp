@@ -393,6 +393,11 @@ void Doryen::SDL::loadFont()
 		}
 	}
 
+	// This method is possible that will be called more of one time, hence is important
+	// that if the variable screen has been initialized it will be deleted for again
+	// initialize correctly.
+	if (screen not_eq nullptr) SDL_FreeSurface(screen);
+
 	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
 }
 
