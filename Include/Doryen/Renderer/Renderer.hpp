@@ -39,40 +39,40 @@ namespace Doryen
 		 */
 		float lastFrameLength = 0.0f;
 
-		unsigned width = 0;
+		std::uint32_t width = 0;
 
-		unsigned heigth = 0;
+		std::uint32_t heigth = 0;
 
-		unsigned maxFontChars = 256;
+		std::uint32_t maxFontChars = 256;
 
-		unsigned fontCharHorizontalSize = 16;
+		std::uint32_t fontCharHorizontalSize = 16;
 
-		unsigned fontCharVerticalSize = 16;
+		std::uint32_t fontCharVerticalSize = 16;
 
-		unsigned fontWidth = 0;
+		std::uint32_t fontWidth = 0;
 
-		unsigned fontHeigth = 0;
+		std::uint32_t fontHeigth = 0;
 
-		unsigned SDLKey = 0;
+		std::uint32_t SDLKey = 0;
 
-		unsigned RGBMask = 0;
+		std::uint32_t RGBMask = 0;
 
-		unsigned nRGBMask = 0;
+		std::uint32_t nRGBMask = 0;
 
 		/**
 		 * Number of frames in the last second
 		 */
-		unsigned framePerSeconds = 0;
+		std::uint32_t framePerSeconds = 0;
 
 		/**
 		 * Current number of frames
 		 */
-		unsigned currentFramePerSeconds = 0;
+		std::uint32_t currentFramePerSeconds = 0;
 
 		/**
 		 * Minimum length for a frame (when fps are limited)
 		 */
-		unsigned minimunFrameLength = 0;
+		std::uint32_t minimunFrameLength = 0;
 
 		bool anyCharacterUpdated = false;
 
@@ -151,7 +151,7 @@ namespace Doryen
 
 		void clearBuffer();
 
-		void resizeCharacterUpdate(unsigned size);
+		void resizeCharacterUpdate(std::uint32_t size);
 
 		void changeFontKeyColor(const Color& _color);
 
@@ -186,55 +186,55 @@ namespace Doryen
 
 		bool isFontHasDoryenLayout() const;
 
-		bool isCharacterColored(unsigned index) const;
+		bool isCharacterColored(std::uint32_t index) const;
 
-		bool isCharacterDrawed(unsigned index) const;
+		bool isCharacterDrawed(std::uint32_t index) const;
 
-		bool isCharacterUpdated(unsigned index) const;
+		bool isCharacterUpdated(std::uint32_t index) const;
 
 		short getFade() const;
 
 		short getOldFade() const;
 
-		int getCharOfCharacterInBufferAt(unsigned index) const;
+		int getCharOfCharacterInBufferAt(std::uint32_t index) const;
 
-		int getCharacterInLayoutCharacteres(unsigned index) const;
+		int getCharacterInLayoutCharacteres(std::uint32_t index) const;
 
-		unsigned int getWidth() const;
+		std::uint32_t getWidth() const;
 
-		unsigned int getHeigth() const;
+		std::uint32_t getHeigth() const;
 
-		unsigned int getMaxFontChars() const;
+		std::uint32_t getMaxFontChars() const;
 
-		unsigned int getFontCharHorizontalSize() const;
+		std::uint32_t getFontCharHorizontalSize() const;
 
-		unsigned int getFontCharVerticalSize() const;
+		std::uint32_t getFontCharVerticalSize() const;
 
-		unsigned int getFontWidth() const;
+		std::uint32_t getFontWidth() const;
 
-		unsigned int getFontHeigth() const;
+		std::uint32_t getFontHeigth() const;
 
-		unsigned int getSdlKey() const;
+		std::uint32_t getSdlKey() const;
 
-		unsigned int getRgbMask() const;
+		std::uint32_t getRgbMask() const;
 
-		unsigned int getNrgbMask() const;
+		std::uint32_t getNrgbMask() const;
 
-		unsigned int getFramePerSeconds() const;
+		std::uint32_t getFramePerSeconds() const;
 
-		unsigned int getMinimunFrameLength() const;
+		std::uint32_t getMinimunFrameLength() const;
 
 		std::uint32_t getElapsedMilliseconds() const;
 
-		unsigned int getCurrentFramePerSeconds() const;
+		std::uint32_t getCurrentFramePerSeconds() const;
 
 		const std::string& getFontfile() const;
 
-		const Color& getForegroundOfCharacterInBufferAt(unsigned index) const;
+		const Color& getForegroundOfCharacterInBufferAt(std::uint32_t index) const;
 
-		const Color& getBackgroundOfCharacterInBufferAt(unsigned index) const;
+		const Color& getBackgroundOfCharacterInBufferAt(std::uint32_t index) const;
 
-		const Color& getColorInCharacterColorAt(unsigned index) const;
+		const Color& getColorInCharacterColorAt(std::uint32_t index) const;
 
 		const Color& getForeground() const;
 
@@ -252,9 +252,9 @@ namespace Doryen
 
 		void setOldFade(short _oldFade);
 
-		void setWidth(unsigned int _width);
+		void setWidth(std::uint32_t _width);
 
-		void setHeigth(unsigned int _heigth);
+		void setHeigth(std::uint32_t _heigth);
 
 		void setRunning(bool _running);
 
@@ -264,37 +264,37 @@ namespace Doryen
 
 		void setFontGrayscale(bool _fontGrayscale);
 
-		void setMaxFontChars(unsigned int _maxFontChars);
+		void setMaxFontChars(std::uint32_t _maxFontChars);
 
-		void setMinimumFrameLength(unsigned int _minFrameLength);
+		void setMinimumFrameLength(std::uint32_t _minFrameLength);
 
-		void setFontCharHorizontalSize(unsigned int _fontCharHorizontalSize);
+		void setFontCharHorizontalSize(std::uint32_t _fontCharHorizontalSize);
 
-		void setFontCharVerticalSize(unsigned int _fontCharVerticalSize);
+		void setFontCharVerticalSize(std::uint32_t _fontCharVerticalSize);
 
-		void setFontWidth(unsigned int _fontWidth);
+		void setFontWidth(std::uint32_t _fontWidth);
 
-		void setFontHeigth(unsigned int _fontHeigth);
+		void setFontHeigth(std::uint32_t _fontHeigth);
 
 		void setAnyCharacterUpdated(bool _anyCharacterUpdated);
 
-		void setSdlKey(unsigned int _sdlKey);
+		void setSdlKey(std::uint32_t _sdlKey);
 
-		void setRgbMask(unsigned int _rgbMask);
+		void setRgbMask(std::uint32_t _rgbMask);
 
-		void setNrgbMask(unsigned int _nRgbMask);
+		void setNrgbMask(std::uint32_t _nRgbMask);
 
-		void setFramePerSeconds(unsigned int _framePerSeconds);
+		void setFramePerSeconds(std::uint32_t _framePerSeconds);
 
-		void setCurrentFramePerSeconds(unsigned int _currentFramePerSeconds);
+		void setCurrentFramePerSeconds(std::uint32_t _currentFramePerSeconds);
 
-		void setCharacterInBufferAt(unsigned index, const Char& _char);
+		void setCharacterInBufferAt(std::uint32_t index, const Char& _char);
 
-		void setCharacterColored(unsigned index, bool isColored);
+		void setCharacterColored(std::uint32_t index, bool isColored);
 
-		void setCharacterDrawed(unsigned index, bool isDrawed);
+		void setCharacterDrawed(std::uint32_t index, bool isDrawed);
 
-		void setLayoutCharacter(unsigned index, unsigned code);
+		void setLayoutCharacter(std::uint32_t index, std::uint32_t code);
 
 		void setForeground(const Color& _foreground);
 
@@ -302,13 +302,13 @@ namespace Doryen
 
 		void setFadingColor(const Color& _fadingColor);
 
-		void setCharOfCharacterInBufferAt(unsigned index, int _char);
+		void setCharOfCharacterInBufferAt(std::uint32_t index, int _char);
 
-		void setForegroundOfCharacterInBufferAt(unsigned index, const Color& _color);
+		void setForegroundOfCharacterInBufferAt(std::uint32_t index, const Color& _color);
 
-		void setBackgroundOfCharacterInBufferAt(unsigned index, const Color& _color);
+		void setBackgroundOfCharacterInBufferAt(std::uint32_t index, const Color& _color);
 
-		void setColorInCharacterColorAt(unsigned index, const Color& _color);
+		void setColorInCharacterColorAt(std::uint32_t index, const Color& _color);
 
 		void setDirty(const Geometry::Point2D<>& _start, Geometry::Point2D<>& _end);
 

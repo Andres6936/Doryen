@@ -77,32 +77,32 @@ void Doryen::Renderer::createTablesOfCharacteres()
 	}
 }
 
-unsigned int Doryen::Renderer::getFontCharHorizontalSize() const
+std::uint32_t Doryen::Renderer::getFontCharHorizontalSize() const
 {
 	return fontCharHorizontalSize;
 }
 
-unsigned int Doryen::Renderer::getFontCharVerticalSize() const
+std::uint32_t Doryen::Renderer::getFontCharVerticalSize() const
 {
 	return fontCharVerticalSize;
 }
 
-void Doryen::Renderer::setFontWidth(unsigned int _fontWidth)
+void Doryen::Renderer::setFontWidth(std::uint32_t _fontWidth)
 {
 	fontWidth = _fontWidth;
 }
 
-void Doryen::Renderer::setFontHeigth(unsigned int _fontHeigth)
+void Doryen::Renderer::setFontHeigth(std::uint32_t _fontHeigth)
 {
 	fontHeigth = _fontHeigth;
 }
 
-unsigned int Doryen::Renderer::getMaxFontChars() const
+std::uint32_t Doryen::Renderer::getMaxFontChars() const
 {
 	return maxFontChars;
 }
 
-void Doryen::Renderer::setMaxFontChars(unsigned int _maxFontChars)
+void Doryen::Renderer::setMaxFontChars(std::uint32_t _maxFontChars)
 {
 	maxFontChars = _maxFontChars;
 }
@@ -117,12 +117,12 @@ bool Doryen::Renderer::isFontHasDoryenLayout() const
 	return fontHasDoryenLayout;
 }
 
-unsigned int Doryen::Renderer::getFontWidth() const
+std::uint32_t Doryen::Renderer::getFontWidth() const
 {
 	return fontWidth;
 }
 
-unsigned int Doryen::Renderer::getFontHeigth() const
+std::uint32_t Doryen::Renderer::getFontHeigth() const
 {
 	return fontHeigth;
 }
@@ -150,12 +150,12 @@ const Doryen::Color& Doryen::Renderer::getFontKeyColor() const
 	return fontKeyColor;
 }
 
-bool Doryen::Renderer::isCharacterColored(unsigned index) const
+bool Doryen::Renderer::isCharacterColored(std::uint32_t index) const
 {
 	return colored[index];
 }
 
-void Doryen::Renderer::setCharacterColored(const unsigned index, bool isColored)
+void Doryen::Renderer::setCharacterColored(const std::uint32_t index, bool isColored)
 {
 	colored[index] = isColored;
 }
@@ -204,7 +204,7 @@ void Doryen::Renderer::checkTableOfCharacteres()
 	}
 }
 
-void Doryen::Renderer::setLayoutCharacter(unsigned index, unsigned code)
+void Doryen::Renderer::setLayoutCharacter(std::uint32_t index, std::uint32_t code)
 {
 	layoutCharacteres[index] = code;
 }
@@ -219,22 +219,22 @@ bool Doryen::Renderer::isFullscreen() const
 	return fullscreen;
 }
 
-void Doryen::Renderer::setWidth(unsigned int _width)
+void Doryen::Renderer::setWidth(std::uint32_t _width)
 {
 	width = _width;
 }
 
-void Doryen::Renderer::setHeigth(unsigned int _heigth)
+void Doryen::Renderer::setHeigth(std::uint32_t _heigth)
 {
 	heigth = _heigth;
 }
 
-unsigned int Doryen::Renderer::getWidth() const
+std::uint32_t Doryen::Renderer::getWidth() const
 {
 	return width;
 }
 
-unsigned int Doryen::Renderer::getHeigth() const
+std::uint32_t Doryen::Renderer::getHeigth() const
 {
 	return heigth;
 }
@@ -275,7 +275,7 @@ void Doryen::Renderer::setDirty(const Geometry::Point2D<>& _start, Geometry::Poi
 		{
 			for (int y = _start.y; y < _start.y + _end.y; ++y)
 			{
-				unsigned offset = x + getWidth() * y;
+				std::uint32_t offset = x + getWidth() * y;
 
 				buffer[offset].setDirt(true);
 			}
@@ -293,52 +293,52 @@ const Doryen::Color& Doryen::Renderer::getFadingColor() const
 	return fadingColor;
 }
 
-bool Doryen::Renderer::isCharacterDrawed(unsigned index) const
+bool Doryen::Renderer::isCharacterDrawed(std::uint32_t index) const
 {
 	return characterDrawed[index];
 }
 
-const Doryen::Color& Doryen::Renderer::getColorInCharacterColorAt(unsigned index) const
+const Doryen::Color& Doryen::Renderer::getColorInCharacterColorAt(std::uint32_t index) const
 {
 	return characterColor[index];
 }
 
-void Doryen::Renderer::setCharacterDrawed(unsigned index, bool isDrawed)
+void Doryen::Renderer::setCharacterDrawed(std::uint32_t index, bool isDrawed)
 {
 	characterDrawed[index] = isDrawed;
 }
 
-unsigned int Doryen::Renderer::getRgbMask() const
+std::uint32_t Doryen::Renderer::getRgbMask() const
 {
 	return RGBMask;
 }
 
-void Doryen::Renderer::setRgbMask(unsigned int _rgbMask)
+void Doryen::Renderer::setRgbMask(std::uint32_t _rgbMask)
 {
 	RGBMask = _rgbMask;
 }
 
-unsigned int Doryen::Renderer::getNrgbMask() const
+std::uint32_t Doryen::Renderer::getNrgbMask() const
 {
 	return nRGBMask;
 }
 
-void Doryen::Renderer::setNrgbMask(unsigned int _nRgbMask)
+void Doryen::Renderer::setNrgbMask(std::uint32_t _nRgbMask)
 {
 	nRGBMask = _nRgbMask;
 }
 
-void Doryen::Renderer::setColorInCharacterColorAt(unsigned index, const Doryen::Color& _color)
+void Doryen::Renderer::setColorInCharacterColorAt(std::uint32_t index, const Doryen::Color& _color)
 {
 	characterColor[index] = _color;
 }
 
-unsigned int Doryen::Renderer::getSdlKey() const
+std::uint32_t Doryen::Renderer::getSdlKey() const
 {
 	return SDLKey;
 }
 
-void Doryen::Renderer::setSdlKey(unsigned int _sdlKey)
+void Doryen::Renderer::setSdlKey(std::uint32_t _sdlKey)
 {
 	SDLKey = _sdlKey;
 }
@@ -353,22 +353,22 @@ void Doryen::Renderer::clearCharacterUpdate()
 	characterUpdated.clear();
 }
 
-void Doryen::Renderer::resizeCharacterUpdate(unsigned size)
+void Doryen::Renderer::resizeCharacterUpdate(std::uint32_t size)
 {
 	characterUpdated.resize(size, false);
 }
 
-unsigned int Doryen::Renderer::getCurrentFramePerSeconds() const
+std::uint32_t Doryen::Renderer::getCurrentFramePerSeconds() const
 {
 	return currentFramePerSeconds;
 }
 
-void Doryen::Renderer::setFramePerSeconds(unsigned int _framePerSeconds)
+void Doryen::Renderer::setFramePerSeconds(std::uint32_t _framePerSeconds)
 {
 	framePerSeconds = _framePerSeconds;
 }
 
-void Doryen::Renderer::setCurrentFramePerSeconds(unsigned int _currentFramePerSeconds)
+void Doryen::Renderer::setCurrentFramePerSeconds(std::uint32_t _currentFramePerSeconds)
 {
 	currentFramePerSeconds = _currentFramePerSeconds;
 }
@@ -378,7 +378,7 @@ void Doryen::Renderer::setLastFrameLength(float _lastFrameLength)
 	lastFrameLength = _lastFrameLength;
 }
 
-unsigned int Doryen::Renderer::getMinimunFrameLength() const
+std::uint32_t Doryen::Renderer::getMinimunFrameLength() const
 {
 	return minimunFrameLength;
 }
@@ -391,7 +391,7 @@ void Doryen::Renderer::fillOldBuffer()
 	}
 }
 
-int Doryen::Renderer::getCharacterInLayoutCharacteres(unsigned index) const
+int Doryen::Renderer::getCharacterInLayoutCharacteres(std::uint32_t index) const
 {
 	return layoutCharacteres[index];
 }
@@ -401,7 +401,7 @@ short Doryen::Renderer::getOldFade() const
 	return oldFade;
 }
 
-bool Doryen::Renderer::isCharacterUpdated(unsigned index) const
+bool Doryen::Renderer::isCharacterUpdated(std::uint32_t index) const
 {
 	return characterUpdated[index];
 }
@@ -431,7 +431,7 @@ void Doryen::Renderer::setFadingColor(const Doryen::Color& _fadingColor)
 	fadingColor = _fadingColor;
 }
 
-void Doryen::Renderer::setCharacterInBufferAt(unsigned index, const Char& _char)
+void Doryen::Renderer::setCharacterInBufferAt(std::uint32_t index, const Char& _char)
 {
 	buffer[index] = _char;
 }
@@ -446,17 +446,17 @@ const Doryen::Color& Doryen::Renderer::getBackground() const
 	return background;
 }
 
-const Doryen::Color& Doryen::Renderer::getBackgroundOfCharacterInBufferAt(unsigned index) const
+const Doryen::Color& Doryen::Renderer::getBackgroundOfCharacterInBufferAt(std::uint32_t index) const
 {
 	return buffer[index].getBackground();
 }
 
-void Doryen::Renderer::setBackgroundOfCharacterInBufferAt(unsigned index, const Doryen::Color& _color)
+void Doryen::Renderer::setBackgroundOfCharacterInBufferAt(std::uint32_t index, const Doryen::Color& _color)
 {
 	buffer[index].setBackground(_color);
 }
 
-int Doryen::Renderer::getCharOfCharacterInBufferAt(unsigned index) const
+int Doryen::Renderer::getCharOfCharacterInBufferAt(std::uint32_t index) const
 {
 	return buffer[index].getCharacter();
 }
@@ -483,17 +483,17 @@ void Doryen::Renderer::clearBuffer()
 	}
 }
 
-void Doryen::Renderer::setForegroundOfCharacterInBufferAt(unsigned index, const Doryen::Color& _color)
+void Doryen::Renderer::setForegroundOfCharacterInBufferAt(std::uint32_t index, const Doryen::Color& _color)
 {
 	buffer[index].setForeground(_color);
 }
 
-const Doryen::Color& Doryen::Renderer::getForegroundOfCharacterInBufferAt(unsigned index) const
+const Doryen::Color& Doryen::Renderer::getForegroundOfCharacterInBufferAt(std::uint32_t index) const
 {
 	return buffer[index].getForeground();
 }
 
-void Doryen::Renderer::setCharOfCharacterInBufferAt(unsigned index, int _char)
+void Doryen::Renderer::setCharOfCharacterInBufferAt(std::uint32_t index, int _char)
 {
 	buffer[index].setCharacter(_char);
 	buffer[index].setCharacterFont(getCharacterInLayoutCharacteres(_char));
@@ -519,17 +519,17 @@ void Doryen::Renderer::setFontGrayscale(bool _fontGrayscale)
 	fontGrayscale = _fontGrayscale;
 }
 
-void Doryen::Renderer::setFontCharHorizontalSize(unsigned int _fontCharHorizontalSize)
+void Doryen::Renderer::setFontCharHorizontalSize(std::uint32_t _fontCharHorizontalSize)
 {
 	fontCharHorizontalSize = _fontCharHorizontalSize;
 }
 
-void Doryen::Renderer::setFontCharVerticalSize(unsigned int _fontCharVerticalSize)
+void Doryen::Renderer::setFontCharVerticalSize(std::uint32_t _fontCharVerticalSize)
 {
 	fontCharVerticalSize = _fontCharVerticalSize;
 }
 
-unsigned int Doryen::Renderer::getFramePerSeconds() const
+std::uint32_t Doryen::Renderer::getFramePerSeconds() const
 {
 	return framePerSeconds;
 }
@@ -539,7 +539,7 @@ void Doryen::Renderer::setRunning(bool _running)
 	running = _running;
 }
 
-void Doryen::Renderer::setMinimumFrameLength(unsigned int _frameLength)
+void Doryen::Renderer::setMinimumFrameLength(std::uint32_t _frameLength)
 {
 	minimunFrameLength = _frameLength;
 }
