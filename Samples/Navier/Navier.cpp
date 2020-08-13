@@ -339,9 +339,9 @@ void render(Console& root)
 int main(int argc, char* argv[])
 {
 	// Initialize the game window
-	Console console = Console();
-	console.initRoot(WIDTH, HEIGHT, "Pyromaniac Flame Spell", false);
+	Console console{ 50, 50 };
 
+	console.setWindowTitle("Pyromaniac Flame Spell");
 	console.setFramePerSeconds(25);
 	console.showCursor(true);
 

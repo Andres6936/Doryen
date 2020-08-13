@@ -223,11 +223,11 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 int main(int argc, char* argv[])
 {
 	// initialize the game window
-	Doryen::Console console = Doryen::Console();
+	Console console{};
 
-	console.initRoot(CON_W, CON_H, "Weather system v 0.1.0", false);
-	console.showCursor(true);
+	console.setWindowTitle("Weather system v 0.1.0");
 	console.setFramePerSeconds(25);
+	console.showCursor(true);
 
 	weather.init(CON_W * 2, CON_H * 2);
 	ground = new Doryen::Image(CON_W * 2, CON_H * 2);

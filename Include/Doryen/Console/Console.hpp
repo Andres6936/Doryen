@@ -120,13 +120,6 @@ namespace Doryen
         Console( int w, int h );
 
         /**
-         * Destroy an offscreen console and release any resources allocated.
-         *
-         * @note Don't use it on the root console.
-         */
-        virtual ~Console( );
-
-        /**
          * Creating the game window.
          *
          * The default font in libtcod (./Terminal.png) uses 8x8 pixels characters.
@@ -153,8 +146,7 @@ namespace Doryen
          * @note Whatever renderer you use, it can always be overriden by the player
          * through the libtcod.cfg file.
          */
-		void
-		initRoot(int w, int h, const char* title, bool _fullscreen = false);
+		void setConsoleModeRoot();
 
 		/**
 		 * This function allows you to use a bitmap font (png or bmp) with custom

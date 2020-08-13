@@ -77,14 +77,13 @@ int main(int argc, char* argv[])
 
 	const auto beginTime = std::chrono::high_resolution_clock::now();
 
-	Console console = Console();
+	// Size for default, 80 x 50
+	Console console{};
+	console.setWindowTitle("Doryen Showcase");
+	console.setCustomFont(font, FONT_TYPE_GREYSCALE | FONT_LAYOUT_TCOD, nbCharHoriz, nbCharVertic);
 
 	// The offscreen console in which the samples are rendered
 	Console innerConsole(SAMPLE_SCREEN_WIDTH, SAMPLE_SCREEN_HEIGHT);
-
-	console.setCustomFont(font, FONT_TYPE_GREYSCALE | FONT_LAYOUT_TCOD, nbCharHoriz, nbCharVertic);
-
-	console.initRoot(80, 50, "libtcod C++ sample", fullscreen);
 
 	const auto endTime = std::chrono::high_resolution_clock::now();
 

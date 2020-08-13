@@ -74,9 +74,9 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 
 int main()
 {
-	Console console = Console();
+	Console console{};
 
-	console.initRoot(80, 50, "Frost Test", false);
+	console.setWindowTitle("Frost Test");
 	console.setFramePerSeconds(25);
 
 	FrostManager frostManager = FrostManager(160, 100, console);

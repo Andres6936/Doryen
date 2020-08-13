@@ -126,9 +126,9 @@ void render(Console& console)
 int main(int argc, char* argv[])
 {
 	// initialize the game window
-	Console console = Console();
-	console.initRoot(WIDTH, HEIGHT, "World generator v 0.1.0", false);
+	Console console{};
 
+	console.setWindowTitle("World generator v 0.1.0");
 	console.setFramePerSeconds(25);
 	console.showCursor(true);
 

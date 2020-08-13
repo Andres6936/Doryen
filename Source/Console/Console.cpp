@@ -35,17 +35,15 @@ using namespace Doryen;
 
 // Constructs
 
-Doryen::Console::Console()
+Doryen::Console::Console() : Console(80, 50)
 {
-	width = 80;
-	height = 25;
-
-	buffer.resize(width * height);
-	oldBuffer.resize(width * height);
+	// Delegate the construct of console to another construct
 }
 
 Doryen::Console::Console(int w, int h)
 {
+	static bool consoleRootCreated = false;
+
 	if (w > 0 && h > 0)
 	{
 		width = w;
@@ -53,6 +51,12 @@ Doryen::Console::Console(int w, int h)
 
 		buffer.resize(width * height);
 		oldBuffer.resize(width * height);
+
+		if (not consoleRootCreated)
+		{
+			setConsoleModeRoot();
+			consoleRootCreated = true;
+		}
 	}
 	else
 	{
@@ -60,58 +64,40 @@ Doryen::Console::Console(int w, int h)
 	}
 }
 
-
-Doryen::Console::~Console()
+void Doryen::Console::setConsoleModeRoot()
 {
+	// Only exits a console root
+	// during all the life cycle program.
+	isConsoleRoot = true;
 
-}
+	// The method not is static and as
+	// future plan, is convert this method
+	// as a construct for initialize the
+	// first console with root.
 
-void Doryen::Console::initRoot(int w, int h, const char* title, bool _fullscreen)
-{
-	if (w > 0 && h > 0)
-	{
-		// Only exits a console root
-		// during all the life cycle program.
-		isConsoleRoot = true;
+	// Actually, the method blit is free of
+	// bugs caused for initialize of console
+	// with this method, but in the past, the
+	// method blit try use the buffer and
+	// oldBuffer without methods getters and
+	// setters and it threw out_of_range
+	// exceptions because the method this
+	// method [initRoot] not reinitialized the
+	// width and height of console.
 
-		// The method not is static and as
-		// future plan, is convert this method
-		// as a construct for initialize the
-		// first console with root.
+	// Reinitialize the size of buffers
+	buffer.resize(width * height);
+	oldBuffer.resize(width * height);
 
-		// Actually, the method blit is free of
-		// bugs caused for initialize of console
-		// with this method, but in the past, the
-		// method blit try use the buffer and
-		// oldBuffer without methods getters and
-		// setters and it threw out_of_range
-		// exceptions because the method this
-		// method [initRoot] not reinitialized the
-		// width and height of console.
+	renderer->setWidth(width);
+	renderer->setHeigth(height);
+	renderer->setFade(255);
 
-		// Reinitialize the size of console
-		width = w;
-		height = h;
+	renderer->onRenderer();
 
-		// Reinitialize the size of buffers
-		buffer.resize(width * height);
-		oldBuffer.resize(width * height);
-
-		renderer->setWidth(w);
-		renderer->setHeigth(h);
-		renderer->setFullscreen(_fullscreen);
-		renderer->setFade(255);
-
-		renderer->onRenderer();
-
-		renderer->createBuffer();
-		renderer->clearBuffer();
-		renderer->setWindowTitle(title);
-	}
-	else
-	{
-		// Throw Error
-	}
+	renderer->createBuffer();
+	renderer->clearBuffer();
+	renderer->setWindowTitle("Doryen Version 2020");
 }
 
 void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)

@@ -150,10 +150,11 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 int main (int argc, char *argv[])
 {
 	// initialize the game window
-	Doryen::Console console = Doryen::Console();
-	console.initRoot(CON_W, CON_H, "Water ripples v 0.1.0", false);
-	console.showCursor(true);
+	Console console{};
+
+	console.setWindowTitle("Water ripples v 0.1.0");
 	console.setFramePerSeconds(25);
+	console.showCursor(true);
 
 	bool endCredits = false;
 
