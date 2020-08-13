@@ -63,7 +63,7 @@ Doryen::Console::Console(int w, int h)
 		// Only exist a main console durant the life cycle of program.
 		if (not consoleRootCreated)
 		{
-			setConsoleModeRoot();
+			setConsoleModeMain();
 			// The first console instanced is the main console
 			// set the variable static to false for avoid that
 			// other console instanced will be marked like main
@@ -77,7 +77,7 @@ Doryen::Console::Console(int w, int h)
 	}
 }
 
-void Doryen::Console::setConsoleModeRoot()
+void Doryen::Console::setConsoleModeMain()
 {
 	// Only exits a console root
 	// during all the life cycle program.

@@ -108,7 +108,7 @@ namespace Doryen
          *
          * The default font in Doryen (./Terminal.png) uses 8x8 pixels characters.
          */
-		void setConsoleModeRoot();
+		void setConsoleModeMain();
 
 	public :
 
