@@ -53,14 +53,6 @@ namespace Doryen
 
 		unsigned fontHeigth = 0;
 
-		unsigned fullscreenWidth = 0;
-
-		unsigned fullscreenHeigth = 0;
-
-		unsigned actualFullscreenWidth = 0;
-
-		unsigned actualFullscreenHeigth = 0;
-
 		unsigned SDLKey = 0;
 
 		unsigned RGBMask = 0;
