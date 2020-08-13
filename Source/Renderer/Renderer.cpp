@@ -239,41 +239,6 @@ unsigned int Doryen::Renderer::getHeigth() const
 	return heigth;
 }
 
-unsigned int Doryen::Renderer::getFullscreenWidth() const
-{
-	return fullscreenWidth;
-}
-
-unsigned int Doryen::Renderer::getFullscreenHeigth() const
-{
-	return fullscreenHeigth;
-}
-
-void Doryen::Renderer::setActualFullscreenWidth(unsigned int width)
-{
-	actualFullscreenWidth = width;
-}
-
-void Doryen::Renderer::setActualFullscreenHeigth(unsigned int heigth)
-{
-	actualFullscreenHeigth = heigth;
-}
-
-void Doryen::Renderer::setFullscreen(bool _fullscreen)
-{
-	fullscreen = _fullscreen;
-}
-
-unsigned int Doryen::Renderer::getActualFullscreenWidth() const
-{
-	return actualFullscreenWidth;
-}
-
-unsigned int Doryen::Renderer::getActualFullscreenHeigth() const
-{
-	return actualFullscreenHeigth;
-}
-
 void Doryen::Renderer::createBuffer()
 {
 	buffer.resize(getWidth() * getHeigth());

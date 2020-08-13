@@ -82,11 +82,6 @@ namespace Doryen
 		 */
 		unsigned minimunFrameLength = 0;
 
-		/**
-		 * Used as reference of frame length
-		 */
-		unsigned minimunFrameLengthBackup = 0;
-
 		bool anyCharacterUpdated = false;
 
 		bool fontHasDoryenLayout = false;
@@ -217,14 +212,6 @@ namespace Doryen
 
 		unsigned int getHeigth() const;
 
-		unsigned int getActualFullscreenWidth() const;
-
-		unsigned int getActualFullscreenHeigth() const;
-
-		unsigned int getFullscreenWidth() const;
-
-		unsigned int getFullscreenHeigth() const;
-
 		unsigned int getMaxFontChars() const;
 
 		unsigned int getFontCharHorizontalSize() const;
@@ -279,8 +266,6 @@ namespace Doryen
 
 		void setRunning(bool _running);
 
-		void setFullscreen(bool _fullscreen);
-
 		void setFontHasDoryenLayout(bool _fontHasDoryenLayout);
 
 		void setFontHasRowLayout(bool _fontHasRowLayout);
@@ -288,10 +273,6 @@ namespace Doryen
 		void setFontGrayscale(bool _fontGrayscale);
 
 		void setMaxFontChars(unsigned int _maxFontChars);
-
-		void setActualFullscreenWidth(unsigned int width);
-
-		void setActualFullscreenHeigth(unsigned int heigth);
 
 		void setMinimumFrameLength(unsigned int _minFrameLength);
 
