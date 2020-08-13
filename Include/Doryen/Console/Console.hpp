@@ -94,59 +94,42 @@ namespace Doryen
 		/**
 		 * Current console.
 		 */
-		std::vector <Char> buffer;
+		std::vector<Char> buffer;
 
 		/**
 		 * Console for last frame.
 		 */
-		std::vector <Char> oldBuffer;
+		std::vector<Char> oldBuffer;
+
+		// Methods
+
+		/**
+         * Creating the game window.
+         *
+         * The default font in Doryen (./Terminal.png) uses 8x8 pixels characters.
+         */
+		void setConsoleModeRoot();
 
 	public :
 
 		/**
-		 * Create an offscreen console.
+		 * Create an console.
 		 *
-		 * @note The size of offscreen console is 80x25 default.
+		 * @note The first console instanced is the main console.
+		 * @note The size of offscreen console is 80 x 50 cells for default.
 		 */
 		Console();
 
 
 		/**
-		 * Create an offscreen console.
+		 * Create an console.
+		 *
+		 * @note The first console instanced is the main console.
 		 *
 		 * @param w width of console. w > 0.
 		 * @param h height of console. h > 0.
 		 */
         Console( int w, int h );
-
-        /**
-         * Creating the game window.
-         *
-         * The default font in libtcod (./Terminal.png) uses 8x8 pixels characters.
-         *
-         * You can change the font by calling TCODConsole::setCustomFont before
-         * calling initRoot.
-         *
-         * @param w width size of the console (in characters).
-         * @param h height size of the console (in characters).
-         * @param title title of the window. It's not visible when you are in fullscreen.
-         * @param _fullscreen wether you start in windowed or fullscreen mode.
-         * @param _renderer renderer to use. Possible values are :
-         *
-         *  1- TCOD_RENDERER_GLSL : works only on video cards with pixel shaders. <br>
-         *  2- TCOD_RENDERER_OPENGL : works on all video cards supporting OpenGL 1.4 <br>
-         *  3- TCOD_RENDERER_SDL : should work everywhere!. <br>
-         *
-         * @note If you select a renderer that is not supported by the player's machine,
-         * libtcod scan the lower renderers until it finds a working one.
-         *
-         * @note On recent video cards, GLSL results in up to 900% increase of
-         * framerates in the true color sample compared to SDL renderer.
-         *
-         * @note Whatever renderer you use, it can always be overriden by the player
-         * through the libtcod.cfg file.
-         */
-		void setConsoleModeRoot();
 
 		/**
 		 * This function allows you to use a bitmap font (png or bmp) with custom
