@@ -42,6 +42,14 @@ Doryen::Console::Console() : Console(80, 50)
 
 Doryen::Console::Console(int w, int h)
 {
+	// New feature of Doryen Library
+	// Previously, the Libtcod Library required that the main (aka. root)
+	// console will be called with the method initRoot, that marked the
+	// console as the main console.
+	// Actually, the Doryen Library allow created a main console without
+	// the needed of call to method initRoot (that now not exist), with
+	// this new feature, too exist a rule.
+	// Rule: The first console that is instanced is the main console
 	static bool consoleRootCreated = false;
 
 	if (w > 0 && h > 0)
@@ -52,9 +60,14 @@ Doryen::Console::Console(int w, int h)
 		buffer.resize(width * height);
 		oldBuffer.resize(width * height);
 
+		// Only exist a main console durant the life cycle of program.
 		if (not consoleRootCreated)
 		{
 			setConsoleModeRoot();
+			// The first console instanced is the main console
+			// set the variable static to false for avoid that
+			// other console instanced will be marked like main
+			// console.
 			consoleRootCreated = true;
 		}
 	}
