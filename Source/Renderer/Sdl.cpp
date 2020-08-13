@@ -406,11 +406,6 @@ void Doryen::SDL::setWindowTitle(const std::string& _title)
 	SDL_WM_SetCaption(_title.c_str(), nullptr);
 }
 
-Doryen::Key Doryen::SDL::getKeyPressed()
-{
-	return keyPressed;
-}
-
 void Doryen::SDL::convertToGenericEvent(SDL_Event& event, Doryen::Key& key)
 {
 	SDL_KeyboardEvent* keyboard = &event.key;
@@ -1050,11 +1045,6 @@ void Doryen::SDL::draw()
 
 	// Update the Queue of events
 	updateEventsQueue();
-}
-
-Doryen::Mouse Doryen::SDL::getMouseEvent()
-{
-	return mouse;
 }
 
 void Doryen::SDL::updateEventsQueue()

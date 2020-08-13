@@ -13,16 +13,6 @@ namespace Doryen
 
 		bool eventPending = false;
 
-		/**
-		 * Mouse event
-		 */
-		Mouse mouse;
-
-		/**
-		 * Key event
-		 */
-		Key keyPressed;
-
 		SDL_Event event;
 
 		SDL_Surface* screen = nullptr;
@@ -65,12 +55,6 @@ namespace Doryen
 		void showCursor(bool visible) override;
 
 		void setWindowTitle(const std::string& _title) override;
-
-		// Getters
-
-		Key getKeyPressed() override;
-
-		Mouse getMouseEvent() override;
 
 		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
 	};

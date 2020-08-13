@@ -560,3 +560,13 @@ std::uint32_t Doryen::Renderer::getElapsedMilliseconds() const
 	const auto actualTime = std::chrono::high_resolution_clock::now();
 	return std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - timeElapsed).count();
 }
+
+Doryen::Key Doryen::Renderer::getKeyPressed() const
+{
+	return keyPressed;
+}
+
+Doryen::Mouse Doryen::Renderer::getMouseEvent() const
+{
+	return mouse;
+}

@@ -22,6 +22,16 @@ namespace Doryen
 		// Private for common class, public for inheritance class
 	protected:
 
+		/**
+		 * Mouse event
+		 */
+		Mouse mouse;
+
+		/**
+		 * Key event
+		 */
+		Key keyPressed;
+
 		std::vector<Char> buffer;
 
 		std::vector<Char> oldBuffer;
@@ -200,6 +210,10 @@ namespace Doryen
 
 		int getCharacterInLayoutCharacteres(std::uint32_t index) const;
 
+		Key getKeyPressed() const;
+
+		Mouse getMouseEvent() const;
+
 		std::uint32_t getWidth() const;
 
 		std::uint32_t getHeigth() const;
@@ -321,10 +335,6 @@ namespace Doryen
 		virtual void draw() = 0;
 
 		virtual void loadFont() = 0;
-
-		virtual Key getKeyPressed() = 0;
-
-		virtual Mouse getMouseEvent() = 0;
 
 		virtual void showCursor(bool visible) = 0;
 
