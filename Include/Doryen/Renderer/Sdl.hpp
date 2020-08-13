@@ -45,6 +45,9 @@ namespace Doryen
 
 		// Construct
 
+		/**
+		 * @see Preconditions and post-conditions of class Renderer construct.
+		 */
 		SDL();
 
 		~SDL() override;
@@ -68,8 +71,6 @@ namespace Doryen
 		Key getKeyPressed() override;
 
 		Mouse getMouseEvent() override;
-
-		std::uint32_t getElapsedMilliseconds() const override;
 
 		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
 	};

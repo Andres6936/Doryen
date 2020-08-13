@@ -3,6 +3,7 @@
 
 #include <array>
 #include <vector>
+#include <chrono>
 #include <memory>
 #include <cstdint>
 
@@ -109,11 +110,20 @@ namespace Doryen
 
 		std::vector<bool> characterUpdated;
 
-		std::vector <bool> characterDrawed;
+		std::vector<bool> characterDrawed;
 
-		std::vector <int> layoutCharacteres;
+		std::vector<int> layoutCharacteres;
 
-		std::vector <Color> characterColor;
+		std::vector<Color> characterColor;
+
+		/**
+		 * Counter that mark the total elapsed time from the start of application.
+		 * This counter is initialized from the moment in that the first console
+		 * called a instance of Renderer.
+		 *
+		 * @pre The construct for default for the class Renderer has been called.
+		 */
+		std::chrono::time_point<std::chrono::high_resolution_clock> timeElapsed;
 
 		Color foreground = Color(255, 255, 255);
 
@@ -127,7 +137,11 @@ namespace Doryen
 
 		// Constructs
 
-		Renderer() = default;
+		/**
+		 * @post The counter for the elapsed time from the start of application
+		 *  has been initialized.
+		 */
+		Renderer() noexcept;
 
 		virtual ~Renderer() = default;
 
@@ -136,7 +150,7 @@ namespace Doryen
 		/**
 		 * Convert ASCII code to Doryen layout position
 		 */
-		static const std::array <int, 256> layoutAsciiCode;
+		static const std::array<int, 256> layoutAsciiCode;
 
 		// Methods Default
 
@@ -230,6 +244,8 @@ namespace Doryen
 		unsigned int getFramePerSeconds() const;
 
 		unsigned int getMinimunFrameLength() const;
+
+		std::uint32_t getElapsedMilliseconds() const;
 
 		unsigned int getCurrentFramePerSeconds() const;
 
@@ -338,8 +354,6 @@ namespace Doryen
 		virtual Mouse getMouseEvent() = 0;
 
 		virtual void showCursor(bool visible) = 0;
-
-		virtual std::uint32_t getElapsedMilliseconds() const = 0;
 
 		virtual void setWindowTitle(const std::string& _title) = 0;
 

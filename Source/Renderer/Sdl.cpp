@@ -1199,8 +1199,3 @@ void Doryen::SDL::registerCallback(std::unique_ptr<CallbackRender> _callback)
 {
 	callbackRender = std::move(_callback);
 }
-
-uint32_t Doryen::SDL::getElapsedMilliseconds() const
-{
-	return SDL_GetTicks();
-}

@@ -39,6 +39,14 @@ const std::array<int, 256> Doryen::Renderer::layoutAsciiCode =
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		};
 
+// Construct
+
+Doryen::Renderer::Renderer() noexcept
+{
+	// The counter for the time elapsed start to count
+	timeElapsed = std::chrono::high_resolution_clock::now();
+}
+
 // Methods
 
 void Doryen::Renderer::createTablesOfCharacteres()
@@ -580,4 +588,10 @@ void Doryen::Renderer::unregisterCallback()
 float Doryen::Renderer::getElapsedSeconds() const
 {
 	return getElapsedMilliseconds() * (1.0f / 1000.0f);
+}
+
+std::uint32_t Doryen::Renderer::getElapsedMilliseconds() const
+{
+	const auto actualTime = std::chrono::high_resolution_clock::now();
+	return std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - timeElapsed).count();
 }
