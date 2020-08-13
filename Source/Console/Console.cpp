@@ -186,7 +186,7 @@ void Doryen::Console::setDirty(int x, int y, int w, int h)
 	}
 }
 
-Doryen::Key Doryen::Console::getKeyPressed()
+const Doryen::Key& Doryen::Console::getKeyPressed()
 {
 	return renderer->getKeyPressed();
 }
@@ -914,7 +914,7 @@ float Doryen::Console::getLastFrameLength() const
 	return renderer->getLastFrameLength();
 }
 
-Doryen::Mouse Doryen::Console::getMouseEvent()
+const Doryen::Mouse& Doryen::Console::getMouseEvent()
 {
 	return renderer->getMouseEvent();
 }

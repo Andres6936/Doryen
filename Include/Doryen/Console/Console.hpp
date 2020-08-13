@@ -821,9 +821,9 @@ namespace Doryen
             if key.KeyCode == tcod.NoKey then return end -- no key pressed
             if key.Character == 'i' then ... open inventory ... end
         */
-		static Key getKeyPressed();
+		static const Key& getKeyPressed();
 
-		static Mouse getMouseEvent();
+		static const Mouse& getMouseEvent();
 
 		/**
 		 * @brief Blitting a console on another one

@@ -561,12 +561,12 @@ std::uint32_t Doryen::Renderer::getElapsedMilliseconds() const
 	return std::chrono::duration_cast<std::chrono::milliseconds>(actualTime - timeElapsed).count();
 }
 
-Doryen::Key Doryen::Renderer::getKeyPressed() const
+const Doryen::Key& Doryen::Renderer::getKeyPressed() const
 {
 	return keyPressed;
 }
 
-Doryen::Mouse Doryen::Renderer::getMouseEvent() const
+const Doryen::Mouse& Doryen::Renderer::getMouseEvent() const
 {
 	return mouse;
 }

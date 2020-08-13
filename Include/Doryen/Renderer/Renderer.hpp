@@ -210,10 +210,6 @@ namespace Doryen
 
 		int getCharacterInLayoutCharacteres(std::uint32_t index) const;
 
-		Key getKeyPressed() const;
-
-		Mouse getMouseEvent() const;
-
 		std::uint32_t getWidth() const;
 
 		std::uint32_t getHeigth() const;
@@ -243,6 +239,10 @@ namespace Doryen
 		std::uint32_t getCurrentFramePerSeconds() const;
 
 		const std::string& getFontfile() const;
+
+		const Key& getKeyPressed() const;
+
+		const Mouse& getMouseEvent() const;
 
 		const Color& getForegroundOfCharacterInBufferAt(std::uint32_t index) const;
 
