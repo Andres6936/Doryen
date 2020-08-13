@@ -62,8 +62,6 @@ void Doryen::SDL::onRenderer()
 		// TODO: Throw Error
 	}
 
-	createTablesOfCharacteres();
-
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
@@ -80,10 +78,6 @@ void Doryen::SDL::onRenderer()
 	// Create the buffer for render
 	// characteres in the console
 	createBuffer();
-
-	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
-
-	std::cout << "Using SDL Renderer.\n";
 
 	SDL_EnableUNICODE(1);
 
@@ -398,6 +392,8 @@ void Doryen::SDL::loadFont()
 			}
 		}
 	}
+
+	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
 }
 
 void Doryen::SDL::setWindowTitle(const std::string& _title)

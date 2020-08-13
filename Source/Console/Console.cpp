@@ -94,10 +94,7 @@ void Doryen::Console::setConsoleModeRoot()
 	renderer->setFade(255);
 
 	renderer->onRenderer();
-
-	renderer->createBuffer();
-	renderer->clearBuffer();
-	renderer->setWindowTitle("Doryen Version 2020");
+	renderer->loadFont();
 }
 
 void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharHoriz, int nbCharVertic)
@@ -150,6 +147,8 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 
 		renderer->checkTableOfCharacteres();
 	}
+
+	renderer->loadFont();
 }
 
 void Doryen::Console::setDirty(int x, int y, int w, int h)
