@@ -151,7 +151,7 @@ namespace Doryen
 
 		// Methods Default
 
-		void createTablesOfCharacteres();
+		void createTablesOfCharacters();
 
 		void createBuffer();
 
@@ -212,7 +212,7 @@ namespace Doryen
 
 		std::uint32_t getWidth() const;
 
-		std::uint32_t getHeigth() const;
+		std::uint32_t getHeight() const;
 
 		std::uint32_t getMaxFontChars() const;
 
@@ -222,7 +222,7 @@ namespace Doryen
 
 		std::uint32_t getFontWidth() const;
 
-		std::uint32_t getFontHeigth() const;
+		std::uint32_t getFontHeight() const;
 
 		std::uint32_t getSdlKey() const;
 
@@ -232,7 +232,7 @@ namespace Doryen
 
 		std::uint32_t getFramePerSeconds() const;
 
-		std::uint32_t getMinimunFrameLength() const;
+		std::uint32_t getMinimumFrameLength() const;
 
 		std::uint32_t getElapsedMilliseconds() const;
 
@@ -268,7 +268,7 @@ namespace Doryen
 
 		void setWidth(std::uint32_t _width);
 
-		void setHeigth(std::uint32_t _heigth);
+		void setHeight(std::uint32_t _height);
 
 		void setRunning(bool _running);
 
@@ -288,7 +288,7 @@ namespace Doryen
 
 		void setFontWidth(std::uint32_t _fontWidth);
 
-		void setFontHeigth(std::uint32_t _fontHeigth);
+		void setFontHeight(std::uint32_t _fontHeight);
 
 		void setAnyCharacterUpdated(bool _anyCharacterUpdated);
 

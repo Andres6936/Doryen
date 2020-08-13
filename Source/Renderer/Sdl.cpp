@@ -123,10 +123,10 @@ void Doryen::SDL::loadFont()
 	charmap = image.imageData.getRepresentation();
 
 	setFontWidth(charmap->w / getFontCharHorizontalSize());
-	setFontHeigth(charmap->h / getFontCharVerticalSize());
+	setFontHeight(charmap->h / getFontCharVerticalSize());
 
 	// allocated bool array for colored flags
-	createTablesOfCharacteres();
+	createTablesOfCharacters();
 
 	// figure out what kind of font we have
 	// check if the alpha layer is actually used
@@ -184,17 +184,17 @@ void Doryen::SDL::loadFont()
 		if (isFontHasDoryenLayout())
 		{
 			keyx = getFontWidth() / 2;
-			keyy = getFontHeigth() / 2;
+			keyy = getFontHeight() / 2;
 		}
 		else if (isFontHasRowLayout())
 		{
 			keyx = ((int)' ' % getFontCharHorizontalSize()) * getFontWidth() + (getFontWidth() / 2);
-			keyy = ((int)' ' / getFontCharHorizontalSize()) * getFontHeigth() + (getFontHeigth() / 2);
+			keyy = ((int)' ' / getFontCharHorizontalSize()) * getFontHeight() + (getFontHeight() / 2);
 		}
 		else
 		{
 			keyx = ((int)' ' / getFontCharVerticalSize()) * getFontWidth() + (getFontWidth() / 2);
-			keyy = ((int)' ' % getFontCharVerticalSize()) * getFontHeigth() + (getFontHeigth() / 2);
+			keyy = ((int)' ' % getFontCharVerticalSize()) * getFontHeight() + (getFontHeight() / 2);
 		}
 
 		auto pixel =
@@ -238,9 +238,9 @@ void Doryen::SDL::loadFont()
 
 		for (int px = 0; !endLoop && px < getFontWidth(); ++px)
 		{
-			for (int py = 0; !endLoop && py < getFontHeigth(); ++py)
+			for (int py = 0; !endLoop && py < getFontHeight(); ++py)
 			{
-				auto pixel = (unsigned char*)charmap->pixels + (cy * getFontHeigth() + py) * charmap->pitch
+				auto pixel = (unsigned char*)charmap->pixels + (cy * getFontHeight() + py) * charmap->pitch
 							 + (cx * getFontWidth() + px) * charmap->format->BytesPerPixel;
 
 				unsigned char r = *(pixel + charmap->format->Rshift / 8);
@@ -299,7 +299,7 @@ void Doryen::SDL::loadFont()
 
 			for (unsigned x = cx * getFontWidth(); x < (cx + 1) * getFontWidth(); ++x)
 			{
-				for (unsigned y = cy * getFontHeigth(); y < (cy + 1) * getFontHeigth(); ++y)
+				for (unsigned y = cy * getFontHeight(); y < (cy + 1) * getFontHeight(); ++y)
 				{
 					if (!isCharacterColored(i))
 					{
@@ -398,7 +398,7 @@ void Doryen::SDL::loadFont()
 	// initialize correctly.
 	if (screen not_eq nullptr) SDL_FreeSurface(screen);
 
-	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeigth() * getFontHeigth()), 32, 0);
+	screen = SDL_SetVideoMode((int)(getWidth() * getFontWidth()), (int)(getHeight() * getFontHeight()), 32, 0);
 }
 
 void Doryen::SDL::setWindowTitle(const std::string& _title)
@@ -685,7 +685,7 @@ void Doryen::SDL::draw()
 		SDL_BlitSurface(charmap, nullptr, charmapBackup, nullptr);
 	}
 
-	for (int y = 0; y < getHeigth(); ++y)
+	for (int y = 0; y < getHeight(); ++y)
 	{
 		for (int x = 0; x < getWidth(); ++x)
 		{
@@ -733,10 +733,10 @@ void Doryen::SDL::draw()
 				Color background = character.getBackground();
 
 				destinRect.x = x * getFontWidth();
-				destinRect.y = y * getFontHeigth();
+				destinRect.y = y * getFontHeight();
 
 				destinRect.w = getFontWidth();
-				destinRect.h = getFontHeigth();
+				destinRect.h = getFontHeight();
 
 				// Draw Background
 				if (getFade() != 255)
@@ -804,9 +804,9 @@ void Doryen::SDL::draw()
 						}
 
 						sourceRect.x = (character.getCharacterFont() % getFontCharHorizontalSize()) * getFontWidth();
-						sourceRect.y = (character.getCharacterFont() / getFontCharHorizontalSize()) * getFontHeigth();
+						sourceRect.y = (character.getCharacterFont() / getFontCharHorizontalSize()) * getFontHeight();
 						sourceRect.w = getFontWidth();
-						sourceRect.h = getFontHeigth();
+						sourceRect.h = getFontHeight();
 
 						Color curtext = getColorInCharacterColorAt(character.getCharacterFont());
 
@@ -828,7 +828,7 @@ void Doryen::SDL::draw()
 								Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
 														sourceRect.y * charmap->pitch);
 
-								int h = (int)getFontHeigth();
+								int h = (int)getFontHeight();
 
 								if (!isCharacterColored(character.getCharacterFont()))
 								{
@@ -892,7 +892,7 @@ void Doryen::SDL::draw()
 								Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
 														sourceRect.y * charmap->pitch);
 
-								int h = (int)getFontHeigth();
+								int h = (int)getFontHeight();
 
 								if (!isCharacterColored(character.getCharacterFont()))
 								{
@@ -1025,7 +1025,7 @@ void Doryen::SDL::draw()
 
 	setCurrentFramePerSeconds(getCurrentFramePerSeconds() + 1);
 
-	timeToWait = (int)getMinimunFrameLength() - frameTime;
+	timeToWait = (int)getMinimumFrameLength() - frameTime;
 
 	if (oldTime > 0 && timeToWait > 0)
 	{
@@ -1145,7 +1145,7 @@ void Doryen::SDL::updateMouseEvents()
 	mouse.setY(coordinateY);
 
 	const int CHART_WIDTH = getFontWidth();
-	const int CHART_HEIGHT = getFontHeigth();
+	const int CHART_HEIGHT = getFontHeight();
 
 	mouse.setPositionCellX(mouse.getX() / CHART_WIDTH);
 	mouse.setPositionCellY(mouse.getY() / CHART_HEIGHT);

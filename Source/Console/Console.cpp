@@ -103,7 +103,7 @@ void Doryen::Console::setConsoleModeMain()
 	oldBuffer.resize(width * height);
 
 	renderer->setWidth(width);
-	renderer->setHeigth(height);
+	renderer->setHeight(height);
 	renderer->setFade(255);
 
 	renderer->onRenderer();
@@ -217,7 +217,7 @@ unsigned int Doryen::Console::getHeight() const
 {
 	if (isConsoleRoot)
 	{
-		return renderer->getHeigth();
+		return renderer->getHeight();
 	}
 	else
 	{
@@ -334,7 +334,7 @@ void Console::writeChar(int x, int y, int c, const Color& _foreground, const Col
 	if (isConsoleRoot)
 	{
 		// Asserts
-		if (x > renderer->getWidth() || y > renderer->getHeigth())
+		if (x > renderer->getWidth() || y > renderer->getHeight())
 		{
 			// Throw Error
 			return;
@@ -508,7 +508,7 @@ void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, 
 	if (isConsoleRoot)
 	{
 		// Asserts
-		if (x > renderer->getWidth() || y > renderer->getHeigth())
+		if (x > renderer->getWidth() || y > renderer->getHeight())
 		{
 			// Throw Error
 			return;
@@ -582,15 +582,15 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BlendModes 
 	if (isConsoleRoot)
 	{
 		// Asserts
-		if (x > renderer->getWidth() || y > renderer->getHeigth() ||
-			x + rw > renderer->getWidth() || y + rh > renderer->getHeigth())
+		if (x > renderer->getWidth() || y > renderer->getHeight() ||
+			x + rw > renderer->getWidth() || y + rh > renderer->getHeight())
 		{
 			throw "ExceptionIllegalArgument";
 		}
 		else
 		{
 			Point start = Point(0, 0);
-			Point end = Point((int)renderer->getWidth(), (int)renderer->getHeigth());
+			Point end = Point((int)renderer->getWidth(), (int)renderer->getHeight());
 
 			Point first = Point(x, y);
 			Point second = Point(rw, rh);
@@ -1026,7 +1026,7 @@ void Console::unregisterCallback() const
 
 Geometry::Size Console::getFontSize() const
 {
-	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeigth() };
+	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeight() };
 }
 
 std::uint32_t Console::getElapsedMilliseconds() const

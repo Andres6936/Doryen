@@ -49,7 +49,7 @@ Doryen::Renderer::Renderer() noexcept
 
 // Methods
 
-void Doryen::Renderer::createTablesOfCharacteres()
+void Doryen::Renderer::createTablesOfCharacters()
 {
 	if (getFontCharHorizontalSize() * getFontCharVerticalSize() != getMaxFontChars())
 	{
@@ -92,9 +92,9 @@ void Doryen::Renderer::setFontWidth(std::uint32_t _fontWidth)
 	fontWidth = _fontWidth;
 }
 
-void Doryen::Renderer::setFontHeigth(std::uint32_t _fontHeigth)
+void Doryen::Renderer::setFontHeight(std::uint32_t _fontHeight)
 {
-	fontHeigth = _fontHeigth;
+	fontHeigth = _fontHeight;
 }
 
 std::uint32_t Doryen::Renderer::getMaxFontChars() const
@@ -122,7 +122,7 @@ std::uint32_t Doryen::Renderer::getFontWidth() const
 	return fontWidth;
 }
 
-std::uint32_t Doryen::Renderer::getFontHeigth() const
+std::uint32_t Doryen::Renderer::getFontHeight() const
 {
 	return fontHeigth;
 }
@@ -224,9 +224,9 @@ void Doryen::Renderer::setWidth(std::uint32_t _width)
 	width = _width;
 }
 
-void Doryen::Renderer::setHeigth(std::uint32_t _heigth)
+void Doryen::Renderer::setHeight(std::uint32_t _height)
 {
-	heigth = _heigth;
+	heigth = _height;
 }
 
 std::uint32_t Doryen::Renderer::getWidth() const
@@ -234,16 +234,16 @@ std::uint32_t Doryen::Renderer::getWidth() const
 	return width;
 }
 
-std::uint32_t Doryen::Renderer::getHeigth() const
+std::uint32_t Doryen::Renderer::getHeight() const
 {
 	return heigth;
 }
 
 void Doryen::Renderer::createBuffer()
 {
-	buffer.resize(getWidth() * getHeigth());
+	buffer.resize(getWidth() * getHeight());
 
-	oldBuffer.resize(getWidth() * getHeigth());
+	oldBuffer.resize(getWidth() * getHeight());
 }
 
 const std::string& Doryen::Renderer::getFontfile() const
@@ -255,7 +255,7 @@ void Doryen::Renderer::setDirty(const Geometry::Point2D<>& _start, Geometry::Poi
 {
 	// Primera comprobación: ¿Es el primer punto mayor a las coordenadas
 	// de la ventana principal?
-	if (_start.x > getWidth() || _start.y > getHeigth())
+	if (_start.x > getWidth() || _start.y > getHeight())
 	{
 		return;
 	}
@@ -265,10 +265,10 @@ void Doryen::Renderer::setDirty(const Geometry::Point2D<>& _start, Geometry::Poi
 		// ambos puntos (el ancho y alto) es mayor al ancho y alto de
 		// la ventana principal?
 		if (_start.x + _end.x > getWidth() ||
-			_start.y + _end.y > getHeigth())
+			_start.y + _end.y > getHeight())
 		{
 			_end.x = (int)getWidth() - _start.x;
-			_end.y = (int)getHeigth() - _start.y;
+			_end.y = (int)getHeight() - _start.y;
 		}
 
 		for (int x = _start.x; x < _start.x + _end.x; ++x)
@@ -378,7 +378,7 @@ void Doryen::Renderer::setLastFrameLength(float _lastFrameLength)
 	lastFrameLength = _lastFrameLength;
 }
 
-std::uint32_t Doryen::Renderer::getMinimunFrameLength() const
+std::uint32_t Doryen::Renderer::getMinimumFrameLength() const
 {
 	return minimunFrameLength;
 }
