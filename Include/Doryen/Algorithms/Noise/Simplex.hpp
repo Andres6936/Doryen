@@ -47,13 +47,6 @@ namespace Doryen::Algorithms
 
 		inline static std::array<Grad, 12> grad3;
 
-		/**
-		 * To remove the need for index wrapping, double the permutation table length
-		 */
-		inline static std::array<std::int16_t, 512> perm{};
-
-		inline static std::array<std::int16_t, 512> permMod12{};
-
 		// Methods
 
 		static double dot(const Grad& g, double x, double y);
