@@ -29,6 +29,7 @@
 #define _TCOD_PERLIN_HPP
 
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
+#include "Doryen/Algorithms/Noise/Simplex.hpp"
 
 #include <array>
 #include <vector>
@@ -57,6 +58,10 @@ namespace Doryen
 	 */
 	class Noise
 	{
+
+	private:
+
+		inline static Algorithms::Simplex simplex{};
 
 	public :
 
