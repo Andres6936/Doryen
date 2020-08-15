@@ -29,6 +29,7 @@
 #define _TCOD_PERLIN_HPP
 
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
+#include "Doryen/Algorithms/Noise/Wavelet.hpp"
 #include "Doryen/Algorithms/Noise/Simplex.hpp"
 
 #include <array>

@@ -12,6 +12,7 @@ ADD_LIBRARY(Doryen.Framework
         Algorithms/Pathfinding/AStar.cpp
         Algorithms/Drawing/Bresenham.cpp
         Algorithms/Noise/Simplex.cpp
+        Algorithms/Noise/Wavelet.cpp
         Algorithms/Noise/Perlin.cpp
         Algorithms/Noise/Noise.cpp
         Algorithms/Util/Cell.cpp
