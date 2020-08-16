@@ -81,13 +81,13 @@ float Noise<Dimension>::getFbm(const std::array<float, Dimension>& f, float octa
 		return perlin.fractalNoise(f, octaves);
 
 	case (TypeNoise::Simplex):
-		return data->noiseFBM(f, octaves);
+		return simplex.fractalNoise(f, octaves);
 
 	case (TypeNoise::Wavelet):
-		return data->noiseFBM(f, octaves);
+		return wavelet.fractalNoise(f, octaves);
 
 	default:
-		return data->noiseFBM(f, octaves);
+		return simplex.fractalNoise(f, octaves);
 	}
 }
 

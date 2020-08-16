@@ -48,6 +48,8 @@ namespace Doryen::Algorithms
 
 		float noise(const std::array<float, Dimension>& input);
 
+		float fractalNoise(const std::array<float, Dimension>& input, int octaves);
+
 	};
 
 }
