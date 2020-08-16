@@ -171,3 +171,17 @@ float Algorithms::Wavelet<Dimension>::noise(const std::array<float, Dimension>& 
 	}
 	return std::clamp(result, -1.0f, 1.0f);
 }
+
+// Explicitly instantiate the template
+
+template
+class Doryen::Algorithms::Wavelet<1>;
+
+template
+class Doryen::Algorithms::Wavelet<2>;
+
+template
+class Doryen::Algorithms::Wavelet<3>;
+
+template
+class Doryen::Algorithms::Wavelet<4>;

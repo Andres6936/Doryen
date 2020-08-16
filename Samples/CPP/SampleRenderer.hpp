@@ -43,7 +43,7 @@ private:
 
 	State state = State::Draw_Blur;
 
-	Doryen::Noise* noise = new Doryen::Noise(3);
+	Doryen::Noise<3>* noise = new Doryen::Noise<3>(3);
 
 	void effectBurn(int samplex, int sampley, int samplew, int sampleh);
 

@@ -51,7 +51,7 @@ void Functor::Noise::drawTextNoiseRender()
 
 void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 {
-	static Doryen::Noise* noise = NULL;
+	static Doryen::Noise<2>* noise = NULL;
 	static float dx = 0.0f, dy = 0.0f;
 	static float octaves = 4.0f;
 	static float lacunarity = 2.0f;
@@ -59,7 +59,8 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	static float zoom = 3.0f;
 	if (!noise)
 	{
-		noise = new Doryen::Noise(2, lacunarity);
+		// Created a Noise of two dimensions
+		noise = new Doryen::Noise<2>(2, lacunarity);
 		img = new Doryen::Image(sample.getWidth() * 2, sample.getHeight() * 2);
 	}
 
@@ -71,7 +72,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	{
 		for (int x = 0; x < 2 * sample.getWidth(); x++)
 		{
-			float f[2];
+			std::array<float, 2> f;
 			f[0] = zoom * x / (2 * sample.getWidth()) + dx;
 			f[1] = zoom * y / (2 * sample.getHeight()) + dy;
 			float value = 0.0f;
@@ -87,22 +88,22 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 				value = noise->get(f, TypeNoise::Wavelet);
 				break;
 			case NoiseRender::FBM_PERLIN :
-				value = noise->getFbm(f, octaves, TypeNoise::Perlin);
+				value = noise->getFbm(f.data(), octaves, TypeNoise::Perlin);
 				break;
 			case NoiseRender::TURBULENCE_PERLIN :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Perlin);
+				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Perlin);
 				break;
 			case NoiseRender::FBM_SIMPLEX :
-				value = noise->getFbm(f, octaves, TypeNoise::Simplex);
+				value = noise->getFbm(f.data(), octaves, TypeNoise::Simplex);
 				break;
 			case NoiseRender::TURBULENCE_SIMPLEX :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Simplex);
+				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Simplex);
 				break;
 			case NoiseRender::FBM_WAVELET :
-				value = noise->getFbm(f, octaves, TypeNoise::Wavelet);
+				value = noise->getFbm(f.data(), octaves, TypeNoise::Wavelet);
 				break;
 			case NoiseRender::TURBULENCE_WAVELET :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Wavelet);
+				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Wavelet);
 				break;
 			}
 			uint8 c = (uint8)((value + 1.0f) / 2.0f * 255);
@@ -136,26 +137,26 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	if (key == KeyCode::E)
 	{
 		delete noise;
-		noise = new Doryen::Noise(2, lacunarity);
+		noise = new Doryen::Noise<2>(2, lacunarity);
 	}
 	else if (key == KeyCode::D)
 	{
 		delete noise;
-		noise = new Doryen::Noise(2, lacunarity);
+		noise = new Doryen::Noise<2>(2, lacunarity);
 	}
 	else if (key == KeyCode::R)
 	{
 		// increase lacunarity
 		lacunarity += 0.5f;
 		delete noise;
-		noise = new Doryen::Noise(2, lacunarity);
+		noise = new Doryen::Noise<2>(2, lacunarity);
 	}
 	else if (key == KeyCode::F)
 	{
 		// decrease lacunarity
 		lacunarity -= 0.5f;
 		delete noise;
-		noise = new Doryen::Noise(2, lacunarity);
+		noise = new Doryen::Noise<2>(2, lacunarity);
 	}
 	else if (key == KeyCode::T)
 	{

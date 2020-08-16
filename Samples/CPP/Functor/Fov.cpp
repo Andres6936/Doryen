@@ -66,14 +66,17 @@ void Functor::FOV::drawDungeon()
 	if (torch)
 	{
 		// slightly change the perlin noise parameter
-		torchx += 0.2f;
+		torchx[0] += 0.2f;
 		// randomize the light position between -1.5 and 1.5
-		float tdx = torchx + 20.0f;
-		dx = noise.get(&tdx) * 1.5f;
-		tdx += 30.0f;
-		dy = noise.get(&tdx) * 1.5f;
+		std::array<float, 1> tdx;
+
+		tdx[0] = torchx[0] + 20.0f;
+
+		dx = noise.get(tdx) * 1.5f;
+		tdx[0] += 30.0f;
+		dy = noise.get(tdx) * 1.5f;
 		// randomize the light intensity between -0.2 and 0.2
-		di = 0.2f * noise.get(&torchx);
+		di = 0.2f * noise.get({ torchx });
 	}
 
 	for (int y = 0; y < sample.getHeight(); y++)

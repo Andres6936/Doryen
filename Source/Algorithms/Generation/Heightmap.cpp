@@ -169,7 +169,7 @@ void Doryen::Heightmap::copy(const Heightmap* source)
 }
 
 void
-Doryen::Heightmap::addFbm(Noise* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
+Doryen::Heightmap::addFbm(Noise<2>* noise, float mulx, float muly, float addx, float addy, float octaves, float delta,
 		float scale)
 {
 	float xcoef = mulx / (float)this->w;
@@ -206,7 +206,7 @@ Doryen::Heightmap::addFbm(Noise* noise, float mulx, float muly, float addx, floa
 }
 
 void
-Doryen::Heightmap::scaleFbm(Noise* noise, float mulx, float muly, float addx, float addy, float octaves,
+Doryen::Heightmap::scaleFbm(Noise<2>* noise, float mulx, float muly, float addx, float addy, float octaves,
 		float delta,
 		float scale)
 {

@@ -57,16 +57,16 @@ float Noise<Dimension>::get(std::array<float, Dimension>& f, TypeNoise type)
 	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
-		return data->noisePerlin(f);
+		return data->noisePerlin(f.data());
 
 	case (TypeNoise::Simplex):
-		return data->noiseSimplex(f);
+		return data->noiseSimplex(f.data());
 
 	case (TypeNoise::Wavelet):
 		return wavelet.noise(f);
 
 	default:
-		return data->noiseSimplex(f);
+		return data->noiseSimplex(f.data());
 	}
 }
 
@@ -117,3 +117,17 @@ Noise<Dimension>::~Noise()
 {
 	delete data;
 }
+
+// Explicitly instantiate the template
+
+template
+class Doryen::Noise<1>;
+
+template
+class Doryen::Noise<2>;
+
+template
+class Doryen::Noise<3>;
+
+template
+class Doryen::Noise<4>;

@@ -67,14 +67,14 @@ namespace Functor
 		/**
 		 * Torch light position in the perlin noise
 		 */
-		float torchx = 0.0f;
+		std::array<float, 1> torchx = { 0.0f };
 
 		Map map;
 
 		/**
 		 * 1D noise used for the torch flickering.
 		 */
-		Noise noise{ 1 };
+		Noise<1> noise{ 1 };
 
 		void drawPlayer();
 
