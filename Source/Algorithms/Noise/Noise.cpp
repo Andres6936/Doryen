@@ -42,7 +42,7 @@ void Noise<Dimension>::setType(TypeNoise _type)
 }
 
 template<int Dimension>
-float Noise<Dimension>::get(std::array<float, Dimension>& f)
+float Noise<Dimension>::get(const std::array<float, Dimension>& f)
 {
 	switch (type)
 	{

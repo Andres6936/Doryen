@@ -128,7 +128,7 @@ namespace Doryen
 		 *
 		 * @return noise function value between -1.0 and 1.0.
 		 */
-		float get(std::array<float, Dimension>& f);
+		float get(const std::array<float, Dimension>& f);
 
 		/**
 		 * This function returns the fbm function value between -1.0 and 1.0 at
