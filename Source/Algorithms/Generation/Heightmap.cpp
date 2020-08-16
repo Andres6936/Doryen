@@ -180,7 +180,7 @@ Doryen::Heightmap::addFbm(Noise<2>* noise, float mulx, float muly, float addx, f
 
 	for (int x = 0; x < this->w; x++)
 	{
-		float f[2];
+		std::array<float, 2> f;
 
 		int offset = x;
 
@@ -215,7 +215,7 @@ Doryen::Heightmap::scaleFbm(Noise<2>* noise, float mulx, float muly, float addx,
 
 	for (int x = 0; x < this->w; x++)
 	{
-		float f[2];
+		std::array<float, 2> f;
 		int offset = x;
 
 		f[0] = (x + addx) * xcoef;

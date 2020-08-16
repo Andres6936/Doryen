@@ -146,7 +146,7 @@ namespace Doryen
 		 *
 		 * @return the fbm function value between -1.0 and 1.0.
 		 */
-		float getFbm(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
+		float getFbm(const std::array<float, Dimension>& f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 		/**
 		 * This function returns the turbulence function value between -1.0
@@ -164,11 +164,11 @@ namespace Doryen
 		 *
 		 * @return the turbulence function value between -1.0 and 1.0.
 		 */
-		float getTurbulence(float* f, float octaves, TypeNoise type = TypeNoise::Simplex);
+		float getTurbulence(const std::array<float, Dimension>& f, float octaves, TypeNoise type = TypeNoise::Simplex);
 
 	public:
 
-		Algorithms::Perlin* data;
+		Algorithms::Perlin<Dimension>* data;
 	};
 
 }

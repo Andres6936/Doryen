@@ -125,7 +125,8 @@ void SampleRenderer::effectExplode(int samplex, int sampley, int samplew, int sa
 void SampleRenderer::effectBlur(int samplex, int sampley, int samplew, int sampleh)
 {
 	// let's blur that sample console
-	float f[3], n = 0.0f;
+	std::array<float, 3> f;
+	float n = 0.0f;
 	int ridx = screen->format->Rshift / 8;
 	int gidx = screen->format->Gshift / 8;
 	int bidx = screen->format->Bshift / 8;

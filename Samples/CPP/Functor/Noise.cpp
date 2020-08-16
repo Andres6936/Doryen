@@ -88,22 +88,22 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 				value = noise->get(f, TypeNoise::Wavelet);
 				break;
 			case NoiseRender::FBM_PERLIN :
-				value = noise->getFbm(f.data(), octaves, TypeNoise::Perlin);
+				value = noise->getFbm(f, octaves, TypeNoise::Perlin);
 				break;
 			case NoiseRender::TURBULENCE_PERLIN :
-				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Perlin);
+				value = noise->getTurbulence(f, octaves, TypeNoise::Perlin);
 				break;
 			case NoiseRender::FBM_SIMPLEX :
-				value = noise->getFbm(f.data(), octaves, TypeNoise::Simplex);
+				value = noise->getFbm(f, octaves, TypeNoise::Simplex);
 				break;
 			case NoiseRender::TURBULENCE_SIMPLEX :
-				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Simplex);
+				value = noise->getTurbulence(f, octaves, TypeNoise::Simplex);
 				break;
 			case NoiseRender::FBM_WAVELET :
-				value = noise->getFbm(f.data(), octaves, TypeNoise::Wavelet);
+				value = noise->getFbm(f, octaves, TypeNoise::Wavelet);
 				break;
 			case NoiseRender::TURBULENCE_WAVELET :
-				value = noise->getTurbulence(f.data(), octaves, TypeNoise::Wavelet);
+				value = noise->getTurbulence(f, octaves, TypeNoise::Wavelet);
 				break;
 			}
 			uint8 c = (uint8)((value + 1.0f) / 2.0f * 255);
