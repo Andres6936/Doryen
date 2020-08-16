@@ -321,48 +321,6 @@ void Perlin::prepareNoiseWavelet()
 	std::copy(noise.begin(), noise.end(), std::back_inserter(waveletTileData));
 }
 
-float Perlin::noiseWavelet(float* f)
-{
-	float pf[3];
-
-	int p[3], c[3], mid[3], n = WAVELET_TILE_SIZE;
-	float w[3][3], t, result = 0.0f;
-	if (ndim > 3) return 0.0f; /* not supported */
-
-	if (waveletTileData.empty()) prepareNoiseWavelet();
-
-	for (int i = 0; i < ndim; i++) pf[i] = f[i] * WAVELET_SCALE;
-
-	for (int i = ndim; i < 3; i++) pf[i] = 0.0f;
-
-	for (int i = 0; i < 3; i++)
-	{
-		mid[i] = (int)ceil(pf[i] - 0.5f);
-		t = mid[i] - (pf[i] - 0.5f);
-		w[i][0] = t * t * 0.5f;
-		w[i][2] = (1.0f - t) * (1.0f - t) * 0.5f;
-		w[i][1] = 1.0f - w[i][0] - w[i][2];
-	}
-
-	for (p[2] = -1; p[2] <= 1; p[2]++)
-	{
-		for (p[1] = -1; p[1] <= 1; p[1]++)
-		{
-			for (p[0] = -1; p[0] <= 1; p[0]++)
-			{
-				float weight = 1.0f;
-				for (int i = 0; i < 3; i++)
-				{
-					c[i] = absmod(mid[i] + p[i], n);
-					weight *= w[i][p[i] + 1];
-				}
-				result += weight * waveletTileData[c[2] * n * n + c[1] * n + c[0]];
-			}
-		}
-	}
-	return CLAMP(-1.0f, 1.0f, result);
-}
-
 // Getters
 
 TypeNoise Perlin::getNoiseType() const
