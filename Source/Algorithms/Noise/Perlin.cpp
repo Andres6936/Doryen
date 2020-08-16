@@ -40,31 +40,9 @@ using namespace Doryen::Algorithms;
 #define ABS(a) ((a)<0?-(a):(a))
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 
-Perlin::Perlin(const std::int32_t _dimensions, const float _lacunarity)
+template<int Dimension>
+Perlin<Dimension>::Perlin(const std::int32_t _dimensions, const float _lacunarity)
 {
-	ndim = _dimensions;
-	lacunarity = _lacunarity;
-
-	for (int i = 0; i < map.size(); ++i)
-	{
-		map[i] = i;
-
-		for (int j = 0; j < ndim; j++)
-		{
-			buffer[i][j] = Random::Number::nextFloat(-0.5, 0.5);
-		}
-
-		normalize(buffer[i]);
-	}
-
-	int i = map.size();
-
-	while (--i)
-	{
-		std::int32_t j = Random::Number::nextInteger(0, 255);
-		std::swap(map[i], map[j]);
-	}
-
 	float f = 1.0f;
 
 	for (int j = 0; j < Perlin::MAX_OCTAVES; j++)
@@ -75,33 +53,18 @@ Perlin::Perlin(const std::int32_t _dimensions, const float _lacunarity)
 	}
 }
 
-void Perlin::normalize(float* f)
-{
-	float magnitude = 0;
-
-	for (int i = 0; i < ndim; i++)
-	{
-		magnitude += f[i] * f[i];
-	}
-
-	magnitude = 1.0f / std::sqrt(magnitude);
-
-	for (int i = 0; i < ndim; i++)
-	{
-		f[i] *= magnitude;
-	}
-}
-
 // Getters
 
-TypeNoise Perlin::getNoiseType() const
+template<int Dimension>
+TypeNoise Perlin<Dimension>::getNoiseType() const
 {
 	return noise_type;
 }
 
 // Setters
 
-void Perlin::setNoiseType(TypeNoise _noiseType)
+template<int Dimension>
+void Perlin<Dimension>::setNoiseType(TypeNoise _noiseType)
 {
 	noise_type = _noiseType;
 }

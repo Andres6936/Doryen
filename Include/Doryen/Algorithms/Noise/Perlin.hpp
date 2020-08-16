@@ -62,18 +62,9 @@ namespace Doryen
 		public:
 
 			const static std::uint8_t MAX_OCTAVES = 128;
-			const static std::uint8_t MAX_DIMENSIONS = 4;
-
-			int ndim;
-
-			float buffer[256][MAX_DIMENSIONS];    /* Random 256 x ndim buffer */
 
 			/* fractal stuff */
 			float lacunarity;
-
-			std::vector<float> waveletTileData;
-
-			std::array<unsigned char, 256> map; /* Randomized map of indexes into buffer */
 
 			std::array<float, MAX_OCTAVES> exponent;
 
@@ -87,8 +78,6 @@ namespace Doryen
 			Perlin(std::int32_t _dimensions, float _lacunarity);
 
 			// Methods
-
-			void normalize(float* f);
 
 			float noise(const std::array<float, Dimension>& input);
 
