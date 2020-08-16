@@ -10,6 +10,7 @@
 namespace Doryen::Algorithms
 {
 
+	template<int Dimension>
 	class Simplex
 	{
 
@@ -55,7 +56,7 @@ namespace Doryen::Algorithms
 
 		Simplex() noexcept;
 
-		float noise(const std::array<double, 2>& input);
+		float noise(const std::array<double, Dimension>& input);
 
 	};
 
