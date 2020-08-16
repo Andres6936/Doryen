@@ -99,7 +99,7 @@ double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>:
 }
 
 template<int Dimension>
-float Algorithms::Simplex<Dimension>::noise(const std::array<double, Dimension>& input)
+float Algorithms::Simplex<Dimension>::noise(const std::array<float, Dimension>& input)
 {
 	if constexpr (Dimension == 1)
 	{
@@ -178,9 +178,9 @@ float Algorithms::Simplex<Dimension>::noise(const std::array<double, Dimension>&
 		double n0, n1, n2, n3; // Noise contributions from the four corners
 		// Skew the input space to determine which simplex cell we're in
 		double s = (xin + yin + zin) * F3; // Very nice and simple skew factor for 3D
-		int i = fastfloor(xin + s);
-		int j = fastfloor(yin + s);
-		int k = fastfloor(zin + s);
+		int i = std::floor(xin + s);
+		int j = std::floor(yin + s);
+		int k = std::floor(zin + s);
 		double t = (i + j + k) * G3;
 		double X0 = i - t; // Unskew the cell origin back to (x,y,z) space
 		double Y0 = j - t;
@@ -313,10 +313,10 @@ float Algorithms::Simplex<Dimension>::noise(const std::array<double, Dimension>&
 		double n0, n1, n2, n3, n4; // Noise contributions from the five corners
 		// Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
 		double s = (x + y + z + w) * F4; // Factor for 4D skewing
-		int i = fastfloor(x + s);
-		int j = fastfloor(y + s);
-		int k = fastfloor(z + s);
-		int l = fastfloor(w + s);
+		int i = std::floor(x + s);
+		int j = std::floor(y + s);
+		int k = std::floor(z + s);
+		int l = std::floor(w + s);
 		double t = (i + j + k + l) * G4; // Factor for 4D unskewing
 		double X0 = i - t; // Unskew the cell origin back to (x,y,z,w) space
 		double Y0 = j - t;
@@ -428,3 +428,15 @@ float Algorithms::Simplex<Dimension>::noise(const std::array<double, Dimension>&
 		return 27.0 * (n0 + n1 + n2 + n3 + n4);
 	}
 }
+
+template
+class Doryen::Algorithms::Simplex<1>;
+
+template
+class Doryen::Algorithms::Simplex<2>;
+
+template
+class Doryen::Algorithms::Simplex<3>;
+
+template
+class Doryen::Algorithms::Simplex<4>;

@@ -23,13 +23,18 @@ namespace Doryen::Algorithms
 
 		public:
 
-			std::int_fast16_t x;
-			std::int_fast16_t y;
-			std::int_fast16_t z;
+			double x;
+			double y;
+			double z;
+			double w;
 
 			Grad() noexcept = default;
 
-			Grad(std::int_fast16_t _x, std::int_fast16_t _y, std::int_fast16_t _z) noexcept: x(_x), y(_y), z(_z)
+			Grad(double _x, double _y, double _z) noexcept: x(_x), y(_y), z(_z)
+			{
+			};
+
+			Grad(double _x, double _y, double _z, double _w) noexcept: x(_x), y(_y), z(_z), w(_w)
 			{
 			};
 		};
@@ -58,7 +63,7 @@ namespace Doryen::Algorithms
 
 		Simplex() noexcept;
 
-		float noise(const std::array<double, Dimension>& input);
+		float noise(const std::array<float, Dimension>& input);
 
 	};
 

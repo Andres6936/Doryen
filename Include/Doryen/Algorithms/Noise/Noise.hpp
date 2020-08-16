@@ -63,7 +63,7 @@ namespace Doryen
 
 	private:
 
-		inline static Algorithms::Simplex simplex{};
+		inline static Algorithms::Simplex<Dimension> simplex{};
 
 		inline static Algorithms::Wavelet<Dimension> wavelet{};
 

@@ -60,7 +60,7 @@ float Noise<Dimension>::get(std::array<float, Dimension>& f, TypeNoise type)
 		return data->noisePerlin(f.data());
 
 	case (TypeNoise::Simplex):
-		return data->noiseSimplex(f.data());
+		return simplex.noise(f);
 
 	case (TypeNoise::Wavelet):
 		return wavelet.noise(f);
