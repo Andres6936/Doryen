@@ -63,7 +63,7 @@ float Noise<Dimension>::get(std::array<float, Dimension>& f, TypeNoise type)
 		return data->noiseSimplex(f);
 
 	case (TypeNoise::Wavelet):
-		return data->noiseWavelet(f);
+		return wavelet.noise(f);
 
 	default:
 		return data->noiseSimplex(f);
