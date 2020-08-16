@@ -209,22 +209,6 @@ static void TCOD_noise_wavelet_downsample(float* from, float* to, int stride)
 	}
 }
 
-static void TCOD_noise_wavelet_upsample(float* from, float* to, int stride)
-{
-	static float pcoeffs[4] = { 0.25f, 0.75f, 0.75f, 0.25f };
-	static float* p = &pcoeffs[2];
-	int i;
-	for (i = 0; i < WAVELET_TILE_SIZE; i++)
-	{
-		int k;
-		to[i * stride] = 0;
-		for (k = i / 2; k < i / 2 + 1; k++)
-		{
-			to[i * stride] += p[i - 2 * k] * from[absmod(k, WAVELET_TILE_SIZE / 2) * stride];
-		}
-	}
-}
-
 // Getters
 
 TypeNoise Perlin::getNoiseType() const
