@@ -7,6 +7,8 @@
 #include <cstdint>
 #include <cmath>
 
+#include "Doryen/Algorithms/Noise/Gradient.hpp"
+
 namespace Doryen::Algorithms
 {
 
@@ -15,29 +17,6 @@ namespace Doryen::Algorithms
 	{
 
 	private:
-
-		// Class Private
-
-		class Gradient
-		{
-
-		public:
-
-			double x;
-			double y;
-			double z;
-			double w;
-
-			Gradient() noexcept = default;
-
-			Gradient(double _x, double _y, double _z) noexcept: x(_x), y(_y), z(_z)
-			{
-			};
-
-			Gradient(double _x, double _y, double _z, double _w) noexcept: x(_x), y(_y), z(_z), w(_w)
-			{
-			};
-		};
 
 		// Const Variables
 
