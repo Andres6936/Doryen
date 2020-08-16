@@ -75,7 +75,9 @@ void Perlin<Dimension>::setNoiseType(TypeNoise _noiseType)
 template<int Dimension>
 float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float octaves)
 {
-	std::array<float, Dimension> tf{ f.begin(), f.end() };
+	std::array<float, Dimension> tf{ };
+
+	std::copy(f.begin(), f.end(), tf.begin());
 
 	/* Initialize locals */
 	double value = 0;
@@ -133,7 +135,9 @@ float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float o
 template<int Dimension>
 float Perlin<Dimension>::noiseTurbulence(const std::array<float, Dimension>& f, float octaves)
 {
-	std::array<float, Dimension> tf{ f.begin(), f.end() };
+	std::array<float, Dimension> tf{ };
+
+	std::copy(f.begin(), f.end(), tf.begin());
 
 	/* Initialize locals */
 	double value = 0;
@@ -265,3 +269,16 @@ float Perlin<Dimension>::Grad(std::uint8_t hash, float x, float y, float z)
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
+// Explicitly instantiate the template
+
+template
+class Doryen::Algorithms::Perlin<1>;
+
+template
+class Doryen::Algorithms::Perlin<2>;
+
+template
+class Doryen::Algorithms::Perlin<3>;
+
+template
+class Doryen::Algorithms::Perlin<4>;
