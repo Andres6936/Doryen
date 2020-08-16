@@ -14,8 +14,8 @@ static int absmod(int x, int n)
 	return m < 0 ? m + n : m;
 }
 
-
-void Algorithms::Wavelet::TCOD_noise_wavelet_downsample(float* from, float* to, int stride)
+template<int Dimension>
+void Algorithms::Wavelet<Dimension>::TCOD_noise_wavelet_downsample(float* from, float* to, int stride)
 {
 	static float acoeffs[2 * WAVELET_ARAD] = {
 			0.000334f, -0.001528f, 0.000410f, 0.003545f, -0.000938f, -0.008233f, 0.002172f, 0.019120f,
@@ -36,7 +36,8 @@ void Algorithms::Wavelet::TCOD_noise_wavelet_downsample(float* from, float* to, 
 	}
 }
 
-void Algorithms::Wavelet::TCOD_noise_wavelet_upsample(float* from, float* to, int stride)
+template<int Dimension>
+void Algorithms::Wavelet<Dimension>::TCOD_noise_wavelet_upsample(float* from, float* to, int stride)
 {
 	static float pcoeffs[4] = { 0.25f, 0.75f, 0.75f, 0.25f };
 	static float* p = &pcoeffs[2];
@@ -52,7 +53,8 @@ void Algorithms::Wavelet::TCOD_noise_wavelet_upsample(float* from, float* to, in
 	}
 }
 
-void Algorithms::Wavelet::prepareNoiseWavelet()
+template<int Dimension>
+void Algorithms::Wavelet<Dimension>::prepareNoiseWavelet()
 {
 	int ix, iy, iz, i, sz = WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * WAVELET_TILE_SIZE * sizeof(float);
 
@@ -125,19 +127,19 @@ void Algorithms::Wavelet::prepareNoiseWavelet()
 	std::copy(noise.begin(), noise.end(), std::back_inserter(waveletTileData));
 }
 
-float Algorithms::Wavelet::noise(float* f)
+template<int Dimension>
+float Algorithms::Wavelet<Dimension>::noise(const std::array<float, Dimension>& f)
 {
-	float pf[3];
+	std::array<float, Dimension> pf;
 
 	int p[3], c[3], mid[3], n = WAVELET_TILE_SIZE;
 	float w[3][3], t, result = 0.0f;
-	if (ndim > 3) return 0.0f; /* not supported */
 
 	if (waveletTileData.empty()) prepareNoiseWavelet();
 
-	for (int i = 0; i < ndim; i++) pf[i] = f[i] * WAVELET_SCALE;
+	for (int i = 0; i < Dimension; i++) pf[i] = f[i] * WAVELET_SCALE;
 
-	for (int i = ndim; i < 3; i++) pf[i] = 0.0f;
+	for (int i = Dimension; i < 3; i++) pf[i] = 0.0f;
 
 	for (int i = 0; i < 3; i++)
 	{

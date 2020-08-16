@@ -3,12 +3,14 @@
 #ifndef DORYEN_WAVELET_HPP
 #define DORYEN_WAVELET_HPP
 
+#include <array>
 #include <vector>
 #include <cstdint>
 
 namespace Doryen::Algorithms
 {
 
+	template<int Dimension>
 	class Wavelet
 	{
 
@@ -30,7 +32,7 @@ namespace Doryen::Algorithms
 
 	public:
 
-		float noise(float* f);
+		float noise(const std::array<float, Dimension>& f);
 
 	};
 
