@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <cstring>
 #include <iostream>
+#include <algorithm>
 
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
 #include "Doryen/Random/Number.hpp"
@@ -961,5 +962,76 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 		value += (double)(octaves * ABS(nval)) * exponent[i];
 	}
 	return CLAMP(-0.99999f, 0.99999f, (float)value);
+}
+
+template<int Dimension>
+Perlin<Dimension>::Perlin()
+{
+	for (size_t i = 0; i < 256; ++i)
+	{
+		p[i] = static_cast<std::uint8_t>(i);
+	}
+
+	std::shuffle(std::begin(p), std::begin(p) + 256, std::default_random_engine{});
+
+	for (size_t i = 0; i < 256; ++i)
+	{
+		p[256 + i] = p[i];
+	}
+}
+
+template<int Dimension>
+float Perlin<Dimension>::Fade(float t)
+{
+	return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+template<int Dimension>
+float Perlin<Dimension>::noise(const std::array<float, Dimension>& input)
+{
+	// Extract the values for x, y and z depended of dimension of Perlin
+	float x = (Dimension == 1) ? input[0] : 0.0f;
+	float y = (Dimension == 2) ? input[1] : 0.0f;
+	float z = (Dimension == 3) ? input[2] : 0.0f;
+
+	const std::int32_t X = static_cast<std::int32_t>(std::floor(x)) & 255;
+	const std::int32_t Y = static_cast<std::int32_t>(std::floor(y)) & 255;
+	const std::int32_t Z = static_cast<std::int32_t>(std::floor(z)) & 255;
+
+	x -= std::floor(x);
+	y -= std::floor(y);
+	z -= std::floor(z);
+
+	const float u = Fade(x);
+	const float v = Fade(y);
+	const float w = Fade(z);
+
+	const std::int32_t A = p[X] + Y, AA = p[A] + Z, AB = p[A + 1] + Z;
+	const std::int32_t B = p[X + 1] + Y, BA = p[B] + Z, BB = p[B + 1] + Z;
+
+	return Lerp(w, Lerp(v, Lerp(u, Grad(p[AA], x, y, z),
+			Grad(p[BA], x - 1, y, z)),
+			Lerp(u, Grad(p[AB], x, y - 1, z),
+					Grad(p[BB], x - 1, y - 1, z))),
+			Lerp(v, Lerp(u, Grad(p[AA + 1], x, y, z - 1),
+					Grad(p[BA + 1], x - 1, y, z - 1)),
+					Lerp(u, Grad(p[AB + 1], x, y - 1, z - 1),
+							Grad(p[BB + 1], x - 1, y - 1, z - 1))));
+}
+
+template<int Dimension>
+float Perlin<Dimension>::Lerp(float t, float a, float b)
+{
+	return a + t * (b - a);
+}
+
+template<int Dimension>
+float Perlin<Dimension>::Grad(std::uint8_t hash, float x, float y, float z)
+{
+	const std::uint8_t h = hash & 15;
+	const float u = h < 8 ? x : y;
+	const float v = h < 4 ? y : h == 12 || h == 14 ? x : z;
+
+	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 

@@ -45,8 +45,19 @@ namespace Doryen
 	namespace Algorithms
 	{
 
+		template<int Dimension>
 		class Perlin
 		{
+
+		private:
+
+			std::array<std::uint8_t, 512> p{};
+
+			static float Fade(float t);
+
+			static float Lerp(float t, float a, float b);
+
+			static float Grad(std::uint8_t hash, float x, float y, float z);
 
 		public:
 
@@ -71,7 +82,7 @@ namespace Doryen
 
 			// Construct
 
-			Perlin() = default;
+			Perlin();
 
 			Perlin(std::int32_t _dimensions, float _lacunarity);
 
@@ -92,6 +103,8 @@ namespace Doryen
 			float noiseTurbulence(float* f, float octaves);
 
 			float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
+
+			float noise(const std::array<float, Dimension>& input);
 
 			// Getters
 
