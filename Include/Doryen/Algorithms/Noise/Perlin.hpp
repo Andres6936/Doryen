@@ -98,13 +98,13 @@ namespace Doryen
 
 			float noiseWavelet(float* f);
 
-			float noiseFBM(float* f, float octaves);
-
-			float noiseTurbulence(float* f, float octaves);
-
 			float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
 
 			float noise(const std::array<float, Dimension>& input);
+
+			float noiseFBM(const std::array<float, Dimension>& f, float octaves);
+
+			float noiseTurbulence(float* f, float octaves);
 
 			// Getters
 

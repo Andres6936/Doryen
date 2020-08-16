@@ -843,13 +843,14 @@ void Perlin::setNoiseType(TypeNoise _noiseType)
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
-float Perlin::noiseFBM(float* f, float octaves)
+template<int Dimension>
+float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float octaves)
 {
-	float tf[Perlin::MAX_DIMENSIONS];
+	std::array<float, Dimension> tf{ f.begin(), f.end() };
+
 	/* Initialize locals */
 	double value = 0;
-	int i, j;
-	std::memcpy(tf, f, sizeof(float) * ndim);
+	int i;
 
 	/* Inner loop of spectral construction, where the fractal is built */
 	for (i = 0; i < (int)octaves; i++)
@@ -871,7 +872,7 @@ float Perlin::noiseFBM(float* f, float octaves)
 			std::cerr << "Problem, type noise unknown\n";
 		}
 
-		for (j = 0; j < ndim; j++) tf[j] *= lacunarity;
+		for (int j = 0; j < Dimension; j++) tf[j] *= lacunarity;
 	}
 
 	/* Take care of remainder in octaves */
@@ -897,7 +898,7 @@ float Perlin::noiseFBM(float* f, float octaves)
 		}
 	}
 
-	return CLAMP(-0.99999f, 0.99999f, (float)value);
+	return std::clamp(static_cast<float>(value), -0.99999f, 0.99999f);
 }
 
 float Perlin::noiseTurbulence(float* f, float octaves)
