@@ -73,66 +73,6 @@ void Perlin<Dimension>::setNoiseType(TypeNoise _noiseType)
 #define SWAP(a, b, t)        t = a; a = b; b = t
 
 template<int Dimension>
-float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float octaves)
-{
-	std::array<float, Dimension> tf{ };
-
-	std::copy(f.begin(), f.end(), tf.begin());
-
-	/* Initialize locals */
-	double value = 0;
-	int i;
-
-	/* Inner loop of spectral construction, where the fractal is built */
-	for (i = 0; i < (int)octaves; i++)
-	{
-		if (getNoiseType() == TypeNoise::Perlin)
-		{
-			value += Noise<Dimension>::perlin.noise(tf) * exponent[i];
-		}
-		else if (getNoiseType() == TypeNoise::Simplex)
-		{
-			value += Noise<Dimension>::simplex.noise(tf) * exponent[i];
-		}
-		else if (getNoiseType() == TypeNoise::Wavelet)
-		{
-			value += Noise<Dimension>::wavelet.noise(tf) * exponent[i];
-		}
-		else
-		{
-			std::cerr << "Problem, type noise unknown\n";
-		}
-
-		for (int j = 0; j < Dimension; j++) tf[j] *= lacunarity;
-	}
-
-	/* Take care of remainder in octaves */
-	octaves -= (int)octaves;
-
-	if (octaves > DELTA)
-	{
-		if (getNoiseType() == TypeNoise::Perlin)
-		{
-			value += octaves * Noise<Dimension>::perlin.noise(tf) * exponent[i];
-		}
-		else if (getNoiseType() == TypeNoise::Simplex)
-		{
-			value += octaves * Noise<Dimension>::simplex.noise(tf) * exponent[i];
-		}
-		else if (getNoiseType() == TypeNoise::Wavelet)
-		{
-			value += octaves * Noise<Dimension>::wavelet.noise(tf) * exponent[i];
-		}
-		else
-		{
-			std::cerr << "Problem, type noise unknown\n";
-		}
-	}
-
-	return std::clamp(static_cast<float>(value), -0.99999f, 0.99999f);
-}
-
-template<int Dimension>
 float Perlin<Dimension>::noiseTurbulence(const std::array<float, Dimension>& f, float octaves)
 {
 	std::array<float, Dimension> tf{ };
