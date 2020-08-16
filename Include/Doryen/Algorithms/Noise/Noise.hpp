@@ -64,6 +64,8 @@ namespace Doryen
 
 		inline static Algorithms::Simplex simplex{};
 
+		inline static Algorithms::Wavelet<1> wavelet{};
+
 	public :
 
 		/**
