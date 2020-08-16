@@ -31,6 +31,7 @@
 #include <algorithm>
 
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
+#include "Doryen/Algorithms/Noise/Noise.hpp"
 #include "Doryen/Random/Number.hpp"
 
 using namespace Doryen;
@@ -857,15 +858,15 @@ float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float o
 	{
 		if (getNoiseType() == TypeNoise::Perlin)
 		{
-			value += noisePerlin(tf) * exponent[i];
+			value += Noise<Dimension>::perlin.noise(tf) * exponent[i];
 		}
 		else if (getNoiseType() == TypeNoise::Simplex)
 		{
-			value += noiseSimplex(tf) * exponent[i];
+			value += Noise<Dimension>::simplex.noise(tf) * exponent[i];
 		}
 		else if (getNoiseType() == TypeNoise::Wavelet)
 		{
-			value += noiseWavelet(tf) * exponent[i];
+			value += Noise<Dimension>::wavelet.noise(tf) * exponent[i];
 		}
 		else
 		{
@@ -882,15 +883,15 @@ float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float o
 	{
 		if (getNoiseType() == TypeNoise::Perlin)
 		{
-			value += octaves * noisePerlin(tf) * exponent[i];
+			value += octaves * Noise<Dimension>::perlin.noise(tf) * exponent[i];
 		}
 		else if (getNoiseType() == TypeNoise::Simplex)
 		{
-			value += octaves * noiseSimplex(tf) * exponent[i];
+			value += octaves * Noise<Dimension>::simplex.noise(tf) * exponent[i];
 		}
 		else if (getNoiseType() == TypeNoise::Wavelet)
 		{
-			value += octaves * noiseWavelet(tf) * exponent[i];
+			value += octaves * Noise<Dimension>::wavelet.noise(tf) * exponent[i];
 		}
 		else
 		{

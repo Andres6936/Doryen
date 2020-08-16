@@ -62,7 +62,7 @@ namespace Doryen
 	class Noise
 	{
 
-	private:
+	public:
 
 		inline static Algorithms::Simplex<Dimension> simplex{};
 
