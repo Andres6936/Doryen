@@ -61,21 +61,9 @@ namespace Doryen
 
 		public:
 
-			const static std::uint8_t MAX_OCTAVES = 128;
-
-			/* fractal stuff */
-			float lacunarity;
-
-			std::array<float, MAX_OCTAVES> exponent;
-
-			/* noise type */
-			TypeNoise noise_type = TypeNoise::Simplex;
-
 			// Construct
 
 			Perlin();
-
-			Perlin(std::int32_t _dimensions, float _lacunarity);
 
 			// Methods
 
@@ -85,13 +73,6 @@ namespace Doryen
 
 			float turbulenceNoise(const std::array<float, Dimension>& input, int octaves);
 
-			// Getters
-
-			TypeNoise getNoiseType() const;
-
-			// Setters
-
-			void setNoiseType(TypeNoise _noiseType);
 		};
 
 

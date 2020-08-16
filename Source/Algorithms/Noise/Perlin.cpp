@@ -40,34 +40,9 @@ using namespace Doryen::Algorithms;
 #define ABS(a) ((a)<0?-(a):(a))
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 
-template<int Dimension>
-Perlin<Dimension>::Perlin(const std::int32_t _dimensions, const float _lacunarity)
-{
-	float f = 1.0f;
-
-	for (int j = 0; j < Perlin::MAX_OCTAVES; j++)
-	{
-		/*exponent[i] = powf(f, -H); */
-		exponent[j] = 1.0f / f;
-		f *= lacunarity;
-	}
-}
-
 // Getters
 
-template<int Dimension>
-TypeNoise Perlin<Dimension>::getNoiseType() const
-{
-	return noise_type;
-}
-
 // Setters
-
-template<int Dimension>
-void Perlin<Dimension>::setNoiseType(TypeNoise _noiseType)
-{
-	noise_type = _noiseType;
-}
 
 #define DELTA                1e-6f
 #define SWAP(a, b, t)        t = a; a = b; b = t
