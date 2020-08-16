@@ -188,27 +188,6 @@ static int absmod(int x, int n)
 	return m < 0 ? m + n : m;
 }
 
-static void TCOD_noise_wavelet_downsample(float* from, float* to, int stride)
-{
-	static float acoeffs[2 * WAVELET_ARAD] = {
-			0.000334f, -0.001528f, 0.000410f, 0.003545f, -0.000938f, -0.008233f, 0.002172f, 0.019120f,
-			-0.005040f, -0.044412f, 0.011655f, 0.103311f, -0.025936f, -0.243780f, 0.033979f, 0.655340f,
-			0.655340f, 0.033979f, -0.243780f, -0.025936f, 0.103311f, 0.011655f, -0.044412f, -0.005040f,
-			0.019120f, 0.002172f, -0.008233f, -0.000938f, 0.003546f, 0.000410f, -0.001528f, 0.000334f,
-	};
-	static float* a = &acoeffs[WAVELET_ARAD];
-	int i;
-	for (i = 0; i < WAVELET_TILE_SIZE / 2; i++)
-	{
-		int k;
-		to[i * stride] = 0;
-		for (k = 2 * i - WAVELET_ARAD; k < 2 * i + WAVELET_ARAD; k++)
-		{
-			to[i * stride] += a[k - 2 * i] * from[absmod(k, WAVELET_TILE_SIZE) * stride];
-		}
-	}
-}
-
 // Getters
 
 TypeNoise Perlin::getNoiseType() const
