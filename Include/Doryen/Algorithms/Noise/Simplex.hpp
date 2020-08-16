@@ -48,6 +48,8 @@ namespace Doryen::Algorithms
 
 		inline static std::array<Grad, 12> grad3;
 
+		inline static std::array<Grad, 32> grad4;
+
 		// Methods
 
 		static double dot(const Grad& g, double x, double y);
