@@ -60,7 +60,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	if (!noise)
 	{
 		// Created a Noise of two dimensions
-		noise = new Doryen::Noise<2>(2, lacunarity);
+		noise = new Doryen::Noise<2>();
 		img = new Doryen::Image(sample.getWidth() * 2, sample.getHeight() * 2);
 	}
 
@@ -79,31 +79,40 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 			switch (func)
 			{
 			case NoiseRender::PERLIN :
-				value = noise->get(f, TypeNoise::Perlin);
+				noise->setType(TypeNoise::Perlin);
+				value = noise->get(f);
 				break;
 			case NoiseRender::SIMPLEX :
-				value = noise->get(f, TypeNoise::Simplex);
+				noise->setType(TypeNoise::Simplex);
+				value = noise->get(f);
 				break;
 			case NoiseRender::WAVELET :
-				value = noise->get(f, TypeNoise::Wavelet);
+				noise->setType(TypeNoise::Wavelet);
+				value = noise->get(f);
 				break;
 			case NoiseRender::FBM_PERLIN :
-				value = noise->getFbm(f, octaves, TypeNoise::Perlin);
+				noise->setType(TypeNoise::Perlin);
+				value = noise->getFbm(f, octaves);
 				break;
 			case NoiseRender::TURBULENCE_PERLIN :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Perlin);
+				noise->setType(TypeNoise::Perlin);
+				value = noise->getTurbulence(f, octaves);
 				break;
 			case NoiseRender::FBM_SIMPLEX :
-				value = noise->getFbm(f, octaves, TypeNoise::Simplex);
+				noise->setType(TypeNoise::Simplex);
+				value = noise->getFbm(f, octaves);
 				break;
 			case NoiseRender::TURBULENCE_SIMPLEX :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Simplex);
+				noise->setType(TypeNoise::Simplex);
+				value = noise->getTurbulence(f, octaves);
 				break;
 			case NoiseRender::FBM_WAVELET :
-				value = noise->getFbm(f, octaves, TypeNoise::Wavelet);
+				noise->setType(TypeNoise::Wavelet);
+				value = noise->getFbm(f, octaves);
 				break;
 			case NoiseRender::TURBULENCE_WAVELET :
-				value = noise->getTurbulence(f, octaves, TypeNoise::Wavelet);
+				noise->setType(TypeNoise::Wavelet);
+				value = noise->getTurbulence(f, octaves);
 				break;
 			}
 			uint8 c = (uint8)((value + 1.0f) / 2.0f * 255);
@@ -137,26 +146,26 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	if (key == KeyCode::E)
 	{
 		delete noise;
-		noise = new Doryen::Noise<2>(2, lacunarity);
+		noise = new Doryen::Noise<2>();
 	}
 	else if (key == KeyCode::D)
 	{
 		delete noise;
-		noise = new Doryen::Noise<2>(2, lacunarity);
+		noise = new Doryen::Noise<2>();
 	}
 	else if (key == KeyCode::R)
 	{
 		// increase lacunarity
 		lacunarity += 0.5f;
 		delete noise;
-		noise = new Doryen::Noise<2>(2, lacunarity);
+		noise = new Doryen::Noise<2>();
 	}
 	else if (key == KeyCode::F)
 	{
 		// decrease lacunarity
 		lacunarity -= 0.5f;
 		delete noise;
-		noise = new Doryen::Noise<2>(2, lacunarity);
+		noise = new Doryen::Noise<2>();
 	}
 	else if (key == KeyCode::T)
 	{

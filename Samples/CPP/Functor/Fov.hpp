@@ -74,7 +74,7 @@ namespace Functor
 		/**
 		 * 1D noise used for the torch flickering.
 		 */
-		Noise<1> noise{ 1 };
+		Noise<1> noise{};
 
 		void drawPlayer();
 

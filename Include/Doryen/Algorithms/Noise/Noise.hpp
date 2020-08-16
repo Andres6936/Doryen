@@ -70,9 +70,11 @@ namespace Doryen
 
 		inline static Algorithms::Perlin<Dimension> perlin{};
 
-		TypeNoise type;
+		TypeNoise type = TypeNoise::Simplex;
 
 	public :
+
+		Noise() noexcept = default;
 
 		/**
 		 * Those functions initialize a noise generator from a number of
@@ -82,7 +84,7 @@ namespace Doryen
 		 * @param dimensions From 1 to 4.
 		 * @param type Type of algorithm to used for generate the noise.
 		 */
-		Noise(TypeNoise _type);
+		Noise(TypeNoise _type) noexcept;
 
 		/**
 		 * Use this function to define the default algorithm used by the noise

@@ -30,7 +30,7 @@
 using namespace Doryen;
 
 template<int Dimension>
-Noise<Dimension>::Noise(TypeNoise _type)
+Noise<Dimension>::Noise(TypeNoise _type) noexcept
 {
 	type = _type;
 }
