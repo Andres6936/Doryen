@@ -902,14 +902,14 @@ float Perlin<Dimension>::noiseFBM(const std::array<float, Dimension>& f, float o
 	return std::clamp(static_cast<float>(value), -0.99999f, 0.99999f);
 }
 
-float Perlin::noiseTurbulence(float* f, float octaves)
+template<int Dimension>
+float Perlin<Dimension>::noiseTurbulence(const std::array<float, Dimension>& f, float octaves)
 {
-	float tf[Perlin::MAX_DIMENSIONS];
+	std::array<float, Dimension> tf{ f.begin(), f.end() };
 
 	/* Initialize locals */
 	double value = 0;
-	int i, j;
-	memcpy(tf, f, sizeof(float) * ndim);
+	int i;
 
 	/* Inner loop of spectral construction, where the fractal is built */
 	for (i = 0; i < (int)octaves; i++)
@@ -918,15 +918,15 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 
 		if (getNoiseType() == TypeNoise::Perlin)
 		{
-			nval += noisePerlin(tf);
+			nval += Noise<Dimension>::perlin.noise(tf);
 		}
 		else if (getNoiseType() == TypeNoise::Simplex)
 		{
-			nval += noiseSimplex(tf);
+			nval += Noise<Dimension>::simplex.noise(tf);
 		}
 		else if (getNoiseType() == TypeNoise::Wavelet)
 		{
-			nval += noiseWavelet(tf);
+			nval += Noise<Dimension>::wavelet.noise(tf);
 		}
 		else
 		{
@@ -934,7 +934,7 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 		}
 
 		value += (double)(ABS(nval)) * exponent[i];
-		for (j = 0; j < ndim; j++) tf[j] *= lacunarity;
+		for (int j = 0; j < Dimension; j++) tf[j] *= lacunarity;
 	}
 
 	/* Take care of remainder in octaves */
@@ -946,15 +946,15 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 
 		if (getNoiseType() == TypeNoise::Perlin)
 		{
-			nval += noisePerlin(tf);
+			nval += Noise<Dimension>::perlin.noise(tf);
 		}
 		else if (getNoiseType() == TypeNoise::Simplex)
 		{
-			nval += noiseSimplex(tf);
+			nval += Noise<Dimension>::simplex.noise(tf);
 		}
 		else if (getNoiseType() == TypeNoise::Wavelet)
 		{
-			nval += noiseWavelet(tf);
+			nval += Noise<Dimension>::wavelet.noise(tf);
 		}
 		else
 		{
@@ -963,7 +963,7 @@ float Perlin::noiseTurbulence(float* f, float octaves)
 
 		value += (double)(octaves * ABS(nval)) * exponent[i];
 	}
-	return CLAMP(-0.99999f, 0.99999f, (float)value);
+	return std::clamp(static_cast<float>(value), -0.99999f, 0.99999f);
 }
 
 template<int Dimension>

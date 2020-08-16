@@ -104,7 +104,7 @@ namespace Doryen
 
 			float noiseFBM(const std::array<float, Dimension>& f, float octaves);
 
-			float noiseTurbulence(float* f, float octaves);
+			float noiseTurbulence(const std::array<float, Dimension>& f, float octaves);
 
 			// Getters
 
