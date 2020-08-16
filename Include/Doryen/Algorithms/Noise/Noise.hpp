@@ -62,13 +62,15 @@ namespace Doryen
 	class Noise
 	{
 
-	public:
+	private:
 
 		inline static Algorithms::Simplex<Dimension> simplex{};
 
 		inline static Algorithms::Wavelet<Dimension> wavelet{};
 
 		inline static Algorithms::Perlin<Dimension> perlin{};
+
+		TypeNoise type;
 
 	public :
 
@@ -80,11 +82,7 @@ namespace Doryen
 		 * @param dimensions From 1 to 4.
 		 * @param type Type of algorithm to used for generate the noise.
 		 */
-		Noise(int dimensions, TypeNoise type = TypeNoise::Simplex);
-
-		Noise(int dimensions, float lacunarity, TypeNoise type = TypeNoise::Simplex);
-
-		virtual ~Noise();
+		Noise(TypeNoise _type);
 
 		/**
 		 * Use this function to define the default algorithm used by the noise
@@ -95,7 +93,7 @@ namespace Doryen
 		 *
 		 * @param type The algorithm to use, either Simplex, Perlin or Wavelet.
 		 */
-		void setType(TypeNoise type);
+		void setType(TypeNoise _type);
 
 		/**
 		 * This function returns the noise function value between -1.0 and 1.0
@@ -128,7 +126,7 @@ namespace Doryen
 		 *
 		 * @return noise function value between -1.0 and 1.0.
 		 */
-		float get(std::array<float, Dimension>& f, TypeNoise type = TypeNoise::Simplex);
+		float get(std::array<float, Dimension>& f);
 
 		/**
 		 * This function returns the fbm function value between -1.0 and 1.0 at
@@ -146,7 +144,7 @@ namespace Doryen
 		 *
 		 * @return the fbm function value between -1.0 and 1.0.
 		 */
-		float getFbm(const std::array<float, Dimension>& f, float octaves, TypeNoise type = TypeNoise::Simplex);
+		float getFbm(const std::array<float, Dimension>& f, float octaves);
 
 		/**
 		 * This function returns the turbulence function value between -1.0
@@ -164,11 +162,7 @@ namespace Doryen
 		 *
 		 * @return the turbulence function value between -1.0 and 1.0.
 		 */
-		float getTurbulence(const std::array<float, Dimension>& f, float octaves, TypeNoise type = TypeNoise::Simplex);
-
-	public:
-
-		Algorithms::Perlin<Dimension>* data;
+		float getTurbulence(const std::array<float, Dimension>& f, float octaves);
 	};
 
 }
