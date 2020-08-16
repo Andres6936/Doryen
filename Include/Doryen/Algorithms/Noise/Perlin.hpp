@@ -92,8 +92,6 @@ namespace Doryen
 
 			void normalize(float* f);
 
-			float noisePerlin(float* f);
-
 			float noiseSimplex(float* f);
 
 			float noiseWavelet(float* f);
