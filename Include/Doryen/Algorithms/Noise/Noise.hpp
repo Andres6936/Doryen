@@ -68,6 +68,8 @@ namespace Doryen
 
 		inline static Algorithms::Wavelet<Dimension> wavelet{};
 
+		inline static Algorithms::Perlin<Dimension> perlin{};
+
 	public :
 
 		/**

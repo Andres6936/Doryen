@@ -57,7 +57,7 @@ float Noise<Dimension>::get(std::array<float, Dimension>& f, TypeNoise type)
 	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
-		return data->noisePerlin(f.data());
+		return perlin.noise(f);
 
 	case (TypeNoise::Simplex):
 		return simplex.noise(f);
