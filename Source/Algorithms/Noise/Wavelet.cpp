@@ -130,6 +130,9 @@ void Algorithms::Wavelet<Dimension>::prepareNoiseWavelet()
 template<int Dimension>
 float Algorithms::Wavelet<Dimension>::noise(const std::array<float, Dimension>& f)
 {
+	// Not support for dimension greater that 3
+	if constexpr (Dimension > 3) return 0.0f;
+
 	std::array<float, Dimension> pf;
 
 	int p[3], c[3], mid[3], n = WAVELET_TILE_SIZE;
