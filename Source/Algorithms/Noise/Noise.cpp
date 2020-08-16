@@ -29,24 +29,28 @@
 
 using namespace Doryen;
 
-Noise::Noise(int dimensions, TypeNoise type)
+template<int Dimension>
+Noise<Dimension>::Noise(int dimensions, TypeNoise type)
 {
 	data = new Algorithms::Perlin(dimensions, 2.0f);
 	data->setNoiseType(type);
 }
 
-Noise::Noise(int dimensions, float lacunarity, TypeNoise type)
+template<int Dimension>
+Noise<Dimension>::Noise(int dimensions, float lacunarity, TypeNoise type)
 {
 	data = new Algorithms::Perlin(dimensions, lacunarity);
 	data->setNoiseType(type);
 }
 
-void Noise::setType(TypeNoise type)
+template<int Dimension>
+void Noise<Dimension>::setType(TypeNoise type)
 {
 	data->setNoiseType(type);
 }
 
-float Noise::get(float* f, TypeNoise type)
+template<int Dimension>
+float Noise<Dimension>::get(std::array<float, Dimension>& f, TypeNoise type)
 {
 	data->setNoiseType(type);
 
@@ -66,7 +70,8 @@ float Noise::get(float* f, TypeNoise type)
 	}
 }
 
-float Noise::getFbm(float* f, float octaves, TypeNoise type)
+template<int Dimension>
+float Noise<Dimension>::getFbm(float* f, float octaves, TypeNoise type)
 {
 	data->setNoiseType(type);
 
@@ -86,7 +91,8 @@ float Noise::getFbm(float* f, float octaves, TypeNoise type)
 	}
 }
 
-float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
+template<int Dimension>
+float Noise<Dimension>::getTurbulence(float* f, float octaves, TypeNoise type)
 {
 	data->setNoiseType(type);
 
@@ -106,7 +112,8 @@ float Noise::getTurbulence(float* f, float octaves, TypeNoise type)
 	}
 }
 
-Noise::~Noise()
+template<int Dimension>
+Noise<Dimension>::~Noise()
 {
 	delete data;
 }

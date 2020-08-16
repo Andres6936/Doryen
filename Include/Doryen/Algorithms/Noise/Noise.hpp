@@ -57,6 +57,7 @@ namespace Doryen
 	 *
 	 * In 4D, Perlin noise is 17 times slower than simplex noise.
 	 */
+	template<int Dimension>
 	class Noise
 	{
 
@@ -64,7 +65,7 @@ namespace Doryen
 
 		inline static Algorithms::Simplex simplex{};
 
-		inline static Algorithms::Wavelet<1> wavelet{};
+		inline static Algorithms::Wavelet<Dimension> wavelet{};
 
 	public :
 
@@ -124,7 +125,7 @@ namespace Doryen
 		 *
 		 * @return noise function value between -1.0 and 1.0.
 		 */
-		float get(float* f, TypeNoise type = TypeNoise::Simplex);
+		float get(std::array<float, Dimension>& f, TypeNoise type = TypeNoise::Simplex);
 
 		/**
 		 * This function returns the fbm function value between -1.0 and 1.0 at
