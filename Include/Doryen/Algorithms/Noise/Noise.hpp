@@ -28,6 +28,7 @@
 #ifndef _TCOD_PERLIN_HPP
 #define _TCOD_PERLIN_HPP
 
+#include "Doryen/Algorithms/Noise/FBM.hpp"
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
 #include "Doryen/Algorithms/Noise/Wavelet.hpp"
 #include "Doryen/Algorithms/Noise/Simplex.hpp"

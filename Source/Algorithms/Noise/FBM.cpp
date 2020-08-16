@@ -1,6 +1,6 @@
 // Joan Andrés (@Andres6936) Github.
 
-#include "Doryen/FBM.hpp"
+#include "Doryen/Algorithms/Noise/FBM.hpp"
 
 using namespace Doryen;
 

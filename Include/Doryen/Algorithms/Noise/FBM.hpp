@@ -3,16 +3,21 @@
 #ifndef DORYEN_FRACTIONALBROWNIANMOTION_HPP
 #define DORYEN_FRACTIONALBROWNIANMOTION_HPP
 
-namespace Doryen
+#include <array>
+
+namespace Doryen::Algorithms
 {
 
 	/**
 	 * Fractional Brownian Motion
 	 */
+	template<int Dimension>
 	class FBM
 	{
 
 	public:
+
+		float noise(const std::array<float, Dimension>& input);
 
 	};
 
