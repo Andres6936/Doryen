@@ -88,8 +88,6 @@ namespace Doryen
 
 			// Methods
 
-			void prepareNoiseWavelet();
-
 			void normalize(float* f);
 
 			float noise(const std::array<float, Dimension>& input);
