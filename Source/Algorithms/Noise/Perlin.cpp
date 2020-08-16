@@ -92,14 +92,6 @@ void Perlin::normalize(float* f)
 	}
 }
 
-/* wavelet noise, adapted from Robert L. Cook and Tony Derose 'Wavelet noise' paper */
-
-static int absmod(int x, int n)
-{
-	int m = x % n;
-	return m < 0 ? m + n : m;
-}
-
 // Getters
 
 TypeNoise Perlin::getNoiseType() const
