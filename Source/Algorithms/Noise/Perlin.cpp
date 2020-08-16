@@ -269,6 +269,27 @@ float Perlin<Dimension>::Grad(std::uint8_t hash, float x, float y, float z)
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
+template<int Dimension>
+float Perlin<Dimension>::fractalNoise(const std::array<float, Dimension>& input, int octaves)
+{
+	float lacunarity = 2.0f;
+	float gain = 0.5f;
+
+	float amplitud = 0.5;
+	float frecuency = 1.0f;
+
+	float value = 0.0f;
+
+	for (int i = 0; i < octaves; ++i)
+	{
+		value += amplitud * (noise(input) * frecuency);
+		frecuency *= lacunarity;
+		amplitud *= gain;
+	}
+
+	return value;
+}
+
 // Explicitly instantiate the template
 
 template
