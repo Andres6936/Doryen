@@ -50,6 +50,8 @@ namespace Doryen::Algorithms
 
 		float fractalNoise(const std::array<float, Dimension>& input, int octaves);
 
+		float turbulenceNoise(const std::array<float, Dimension>& input, int octaves);
+
 	};
 
 }

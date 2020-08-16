@@ -99,16 +99,16 @@ float Noise<Dimension>::getTurbulence(const std::array<float, Dimension>& f, flo
 	switch (data->getNoiseType())
 	{
 	case (TypeNoise::Perlin):
-		return data->noiseTurbulence(f, octaves);
+		return perlin.turbulenceNoise(f, octaves);
 
 	case (TypeNoise::Simplex):
-		return data->noiseTurbulence(f, octaves);
+		return simplex.turbulenceNoise(f, octaves);
 
 	case (TypeNoise::Wavelet):
-		return data->noiseTurbulence(f, octaves);
+		return wavelet.turbulenceNoise(f, octaves);
 
 	default:
-		return data->noiseTurbulence(f, octaves);
+		return simplex.turbulenceNoise(f, octaves);
 	}
 }
 

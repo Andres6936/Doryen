@@ -230,6 +230,26 @@ float Perlin<Dimension>::fractalNoise(const std::array<float, Dimension>& input,
 	return value;
 }
 
+template<int Dimension>
+float Perlin<Dimension>::turbulenceNoise(const std::array<float, Dimension>& input, int octaves)
+{
+	std::array<float, Dimension> st = input;
+
+	float amplitud = 0.5;
+
+	float value = 0.0f;
+
+	for (int i = 0; i < octaves; ++i)
+	{
+		value += amplitud * std::abs(noise(st));
+		std::for_each(st.begin(), st.end(), [](float& element)
+		{ element *= 0.2f; });
+		amplitud *= 0.5f;
+	}
+
+	return value;
+}
+
 // Explicitly instantiate the template
 
 template

@@ -19,6 +19,7 @@
  *
  */
 
+#include <algorithm>
 #include "Doryen/Algorithms/Noise/Simplex.hpp"
 
 using namespace Doryen;
@@ -476,6 +477,26 @@ float Algorithms::Simplex<Dimension>::fractalNoise(const std::array<float, Dimen
 		value += amplitud * (noise(input) * frecuency);
 		frecuency *= lacunarity;
 		amplitud *= gain;
+	}
+
+	return value;
+}
+
+template<int Dimension>
+float Algorithms::Simplex<Dimension>::turbulenceNoise(const std::array<float, Dimension>& input, int octaves)
+{
+	std::array<float, Dimension> st = input;
+
+	float amplitud = 0.5;
+
+	float value = 0.0f;
+
+	for (int i = 0; i < octaves; ++i)
+	{
+		value += amplitud * std::abs(noise(st));
+		std::for_each(st.begin(), st.end(), [](float& element)
+		{ element *= 0.2f; });
+		amplitud *= 0.5f;
 	}
 
 	return value;

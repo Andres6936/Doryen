@@ -83,6 +83,8 @@ namespace Doryen
 
 			float fractalNoise(const std::array<float, Dimension>& input, int octaves);
 
+			float turbulenceNoise(const std::array<float, Dimension>& input, int octaves);
+
 			float noiseTurbulence(const std::array<float, Dimension>& f, float octaves);
 
 			// Getters
