@@ -112,19 +112,21 @@ Algorithms::Simplex<Dimension>::Simplex() noexcept
 }
 
 template<int Dimension>
-double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Grad& g, double x, double y)
+double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Gradient& g, double x, double y)
 {
 	return g.x * x + g.y * y;
 }
 
 template<int Dimension>
-double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Grad& g, double x, double y, double z)
+double
+Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Gradient& g, double x, double y, double z)
 {
 	return g.x * x + g.y * y + g.z * z;
 }
 
 template<int Dimension>
-double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Grad& g, double x, double y, double z,
+double
+Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Gradient& g, double x, double y, double z,
 		double w)
 {
 	return g.x * x + g.y * y + g.z * z + g.w * w;

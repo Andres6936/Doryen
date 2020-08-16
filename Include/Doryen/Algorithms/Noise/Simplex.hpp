@@ -18,7 +18,7 @@ namespace Doryen::Algorithms
 
 		// Class Private
 
-		class Grad
+		class Gradient
 		{
 
 		public:
@@ -28,13 +28,13 @@ namespace Doryen::Algorithms
 			double z;
 			double w;
 
-			Grad() noexcept = default;
+			Gradient() noexcept = default;
 
-			Grad(double _x, double _y, double _z) noexcept: x(_x), y(_y), z(_z)
+			Gradient(double _x, double _y, double _z) noexcept: x(_x), y(_y), z(_z)
 			{
 			};
 
-			Grad(double _x, double _y, double _z, double _w) noexcept: x(_x), y(_y), z(_z), w(_w)
+			Gradient(double _x, double _y, double _z, double _w) noexcept: x(_x), y(_y), z(_z), w(_w)
 			{
 			};
 		};
@@ -51,17 +51,17 @@ namespace Doryen::Algorithms
 
 		// Static Variables
 
-		inline static std::array<Grad, 12> grad3;
+		inline static std::array<Gradient, 12> grad3;
 
-		inline static std::array<Grad, 32> grad4;
+		inline static std::array<Gradient, 32> grad4;
 
 		// Methods
 
-		static double dot(const Grad& g, double x, double y);
+		static double dot(const Gradient& g, double x, double y);
 
-		static double dot(const Grad& g, double x, double y, double z);
+		static double dot(const Gradient& g, double x, double y, double z);
 
-		static double dot(const Grad& g, double x, double y, double z, double w);
+		static double dot(const Gradient& g, double x, double y, double z, double w);
 
 	public:
 
