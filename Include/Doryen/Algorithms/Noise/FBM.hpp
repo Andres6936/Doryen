@@ -17,7 +17,7 @@ namespace Doryen::Algorithms
 
 	public:
 
-		float noise(const std::array<float, Dimension>& input);
+		float noise(const std::array<float, Dimension>& input, float octaves);
 
 	};
 
