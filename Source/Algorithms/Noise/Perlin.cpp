@@ -37,15 +37,8 @@
 using namespace Doryen;
 using namespace Doryen::Algorithms;
 
-#define WAVELET_TILE_SIZE 32
-#define WAVELET_ARAD 16
-
-#define SIMPLEX_SCALE 0.5f
-#define WAVELET_SCALE 2.0f
-
 #define ABS(a) ((a)<0?-(a):(a))
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
-#define LERP(a, b, x) ( a + x * (b - a) )
 
 Perlin::Perlin(const std::int32_t _dimensions, const float _lacunarity)
 {
