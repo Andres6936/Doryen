@@ -92,8 +92,6 @@ namespace Doryen
 
 			void normalize(float* f);
 
-			float noiseSimplex(float* f);
-
 			float noiseWavelet(float* f);
 
 			float lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw);
