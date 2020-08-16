@@ -47,29 +47,6 @@ using namespace Doryen::Algorithms;
 #define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
 #define LERP(a, b, x) ( a + x * (b - a) )
 
-float Perlin::lattice(int ix, float fx, int iy, float fy, int iz, float fz, int iw, float fw)
-{
-	std::array<int, 4> n = { ix, iy, iz, iw };
-
-	std::array<float, 4> f = { fx, fy, fz, fw };
-
-	int nIndex = 0;
-
-	for (int i = 0; i < ndim; i++)
-	{
-		nIndex = map[(nIndex + n[i]) & 0xFF];
-	}
-
-	float value = 0;
-
-	for (int i = 0; i < ndim; i++)
-	{
-		value += buffer[nIndex][i] * f[i];
-	}
-
-	return value;
-}
-
 Perlin::Perlin(const std::int32_t _dimensions, const float _lacunarity)
 {
 	ndim = _dimensions;
