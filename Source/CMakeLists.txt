@@ -15,6 +15,7 @@ ADD_LIBRARY(Doryen.Framework
         Algorithms/Noise/Wavelet.cpp
         Algorithms/Noise/Perlin.cpp
         Algorithms/Noise/Noise.cpp
+        Algorithms/Noise/FBM.cpp
         Algorithms/Util/Cell.cpp
         Algorithms/Util/Node.cpp
         Graphics/Color/ColorTranslator.cpp
