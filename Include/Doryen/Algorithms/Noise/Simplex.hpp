@@ -59,6 +59,10 @@ namespace Doryen::Algorithms
 
 		static double dot(const Grad& g, double x, double y);
 
+		static double dot(const Grad& g, double x, double y, double z);
+
+		static double dot(const Grad& g, double x, double y, double z, double w);
+
 	public:
 
 		Simplex() noexcept;

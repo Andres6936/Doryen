@@ -99,6 +99,19 @@ double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>:
 }
 
 template<int Dimension>
+double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Grad& g, double x, double y, double z)
+{
+	return g.x * x + g.y * y + g.z * z;
+}
+
+template<int Dimension>
+double Algorithms::Simplex<Dimension>::dot(const Algorithms::Simplex<Dimension>::Grad& g, double x, double y, double z,
+		double w)
+{
+	return g.x * x + g.y * y + g.z * z + g.w * w;
+}
+
+template<int Dimension>
 float Algorithms::Simplex<Dimension>::noise(const std::array<float, Dimension>& input)
 {
 	if constexpr (Dimension == 1)
