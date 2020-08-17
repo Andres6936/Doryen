@@ -25,14 +25,10 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdlib.h>
-#include <cstring>
-#include <iostream>
 #include <algorithm>
 
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
 #include "Doryen/Algorithms/Noise/Noise.hpp"
-#include "Doryen/Random/Number.hpp"
 
 using namespace Doryen;
 using namespace Doryen::Algorithms;
