@@ -107,7 +107,7 @@ public :
 	/**
 	 * Noise.
 	 */
-	Noise* noise;
+	Noise<2>* noise;
 
 	/**
 	 * World light intensity map (shadow map).

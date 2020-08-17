@@ -341,7 +341,7 @@ void WorldGenerator::buildBaseMap()
 
 
 	// Compute Clouds.
-	float f[2];
+	std::array<float, 2> f{};
 
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -635,7 +635,7 @@ void WorldGenerator::updateClouds(float elapsedTime)
 			}
 		}
 		// compute a new column
-		float f[2];
+		std::array<float, 2> f{};
 		float cdx = (int)cloudTotalDx;
 		for (int x = HM_WIDTH - colsToTranslate; x < HM_WIDTH; x++)
 		{
@@ -787,10 +787,10 @@ void WorldGenerator::computePrecipitations()
 	{
 		for (int x = 0; x < HM_WIDTH; x++)
 		{
-			float noisex = (float)(x) * 5 / HM_WIDTH;
+			std::array<float, 1> noisex = { (float)(x) * 5 / HM_WIDTH };
 			// float waterAmount=(1.0f+noise1d.getFbmSimplex(&noisex,3.0f));
 			noise1d.setType(TypeNoise::Simplex);
-			float waterAmount = (1.0f + noise1d.getFbm(&noisex, 3.0f));
+			float waterAmount = (1.0f + noise1d.getFbm(noisex, 3.0f));
 			int starty = (diry == -1 ? HM_HEIGHT - 1 : 0);
 			int endy = (diry == -1 ? -1 : HM_HEIGHT);
 			for (int y = starty; y != endy; y += diry)
@@ -829,10 +829,10 @@ void WorldGenerator::computePrecipitations()
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
 		{
-			float noisey = (float)(y) * 5 / HM_HEIGHT;
+			std::array<float, 1> noisey = { (float)(y) * 5 / HM_HEIGHT };
 			// float waterAmount=(1.0f+noise1d.getFbmSimplex(&noisey,3.0f));
 			noise1d.setType(TypeNoise::Simplex);
-			float waterAmount = (1.0f + noise1d.getFbm(&noisey, 3.0f));
+			float waterAmount = (1.0f + noise1d.getFbm(noisey, 3.0f));
 			int startx = (dirx == -1 ? HM_WIDTH - 1 : 0);
 			int endx = (dirx == -1 ? -1 : HM_WIDTH);
 			for (int x = startx; x != endx; x += dirx)
@@ -875,7 +875,7 @@ void WorldGenerator::computePrecipitations()
 		float coef = sinf(2 * 3.1415926 * lat);
 		for (int x = 0; x < HM_WIDTH; x++)
 		{
-			float f[2] = { (float)(x) / HM_WIDTH, (float)(y) / HM_HEIGHT };
+			std::array<float, 2> f = { (float)(x) / HM_WIDTH, (float)(y) / HM_HEIGHT };
 			// float xcoef = coef + 0.5f*noise2d.getFbmSimplex(f,3.0f);
 			noise2d.setType(TypeNoise::Simplex);
 			float xcoef = coef + 0.5f * noise2d.getFbm(f, 3.0f);
@@ -1241,7 +1241,7 @@ void WorldGenerator::generate()
 
 	generateSmoothColorMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
-	noise = new Noise(2);
+	noise = new Noise<2>();
 
 	float timeEnd = Console::getElapsedSeconds();
 	printf("Initialization... %g\n", timeEnd - timeStart);

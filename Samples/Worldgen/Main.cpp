@@ -30,9 +30,9 @@ using namespace Doryen;
 #define WIDTH 80
 #define HEIGHT 50
 
-Noise noise1d(1);
+Noise<1> noise1d{};
 
-Noise noise2d(2);
+Noise<2> noise2d{};
 
 WorldGenerator worldGen;
 

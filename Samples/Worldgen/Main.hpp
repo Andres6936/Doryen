@@ -32,5 +32,5 @@
 
 #define IN_RECTANGLE(x, y, w, h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
 
-extern Noise noise1d;
-extern Noise noise2d;
+extern Noise<1> noise1d;
+extern Noise<2> noise2d;
