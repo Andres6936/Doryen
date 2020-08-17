@@ -37,23 +37,11 @@
 using namespace Doryen;
 using namespace Doryen::Algorithms;
 
-#define ABS(a) ((a)<0?-(a):(a))
-#define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
-
-// Getters
-
-// Setters
-
-#define DELTA                1e-6f
-#define SWAP(a, b, t)        t = a; a = b; b = t
-
 template<int Dimension>
 Perlin<Dimension>::Perlin()
 {
-	for (size_t i = 0; i < 256; ++i)
-	{
-		p[i] = static_cast<std::uint8_t>(i);
-	}
+	// Populate the vector in the range of [0, 256)
+	std::iota(p.begin(), p.begin() + 256, 0);
 
 	std::shuffle(std::begin(p), std::begin(p) + 256, std::default_random_engine{});
 
