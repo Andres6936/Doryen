@@ -29,9 +29,9 @@
 
 using namespace Doryen;
 
-Noise noise1d(1);
+Noise<1> noise1d{};
 
-Noise noise2d(2);
+Noise<2> noise2d{};
 
 Weather weather;
 
@@ -249,8 +249,10 @@ int main(int argc, char* argv[])
 	{
 		for (int y = 0; y < CON_H * 2; y++)
 		{
-			float f[2] = { x * 3.0f / CON_W, y * 3.0f / CON_H };
-			float h = noise2d.getFbm(f, 6.0f, TCOD_NOISE_SIMPLEX);
+			std::array<float, 2> f = { x * 3.0f / CON_W, y * 3.0f / CON_H };
+
+			noise2d.setType(TypeNoise::Simplex);
+			float h = noise2d.getFbm(f, 6.0f);
 			int ih = (int)(h * 256);
 			ih = CLAMP(0, 255, ih);
 			float coef = 1.0f;

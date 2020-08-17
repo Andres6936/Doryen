@@ -61,12 +61,13 @@ public :
 
 	void setIndicatorDelta(float v) { indicatorDelta=CLAMP(-1.0f,1.0f,v); }
 protected :
-	typedef struct {
-		int posx,posy;
+	typedef struct
+	{
+		int posx, posy;
 		float intensity; // 0-1
 		float life; // in seconds
 		int radius; // squared
-		float noisex;
+		std::array<float, 1> noisex;
 	} lightning_t;
 
 	float indicator; // 0 : bad, 1 : good

@@ -39,5 +39,5 @@
 #define DBG(x)
 #endif
 
-extern Noise noise1d;
-extern Noise noise2d;
+extern Noise<1> noise1d;
+extern Noise<2> noise2d;
