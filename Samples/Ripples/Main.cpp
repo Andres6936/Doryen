@@ -28,8 +28,8 @@
 
 using namespace Doryen;
 
-Noise noise2d(2);
-Noise noise3d(3);
+Noise<2> noise2d{};
+Noise<3> noise3d{};
 RippleManager* rippleManager;
 
 Doryen::Image* ground, * ground2;

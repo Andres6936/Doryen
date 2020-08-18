@@ -43,4 +43,4 @@ using namespace Doryen;
 #define DBG(x)
 #endif
 
-extern Noise noise3d;
+extern Noise<3> noise3d;
