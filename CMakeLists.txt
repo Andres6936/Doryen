@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
 PROJECT(Doryen VERSION 2020.0807 LANGUAGES CXX)
 
-OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" ON)
+OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" OFF)
 OPTION(DORYEN_TESTS "Generate and Execute the Doryen Test" OFF)
 
 # Needs to come first since Samples depend on it
