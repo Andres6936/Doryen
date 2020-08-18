@@ -173,11 +173,11 @@ void render(Doryen::Console& console)
 {
 	// compute lights
 	framesCount++;
-	uint32 start = console.getElapsedMilliseconds();
+	std::uint32_t start = console.getElapsedMilliseconds();
 	leftShader->compute();
-	uint32 leftEnd = console.getElapsedMilliseconds();
+	std::uint32_t leftEnd = console.getElapsedMilliseconds();
 	rightShader->compute();
-	uint32 rightEnd = console.getElapsedMilliseconds();
+	std::uint32_t rightEnd = console.getElapsedMilliseconds();
 	stdTime += (leftEnd - start) * 0.001f;
 	radTime += (rightEnd - leftEnd) * 0.001f;
 	if ((int)(start / 1000) != timeSecond)

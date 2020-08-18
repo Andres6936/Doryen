@@ -35,8 +35,8 @@ protected :
 	// convenient way to store the list of cells with non null incoming light
 	struct Coord
 	{
-		uint16 x;
-		uint16 y;
+		std::uint16_t x;
+		std::uint16_t y;
 
 		Coord()
 		{
