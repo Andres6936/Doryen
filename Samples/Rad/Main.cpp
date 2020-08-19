@@ -141,7 +141,7 @@ void init(Console& console)
 	// find a starting position for the player
 	findPos(&playerx, &playery);
 
-	playerBack = console.getChar(playerx, playery);
+	playerBack = console.getCellCode(playerx, playery);
 	console.writeChar(playerx, playery, '@');
 	console.writeChar(playerx + CON_WIDTH / 2, playery, '@');
 
@@ -235,7 +235,7 @@ void move(int dx, int dy, Doryen::Console& console)
 		// move the player
 		playerx += dx;
 		playery += dy;
-		playerBack = console.getChar(playerx, playery);
+		playerBack = console.getCellCode(playerx, playery);
 		// render the player
 		console.writeChar(playerx, playery, '@');
 		console.writeChar(playerx + CON_WIDTH / 2, playery, '@');

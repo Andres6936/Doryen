@@ -444,20 +444,11 @@ namespace Doryen
 		Doryen::Color getCellForeground(int x, int y) const;
 
         /**
-        @PageName console_read
-        @FuncTitle Reading the ASCII code of a cell
-        @FuncDesc This function returns the ASCII code of a cell.
-        @Cpp int TCODConsole::getChar(int x, int y) const
-        @C int TCOD_console_get_char(TCOD_console_t con,int x, int y)
-        @Py console_get_char(con,x,y)
-        @C# int TCODConsole::getChar(int x, int y)
-        @Lua Console::getChar(x, y)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        */
-        int getChar( int x, int y ) const;
+         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+         * @return the ASCII code of a cell.
+         */
+		int getCellCode(int x, int y) const;
 
         /**
         @PageName console_fading
