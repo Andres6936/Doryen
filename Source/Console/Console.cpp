@@ -300,7 +300,7 @@ short Doryen::Console::getFade()
 	return renderer->getFade();
 }
 
-Doryen::Color Doryen::Console::getFadingColor()
+Doryen::Color Doryen::Console::getFadingColor() const
 {
 	return renderer->getFadingColor();
 }
@@ -1024,7 +1024,7 @@ void Console::unregisterCallback() const
 	renderer->unregisterCallback();
 }
 
-Geometry::Size Console::getFontSize() const
+const Geometry::Size Console::getFontSize() const
 {
 	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeight() };
 }

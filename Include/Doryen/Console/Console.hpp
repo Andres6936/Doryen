@@ -642,6 +642,28 @@ namespace Doryen
 		std::uint32_t getElapsedMilliseconds() const;
 
 		/**
+		 * @return The Key pressed for the user, if not key pressed, return
+		 *  Key generic set to None.
+		 */
+		const Key& getKeyPressed() const;
+
+		/**
+		 * @return The mouse event pressed for the user, if not mouse events,
+		 *  return a generic Mouse set to None.
+		 */
+		const Mouse& getMouseEvent() const;
+
+		/**
+		 * @return The size in pixels of each glyph of font used.
+		 */
+		const Geometry::Size getFontSize() const;
+
+		/**
+		 * @return the current fading color, previously defined by setFade.
+		 */
+		const Color& getFadingColor() const;
+
+		/**
 		 * @return the default background color of a console.
 		 */
 		const Color& getDefaultBackground() const;
@@ -664,28 +686,6 @@ namespace Doryen
 		 * @return the foreground color of a cell.
 		 */
 		const Color& getCellForeground(int x, int y) const;
-
-		/**
-		 * @return the current fading color, previously defined by setFade.
-		 */
-		static Doryen::Color getFadingColor();
-
-		/**
-		 * @return The size in pixels of each glyph of font used.
-		 */
-		Geometry::Size getFontSize() const;
-
-		/**
-		 * @return The Key pressed for the user, if not key pressed, return
-		 *  Key generic set to None.
-		 */
-		const Key& getKeyPressed() const;
-
-		/**
-		 * @return The mouse event pressed for the user, if not mouse events,
-		 *  return a generic Mouse set to None.
-		 */
-		const Mouse& getMouseEvent() const;
 
 	};
 }
