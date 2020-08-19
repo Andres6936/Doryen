@@ -435,35 +435,24 @@ namespace Doryen
 		void drawFillRect(int x, int y, int rw, int rh, bool clear, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
-		@PageName console_advanced
-		@FuncTitle Drawing a window frame
-		@FuncDesc This function calls the rect function using the supplied background mode flag, then draws a rectangle with the console's default foreground color. If fmt is not NULL, it is printed on the top of the rectangle, using inverted colors.
-		@Cpp void TCODConsole::printFrame(int x,int y,int w,int h, bool clear=true, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT, const char *fmt=NULL, ...)
-		@C void TCOD_console_print_frame(TCOD_console_t con,int x,int y,int w,int h, bool clear, TCOD_bkgnd_flag_t flag, const char *fmt, ...)
-		@Py console_print_frame(con,x, y, w, h, clear=True, flag=BKGND_DEFAULT, fmt=0)
-		@C#
-			void TCODConsole::printFrame(int x,int y, int w,int h)
-			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear)
-			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag)
-			void TCODConsole::printFrame(int x,int y, int w,int h, bool clear, TCODBackgroundFlag flag, string fmt)
-		@Lua
-			Console:printFrame(x,y, w,h)
-			Console:printFrame(x,y, w,h, clear)
-			Console:printFrame(x,y, w,h, clear, flag)
-			Console:printFrame(x,y, w,h, clear, flag, fmt)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y Coordinates of the rectangle's upper-left corner in the console.
-			0 <= x < console width
-			0 <= y < console height
-		@Param w,h size of the rectangle in the console.
-			x <= x+w < console width
-			y <= y+h < console height
-		@Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
-			If false, only the background color is modified
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		@Param fmt if NULL, the funtion only draws a rectangle.
-			Else, printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string.
-		*/
+		 * @brief Drawing a window frame
+		 *
+		 * This function calls the rect function using the supplied background
+		 * mode flag, then draws a rectangle with the console's default
+		 * foreground color. If fmt is not NULL, it is printed on the top of
+		 * the rectangle, using inverted colors.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param w Width of rectangle in the console. x <= x + w < console width.
+		 * @param h Height of rectangle in the console. y <= y + h < console height.
+		 *
+		 * @param clear  if true, all characters inside the rectangle are set to ASCII code 32 (space).
+		 *  If false, only the background color is modified
+		 *
+		 * @param flag this flag defines how the cell's background color is modified.
+		 * @param name if empty, the function only draws a rectangle.
+		 */
 		void printFrame(int x, int y, int w, int h, bool clear = true, BlendModes flag = BlendModes::DEFAULT,
 				const std::string& name = "");
 
