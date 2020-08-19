@@ -616,12 +616,12 @@ namespace Doryen
 		/**
          * @return the width of a console in cells.
          */
-		unsigned int getWidth() const;
+		std::uint32_t getWidth() const;
 
 		/**
 		 * @return height of a console in cells.
 		 */
-		unsigned int getHeight() const;
+		std::uint32_t getHeight() const;
 
 		/**
          * @brief Get the number of frames rendered during the last second.
@@ -630,7 +630,7 @@ namespace Doryen
          *
          * @return Number of frames rendered during the las second.
          */
-		unsigned int getFramePerSeconds() const;
+		std::uint32_t getFramePerSeconds() const;
 
 		/**
 		 * @brief Get global timer in milliseconds.

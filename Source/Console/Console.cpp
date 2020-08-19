@@ -201,7 +201,7 @@ bool Doryen::Console::isRunning()
 	return renderer->isRunning();
 }
 
-unsigned int Doryen::Console::getWidth() const
+std::uint32_t Doryen::Console::getWidth() const
 {
 	if (isConsoleRoot)
 	{
@@ -213,7 +213,7 @@ unsigned int Doryen::Console::getWidth() const
 	}
 }
 
-unsigned int Doryen::Console::getHeight() const
+std::uint32_t Doryen::Console::getHeight() const
 {
 	if (isConsoleRoot)
 	{
@@ -992,7 +992,7 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 	}
 }
 
-unsigned int Doryen::Console::getFramePerSeconds() const
+std::uint32_t Doryen::Console::getFramePerSeconds() const
 {
 	return renderer->getFramePerSeconds();
 }
