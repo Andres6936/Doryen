@@ -104,17 +104,19 @@ bool RippleManager::updateRipples(float elapsed) {
 							sum += zone.oldData[off-width];
 							count++;
 						}
-						if ( zone.oldData[off+width] != NO_WATER ) {
-							sum += zone.oldData[off+width];
+						if (zone.oldData[off + width] != NO_WATER)
+						{
+							sum += zone.oldData[off + width];
 							count++;
 						}
 						sum = sum * 2 / count;
 						zone.data[off] = sum - zone.data[off];
 						// damping
-						zone.data[off] *= 1.0f-DAMPING_COEF/RIPPLE_FPS;
-						if ( ABS(zone.data[off]) > ACTIVE_THRESHOLD ) {
-							zone.isActive=true;
-							updated=true;
+						zone.data[off] *= 1.0f - DAMPING_COEF / RIPPLE_FPS;
+						if (std::abs(zone.data[off]) > ACTIVE_THRESHOLD)
+						{
+							zone.isActive = true;
+							updated = true;
 						}
 					}
 				}
@@ -139,7 +141,7 @@ void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* gr
 				std::array<float, 3> f = { static_cast<float>(x), static_cast<float>(y), elCoef };
 				noise3d.setType(TypeNoise::Simplex);
 				xOffset += noise3d.get(f) * 0.3f;
-				if (ABS(xOffset) < 250 && ABS(yOffset) < 250)
+				if (std::abs(xOffset) < 250 && std::abs(yOffset) < 250)
 				{
 					Doryen::Color col = ground->getPixel(x + (int)(xOffset), y + (int)(yOffset));
 					col = Palette::GRAY_WARN_1;

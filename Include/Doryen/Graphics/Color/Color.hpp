@@ -33,7 +33,6 @@
 
 #define MAX(a, b) ((a)<(b)?(b):(a))
 #define MIN(a, b) ((a)>(b)?(b):(a))
-#define ABS(a) ((a)<0?-(a):(a))
 
 namespace Doryen
 {
