@@ -420,62 +420,28 @@ namespace Doryen
 		unsigned int getHeight() const;
 
 		/**
-		@PageName console_read
-		@FuncTitle Reading the default background color
-		@FuncDesc This function returns the default background color of a console.
-		@Cpp Doryen::TCODColor TCODConsole::getDefaultBackground() const
-		@C TCOD_color_t TCOD_console_get_default_background(TCOD_console_t con)
-		@Py console_get_default_background(con)
-		@C# Doryen::TCODColor TCODConsole::getBackgroundColor()
-		@Lua Console:getBackgroundColor()
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		*/
+		 * @return the default background color of a console.
+		 */
 		const Color& getDefaultBackground() const;
 
 		/**
-		@PageName console_read
-		@FuncTitle Reading the default foreground color
-		@FuncDesc This function returns the default foreground color of a console.
-		@Cpp Doryen::TCODColor TCODConsole::getDefaultForeground() const
-		@C TCOD_color_t TCOD_console_get_default_foreground(TCOD_console_t con)
-		@Py console_get_default_foreground(con)
-		@C# Doryen::TCODColor TCODConsole::getForegroundColor()
-		@Lua Console:getForegroundColor()
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		*/
+		 * @return the default foreground color of a console.
+		 */
 		const Color& getDefaultForeground() const;
 
-        /**
-        @PageName console_read
-        @FuncTitle Reading the background color of a cell
-        @FuncDesc This function returns the background color of a cell.
-        @Cpp Doryen::TCODColor TCODConsole::getCharBackground(int x, int y) const
-        @C TCOD_color_t TCOD_console_get_char_background(TCOD_console_t con,int x, int y)
-        @Py console_get_char_background(con,x,y)
-        @C# Doryen::TCODColor TCODConsole::getCharBackground(int x, int y)
-        @Lua Console::getCharBackground(x, y)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        */
-        Doryen::Color getCharBackground( int x, int y ) const;
+		/**
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @return the background color of a cell.
+		 */
+		Doryen::Color getCellBackground(int x, int y) const;
 
-        /**
-        @PageName console_read
-        @FuncTitle Reading the foreground color of a cell
-        @FuncDesc This function returns the foreground color of a cell.
-        @Cpp Doryen::TCODColor TCODConsole::getCharForeground(int x, int y) const
-        @C TCOD_color_t TCOD_console_get_char_foreground(TCOD_console_t con,int x, int y)
-        @Py console_get_char_foreground(con,x,y)
-        @C# Doryen::TCODColor TCODConsole::getCharForeground(int x, int y)
-        @Lua Console::getCharForeground(x, y)
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        @Param x,y coordinates of the cell in the console.
-            0 <= x < console width
-            0 <= y < console height
-        */
-        Doryen::Color getCharForeground( int x, int y ) const;
+		/**
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @return the foreground color of a cell.
+		 */
+		Doryen::Color getCellForeground(int x, int y) const;
 
         /**
         @PageName console_read

@@ -290,7 +290,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			int conX = destination.x + (cx - source.x) / 2;
 			int conY = destination.y + (cy - source.y) / 2;
 
-			Color consoleBackground = dest.getCharBackground(conX, conY);
+			Color consoleBackground = dest.getCellBackground(conX, conY);
 
 			std::array<Color, 4> grid;
 

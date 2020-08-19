@@ -69,7 +69,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 
 	// ==== print the text with a random color ====
 	// get the background color at the text position
-	Doryen::Color textColor = sample.getCharBackground(sample.getWidth() / 2, 5);
+	Doryen::Color textColor = sample.getCellBackground(sample.getWidth() / 2, 5);
 	// and invert it
 	textColor.r = 255 - textColor.r;
 	textColor.g = 255 - textColor.g;
@@ -80,7 +80,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		for (int y = 0; y < sample.getHeight(); y++)
 		{
 			int c;
-			Doryen::Color col = sample.getCharBackground(x, y);
+			Doryen::Color col = sample.getCellBackground(x, y);
 			col = Doryen::Color::lerp(col, Doryen::Palette::GRAY_WARN_90, 0.5f);
 			// use colored character 255 on first and last lines
 			if (y == 0 || y == sample.getHeight() - 1)

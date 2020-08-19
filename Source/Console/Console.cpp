@@ -404,7 +404,7 @@ void Doryen::Console::clear()
 	}
 }
 
-Doryen::Color Doryen::Console::getCharBackground(int x, int y) const
+Doryen::Color Doryen::Console::getCellBackground(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -450,7 +450,7 @@ void Doryen::Console::setCharForeground(int x, int y, const Doryen::Color& col)
 	}
 }
 
-Doryen::Color Doryen::Console::getCharForeground(int x, int y) const
+Doryen::Color Doryen::Console::getCellForeground(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -939,8 +939,8 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			else
 			{
 				dstChar.setCharacter(destination.getChar(dest.x, dest.y));
-				dstChar.setBackground(destination.getCharBackground(dest.x, dest.y));
-				dstChar.setForeground(destination.getCharForeground(dest.x, dest.y));
+				dstChar.setBackground(destination.getCellBackground(dest.x, dest.y));
+				dstChar.setForeground(destination.getCellForeground(dest.x, dest.y));
 
 				dstChar.setBackground(Color::lerp(dstChar.getBackground(),
 						srcChar.getBackground(), backgroundAlpha));
