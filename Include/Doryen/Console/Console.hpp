@@ -650,41 +650,9 @@ namespace Doryen
 		 */
 		bool isKeyPressed(KeyCode _key) const;
 
-		/**
-		@PageName console_non_blocking_input
-		@PageTitle Non blocking keyboard input
-		@PageFather console_input
-		@FuncDesc This function checks if the user has pressed a key. It returns the code of the key pressed as well as the corresponding character. See TCOD_key_t. If the user didn't press a key, this function returns the key code TCODK_NONE (NoKey for C# and Lua).
-			<b>Note that key repeat only results in TCOD_KEY_PRESSED events.</b>
-		@Cpp static TCOD_key_t TCODConsole::checkForKeypress(int flags=TCOD_KEY_RELEASED)
-		@C TCOD_key_t TCOD_console_check_for_keypress(int flags)
-		@Py console_check_for_keypress(flags=KEY_RELEASED)
-		@C# static TCODKey TCODConsole::checkForKeypress(int flags) // Use TCODKeyStatus
-		@Lua tcod.console.checkForKeypress(flags)
-		@Param flags A filter for key events (C# and Lua in parenthesis):
-			TCOD_KEY_PRESSED (KeyPressed) : only keypress events are returned
-			TCOD_KEY_RELEASED (KeyReleased): only key release events are returnes
-			TCOD_KEY_PRESSED|TCOD_KEY_RELEASED (KeyPressed+KeyReleased): events of both types are returned.
-		@CppEx
-			TCOD_key_t key = TCODConsole::checkForKeypress();
-			if ( key.vk == TCODK_NONE ) return; // no key pressed
-			if ( key.c == 'i' ) { ... open inventory ... }
-		@C
-			TCOD_key_t key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
-			if ( key.vk == TCODK_NONE ) return; // no key pressed
-			if ( key.c == 'i' ) { ... open inventory ... }
-		@Py
-			key = libtcod.console_check_for_keypress()
-			if key.vk == libtcod.KEY_NONE return # no key pressed
-			if key.c == ord('i') : # ... open inventory ...
-		@LuaEx
-			key = tcod.console.checkForKeypress()
-			if key.KeyCode == tcod.NoKey then return end -- no key pressed
-			if key.Character == 'i' then ... open inventory ... end
-		*/
-		static const Key& getKeyPressed();
+		const Key& getKeyPressed() const;
 
-		static const Mouse& getMouseEvent();
+		const Mouse& getMouseEvent() const;
 
 		/**
 		 * @brief Blitting a console on another one
