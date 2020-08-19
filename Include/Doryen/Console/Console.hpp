@@ -512,17 +512,13 @@ namespace Doryen
         static Doryen::Color getFadingColor( );
 
         /**
-        @PageName console_flush
-        @PageFather console
-        @PageTitle Flushing the root console
-        @FuncDesc Once the root console is initialized, you can use one of the printing functions to change the background colors, the foreground colors or the ASCII characters on the console.
-            Once you've finished rendering the root console, you have to actually apply the updates to the screen with this function.
-        @Cpp static void TCODConsole::flush()
-        @C void TCOD_console_flush()
-        @Py console_flush()
-        @C# static void TCODConsole::flush()
-        @Lua tcod.console.flush()
-        */
+         * Once the root console is initialized, you can use one of the
+         * printing functions to change the background colors, the foreground
+         * colors or the ASCII characters on the console.
+         *
+         * Once you've finished rendering the root console, you have to
+         * actually apply the updates to the screen with this function.
+         */
 		static void draw();
 
 		/**
