@@ -657,6 +657,9 @@ namespace Doryen
 		 */
 		std::uint32_t getElapsedMilliseconds() const;
 
+		/**
+		 * @return The size in pixels of each glyph of font used.
+		 */
 		Geometry::Size getFontSize() const;
 
 		void unregisterCallback() const;
@@ -681,6 +684,10 @@ namespace Doryen
 		 * @param _render
 		 */
 		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
+
+		// Getters
+
+
 
 	};
 }
