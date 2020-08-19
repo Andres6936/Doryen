@@ -178,7 +178,7 @@ int main (int argc, char *argv[])
 			bool isWater = h < sandHeight;
 			waterMap.setProperties(x, y, isWater, isWater);
 			int ih = (int)(h * 256);
-			ih = CLAMP(0, 255, ih);
+			ih = std::clamp(ih, 0, 255);
 			ground->setPixel(x, y, mapGradient[ih]);
 		}
 	}

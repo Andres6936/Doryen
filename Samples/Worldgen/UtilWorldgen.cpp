@@ -179,7 +179,7 @@ float WorldGenerator::getRealAltitude(float x, float y) const
 {
 	int ih = (int)(256 * getInterpolatedAltitude(x, y));
 	int idx;
-	ih = CLAMP(0, 255, ih);
+	ih = std::clamp(ih, 0, 255);
 	for (idx = 0; idx < MAX_ALT_KEY - 1; idx++)
 	{
 		if (altIndexes[idx + 1] > ih)
@@ -194,7 +194,7 @@ float WorldGenerator::getPrecipitations(float x, float y) const
 {
 	int iprec = (int)(256 * precipitation->getValue((int)x, (int)y));
 	int idx;
-	iprec = CLAMP(0, 255, iprec);
+	iprec = std::clamp(iprec, 0, 255);
 	for (idx = 0; idx < MAX_PREC_KEY - 1; idx++)
 	{
 		if (precIndexes[idx + 1] > iprec)
@@ -262,7 +262,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 		{
 			float h = heightmap->getValue(x, y);
 			int ih = (int)(h * 255);
-			ih = CLAMP(0, 255, ih);
+			ih = std::clamp(ih, 0, 255);
 			heightcount[ih]++;
 		}
 	}
@@ -555,7 +555,7 @@ Doryen::Color WorldGenerator::getMapColor(float h)
 	{ colorIdx = (int)(h / sandHeight * COLOR_KEY_MAX_SEA); }
 	else
 	{ colorIdx = COLOR_KEY_MIN_LAND + (int)((h - sandHeight) / (1.0f - sandHeight) * (255 - COLOR_KEY_MIN_LAND)); }
-	colorIdx = CLAMP(0, 255, colorIdx);
+	colorIdx = std::clamp(colorIdx, 0, 255);
 	return mapGradient[colorIdx];
 }
 
@@ -576,14 +576,14 @@ float WorldGenerator::getMapIntensity(float worldX, float worldY, float lightDir
 	// sun color & direction
 	static const Doryen::Color sunCol(255, 255, 160);
 	float normal[3];
-	float wx = CLAMP(0.0f, HM_WIDTH - 1, worldX);
-	float wy = CLAMP(0.0f, HM_HEIGHT - 1, worldY);
+	float wx = std::clamp(worldX, 0.0f, (float)HM_WIDTH - 1);
+	float wy = std::clamp(worldY, 0.0f, (float)HM_HEIGHT - 1);
 	// apply sun light
 	getInterpolatedNormal(wx, wy, normal);
 	normal[2] *= 3.0f;
 	float intensity = 0.75f
 					  - (normal[0] * lightDir[0] + normal[1] * lightDir[1] + normal[2] * lightDir[2]) * 0.75f;
-	intensity = CLAMP(0.75f, 1.5f, intensity);
+	intensity = std::clamp(intensity, 0.75f, 1.5f);
 	return intensity;
 }
 
@@ -595,8 +595,8 @@ Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 Doryen::Color WorldGenerator::getInterpolatedColor(Doryen::Image* img, float x, float y)
 {
 	const auto[w, h] = img->getSize();
-	float wx = CLAMP(0.0f, w - 1, x);
-	float wy = CLAMP(0.0f, h - 1, y);
+	float wx = std::clamp(x, 0.0f, (float)w - 1);
+	float wy = std::clamp(y, 0.0f, (float)h - 1);
 	int iwx = (int)wx;
 	int iwy = (int)wy;
 	float dx = wx - iwx;
@@ -758,8 +758,8 @@ EClimate WorldGenerator::getClimateFromTemp(float temp)
 
 float WorldGenerator::getInterpolatedFloat(float* arr, float x, float y, int width, int height)
 {
-	float wx = CLAMP(0.0f, width - 1, x);
-	float wy = CLAMP(0.0f, height - 1, y);
+	float wx = std::clamp(x, 0.0f, (float)width - 1);
+	float wy = std::clamp(y, 0.0f, (float)height - 1);
 	int iwx = (int)wx;
 	int iwy = (int)wy;
 	float dx = wx - iwx;
@@ -1071,9 +1071,9 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 	r /= count;
 	g /= count;
 	b /= count;
-	r = CLAMP(0, 255, r);
-	g = CLAMP(0, 255, g);
-	b = CLAMP(0, 255, b);
+	r = std::clamp(r, 0, 255);
+	g = std::clamp(g, 0, 255);
+	b = std::clamp(b, 0, 255);
 	return Doryen::Color(r, g, b);
 }
 
@@ -1454,7 +1454,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 				float temp = temperature->getValue(x, y);
 				temp = (temp - minTemp) / (maxTemp - minTemp);
 				int colorIdx = (int)(temp * 255);
-				colorIdx = CLAMP(0, 255, colorIdx);
+				colorIdx = std::clamp(colorIdx, 0, 255);
 				img.setPixel(x, y, tempGradient[colorIdx]);
 			}
 		}
@@ -1505,7 +1505,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 				int colorIdx = 0;
 				while (colorIdx < MAX_PREC_KEY && iprec > precIndexes[colorIdx])
 				{ colorIdx++; }
-				colorIdx = CLAMP(0, MAX_PREC_KEY, colorIdx);
+				colorIdx = std::clamp(colorIdx, 0, MAX_PREC_KEY);
 				img.setPixel(x, y, precColors[colorIdx]);
 			}
 		}
@@ -1552,7 +1552,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 		{
 			float h = heightmap->getValue(x, y);
 			int ialt = (int)(h * 256);
-			ialt = CLAMP(0, 255, ialt);
+			ialt = std::clamp(ialt, 0, 255);
 			img.setPixel(x, y, altGradient[ialt]);
 		}
 	}

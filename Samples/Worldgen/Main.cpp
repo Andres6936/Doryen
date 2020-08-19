@@ -58,8 +58,8 @@ Color getMapShadedColor(float worldX, float worldY, bool clouds)
 {
 	// sun color
 	static Color sunCol(255, 255, 200);
-	float wx = CLAMP(0.0f, worldGen.getWidth() - 1, worldX);
-	float wy = CLAMP(0.0f, worldGen.getHeight() - 1, worldY);
+	float wx = std::clamp(worldX, 0.0f, (float)worldGen.getWidth() - 1);
+	float wy = std::clamp(worldY, 0.0f, (float)worldGen.getHeight() - 1);
 	// apply cloud shadow
 	float cloudAmount = clouds ? worldGen.getCloudThickness(wx, wy) : 0.0f;
 	Color col = worldGen.getInterpolatedColor(worldX, worldY);
@@ -70,9 +70,9 @@ Color getMapShadedColor(float worldX, float worldY, bool clouds)
 	int cg = (int)(intensity * (int)(col.g) * sunCol.g / 255);
 	int cb = (int)(intensity * (int)(col.b) * sunCol.b / 255);
 	Color col2;
-	col2.r = CLAMP(0, 255, cr);
-	col2.g = CLAMP(0, 255, cg);
-	col2.b = CLAMP(0, 255, cb);
+	col2.r = std::clamp(cr, 0, 255);
+	col2.g = std::clamp(cg, 0, 255);
+	col2.b = std::clamp(cb, 0, 255);
 	col2.r = MAX(col2.r, col.r / 2);
 	col2.g = MAX(col2.g, col.g / 2);
 	col2.b = MAX(col2.b, col.b / 2);

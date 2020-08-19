@@ -75,7 +75,7 @@ void Weather::update(float elapsed, const std::uint32_t framePerSeconds)
 
 	noise1d.setType(TypeNoise::Simplex);
 	indicator = (1.0f + noise1d.get(perlinx)) * 0.5f + indicatorDelta;
-	indicator = CLAMP(0.0f, 1.0f, indicator);
+	indicator = std::clamp(indicator, 0.0f, 1.0f);
 	float windspeed = 1.0f - indicator;
 	perlinx[0] *= 2.0f;
 	float windDir = (2.0f * 3.1415926f * 0.5f) * (1.0f + noise1d.get(perlinx));
@@ -158,14 +158,14 @@ float Weather::getCloud(int x, int y) {
 	// cloud layer
 	// 1.0 : no cloud
 	// 0 : dark cloud. This way you can easily render ground with color * cloud coef
-	float cdx=dx,cdy=dy;
-	if ( dx >= 0 ) x++;
-	else cdx=dx+1.0f;
-	if ( dy >= 0 ) y++;
-	else cdy=dy+1.0f;
-	float val = map->getInterpolatedValue(x+cdx,y+cdy); // between 0 and 1
-	val += 2*indicator-0.5f;
-	val = CLAMP(0.2f,1.0f,val);
+	float cdx = dx, cdy = dy;
+	if (dx >= 0) x++;
+	else cdx = dx + 1.0f;
+	if (dy >= 0) y++;
+	else cdy = dy + 1.0f;
+	float val = map->getInterpolatedValue(x + cdx, y + cdy); // between 0 and 1
+	val += 2 * indicator - 0.5f;
+	val = std::clamp(val, 0.2f, 1.0f);
 	return val;
 }
 
@@ -191,7 +191,7 @@ float Weather::getLightning(int x, int y)
 		}
 	}
 	float ret = cloud * res;
-	return CLAMP(0.0f, 1.0f, ret);
+	return std::clamp(ret, 0.0f, 1.0f);
 }
 
 bool Weather::hasRainDrop()

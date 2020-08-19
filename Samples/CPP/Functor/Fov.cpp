@@ -116,7 +116,7 @@ void Functor::FOV::drawDungeon()
 					{
 						// l = 1.0 at player position, 0.0 at a radius of 10 cells
 						float l = (SQUARED_TORCH_RADIUS - r) / SQUARED_TORCH_RADIUS + di;
-						l = CLAMP(0.0f, 1.0f, l);
+						l = std::clamp(l, 0.0f, 1.0f);
 						// interpolate the color
 						base = Doryen::Color::lerp(base, light, l);
 					}

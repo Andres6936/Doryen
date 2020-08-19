@@ -324,7 +324,7 @@ void render(Console& root)
 		for (int y = 0; y <= N; y++)
 		{
 			float coef = (float)(dens[IX(x, y)] / 128.0f);
-			coef = CLAMP(0.0f, 1.0f, coef);
+			coef = std::clamp(coef, 0.0f, 1.0f);
 			img.setPixel(x, y, Color::lerp(deepBlue, highBlue, coef));
 		}
 	}

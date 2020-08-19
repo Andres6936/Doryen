@@ -34,8 +34,6 @@
 #define MAX(a, b) ((a)<(b)?(b):(a))
 #define MIN(a, b) ((a)>(b)?(b):(a))
 #define ABS(a) ((a)<0?-(a):(a))
-#define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
-#define LERP(a, b, x) ( a + x * (b - a) )
 
 namespace Doryen
 {

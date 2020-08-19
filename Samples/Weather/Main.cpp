@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
 			noise2d.setType(TypeNoise::Simplex);
 			float h = noise2d.getFbm(f, 6.0f);
 			int ih = (int)(h * 256);
-			ih = CLAMP(0, 255, ih);
+			ih = std::clamp(ih, 0, 255);
 			float coef = 1.0f;
 			// darken the lower part (text background) 
 			if (y > CON_H * 2 - 27)

@@ -381,7 +381,7 @@ void Doryen::Heightmap::clamp(float min, float max)
 {
 	for (int i = 0; i < w * h; ++i)
 	{
-		values[i] = CLAMP(min, max, values[i]);
+		values[i] = std::clamp(values[i], min, max);
 	}
 }
 

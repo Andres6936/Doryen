@@ -51,15 +51,28 @@ public :
 	void calculateAmbient(float timeInSeconds);
 
 	// how fast the weather is changing. 0 : never changes, 1 : default > 1 : faster...
-	void setChangeFactor(float f) { changeFactor = f; }
+	void setChangeFactor(float f)
+	{
+		changeFactor = f;
+	}
 
 	// 0 : bad weather. 1 : good weather
-	float getIndicator() { return indicator; }
+	float getIndicator()
+	{
+		return indicator;
+	}
 
 	// to alter the weather
-	float getIndicatorDelta() { return indicatorDelta; }
+	float getIndicatorDelta()
+	{
+		return indicatorDelta;
+	}
 
-	void setIndicatorDelta(float v) { indicatorDelta=CLAMP(-1.0f,1.0f,v); }
+	void setIndicatorDelta(float v)
+	{
+		indicatorDelta = std::clamp(v, -1.0f, 1.0f);
+	}
+
 protected :
 	typedef struct
 	{
