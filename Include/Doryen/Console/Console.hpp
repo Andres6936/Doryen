@@ -117,6 +117,57 @@ namespace Doryen
          */
 		void setConsoleModeMain();
 
+		/**
+		 * Draw the rectangle into of area.
+		 *
+		 * @param start Point initial of rectangle.
+		 * @param end Point end of rectangle.
+		 * @param empty if true, all characters inside the rectangle are set to ASCII code 32 (space).
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
+		void drawFrame(const Geometry::Point2D<>& start,
+				const Geometry::Point2D<>& end, bool empty, BlendModes flag);
+
+		/**
+		 * @brief Drawing an horizontal line
+		 *
+		 * Draws an horizontal line in the console, using ASCII code
+		 * TCOD_CHAR_HLINE (196), and the console's default background
+		 * and foreground colors.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param l The length of the line in cells 1 <= l <= console width - x
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
+		void drawHorizontalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
+
+		/**
+		 * @brief Drawing an vertical line
+		 *
+		 * Draws an vertical line in the console, using ASCII code
+		 * TCOD_CHAR_VLINE (179), and the console's default background
+		 * and foreground colors.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param l The length of the line in cells 1 <= l <= console width - x
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
+		void drawVerticalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
+
+		/**
+		 * Draw the tittle for a frame.
+		 *
+		 * @note Preferably the length of title should be lesser than
+		 *  length of frame.
+		 *
+		 * @param _title The title to draw.
+		 * @param _start Coordinate in x and y of frame relative to console
+		 */
+		void drawFrameTitle(std::string_view _title, const Geometry::Point2D<>& _start,
+				const std::uint16_t lengthFrame);
+
 	public :
 
 		/**
@@ -671,51 +722,6 @@ namespace Doryen
 		 * @param _render
 		 */
 		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
-
-	private:
-
-		void drawFrame(const Geometry::Point2D<>& start,
-				const Geometry::Point2D<>& end, bool empty, BlendModes flag);
-
-		/**
-		 * @brief Drawing an horizontal line
-		 *
-		 * Draws an horizontal line in the console, using ASCII code
-		 * TCOD_CHAR_HLINE (196), and the console's default background
-		 * and foreground colors.
-		 *
-		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-		 * @param l The length of the line in cells 1 <= l <= console width - x
-		 * @param flag this flag defines how the cell's background color is modified.
-		 */
-		void drawHorizontalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
-
-		/**
-		 * @brief Drawing an vertical line
-		 *
-		 * Draws an vertical line in the console, using ASCII code
-		 * TCOD_CHAR_VLINE (179), and the console's default background
-		 * and foreground colors.
-		 *
-		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-		 * @param l The length of the line in cells 1 <= l <= console width - x
-		 * @param flag this flag defines how the cell's background color is modified.
-		 */
-		void drawVerticalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
-
-		/**
-		 * Draw the tittle for a frame.
-		 *
-		 * @note Preferably the length of title should be lesser than
-		 *  length of frame.
-		 *
-		 * @param _title The title to draw.
-		 * @param _start Coordinate in x and y of frame relative to console
-		 */
-		void drawFrameTitle(std::string_view _title, const Geometry::Point2D<>& _start,
-				const std::uint16_t lengthFrame);
 
 	};
 }
