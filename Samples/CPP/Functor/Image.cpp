@@ -35,15 +35,15 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 		// split the color channels of circle.png
 		// the red channel
 		sample.setDefaultBackground(Doryen::Palette::RED);
-		sample.rect(0, 3, 15, 15, false, Doryen::BlendModes::SET);
+		sample.drawFillRect(0, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 0, 3, -1, -1, BlendModes::MULTIPLY);
 		// the green channel
 		sample.setDefaultBackground(green);
-		sample.rect(15, 3, 15, 15, false, Doryen::BlendModes::SET);
+		sample.drawFillRect(15, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 15, 3, -1, -1, BlendModes::MULTIPLY);
 		// the blue channel
 		sample.setDefaultBackground(blue);
-		sample.rect(30, 3, 15, 15, false, Doryen::BlendModes::SET);
+		sample.drawFillRect(30, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 30, 3, -1, -1, BlendModes::MULTIPLY);
 	}
 	else

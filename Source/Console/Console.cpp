@@ -571,7 +571,7 @@ void consoleClamp(const Point& start, const Point& end, Point& first, Point& sec
 	}
 }
 
-void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BlendModes flag)
+void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0 || rw < 0 || rh < 0)
@@ -651,7 +651,7 @@ void Doryen::Console::rect(int x, int y, int rw, int rh, bool clear, BlendModes 
 	}
 }
 
-void Doryen::Console::hline(int x, int y, int l, BlendModes flag)
+void Doryen::Console::drawHorizontalLine(int x, int y, int l, BlendModes flag)
 {
 	for (int i = x; i < x + l; ++i)
 	{
@@ -660,7 +660,7 @@ void Doryen::Console::hline(int x, int y, int l, BlendModes flag)
 	}
 }
 
-void Doryen::Console::vline(int x, int y, int l, BlendModes flag)
+void Doryen::Console::drawVerticalLine(int x, int y, int l, BlendModes flag)
 {
 	for (int i = y; i < y + l; ++i)
 	{
@@ -678,18 +678,18 @@ void Doryen::Console::drawFrame(const Point& start, const Point& end, bool empty
 	writeChar(start.x + end.x - 1, start.y + end.y - 1, 217, flag);
 
 	// Draw the border of frame
-	hline(start.x + 1, start.y, end.x - 2, flag);
-	hline(start.x + 1, start.y + end.y - 1, end.x - 2, flag);
+	drawHorizontalLine(start.x + 1, start.y, end.x - 2, flag);
+	drawHorizontalLine(start.x + 1, start.y + end.y - 1, end.x - 2, flag);
 
 	if (end.y > 2)
 	{
 		// Draw the border of frame
-		vline(start.x, start.y + 1, end.y - 2, flag);
-		vline(start.x + end.x - 1, start.y + 1, end.y - 2, flag);
+		drawVerticalLine(start.x, start.y + 1, end.y - 2, flag);
+		drawVerticalLine(start.x + end.x - 1, start.y + 1, end.y - 2, flag);
 
 		if (empty)
 		{
-			rect(start.x + 1, start.y + 1, end.x - 2, end.y - 2, true, flag);
+			drawFillRect(start.x + 1, start.y + 1, end.x - 2, end.y - 2, true, flag);
 		}
 	}
 }

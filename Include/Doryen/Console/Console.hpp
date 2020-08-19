@@ -388,51 +388,7 @@ namespace Doryen
 			If false, only the background color is modified
 		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
 		*/
-		void rect(int x, int y, int rw, int rh, bool clear, BlendModes flag = BlendModes::DEFAULT);
-
-		/**
-		@PageName console_advanced
-		@FuncTitle Drawing an horizontal line
-		@FuncDesc Draws an horizontal line in the console, using ASCII code TCOD_CHAR_HLINE (196), and the console's default background/foreground colors.
-		@Cpp void TCODConsole::hline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-		@C void TCOD_console_hline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
-		@Py console_hline(con,x,y,l,flag=BKGND_DEFAULT)
-		@C#
-			void TCODConsole::hline(int x,int y, int l)
-			void TCODConsole::hline(int x,int y, int l, TCODBackgroundFlag flag)
-		@Lua
-			Console:hline(x,y, l)
-			Console:hline(x,y, l, flag)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y Coordinates of the line's left end in the console.
-			0 <= x < console width
-			0 <= y < console height
-		@Param l The length of the line in cells 1 <= l <= console width - x
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		*/
-		void hline(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
-
-		/**
-		@PageName console_advanced
-		@FuncTitle Drawing an vertical line
-		@FuncDesc Draws an vertical line in the console, using ASCII code TCOD_CHAR_VLINE (179), and the console's default background/foreground colors.
-		@Cpp void TCODConsole::vline(int x,int y, int l, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-		@C void TCOD_console_vline(TCOD_console_t con,int x,int y, int l, TCOD_bkgnd_flag_t flag)
-		@Py console_vline(con,x,y,l,flag=BKGND_DEFAULT)
-		@C#
-			void TCODConsole::vline(int x,int y, int l)
-			void TCODConsole::vline(int x,int y, int l, TCODBackgroundFlag flag)
-		@Lua
-			Console:vline(x,y, l)
-			Console:vline(x,y, l, flag)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y Coordinates of the line's upper end in the console.
-			0 <= x < console width
-			0 <= y < console height
-		@Param l The length of the line in cells 1 <= l <= console height - y
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		*/
-		void vline(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
+		void drawFillRect(int x, int y, int rw, int rh, bool clear, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
 		@PageName console_advanced
@@ -986,6 +942,34 @@ namespace Doryen
 
 		void drawFrame(const Geometry::Point2D<>& start,
 				const Geometry::Point2D<>& end, bool empty, BlendModes flag);
+
+		/**
+		 * @brief Drawing an horizontal line
+		 *
+		 * Draws an horizontal line in the console, using ASCII code
+		 * TCOD_CHAR_HLINE (196), and the console's default background
+		 * and foreground colors.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param l The length of the line in cells 1 <= l <= console width - x
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
+		void drawHorizontalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
+
+		/**
+		 * @brief Drawing an vertical line
+		 *
+		 * Draws an vertical line in the console, using ASCII code
+		 * TCOD_CHAR_VLINE (179), and the console's default background
+		 * and foreground colors.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param l The length of the line in cells 1 <= l <= console width - x
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
+		void drawVerticalLine(int x, int y, int l, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
 		 * Draw the tittle for a frame.

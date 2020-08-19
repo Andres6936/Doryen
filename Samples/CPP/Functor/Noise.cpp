@@ -126,7 +126,7 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 
 	// draw a transparent rectangle
 	sample.setDefaultBackground(Palette::GRAY_WARN_90);
-	sample.rect(2, 2, 23, 10, false, Doryen::BlendModes::SET);
+	sample.drawFillRect(2, 2, 23, 10, false, Doryen::BlendModes::SET);
 
 	drawTextNoiseRender();
 
