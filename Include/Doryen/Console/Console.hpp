@@ -656,14 +656,14 @@ namespace Doryen
 		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @return the background color of a cell.
 		 */
-		Doryen::Color getCellBackground(int x, int y) const;
+		const Color& getCellBackground(int x, int y) const;
 
 		/**
 		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
 		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @return the foreground color of a cell.
 		 */
-		Doryen::Color getCellForeground(int x, int y) const;
+		const Color& getCellForeground(int x, int y) const;
 
 		/**
 		 * @return the current fading color, previously defined by setFade.
