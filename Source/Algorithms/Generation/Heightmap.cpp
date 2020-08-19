@@ -27,8 +27,6 @@
 
 #include <Doryen/Algorithms/Generation/Heightmap.hpp>
 
-#define CLAMP(a, b, x)        ((x) < (a) ? (a) : ((x) > (b) ? (b) : (x)))
-
 Doryen::Heightmap::Heightmap(int w, int h)
 {
 	this->w = w;
