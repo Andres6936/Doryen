@@ -455,47 +455,6 @@ namespace Doryen
 				const std::string& name = "");
 
         /**
-         * @return the width of a console in cells.
-         */
-		unsigned int getWidth() const;
-
-		/**
-		 * @return height of a console in cells.
-		 */
-		unsigned int getHeight() const;
-
-		/**
-		 * @return the default background color of a console.
-		 */
-		const Color& getDefaultBackground() const;
-
-		/**
-		 * @return the default foreground color of a console.
-		 */
-		const Color& getDefaultForeground() const;
-
-		/**
-		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-		 * @return the background color of a cell.
-		 */
-		Doryen::Color getCellBackground(int x, int y) const;
-
-		/**
-		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-		 * @return the foreground color of a cell.
-		 */
-		Doryen::Color getCellForeground(int x, int y) const;
-
-        /**
-         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-         * @return the ASCII code of a cell.
-         */
-		int getCellCode(int x, int y) const;
-
-        /**
          * @brief Use these functions to easily fade to/from a color.
          *
          * This function defines the fading parameters, allowing to easily fade
@@ -518,16 +477,6 @@ namespace Doryen
          */
 		static void setFade(short val, const Doryen::Color& fade);
 
-		/**
-		 * @return the current fade amount, previously defined by setFade.
-		 */
-		static short getFade();
-
-		/**
-		 * @return the current fading color, previously defined by setFade.
-		 */
-        static Doryen::Color getFadingColor( );
-
         /**
          * Once the root console is initialized, you can use one of the
          * printing functions to change the background colors, the foreground
@@ -545,18 +494,6 @@ namespace Doryen
 		 * @return True if the user has been pressed the key, otherwise false.
 		 */
 		bool isKeyPressed(KeyCode _key) const;
-
-		/**
-		 * @return The Key pressed for the user, if not key pressed, return
-		 *  Key generic set to None.
-		 */
-		const Key& getKeyPressed() const;
-
-		/**
-		 * @return The mouse event pressed for the user, if not mouse events,
-		 *  return a generic Mouse set to None.
-		 */
-		const Mouse& getMouseEvent() const;
 
 		/**
 		 * @brief Blitting a console on another one
@@ -621,6 +558,31 @@ namespace Doryen
          */
 		void setFramePerSeconds(std::uint8_t _fps);
 
+		void unregisterCallback() const;
+
+		/**
+		 * @brief Draw custom graphics on top of the root console
+		 *
+		 * You can register a callback that will be called after the Doryen
+		 * rendering phase, but before the screen buffer is swapped.
+		 *
+		 * This callback receives the screen SDL_Surface reference.
+		 *
+		 * This makes it possible to use any SDL drawing functions (including
+		 * OpenGL) on top of the Doryen console.
+		 *
+		 * @note To disable the custom renderer, call the same method with a
+		 * NULL parameter. Note that to keep Doryen from requiring the SDL headers,
+		 * the callback parameter is a void pointer.
+		 *
+		 * You have to include SDL headers and cast it to SDL_Surface in your code.
+		 *
+		 * @param _render
+		 */
+		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
+
+		// Getters
+
 		/**
          * @brief Get the duration of the last frame.
          *
@@ -631,6 +593,28 @@ namespace Doryen
          * @return
          */
 		float getLastFrameLength() const;
+
+		/**
+		 * @return the current fade amount, previously defined by setFade.
+		 */
+		static short getFade();
+
+		/**
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @return the ASCII code of a cell.
+		 */
+		int getCellCode(int x, int y) const;
+
+		/**
+         * @return the width of a console in cells.
+         */
+		unsigned int getWidth() const;
+
+		/**
+		 * @return height of a console in cells.
+		 */
+		unsigned int getHeight() const;
 
 		/**
 		 * Returns the number of seconds since the program has started.
@@ -658,36 +642,50 @@ namespace Doryen
 		std::uint32_t getElapsedMilliseconds() const;
 
 		/**
+		 * @return the default background color of a console.
+		 */
+		const Color& getDefaultBackground() const;
+
+		/**
+		 * @return the default foreground color of a console.
+		 */
+		const Color& getDefaultForeground() const;
+
+		/**
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @return the background color of a cell.
+		 */
+		Doryen::Color getCellBackground(int x, int y) const;
+
+		/**
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @return the foreground color of a cell.
+		 */
+		Doryen::Color getCellForeground(int x, int y) const;
+
+		/**
+		 * @return the current fading color, previously defined by setFade.
+		 */
+		static Doryen::Color getFadingColor();
+
+		/**
 		 * @return The size in pixels of each glyph of font used.
 		 */
 		Geometry::Size getFontSize() const;
 
-		void unregisterCallback() const;
+		/**
+		 * @return The Key pressed for the user, if not key pressed, return
+		 *  Key generic set to None.
+		 */
+		const Key& getKeyPressed() const;
 
 		/**
-		 * @brief Draw custom graphics on top of the root console
-		 *
-		 * You can register a callback that will be called after the Doryen
-		 * rendering phase, but before the screen buffer is swapped.
-		 *
-		 * This callback receives the screen SDL_Surface reference.
-		 *
-		 * This makes it possible to use any SDL drawing functions (including
-		 * OpenGL) on top of the Doryen console.
-		 *
-		 * @note To disable the custom renderer, call the same method with a
-		 * NULL parameter. Note that to keep Doryen from requiring the SDL headers,
-		 * the callback parameter is a void pointer.
-		 *
-		 * You have to include SDL headers and cast it to SDL_Surface in your code.
-		 *
-		 * @param _render
+		 * @return The mouse event pressed for the user, if not mouse events,
+		 *  return a generic Mouse set to None.
 		 */
-		void registerCallback(std::unique_ptr<CallbackRender> _render) const;
-
-		// Getters
-
-
+		const Mouse& getMouseEvent() const;
 
 	};
 }
