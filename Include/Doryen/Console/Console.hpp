@@ -359,35 +359,21 @@ namespace Doryen
 		void writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size,
 				BlendModes flag, std::string_view text);
 
-
 		/**
-		@PageName console_advanced
-		@PageFather console_draw
-		@PageTitle Advanced printing functions
-		@FuncTitle Filling a rectangle with the background color
-		@FuncDesc Fill a rectangle inside a console. For each cell in the rectangle :
-			* set the cell's background color to the console default background color
-			* if clear is true, set the cell's ASCII code to 32 (space)
-		@Cpp void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag = TCOD_BKGND_DEFAULT)
-		@C void TCOD_console_rect(TCOD_console_t con,int x, int y, int w, int h, bool clear, TCOD_bkgnd_flag_t flag)
-		@Py console_rect(con,x,  y,  w, h, clear, flag=BKGND_DEFAULT)
-		@C#
-			void TCODConsole::rect(int x, int y, int w, int h, bool clear)
-			void TCODConsole::rect(int x, int y, int w, int h, bool clear, TCODBackgroundFlag flag)
-		@Lua
-			Console:rect(x, y, w, h, clear)
-			Console:rect(x, y, w, h, clear, flag)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y coordinates of rectangle upper-left corner in the console.
-			0 <= x < console width
-			0 <= y < console height
-		@Param w,h size of the rectangle in the console.
-			x <= x+w < console width
-			y <= y+h < console height
-		@Param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
-			If false, only the background color is modified
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		*/
+		 * @brief Filling a rectangle with the background color
+		 *
+		 * Fill a rectangle inside a console. For each cell in the rectangle :
+		 *
+		 * @li set the cell's background color to the console default background color
+		 * @li set the cell's background color to the console default background color
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param rw Width of rectangle in the console. x <= x + w < console width.
+		 * @param rh Height of rectangle in the console. y <= y + h < console height
+		 * @param clear if true, all characters inside the rectangle are set to ASCII code 32 (space).
+		 * @param flag this flag defines how the cell's background color is modified.
+		 */
 		void drawFillRect(int x, int y, int rw, int rh, bool clear, BlendModes flag = BlendModes::DEFAULT);
 
 		/**
