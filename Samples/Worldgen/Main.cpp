@@ -65,7 +65,7 @@ Color getMapShadedColor(float worldX, float worldY, bool clouds)
 	Color col = worldGen.getInterpolatedColor(worldX, worldY);
 	// apply sun light
 	float intensity = worldGen.getInterpolatedIntensity(wx, wy);
-	intensity = MIN(intensity, 1.5f - cloudAmount);
+	intensity = std::min(intensity, 1.5f - cloudAmount);
 	int cr = (int)(intensity * (int)(col.r) * sunCol.r / 255);
 	int cg = (int)(intensity * (int)(col.g) * sunCol.g / 255);
 	int cb = (int)(intensity * (int)(col.b) * sunCol.b / 255);

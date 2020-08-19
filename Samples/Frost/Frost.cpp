@@ -96,9 +96,9 @@ bool Frost::update( float elapsed )
             ( unsigned ) ( y - RANGE + cury ) < ( unsigned ) manager->h )
         {
             float f = getValue( curx, cury );
-            f += GROW * elapsed;
-            f = MIN( 1.0f, f );
-            setValue( curx, cury, f );
+			f += GROW * elapsed;
+			f = std::min(1.0f, f);
+			setValue(curx, cury, f);
             if ( f == 1.0f )
             {
                 bestx = curx;
@@ -133,10 +133,10 @@ void Frost::render(Doryen::Image* img)
 				if ((unsigned)cy < (unsigned)h)
 				{
 					float f = getValue(cx - (x - RANGE), cy - (y - RANGE));
-                    int idx = ( int ) ( f * 255 );
-					idx = MIN(255, idx);
+					int idx = (int)(f * 255);
+					idx = std::min(255, idx);
 					img->setPixel(cx, cy, manager->getFrostColor()[idx]);
-                }
+				}
             }
         }
     }

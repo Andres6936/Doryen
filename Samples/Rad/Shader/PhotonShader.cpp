@@ -47,8 +47,8 @@ void PhotonShader::computeFormFactor(int x, int y)
 	int omaxy = y + maxRadius;
 	int minx = MAX(ominx, 0);
 	int miny = MAX(ominy, 0);
-	int maxx = MIN(omaxx, map.getWidth() - 1);
-	int maxy = MIN(omaxy, map.getHeight() - 1);
+	int maxx = std::min(omaxx, map.getWidth() - 1);
+	int maxy = std::min(omaxy, map.getHeight() - 1);
 	int maxDiameter = 2 * maxRadius + 1;
 
 	auto cellFormFactor = formFactor.begin() + (x + y * map.getWidth()) * maxDiameter * maxDiameter;
@@ -194,9 +194,9 @@ void PhotonShader::compute()
 
 	for (int c = 0; c < data.size(); ++c)
 	{
-		lightmap[c].r = (uint8)MIN(255, data[c].outgoing.r);
-		lightmap[c].g = (uint8)MIN(255, data[c].outgoing.g);
-		lightmap[c].b = (uint8)MIN(255, data[c].outgoing.b);
+		lightmap[c].r = (uint8)std::min(255, (int)data[c].outgoing.r);
+		lightmap[c].g = (uint8)std::min(255, (int)data[c].outgoing.g);
+		lightmap[c].b = (uint8)std::min(255, (int)data[c].outgoing.b);
 	}
 }
 

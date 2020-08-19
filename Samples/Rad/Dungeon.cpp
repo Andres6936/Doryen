@@ -126,8 +126,8 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 		// keep walls on the map borders
 		minx = MAX(1, minx);
 		miny = MAX(1, miny);
-		maxx = MIN(map.getWidth() - 2, maxx);
-		maxy = MIN(map.getHeight() - 2, maxy);
+		maxx = std::min(map.getWidth() - 2, maxx);
+		maxy = std::min(map.getHeight() - 2, maxy);
 		// resize the node to fit the room
 //printf("node %dx%d %dx%d => room %dx%d %dx%d\n",node->x,node->y,node->w,node->h,minx,miny,maxx-minx+1,maxy-miny+1);
 		node->x = minx;
@@ -148,8 +148,8 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 		// resize the node to fit its sons
 		Doryen::Algorithms::BinarySpacePartition* left = node->getLeft();
 		Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
-		node->x = MIN(left->x, right->x);
-		node->y = MIN(left->y, right->y);
+		node->x = std::min(left->x, right->x);
+		node->y = std::min(left->y, right->y);
 		node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
 		node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
 		// create a corridor between the two lower nodes
@@ -169,7 +169,7 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 			{
 				// straight vertical corridor
 				int minx = MAX(left->x, right->x);
-				int maxx = MIN(left->x + left->w - 1, right->x + right->w - 1);
+				int maxx = std::min(left->x + left->w - 1, right->x + right->w - 1);
 				int x = Random::Number::nextInteger(minx, maxx);
 				vline_down(x, right->y);
 				vline_up(x, right->y - 1);
@@ -192,7 +192,7 @@ bool Dungeon::visitNode(Doryen::Algorithms::BinarySpacePartition* node, Map& map
 			{
 				// straight horizontal corridor
 				int miny = MAX(left->y, right->y);
-				int maxy = MIN(left->y + left->h - 1, right->y + right->h - 1);
+				int maxy = std::min(left->y + left->h - 1, right->y + right->h - 1);
 				int y = Random::Number::nextInteger(miny, maxy);
 				hline_left(right->x - 1, y);
 				hline_right(right->x, y);

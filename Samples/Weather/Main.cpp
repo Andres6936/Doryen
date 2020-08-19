@@ -105,9 +105,9 @@ void render(Console& root)
 				g += lg;
 				b += lb;
 			}
-			r = MIN(255, r);
-			g = MIN(255, g);
-			b = MIN(255, b);
+			r = std::min(255, r);
+			g = std::min(255, g);
+			b = std::min(255, b);
 			r = groundCol.r * r / 200;
 			g = groundCol.g * g / 200;
 			b = groundCol.b * b / 200;

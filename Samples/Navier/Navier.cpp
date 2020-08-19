@@ -40,7 +40,7 @@ constexpr short HEIGHT = 50;
 #define WIDTHx2 (WIDTH*2)
 #define HEIGHTx2 (HEIGHT*2)
 // use square map
-#define N MIN(WIDTHx2,HEIGHTx2)
+#define N std::min(WIDTHx2,HEIGHTx2)
 // store a 2D map in a 1D array
 #define SIZE (N+2)*(N+2)
 // convert x,y to array index

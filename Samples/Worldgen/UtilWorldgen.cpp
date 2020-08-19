@@ -534,8 +534,8 @@ float WorldGenerator::getCloudThickness(float x, float y) const
 	x += cloudDx;
 	int ix = (int)x;
 	int iy = (int)y;
-	int ix1 = MIN(HM_WIDTH - 1, ix + 1);
-	int iy1 = MIN(HM_HEIGHT - 1, iy + 1);
+	int ix1 = std::min(HM_WIDTH - 1, ix + 1);
+	int iy1 = std::min(HM_HEIGHT - 1, iy + 1);
 	float fdx = x - ix;
 	float fdy = y - iy;
 	float v1 = clouds[ix][iy];
@@ -939,7 +939,7 @@ void WorldGenerator::smoothPrecipitations()
 			float sum = 0.0f;
 			int count = 0;
 			minx = MAX(0, minx);
-			maxx = MIN(HM_WIDTH - 1, maxx);
+			maxx = std::min(HM_WIDTH - 1, maxx);
 			// compute the kernel sum at x,0
 			for (int ix = minx; ix <= maxx; ix++)
 			{
@@ -1015,7 +1015,7 @@ void WorldGenerator::computeTemperaturesAndBiomes()
 			// compute biome
 			EClimate climate = getClimateFromTemp(temp);
 			int iHumid = (int)(humid * 5);
-			iHumid = MIN(4, iHumid);
+			iHumid = std::min(4, iHumid);
 			EBiome biome = biomeDiagram[climate][iHumid];
 			biomeMap[x + y * HM_WIDTH] = biome;
 		}

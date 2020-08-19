@@ -66,18 +66,18 @@ public :
         else
         {
 //printf("lvl %d %dx%d %dx%d\n",node->level, node->x,node->y,node->w,node->h);
-            // resize the node to fit its sons
-            Doryen::Algorithms::BinarySpacePartition* left = node->getLeft();
-            Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
-            node->x = MIN(left->x, right->x);
-            node->y = MIN(left->y, right->y);
-            node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
-            node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
-            // create a corridor between the two lower nodes
-            if (node->horizontal)
-            {
-                // vertical corridor
-                if (left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x)
+			// resize the node to fit its sons
+			Doryen::Algorithms::BinarySpacePartition* left = node->getLeft();
+			Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
+			node->x = std::min(left->x, right->x);
+			node->y = std::min(left->y, right->y);
+			node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
+			node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
+			// create a corridor between the two lower nodes
+			if (node->horizontal)
+			{
+				// vertical corridor
+				if (left->x + left->w - 1 < right->x || right->x + right->w - 1 < left->x)
 				{
 					// no overlapping zone. we need a Z shaped corridor
 					int x1 = Random::Number::nextInteger(left->x, left->x + left->w - 1);
@@ -88,14 +88,14 @@ public :
 					vline_down(map, x2, y + 1);
 				}
                 else
-                {
-                    // straight vertical corridor
-                    int minx = MAX( left->x, right->x );
-					int maxx = MIN(left->x + left->w - 1, right->x + right->w - 1);
+				{
+					// straight vertical corridor
+					int minx = MAX(left->x, right->x);
+					int maxx = std::min(left->x + left->w - 1, right->x + right->w - 1);
 					int x = Random::Number::nextInteger(minx, maxx);
-                    vline_down( map, x, right->y );
-                    vline_up( map, x, right->y - 1 );
-                }
+					vline_down(map, x, right->y);
+					vline_up(map, x, right->y - 1);
+				}
             }
             else
             {
@@ -111,14 +111,14 @@ public :
 					hline_right(map, x + 1, y2);
 				}
                 else
-                {
-                    // straight horizontal corridor
-                    int miny = MAX( left->y, right->y );
-					int maxy = MIN(left->y + left->h - 1, right->y + right->h - 1);
+				{
+					// straight horizontal corridor
+					int miny = MAX(left->y, right->y);
+					int maxy = std::min(left->y + left->h - 1, right->y + right->h - 1);
 					int y = Random::Number::nextInteger(miny, maxy);
-                    hline_left( map, right->x - 1, y );
-                    hline_right( map, right->x, y );
-                }
+					hline_left(map, right->x - 1, y);
+					hline_right(map, right->x, y);
+				}
             }
         }
         return true;
