@@ -58,6 +58,13 @@ namespace Doryen
 	 * instances. You can draw on them as you would do with the root console,
 	 * but you cannot flush them to the screen. Else, you can blit them on other
 	 * consoles, including the root console.
+	 *
+	 * The keyboard handling functions allow you to get keyboard input from the
+	 * user, either for turn by turn games (the function wait until the user
+	 * press a key), or real time games (non blocking function).
+	 *
+	 * @note for proper redraw event handling, the keyboard functions should
+	 *  always be called just after draw the console.
 	 */
 	class Console
 	{
@@ -520,14 +527,6 @@ namespace Doryen
          * actually apply the updates to the screen with this function.
          */
 		static void draw();
-
-		/**
-		@PageName console_input
-		@PageTitle Handling keyboard input
-		@PageDesc The keyboard handling functions allow you to get keyboard input from the user, either for turn by turn games (the function wait until the user press a key), or real time games (non blocking function).
-		<b>WARNING : for proper redraw event handling, the keyboard functions should always be called just after TCODConsole::flush !</b>
-		@PageFather console
-		*/
 
 		/**
 		 * Waits for the user to press a key.
