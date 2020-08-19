@@ -453,7 +453,7 @@ namespace Doryen
 		 * @param flag this flag defines how the cell's background color is modified.
 		 * @param name if empty, the function only draws a rectangle.
 		 */
-		void printFrame(int x, int y, int w, int h, bool clear = true, BlendModes flag = BlendModes::DEFAULT,
+		void drawWindowFrame(int x, int y, int w, int h, bool clear = true, BlendModes flag = BlendModes::DEFAULT,
 				const std::string& name = "");
 
         /**

@@ -711,7 +711,7 @@ void Doryen::Console::drawFrameTitle(std::string_view _title,
 }
 
 
-void Doryen::Console::printFrame(int x, int y, int w, int h, bool clear,
+void Doryen::Console::drawWindowFrame(int x, int y, int w, int h, bool clear,
 		Doryen::BlendModes flag, const std::string& name)
 {
 	// Curly braces for create a Point directly.

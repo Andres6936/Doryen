@@ -22,7 +22,7 @@ void Functor::Offscreen::render(KeyCode key, const Mouse& mouse)
 	if (!init)
 	{
 		init = true;
-		secondary.printFrame(0, 0, sample.getWidth() / 2, sample.getHeight() / 2, false,
+		secondary.drawWindowFrame(0, 0, sample.getWidth() / 2, sample.getHeight() / 2, false,
 				Doryen::BlendModes::SET,
 				"Offscreen console");
 
