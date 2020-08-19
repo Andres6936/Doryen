@@ -650,8 +650,16 @@ namespace Doryen
 		 */
 		bool isKeyPressed(KeyCode _key) const;
 
+		/**
+		 * @return The Key pressed for the user, if not key pressed, return
+		 *  Key generic set to None.
+		 */
 		const Key& getKeyPressed() const;
 
+		/**
+		 * @return The mouse event pressed for the user, if not mouse events,
+		 *  return a generic Mouse set to None.
+		 */
 		const Mouse& getMouseEvent() const;
 
 		/**
@@ -694,42 +702,9 @@ namespace Doryen
 		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 
-
 		/**
-		@PageName console_key_t
-		@PageTitle 	Keyboard event structure
-		@PageFather console_input
-		@PageDesc This structure contains information about a key pressed/released by the user.
-		@C
-			typedef struct {
-				TCOD_keycode_t vk;
-				char c;
-				bool pressed;
-				bool lalt;
-				bool lctrl;
-				bool ralt;
-				bool rctrl;
-				bool shift;
-			} TCOD_key_t;
-		@Lua
-			key.KeyCode
-			key.Character
-			key.Pressed
-			key.LeftAlt
-			key.LeftControl
-			key.RightAlt
-			key.RightControl
-			key.Shift
-		@Param vk An arbitrary value representing the physical key on the keyboard. Possible values are stored in the TCOD_keycode_t enum. If no key was pressed, the value is TCODK_NONE
-		@Param c If the key correspond to a printable character, the character is stored in this field. Else, this field contains 0.
-		@Param pressed true if the event is a key pressed, or false for a key released.
-		@Param lalt This field represents the status of the left Alt key : true => pressed, false => released.
-		@Param lctrl This field represents the status of the left Control key : true => pressed, false => released.
-		@Param ralt This field represents the status of the right Alt key : true => pressed, false => released.
-		@Param rctrl This field represents the status of the right Control key : true => pressed, false => released.
-		@Param shift This field represents the status of the shift key : true => pressed, false => released.
-		*/
-
+		 * Force the re-draw of cells that is into of rectangle.
+		 */
 		void setDirty(int x, int y, int w, int h);
 
 		void showCursor(bool show);
