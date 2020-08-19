@@ -191,7 +191,7 @@ const Doryen::Key& Doryen::Console::getKeyPressed()
 	return renderer->getKeyPressed();
 }
 
-bool Doryen::Console::isKeyPressed(KeyCode _key)
+bool Doryen::Console::isKeyPressed(KeyCode _key) const
 {
 	return renderer->getKeyPressed().getKeyCode() == _key;
 }
