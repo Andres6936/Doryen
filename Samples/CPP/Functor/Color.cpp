@@ -63,7 +63,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			float ycoef = (float)(y) / (sample.getHeight() - 1);
 			// get the current cell color
 			Doryen::Color curColor = Doryen::Color::lerp(top, bottom, ycoef);
-			sample.setCharBackground(x, y, curColor, Doryen::BlendModes::SET);
+			sample.setCellBackground(x, y, curColor, Doryen::BlendModes::SET);
 		}
 	}
 

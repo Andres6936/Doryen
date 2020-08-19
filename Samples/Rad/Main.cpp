@@ -212,12 +212,12 @@ void render(Doryen::Console& console)
 			// a true light model would multiply the light color with the cell color 
 			Color leftLight = leftShader->getLightColor(x, y);
 			Color cellLeftCol = Color::lerp(darkCol, lightCol, gammaLookup[leftLight.r] / 255.0f);
-			console.setCharBackground(x, y, cellLeftCol);
+			console.setCellBackground(x, y, cellLeftCol);
 
 			// render right map
 			Color rightLight = rightShader->getLightColor(x, y);
 			Color cellRightCol = Color::lerp(darkCol, lightCol, gammaLookup[rightLight.r] / 255.0f);
-			console.setCharBackground(x + CON_WIDTH / 2, y, cellRightCol);
+			console.setCellBackground(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}
 	console.write(1, 0, format("Standard lighting {.2f}fms", stdLength));

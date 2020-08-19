@@ -87,7 +87,7 @@ void Functor::FOV::drawDungeon()
 			bool wall = dungeon[y][x] == '#';
 			if (!visible)
 			{
-				sample.setCharBackground(x, y, wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID,
+				sample.setCellBackground(x, y, wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID,
 						BlendModes::SET);
 			}
 			else
@@ -122,7 +122,7 @@ void Functor::FOV::drawDungeon()
 					}
 					light = base;
 				}
-				sample.setCharBackground(x, y, light, Doryen::BlendModes::SET);
+				sample.setCellBackground(x, y, light, Doryen::BlendModes::SET);
 			}
 
 			// Draw the window

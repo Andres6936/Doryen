@@ -56,7 +56,7 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.setCharBackground(x, y, Palette::PRIMARY_DARK, BlendModes::SET);
+				sample.setCellBackground(x, y, Palette::PRIMARY_DARK, BlendModes::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
@@ -65,7 +65,7 @@ void Functor::Path::drawDungeon()
 			}
 			else
 			{
-				sample.setCharBackground(x, y, Palette::PRIMARY_VIVID, BlendModes::SET);
+				sample.setCellBackground(x, y, Palette::PRIMARY_VIVID, BlendModes::SET);
 			}
 		}
 	}
@@ -128,7 +128,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar.getPoint2DAt(i);
 
-				sample.setCharBackground(point.x, point.y, Palette::YELLOW, Doryen::BlendModes::SET);
+				sample.setCellBackground(point.x, point.y, Palette::YELLOW, Doryen::BlendModes::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{

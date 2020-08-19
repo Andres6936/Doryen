@@ -427,7 +427,7 @@ Doryen::Color Doryen::Console::getCellBackground(int x, int y) const
 	}
 }
 
-void Doryen::Console::setCharForeground(int x, int y, const Doryen::Color& col)
+void Doryen::Console::setCellForeground(int x, int y, const Doryen::Color& col)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -496,7 +496,7 @@ int Doryen::Console::getCellCode(int x, int y) const
 	}
 }
 
-void Doryen::Console::setCharBackground(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
+void Doryen::Console::setCellBackground(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -602,7 +602,7 @@ void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, Ble
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					setCharBackground(cx, cy, renderer->getBackground(), flag);
+					setCellBackground(cx, cy, renderer->getBackground(), flag);
 
 					if (clear)
 					{
@@ -636,7 +636,7 @@ void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, Ble
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					setCharBackground(cx, cy, background, flag);
+					setCellBackground(cx, cy, background, flag);
 
 					if (clear)
 					{

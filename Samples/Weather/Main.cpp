@@ -140,7 +140,7 @@ void render(Console& root)
 				}
 
 				root.writeChar(x, y, '/');
-				root.setCharForeground(x, y, col);
+				root.setCellForeground(x, y, col);
 			}
 		}
 	}

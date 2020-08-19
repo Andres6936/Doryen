@@ -351,7 +351,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			if (numberColors == 1)
 			{
 				// Single Color
-				dest.setCharBackground(conX, conY, cols.at(0), BlendModes::SET);
+				dest.setCellBackground(conX, conY, cols.at(0), BlendModes::SET);
 				dest.writeChar(conX, conY, ' ');
 			}
 			else
@@ -412,7 +412,7 @@ Image::blit(Console& _console,
 
 				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
 				{
-					_console.setCharBackground(cx, cy, color, _flag);
+					_console.setCellBackground(cx, cy, color, _flag);
 				}
 			}
 		}
@@ -489,7 +489,7 @@ Image::blit(Console& _console,
 						color = imageData.getMipmapPixel(_point0, _point1);
 					}
 
-					_console.setCharBackground(cx, cy, color, _flag);
+					_console.setCellBackground(cx, cy, color, _flag);
 				}
 			}
 		}
