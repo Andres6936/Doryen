@@ -509,64 +509,36 @@ namespace Doryen
 		int getCellCode(int x, int y) const;
 
         /**
-        @PageName console_fading
-        @PageTitle Screen fading functions
-        @PageFather console_draw
-        @PageDesc Use these functions to easily fade to/from a color
-        @FuncTitle Changing the fading parameters
-        @FuncDesc This function defines the fading parameters, allowing to easily fade the game screen to/from a color. Once they are defined, the fading parameters are valid for ever. You don't have to call setFade for each rendered frame (unless you change the fading parameters).
-        @Cpp static void TCODConsole::setFade(uint8 fade, const Doryen::TCODColor &fadingColor)
-        @C void TCOD_console_set_fade(uint8 fade, TCOD_color_t fadingColor)
-        @Py console_set_fade(fade, fadingColor)
-        @C# static void TCODConsole::setFade(byte fade, Doryen::TCODColor fadingColor)
-        @Lua tcod.console.setFade(fade, fadingColor)
-        @Param fade the fading amount. 0 => the screen is filled with the fading color. 255 => no fading effect
-        @Param fadingColor the color to use during the console flushing operation
-        @CppEx
-            for (int fade=255; fade >= 0; fade --) {
-                TCODConsole::setFade(fade,Doryen::TCODColor::black);
-                TCODConsole::flush();
-            }
-        @CEx
-            int fade;
-            for (fade=255; fade >= 0; fade --) {
-                TCOD_console_setFade(fade,TCOD_black);
-                TCOD_console_flush();
-            }
-        @PyEx
-            for fade in range(255,0) :
-                libtcod.console_setFade(fade,libtcod.black)
-                libtcod.console_flush()
-        @LuaEx
-            for fade=255,0,-1 do
-                tcod.console.setFade(fade,tcod.color.black)
-                tcod.console.flush()
-            end
-        */
+         * @brief Use these functions to easily fade to/from a color.
+         *
+         * This function defines the fading parameters, allowing to easily fade
+         * the game screen to/from a color. Once they are defined, the fading
+         * parameters are valid for ever. You don't have to call setFade for
+         * each rendered frame (unless you change the fading parameters).
+         *
+         * @param val the fading amount. 0 => the screen is filled with the
+         *  fading color. 255 => no fading effect.
+         *
+         * @param fade the color to use during the console flushing operation.
+         *
+         * @example
+         * @code
+         *  for (int fade = 255; fade >= 0; --fade) {
+         *  	console.setFade(fade, Palette::Red);
+         *  	console.draw();
+         *  }
+         *  @endcode
+         */
 		static void setFade(short val, const Doryen::Color& fade);
 
-        /**
-        @PageName console_fading
-        @FuncTitle Reading the fade amount
-        @FuncDesc This function returns the current fade amount, previously defined by setFade.
-        @Cpp static uint8 TCODConsole::getFade()
-        @C uint8 TCOD_console_get_fade()
-        @Py console_get_fade()
-        @C# static byte TCODConsole::getFade()
-        @Lua tcod.console.getFade()
-        */
+		/**
+		 * @return the current fade amount, previously defined by setFade.
+		 */
 		static short getFade();
 
-        /**
-        @PageName console_fading
-        @FuncTitle Reading the fading color
-        @FuncDesc This function returns the current fading color, previously defined by setFade.
-        @Cpp static Doryen::TCODColor TCODConsole::getFadingColor()
-        @C TCOD_color_t TCOD_console_get_fading_color()
-        @Py console_get_fading_color()
-        @C# static Doryen::TCODColor TCODConsole::getFadingColor()
-        @Lua tcod.console.getFadingColor()
-        */
+		/**
+		 * @return the current fading color, previously defined by setFade.
+		 */
         static Doryen::Color getFadingColor( );
 
         /**
