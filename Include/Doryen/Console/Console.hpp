@@ -410,31 +410,13 @@ namespace Doryen
 				const std::string& name = "");
 
         /**
-        @PageName console_read
-        @PageTitle Reading the content of the console
-        @PageFather console_draw
-        @FuncTitle Get the console's width
-        @FuncDesc This function returns the width of a console (either the root console or an offscreen console)
-        @Cpp int TCODConsole::getWidth() const
-        @C int TCOD_console_get_width(TCOD_console_t con)
-        @Py console_get_width(con)
-        @C# int TCODConsole::getWidth()
-        @Lua Console:getWidth()
-        @Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-        */
+         * @return the width of a console in cells.
+         */
 		unsigned int getWidth() const;
 
 		/**
-		@PageName console_read
-		@FuncTitle Get the console's height
-		@FuncDesc This function returns the height of a console (either the root console or an offscreen console)
-		@Cpp int TCODConsole::getHeight() const
-		@C int TCOD_console_get_height(TCOD_console_t con)
-		@Py console_get_height(con)
-		@C# int TCODConsole::getHeight()
-		@Lua Console:getHeight()
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		*/
+		 * @return height of a console in cells.
+		 */
 		unsigned int getHeight() const;
 
 		/**
