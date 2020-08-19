@@ -462,7 +462,7 @@ void WorldGenerator::erodeMap()
 					{
 						// remember, slope is negative
 						h += precipitation->getValue(ix, iy) * EROSION_FACTOR * md2->slope;
-						h = MAX(h, sandHeight);
+						h = std::max(h, sandHeight);
 						sediment -= md2->slope;
 						heightmap->setValue(ix, iy, h);
 						oldFlow = md2->flowDir;
@@ -812,7 +812,7 @@ void WorldGenerator::computePrecipitations()
 						float precip = waterAmount * (basePrecip + slope * slopeCoef);
 						precipitation->setValue(x, y, precipitation->getValue(x, y) + precip);
 						waterAmount -= precip;
-						waterAmount = MAX(0.0f, waterAmount);
+						waterAmount = std::max(0.0f, waterAmount);
 					}
 				}
 			}
@@ -854,7 +854,7 @@ void WorldGenerator::computePrecipitations()
 						float precip = waterAmount * (basePrecip + slope * slopeCoef);
 						precipitation->setValue(x, y, precipitation->getValue(x, y) + precip);
 						waterAmount -= precip;
-						waterAmount = MAX(0.0f, waterAmount);
+						waterAmount = std::max(0.0f, waterAmount);
 					}
 				}
 			}
@@ -938,7 +938,7 @@ void WorldGenerator::smoothPrecipitations()
 			int maxy = 2;
 			float sum = 0.0f;
 			int count = 0;
-			minx = MAX(0, minx);
+			minx = std::max(0, minx);
 			maxx = std::min(HM_WIDTH - 1, maxx);
 			// compute the kernel sum at x,0
 			for (int ix = minx; ix <= maxx; ix++)
@@ -1371,7 +1371,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	}
 	if (filename == NULL)
 	{ filename = "world_biome.png"; }
-	Doryen::Image img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::Image img(std::max(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	// draw biome map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -1386,7 +1386,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	}
 	drawCoasts(&img);
 	// blit legend
-	int legendx = MAX(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
+	int legendx = std::max(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
 	for (int x = 0; x < legendWidth; x++)
 	{
 		for (int y = 0; y < legendHeight; y++)
@@ -1438,7 +1438,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 
 	if (filename == NULL)
 	{ filename = "world_temperature.png"; }
-	Doryen::Image img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::Image img(std::max(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	float minTemp, maxTemp;
 	temperature->getMinMax(&minTemp, &maxTemp);
 	// render temperature map
@@ -1462,7 +1462,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	drawCoasts(&img);
 
 	// blit legend
-	int legendx = MAX(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
+	int legendx = std::max(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
 	for (int x = 0; x < legendWidth; x++)
 	{
 		for (int y = 0; y < legendHeight; y++)
@@ -1489,7 +1489,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 
 	if (filename == NULL)
 	{ filename = "world_precipitation.png"; }
-	Doryen::Image img(MAX(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
+	Doryen::Image img(std::max(HM_WIDTH, legendWidth), HM_HEIGHT + legendHeight);
 	// render precipitation map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -1513,7 +1513,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 	drawCoasts(&img);
 
 	// blit legend
-	int legendx = MAX(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
+	int legendx = std::max(HM_WIDTH, legendWidth) / 2 - legendWidth / 2;
 	for (int x = 0; x < legendWidth; x++)
 	{
 		for (int y = 0; y < legendHeight; y++)
@@ -1544,7 +1544,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 
 	if (filename == NULL)
 	{ filename = "world_altitude.png"; }
-	Doryen::Image img(HM_WIDTH + legendWidth, MAX(HM_HEIGHT, legendHeight));
+	Doryen::Image img(HM_WIDTH + legendWidth, std::max(HM_HEIGHT, legendHeight));
 	// render altitude map
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
@@ -1558,7 +1558,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	}
 
 	// blit legend
-	int legendy = MAX(HM_HEIGHT, legendHeight) / 2 - legendHeight / 2;
+	int legendy = std::max(HM_HEIGHT, legendHeight) / 2 - legendHeight / 2;
 	for (int x = 0; x < legendWidth; x++)
 	{
 		for (int y = 0; y < legendHeight; y++)

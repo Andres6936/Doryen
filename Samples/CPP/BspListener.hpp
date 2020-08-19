@@ -71,8 +71,8 @@ public :
 			Doryen::Algorithms::BinarySpacePartition* right = node->getRight();
 			node->x = std::min(left->x, right->x);
 			node->y = std::min(left->y, right->y);
-			node->w = MAX(left->x + left->w, right->x + right->w) - node->x;
-			node->h = MAX(left->y + left->h, right->y + right->h) - node->y;
+			node->w = std::max(left->x + left->w, right->x + right->w) - node->x;
+			node->h = std::max(left->y + left->h, right->y + right->h) - node->y;
 			// create a corridor between the two lower nodes
 			if (node->horizontal)
 			{
@@ -90,7 +90,7 @@ public :
                 else
 				{
 					// straight vertical corridor
-					int minx = MAX(left->x, right->x);
+					int minx = std::max(left->x, right->x);
 					int maxx = std::min(left->x + left->w - 1, right->x + right->w - 1);
 					int x = Random::Number::nextInteger(minx, maxx);
 					vline_down(map, x, right->y);
@@ -113,7 +113,7 @@ public :
                 else
 				{
 					// straight horizontal corridor
-					int miny = MAX(left->y, right->y);
+					int miny = std::max(left->y, right->y);
 					int maxy = std::min(left->y + left->h - 1, right->y + right->h - 1);
 					int y = Random::Number::nextInteger(miny, maxy);
 					hline_left(map, right->x - 1, y);

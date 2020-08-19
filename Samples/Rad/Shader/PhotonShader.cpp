@@ -45,8 +45,8 @@ void PhotonShader::computeFormFactor(int x, int y)
 	int ominy = y - maxRadius;
 	int omaxx = x + maxRadius;
 	int omaxy = y + maxRadius;
-	int minx = MAX(ominx, 0);
-	int miny = MAX(ominy, 0);
+	int minx = std::max(ominx, 0);
+	int miny = std::max(ominy, 0);
 	int maxx = std::min(omaxx, map.getWidth() - 1);
 	int maxy = std::min(omaxy, map.getHeight() - 1);
 	int maxDiameter = 2 * maxRadius + 1;

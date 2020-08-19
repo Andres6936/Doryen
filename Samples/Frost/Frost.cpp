@@ -72,14 +72,14 @@ bool Frost::update( float elapsed )
                     {
                         if ( getValue( cx, cy ) < 1.0f )
                         {
-                            float f = getValue( cx, cy );
-                            float oldf = f;
-                            f = MAX( f, getValue( cx + 1, cy ));
-                            f = MAX( f, getValue( cx - 1, cy ));
-                            f = MAX( f, getValue( cx, cy + 1 ));
-                            f = MAX( f, getValue( cx, cy - 1 ));
-                            setValue( cx, cy, oldf + ( f - oldf ) * SMOOTH * elapsed );
-                        }
+							float f = getValue(cx, cy);
+							float oldf = f;
+							f = std::max(f, getValue(cx + 1, cy));
+							f = std::max(f, getValue(cx - 1, cy));
+							f = std::max(f, getValue(cx, cy + 1));
+							f = std::max(f, getValue(cx, cy - 1));
+							setValue(cx, cy, oldf + (f - oldf) * SMOOTH * elapsed);
+						}
                     }
                 }
             }

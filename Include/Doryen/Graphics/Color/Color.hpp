@@ -31,8 +31,6 @@
 #include <string>
 #include <cstdint>
 
-#define MAX(a, b) ((a)<(b)?(b):(a))
-
 namespace Doryen
 {
 	/**
