@@ -295,12 +295,12 @@ void Doryen::Console::setFade(short val, const Doryen::Color& fade)
 	renderer->setFadingColor(fade);
 }
 
-short Doryen::Console::getFade()
+short Doryen::Console::getFade() const
 {
 	return renderer->getFade();
 }
 
-Doryen::Color Doryen::Console::getFadingColor() const
+const Doryen::Color& Doryen::Console::getFadingColor() const
 {
 	return renderer->getFadingColor();
 }
@@ -404,7 +404,7 @@ void Doryen::Console::clear()
 	}
 }
 
-Doryen::Color Doryen::Console::getCellBackground(int x, int y) const
+const Doryen::Color& Doryen::Console::getCellBackground(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -450,7 +450,7 @@ void Doryen::Console::setCellForeground(int x, int y, const Doryen::Color& col)
 	}
 }
 
-Doryen::Color Doryen::Console::getCellForeground(int x, int y) const
+const Doryen::Color& Doryen::Console::getCellForeground(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -1034,7 +1034,7 @@ std::uint32_t Console::getElapsedMilliseconds() const
 	return renderer->getElapsedMilliseconds();
 }
 
-float Console::getElapsedSeconds()
+float Console::getElapsedSeconds() const
 {
 	return renderer->getElapsedSeconds();
 }

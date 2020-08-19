@@ -595,9 +595,16 @@ namespace Doryen
 		float getLastFrameLength() const;
 
 		/**
+		 * Returns the number of seconds since the program has started.
+		 *
+		 * @return number of seconds since the program has started.
+		 */
+		float getElapsedSeconds() const;
+
+		/**
 		 * @return the current fade amount, previously defined by setFade.
 		 */
-		static short getFade();
+		short getFade() const;
 
 		/**
 		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
@@ -615,13 +622,6 @@ namespace Doryen
 		 * @return height of a console in cells.
 		 */
 		unsigned int getHeight() const;
-
-		/**
-		 * Returns the number of seconds since the program has started.
-		 *
-		 * @return number of seconds since the program has started.
-		 */
-		static float getElapsedSeconds();
 
 		/**
          * @brief Get the number of frames rendered during the last second.
