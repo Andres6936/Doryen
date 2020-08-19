@@ -369,32 +369,35 @@ namespace Doryen
 		void write(int x, int y, const std::string& fmt);
 
 		/**
-		@PageName console_print
-		@FuncTitle Printing a string with specific alignment and background mode and autowrap
-		@FuncDesc This function draws a string in a rectangle inside the console, using default colors, but specific alignment and background mode.
-			If the string reaches the borders of the rectangle, carriage returns are inserted.
-			If h > 0 and the bottom of the rectangle is reached, the string is truncated. If h = 0, the string is only truncated if it reaches the bottom of the console.
-			The function returns the height (number of console lines) of the printed string.
-		@Cpp int TCODConsole::printRectEx(int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-		@C int TCOD_console_print_rect_ex(TCOD_console_t con,int x, int y, int w, int h, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment, const char *fmt, ...)
-		@Py console_print_rect_ex(con, x, y, w, h, flag, alignment, fmt)
-		@C# int TCODConsole::printRectEx(int x, int y, int w, int h, TCODBackgroundFlag flag, TCODAlignment alignment, string fmt)
-		@Lua Console:printRectEx(x, y, w, h, flag, alignment, fmt)
-		@Param con in the C and Python versions, the offscreen console handler or NULL for the root console
-		@Param x,y coordinate of the character in the console, depending on the alignment :
-			* TCOD_LEFT : leftmost character of the string
-			* TCOD_CENTER : center character of the string
-			* TCOD_RIGHT : rightmost character of the string
-		@Param w,h size of the rectangle
-			x <= x+w < console width
-			y <= y+h < console height
-		@Param flag this flag defines how the cell's background color is modified. See TCOD_bkgnd_flag_t
-		@Param alignment defines how the strings are printed on screen.
-		@Param fmt printf-like format string, eventually followed by parameters. You can use control codes to change the colors inside the string, except in C#.
-		*/
-		int
-		printRectEx(int x, int y, int w, int h, BlendModes flag, int alignment, const char* fmt,
-				...);
+		 * @brief Printing a string with specific alignment and background
+		 * mode and auto-wrap.
+		 *
+		 * This function draws a string in a rectangle inside the console,
+		 * using default colors, but specific alignment and background mode.
+		 *
+		 * If the string reaches the borders of the rectangle, carriage
+		 * returns are inserted.
+		 *
+		 * If h > 0 and the bottom of the rectangle is reached, the string
+		 * is truncated. If h = 0, the string is only truncated if it
+		 * reaches the bottom of the console.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param w Width of rectangle in the console. x <= x + w < console width.
+		 * @param h Height of rectangle in the console. y <= y + h < console height.
+		 * @param flag this flag defines how the cell's background color is modified.
+		 * @param alignment defines how the strings are printed on screen.
+		 *
+		 * @param fmt printf-like format string, eventually followed by parameters.
+		 *  You can use control codes to change the colors inside the string
+		 *
+		 * @param ... Extra parameters
+		 *
+		 * @return The function returns the height (number of console lines) of
+		 *  the printed string.
+		 */
+		int writeText(int x, int y, int w, int h, BlendModes flag, int alignment, const char* fmt, ...);
 
 		/**
 		 * @brief Writing a string with default parameters and auto-wrap.

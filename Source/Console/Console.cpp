@@ -736,7 +736,7 @@ void Doryen::Console::write(int x, int y, const std::string& fmt)
 	}
 }
 
-int Doryen::Console::printRectEx(int x, int y, int w, int h, BlendModes flag,
+int Doryen::Console::writeText(int x, int y, int w, int h, BlendModes flag,
 		int alignment, const char* fmt, ...)
 {
 //	va_list ap;

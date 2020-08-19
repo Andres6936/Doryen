@@ -99,7 +99,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	sample.setDefaultForeground(textColor);
 	// the background behind the text is slightly darkened using the BKGND_MULTIPLY flag
 	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_30);
-	sample.printRectEx(sample.getWidth() / 2, 5, sample.getWidth() - 2,
+	sample.writeText(sample.getWidth() / 2, 5, sample.getWidth() - 2,
 			sample.getHeight() - 1, BlendModes::MULTIPLY, 1,
 			"The Doryen library uses 24 bits colors, for both background and foreground.");
 }
