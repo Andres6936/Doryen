@@ -95,7 +95,7 @@ void ImageData::readImageBMP(const std::string& filename)
 	if (representation == nullptr)
 	{
 		// Throw Error
-		std::cout << SDL_GetError() << "\n";
+		throw std::runtime_error(SDL_GetError());
 	}
 
 	// Convert low color images to 24 bits

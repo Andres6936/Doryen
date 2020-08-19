@@ -132,7 +132,7 @@ void Doryen::SDL::loadFont()
 	// check if the alpha layer is actually used
 	if (charmap->format->BytesPerPixel == 4)
 	{
-		std::cout << "32 Bits Font." << "\n\tChecking for Alpha Layer.\n";
+//		std::cout << "32 Bits Font." << "\n\tChecking for Alpha Layer.\n";
 
 		for (int x = 0; !isTransparent && x < charmap->w; ++x)
 		{
@@ -151,17 +151,17 @@ void Doryen::SDL::loadFont()
 
 		if (isTransparent)
 		{
-			std::cout << "\t\tAlpha Layer Present.\n";
+//			std::cout << "\t\tAlpha Layer Present.\n";
 		}
 		else
 		{
-			std::cout << "\t\tAlpha Layer Not Present.\n";
+//			std::cout << "\t\tAlpha Layer Not Present.\n";
 		}
 	}
 	else if (charmap->format->BytesPerPixel != 3)
 	{
 		// Convert to 24 bits
-		std::cout << "Font BPP < 24 Bits." << "\n\tConverting to 24 Bits.\n";
+//		std::cout << "Font BPP < 24 Bits." << "\n\tConverting to 24 Bits.\n";
 
 		SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, false);
 		SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
@@ -173,7 +173,7 @@ void Doryen::SDL::loadFont()
 	}
 	else
 	{
-		std::cout << "24 Bits Font.\n";
+//		std::cout << "24 Bits Font.\n";
 	}
 
 	if (!isTransparent)
@@ -208,15 +208,15 @@ void Doryen::SDL::loadFont()
 
 		changeFontKeyColor(FontKeyColor);
 
-		std::cout << "Key Color : " << FontKeyColor.r << " " <<
-				  FontKeyColor.g << " " << FontKeyColor.b << "\n";
+//		std::cout << "Key Color : " << FontKeyColor.r << " " <<
+//				  FontKeyColor.g << " " << FontKeyColor.b << "\n";
 
 		if (!isFontGrayscale() && charmap->format->BytesPerPixel == 4)
 		{
 			// 32 bits font but alpha layer not used.
 			// Convert to 24 bits (faster)
 
-			std::cout << "32 Bits Font with No Alpha." << "\n\tConverting to Faster 24 Bits\n";
+//			std::cout << "32 Bits Font with No Alpha." << "\n\tConverting to Faster 24 Bits\n";
 
 			SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, false);
 			SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
@@ -261,7 +261,7 @@ void Doryen::SDL::loadFont()
 				if (r != g || g != b || b != r)
 				{
 					setCharacterColored(i, true);
-					std::cout << "Character for ASCII Code " << i << " is Colored\n";
+//					std::cout << "Character for ASCII Code " << i << " is Colored\n";
 					endLoop = true;
 				}
 			}
@@ -278,7 +278,7 @@ void Doryen::SDL::loadFont()
 		if (charmap->format->BytesPerPixel != 4)
 		{
 			// Convert to 32 bits
-			std::cout << "24 Bits Greyscale Font." << "\n\tConverting to 32 Bits.\n";
+//			std::cout << "24 Bits Greyscale Font." << "\n\tConverting to 32 Bits.\n";
 
 			SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, true);
 			SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
