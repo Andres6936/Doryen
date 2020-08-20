@@ -1,6 +1,7 @@
 #ifndef LIBTCOD_POINT2D_HPP
 #define LIBTCOD_POINT2D_HPP
 
+#include <string>
 #include <cstdint>
 
 namespace Doryen
@@ -31,6 +32,13 @@ namespace Doryen
 			bool equals(const Point2D<T>& _rhs) const noexcept
 			{
 				return this->x == _rhs.x and this->y == _rhs.y;
+			}
+
+			// Debug
+
+			[[maybe_unused]] std::string toString() const
+			{
+				return { '{' + std::to_string(x) + ", " + std::to_string(y) + '}' };
 			}
 
 		};

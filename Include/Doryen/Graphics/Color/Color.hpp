@@ -225,7 +225,7 @@ namespace Doryen
 
 		// Debug
 
-		std::string toString() const;
+		[[maybe_unused]] std::string toString() const;
 
 		// Getters
 
