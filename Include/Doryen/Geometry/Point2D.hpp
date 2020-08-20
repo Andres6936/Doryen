@@ -43,10 +43,14 @@ namespace Doryen
 			// Methods
 
 			/**
-			 * Determines whether or not two points are equal.
+			 * Determines whether or not two points are equal. Two instances of
+			 * Point2D are equal if the values of their x and y member fields,
+			 * representing their position in the coordinate space, are the same.
 			 *
-			 * @param _rhs Object to compare.
-			 * @return True if the coordinate (x, y) are equals.
+			 * @param _rhs an object to be compared with this Point2D
+			 *
+			 * @return true if the object to be compared is an instance of
+			 *  Point2D and has the same values; false otherwise.
 			 */
 			bool equals(const Point2D<T>& _rhs) const noexcept
 			{
@@ -62,11 +66,17 @@ namespace Doryen
 
 			// Getters
 
+			/**
+			 * @return the X coordinate of this Point2D.
+			 */
 			T getX() const
 			{
 				return x;
 			}
 
+			/**
+			 * @return the Y coordinate of this Point2D.
+			 */
 			T getY() const
 			{
 				return y;
@@ -74,11 +84,17 @@ namespace Doryen
 
 			// Setters
 
+			/**
+			 * @param _x the new X coordinate of this Point2D
+			 */
 			void setX(T _x)
 			{
 				x = _x;
 			}
 
+			/**
+			 * @param _y the new Y coordinate of this Point2D
+			 */
 			void setY(T _y)
 			{
 				y = _y;
