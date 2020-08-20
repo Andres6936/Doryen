@@ -6,16 +6,28 @@ ENDIF ()
 
 MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
 
-ADD_LIBRARY(Doryen.Framework
-        Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
-        Algorithms/Generation/Heightmap.cpp
-        Algorithms/Pathfinding/AStar.cpp
-        Algorithms/Drawing/Bresenham.cpp
+ADD_LIBRARY(Doryen.Algorithms.Noise
         Algorithms/Noise/Simplex.cpp
         Algorithms/Noise/Wavelet.cpp
         Algorithms/Noise/Perlin.cpp
         Algorithms/Noise/Noise.cpp
         Algorithms/Noise/FBM.cpp
+        )
+
+ADD_LIBRARY(Doryen::Algorithms::Noise ALIAS Doryen.Algorithms.Noise)
+SET_TARGET_PROPERTIES(Doryen.Algorithms.Noise PROPERTIES CXX_STANDARD 17)
+TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
+        $<INSTALL_INTERFACE:../Include/>
+        )
+
+
+ADD_LIBRARY(Doryen.Framework
+        Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
+        Algorithms/Generation/Heightmap.cpp
+        Algorithms/Pathfinding/AStar.cpp
+        Algorithms/Drawing/Bresenham.cpp
         Algorithms/Util/Cell.cpp
         Algorithms/Util/Node.cpp
         Graphics/Color/ColorTranslator.cpp
