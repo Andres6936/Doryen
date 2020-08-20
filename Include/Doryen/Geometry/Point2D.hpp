@@ -60,6 +60,30 @@ namespace Doryen
 				return { '{' + std::to_string(x) + ", " + std::to_string(y) + '}' };
 			}
 
+			// Getters
+
+			T getX() const
+			{
+				return x;
+			}
+
+			T getY() const
+			{
+				return y;
+			}
+
+			// Setters
+
+			void setX(T _x)
+			{
+				x = _x;
+			}
+
+			void setY(T _y)
+			{
+				y = _y;
+			}
+
 		};
     }
 }
