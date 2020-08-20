@@ -54,3 +54,11 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
         $<INSTALL_INTERFACE:../Include/>
         PRIVATE
         ${SDL_INCLUDE_DIR})
+
+# Important, the use of CPM as Script for download Doryen brings with it several problems.
+# The first problem and most important, is the location of resource Terminal.png, that is
+# the font used for default for Doryen, it for it important, set the font (it location)
+# to an path where Doryen can be found. For this is needed move Terminal.png to several
+# location for to be sure that the resource will be found.
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../Terminal.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../Terminal.png DESTINATION ${CMAKE_BINARY_DIR})
