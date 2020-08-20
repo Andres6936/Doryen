@@ -9,3 +9,4 @@ MACRO(ADD_DORYEN_TEST _NAME_TARGET _NAME_FILE)
 ENDMACRO()
 
 ADD_DORYEN_TEST(Doryen.Test.Unit.Color TestColor.cpp)
+ADD_DORYEN_TEST(Doryen.Test.Unit.Point2D TestPoint2D.cpp)
