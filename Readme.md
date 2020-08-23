@@ -11,6 +11,11 @@ The guidelines taken by Libtcod are:
 - _"stopped adding C++ implementations into libtcod."_ [Reference Issue 71](
 https://github.com/libtcod/libtcod/issues/71#issuecomment-668205669)
 
+- _"As much as I liked using C++ over C it has made the code less portable 
+ and made the C ABI harder to maintain. I now plan on rewriting the code 
+ in C and porting to C++ instead of the other way around."_ [Reference Issue
+ 39](https://github.com/libtcod/libtcod/issues/39#issue-548934343)
+
 This project leaves aside those guidelines taken by Libtcod and
 its place took as a starting point the implementation of new functionality
 in C++.
