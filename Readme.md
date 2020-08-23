@@ -1,5 +1,20 @@
 ### Doryen Based in Libtcod 1.5.1
 
+Based on the new guidelines taken by Libtcod and based on the state
+project, I have decided to take matters into my own hands and 
+fork version 1.5.1, which by then had a minimal support for CMake, 
+but it still served as a starting point to start the refactoring
+and cleaning of the code.
+
+The guidelines taken by Libtcod are:
+
+- _"stopped adding C++ implementations into libtcod."_ [Reference Issue 71](
+https://github.com/libtcod/libtcod/issues/71#issuecomment-668205669)
+
+This project leaves aside those guidelines taken by Libtcod and
+its place took as a starting point the implementation of new functionality
+in C++.
+
 ### Features
 
 ##### Keyboard Input and Mouse Input
@@ -64,7 +79,6 @@ For regions, cities, dungeons building.
 - Compiler with Support to C++17 (GCC, Clang, MSV, etc ...)
 - CMake Version >= 3.15
 - SDL Version === 1.2.15
-- SDL Version >= 2.0.4
 
 ##### Commands
 
