@@ -20,6 +20,22 @@ This project leaves aside those guidelines taken by Libtcod and
 its place took as a starting point the implementation of new functionality
 in C++.
 
+### Differences with Libtcod 1.5.1
+
+The code has been completely restructured, modified
+the structure of the project to match the recommendations made
+by GitLab about [how to structure the project](
+https://cliutils.gitlab.io/modern-cmake/chapters/basics/structure.html), 
+several modules have been removed, the API has been changed and full 
+support has been given to CMake.
+
+We have chosen to fully support CMake, beyond allowing
+the construction of the project on various platforms as to allow the use
+this tool as a [Content Package Manager](
+https://github.com/TheLartians/CPM.cmake), that will allow you to download
+Doryen as a dependency without the need to embed the project within
+of each application you want to use it.
+
 ### Features
 
 ##### Keyboard Input and Mouse Input
