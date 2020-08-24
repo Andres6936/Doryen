@@ -33,7 +33,6 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <array>
 
 #include "Doryen/Graphics/Color/Palette.hpp"
 #include "Doryen/Graphics/Color/Color.hpp"

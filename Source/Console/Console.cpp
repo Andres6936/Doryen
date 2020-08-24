@@ -25,11 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <cstring>
-#include <iostream>
-
 #include "Doryen/Console/Console.hpp"
-#include "Doryen/Doryen.hpp"
 
 using namespace Doryen;
 
