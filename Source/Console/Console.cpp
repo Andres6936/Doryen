@@ -159,34 +159,6 @@ void Doryen::Console::setCustomFont(const char* fontFile, int flags, int nbCharH
 	renderer->loadFont();
 }
 
-void Doryen::Console::setDirty(int x, int y, int w, int h)
-{
-//	TCOD_console_set_dirty(x, y, w, h);
-
-	if (x < 0 || y < 0 || w < 0 || h < 0)
-	{
-		// Throw error
-		return;
-	}
-	else
-	{
-		using Point = Geometry::Point2D<>;
-
-		// Initial point
-		Point start = Point(x, y);
-
-		// End Point
-		Point end = Point(w, h);
-
-		renderer->setDirty(start, end);
-	}
-}
-
-const Doryen::Key& Doryen::Console::getKeyPressed() const
-{
-	return renderer->getKeyPressed();
-}
-
 bool Doryen::Console::isKeyPressed(KeyCode _key) const
 {
 	return renderer->getKeyPressed().getKeyCode() == _key;
@@ -197,103 +169,9 @@ bool Doryen::Console::isRunning()
 	return renderer->isRunning();
 }
 
-std::uint32_t Doryen::Console::getWidth() const
-{
-	if (isConsoleRoot)
-	{
-		return renderer->getWidth();
-	}
-	else
-	{
-		return width;
-	}
-}
-
-std::uint32_t Doryen::Console::getHeight() const
-{
-	if (isConsoleRoot)
-	{
-		return renderer->getHeight();
-	}
-	else
-	{
-		return height;
-	}
-}
-
-const Doryen::Color& Doryen::Console::getForegroundColor() const
-{
-	if (isConsoleRoot)
-	{
-		return renderer->getForeground();
-	}
-	else
-	{
-		return foreground;
-	}
-}
-
-const Doryen::Color& Doryen::Console::getBackgroundColor() const
-{
-	if (isConsoleRoot)
-	{
-		return renderer->getBackground();
-	}
-	else
-	{
-		return background;
-	}
-}
-
-void Doryen::Console::setBackgroundColor(const Color& back)
-{
-	if (isConsoleRoot)
-	{
-		renderer->setBackground(back);
-	}
-	else
-	{
-		this->background = back;
-	}
-}
-
-void Doryen::Console::setForegroundColor(const Color& fore)
-{
-	if (isConsoleRoot)
-	{
-		renderer->setForeground(fore);
-	}
-	else
-	{
-		this->foreground = fore;
-	}
-}
-
-void Doryen::Console::setWindowTitle(const std::string& _title)
-{
-	renderer->setWindowTitle(_title);
-}
-
-
 void Doryen::Console::draw()
 {
 	renderer->draw();
-}
-
-void Doryen::Console::setFade(short val, const Doryen::Color& fade)
-{
-	renderer->setFade(val);
-	renderer->setFadingColor(fade);
-}
-
-short Doryen::Console::getFade() const
-{
-	return renderer->getFade();
-}
-
-const Doryen::Color& Doryen::Console::getFadingColor() const
-{
-	return renderer->getFadingColor();
 }
 
 void Doryen::Console::writeChar(int x, int y, int c, BlendModes flag)
@@ -395,144 +273,6 @@ void Doryen::Console::clear()
 	}
 }
 
-const Doryen::Color& Doryen::Console::getCellBackgroundColor(int x, int y) const
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		throw "ExceptionIllegalArgument";
-	}
-
-	if (isConsoleRoot)
-	{
-		unsigned index = x + renderer->getWidth() * y;
-
-		return renderer->getBackgroundOfCharacterInBufferAt(index);
-	}
-	else
-	{
-		unsigned index = x + width * y;
-
-		return buffer[index].getBackground();
-	}
-}
-
-void Doryen::Console::setCellForegroundColor(int x, int y, const Doryen::Color& col)
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		throw "ExceptionIllegalArgument";
-	}
-
-	if (isConsoleRoot)
-	{
-		unsigned index = x + renderer->getWidth() * y;
-
-		renderer->setForegroundOfCharacterInBufferAt(index, col);
-	}
-	else
-	{
-		unsigned index = x + width * y;
-
-		buffer[index].setForeground(col);
-	}
-}
-
-const Doryen::Color& Doryen::Console::getCellForegroundColor(int x, int y) const
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		throw "ExceptionIllegalArgument";
-	}
-
-	if (isConsoleRoot)
-	{
-		unsigned index = x + renderer->getWidth() * y;
-
-		return renderer->getForegroundOfCharacterInBufferAt(index);
-	}
-	else
-	{
-		unsigned index = x + width * y;
-
-		return buffer[index].getForeground();
-	}
-}
-
-int Doryen::Console::getCellCode(int x, int y) const
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		throw "ExceptionIllegalArgument";
-	}
-
-	if (isConsoleRoot)
-	{
-		unsigned offset = x + renderer->getWidth() * y;
-
-		return renderer->getCharOfCharacterInBufferAt(offset);
-	}
-	else
-	{
-		unsigned offset = x + width * y;
-
-		return buffer[offset].getCharacter();
-	}
-}
-
-void Doryen::Console::setCellBackgroundColor(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
-{
-	// Asserts
-	if (x < 0 || y < 0)
-	{
-		// Throw Error
-		return;
-	}
-
-	if (isConsoleRoot)
-	{
-		// Asserts
-		if (x > renderer->getWidth() || y > renderer->getHeight())
-		{
-			// Throw Error
-			return;
-		}
-		else
-		{
-			unsigned index = x + renderer->getWidth() * y;
-
-			Color b = renderer->getBackgroundOfCharacterInBufferAt(index);
-
-			b.trasformColor(col, flag);
-
-			renderer->setBackgroundOfCharacterInBufferAt(index, b);
-		}
-	}
-	else
-	{
-		// Asserts
-		if (x > width || y > height)
-		{
-			// Throw Error
-			return;
-		}
-		else
-		{
-			Color b = buffer[x + width * y].getBackground();
-
-			b.trasformColor(col, flag);
-
-			buffer[x + width * y].setBackground(b);
-		}
-	}
-}
 
 using Point = Doryen::Geometry::Point2D<>;
 
@@ -701,7 +441,6 @@ void Doryen::Console::drawFrameTitle(std::string_view _title,
 	write(centerX, _start.y, _title.data());
 }
 
-
 void Doryen::Console::drawWindowFrame(int x, int y, int w, int h, bool clear,
 		Doryen::BlendModes flag, const std::string& name)
 {
@@ -709,6 +448,7 @@ void Doryen::Console::drawWindowFrame(int x, int y, int w, int h, bool clear,
 	drawFrame({ x, y }, { w, h }, clear, flag);
 	drawFrameTitle(name, { x, y }, w);
 }
+
 
 void Doryen::Console::write(int x, int y, const std::string& fmt)
 {
@@ -900,16 +640,6 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 	}
 }
 
-float Doryen::Console::getLastFrameLength() const
-{
-	return renderer->getLastFrameLength();
-}
-
-const Doryen::Mouse& Doryen::Console::getMouseEvent() const
-{
-	return renderer->getMouseEvent();
-}
-
 void
 Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console& destination,
 		const Doryen::Geometry::Point2D<>& dest, float foregroundAlpha, float backgroundAlpha)
@@ -983,23 +713,6 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 	}
 }
 
-std::uint32_t Doryen::Console::getFramePerSeconds() const
-{
-	return renderer->getFramePerSeconds();
-}
-
-void Doryen::Console::setFramePerSeconds(std::uint8_t _fps)
-{
-	// For avoid the division zero error
-	if (_fps == 0)
-	{
-		renderer->setMinimumFrameLength(0);
-		return;
-	}
-
-	renderer->setMinimumFrameLength(1000 / _fps);
-}
-
 void Doryen::Console::showCursor(bool show)
 {
 	renderer->showCursor(show);
@@ -1015,6 +728,33 @@ void Console::unregisterCallback() const
 	renderer->unregisterCallback();
 }
 
+float Doryen::Console::getLastFrameLength() const
+{
+	return renderer->getLastFrameLength();
+}
+
+const Doryen::Mouse& Doryen::Console::getMouseEvent() const
+{
+	return renderer->getMouseEvent();
+}
+
+void Doryen::Console::setFramePerSeconds(std::uint8_t _fps)
+{
+	// For avoid the division zero error
+	if (_fps == 0)
+	{
+		renderer->setMinimumFrameLength(0);
+		return;
+	}
+
+	renderer->setMinimumFrameLength(1000 / _fps);
+}
+
+std::uint32_t Doryen::Console::getFramePerSeconds() const
+{
+	return renderer->getFramePerSeconds();
+}
+
 const Geometry::Size Console::getFontSize() const
 {
 	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeight() };
@@ -1028,4 +768,267 @@ std::uint32_t Console::getElapsedMilliseconds() const
 float Console::getElapsedSeconds() const
 {
 	return renderer->getElapsedSeconds();
+}
+
+void Doryen::Console::setCellBackgroundColor(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		return;
+	}
+
+	if (isConsoleRoot)
+	{
+		// Asserts
+		if (x > renderer->getWidth() || y > renderer->getHeight())
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+			unsigned index = x + renderer->getWidth() * y;
+
+			Color b = renderer->getBackgroundOfCharacterInBufferAt(index);
+
+			b.trasformColor(col, flag);
+
+			renderer->setBackgroundOfCharacterInBufferAt(index, b);
+		}
+	}
+	else
+	{
+		// Asserts
+		if (x > width || y > height)
+		{
+			// Throw Error
+			return;
+		}
+		else
+		{
+			Color b = buffer[x + width * y].getBackground();
+
+			b.trasformColor(col, flag);
+
+			buffer[x + width * y].setBackground(b);
+		}
+	}
+}
+
+
+const Doryen::Color& Doryen::Console::getCellBackgroundColor(int x, int y) const
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned index = x + renderer->getWidth() * y;
+
+		return renderer->getBackgroundOfCharacterInBufferAt(index);
+	}
+	else
+	{
+		unsigned index = x + width * y;
+
+		return buffer[index].getBackground();
+	}
+}
+
+void Doryen::Console::setCellForegroundColor(int x, int y, const Doryen::Color& col)
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned index = x + renderer->getWidth() * y;
+
+		renderer->setForegroundOfCharacterInBufferAt(index, col);
+	}
+	else
+	{
+		unsigned index = x + width * y;
+
+		buffer[index].setForeground(col);
+	}
+}
+
+const Doryen::Color& Doryen::Console::getCellForegroundColor(int x, int y) const
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned index = x + renderer->getWidth() * y;
+
+		return renderer->getForegroundOfCharacterInBufferAt(index);
+	}
+	else
+	{
+		unsigned index = x + width * y;
+
+		return buffer[index].getForeground();
+	}
+}
+
+int Doryen::Console::getCellCode(int x, int y) const
+{
+	// Asserts
+	if (x < 0 || y < 0)
+	{
+		// Throw Error
+		throw "ExceptionIllegalArgument";
+	}
+
+	if (isConsoleRoot)
+	{
+		unsigned offset = x + renderer->getWidth() * y;
+
+		return renderer->getCharOfCharacterInBufferAt(offset);
+	}
+	else
+	{
+		unsigned offset = x + width * y;
+
+		return buffer[offset].getCharacter();
+	}
+}
+
+
+void Doryen::Console::setDirty(int x, int y, int w, int h)
+{
+//	TCOD_console_set_dirty(x, y, w, h);
+
+	if (x < 0 || y < 0 || w < 0 || h < 0)
+	{
+		// Throw error
+		return;
+	}
+	else
+	{
+		using Point = Geometry::Point2D<>;
+
+		// Initial point
+		Point start = Point(x, y);
+
+		// End Point
+		Point end = Point(w, h);
+
+		renderer->setDirty(start, end);
+	}
+}
+
+const Doryen::Key& Doryen::Console::getKeyPressed() const
+{
+	return renderer->getKeyPressed();
+}
+
+
+std::uint32_t Doryen::Console::getWidth() const
+{
+	if (isConsoleRoot)
+	{
+		return renderer->getWidth();
+	}
+	else
+	{
+		return width;
+	}
+}
+
+std::uint32_t Doryen::Console::getHeight() const
+{
+	if (isConsoleRoot)
+	{
+		return renderer->getHeight();
+	}
+	else
+	{
+		return height;
+	}
+}
+
+const Doryen::Color& Doryen::Console::getForegroundColor() const
+{
+	if (isConsoleRoot)
+	{
+		return renderer->getForeground();
+	}
+	else
+	{
+		return foreground;
+	}
+}
+
+const Doryen::Color& Doryen::Console::getBackgroundColor() const
+{
+	if (isConsoleRoot)
+	{
+		return renderer->getBackground();
+	}
+	else
+	{
+		return background;
+	}
+}
+
+void Doryen::Console::setBackgroundColor(const Color& back)
+{
+	if (isConsoleRoot)
+	{
+		renderer->setBackground(back);
+	}
+	else
+	{
+		this->background = back;
+	}
+}
+
+void Doryen::Console::setForegroundColor(const Color& fore)
+{
+	if (isConsoleRoot)
+	{
+		renderer->setForeground(fore);
+	}
+	else
+	{
+		this->foreground = fore;
+	}
+}
+
+void Doryen::Console::setWindowTitle(const std::string& _title)
+{
+	renderer->setWindowTitle(_title);
+}
+
+void Doryen::Console::setFade(short val, const Doryen::Color& fade)
+{
+	renderer->setFade(val);
+	renderer->setFadingColor(fade);
+}
+
+short Doryen::Console::getFade() const
+{
+	return renderer->getFade();
+}
+
+const Doryen::Color& Doryen::Console::getFadingColor() const
+{
+	return renderer->getFadingColor();
 }
