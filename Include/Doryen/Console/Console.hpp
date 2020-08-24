@@ -213,11 +213,6 @@ namespace Doryen
 		void setCustomFont(const char* fontFile, int flags = 1, int nbCharHoriz = 0,
 				int nbCharVertic = 0);
 
-        /**
-         * @return returns true if the current mode is fullscreen.
-         */
-		bool isFullscreen();
-
 		/**
 		 * When you start the program, this returns true. Once a "close window"
 		 * event has been sent by the window manager, it will allways return
