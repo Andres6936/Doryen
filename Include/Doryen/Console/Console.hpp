@@ -217,16 +217,7 @@ namespace Doryen
         /**
          * @return returns true if the current mode is fullscreen.
          */
-        static bool isFullscreen( );
-
-		/**
-		 * Dynamically changes the title of the game window.
-		 *
-		 * @note Note that the window title is not visible while in fullscreen.
-		 *
-		 * @param _title New title of the game window.
-		 */
-		static void setWindowTitle(const std::string& _title);
+		bool isFullscreen();
 
 		/**
 		 * When you start the program, this returns true. Once a "close window"
@@ -237,27 +228,6 @@ namespace Doryen
 		 */
 		bool isRunning();
 
-		/**
-		 * @brief Setting the default background color.
-		 *
-		 * Changes the default background color for a console. The default
-		 * background color is used by several drawing functions like
-		 * clear, putChar, ...
-		 *
-		 * @param back the new default background color for this console.
-		 */
-		void setDefaultBackground(const Color& back);
-
-		/**
-		 * Changes the default foreground color for a console.
-		 *
-		 * The default foreground color is used by several drawing function
-		 * like clear, putChar, ...
-		 *
-		 * @param fore the new default foreground color for this console.
-		 */
-		void setDefaultForeground(const Color& fore);
-
         /**
          * Modifies all cells of a console :
          *
@@ -266,33 +236,6 @@ namespace Doryen
          * 3- Set the cell's ASCII code to 32 (space).
          */
         void clear( );
-
-        /**
-         * @brief Setting the background color of a cell.
-         *
-         * Modifies the background color of a cell, leaving other properties
-         * (foreground color and ASCII code) unchanged.
-         *
-         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-         * @param col the background color to use. You can use color constants.
-         * @param flag this flag defines how the cell's background color is modified.
-         *
-         * @see TCOD_bkgnd_flag_t
-         */
-		void setCellBackground(int x, int y, const Doryen::Color& col, BlendModes flag = BlendModes::SET);
-
-		/**
-		 * @brief Setting the background color of a cell.
-		 *
-		 * This function modifies the foreground color of a cell, leaving other
-		 * properties (background color and ASCII code) unchanged.
-		 *
-		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
-         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
-		 * @param col the foreground color to use. You can use color constants.
-		 */
-		void setCellForeground(int x, int y, const Doryen::Color& col);
 
 		/**
 		 * @brief Setting every property of a cell using default colors
@@ -454,38 +397,15 @@ namespace Doryen
 		void drawWindowFrame(int x, int y, int w, int h, bool clear = true, BlendModes flag = BlendModes::DEFAULT,
 				const std::string& name = "");
 
-        /**
-         * @brief Use these functions to easily fade to/from a color.
-         *
-         * This function defines the fading parameters, allowing to easily fade
-         * the game screen to/from a color. Once they are defined, the fading
-         * parameters are valid for ever. You don't have to call setFade for
-         * each rendered frame (unless you change the fading parameters).
-         *
-         * @param val the fading amount. 0 => the screen is filled with the
-         *  fading color. 255 => no fading effect.
-         *
-         * @param fade the color to use during the console flushing operation.
-         *
-         * @example
-         * @code
-         *  for (int fade = 255; fade >= 0; --fade) {
-         *  	console.setFade(fade, Palette::Red);
-         *  	console.draw();
-         *  }
-         *  @endcode
-         */
-		static void setFade(short val, const Doryen::Color& fade);
-
-        /**
-         * Once the root console is initialized, you can use one of the
-         * printing functions to change the background colors, the foreground
-         * colors or the ASCII characters on the console.
-         *
-         * Once you've finished rendering the root console, you have to
-         * actually apply the updates to the screen with this function.
-         */
-		static void draw();
+		/**
+		 * Once the root console is initialized, you can use one of the
+		 * printing functions to change the background colors, the foreground
+		 * colors or the ASCII characters on the console.
+		 *
+		 * Once you've finished rendering the root console, you have to
+		 * actually apply the updates to the screen with this function.
+		 */
+		void draw();
 
 		/**
 		 * Waits for the user to press a key.
@@ -535,28 +455,7 @@ namespace Doryen
 		void blit(const Geometry::Point2D<>& source, Console& destination,
 				const Geometry::Point2D<>& dest, float foregroundAlpha = 1.0f, float backgroundAlpha = 1.0f);
 
-		/**
-		 * Force the re-draw of cells that is into of rectangle.
-		 */
-		void setDirty(int x, int y, int w, int h);
-
 		void showCursor(bool show);
-
-		/**
-         * @brief  Allows you to limit the number of frames per second.
-         *
-         * If a frame is rendered faster than expected, the Console::flush
-         * function will wait so that the frame rate never exceed this value.
-         *
-         * @note You can call this function during your game initialization.
-         * @note You can dynamically change the frame rate. Just call this function
-         * once again.
-         * @note You should always limit the frame rate, except during benchmarks,
-         * else your game will use 100% of the CPU power
-         *
-         * @param val Maximum number of frames per second. 0 means unlimited frame rate.
-         */
-		void setFramePerSeconds(std::uint8_t _fps);
 
 		void unregisterCallback() const;
 
@@ -686,6 +585,109 @@ namespace Doryen
 		 * @return the foreground color of a cell.
 		 */
 		const Color& getCellForeground(int x, int y) const;
+
+		// Setters
+
+		/**
+		 * Force the re-draw of cells that is into of rectangle.
+		 */
+		void setDirty(int x, int y, int w, int h);
+
+		/**
+         * @brief  Allows you to limit the number of frames per second.
+         *
+         * If a frame is rendered faster than expected, the Console::flush
+         * function will wait so that the frame rate never exceed this value.
+         *
+         * @note You can call this function during your game initialization.
+         * @note You can dynamically change the frame rate. Just call this function
+         * once again.
+         * @note You should always limit the frame rate, except during benchmarks,
+         * else your game will use 100% of the CPU power
+         *
+         * @param val Maximum number of frames per second. 0 means unlimited frame rate.
+         */
+		void setFramePerSeconds(std::uint8_t _fps);
+
+		/**
+		 * Dynamically changes the title of the game window.
+		 *
+		 * @note Note that the window title is not visible while in fullscreen.
+		 *
+		 * @param _title New title of the game window.
+		 */
+		void setWindowTitle(const std::string& _title);
+
+		/**
+         * @brief Use these functions to easily fade to/from a color.
+         *
+         * This function defines the fading parameters, allowing to easily fade
+         * the game screen to/from a color. Once they are defined, the fading
+         * parameters are valid for ever. You don't have to call setFade for
+         * each rendered frame (unless you change the fading parameters).
+         *
+         * @param val the fading amount. 0 => the screen is filled with the
+         *  fading color. 255 => no fading effect.
+         *
+         * @param fade the color to use during the console flushing operation.
+         *
+         * @example
+         * @code
+         *  for (int fade = 255; fade >= 0; --fade) {
+         *  	console.setFade(fade, Palette::Red);
+         *  	console.draw();
+         *  }
+         *  @endcode
+         */
+		void setFade(short val, const Doryen::Color& fade);
+
+		/**
+		 * @brief Setting the default background color.
+		 *
+		 * Changes the default background color for a console. The default
+		 * background color is used by several drawing functions like
+		 * clear, putChar, ...
+		 *
+		 * @param back the new default background color for this console.
+		 */
+		void setDefaultBackground(const Color& back);
+
+		/**
+		 * Changes the default foreground color for a console.
+		 *
+		 * The default foreground color is used by several drawing function
+		 * like clear, putChar, ...
+		 *
+		 * @param fore the new default foreground color for this console.
+		 */
+		void setDefaultForeground(const Color& fore);
+
+		/**
+		 * @brief Setting the background color of a cell.
+		 *
+		 * This function modifies the foreground color of a cell, leaving other
+		 * properties (background color and ASCII code) unchanged.
+		 *
+		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+		 * @param col the foreground color to use. You can use color constants.
+		 */
+		void setCellForeground(int x, int y, const Doryen::Color& col);
+
+		/**
+         * @brief Setting the background color of a cell.
+         *
+         * Modifies the background color of a cell, leaving other properties
+         * (foreground color and ASCII code) unchanged.
+         *
+         * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
+         * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
+         * @param col the background color to use. You can use color constants.
+         * @param flag this flag defines how the cell's background color is modified.
+         *
+         * @see TCOD_bkgnd_flag_t
+         */
+		void setCellBackground(int x, int y, const Doryen::Color& col, BlendModes flag = BlendModes::SET);
 
 	};
 }
