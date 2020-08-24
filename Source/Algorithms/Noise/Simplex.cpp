@@ -510,6 +510,3 @@ class Doryen::Algorithms::Simplex<2>;
 
 template
 class Doryen::Algorithms::Simplex<3>;
-
-template
-class Doryen::Algorithms::Simplex<4>;

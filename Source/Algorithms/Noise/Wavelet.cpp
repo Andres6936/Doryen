@@ -223,6 +223,3 @@ class Doryen::Algorithms::Wavelet<2>;
 
 template
 class Doryen::Algorithms::Wavelet<3>;
-
-template
-class Doryen::Algorithms::Wavelet<4>;

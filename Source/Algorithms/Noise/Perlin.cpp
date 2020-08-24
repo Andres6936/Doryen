@@ -180,6 +180,3 @@ class Doryen::Algorithms::Perlin<2>;
 
 template
 class Doryen::Algorithms::Perlin<3>;
-
-template
-class Doryen::Algorithms::Perlin<4>;
