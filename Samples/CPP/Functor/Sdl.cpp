@@ -41,8 +41,8 @@ void Functor::SDL::drawBackground() const
 {
 	// Use noise sample as background.
 	// Rendering is done in SampleRenderer
-	sample.setDefaultBackground(Palette::PRIMARY);
-	sample.setDefaultForeground(Palette::BASE_LIGHTEST);
+	sample.setBackgroundColor(Palette::PRIMARY);
+	sample.setForegroundColor(Palette::BASE_LIGHTEST);
 
 	sample.clear();
 }

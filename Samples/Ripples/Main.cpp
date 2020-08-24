@@ -83,7 +83,7 @@ void render(Console& console) {
 	rippleManager->renderRipples(ground, ground2);
 	ground2->blit2x(console, 0, 0);
 
-	console.setDefaultForeground(Palette::GRAY_WARN_1);
+	console.setForegroundColor(Palette::GRAY_WARN_1);
 	console.write(3, 49, "Click in water to trigger ripples");
 }
 

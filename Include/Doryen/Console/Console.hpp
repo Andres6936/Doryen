@@ -565,26 +565,26 @@ namespace Doryen
 		/**
 		 * @return the default background color of a console.
 		 */
-		const Color& getDefaultBackground() const;
+		const Color& getBackgroundColor() const;
 
 		/**
 		 * @return the default foreground color of a console.
 		 */
-		const Color& getDefaultForeground() const;
+		const Color& getForegroundColor() const;
 
 		/**
 		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
 		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @return the background color of a cell.
 		 */
-		const Color& getCellBackground(int x, int y) const;
+		const Color& getCellBackgroundColor(int x, int y) const;
 
 		/**
 		 * @param x coordinates in x of the cell in the console. 0 <= x <= console width.
 		 * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @return the foreground color of a cell.
 		 */
-		const Color& getCellForeground(int x, int y) const;
+		const Color& getCellForegroundColor(int x, int y) const;
 
 		// Setters
 
@@ -650,7 +650,7 @@ namespace Doryen
 		 *
 		 * @param back the new default background color for this console.
 		 */
-		void setDefaultBackground(const Color& back);
+		void setBackgroundColor(const Color& back);
 
 		/**
 		 * Changes the default foreground color for a console.
@@ -660,7 +660,7 @@ namespace Doryen
 		 *
 		 * @param fore the new default foreground color for this console.
 		 */
-		void setDefaultForeground(const Color& fore);
+		void setForegroundColor(const Color& fore);
 
 		/**
 		 * @brief Setting the background color of a cell.
@@ -672,7 +672,7 @@ namespace Doryen
          * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @param col the foreground color to use. You can use color constants.
 		 */
-		void setCellForeground(int x, int y, const Doryen::Color& col);
+		void setCellForegroundColor(int x, int y, const Doryen::Color& col);
 
 		/**
          * @brief Setting the background color of a cell.
@@ -687,7 +687,7 @@ namespace Doryen
          *
          * @see TCOD_bkgnd_flag_t
          */
-		void setCellBackground(int x, int y, const Doryen::Color& col, BlendModes flag = BlendModes::SET);
+		void setCellBackgroundColor(int x, int y, const Doryen::Color& col, BlendModes flag = BlendModes::SET);
 
 	};
 }

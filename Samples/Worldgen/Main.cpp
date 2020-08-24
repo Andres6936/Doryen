@@ -97,7 +97,7 @@ void render(Console& console)
 
 	map.blit2x(console, 0, 0);
 
-	console.setDefaultForeground(Palette::GRAY_WARN_1);
+	console.setForegroundColor(Palette::GRAY_WARN_1);
 	static const char* biomeNames[] = {
 			"Tundra", "Cold desert", "Grassland", "Boreal forest",
 			"Temperate forest", "Tropical/Montane forest",

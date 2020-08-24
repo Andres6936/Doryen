@@ -41,7 +41,7 @@ void Functor::Noise::switchNoise(const KeyCode& key)
 
 void Functor::Noise::drawTextNoiseRender()
 {
-	sample.setDefaultForeground(Palette::GRAY_WARN_1);
+	sample.setForegroundColor(Palette::GRAY_WARN_1);
 
 	for (int i = 0; i < funcName.size(); ++i)
 	{
@@ -125,13 +125,13 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 	img->blit2x(sample, 0, 0);
 
 	// draw a transparent rectangle
-	sample.setDefaultBackground(Palette::GRAY_WARN_90);
+	sample.setBackgroundColor(Palette::GRAY_WARN_90);
 	sample.drawFillRect(2, 2, 23, 10, false, Doryen::BlendModes::SET);
 
 	drawTextNoiseRender();
 
 	// draw parameters
-	sample.setDefaultForeground(Palette::GRAY_WARN_1);
+	sample.setForegroundColor(Palette::GRAY_WARN_1);
 	sample.write(2, 11, format("Y/H : zoom {2.1f}         ", zoom));
 	if (func > NoiseRender::WAVELET)
 	{

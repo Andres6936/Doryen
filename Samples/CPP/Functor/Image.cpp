@@ -22,7 +22,7 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 		circle = new Doryen::Image("Data/img/circle.png");
 	}
 
-	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_90);
+	sample.setBackgroundColor(Doryen::Palette::GRAY_WARN_90);
 	sample.clear();
 	float x = sample.getWidth() / 2 + cosf(sample.getElapsedSeconds()) * 10.0f;
 	float y = (float)(sample.getHeight() / 2);
@@ -34,15 +34,15 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	{
 		// split the color channels of circle.png
 		// the red channel
-		sample.setDefaultBackground(Doryen::Palette::RED);
+		sample.setBackgroundColor(Doryen::Palette::RED);
 		sample.drawFillRect(0, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 0, 3, -1, -1, BlendModes::MULTIPLY);
 		// the green channel
-		sample.setDefaultBackground(green);
+		sample.setBackgroundColor(green);
 		sample.drawFillRect(15, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 15, 3, -1, -1, BlendModes::MULTIPLY);
 		// the blue channel
-		sample.setDefaultBackground(blue);
+		sample.setBackgroundColor(blue);
 		sample.drawFillRect(30, 3, 15, 15, false, Doryen::BlendModes::SET);
 		circle->blitRect(sample, 30, 3, -1, -1, BlendModes::MULTIPLY);
 	}

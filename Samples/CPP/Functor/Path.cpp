@@ -56,7 +56,7 @@ void Functor::Path::drawDungeon()
 		{
 			if (dungeon[y][x] == '#')
 			{
-				sample.setCellBackground(x, y, Palette::PRIMARY_DARK, BlendModes::SET);
+				sample.setCellBackgroundColor(x, y, Palette::PRIMARY_DARK, BlendModes::SET);
 			}
 			else if (dungeon[y][x] == '=')
 			{
@@ -65,7 +65,7 @@ void Functor::Path::drawDungeon()
 			}
 			else
 			{
-				sample.setCellBackground(x, y, Palette::PRIMARY_VIVID, BlendModes::SET);
+				sample.setCellBackgroundColor(x, y, Palette::PRIMARY_VIVID, BlendModes::SET);
 			}
 		}
 	}
@@ -128,7 +128,7 @@ void Functor::Path::render(KeyCode key, const Mouse& mouse)
 			{
 				point = AStar.getPoint2DAt(i);
 
-				sample.setCellBackground(point.x, point.y, Palette::YELLOW, Doryen::BlendModes::SET);
+				sample.setCellBackgroundColor(point.x, point.y, Palette::YELLOW, Doryen::BlendModes::SET);
 			}
 			catch (Doryen::Exceptions::IllegalMethodCall& e)
 			{
@@ -262,7 +262,7 @@ void Functor::Path::drawDestinationPoint()
 
 void Functor::Path::drawHelpMessage()
 {
-	sample.setDefaultForeground(Palette::GRAY_WARN_1);
+	sample.setForegroundColor(Palette::GRAY_WARN_1);
 
 	sample.write(1, 1, "WASD / Mouse :");
 	sample.write(1, 2, "Move Destination");

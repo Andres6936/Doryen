@@ -290,7 +290,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			int conX = destination.x + (cx - source.x) / 2;
 			int conY = destination.y + (cy - source.y) / 2;
 
-			Color consoleBackground = dest.getCellBackground(conX, conY);
+			Color consoleBackground = dest.getCellBackgroundColor(conX, conY);
 
 			std::array<Color, 4> grid;
 
@@ -351,21 +351,21 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			if (numberColors == 1)
 			{
 				// Single Color
-				dest.setCellBackground(conX, conY, cols.at(0), BlendModes::SET);
+				dest.setCellBackgroundColor(conX, conY, cols.at(0), BlendModes::SET);
 				dest.writeChar(conX, conY, ' ');
 			}
 			else
 			{
 				if (ASCII >= 0)
 				{
-					dest.setDefaultBackground(cols.at(0));
-					dest.setDefaultForeground(cols.at(1));
+					dest.setBackgroundColor(cols.at(0));
+					dest.setForegroundColor(cols.at(1));
 					dest.writeChar(conX, conY, ASCII, BlendModes::SET);
 				}
 				else
 				{
-					dest.setDefaultBackground(cols.at(1));
-					dest.setDefaultForeground(cols.at(0));
+					dest.setBackgroundColor(cols.at(1));
+					dest.setForegroundColor(cols.at(0));
 					dest.writeChar(conX, conY, -ASCII, BlendModes::SET);
 				}
 			}
@@ -412,7 +412,7 @@ Image::blit(Console& _console,
 
 				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
 				{
-					_console.setCellBackground(cx, cy, color, _flag);
+					_console.setCellBackgroundColor(cx, cy, color, _flag);
 				}
 			}
 		}
@@ -489,7 +489,7 @@ Image::blit(Console& _console,
 						color = imageData.getMipmapPixel(_point0, _point1);
 					}
 
-					_console.setCellBackground(cx, cy, color, _flag);
+					_console.setCellBackgroundColor(cx, cy, color, _flag);
 				}
 			}
 		}

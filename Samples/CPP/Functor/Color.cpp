@@ -63,13 +63,13 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 			float ycoef = (float)(y) / (sample.getHeight() - 1);
 			// get the current cell color
 			Doryen::Color curColor = Doryen::Color::lerp(top, bottom, ycoef);
-			sample.setCellBackground(x, y, curColor, Doryen::BlendModes::SET);
+			sample.setCellBackgroundColor(x, y, curColor, Doryen::BlendModes::SET);
 		}
 	}
 
 	// ==== print the text with a random color ====
 	// get the background color at the text position
-	Doryen::Color textColor = sample.getCellBackground(sample.getWidth() / 2, 5);
+	Doryen::Color textColor = sample.getCellBackgroundColor(sample.getWidth() / 2, 5);
 	// and invert it
 	textColor.r = 255 - textColor.r;
 	textColor.g = 255 - textColor.g;
@@ -80,7 +80,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		for (int y = 0; y < sample.getHeight(); y++)
 		{
 			int c;
-			Doryen::Color col = sample.getCellBackground(x, y);
+			Doryen::Color col = sample.getCellBackgroundColor(x, y);
 			col = Doryen::Color::lerp(col, Doryen::Palette::GRAY_WARN_90, 0.5f);
 			// use colored character 255 on first and last lines
 			if (y == 0 || y == sample.getHeight() - 1)
@@ -92,13 +92,13 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 				c = Random::Number::nextInteger('a', 'z');
 			}
 
-			sample.setDefaultForeground(col);
+			sample.setForegroundColor(col);
 			sample.writeChar(x, y, c, Doryen::BlendModes::NONE);
 		}
 	}
-	sample.setDefaultForeground(textColor);
+	sample.setForegroundColor(textColor);
 	// the background behind the text is slightly darkened using the BKGND_MULTIPLY flag
-	sample.setDefaultBackground(Doryen::Palette::GRAY_WARN_30);
+	sample.setBackgroundColor(Doryen::Palette::GRAY_WARN_30);
 	sample.writeText(sample.getWidth() / 2, 5, sample.getWidth() - 2,
 			sample.getHeight() - 1, BlendModes::MULTIPLY, 1,
 			"The Doryen library uses 24 bits colors, for both background and foreground.");

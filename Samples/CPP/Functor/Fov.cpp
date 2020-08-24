@@ -45,7 +45,7 @@ void Functor::FOV::prepareInstanceOfMap()
 
 void Functor::FOV::drawTextHelp()
 {
-	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
+	sample.setForegroundColor(Doryen::Palette::GRAY_WARN_1);
 	sample.write(1, 0, "IJKL : move around");
 	sample.write(1, 1, format("T : torch fx {}", torch ? "ON " : "OFF"));
 	sample.write(1, 2, format("W : light walls {}", light_walls ? "ON " : "OFF"));
@@ -54,7 +54,7 @@ void Functor::FOV::drawTextHelp()
 
 void Functor::FOV::drawPlayer()
 {
-	sample.setDefaultForeground(Doryen::Palette::GRAY_WARN_1);
+	sample.setForegroundColor(Doryen::Palette::GRAY_WARN_1);
 	sample.writeChar(playerX, playerY, '@', BlendModes::SET);
 }
 
@@ -87,7 +87,7 @@ void Functor::FOV::drawDungeon()
 			bool wall = dungeon[y][x] == '#';
 			if (!visible)
 			{
-				sample.setCellBackground(x, y, wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID,
+				sample.setCellBackgroundColor(x, y, wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID,
 						BlendModes::SET);
 			}
 			else
@@ -122,7 +122,7 @@ void Functor::FOV::drawDungeon()
 					}
 					light = base;
 				}
-				sample.setCellBackground(x, y, light, Doryen::BlendModes::SET);
+				sample.setCellBackgroundColor(x, y, light, Doryen::BlendModes::SET);
 			}
 
 			// Draw the window

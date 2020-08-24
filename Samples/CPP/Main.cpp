@@ -47,7 +47,7 @@ std::array<std::unique_ptr<Functor::ISample>, 10> configureExamples(std::referen
 
 void drawHelpMessages(Console& console)
 {
-	console.setDefaultForeground(Palette::GRAY_WARN_30);
+	console.setForegroundColor(Palette::GRAY_WARN_30);
 
 	const std::string lastFrame = format("Last Frame : {>2.0f} ms ({} fps)",
 			console.getLastFrameLength() * 1000,
@@ -100,14 +100,14 @@ int main(int argc, char* argv[])
 			if (i == curSample)
 			{
 				// set colors for currently selected sample
-				console.setDefaultForeground(Palette::GRAY_WARN_1);
-				console.setDefaultBackground(Palette::PRIMARY_LIGHT);
+				console.setForegroundColor(Palette::GRAY_WARN_1);
+				console.setBackgroundColor(Palette::PRIMARY_LIGHT);
 			}
 			else
 			{
 				// set colors for other samples
-				console.setDefaultForeground(Palette::GRAY_WARN_30);
-				console.setDefaultBackground(Palette::GRAY_WARN_90);
+				console.setForegroundColor(Palette::GRAY_WARN_30);
+				console.setBackgroundColor(Palette::GRAY_WARN_90);
 			}
 
 			// print the sample name

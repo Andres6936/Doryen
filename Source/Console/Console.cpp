@@ -225,7 +225,7 @@ std::uint32_t Doryen::Console::getHeight() const
 	}
 }
 
-const Doryen::Color& Doryen::Console::getDefaultForeground() const
+const Doryen::Color& Doryen::Console::getForegroundColor() const
 {
 	if (isConsoleRoot)
 	{
@@ -237,7 +237,7 @@ const Doryen::Color& Doryen::Console::getDefaultForeground() const
 	}
 }
 
-const Doryen::Color& Doryen::Console::getDefaultBackground() const
+const Doryen::Color& Doryen::Console::getBackgroundColor() const
 {
 	if (isConsoleRoot)
 	{
@@ -249,7 +249,7 @@ const Doryen::Color& Doryen::Console::getDefaultBackground() const
 	}
 }
 
-void Doryen::Console::setDefaultBackground(const Color& back)
+void Doryen::Console::setBackgroundColor(const Color& back)
 {
 	if (isConsoleRoot)
 	{
@@ -261,7 +261,7 @@ void Doryen::Console::setDefaultBackground(const Color& back)
 	}
 }
 
-void Doryen::Console::setDefaultForeground(const Color& fore)
+void Doryen::Console::setForegroundColor(const Color& fore)
 {
 	if (isConsoleRoot)
 	{
@@ -404,7 +404,7 @@ void Doryen::Console::clear()
 	}
 }
 
-const Doryen::Color& Doryen::Console::getCellBackground(int x, int y) const
+const Doryen::Color& Doryen::Console::getCellBackgroundColor(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -427,7 +427,7 @@ const Doryen::Color& Doryen::Console::getCellBackground(int x, int y) const
 	}
 }
 
-void Doryen::Console::setCellForeground(int x, int y, const Doryen::Color& col)
+void Doryen::Console::setCellForegroundColor(int x, int y, const Doryen::Color& col)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -450,7 +450,7 @@ void Doryen::Console::setCellForeground(int x, int y, const Doryen::Color& col)
 	}
 }
 
-const Doryen::Color& Doryen::Console::getCellForeground(int x, int y) const
+const Doryen::Color& Doryen::Console::getCellForegroundColor(int x, int y) const
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -496,7 +496,7 @@ int Doryen::Console::getCellCode(int x, int y) const
 	}
 }
 
-void Doryen::Console::setCellBackground(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
+void Doryen::Console::setCellBackgroundColor(int x, int y, const Doryen::Color& col, Doryen::BlendModes flag)
 {
 	// Asserts
 	if (x < 0 || y < 0)
@@ -602,7 +602,7 @@ void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, Ble
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					setCellBackground(cx, cy, renderer->getBackground(), flag);
+					setCellBackgroundColor(cx, cy, renderer->getBackground(), flag);
 
 					if (clear)
 					{
@@ -636,7 +636,7 @@ void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, Ble
 			{
 				for (int cy = first.y; cy < first.y + second.y; ++cy)
 				{
-					setCellBackground(cx, cy, background, flag);
+					setCellBackgroundColor(cx, cy, background, flag);
 
 					if (clear)
 					{
@@ -939,8 +939,8 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			else
 			{
 				dstChar.setCharacter(destination.getCellCode(dest.x, dest.y));
-				dstChar.setBackground(destination.getCellBackground(dest.x, dest.y));
-				dstChar.setForeground(destination.getCellForeground(dest.x, dest.y));
+				dstChar.setBackground(destination.getCellBackgroundColor(dest.x, dest.y));
+				dstChar.setForeground(destination.getCellForegroundColor(dest.x, dest.y));
 
 				dstChar.setBackground(Color::lerp(dstChar.getBackground(),
 						srcChar.getBackground(), backgroundAlpha));

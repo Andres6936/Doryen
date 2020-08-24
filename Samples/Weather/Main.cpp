@@ -140,11 +140,11 @@ void render(Console& root)
 				}
 
 				root.writeChar(x, y, '/');
-				root.setCellForeground(x, y, col);
+				root.setCellForegroundColor(x, y, col);
 			}
 		}
 	}
-	root.setDefaultForeground(Palette::GRAY_WARN_1);
+	root.setForegroundColor(Palette::GRAY_WARN_1);
 
 	root.write(5, CON_H - 12, "Doryen Weather System:");
 	root.write(5, CON_H - 11, "- Wind with varying speed and direction");

@@ -51,7 +51,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 				col.r = (uint8)(x * 255 / (sample.getWidth() - 1));
 				col.g = (uint8)((x + y) * 255 / (sample.getWidth() - 1 + sample.getHeight() - 1));
 				col.b = (uint8)(y * 255 / (sample.getHeight() - 1));
-				bk.setCellBackground(x, y, col, Doryen::BlendModes::SET);
+				bk.setCellBackgroundColor(x, y, col, Doryen::BlendModes::SET);
 			}
 		}
 		init = true;
@@ -69,9 +69,9 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 		col.g = (uint8)(x * 255 / sample.getWidth());
 		col.b = (uint8)(x * 255 / sample.getWidth());
 
-		sample.setCellBackground(x, recty, col, backFlag);
-		sample.setCellBackground(x, recty + 1, col, backFlag);
-		sample.setCellBackground(x, recty + 2, col, backFlag);
+		sample.setCellBackgroundColor(x, recty, col, backFlag);
+		sample.setCellBackgroundColor(x, recty + 1, col, backFlag);
+		sample.setCellBackgroundColor(x, recty + 2, col, backFlag);
 	}
 	// calculate the segment ends
 	float angle = sample.getElapsedSeconds() * 2.0f;

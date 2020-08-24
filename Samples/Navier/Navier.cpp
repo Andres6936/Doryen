@@ -331,7 +331,7 @@ void render(Console& root)
 
 	img.blit2x(root, 0, 0);
 
-	root.setDefaultForeground(Palette::GRAY_WARN_1);
+	root.setForegroundColor(Palette::GRAY_WARN_1);
 	root.write(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
 	root.writeChar(playerx, playery, '@');
 }
