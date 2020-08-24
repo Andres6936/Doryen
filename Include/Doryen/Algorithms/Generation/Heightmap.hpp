@@ -27,7 +27,8 @@
 #ifndef _TCOD_HEIGHTMAP_HPP
 #define _TCOD_HEIGHTMAP_HPP
 
-#include "Doryen/Doryen.hpp"
+#include <Doryen/Algorithms/Noise/Noise.hpp>
+
 #include <vector>
 
 namespace Doryen

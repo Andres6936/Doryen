@@ -26,6 +26,12 @@
 */
 
 #include <Doryen/Algorithms/Generation/Heightmap.hpp>
+#include <Doryen/Geometry/Point2D.hpp>
+#include <Doryen/Random/Number.hpp>
+
+#include <algorithm>
+#include <array>
+#include <cmath>
 
 Doryen::Heightmap::Heightmap(int w, int h)
 {
@@ -283,7 +289,7 @@ void Doryen::Heightmap::getNormal(float x, float y, float n[3], float waterLevel
 	n[2] = 16.0f;
 
 	// Normalize
-	invlen = 1.0f / (float)sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2]);
+	invlen = 1.0f / std::sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2]);
 
 	n[0] *= invlen;
 	n[1] *= invlen;
