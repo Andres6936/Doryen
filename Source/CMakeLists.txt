@@ -22,10 +22,24 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise
         $<INSTALL_INTERFACE:../Include/>
         )
 
+ADD_LIBRARY(Doryen.Algorithms.Heightmap
+        Algorithms/Generation/Heightmap.cpp
+        )
+
+ADD_LIBRARY(Doryen::Algorithms::Heightmap ALIAS Doryen.Algorithms.Heightmap)
+SET_TARGET_PROPERTIES(Doryen.Algorithms.Heightmap PROPERTIES CXX_STANDARD 17)
+# The generation of Heightmap depend of the generation of Noise
+# Thus, Heightmap Library depend of Noise Library
+# The relation of this two libraries is public
+TARGET_LINK_LIBRARIES(Doryen.Algorithms.Heightmap PUBLIC Doryen::Algorithms::Noise)
+TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
+        $<INSTALL_INTERFACE:../Include/>
+        )
 
 ADD_LIBRARY(Doryen.Framework
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
-        Algorithms/Generation/Heightmap.cpp
         Algorithms/Pathfinding/AStar.cpp
         Algorithms/Drawing/Bresenham.cpp
         Algorithms/Util/Cell.cpp
