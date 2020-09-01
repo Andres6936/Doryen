@@ -13,11 +13,13 @@ namespace Doryen
 		 * The Point2D class defines a point representing a location in (x,y)
 		 * coordinate space.
 		 *
-		 * @tparam T Arithmetic type: Integer, Real
+		 * @tparam T Arithmetic type: Integer, Real and Boolean
 		 */
 		template<typename T = std::int32_t>
 		class Point2D
 		{
+
+			static_assert(std::is_arithmetic_v<T>, "Only arithmetic types are allowed (Operations: +, -, /, *)");
 
 		public:
 
