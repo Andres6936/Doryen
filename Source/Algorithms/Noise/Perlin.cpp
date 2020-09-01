@@ -30,6 +30,8 @@
 #include "Doryen/Algorithms/Noise/Perlin.hpp"
 #include "Doryen/Algorithms/Noise/Noise.hpp"
 
+// https://www.scratchapixel.com/lessons/procedural-generation-virtual-worlds/perlin-noise-part-2/perlin-noise
+
 using namespace Doryen;
 using namespace Doryen::Algorithms;
 
