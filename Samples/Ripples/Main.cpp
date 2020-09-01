@@ -84,7 +84,7 @@ void render(Console& console) {
 	ground2->blit2x(console, 0, 0);
 
 	console.setForegroundColor(Palette::GRAY_WARN_1);
-	console.write(3, 49, "Click in water to trigger ripples");
+	console.writeString(3, 49, "Click in water to trigger ripples");
 }
 
 /**

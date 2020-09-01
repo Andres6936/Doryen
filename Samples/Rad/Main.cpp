@@ -220,8 +220,8 @@ void render(Doryen::Console& console)
 			console.setCellBackgroundColor(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}
-	console.write(1, 0, format("Standard lighting {.2f}fms", stdLength));
-	console.write((CON_WIDTH / 2) + 1, 0, format("Photon reactor {.2f}fms", radLength));
+	console.writeString(1, 0, format("Standard lighting {.2f}fms", stdLength));
+	console.writeString((CON_WIDTH / 2) + 1, 0, format("Photon reactor {.2f}fms", radLength));
 
 }
 

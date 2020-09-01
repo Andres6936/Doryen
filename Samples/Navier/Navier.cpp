@@ -332,7 +332,7 @@ void render(Console& root)
 	img.blit2x(root, 0, 0);
 
 	root.setForegroundColor(Palette::GRAY_WARN_1);
-	root.write(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
+	root.writeString(WIDTH - 10, 1, format("{4d} fps", root.getFramePerSeconds()));
 	root.writeChar(playerx, playery, '@');
 }
 
@@ -359,7 +359,7 @@ int main(int argc, char* argv[])
 		// render the game screen
 		render(console);
 
-		console.write(5, 49, "Arrows to move, left mouse button to cast");
+		console.writeString(5, 49, "Arrows to move, left mouse button to cast");
 
 		// flush updates to screen
 		console.draw();

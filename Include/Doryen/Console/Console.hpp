@@ -298,7 +298,7 @@ namespace Doryen
          * @param y coordinates in y of the cell in the console. 0 <= y <= console height.
 		 * @param fmt String to write in the console.
 		 */
-		void write(int x, int y, const std::string& fmt);
+		void writeString(int x, int y, const std::string& fmt);
 
 		/**
 		 * @brief Printing a string with specific alignment and background
@@ -329,7 +329,7 @@ namespace Doryen
 		 * @return The function returns the height (number of console lines) of
 		 *  the printed string.
 		 */
-		int writeText(int x, int y, int w, int h, BlendModes flag, int alignment, const char* fmt, ...);
+		int writeWrapText(int x, int y, int w, int h, BlendModes flag, int alignment, const char* fmt, ...);
 
 		/**
 		 * @brief Writing a string with default parameters and auto-wrap.
@@ -349,7 +349,7 @@ namespace Doryen
 		 * @param flag this flag defines how the cell's background color is modified.
 		 * @param text Text to draw in the area of rectangle.
 		 */
-		void writeText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size,
+		void writeWrapText(const Geometry::Point2D<>& coordinate, const Geometry::Size& size,
 				BlendModes flag, std::string_view text);
 
 		/**

@@ -264,11 +264,11 @@ void Functor::Path::drawHelpMessage()
 {
 	sample.setForegroundColor(Palette::GRAY_WARN_1);
 
-	sample.write(1, 1, "WASD / Mouse :");
-	sample.write(1, 2, "Move Destination");
-	sample.write(1, 3, "TAB : A*/dijkstra");
+	sample.writeString(1, 1, "WASD / Mouse :");
+	sample.writeString(1, 2, "Move Destination");
+	sample.writeString(1, 3, "TAB : A*/dijkstra");
 
-	sample.write(1, 4, format("Using : {}", usingAStar ? "A*" : "Dijkstra"));
+	sample.writeString(1, 4, format("Using : {}", usingAStar ? "A*" : "Dijkstra"));
 }
 
 bool Functor::Path::changeAlgorithm(KeyCode key)

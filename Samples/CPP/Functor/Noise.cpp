@@ -45,7 +45,7 @@ void Functor::Noise::drawTextNoiseRender()
 
 	for (int i = 0; i < funcName.size(); ++i)
 	{
-		sample.write(2, 2 + i, funcName[i]);
+		sample.writeString(2, 2 + i, funcName[i]);
 	}
 }
 
@@ -132,11 +132,11 @@ void Functor::Noise::render(KeyCode key, const Mouse& mouse)
 
 	// draw parameters
 	sample.setForegroundColor(Palette::GRAY_WARN_1);
-	sample.write(2, 11, format("Y/H : zoom {2.1f}         ", zoom));
+	sample.writeString(2, 11, format("Y/H : zoom {2.1f}         ", zoom));
 	if (func > NoiseRender::WAVELET)
 	{
-		sample.write(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
-		sample.write(2, 14, format("T/G : octaves {2.1f}", octaves));
+		sample.writeString(2, 13, format("R/F : lacunarity {2.1f}", lacunarity));
+		sample.writeString(2, 14, format("T/G : octaves {2.1f}", octaves));
 	}
 	// handle keypress
 	if (key == KeyCode::NONE) return;

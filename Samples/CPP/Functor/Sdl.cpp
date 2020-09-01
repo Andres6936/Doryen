@@ -49,5 +49,5 @@ void Functor::SDL::drawBackground() const
 
 void Functor::SDL::drawText() const
 {
-	sample.writeText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BlendModes::SET, text);
+	sample.writeWrapText({ 1, 3 }, { (int)sample.getWidth() - 1, 0 }, BlendModes::SET, text);
 }

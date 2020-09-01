@@ -432,13 +432,13 @@ void Doryen::Console::drawFrameTitle(std::string_view _title,
 	// Overflow caused for that the title is greater than length of frame
 	if (_title.size() > lengthFrame)
 	{
-		write(_start.x, _start.y, _title.data());
+		writeString(_start.x, _start.y, _title.data());
 		return;
 	}
 
 	// If not exit overflow, center the title
 	std::uint16_t centerX = (lengthFrame - _title.size()) / 2;
-	write(centerX, _start.y, _title.data());
+	writeString(centerX, _start.y, _title.data());
 }
 
 void Doryen::Console::drawWindowFrame(int x, int y, int w, int h, bool clear,
@@ -450,7 +450,7 @@ void Doryen::Console::drawWindowFrame(int x, int y, int w, int h, bool clear,
 }
 
 
-void Doryen::Console::write(int x, int y, const std::string& fmt)
+void Doryen::Console::writeString(int x, int y, const std::string& fmt)
 {
 //	va_list ap;
 //	TCOD_console_data_t* dat = (TCOD_console_data_t*)data;
@@ -467,7 +467,7 @@ void Doryen::Console::write(int x, int y, const std::string& fmt)
 	}
 }
 
-int Doryen::Console::writeText(int x, int y, int w, int h, BlendModes flag,
+int Doryen::Console::writeWrapText(int x, int y, int w, int h, BlendModes flag,
 		int alignment, const char* fmt, ...)
 {
 //	va_list ap;
@@ -612,7 +612,7 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 	return wrapText;
 }
 
-void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
+void Doryen::Console::writeWrapText(const Geometry::Point2D<>& coordinate,
 		const Geometry::Size& size, BlendModes flag, std::string_view text)
 {
 	if (text.size() > size.w)
@@ -630,13 +630,13 @@ void Doryen::Console::writeText(const Geometry::Point2D<>& coordinate,
 				continue;
 			}
 
-			write(coordinate.x, currentY, _text);
+			writeString(coordinate.x, currentY, _text);
 			currentY += 1;
 		}
 	}
 	else
 	{
-		write(coordinate.x, coordinate.y, text.data());
+		writeString(coordinate.x, coordinate.y, text.data());
 	}
 }
 

@@ -107,13 +107,13 @@ void render(Console& console)
 	if (worldGen.isOnSea(mx, my))
 	{
 		// some information are irrelevant on sea
-		console.write(5, 47, format("Alt {5d}m\n\nMove the mouse to scroll the map",
+		console.writeString(5, 47, format("Alt {5d}m\n\nMove the mouse to scroll the map",
 				(int)worldGen.getRealAltitude(mx, my))
 		);
 	}
 	else
 	{
-		console.write(5, 47,
+		console.writeString(5, 47,
 				format("Alt {5d}m  Prec {3d}cm/sq. m/y  Temp {d} deg C\nBiome : {s}\nMove the mouse to scroll the map",
 						(int)worldGen.getRealAltitude(mx, my),
 						(int)worldGen.getPrecipitations(mx, my),

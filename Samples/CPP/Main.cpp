@@ -57,10 +57,10 @@ void drawHelpMessages(Console& console)
 			console.getElapsedMilliseconds(),
 			console.getElapsedSeconds());
 
-	console.write(50, 46, lastFrame);
-	console.write(50, 47, timeElapsed);
+	console.writeString(50, 46, lastFrame);
+	console.writeString(50, 47, timeElapsed);
 
-	console.write(2, 47, format("{c}{c} : Change of Sample", (char)24, (char)25));
+	console.writeString(2, 47, format("{c}{c} : Change of Sample", (char)24, (char)25));
 }
 
 int main(int argc, char* argv[])
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
 			}
 
 			// print the sample name
-			console.write(2, 46 - (samples.size() - i), samples[i]->getName());
+			console.writeString(2, 46 - (samples.size() - i), samples[i]->getName());
 		}
 
 		drawHelpMessages(console);
