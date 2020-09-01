@@ -10,24 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {
-              name: "Windows/Static/X86/Release",
-              os: windows-latest,
-              config: Release,
-              args: -G "Visual Studio 16 2019" -A Win32,
-            }
-          - {
-              name: "Windows/Static/X64/Release",
-              os: windows-latest,
-              config: Release,
-              args: -G "Visual Studio 16 2019" -A x64,
-            }
-          - {
-              name: "MacOSX/Static/X64/Release",
-              os: macos-latest,
-              config: Release,
-              args: "",
-            }
+          - { name: "Windows/Static/X86/Release", os: windows-latest, config: Release, args: -G "Visual Studio 16 2019" -A Win32 }
+          - { name: "Windows/Static/X64/Release", os: windows-latest, config: Release, args: -G "Visual Studio 16 2019" -A x64 }
+          - { name: "MacOSX/Static/X64/Release", os: macos-latest,    config: Release, args: "" }
+          - { name: "Ubuntu/Static/x64/Release", os: ubuntu-latest,   config: Release, args: "" }
     steps:
       - uses: actions/checkout@v2
       - name: Create Work Dir
