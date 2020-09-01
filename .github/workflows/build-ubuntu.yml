@@ -14,6 +14,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   Build:
+    name: ${{ matrix.name }} 
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
 
@@ -24,8 +25,7 @@ jobs:
         include:
           - name: ubuntu-18.04-gcc-9
             os: ubuntu-18.04
-            compiler: gcc
-            version: "9"
+            compiler: gcc-9
         
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install SDL 1.2.15
-        run: sudo apt install libsdl1.2-dev
+        run: sudo apt install ${{ matrix.compiler }} libsdl1.2-dev
 
       - name: Create the Build Directory
         run: mkdir Build
@@ -44,7 +44,7 @@ jobs:
       
       - name: Build
         working-directory: ./Build
-        run: cmake --build . -j 2 --config ${{ matrix.config.config }}
+        run: cmake --build . -j 2
       
       - name: Test
         working-directory: ./Build
