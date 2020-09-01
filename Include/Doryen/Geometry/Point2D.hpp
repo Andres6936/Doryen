@@ -69,7 +69,7 @@ namespace Doryen::Geometry
 		/**
 		 * @return the X coordinate of this Point2D.
 		 */
-		T getX() const
+		T getX() const noexcept
 		{
 			return x;
 		}
@@ -77,7 +77,7 @@ namespace Doryen::Geometry
 		/**
 		 * @return the Y coordinate of this Point2D.
 		 */
-		T getY() const
+		T getY() const noexcept
 		{
 			return y;
 		}
@@ -87,7 +87,7 @@ namespace Doryen::Geometry
 		/**
 		 * @param _x the new X coordinate of this Point2D
 		 */
-		void setX(T _x)
+		void setX(T _x) noexcept
 		{
 			x = _x;
 		}
@@ -95,7 +95,7 @@ namespace Doryen::Geometry
 		/**
 		 * @param _y the new Y coordinate of this Point2D
 		 */
-		void setY(T _y)
+		void setY(T _y) noexcept
 		{
 			y = _y;
 		}
