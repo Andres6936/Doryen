@@ -11,6 +11,9 @@ namespace Doryen::Geometry
 	 * The Point2D class defines a point representing a location in (x,y)
 	 * coordinate space.
 	 *
+	 * @note If arguments are not provided, default arguments initialize
+	 *  the point to (0, 0).
+	 *
 	 * @tparam T Arithmetic type: Integer, Real and Boolean
 	 */
 	template<typename T = std::int32_t>
@@ -23,17 +26,22 @@ namespace Doryen::Geometry
 
 		// Fields Public
 
-		T x;
-		T y;
+		T x{ 0 };
+		T y{ 0 };
 
 		// Constructs
 
-		Point2D() noexcept
-		{
-			x = T{};
-			y = T{};
-		}
+		/**
+		 * Initialize the point to (0, 0).
+		 */
+		Point2D() noexcept = default;
 
+		/**
+		 * The constructor initializes a new point with x and y coordinates.
+		 *
+		 * @param _x Coordinate in X.
+		 * @param _y Coordinate in Y.
+		 */
 		Point2D(T _x, T _y) noexcept
 		{
 			x = _x;
