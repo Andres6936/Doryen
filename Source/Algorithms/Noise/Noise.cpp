@@ -108,6 +108,3 @@ class Doryen::Noise<2>;
 
 template
 class Doryen::Noise<3>;
-
-template
-class Doryen::Noise<4>;
