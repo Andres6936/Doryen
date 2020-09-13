@@ -11,6 +11,12 @@ namespace Doryen
 		/**
 		 * The Size class encapsulates the width and height of a component (in
 		 * integer precision) in a single object.
+		 *
+		 * Normally the values of width and height are non-negative integers.
+		 * The constructors that allow you to create a dimension do not prevent
+		 * you from setting a negative value for these properties. If the value
+		 * of width or height is negative, the behavior of some methods defined
+		 * by other objects is undefined.
 		 */
 		class Size
 		{
