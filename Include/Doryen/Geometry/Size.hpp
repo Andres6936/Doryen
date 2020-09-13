@@ -9,7 +9,8 @@ namespace Doryen
 	{
 
 		/**
-		 * The Size class is to encapsulate a width and a height dimension.
+		 * The Size class encapsulates the width and height of a component (in
+		 * integer precision) in a single object.
 		 */
 		class Size
 		{
