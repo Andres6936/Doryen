@@ -325,9 +325,9 @@ void ImageSdl::createBitmapFrom(const Console& console)
 	// TODO: Implemented (Imposible, is needed use charmap)
 }
 
-SDL_Surface* ImageSdl::getRepresentation() const
+SDL_Surface* ImageSdl::getCopySurface() const
 {
-	return representation;
+	return SDL_ConvertSurface(representation, representation->format, SDL_SWSURFACE);
 }
 
 Geometry::Size ImageSdl::getSize() const
@@ -353,10 +353,10 @@ Geometry::Size ImageSdl::getSize() const
 	}
 }
 
-//ImageSdl::~ImageSdl()
-//{
-//	SDL_FreeSurface((SDL_Surface*)representation);
-//}
+ImageSdl::~ImageSdl()
+{
+//	SDL_FreeSurface(representation);
+}
 
 Color ImageSdl::getPixel(int x, int y) const
 {

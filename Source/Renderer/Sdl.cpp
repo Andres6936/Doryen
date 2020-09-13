@@ -114,13 +114,13 @@ void Doryen::SDL::onRenderer()
 
 void Doryen::SDL::loadFont()
 {
-	delete charmap;
+	SDL_FreeSurface(charmap);
 
 	bool isTransparent = false;
 
 	ImageSdl image = ImageSdl(getFontfile().c_str());
 
-	charmap = image.getRepresentation();
+	charmap = image.getCopySurface();
 
 	setFontWidth(charmap->w / getFontCharHorizontalSize());
 	setFontHeight(charmap->h / getFontCharVerticalSize());

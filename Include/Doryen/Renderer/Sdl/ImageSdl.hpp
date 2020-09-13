@@ -70,7 +70,7 @@ namespace Doryen
 
 		ImageSdl(unsigned int width, unsigned int heigth);
 
-//		virtual ~ImageSdl();
+		virtual ~ImageSdl();
 
 		explicit ImageSdl(const std::string& filename);
 
@@ -96,7 +96,7 @@ namespace Doryen
 
 		const Color& getMipmapPixel(const Pointf& _point0, const Pointf& _point1);
 
-		SDL_Surface* getRepresentation() const;
+		SDL_Surface* getCopySurface() const;
 
 		// Setters
 
