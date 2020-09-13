@@ -18,7 +18,7 @@ namespace Doryen
 	 * of an image or a vector that content a representation of pixels
 	 * that represent an image.
 	 */
-	class ImageData
+	class ImageSdl
 	{
 
 	private:
@@ -66,13 +66,13 @@ namespace Doryen
 
 	public:
 
-		ImageData() = default;
+		ImageSdl() = default;
 
-		ImageData(unsigned int width, unsigned int heigth);
+		ImageSdl(unsigned int width, unsigned int heigth);
 
-//		virtual ~ImageData();
+//		virtual ~ImageSdl();
 
-		explicit ImageData(const std::string& filename);
+		explicit ImageSdl(const std::string& filename);
 
 		static bool isTypeImageBMP(const std::string& filename);
 

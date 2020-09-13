@@ -61,7 +61,7 @@ ADD_LIBRARY(Doryen.Framework
         Image/PNG/ColorMode.cpp
         Image/PNG/Adler32.cpp
         Image/PNG/LodePNG.cpp
-        Image/ImageData.cpp
+        Image/ImageSdl.cpp
         Image/PNG/State.cpp
         Image/PNG/Info.cpp
         Image/Mipmap.cpp

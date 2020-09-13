@@ -30,7 +30,7 @@
 #include <array>
 #include <utility>
 
-#include "Doryen/Image/ImageData.hpp"
+#include "Doryen/Image/ImageSdl.hpp"
 
 namespace Doryen
 {
@@ -47,7 +47,7 @@ namespace Doryen
 
 	public:
 
-		ImageData imageData;
+		ImageSdl imageData;
 
 		/**
 		 * Creating an empty image.

@@ -163,7 +163,7 @@ void Doryen::SDL::loadFont()
 		// Convert to 24 bits
 //		std::cout << "Font BPP < 24 Bits." << "\n\tConverting to 24 Bits.\n";
 
-		SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, false);
+		SDL_Surface* temporal = ImageSdl::createNewSurface(charmap->w, charmap->h, false);
 		SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
 
 		delete charmap;
@@ -218,7 +218,7 @@ void Doryen::SDL::loadFont()
 
 //			std::cout << "32 Bits Font with No Alpha." << "\n\tConverting to Faster 24 Bits\n";
 
-			SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, false);
+			SDL_Surface* temporal = ImageSdl::createNewSurface(charmap->w, charmap->h, false);
 			SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
 
 			delete temporal;
@@ -280,7 +280,7 @@ void Doryen::SDL::loadFont()
 			// Convert to 32 bits
 //			std::cout << "24 Bits Greyscale Font." << "\n\tConverting to 32 Bits.\n";
 
-			SDL_Surface* temporal = ImageData::createNewSurface(charmap->w, charmap->h, true);
+			SDL_Surface* temporal = ImageSdl::createNewSurface(charmap->w, charmap->h, true);
 			SDL_BlitSurface(charmap, nullptr, temporal, nullptr);
 
 			delete charmap;
@@ -681,7 +681,7 @@ void Doryen::SDL::draw()
 
 	if (charmapBackup == nullptr)
 	{
-		charmapBackup = ImageData::createNewSurface(charmap->w, charmap->h, true);
+		charmapBackup = ImageSdl::createNewSurface(charmap->w, charmap->h, true);
 		SDL_BlitSurface(charmap, nullptr, charmapBackup, nullptr);
 	}
 

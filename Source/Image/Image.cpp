@@ -26,7 +26,7 @@
 */
 
 #include "Doryen/Image/Image.hpp"
-#include "Doryen/Image/ImageData.hpp"
+#include "Doryen/Image/ImageSdl.hpp"
 
 #include <cmath>
 
@@ -34,12 +34,12 @@ using namespace Doryen;
 
 Image::Image(int width, int height)
 {
-	imageData = ImageData(width, height);
+	imageData = ImageSdl(width, height);
 }
 
 Image::Image(const char* filename)
 {
-	imageData = ImageData(filename);
+	imageData = ImageSdl(filename);
 }
 
 Geometry::Size Image::getSize() const

@@ -4,12 +4,12 @@
 
 #include "Doryen/Console/Console.hpp"
 #include <Doryen/Image/PNG/State.hpp>
-#include "Doryen/Image/ImageData.hpp"
+#include "Doryen/Image/ImageSdl.hpp"
 #include "Doryen/Graphics/Color/Palette.hpp"
 
 using namespace Doryen;
 
-bool ImageData::isTypeImageBMP(const std::string& filename)
+bool ImageSdl::isTypeImageBMP(const std::string& filename)
 {
 	std::array<unsigned char, 2> magicNumber = { 0x42, 0x4d };
 	// Open file in mode of only read in mode binary
@@ -42,7 +42,7 @@ bool ImageData::isTypeImageBMP(const std::string& filename)
 	}
 }
 
-bool ImageData::isTypeImagePNG(const std::string& filename)
+bool ImageSdl::isTypeImagePNG(const std::string& filename)
 {
 	std::array<unsigned char, 8> magicNumber = { 137, 80, 78, 71, 13, 10, 26, 10 };
 	// Open file in mode of only read in mode binary
@@ -76,7 +76,7 @@ bool ImageData::isTypeImagePNG(const std::string& filename)
 	}
 }
 
-ImageData::ImageData(const std::string& filename)
+ImageSdl::ImageSdl(const std::string& filename)
 {
 	if (isTypeImageBMP(filename))
 	{
@@ -88,7 +88,7 @@ ImageData::ImageData(const std::string& filename)
 	}
 }
 
-void ImageData::readImageBMP(const std::string& filename)
+void ImageSdl::readImageBMP(const std::string& filename)
 {
 	representation = SDL_LoadBMP(filename.c_str());
 
@@ -126,7 +126,7 @@ void ImageData::readImageBMP(const std::string& filename)
 	}
 }
 
-void ImageData::readImagePNG(const std::string& filename)
+void ImageSdl::readImagePNG(const std::string& filename)
 {
 	size_t pngsize = 0;
 
@@ -213,7 +213,7 @@ void ImageData::readImagePNG(const std::string& filename)
 	}
 }
 
-SDL_Surface* ImageData::createNewSurface(
+SDL_Surface* ImageSdl::createNewSurface(
 		const unsigned int width,
 		const unsigned int height,
 		const bool alpha)
@@ -279,7 +279,7 @@ SDL_Surface* ImageData::createNewSurface(
 	return bitmap;
 }
 
-ImageData::ImageData(
+ImageSdl::ImageSdl(
 		unsigned int width,
 		unsigned int heigth)
 {
@@ -311,7 +311,7 @@ ImageData::ImageData(
 	}
 }
 
-void ImageData::createBitmapFrom(const Console& console)
+void ImageSdl::createBitmapFrom(const Console& console)
 {
 	unsigned int w = console.getWidth();
 	unsigned int h = console.getHeight();
@@ -325,12 +325,12 @@ void ImageData::createBitmapFrom(const Console& console)
 	// TODO: Implemented (Imposible, is needed use charmap)
 }
 
-SDL_Surface* ImageData::getRepresentation() const
+SDL_Surface* ImageSdl::getRepresentation() const
 {
 	return representation;
 }
 
-Geometry::Size ImageData::getSize() const
+Geometry::Size ImageSdl::getSize() const
 {
 	if (representation == nullptr)
 	{
@@ -353,12 +353,12 @@ Geometry::Size ImageData::getSize() const
 	}
 }
 
-//ImageData::~ImageData()
+//ImageSdl::~ImageSdl()
 //{
 //	SDL_FreeSurface((SDL_Surface*)representation);
 //}
 
-Color ImageData::getPixel(int x, int y) const
+Color ImageSdl::getPixel(int x, int y) const
 {
 	if (representation == nullptr)
 	{
@@ -411,7 +411,7 @@ Color ImageData::getPixel(int x, int y) const
 	}
 }
 
-bool ImageData::isInvariantSatisfied(int _x, int _y) const
+bool ImageSdl::isInvariantSatisfied(int _x, int _y) const
 {
 	if (mipmaps.empty()) return false;
 
@@ -420,7 +420,7 @@ bool ImageData::isInvariantSatisfied(int _x, int _y) const
 		   _y >= 0 and _y < mipmaps[0].height;
 }
 
-int ImageData::getAlpha(int x, int y) const
+int ImageSdl::getAlpha(int x, int y) const
 {
 	if (representation not_eq nullptr)
 	{
@@ -443,24 +443,24 @@ int ImageData::getAlpha(int x, int y) const
 	}
 }
 
-bool ImageData::isCoordinateInsideRange(int _x, int _y) const
+bool ImageSdl::isCoordinateInsideRange(int _x, int _y) const
 {
 	return _x >= 0 and _y >= 0 and
 		   _x < representation->w and
 		   _y < representation->h;
 }
 
-bool ImageData::isHasKeyColor() const
+bool ImageSdl::isHasKeyColor() const
 {
 	return hasKeyColor;
 }
 
-const Color& ImageData::getKeyColor() const
+const Color& ImageSdl::getKeyColor() const
 {
 	return keyColor;
 }
 
-const Color& ImageData::getMipmapPixel(
+const Color& ImageSdl::getMipmapPixel(
 		const Pointf& _point0,
 		const Pointf& _point1)
 {
@@ -524,7 +524,7 @@ const Color& ImageData::getMipmapPixel(
 	}
 }
 
-void ImageData::initMipmaps()
+void ImageSdl::initMipmaps()
 {
 	Geometry::Size size = getSize();
 	mipmaps.resize(Mipmap::getLevels(size.w, size.h));
@@ -559,7 +559,7 @@ void ImageData::initMipmaps()
 	mipmaps[0].dirty = false;
 }
 
-void ImageData::generateMip(int _mip)
+void ImageSdl::generateMip(int _mip)
 {
 	const Mipmap& origin = mipmaps.at(0);
 	Mipmap& current = mipmaps.at(_mip);
@@ -610,7 +610,7 @@ void ImageData::generateMip(int _mip)
 	}
 }
 
-void ImageData::setPixel(int x, int y, const Color& _color)
+void ImageSdl::setPixel(int x, int y, const Color& _color)
 {
 //	if (representation not_eq nullptr)
 	{
@@ -635,7 +635,7 @@ void ImageData::setPixel(int x, int y, const Color& _color)
 	}
 }
 
-void ImageData::setKeyColor(const Color& _keyColor)
+void ImageSdl::setKeyColor(const Color& _keyColor)
 {
 	keyColor = _keyColor;
 	hasKeyColor = true;
