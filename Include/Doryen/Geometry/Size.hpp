@@ -70,6 +70,42 @@ namespace Doryen
 			{
 				return !(*this < _rhs);
 			}
+
+			// Getters
+
+			/**
+			 * @return Returns the width of this Dimension in Integer precision.
+			 */
+			int getWidth() const noexcept
+			{
+				return w;
+			}
+
+			/**
+			 * @return Returns the height of this Dimension in Integer precision.
+			 */
+			int getHeight() const noexcept
+			{
+				return h;
+			}
+
+			// Setters
+
+			/**
+			 * @param _w Set the width of object to specified in the parameter.
+			 */
+			void setWidth(int _w) noexcept
+			{
+				w = _w;
+			}
+
+			/**
+			 * @param _h Set the height of object to specified in the parameter.
+			 */
+			void setHeight(int _h) noexcept
+			{
+				h = _h;
+			}
 		};
 
 	}
