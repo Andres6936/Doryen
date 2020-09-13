@@ -9,6 +9,15 @@
 namespace Doryen
 {
 
+	/**
+	 * In computer graphics, mipmaps (also MIP maps) or pyramids are pre-calculated,
+	 * optimized sequences of images, each of which is a progressively lower resolution
+	 * representation of the previous.
+	 *
+	 * The height and width of each image, or level, in the mipmap is a power of two
+	 * smaller than the previous level. Mipmaps do not have to be square. They are
+	 * intended to increase rendering speed and reduce aliasing artifacts.
+	 */
 	class Mipmap : public std::vector<Color>
 	{
 
