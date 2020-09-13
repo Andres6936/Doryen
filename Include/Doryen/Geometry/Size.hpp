@@ -27,12 +27,12 @@ namespace Doryen
 		public:
 
 			/**
-			 * Width
+			 * The width dimension; negative values can be used.
 			 */
 			std::int32_t w = 0;
 
 			/**
-			 * Height
+			 * The height dimension; negative values can be used.
 			 */
 			std::int32_t h = 0;
 
