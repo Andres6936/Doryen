@@ -34,6 +34,16 @@ namespace Doryen
 
 		// Static Methods
 
+		/**
+		 * Original size is: 92 x 40
+		 * 	Resize to: 46 x 20
+		 * 	Resize to: 23 x 10
+		 * 	Resize to: 11 x 5
+		 * 	Resize to: 5 x 2
+		 * 	Resize to: 2 x 1
+		 * 	Resize to: 1 x 0
+		 * End resize, total levels is: 6
+		 */
 		static unsigned int getLevels(
 				unsigned int width,
 				unsigned int height);
