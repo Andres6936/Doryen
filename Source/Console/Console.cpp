@@ -706,7 +706,7 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 			if (dx >= destination.getWidth() or dy >= destination.getHeight()) continue;
 
 			// See the documentation internal of initRoot method for see details of an
-			// buf produce for this method [blit]
+			// buffer produce for this method [blit]
 			// Actually, this method [blit] is free of bugs
 			destination.writeChar(dx, dy, dstChar.getCharacter(), dstChar.getForeground(), dstChar.getBackground());
 		}

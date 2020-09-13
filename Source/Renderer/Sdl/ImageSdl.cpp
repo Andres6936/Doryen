@@ -286,11 +286,11 @@ ImageSdl::ImageSdl(
 	mipmaps.resize(Mipmap::getLevels(width, heigth));
 
 	// Access to first element and resize the buffer of colors.
-	mipmaps.at(0).buf.resize(width * heigth);
+	mipmaps.at(0).resize(width * heigth);
 
 	for (int i = 0; i < width * heigth; ++i)
 	{
-		mipmaps.at(0).buf[i] = Palette::GRAY_WARN_90;
+		mipmaps.at(0)[i] = Palette::GRAY_WARN_90;
 	}
 
 	float fw = (float)width;
@@ -500,7 +500,7 @@ const Color& ImageSdl::getMipmapPixel(
 		int texelX = (int)(_point0.x * mipmaps[mip].width / mipmaps[0].fwidth);
 		int texelY = (int)(_point0.y * mipmaps[mip].height / mipmaps[0].fheight);
 
-		if (mipmaps[mip].buf.empty())
+		if (mipmaps[mip].empty())
 		{
 			generateMip(mip);
 		}
@@ -516,7 +516,7 @@ const Color& ImageSdl::getMipmapPixel(
 			return Palette::GRAY_WARN_90;
 		}
 
-		return mipmaps[mip].buf[texelX + mipmaps[mip].width * texelY];
+		return mipmaps[mip][texelX + mipmaps[mip].width * texelY];
 	}
 	else
 	{
@@ -528,13 +528,13 @@ void ImageSdl::initMipmaps()
 {
 	Geometry::Size size = getSize();
 	mipmaps.resize(Mipmap::getLevels(size.w, size.h));
-	mipmaps[0].buf.resize(size.w * size.h);
+	mipmaps[0].resize(size.w * size.h);
 
 	for (int x = 0; x < size.w; ++x)
 	{
 		for (int y = 0; y < size.h; ++y)
 		{
-			mipmaps[0].buf[x + size.w * y] = getPixel(x, y);
+			mipmaps[0][x + size.w * y] = getPixel(x, y);
 		}
 	}
 
@@ -564,9 +564,9 @@ void ImageSdl::generateMip(int _mip)
 	const Mipmap& origin = mipmaps.at(0);
 	Mipmap& current = mipmaps.at(_mip);
 
-	if (current.buf.empty())
+	if (current.empty())
 	{
-		current.buf.resize(current.width * current.height);
+		current.resize(current.width * current.height);
 	}
 
 	current.dirty = false;
@@ -591,9 +591,9 @@ void ImageSdl::generateMip(int _mip)
 					int offset = sx + origin.width * sy;
 					++count;
 
-					r += origin.buf.at(offset).r;
-					g += origin.buf.at(offset).g;
-					b += origin.buf.at(offset).b;
+					r += origin.at(offset).r;
+					g += origin.at(offset).g;
+					b += origin.at(offset).b;
 				}
 			}
 
@@ -601,7 +601,7 @@ void ImageSdl::generateMip(int _mip)
 			g /= count;
 			b /= count;
 
-			Color& color = current.buf.at(x + current.width * y);
+			Color& color = current.at(x + current.width * y);
 
 			color.r = (short)r;
 			color.g = (short)g;

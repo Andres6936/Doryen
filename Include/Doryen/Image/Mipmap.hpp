@@ -2,23 +2,23 @@
 #define LIBTCOD_PIXEL_HPP
 
 #include <vector>
+#include <cstdint>
 
 #include "Doryen/Graphics/Color/Color.hpp"
 
 namespace Doryen
 {
-	class Mipmap
+
+	class Mipmap : public std::vector<Color>
 	{
 
 	public:
 
-		unsigned int width = 0;
-		unsigned int height = 0;
+		std::uint32_t width = 0;
+		std::uint32_t height = 0;
 
 		float fwidth = 0.0f;
 		float fheight = 0.0f;
-
-		std::vector<Color> buf;
 
 		bool dirty = false;
 

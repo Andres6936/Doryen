@@ -2540,7 +2540,7 @@ static void Crc32_make_crc_table(void)
 	Crc32_crc_table_computed = 1;
 }
 
-/*Update a running CRC with the bytes buf[0..len-1]--the CRC should be
+/*Update a running CRC with the bytes buffer[0..len-1]--the CRC should be
 initialized to all 1's, and the transmitted value is the 1's complement of the
 final running CRC (see the crc() routine below).*/
 static unsigned Crc32_update_crc(const unsigned char* buf, unsigned crc, size_t len)
@@ -2557,7 +2557,7 @@ static unsigned Crc32_update_crc(const unsigned char* buf, unsigned crc, size_t 
 	return c;
 }
 
-/*Return the CRC of the bytes buf[0..len-1].*/
+/*Return the CRC of the bytes buffer[0..len-1].*/
 unsigned lodepng_crc32(const unsigned char* buf, size_t len)
 {
 	return Crc32_update_crc(buf, 0xffffffffL, len) ^ 0xffffffffL;
