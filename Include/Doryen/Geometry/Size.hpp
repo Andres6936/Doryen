@@ -35,11 +35,16 @@ namespace Doryen
 			 */
 			std::int32_t h = 0;
 
+			/**
+			 * Creates an instance of Dimension with a width of zero and a height of zero.
+			 */
 			Size() = default;
 
 			/**
-			 * @param _w Width
-			 * @param _h Height
+			 * Constructs a Dimension and initializes it to the specified width and specified height.
+			 *
+			 * @param _w Width of object.
+			 * @param _h Height of object.
 			 */
 			Size(std::int32_t _w, std::int32_t _h) noexcept
 			{
