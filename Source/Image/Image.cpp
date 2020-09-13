@@ -26,7 +26,7 @@
 */
 
 #include "Doryen/Image/Image.hpp"
-#include "Doryen/Image/ImageSdl.hpp"
+#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
 
 #include <cmath>
 

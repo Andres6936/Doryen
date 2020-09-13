@@ -4,7 +4,7 @@
 
 #include "Doryen/Console/Console.hpp"
 #include <Doryen/Image/PNG/State.hpp>
-#include "Doryen/Image/ImageSdl.hpp"
+#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
 #include "Doryen/Graphics/Color/Palette.hpp"
 
 using namespace Doryen;
