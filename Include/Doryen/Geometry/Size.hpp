@@ -3,6 +3,8 @@
 #ifndef LIBTCOD_SIZE_HPP
 #define LIBTCOD_SIZE_HPP
 
+#include <cstdint>
+
 namespace Doryen
 {
 	namespace Geometry
@@ -26,12 +28,12 @@ namespace Doryen
 			/**
 			 * Width
 			 */
-			int w = 0;
+			std::int32_t w = 0;
 
 			/**
 			 * Height
 			 */
-			int h = 0;
+			std::int32_t h = 0;
 
 			Size() = default;
 
@@ -39,7 +41,7 @@ namespace Doryen
 			 * @param _w Width
 			 * @param _h Height
 			 */
-			Size(int _w, int _h) noexcept
+			Size(std::int32_t _w, std::int32_t _h) noexcept
 			{
 				w = _w;
 				h = _h;
@@ -83,7 +85,7 @@ namespace Doryen
 			/**
 			 * @return Returns the width of this Dimension in Integer precision.
 			 */
-			int getWidth() const noexcept
+			std::int32_t getWidth() const noexcept
 			{
 				return w;
 			}
@@ -91,7 +93,7 @@ namespace Doryen
 			/**
 			 * @return Returns the height of this Dimension in Integer precision.
 			 */
-			int getHeight() const noexcept
+			std::int32_t getHeight() const noexcept
 			{
 				return h;
 			}
@@ -101,7 +103,7 @@ namespace Doryen
 			/**
 			 * @param _w Set the width of object to specified in the parameter.
 			 */
-			void setWidth(int _w) noexcept
+			void setWidth(std::int32_t _w) noexcept
 			{
 				w = _w;
 			}
@@ -109,7 +111,7 @@ namespace Doryen
 			/**
 			 * @param _h Set the height of object to specified in the parameter.
 			 */
-			void setHeight(int _h) noexcept
+			void setHeight(std::int32_t _h) noexcept
 			{
 				h = _h;
 			}
