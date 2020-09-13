@@ -54,6 +54,12 @@ namespace Doryen
 
 			// Methods
 
+			/**
+			 * Checks whether two dimension objects have equal values.
+			 *
+			 * @param _rhs Another object.
+			 * @return True if the properties (width and height) of the objects are the same.
+			 */
 			bool equals(const Size& _rhs) const noexcept
 			{
 				return this->w == _rhs.w and this->h == _rhs.h;
