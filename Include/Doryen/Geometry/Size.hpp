@@ -3,6 +3,7 @@
 #ifndef LIBTCOD_SIZE_HPP
 #define LIBTCOD_SIZE_HPP
 
+#include <string>
 #include <cstdint>
 
 namespace Doryen
@@ -50,6 +51,13 @@ namespace Doryen
 			{
 				w = _w;
 				h = _h;
+			}
+
+			// Debug
+
+			[[maybe_unused]] std::string toString() const
+			{
+				return { '{' + std::to_string(w) + " ," + std::to_string(h) + '}' };
 			}
 
 			// Methods
