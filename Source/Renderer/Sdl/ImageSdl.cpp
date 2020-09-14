@@ -279,35 +279,18 @@ SDL_Surface* ImageSdl::createNewSurface(
 	return bitmap;
 }
 
-ImageSdl::ImageSdl(
-		unsigned int width,
-		unsigned int heigth)
+ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t heigth)
 {
 	mipmaps.resize(Mipmap::getLevelCount(width, heigth));
 
-	// Access to first element and resize the buffer of colors.
-	mipmaps.at(0).resize(width * heigth);
-
-	for (int i = 0; i < width * heigth; ++i)
-	{
-		mipmaps.at(0)[i] = Palette::GRAY_WARN_90;
-	}
-
-	float fw = (float)width;
-	float fh = (float)heigth;
+	Size size{ width, heigth };
 
 	for (Mipmap& mipmap : mipmaps)
 	{
-		mipmap.width = width;
-		mipmap.height = heigth;
-		mipmap.fwidth = fw;
-		mipmap.fheight = fh;
+		mipmap.setSize(size);
 
-		width >>= 1;
-		heigth >>= 1;
-
-		fw *= 0.5f;
-		fh *= 0.5f;
+		size.setWidth(size.getWidth() >> 1);
+		size.setHeight(size.getHeight() >> 1);
 	}
 }
 
@@ -412,8 +395,8 @@ bool ImageSdl::isInvariantSatisfied(int _x, int _y) const
 	if (mipmaps.empty()) return false;
 
 	// Else, evaluate the condition
-	return _x >= 0 and _x < mipmaps[0].width and
-		   _y >= 0 and _y < mipmaps[0].height;
+	return _x >= 0 and _x < mipmaps[0].getWidth() and
+		   _y >= 0 and _y < mipmaps[0].getHeight();
 }
 
 int ImageSdl::getAlpha(int x, int y) const
@@ -493,8 +476,11 @@ const Color& ImageSdl::getMipmapPixel(
 
 		if (mip > 0) --mip;
 
-		int texelX = (int)(_point0.x * mipmaps[mip].width / mipmaps[0].fwidth);
-		int texelY = (int)(_point0.y * mipmaps[mip].height / mipmaps[0].fheight);
+		const float fWidth = static_cast<float>(mipmaps[0].getWidth());
+		const float fHeight = static_cast<float>(mipmaps[0].getHeight());
+
+		int texelX = (int)(_point0.x * mipmaps[mip].getWidth() / fWidth);
+		int texelY = (int)(_point0.y * mipmaps[mip].getHeight() / fHeight);
 
 		if (mipmaps[mip].empty())
 		{
@@ -506,13 +492,13 @@ const Color& ImageSdl::getMipmapPixel(
 		}
 
 		if (texelX < 0 or texelY < 0 or
-			texelX > mipmaps[mip].width or
-			texelY > mipmaps[mip].height)
+			texelX > mipmaps[mip].getWidth() or
+			texelY > mipmaps[mip].getHeight())
 		{
 			return Palette::GRAY_WARN_90;
 		}
 
-		return mipmaps[mip][texelX + mipmaps[mip].width * texelY];
+		return mipmaps[mip][texelX + mipmaps[mip].getWidth() * texelY];
 	}
 	else
 	{
@@ -522,9 +508,19 @@ const Color& ImageSdl::getMipmapPixel(
 
 void ImageSdl::initMipmaps()
 {
-	Geometry::Size size = getSize();
+	// Copy of size
+	Size size{ getSize() };
+
 	mipmaps.resize(Mipmap::getLevelCount(size.w, size.h));
-	mipmaps[0].resize(size.w * size.h);
+
+	for (Mipmap& mipmap : mipmaps)
+	{
+		mipmap.setSize(size);
+		mipmap.dirty = true;
+
+		size.setWidth(size.getWidth() >> 1);
+		size.setHeight(size.getHeight() >> 1);
+	}
 
 	for (int x = 0; x < size.w; ++x)
 	{
@@ -534,23 +530,7 @@ void ImageSdl::initMipmaps()
 		}
 	}
 
-	float fw = (float)size.w;
-	float fh = (float)size.h;
 
-	for (Mipmap& mipmap : mipmaps)
-	{
-		mipmap.width = size.w;
-		mipmap.height = size.h;
-		mipmap.fwidth = fw;
-		mipmap.fheight = fh;
-		mipmap.dirty = true;
-
-		size.w >>= 1;
-		size.h >>= 1;
-
-		fw *= 0.5f;
-		fh *= 0.5f;
-	}
 
 	mipmaps[0].dirty = false;
 }
@@ -562,14 +542,14 @@ void ImageSdl::generateMip(int _mip)
 
 	if (current.empty())
 	{
-		current.resize(current.width * current.height);
+		current.resize(current.getWidth() * current.getHeight());
 	}
 
 	current.dirty = false;
 
-	for (int x = 0; x < current.width; ++x)
+	for (int x = 0; x < current.getWidth(); ++x)
 	{
-		for (int y = 0; y < current.height; ++y)
+		for (int y = 0; y < current.getHeight(); ++y)
 		{
 
 			int count = 0;
@@ -584,7 +564,7 @@ void ImageSdl::generateMip(int _mip)
 			{
 				for (int sy = (y << _mip); sy < (y + 1) << _mip; ++sy)
 				{
-					int offset = sx + origin.width * sy;
+					int offset = sx + origin.getWidth() * sy;
 					++count;
 
 					r += origin.at(offset).r;
@@ -597,7 +577,7 @@ void ImageSdl::generateMip(int _mip)
 			g /= count;
 			b /= count;
 
-			Color& color = current.at(x + current.width * y);
+			Color& color = current.at(x + current.getWidth() * y);
 
 			color.r = (short)r;
 			color.g = (short)g;
@@ -616,8 +596,8 @@ void ImageSdl::setPixel(int x, int y, const Color& _color)
 		}
 		else
 		{
-			if (x >= 0 and x < mipmaps.at(0).width and
-				y >= 0 and y < mipmaps.at(0).height)
+			if (x >= 0 and x < mipmaps.at(0).getWidth() and
+				y >= 0 and y < mipmaps.at(0).getHeight())
 			{
 				mipmaps.at(0).setColorAt(x, y, _color);
 

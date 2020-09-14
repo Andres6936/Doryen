@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdint>
 #include <SDL/SDL.h>
 
 #include "Doryen/Graphics/Color/Color.hpp"
@@ -26,6 +27,8 @@ namespace Doryen
 		// Definitions
 
 		using Pointf = Geometry::Point2D<float>;
+
+		using Size = Geometry::Size;
 
 		// Fields
 
@@ -68,7 +71,7 @@ namespace Doryen
 
 		ImageSdl() = default;
 
-		ImageSdl(unsigned int width, unsigned int heigth);
+		ImageSdl(const std::int32_t width, const std::int32_t heigth);
 
 		virtual ~ImageSdl();
 

@@ -70,6 +70,10 @@ namespace Doryen
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
 
+		const std::int32_t getWidth() const noexcept;
+
+		const std::int32_t getHeight() const noexcept;
+
 		// Setter
 
 		void setDirty(bool _dirty) noexcept;

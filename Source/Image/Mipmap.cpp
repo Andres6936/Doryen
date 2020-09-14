@@ -52,6 +52,16 @@ const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
 	return (*this)[_x + _y * size.w];
 }
 
+const std::int32_t Mipmap::getWidth() const noexcept
+{
+	return size.w;
+}
+
+const std::int32_t Mipmap::getHeight() const noexcept
+{
+	return size.h;
+}
+
 // Setters
 
 void Mipmap::setDirty(bool _dirty) noexcept
