@@ -2,6 +2,19 @@
 
 using namespace Doryen;
 
+// Private Methods
+
+void Mipmap::reduce(const Mipmap::Size& _size) noexcept
+{
+	// The buffer is reduced
+	resize(_size.w * _size.h);
+
+	// Set the new size
+	size = _size;
+}
+
+// Static Methods
+
 std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept
 {
 	// Original size is: 30 x 40
@@ -29,24 +42,53 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 
 // Getters
 
-const Mipmap::Size Mipmap::getSize() const noexcept
+const Mipmap::Size& Mipmap::getSize() const noexcept
 {
-	return { static_cast<int32_t>(width), static_cast<int32_t>(height) };
+	return size;
 }
 
 const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
 {
-	return (*this)[_x + _y * width];
+	return (*this)[_x + _y * size.w];
 }
 
 // Setters
-
-void Mipmap::setColorAt(int _x, int _y, const Color& _color) noexcept
-{
-	(*this)[_x + _y * width] = _color;
-}
 
 void Mipmap::setDirty(bool _dirty) noexcept
 {
 	dirty = _dirty;
 }
+
+void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
+{
+	// Copy of current size buffer
+	const Size currentSize{ getSize() };
+
+	// Is the new size lesser than actual size of buffer ?
+	if (newSize.lessThan(currentSize))
+	{
+		// Reduce the size of buffer and exit of function.
+		return reduce(newSize);
+	}
+		// No, the new size is greater than actual size of buffer
+	else
+	{
+		resize(newSize.w * newSize.h);
+
+		// Verify that the buffer has been resized
+		// In this point, currentSize had the previous size of buffer
+		// Compare the previous size with the actual and verify that
+		// this are different.
+		if (not currentSize.equals(getSize()))
+		{
+			// If the buffer has been resized successfully set the new size
+			size = newSize;
+		}
+	}
+}
+
+void Mipmap::setColorAt(int _x, int _y, const Color& _color) noexcept
+{
+	(*this)[_x + _y * size.w] = _color;
+}
+

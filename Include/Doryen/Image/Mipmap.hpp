@@ -28,17 +28,25 @@ namespace Doryen
 
 	private:
 
+		// Definitons
+
 		using Size = Geometry::Size;
+
+		// Variables
+
+		Size size{ 0, 0 };
+
+		// Methods
+
+		void reduce(const Size& _size) noexcept;
 
 	public:
 
-		std::uint32_t width = 0;
-		std::uint32_t height = 0;
-
-		float fwidth = 0.0f;
-		float fheight = 0.0f;
-
 		bool dirty = false;
+
+		// Construct
+
+		Mipmap() noexcept = default;
 
 		// Static Methods
 
@@ -58,13 +66,15 @@ namespace Doryen
 
 		// Getter
 
-		const Size getSize() const noexcept;
+		const Size& getSize() const noexcept;
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
 
 		// Setter
 
 		void setDirty(bool _dirty) noexcept;
+
+		void setSize(const Size& newSize) noexcept;
 
 		void setColorAt(int _x, int _y, const Color& _color) noexcept;
 	};
