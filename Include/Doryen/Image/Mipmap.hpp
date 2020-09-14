@@ -17,6 +17,10 @@ namespace Doryen
 	 * The height and width of each image, or level, in the mipmap is a power of two
 	 * smaller than the previous level. Mipmaps do not have to be square. They are
 	 * intended to increase rendering speed and reduce aliasing artifacts.
+	 *
+	 * A high-resolution mipmap image is used for objects that are close to the user.
+	 * Lower-resolution images are used as the object appears farther away. Mipmapping
+	 * improves the quality of rendered textures at the expense of using more memory.
 	 */
 	class Mipmap : public std::vector<Color>
 	{
@@ -33,7 +37,7 @@ namespace Doryen
 
 		// Getter
 
-		Color getColorAt(int _x, int _y) const;
+		const Color& getColorAt(int _x, int _y) const;
 
 		// Setter
 
@@ -52,10 +56,10 @@ namespace Doryen
 		 * 	Resize to: 2 x 1
 		 * 	Resize to: 1 x 0
 		 * End resize, total levels is: 6
+		 *
+		 * @return The number of texture levels in a multilevel texture.
 		 */
-		static unsigned int getLevels(
-				unsigned int width,
-				unsigned int height);
+		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height);
 	};
 }
 

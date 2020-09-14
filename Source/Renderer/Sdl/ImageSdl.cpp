@@ -283,7 +283,7 @@ ImageSdl::ImageSdl(
 		unsigned int width,
 		unsigned int heigth)
 {
-	mipmaps.resize(Mipmap::getLevels(width, heigth));
+	mipmaps.resize(Mipmap::getLevelCount(width, heigth));
 
 	// Access to first element and resize the buffer of colors.
 	mipmaps.at(0).resize(width * heigth);
@@ -527,7 +527,7 @@ const Color& ImageSdl::getMipmapPixel(
 void ImageSdl::initMipmaps()
 {
 	Geometry::Size size = getSize();
-	mipmaps.resize(Mipmap::getLevels(size.w, size.h));
+	mipmaps.resize(Mipmap::getLevelCount(size.w, size.h));
 	mipmaps[0].resize(size.w * size.h);
 
 	for (int x = 0; x < size.w; ++x)

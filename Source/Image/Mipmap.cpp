@@ -2,9 +2,9 @@
 
 #include "Doryen/Image/Mipmap.hpp"
 
-unsigned int Doryen::Mipmap::getLevels(
-		unsigned int width,
-		unsigned int height)
+using namespace Doryen;
+
+std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32_t height)
 {
 	// Original size is: 30 x 40
 	// 	Resize to: 15 x 20
@@ -36,17 +36,17 @@ unsigned int Doryen::Mipmap::getLevels(
 	return levels;
 }
 
-Doryen::Color Doryen::Mipmap::getColorAt(int _x, int _y) const
+const Color& Mipmap::getColorAt(int _x, int _y) const
 {
 	return (*this)[_x + _y * width];
 }
 
-void Doryen::Mipmap::setColorAt(int _x, int _y, const Doryen::Color& _color)
+void Mipmap::setColorAt(int _x, int _y, const Color& _color)
 {
 	(*this)[_x + _y * width] = _color;
 }
 
-void Doryen::Mipmap::setDirty(bool _dirty)
+void Mipmap::setDirty(bool _dirty)
 {
 	dirty = _dirty;
 }
