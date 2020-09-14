@@ -73,12 +73,16 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 		// No, the new size is greater than actual size of buffer
 	else
 	{
+		// The nature of std::vector::resize is that: If an exception is thrown,
+		// 	this function has no effect (strong exception guarantee).
+		// In order for us to provide this same guarantee we must verify that the
+		// 	buffer size has changed.
 		resize(newSize.w * newSize.h);
 
-		// Verify that the buffer has been resized
-		// In this point, currentSize had the previous size of buffer
+		// Verify that the buffer has been resized.
+		// In this point, currentSize had the previous size of buffer.
 		// Compare the previous size with the actual and verify that
-		// this are different.
+		// 	this are different.
 		if (not currentSize.equals(getSize()))
 		{
 			// If the buffer has been resized successfully set the new size
