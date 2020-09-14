@@ -340,11 +340,7 @@ Geometry::Size ImageSdl::getSize() const
 		}
 		else
 		{
-			Geometry::Size size;
-			size.w = (int)mipmaps[0].width;
-			size.h = (int)mipmaps[0].height;
-
-			return size;
+			return mipmaps[0].getSize();
 		}
 	}
 	else

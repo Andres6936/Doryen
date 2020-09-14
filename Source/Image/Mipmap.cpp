@@ -29,6 +29,11 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 
 // Getters
 
+const Mipmap::Size Mipmap::getSize() const noexcept
+{
+	return { static_cast<int32_t>(width), static_cast<int32_t>(height) };
+}
+
 const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
 {
 	return (*this)[_x + _y * width];

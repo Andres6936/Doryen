@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdint>
 
+#include <Doryen/Geometry/Size.hpp>
 #include "Doryen/Graphics/Color/Color.hpp"
 
 namespace Doryen
@@ -24,6 +25,10 @@ namespace Doryen
 	 */
 	class Mipmap : public std::vector<Color>
 	{
+
+	private:
+
+		using Size = Geometry::Size;
 
 	public:
 
@@ -52,6 +57,8 @@ namespace Doryen
 		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept;
 
 		// Getter
+
+		const Size getSize() const noexcept;
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
 
