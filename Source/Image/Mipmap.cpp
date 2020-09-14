@@ -27,17 +27,21 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 	return levels;
 }
 
-const Color& Mipmap::getColorAt(int _x, int _y) const
+// Getters
+
+const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
 {
 	return (*this)[_x + _y * width];
 }
 
-void Mipmap::setColorAt(int _x, int _y, const Color& _color)
+// Setters
+
+void Mipmap::setColorAt(int _x, int _y, const Color& _color) noexcept
 {
 	(*this)[_x + _y * width] = _color;
 }
 
-void Mipmap::setDirty(bool _dirty)
+void Mipmap::setDirty(bool _dirty) noexcept
 {
 	dirty = _dirty;
 }

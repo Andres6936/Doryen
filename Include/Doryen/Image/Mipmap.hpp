@@ -35,16 +35,6 @@ namespace Doryen
 
 		bool dirty = false;
 
-		// Getter
-
-		const Color& getColorAt(int _x, int _y) const;
-
-		// Setter
-
-		void setDirty(bool _dirty);
-
-		void setColorAt(int _x, int _y, const Color& _color);
-
 		// Static Methods
 
 		/**
@@ -60,6 +50,16 @@ namespace Doryen
 		 * @return The number of texture levels in a multilevel texture.
 		 */
 		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept;
+
+		// Getter
+
+		const Color& getColorAt(int _x, int _y) const noexcept;
+
+		// Setter
+
+		void setDirty(bool _dirty) noexcept;
+
+		void setColorAt(int _x, int _y, const Color& _color) noexcept;
 	};
 }
 
