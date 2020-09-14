@@ -74,6 +74,16 @@ namespace Doryen
 
 		void setDirty(bool _dirty) noexcept;
 
+		/**
+		 * @note If an exception is thrown, this function has no effect
+		 * 	(strong exception guarantee).
+		 *
+		 * Strong exception guarantee : If the function throws an exception, the
+		 * state of the program is rolled back to the state just before the
+		 * function call.
+		 *
+		 * @param newSize Size to resize the buffer.
+		 */
 		void setSize(const Size& newSize) noexcept;
 
 		void setColorAt(int _x, int _y, const Color& _color) noexcept;
