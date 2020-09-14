@@ -522,17 +522,17 @@ void ImageSdl::initMipmaps()
 		size.setHeight(size.getHeight() >> 1);
 	}
 
-	for (int x = 0; x < size.w; ++x)
+	Mipmap mipmap = mipmaps[0];
+
+	for (int x = 0; x < mipmap.getWidth(); ++x)
 	{
-		for (int y = 0; y < size.h; ++y)
+		for (int y = 0; y < mipmap.getHeight(); ++y)
 		{
-			mipmaps[0][x + size.w * y] = getPixel(x, y);
+			mipmap.setPixelAt(x, y, getPixel(x, y));
 		}
 	}
 
-
-
-	mipmaps[0].dirty = false;
+	mipmap.dirty = false;
 }
 
 void ImageSdl::generateMip(int _mip)
@@ -599,7 +599,7 @@ void ImageSdl::setPixel(int x, int y, const Color& _color)
 			if (x >= 0 and x < mipmaps.at(0).getWidth() and
 				y >= 0 and y < mipmaps.at(0).getHeight())
 			{
-				mipmaps.at(0).setColorAt(x, y, _color);
+				mipmaps.at(0).setPixelAt(x, y, _color);
 
 				// Skip the first mipmap
 				for (int i = 1; i < mipmaps.size(); ++i)

@@ -101,8 +101,7 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 	}
 }
 
-void Mipmap::setColorAt(int _x, int _y, const Color& _color) noexcept
+void Mipmap::setPixelAt(const std::uint32_t _x, const std::int32_t _y, const Color& _pixel) noexcept
 {
-	(*this)[_x + _y * size.w] = _color;
+	(*this)[_x + _y * size.w] = _pixel;
 }
-

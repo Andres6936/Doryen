@@ -90,7 +90,7 @@ namespace Doryen
 		 */
 		void setSize(const Size& newSize) noexcept;
 
-		void setColorAt(int _x, int _y, const Color& _color) noexcept;
+		void setPixelAt(const std::uint32_t _x, const std::int32_t _y, const Color& _pixel) noexcept;
 	};
 }
 
