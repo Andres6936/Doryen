@@ -102,7 +102,7 @@ namespace Doryen
 			// Getters
 
 			/**
-			 * @return Returns the width of this Dimension in Integer precision.
+			 * @return The width of this Dimension in Integer precision.
 			 */
 			std::int32_t getWidth() const noexcept
 			{
@@ -110,7 +110,7 @@ namespace Doryen
 			}
 
 			/**
-			 * @return Returns the height of this Dimension in Integer precision.
+			 * @return The height of this Dimension in Integer precision.
 			 */
 			std::int32_t getHeight() const noexcept
 			{
