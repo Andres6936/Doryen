@@ -62,6 +62,20 @@ namespace Doryen
 
 			// Methods
 
+			bool lessThan(const Size& _object) const noexcept
+			{
+				if (w < _object.w) return true;
+
+				if (_object.w < w) return false;
+
+				return h < _object.h;
+			}
+
+			bool greaterThan(const Size& _object) const noexcept
+			{
+				return _object.lessThan(*this);
+			}
+
 			/**
 			 * Checks whether two dimension objects have equal values.
 			 *
