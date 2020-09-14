@@ -34,7 +34,7 @@ namespace Doryen
 
 		// Variables
 
-		Size size{ 0, 0 };
+		Size dimension{ 0, 0 };
 
 		// Methods
 

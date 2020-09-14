@@ -10,7 +10,7 @@ void Mipmap::reduce(const Mipmap::Size& _size) noexcept
 	resize(_size.w * _size.h);
 
 	// Set the new size
-	size = _size;
+	dimension = _size;
 }
 
 // Static Methods
@@ -44,22 +44,22 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 
 const Mipmap::Size& Mipmap::getSize() const noexcept
 {
-	return size;
+	return dimension;
 }
 
 const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
 {
-	return (*this)[_x + _y * size.w];
+	return (*this)[_x + _y * dimension.w];
 }
 
 const std::int32_t Mipmap::getWidth() const noexcept
 {
-	return size.w;
+	return dimension.w;
 }
 
 const std::int32_t Mipmap::getHeight() const noexcept
 {
-	return size.h;
+	return dimension.h;
 }
 
 // Setters
@@ -93,15 +93,18 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 		// In this point, currentSize had the previous size of buffer.
 		// Compare the previous size with the actual and verify that
 		// 	this are different.
-		if (not currentSize.equals(getSize()))
+		const std::int32_t previousLengthBuffer = currentSize.w * currentSize.h;
+		const std::int32_t currentLengthBuffer = size();
+
+		if (previousLengthBuffer != currentLengthBuffer)
 		{
 			// If the buffer has been resized successfully set the new size
-			size = newSize;
+			dimension = newSize;
 		}
 	}
 }
 
 void Mipmap::setPixelAt(const std::uint32_t _x, const std::int32_t _y, const Color& _pixel) noexcept
 {
-	(*this)[_x + _y * size.w] = _pixel;
+	(*this)[_x + _y * dimension.w] = _pixel;
 }
