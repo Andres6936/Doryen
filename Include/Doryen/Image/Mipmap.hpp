@@ -59,7 +59,7 @@ namespace Doryen
 		 *
 		 * @return The number of texture levels in a multilevel texture.
 		 */
-		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height);
+		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept;
 	};
 }
 

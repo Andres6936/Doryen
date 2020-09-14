@@ -1,10 +1,8 @@
-#include <iostream>
-
 #include "Doryen/Image/Mipmap.hpp"
 
 using namespace Doryen;
 
-std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32_t height)
+std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept
 {
 	// Original size is: 30 x 40
 	// 	Resize to: 15 x 20
@@ -14,10 +12,8 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 	// 	Resize to: 0 x 1
 	// End resize, total levels is: 5
 
-	unsigned int curw = width;
-	unsigned int curh = height;
-
-	std::cout << "Original size is: " << width << " x " << height << '\n';
+	std::uint32_t curw = width;
+	std::uint32_t curh = height;
 
 	int levels = 0;
 
@@ -26,12 +22,7 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 		levels++;
 		curw >>= 1;
 		curh >>= 1;
-
-		std::cout << "Resize to: " << curw << " x " << curh << '\n';
-
 	}
-
-	std::cout << "End resize, total levels is: " << levels << "\n\n";
 
 	return levels;
 }
