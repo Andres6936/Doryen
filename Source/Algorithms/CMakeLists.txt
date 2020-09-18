@@ -7,11 +7,7 @@ ADD_LIBRARY(Doryen.Algorithms.Noise.Object OBJECT
         )
 
 SET_TARGET_PROPERTIES(Doryen.Algorithms.Noise.Object PROPERTIES CXX_STANDARD 17)
-TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise.Object
-        PUBLIC
-        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        )
+TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise.Object PRIVATE ${DORYEN_ROOT_DIR}/Include/)
 
 
 ADD_LIBRARY(Doryen.Algorithms.Heightmap.Object OBJECT
@@ -19,11 +15,7 @@ ADD_LIBRARY(Doryen.Algorithms.Heightmap.Object OBJECT
         )
 
 SET_TARGET_PROPERTIES(Doryen.Algorithms.Heightmap.Object PROPERTIES CXX_STANDARD 17)
-TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap.Object
-        PUBLIC
-        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        )
+TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap.Object PRIVATE ${DORYEN_ROOT_DIR}/Include/)
 
 IF (DORYEN_SHARED_LIBRARIES)
 
