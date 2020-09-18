@@ -6,39 +6,9 @@ ENDIF ()
 
 MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
 
-ADD_LIBRARY(Doryen.Algorithms.Noise
-        Algorithms/Noise/Simplex.cpp
-        Algorithms/Noise/Wavelet.cpp
-        Algorithms/Noise/Perlin.cpp
-        Algorithms/Noise/Noise.cpp
-        Algorithms/Noise/FBM.cpp
-        )
+ADD_SUBDIRECTORY(Algorithms/)
 
-ADD_LIBRARY(Doryen::Algorithms::Noise ALIAS Doryen.Algorithms.Noise)
-SET_TARGET_PROPERTIES(Doryen.Algorithms.Noise PROPERTIES CXX_STANDARD 17)
-TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise
-        PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
-        $<INSTALL_INTERFACE:../Include/>
-        )
-
-ADD_LIBRARY(Doryen.Algorithms.Heightmap
-        Algorithms/Generation/Heightmap.cpp
-        )
-
-ADD_LIBRARY(Doryen::Algorithms::Heightmap ALIAS Doryen.Algorithms.Heightmap)
-SET_TARGET_PROPERTIES(Doryen.Algorithms.Heightmap PROPERTIES CXX_STANDARD 17)
-# The generation of Heightmap depend of the generation of Noise
-# Thus, Heightmap Library depend of Noise Library
-# The relation of this two libraries is public
-TARGET_LINK_LIBRARIES(Doryen.Algorithms.Heightmap PUBLIC Doryen::Algorithms::Noise)
-TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap
-        PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
-        $<INSTALL_INTERFACE:../Include/>
-        )
-
-ADD_LIBRARY(Doryen.Framework
+ADD_LIBRARY(Doryen.Framework.Object OBJECT
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
         Algorithms/Pathfinding/AStar.cpp
         Algorithms/Drawing/Bresenham.cpp
@@ -70,16 +40,32 @@ ADD_LIBRARY(Doryen.Framework
         Event/Key.cpp
         )
 
-ADD_LIBRARY(Doryen::Framework ALIAS Doryen.Framework)
-
-SET_TARGET_PROPERTIES(Doryen.Framework PROPERTIES CXX_STANDARD 17)
-TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
-TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
+SET_TARGET_PROPERTIES(Doryen.Framework.Object PROPERTIES CXX_STANDARD 17)
+TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../Include/>
-        $<INSTALL_INTERFACE:../Include/>
+        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
+        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
         PRIVATE
         ${SDL_INCLUDE_DIR})
+
+IF (DORYEN_SHARED_LIBRARIES)
+
+    ADD_LIBRARY(Doryen.Framework SHARED $<TARGET_OBJECTS:Doryen.Framework.Object>)
+
+ELSE ()
+
+    ADD_LIBRARY(Doryen.Framework STATIC $<TARGET_OBJECTS:Doryen.Framework.Object>)
+
+ENDIF ()
+
+ADD_LIBRARY(Doryen::Framework ALIAS Doryen.Framework)
+TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
+        PUBLIC
+        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
+        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
+        PRIVATE
+        ${SDL_INCLUDE_DIR})
+TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
 
 # Important, the use of CPM as Script for download Doryen brings with it several problems.
 # The first problem and most important, is the location of resource Terminal.png, that is
