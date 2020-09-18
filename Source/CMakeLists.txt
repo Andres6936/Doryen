@@ -59,6 +59,8 @@ ELSE ()
 ENDIF ()
 
 ADD_LIBRARY(Doryen::Framework ALIAS Doryen.Framework)
+# It is necessary to repeat these instructions again, in case of not doing it, the executables
+# will be unable to locate the Headers needed to perform the linking
 TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
         PUBLIC
         $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
