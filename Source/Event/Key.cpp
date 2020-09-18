@@ -1,90 +1,92 @@
 #include "Doryen/Event/Key.hpp"
 
+using namespace Doryen;
+
 // Getters
 
-Doryen::KeyCode Doryen::Key::getKeyCode() const
+KeyCode Key::getKeyCode() const noexcept
 {
 	return keyCode;
 }
 
-bool Doryen::Key::isPressed() const
+bool Key::isPressed() const noexcept
 {
 	return pressed;
 }
 
-bool Doryen::Key::isRelease() const
+bool Key::isRelease() const noexcept
 {
 	return release;
 }
 
-bool Doryen::Key::isLeftAltPressed() const
+bool Key::isLeftAltPressed() const noexcept
 {
 	return leftAltPressed;
 }
 
-bool Doryen::Key::isLeftCtrlPressed() const
+bool Key::isLeftCtrlPressed() const noexcept
 {
 	return leftCtrlPressed;
 }
 
-bool Doryen::Key::isRightAltPressed() const
+bool Key::isRightAltPressed() const noexcept
 {
 	return rightAltPressed;
 }
 
-bool Doryen::Key::isRightCtrlPressed() const
+bool Key::isRightCtrlPressed() const noexcept
 {
 	return rightCtrlPressed;
 }
 
-bool Doryen::Key::isShift() const
+bool Key::isShift() const noexcept
 {
 	return shift;
 }
 
 // Setters
 
-void Doryen::Key::setKeyCode(Doryen::KeyCode _keyCode)
+void Key::setKeyCode(KeyCode _keyCode) noexcept
 {
 	keyCode = _keyCode;
 }
 
-void Doryen::Key::setPressed(bool _pressed)
+void Key::setPressed(bool _pressed) noexcept
 {
 	pressed = _pressed;
 }
 
-void Doryen::Key::setRelease(bool _release)
+void Key::setRelease(bool _release) noexcept
 {
 	release = _release;
 }
 
-void Doryen::Key::setLeftAltPressed(bool _leftAltPressed)
+void Key::setLeftAltPressed(bool _leftAltPressed) noexcept
 {
 	leftAltPressed = _leftAltPressed;
 }
 
-void Doryen::Key::setLeftCtrlPressed(bool _leftCtrlPressed)
+void Key::setLeftCtrlPressed(bool _leftCtrlPressed) noexcept
 {
 	leftCtrlPressed = _leftCtrlPressed;
 }
 
-void Doryen::Key::setRightAltPressed(bool _rightAltPressed)
+void Key::setRightAltPressed(bool _rightAltPressed) noexcept
 {
 	rightAltPressed = _rightAltPressed;
 }
 
-void Doryen::Key::setRightCtrlPressed(bool _rightCtrlPressed)
+void Key::setRightCtrlPressed(bool _rightCtrlPressed) noexcept
 {
 	rightCtrlPressed = _rightCtrlPressed;
 }
 
-void Doryen::Key::setShift(bool _shift)
+void Key::setShift(bool _shift) noexcept
 {
 	shift = _shift;
 }
 
-void Doryen::Key::resetState()
+void Key::resetState() noexcept
 {
 	keyCode = KeyCode::NONE;
 }

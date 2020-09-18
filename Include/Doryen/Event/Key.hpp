@@ -122,43 +122,43 @@ namespace Doryen
 
 		// Methods
 
-		void resetState();
+		void resetState() noexcept;
 
 		// Getters
 
-		KeyCode getKeyCode() const;
+		KeyCode getKeyCode() const noexcept;
 
-		bool isPressed() const;
+		bool isPressed() const noexcept;
 
-		bool isRelease() const;
+		bool isRelease() const noexcept;
 
-		bool isLeftAltPressed() const;
+		bool isLeftAltPressed() const noexcept;
 
-		bool isLeftCtrlPressed() const;
+		bool isLeftCtrlPressed() const noexcept;
 
-		bool isRightAltPressed() const;
+		bool isRightAltPressed() const noexcept;
 
-		bool isRightCtrlPressed() const;
+		bool isRightCtrlPressed() const noexcept;
 
-		bool isShift() const;
+		bool isShift() const noexcept;
 
 		// Setter
 
-		void setKeyCode(KeyCode _keyCode);
+		void setKeyCode(KeyCode _keyCode) noexcept;
 
-		void setPressed(bool _pressed);
+		void setPressed(bool _pressed) noexcept;
 
-		void setRelease(bool _release);
+		void setRelease(bool _release) noexcept;
 
-		void setLeftAltPressed(bool _leftAltPressed);
+		void setLeftAltPressed(bool _leftAltPressed) noexcept;
 
-		void setLeftCtrlPressed(bool _leftCtrlPressed);
+		void setLeftCtrlPressed(bool _leftCtrlPressed) noexcept;
 
-		void setRightAltPressed(bool _rightAltPressed);
+		void setRightAltPressed(bool _rightAltPressed) noexcept;
 
-		void setRightCtrlPressed(bool _rightCtrlPressed);
+		void setRightCtrlPressed(bool _rightCtrlPressed) noexcept;
 
-		void setShift(bool _shift);
+		void setShift(bool _shift) noexcept;
 
 	};
 }
