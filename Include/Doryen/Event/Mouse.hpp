@@ -52,41 +52,41 @@ namespace Doryen
 
 		// Methods
 
-		void resetState();
+		void resetState() noexcept;
 
-		bool isWheelUp() const;
+		bool isWheelUp() const noexcept;
 
-		bool isWheelDown() const;
+		bool isWheelDown() const noexcept;
 
-		bool isPressedLeftButton() const;
+		bool isPressedLeftButton() const noexcept;
 
-		bool isPressedRightButton() const;
+		bool isPressedRightButton() const noexcept;
 
-		bool isPressedMiddleButton() const;
+		bool isPressedMiddleButton() const noexcept;
 
 		// Getters
 
-		int getX() const;
+		int getX() const noexcept;
 
-		int getY() const;
+		int getY() const noexcept;
 
-		int getPositionCellX() const;
+		int getPositionCellX() const noexcept;
 
-		int getPositionCellY() const;
+		int getPositionCellY() const noexcept;
 
-		MouseCode getStatus() const;
+		MouseCode getStatus() const noexcept;
 
 		// Setters
 
-		void setX(int _x);
+		void setX(int _x) noexcept;
 
-		void setY(int _y);
+		void setY(int _y) noexcept;
 
-		void setPositionCellX(int _cx);
+		void setPositionCellX(int _cx) noexcept;
 
-		void setPositionCellY(int _cy);
+		void setPositionCellY(int _cy) noexcept;
 
-		void setStatus(MouseCode _status);
+		void setStatus(MouseCode _status) noexcept;
 
 	};
 }
