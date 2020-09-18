@@ -1093,7 +1093,7 @@ void Doryen::SDL::updateKeyEvents()
 		if (keyboard->keysym.sym == SDLK_LALT)
 		{
 			keyPressed.setKeyCode(KeyCode::ALT);
-			keyPressed.setRigthAltPressed(true);
+			keyPressed.setRightAltPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_RALT)
 		{
@@ -1108,7 +1108,7 @@ void Doryen::SDL::updateKeyEvents()
 		else if (keyboard->keysym.sym == SDLK_RCTRL)
 		{
 			keyPressed.setKeyCode(KeyCode::CONTROL);
-			keyPressed.setRigthCtrlPressed(true);
+			keyPressed.setRightCtrlPressed(true);
 		}
 		else if (keyboard->keysym.sym == SDLK_LSHIFT ||
 				 keyboard->keysym.sym == SDLK_RSHIFT)

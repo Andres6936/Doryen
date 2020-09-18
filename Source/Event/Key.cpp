@@ -27,14 +27,14 @@ bool Doryen::Key::isLeftCtrlPressed() const
 	return leftCtrlPressed;
 }
 
-bool Doryen::Key::isRigthAltPressed() const
+bool Doryen::Key::isRightAltPressed() const
 {
-	return rigthAltPressed;
+	return rightAltPressed;
 }
 
-bool Doryen::Key::isRigthCtrlPressed() const
+bool Doryen::Key::isRightCtrlPressed() const
 {
-	return rigthCtrlPressed;
+	return rightCtrlPressed;
 }
 
 bool Doryen::Key::isShift() const
@@ -69,14 +69,14 @@ void Doryen::Key::setLeftCtrlPressed(bool _leftCtrlPressed)
 	leftCtrlPressed = _leftCtrlPressed;
 }
 
-void Doryen::Key::setRigthAltPressed(bool _rigthAltPressed)
+void Doryen::Key::setRightAltPressed(bool _rightAltPressed)
 {
-	rigthAltPressed = _rigthAltPressed;
+	rightAltPressed = _rightAltPressed;
 }
 
-void Doryen::Key::setRigthCtrlPressed(bool _rigthCtrlPressed)
+void Doryen::Key::setRightCtrlPressed(bool _rightCtrlPressed)
 {
-	rigthCtrlPressed = _rigthCtrlPressed;
+	rightCtrlPressed = _rightCtrlPressed;
 }
 
 void Doryen::Key::setShift(bool _shift)

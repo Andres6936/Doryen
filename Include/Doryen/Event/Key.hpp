@@ -112,9 +112,9 @@ namespace Doryen
 
 		bool leftCtrlPressed = false;
 
-		bool rigthAltPressed = false;
+		bool rightAltPressed = false;
 
-		bool rigthCtrlPressed = false;
+		bool rightCtrlPressed = false;
 
 		bool shift = false;
 
@@ -136,9 +136,9 @@ namespace Doryen
 
 		bool isLeftCtrlPressed() const;
 
-		bool isRigthAltPressed() const;
+		bool isRightAltPressed() const;
 
-		bool isRigthCtrlPressed() const;
+		bool isRightCtrlPressed() const;
 
 		bool isShift() const;
 
@@ -154,9 +154,9 @@ namespace Doryen
 
 		void setLeftCtrlPressed(bool _leftCtrlPressed);
 
-		void setRigthAltPressed(bool _rigthAltPressed);
+		void setRightAltPressed(bool _rightAltPressed);
 
-		void setRigthCtrlPressed(bool _rigthCtrlPressed);
+		void setRightCtrlPressed(bool _rightCtrlPressed);
 
 		void setShift(bool _shift);
 
