@@ -8,6 +8,13 @@ MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
 
 ADD_SUBDIRECTORY(Algorithms/)
 
+# The OBJECT's can be used to compile the sources in the list given to add_library
+# to object files, but then neither archiving them into a static library nor
+# linking them into a shared object. The use of object libraries is
+# particularly useful if one needs to create both static and shared libraries
+# in one go.
+
+# Property: OBJECT
 ADD_LIBRARY(Doryen.Framework.Object OBJECT
         Algorithms/Generation/Dungeon/BinarySpacePartition.cpp
         Algorithms/Pathfinding/AStar.cpp
@@ -50,6 +57,11 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object
 
 IF (DORYEN_SHARED_LIBRARIES)
 
+    # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
+    # shared libraries will be created. This property is True by default for SHARED and MODULE library
+    # targets and False otherwise.
+
+    # Property: SHARED, POSITION_INDEPENDENT_CODE
     ADD_LIBRARY(Doryen.Framework SHARED $<TARGET_OBJECTS:Doryen.Framework.Object>)
 
 ELSE ()

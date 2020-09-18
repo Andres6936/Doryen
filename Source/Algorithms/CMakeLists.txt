@@ -1,3 +1,10 @@
+# The OBJECT's can be used to compile the sources in the list given to add_library
+# to object files, but then neither archiving them into a static library nor
+# linking them into a shared object. The use of object libraries is
+# particularly useful if one needs to create both static and shared libraries
+# in one go.
+
+# Properties: OBJECT
 ADD_LIBRARY(Doryen.Algorithms.Noise.Object OBJECT
         Noise/Simplex.cpp
         Noise/Wavelet.cpp
@@ -9,7 +16,7 @@ ADD_LIBRARY(Doryen.Algorithms.Noise.Object OBJECT
 SET_TARGET_PROPERTIES(Doryen.Algorithms.Noise.Object PROPERTIES CXX_STANDARD 17)
 TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Noise.Object PRIVATE ${DORYEN_ROOT_DIR}/Include/)
 
-
+# Properties: OBJECT
 ADD_LIBRARY(Doryen.Algorithms.Heightmap.Object OBJECT
         Generation/Heightmap.cpp
         )
@@ -19,6 +26,11 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap.Object PRIVATE ${DORYEN_R
 
 IF (DORYEN_SHARED_LIBRARIES)
 
+    # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
+    # shared libraries will be created. This property is True by default for SHARED and MODULE library
+    # targets and False otherwise.
+
+    # Property: SHARED, POSITION_INDEPENDENT_CODE
     ADD_LIBRARY(Doryen.Algorithms.Noise SHARED $<TARGET_OBJECTS:Doryen.Algorithms.Noise.Object>)
     ADD_LIBRARY(Doryen.Algorithms.Heightmap SHARED $<TARGET_OBJECTS:Doryen.Algorithms.Heightmap.Object>)
 
