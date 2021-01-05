@@ -23,6 +23,20 @@ TEST_CASE ("Not equality of size")
 			CHECK(not size1.equals(size2));
 }
 
+TEST_CASE("Verify behavior of Copy constructor")
+{
+	Geometry::Size sizeOriginal {69, 36};
+	Geometry::Size sizeCopy {sizeOriginal};
+
+	REQUIRE(sizeCopy.equals(sizeOriginal));
+
+	sizeCopy.setWidth(72);
+	sizeCopy.setHeight(87);
+
+	CHECK(sizeOriginal.equals({69, 36}));
+	CHECK(sizeCopy.equals({72, 87}));
+}
+
 SCENARIO ("Equality and not equality for 2 sizes")
 {
 			GIVEN("Two sizes with the same width and height")
