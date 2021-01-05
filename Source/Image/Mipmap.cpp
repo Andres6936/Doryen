@@ -50,6 +50,11 @@ std::string Mipmap::toString() const
 
 // Getters
 
+const bool Mipmap::isUpdated() const noexcept
+{
+	return updated;
+}
+
 const Mipmap::Size& Mipmap::getSize() const noexcept
 {
 	return dimension;
@@ -72,9 +77,9 @@ const std::int32_t Mipmap::getHeight() const noexcept
 
 // Setters
 
-void Mipmap::setDirty(bool _dirty) noexcept
+void Mipmap::setUpdated(const bool hasBeenUpdated) noexcept
 {
-	dirty = _dirty;
+	updated = hasBeenUpdated;
 }
 
 void Mipmap::setSize(const Mipmap::Size& newSize) noexcept

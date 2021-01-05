@@ -486,7 +486,7 @@ const Color& ImageSdl::getMipmapPixel(
 		{
 			generateMip(mip);
 		}
-		else if (mipmaps[mip].dirty)
+		else if (not mipmaps[mip].isUpdated())
 		{
 			generateMip(mip);
 		}
@@ -516,7 +516,7 @@ void ImageSdl::initMipmaps()
 	for (Mipmap& mipmap : mipmaps)
 	{
 		mipmap.setSize(size);
-		mipmap.dirty = true;
+		mipmap.setUpdated(false);
 
 		size.setWidth(size.getWidth() >> 1);
 		size.setHeight(size.getHeight() >> 1);
@@ -533,7 +533,7 @@ void ImageSdl::initMipmaps()
 		}
 	}
 
-	mipmap.dirty = false;
+	mipmap.setUpdated(true);
 }
 
 void ImageSdl::generateMip(int _mip)
@@ -546,7 +546,7 @@ void ImageSdl::generateMip(int _mip)
 		current.resize(current.getWidth() * current.getHeight());
 	}
 
-	current.dirty = false;
+	current.setUpdated(true);
 
 	for (int x = 0; x < current.getWidth(); ++x)
 	{
@@ -605,7 +605,7 @@ void ImageSdl::setPixel(int x, int y, const Color& _color)
 				// Skip the first mipmap
 				for (int i = 1; i < mipmaps.size(); ++i)
 				{
-					mipmaps[i].setDirty(true);
+					mipmaps[i].setUpdated(true);
 				}
 			}
 		}

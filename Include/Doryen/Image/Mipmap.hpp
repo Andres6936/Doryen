@@ -33,17 +33,20 @@ namespace Doryen
 
 		using Size = Geometry::Size;
 
-		// Variables
+		// Properties
 
 		Size dimension{ 0, 0 };
+
+		/**
+		 * Determine if the mipmap has been initialized (updated).
+		 */
+		bool updated = false;
 
 		// Methods
 
 		void reduce(const Size& _size) noexcept;
 
 	public:
-
-		bool dirty = false;
 
 		// Construct
 
@@ -71,6 +74,8 @@ namespace Doryen
 
 		// Getter
 
+		const bool isUpdated() const noexcept;
+
 		const Size& getSize() const noexcept;
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
@@ -81,7 +86,7 @@ namespace Doryen
 
 		// Setter
 
-		void setDirty(bool _dirty) noexcept;
+		void setUpdated(const bool hasBeenUpdated) noexcept;
 
 		/**
 		 * @note If an exception is thrown, this function has no effect
