@@ -522,16 +522,19 @@ void ImageSdl::initMipmaps()
 	}
 
 	// The first mipmap is the same original image (same dimension, same pixels).
+	// Get the reference to first mipmap for initialize it.
 	Mipmap& mipmap = mipmaps[0];
 
 	for (int x = 0; x < mipmap.getWidth(); ++x)
 	{
 		for (int y = 0; y < mipmap.getHeight(); ++y)
 		{
+			// Same pixels to original image.
 			mipmap.setPixelAt(x, y, getPixel(x, y));
 		}
 	}
 
+	// The first mipmap always is initialized.
 	mipmap.setUpdated(true);
 }
 
