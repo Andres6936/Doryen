@@ -83,6 +83,9 @@ namespace Doryen
 		 */
 		const bool isUpdated() const noexcept;
 
+		/**
+		 * @return The size {width, height} of texture.
+		 */
 		const Size& getSize() const noexcept;
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
