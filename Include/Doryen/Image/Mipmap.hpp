@@ -29,7 +29,7 @@ namespace Doryen
 
 	private:
 
-		// Definitons
+		// Definitions
 
 		using Size = Geometry::Size;
 
