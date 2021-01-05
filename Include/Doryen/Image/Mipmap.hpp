@@ -77,6 +77,10 @@ namespace Doryen
 
 		// Getter
 
+		/**
+		 * @return True if the mipmap has been updated (initialized) and
+		 *  contain the pixels of the texture, false otherwise.
+		 */
 		const bool isUpdated() const noexcept;
 
 		const Size& getSize() const noexcept;
