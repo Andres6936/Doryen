@@ -67,6 +67,17 @@ namespace Doryen
 		 */
 		bool isCoordinateInsideRange(int _x, int _y) const;
 
+		/**
+		 * Is important call to this method for verify that the mipmaps has
+		 * been sizing.
+		 *
+		 * The objects of type Mipmaps have 'strong exception guarantee' when
+		 * are sizing (this happens when the object is updated or initialized).
+		 *
+		 * @return True if the array of mipmaps has been sizing properly.
+		 */
+		bool verifyThatAllMipmapsHasBeenSizing() const noexcept;
+
 	public:
 
 		ImageSdl() = default;

@@ -428,6 +428,23 @@ bool ImageSdl::isCoordinateInsideRange(int _x, int _y) const
 		   _y < representation->h;
 }
 
+bool ImageSdl::verifyThatAllMipmapsHasBeenSizing() const noexcept
+{
+	// For start, verify that the array of mipmaps have at least one mipmap.
+	// If the array of mipmap is empty, obviously it has nothing.
+	if (mipmaps.empty()) return false;
+
+	for (const Mipmap& mipmap : mipmaps)
+	{
+		// Verify each mipmap and determine if has been sizing.
+		// If the mipmap is empty, the sizing of object has failed.
+		if (mipmap.isEmpty()) return false;
+	}
+
+	// All the objects has been verify successfully.
+	return true;
+}
+
 bool ImageSdl::isHasKeyColor() const
 {
 	return hasKeyColor;
