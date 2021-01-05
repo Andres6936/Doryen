@@ -555,6 +555,16 @@ void ImageSdl::updateMipmaps()
 
 	// The first mipmap always is initialized.
 	mipmap.setUpdated(true);
+
+	// Verify the invariant
+	if (not verifyThatAllMipmapsHasBeenSizing())
+	{
+		// The invariant not has been satisfied, emit a alert
+		// TODO: Not is possible use <iostream> for print the warning,
+		//  application that using ncurses might crashed to we use the
+		//  stream that ncurses override, but we can use a <fstream> for
+		//  print the warning.
+	}
 }
 
 void ImageSdl::generateMip(int _mip)
