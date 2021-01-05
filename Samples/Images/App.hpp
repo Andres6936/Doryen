@@ -15,6 +15,13 @@ namespace Sample
 
 	private:
 
+		// Properties
+
+		/**
+		 * Determine the scale coefficient in axis x and y of image, 1.0f is original size;
+		 */
+		float scaleImage = 1.0f;
+
 		/**
 		 * Default size of console 80x50.
 		 */
@@ -25,8 +32,17 @@ namespace Sample
 		 */
 		Image skull{ "Skull.png" };
 
+		// Methods Private
+
+		void handleInput(const KeyCode key);
+
 	public:
 
+		// Methods Public
+
+		/**
+		 * Render the console.
+		 */
 		void render();
 
 	};
