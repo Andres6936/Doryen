@@ -98,6 +98,11 @@ namespace Doryen
 		 */
 		const Size& getSize() const noexcept;
 
+		/**
+		 * @param _x Coordinate in the axis X of texture.
+		 * @param _y Coordinate in the axis Y of texture.
+		 * @return The pixel associated to coordinates (x, y) of texture.
+		 */
 		const Color& getPixelAt(int _x, int _y) const noexcept;
 
 		/**
