@@ -54,6 +54,11 @@ namespace Doryen
 		 */
 		void updateMipmaps();
 
+		/**
+		 * Precondition: The mipmap has enough space to generate it.
+		 *
+		 * @param _mip The index of mipmap in the array of mipmaps.
+		 */
 		void generateMip(int _mip);
 
 		/**
