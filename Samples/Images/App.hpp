@@ -38,6 +38,10 @@ namespace Sample
 
 	public:
 
+		// Construct
+
+		App() noexcept;
+
 		// Methods Public
 
 		/**

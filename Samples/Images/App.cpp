@@ -4,6 +4,15 @@
 
 using namespace Sample;
 
+// Construct
+
+App::App() noexcept
+{
+	console.setFramePerSeconds(24);
+}
+
+// Private Methods
+
 void App::handleInput(const KeyCode key)
 {
 	if (key == KeyCode::UP)
@@ -15,6 +24,8 @@ void App::handleInput(const KeyCode key)
 		scaleImage -= 0.1f;
 	}
 }
+
+// Public Methods
 
 void App::render()
 {
