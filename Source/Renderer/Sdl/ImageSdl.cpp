@@ -446,7 +446,7 @@ const Color& ImageSdl::getMipmapPixel(
 	{
 		if (mipmaps.empty())
 		{
-			initMipmaps();
+			updateMipmaps();
 		}
 
 		int texelXSize = (int)(_point1.x - _point0.x);
@@ -505,7 +505,7 @@ const Color& ImageSdl::getMipmapPixel(
 	}
 }
 
-void ImageSdl::initMipmaps()
+void ImageSdl::updateMipmaps()
 {
 	// Copy of size
 	Size size{ getSize() };
@@ -597,7 +597,7 @@ void ImageSdl::setPixel(int x, int y, const Color& _color)
 	{
 		if (mipmaps.empty())
 		{
-			initMipmaps();
+			updateMipmaps();
 		}
 		else
 		{
