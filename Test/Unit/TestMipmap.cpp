@@ -10,5 +10,7 @@ using namespace Doryen;
 TEST_CASE("Size for default is {Width: 0, Height: 0}")
 {
 	Mipmap mipmap {};
+
+	CHECK(mipmap.isEmpty() == true);
 	CHECK(mipmap.getSize().equals({0, 0}));
 }
