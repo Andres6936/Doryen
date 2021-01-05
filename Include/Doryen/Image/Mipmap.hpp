@@ -35,6 +35,9 @@ namespace Doryen
 
 		// Properties
 
+		/**
+		 * The size for default for the mipmap is {w: 0, h: 0}.
+		 */
 		Size dimension{ 0, 0 };
 
 		/**
