@@ -517,6 +517,8 @@ void ImageSdl::initMipmaps()
 		mipmap.setSize(size);
 		mipmap.setUpdated(false);
 
+		// In an mipmap chains (array of mipmaps), each mipmap (level) is the
+		// half of small than the previous one.
 		size.setWidth(size.getWidth() / 2);
 		size.setHeight(size.getHeight() / 2);
 	}
