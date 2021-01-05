@@ -47,7 +47,10 @@ namespace Doryen
 		void readImagePNG(const std::string& filename);
 
 		/**
-		 * Post-condition: All the mipmaps has been sizing.
+		 * Post-condition: All the mipmaps has been sizing (warning, sizing
+		 * not is same that initialize or generate, it is only guaranteed that
+		 * the object has enough space to carry out the operations that will
+		 * initialized it).
 		 */
 		void updateMipmaps();
 
