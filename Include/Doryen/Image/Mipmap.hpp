@@ -98,7 +98,7 @@ namespace Doryen
 		 */
 		const Size& getSize() const noexcept;
 
-		const Color& getColorAt(int _x, int _y) const noexcept;
+		const Color& getPixelAt(int _x, int _y) const noexcept;
 
 		/**
 		 * @return The width of texture.

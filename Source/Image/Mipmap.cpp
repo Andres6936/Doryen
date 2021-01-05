@@ -66,7 +66,7 @@ const Mipmap::Size& Mipmap::getSize() const noexcept
 	return dimension;
 }
 
-const Color& Mipmap::getColorAt(int _x, int _y) const noexcept
+const Color& Mipmap::getPixelAt(int _x, int _y) const noexcept
 {
 	return (*this)[_x + _y * dimension.w];
 }

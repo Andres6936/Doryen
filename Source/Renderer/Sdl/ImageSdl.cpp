@@ -342,7 +342,7 @@ Color ImageSdl::getPixel(int x, int y) const
 	{
 		if (isInvariantSatisfied(x, y))
 		{
-			return mipmaps[0].getColorAt(x, y);
+			return mipmaps[0].getPixelAt(x, y);
 		}
 		else
 		{
@@ -497,7 +497,7 @@ const Color& ImageSdl::getMipmapPixel(
 			return Palette::GRAY_WARN_90;
 		}
 
-		return mipmaps[mip].getColorAt(texelX, texelY);
+		return mipmaps[mip].getPixelAt(texelX, texelY);
 	}
 	else
 	{
@@ -564,7 +564,7 @@ void ImageSdl::generateMip(int _mip)
 			{
 				for (int sy = (y << _mip); sy < (y + 1) << _mip; ++sy)
 				{
-					Color pixel = origin.getColorAt(sx, sy);
+					Color pixel = origin.getPixelAt(sx, sy);
 					++count;
 
 					r += pixel.r;
