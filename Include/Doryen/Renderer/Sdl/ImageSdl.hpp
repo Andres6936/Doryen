@@ -46,6 +46,9 @@ namespace Doryen
 
 		void readImagePNG(const std::string& filename);
 
+		/**
+		 * Post-condition: All the mipmaps has been sizing.
+		 */
 		void updateMipmaps();
 
 		void generateMip(int _mip);
