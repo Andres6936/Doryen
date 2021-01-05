@@ -24,7 +24,7 @@ namespace Doryen
 	 * Lower-resolution images are used as the object appears farther away. Mipmapping
 	 * improves the quality of rendered textures at the expense of using more memory.
 	 */
-	class Mipmap : public std::vector<Color>
+	class Mipmap : private std::vector<Color>
 	{
 
 	private:
@@ -76,6 +76,16 @@ namespace Doryen
 		[[maybe_unused]] std::string toString() const;
 
 		// Getter
+
+		/**
+		 * The called to this method is equivalent to call: getSize().equals({0, 0}).
+		 *
+		 * The purpose of this method not is abbreviate a call to a method, is
+		 * verify that the object contain the information of texture.
+		 *
+		 * @return True if the mipmap is empty (hasn't been initialized), false otherwise.
+		 */
+		const bool isEmpty() const noexcept;
 
 		/**
 		 * @return True if the mipmap has been updated (initialized) and

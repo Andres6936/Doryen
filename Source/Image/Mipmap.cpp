@@ -50,6 +50,12 @@ std::string Mipmap::toString() const
 
 // Getters
 
+const bool Mipmap::isEmpty() const noexcept
+{
+	// Verify the content of std::vector
+	return this->empty();
+}
+
 const bool Mipmap::isUpdated() const noexcept
 {
 	return updated;
