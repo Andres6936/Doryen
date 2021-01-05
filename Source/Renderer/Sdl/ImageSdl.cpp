@@ -517,8 +517,8 @@ void ImageSdl::initMipmaps()
 		mipmap.setSize(size);
 		mipmap.setUpdated(false);
 
-		size.setWidth(size.getWidth() >> 1);
-		size.setHeight(size.getHeight() >> 1);
+		size.setWidth(size.getWidth() / 2);
+		size.setHeight(size.getHeight() / 2);
 	}
 
 	// The first mipmap is the same original image (same dimension, same pixels).
