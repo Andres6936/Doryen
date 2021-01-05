@@ -481,7 +481,7 @@ const Color& ImageSdl::getMipmapPixel(
 		int texelX = (int)(_point0.x * mipmaps[mip].getWidth() / fWidth);
 		int texelY = (int)(_point0.y * mipmaps[mip].getHeight() / fHeight);
 
-		if (mipmaps[mip].empty())
+		if (mipmaps[mip].isEmpty())
 		{
 			generateMip(mip);
 		}
@@ -497,7 +497,7 @@ const Color& ImageSdl::getMipmapPixel(
 			return Palette::GRAY_WARN_90;
 		}
 
-		return mipmaps[mip][texelX + mipmaps[mip].getWidth() * texelY];
+		return mipmaps[mip].getColorAt(texelX, texelY);
 	}
 	else
 	{
@@ -545,11 +545,6 @@ void ImageSdl::generateMip(int _mip)
 	const Mipmap& origin = mipmaps.at(0);
 	Mipmap& current = mipmaps.at(_mip);
 
-	if (current.empty())
-	{
-		current.resize(current.getWidth() * current.getHeight());
-	}
-
 	current.setUpdated(true);
 
 	for (int x = 0; x < current.getWidth(); ++x)
@@ -569,12 +564,12 @@ void ImageSdl::generateMip(int _mip)
 			{
 				for (int sy = (y << _mip); sy < (y + 1) << _mip; ++sy)
 				{
-					int offset = sx + origin.getWidth() * sy;
+					Color pixel = origin.getColorAt(sx, sy);
 					++count;
 
-					r += origin.at(offset).r;
-					g += origin.at(offset).g;
-					b += origin.at(offset).b;
+					r += pixel.r;
+					g += pixel.g;
+					b += pixel.b;
 				}
 			}
 
@@ -582,11 +577,7 @@ void ImageSdl::generateMip(int _mip)
 			g /= count;
 			b /= count;
 
-			Color& color = current.at(x + current.getWidth() * y);
-
-			color.r = (short)r;
-			color.g = (short)g;
-			color.b = (short)b;
+			current.setPixelAt(x, y, { r, g, b });
 		}
 	}
 }
