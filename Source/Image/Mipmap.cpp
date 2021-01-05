@@ -40,6 +40,14 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 	return levels;
 }
 
+// Debug
+
+std::string Mipmap::toString() const
+{
+	return { "Width: " + std::to_string(dimension.w) + ", Height: " + std::to_string(dimension.h) };
+}
+
+
 // Getters
 
 const Mipmap::Size& Mipmap::getSize() const noexcept

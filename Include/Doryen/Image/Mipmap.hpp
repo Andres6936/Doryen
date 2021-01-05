@@ -1,6 +1,7 @@
 #ifndef LIBTCOD_PIXEL_HPP
 #define LIBTCOD_PIXEL_HPP
 
+#include <string>
 #include <vector>
 #include <cstdint>
 
@@ -63,6 +64,10 @@ namespace Doryen
 		 * @return The number of texture levels in a multilevel texture.
 		 */
 		static std::uint32_t getLevelCount(const std::uint32_t width, const std::uint32_t height) noexcept;
+
+		// Debug
+
+		[[maybe_unused]] std::string toString() const;
 
 		// Getter
 
