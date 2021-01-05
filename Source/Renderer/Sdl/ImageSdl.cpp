@@ -1,6 +1,5 @@
 #include <array>
 #include <fstream>
-#include <iostream>
 
 #include "Doryen/Console/Console.hpp"
 #include <Doryen/Image/PNG/State.hpp>
