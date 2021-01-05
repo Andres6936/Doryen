@@ -90,8 +90,14 @@ namespace Doryen
 
 		const Color& getColorAt(int _x, int _y) const noexcept;
 
+		/**
+		 * @return The width of texture.
+		 */
 		const std::int32_t getWidth() const noexcept;
 
+		/**
+		 * @return The height of texture.
+		 */
 		const std::int32_t getHeight() const noexcept;
 
 		// Setter
