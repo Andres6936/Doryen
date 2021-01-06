@@ -34,6 +34,8 @@ namespace Sample
 
 		// Methods Private
 
+		void drawMessageHelp();
+
 		void handleInput(const KeyCode key);
 
 	public:

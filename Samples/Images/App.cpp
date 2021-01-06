@@ -13,6 +13,12 @@ App::App() noexcept
 
 // Private Methods
 
+void App::drawMessageHelp()
+{
+	// The line: 'console.getHeight() - 1' draw the message in the bottom of frame.
+	console.writeString(1, console.getHeight() - 1, "Press Up and Down for scaling the image");
+}
+
 void App::handleInput(const KeyCode key)
 {
 	if (key == KeyCode::UP)
@@ -38,6 +44,8 @@ void App::render()
 		handleInput(console.getKeyPressed().getKeyCode());
 
 		skull.blit(console, { size.w / 2, size.h / 2 }, BlendModes::SET, scaleImage, scaleImage, 0);
+
+		drawMessageHelp();
 		console.draw();
 	}
 }
