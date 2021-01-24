@@ -109,6 +109,32 @@ You can clone with Git via the GitHub repository.
     cd Doryen && mkdir Build
     cd Build && cmake .. -DDORYEN_SAMPLES=ON
     make
+    
+
+### How to use the library as a downloadable dependency
+
+To use this library, you need the script written by [TheLartians](https://github.com/TheLartians),
+named [CPM.cmake](https://github.com/TheLartians/CPM.cmake) (acronym for CMake
+Package Manager). Add it to your project, for example, under the
+`CMakeModules` and then in your `CMakeFiles.txt` write the following:
+
+- The directory `CMakeModules` is used to store CMake Scripts,
+  in case you use another directory for these purposes it will be necessary that
+  references properly CPM.cmake to be able to download the dependency.
+
+```cmake
+Include(CMakeModules/CPM.cmake)
+
+CPMAddPackage(
+  NAME Doryen
+  VERSION 2021.0124
+  GITHUB_REPOSITORY Andres6936/Doryen
+)
+ 
+TARGET_LINK_LIBRARIES(<TARGET> PRIVATE Doryen::Framework)
+```
+
+###### Please, in the VERSION option you should preferably specify the latest version available consult [here](https://github.com/Andres6936/Doryen/releases/latest)
 
 ###### All screenshots come from the Doryen sample source code.
 
