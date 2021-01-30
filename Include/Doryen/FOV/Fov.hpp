@@ -101,10 +101,10 @@ namespace Doryen
 		 * @brief Defining the cell properties.
 		 *
 		 * Then, build your dungeon by defining which cells let the light pass
-		 * and which cells are walkable.
+		 * and which cells are traversable.
 		 *
 		 * @note (by default, all cells block the light)
-		 * @note (by default, all cells are not-walkable).
+		 * @note (by default, all cells are not-traversable).
 		 *
 		 * @param x Coordinate of the cell that we want to update.
 		 * @param y Coordinate of the cell that we want to update.
@@ -129,10 +129,10 @@ namespace Doryen
 		 * @brief Clearing the map.
 		 *
 		 * You can clear an existing map (setting all cells to the chosen
-		 * walkable/transparent values).
+		 * traversable/transparent values).
 		 *
 		 * @param transparent Whether the cells should be transparent.
-		 * @param walkable Whether the cells should be walkable.
+		 * @param walkable Whether the cells should be traversable.
 		 */
 		void clear(bool transparent = false, bool walkable = false);
 
@@ -194,30 +194,30 @@ namespace Doryen
          */
 		bool isVisibleFieldView(int x, int y) const;
 
-        /**
-         * @brief Checking a cell transparency/walkability.
-         *
-         * You can also retrieve transparent/walkable informations.
-         *
-         * @param x Coordinates of the cell we want to check. 0 <= x < map width.
-         * @param y Coordinates of the cell we want to check. 0 <= y < map height.
-         *
-         * @return True if the cell is transparent/walkable inside
-         * of fov, false otherwise.
-         */
+		/**
+		 * @brief Checking a cell transparency/walkability.
+		 *
+		 * You can also retrieve transparent/traversable informations.
+		 *
+		 * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+		 * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+		 *
+		 * @return True if the cell is transparent/traversable inside
+		 * of fov, false otherwise.
+		 */
         bool isTransparent( int x, int y ) const;
 
-        /**
-         * @brief Checking a cell transparency/walkability.
-         *
-         * You can also retrieve transparent/walkable informations.
-         *
-         * @param x Coordinates of the cell we want to check. 0 <= x < map width.
-         * @param y Coordinates of the cell we want to check. 0 <= y < map height.
-         *
-         * @return True if the cell is transparent/walkable inside
-         * of fov, false otherwise.
-         */
+		/**
+		 * @brief Checking a cell transparency/walkability.
+		 *
+		 * You can also retrieve transparent/traversable informations.
+		 *
+		 * @param x Coordinates of the cell we want to check. 0 <= x < map width.
+		 * @param y Coordinates of the cell we want to check. 0 <= y < map height.
+		 *
+		 * @return True if the cell is transparent/traversable inside
+		 * of fov, false otherwise.
+		 */
         bool isWalkable( int x, int y ) const;
 
 		/**

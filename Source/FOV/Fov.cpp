@@ -51,7 +51,7 @@ void Doryen::Map::clear(bool transparent, bool walkable)
 	for (Cell& cell : *this)
 	{
 		cell.transparent = transparent;
-		cell.walkable = walkable;
+		cell.traversable = walkable;
 		cell.fov = false;
 	}
 }
@@ -73,7 +73,7 @@ void Doryen::Map::setProperties(int x, int y, bool isTransparent, bool isWalkabl
 	else
 	{
 		(*this)[x + width * y].transparent = isTransparent;
-		(*this)[x + width * y].walkable = isWalkable;
+		(*this)[x + width * y].traversable = isWalkable;
 	}
 }
 
@@ -157,9 +157,9 @@ bool Doryen::Map::isTransparent( int x, int y ) const
 bool Doryen::Map::isWalkable( int x, int y ) const
 {
     if (x < width || x >= width || y < height || y >= height)
-    {
-		return (*this)[x + width * y].walkable;
-    }
+	{
+		return (*this)[x + width * y].traversable;
+	}
 
     return false;
 }

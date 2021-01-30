@@ -6,8 +6,8 @@ namespace Doryen
 
 	/**
 	 * The cell define a point a two-dimensional space, represent the current
-	 * state of that point, indicate whether it is traversable (walkable),
-	 * transparent or may be in the field of view of some entity.
+	 * state of that point, indicate whether it is traversable, transparent or
+	 * may be in the field of view of some entity.
 	 */
 	class Cell
 	{
@@ -17,14 +17,14 @@ namespace Doryen
 		// Properties
 
 		/**
+		 * Define the possibility of traversing this cell for some entity.
+		 */
+		bool traversable = false;
+
+		/**
 		 * Define the property to see other cells through this cell.
 		 */
 		bool transparent = false;
-
-		/**
-		 * Define the possibility of traversing this cell.
-		 */
-		bool walkable = false;
 
 		/**
 		 * Define if a entity (usually the player) has in its field of view this cell.

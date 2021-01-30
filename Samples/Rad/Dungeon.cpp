@@ -221,7 +221,7 @@ Dungeon::Point Dungeon::getCoordinateWalkableMoreClosestAt(const Point& _at) con
 {
 	if (invariantSatisfiedWithCoordinate(_at))
 	{
-		// Find the position walkable more closest at coordinate passed for parameter
+		// Find the position traversable more closest at coordinate passed for parameter
 		for (std::uint32_t x = _at.x; x < map.getWidth(); ++x)
 		{
 			for (std::uint32_t y = _at.y; y < map.getHeight(); ++y)
@@ -233,7 +233,7 @@ Dungeon::Point Dungeon::getCoordinateWalkableMoreClosestAt(const Point& _at) con
 			}
 		}
 
-		// Not is possible find a position walkable closet to coordinate, so that
+		// Not is possible find a position traversable closet to coordinate, so that
 		// begin from the initial coordinate of map
 		for (std::uint32_t x = 0; x < map.getWidth(); ++x)
 		{
@@ -247,7 +247,7 @@ Dungeon::Point Dungeon::getCoordinateWalkableMoreClosestAt(const Point& _at) con
 		}
 	}
 
-	throw std::out_of_range("Not is possible find a position walkable in the current map");
+	throw std::out_of_range("Not is possible find a position traversable in the current map");
 }
 
 bool Dungeon::invariantSatisfiedWithCoordinate(const Point& _verify) const

@@ -113,7 +113,7 @@ namespace Doryen
 				 *
 				 * First, you have to allocate a path using a map. {Doryen::Map}.
 				 *
-				 * @param map The map. The path finder will use the 'walkable' property of
+				 * @param map The map. The path finder will use the 'traversable' property of
 				 * the cells to find a path.
 				 *
 				 * @param diagonalCost Cost of a diagonal movement compared to an horizontal
@@ -131,21 +131,21 @@ namespace Doryen
                  */
                 virtual ~AStar( );
 
-                /**
-                 * @brief Computing an A* path.
-                 *
-                 * Once you created a TCODPath object, you can compute the path between two points.
-                 *
-                 * @param originX Coordinates of the origin of the path.
-                 * @param originY Coordinates of the origin of the path.
-                 * @param destinationX Coordinates of the destination of the path.
-                 * @param destinationY Coordinates of the destination of the path.
-                 *
-                 * @note Both points {dx and dy} should be inside the map, and at a walkable position.
-                 * @note The function returns false if there is no possible path.
-                 *
-                 * @return True if there is posible path, false otherwise.
-                 */
+				/**
+				 * @brief Computing an A* path.
+				 *
+				 * Once you created a TCODPath object, you can compute the path between two points.
+				 *
+				 * @param originX Coordinates of the origin of the path.
+				 * @param originY Coordinates of the origin of the path.
+				 * @param destinationX Coordinates of the destination of the path.
+				 * @param destinationY Coordinates of the destination of the path.
+				 *
+				 * @note Both points {dx and dy} should be inside the map, and at a traversable position.
+				 * @note The function returns false if there is no possible path.
+				 *
+				 * @return True if there is posible path, false otherwise.
+				 */
                 void compute( int originX, int originY, int destinationX, int destinationY );
 
                 /**
@@ -235,9 +235,9 @@ namespace Doryen
 				 * the path size by one).
 				 *
 				 * The function returns false if recalculateWhenNeeded is false and
-				 * the next cell on the path is no longer walkable, or
+				 * the next cell on the path is no longer traversable, or
 				 * if recalculateWhenNeeded is true, the next cell on the path is
-				 * no longer walkable and no other path has been found.
+				 * no longer traversable and no other path has been found.
 				 *
 				 * @note recalculateWhenNeeded only applies to A*.
 				 *
@@ -248,12 +248,12 @@ namespace Doryen
 				 * the next point.
 				 *
 				 * @param recalculateWhenNeeded If the next point is no longer
-				 * walkable (another creature may be in the way), recalculate
+				 * traversable (another creature may be in the way), recalculate
 				 * a new path and walk it.
 				 *
 				 * @return false if recalculateWhenNeeded is false and the next
-				 * cell on the path is no longer walkable, or if recalculateWhenNeeded
-				 * is true, the next cell on the path is no longer walkable and
+				 * cell on the path is no longer traversable, or if recalculateWhenNeeded
+				 * is true, the next cell on the path is no longer traversable and
 				 * no other path has been found.
 				 */
 				Doryen::Geometry::Point2D<> walk();
