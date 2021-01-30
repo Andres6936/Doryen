@@ -22,6 +22,7 @@ ENDMACRO()
 
 ADD_DORYEN_TEST(Doryen.Test.Unit.Cell TestCell.cpp)
 ADD_DORYEN_TEST(Doryen.Test.Unit.Size TestSize.cpp)
+ADD_DORYEN_TEST(Doryen.Test.Unit.Char TestChar.cpp)
 ADD_DORYEN_TEST(Doryen.Test.Unit.Color TestColor.cpp)
 ADD_DORYEN_TEST(Doryen.Test.Unit.Mipmap TestMipmap.cpp)
 ADD_DORYEN_TEST(Doryen.Test.Unit.Point2D TestPoint2D.cpp)
