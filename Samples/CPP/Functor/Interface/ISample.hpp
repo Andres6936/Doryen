@@ -38,6 +38,8 @@ namespace Functor
 			sample.setFramePerSeconds(30);
 		};
 
+		virtual ~ISample() = default;
+
 		// Methods Virtual
 
 		virtual void render(KeyCode key, const Mouse& mouse) = 0;
