@@ -1,7 +1,4 @@
-#include <iostream>
-
-#include "Doryen/Renderer/Sdl.hpp"
-#include <Doryen/Renderer/Sdl/ImageSdl.hpp>
+#include <Doryen/Renderer/Sdl.hpp>
 
 // Construct
 
@@ -118,7 +115,7 @@ void Doryen::SDL::loadFont()
 
 	bool isTransparent = false;
 
-	ImageSdl image = ImageSdl(getFontfile().c_str());
+	image = ImageSdl(getFontfile().c_str());
 
 	charmap = image.getCopySurface();
 

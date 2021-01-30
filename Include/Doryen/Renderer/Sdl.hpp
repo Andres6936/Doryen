@@ -2,7 +2,8 @@
 #define LIBTCOD_SDL_HPP
 
 #include <SDL/SDL.h>
-#include "Doryen/Renderer/Renderer.hpp"
+#include <Doryen/Renderer/Renderer.hpp>
+#include <Doryen/Renderer/Sdl/ImageSdl.hpp>
 
 namespace Doryen
 {
@@ -12,6 +13,8 @@ namespace Doryen
 	private:
 
 		bool eventPending = false;
+
+		ImageSdl image;
 
 		SDL_Event event;
 
