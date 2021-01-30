@@ -1,0 +1,3 @@
+[submodule "Documentation"]
+	path = Documentation
+	url = https://github.com/Andres6936/Doryen.Documentation.git
