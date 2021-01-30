@@ -73,7 +73,9 @@ namespace Doryen
 		inline static std::unique_ptr<Renderer> renderer = std::make_unique<SDL>();
 
 		/**
-		 * Only exist a root console during all execute of program.
+		 * There is only single root console throughout the program execution.
+		 * The root console define the point of communication with the
+		 * underlying render.
 		 */
 		bool isConsoleRoot = false;
 
