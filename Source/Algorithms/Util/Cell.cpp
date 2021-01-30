@@ -26,17 +26,17 @@ bool Doryen::Cell::isTransparent() const
 
 // Setters
 
-void Doryen::Cell::setFov(bool _fov)
+void Doryen::Cell::setFov(bool isFov)
 {
-	fov = _fov;
+	fov = isFov;
 }
 
-void Doryen::Cell::setTraversable(bool _traversable)
+void Doryen::Cell::setTraversable(bool isTraversable)
 {
-	traversable = _traversable;
+	traversable = isTraversable;
 }
 
-void Doryen::Cell::setTransparent(bool _transparent)
+void Doryen::Cell::setTransparent(bool isTransparent)
 {
-	transparent = _transparent;
+	transparent = isTransparent;
 }

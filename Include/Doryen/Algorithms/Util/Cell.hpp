@@ -47,11 +47,11 @@ namespace Doryen
 
 		// Setters
 
-		void setFov(bool fov);
+		void setFov(bool isFov);
 
-		void setTraversable(bool traversable);
+		void setTraversable(bool isTraversable);
 
-		void setTransparent(bool transparent);
+		void setTransparent(bool isTransparent);
 
 	};
 }
