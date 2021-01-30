@@ -80,3 +80,29 @@ TEST_CASE("Verify the width and height of console when it is set with construct 
 	CHECK(oldBuffer.size() == 250 * 100);
 	CHECK(verifyBufferPerDefect(oldBuffer));
 }
+
+TEST_CASE("Verify the behavior of write characters out of range. (Do not throw exceptions).")
+{
+	Console console {};
+
+	try
+	{
+		// This should not write absolutely nothing to the buffer
+		console.writeChar(-1, -1, '@');
+	}
+	// Catch all the exceptions possibles
+	catch (...)
+	{
+		FAIL("An exception has been thrown");
+	}
+
+	// Verify that the main buffer and the old buffer is still intact
+
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
+	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
+	CHECK(verifyBufferPerDefect(mainBuffer));
+
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
+	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
+	CHECK(verifyBufferPerDefect(oldBuffer));
+}
