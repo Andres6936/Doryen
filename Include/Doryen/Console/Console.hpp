@@ -46,7 +46,7 @@ namespace Doryen
 	 * The console emulator handles the rendering of the game screen and the
 	 * keyboard input.
 	 *
-	 * The instaces of Console class are called offscreen consoles, this you
+	 * The instances of Console class are called offscreen consoles, this you
 	 * allow draw on secondary consoles as you would do with the
 	 * root console. You can then blit those secondary consoles on the root
 	 * console. This allows you to use local coordinate space while rendering
