@@ -293,20 +293,6 @@ ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t heigth)
 	}
 }
 
-void ImageSdl::createBitmapFrom(const Console& console)
-{
-	unsigned int w = console.getWidth();
-	unsigned int h = console.getHeight();
-
-	representation = createNewSurface(w, h, false);
-
-	Color fadingColor = console.getFadingColor();
-
-	int fade = console.getFade();
-
-	// TODO: Implemented (Imposible, is needed use charmap)
-}
-
 SDL_Surface* ImageSdl::getCopySurface() const
 {
 	return SDL_ConvertSurface(representation, representation->format, SDL_SWSURFACE);
