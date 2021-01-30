@@ -44,10 +44,10 @@ namespace Doryen
 		 * Construct a cell defined by the constructor parameters.
 		 *
 		 * @param isTransparent Define the possibility of to see other cells through this cell.
-		 * @param isWalkable Define the possibility of traversing this cell for some entity.
+		 * @param isTraversable Define the possibility of traversing this cell for some entity.
 		 * @param isFOV Define if a entity (usually the player) has in its field of view this cell.
 		 */
-		Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept;
+		Cell(bool isTransparent, bool isTraversable, bool isFOV) noexcept;
 
 		// Getters
 
