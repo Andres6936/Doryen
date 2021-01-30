@@ -89,6 +89,8 @@ TEST_CASE("Verify the behavior of write characters out of range. (Do not throw e
 	{
 		// This should not write absolutely nothing to the buffer
 		console.writeChar(-1, -1, '@');
+		console.writeChar(-1, -1, '@', {69, 36, 69}, {25, 45, 76});
+		console.writeChar(-1, -1, '@', {75, 87, 48}, {45, 98, 36}, BlendModes::ADDA);
 	}
 	// Catch all the exceptions possibles
 	catch (...)
