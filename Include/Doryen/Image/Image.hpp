@@ -36,7 +36,8 @@ namespace Doryen
 {
 
 	/**
-	 * This toolkit contains some image manipulation utilities.
+	 * The abstract class Image is the superclass of all classes that represent
+	 * graphical images. The image must be obtained in a platform-specific manner.
 	 */
 	class Image
 	{
