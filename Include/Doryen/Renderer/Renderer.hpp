@@ -16,6 +16,11 @@
 
 namespace Doryen
 {
+
+	/**
+	 * Defines the requirements for an object responsible for "rendering"
+	 * (displaying) a value.
+	 */
 	class Renderer
 	{
 
