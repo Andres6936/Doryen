@@ -350,8 +350,8 @@ int main(int argc, char* argv[])
 
 	while (console.isRunning())
 	{
-		const KeyCode key = Console::getKeyPressed().getKeyCode();
-		const Mouse mouse = Console::getMouseEvent();
+		const KeyCode key = console.getKeyPressed().getKeyCode();
+		const Mouse mouse = console.getMouseEvent();
 
 		// update the game
 		update(console.getLastFrameLength(), key, mouse);
