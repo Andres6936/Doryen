@@ -39,18 +39,37 @@ namespace Doryen
 
 		// Getters
 
+		/**
+		 * @return Returns true if this cell is in the vision field of any
+		 * entity, false otherwise.
+		 */
 		bool isFov() const;
 
+		/**
+		 * @return Return true if is possible traversing this cell for any entity.
+		 */
 		bool isTraversable() const;
 
+		/**
+		 * @return Returns true if is possible see other cells through this cell.
+		 */
 		bool isTransparent() const;
 
 		// Setters
 
+		/**
+		 * @param isFov Define if this cell is in the vision field of any entity.
+		 */
 		void setFov(bool isFov);
 
+		/**
+		 * @param isTraversable Define if this cell can be traversable for any entity.
+		 */
 		void setTraversable(bool isTraversable);
 
+		/**
+		 * @param isTransparent Define if this cell is transparent for any entity.
+		 */
 		void setTransparent(bool isTransparent);
 
 	};
