@@ -30,6 +30,7 @@
 #include <array>
 #include <utility>
 
+#include <Doryen/Console/Console.hpp>
 #include "Doryen/Renderer/Sdl/ImageSdl.hpp"
 
 namespace Doryen

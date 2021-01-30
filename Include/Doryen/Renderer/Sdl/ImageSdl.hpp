@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <SDL/SDL.h>
 
+#include <Doryen/Geometry/Point2D.hpp>
 #include "Doryen/Graphics/Color/Color.hpp"
 #include "Doryen/Geometry/Size.hpp"
 #include "Doryen/Image/Mipmap.hpp"
