@@ -7,7 +7,7 @@ namespace Doryen
 {
 
 	/**
-	 * A cell in the console
+	 * A drawable character on the console.
 	 */
 	class Char
 	{
