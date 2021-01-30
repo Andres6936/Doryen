@@ -141,16 +141,16 @@ TARGET_LINK_LIBRARIES(<TARGET> PRIVATE Doryen::Framework)
 <details>
 <summary>Click for See Screenshots</summary>
     <p align="center">
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/TrueColors.png" alt="A"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/OffscreenConsole.png" alt="B"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/LineDrawing.png" alt="C"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/Noise.png" alt="D"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/FieldOfView.png" alt="E"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/PathFinding.png" alt="F"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/BSPToolkit.png" alt="G"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/ImageToolkit.png" alt="H"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/MouseSupport.png" alt="I"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/NameGenerator.png" alt="J"/>
-        <img src="https://github.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/SDLCallback.png" alt="K"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/TrueColors.png" alt="A"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/OffscreenConsole.png" alt="B"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/LineDrawing.png" alt="C"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/Noise.png" alt="D"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/FieldOfView.png" alt="E"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/PathFinding.png" alt="F"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/BSPToolkit.png" alt="G"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/ImageToolkit.png" alt="H"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/MouseSupport.png" alt="I"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/NameGenerator.png" alt="J"/>
+        <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/tree/master/Image/Screen/SDLCallback.png" alt="K"/>
     </p>
 </details>
