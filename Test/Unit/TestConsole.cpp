@@ -108,3 +108,29 @@ TEST_CASE("Verify the behavior of write characters out of range. (Do not throw e
 	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
 	CHECK(verifyBufferPerDefect(oldBuffer));
 }
+
+TEST_CASE("Verify the behavior of write characters out of range. (Do not throw exceptions).")
+{
+	Console console {};
+
+	try
+	{
+		// This should not write absolutely nothing to the buffer
+		console.writeString(-1, -1, "This is method for draw");
+	}
+		// Catch all the exceptions possibles
+	catch (...)
+	{
+		FAIL("An exception has been thrown");
+	}
+
+	// Verify that the main buffer and the old buffer is still intact
+
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
+	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
+	CHECK(verifyBufferPerDefect(mainBuffer));
+
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
+	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
+	CHECK(verifyBufferPerDefect(oldBuffer));
+}
