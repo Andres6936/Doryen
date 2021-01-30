@@ -17,6 +17,11 @@ namespace Doryen
 		// Properties
 
 		/**
+		 * Define if a entity (usually the player) has in its field of view this cell.
+		 */
+		bool fov = false;
+
+		/**
 		 * Define the possibility of traversing this cell for some entity.
 		 */
 		bool traversable = false;
@@ -26,16 +31,28 @@ namespace Doryen
 		 */
 		bool transparent = false;
 
-		/**
-		 * Define if a entity (usually the player) has in its field of view this cell.
-		 */
-		bool fov = false;
-
 		// Construct
 
 		Cell() noexcept = default;
 
 		Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept;
+
+		// Getters
+
+		bool isFov() const;
+
+		bool isTraversable() const;
+
+		bool isTransparent() const;
+
+		// Setters
+
+		void setFov(bool fov);
+
+		void setTraversable(bool traversable);
+
+		void setTransparent(bool transparent);
+
 	};
 }
 
