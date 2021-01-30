@@ -91,13 +91,45 @@ namespace Doryen
 
 	public:
 
+		// Construct
+
 		ImageSdl() = default;
 
 		ImageSdl(const std::int32_t width, const std::int32_t heigth);
 
+		/**
+		 * Move constructor
+		 *
+		 * @param other The image to move.
+		 */
+		ImageSdl(ImageSdl&& other);
+
+		/**
+		 * Copy constructor
+		 *
+		 * @param other The image to copy.
+		 */
+		ImageSdl(const ImageSdl& other);
+
+		ImageSdl(const std::string& filename);
+
+		// Destructor
+
 		virtual ~ImageSdl();
 
-		explicit ImageSdl(const std::string& filename);
+		// Overload Operators
+
+		/**
+		 * Move assignment
+		 *
+		 * @param other The image to move.
+		 * @return Instance of this image.
+		 */
+		ImageSdl& operator=(ImageSdl&& other);
+
+		ImageSdl& operator=(const ImageSdl& other);
+
+		// Methods
 
 		static bool isTypeImageBMP(const std::string& filename);
 

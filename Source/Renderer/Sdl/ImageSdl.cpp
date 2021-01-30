@@ -1,12 +1,94 @@
 #include <array>
 #include <fstream>
+#include <algorithm>
 
-#include "Doryen/Console/Console.hpp"
 #include <Doryen/Image/PNG/State.hpp>
 #include "Doryen/Renderer/Sdl/ImageSdl.hpp"
 #include "Doryen/Graphics/Color/Palette.hpp"
 
 using namespace Doryen;
+
+
+ImageSdl::ImageSdl(ImageSdl&& other)
+{
+	representation = other.representation;
+	// Assign the data members of the source object to default values.
+	// This prevents the destructor from freeing resources (such as memory)
+	// multiple times.
+	// Release the data pointer from the source object so that
+	// the destructor does not free the memory multiple times.
+	other.representation = nullptr;
+
+	mipmaps = std::move(other.mipmaps);
+	// Assign the data members of the source object to default values.
+	other.mipmaps.clear();
+
+	keyColor = other.keyColor;
+	hasKeyColor = other.hasKeyColor;
+}
+
+ImageSdl::ImageSdl(const ImageSdl& other)
+{
+	// Copy the representation of image
+	representation = other.getCopySurface();
+
+	// Copy the content of mipmaps
+	std::copy(other.mipmaps.begin(), other.mipmaps.end(), std::back_inserter(this->mipmaps));
+
+	keyColor = other.keyColor;
+	hasKeyColor = other.hasKeyColor;
+}
+
+// Overload Operator
+
+ImageSdl& ImageSdl::operator=(ImageSdl&& other)
+{
+	// In the move assignment operator, add a conditional statement that
+	// performs no operation if you try to assign the object to itself.
+	if (this not_eq &other)
+	{
+		representation = other.representation;
+		// Assign the data members of the source object to default values.
+		// This prevents the destructor from freeing resources (such as memory)
+		// multiple times.
+		// Release the data pointer from the source object so that
+		// the destructor does not free the memory multiple times.
+		other.representation = nullptr;
+
+		mipmaps = std::move(other.mipmaps);
+		// Assign the data members of the source object to default values.
+		other.mipmaps.clear();
+
+		keyColor = other.keyColor;
+		hasKeyColor = other.hasKeyColor;
+	}
+
+	return *this;
+}
+
+
+ImageSdl& ImageSdl::operator=(const ImageSdl& other)
+{
+	// In the move assignment operator, add a conditional statement that
+	// performs no operation if you try to assign the object to itself.
+	if (this not_eq &other)
+	{
+		// Clear the surface used for represent the image
+		SDL_FreeSurface(representation);
+		// Copy the representation of image
+		representation = other.getCopySurface();
+
+		// Clear the content of mipmaps
+		mipmaps.clear();
+		// Copy the content of mipmaps
+		std::copy(other.mipmaps.begin(), other.mipmaps.end(), std::back_inserter(this->mipmaps));
+
+		keyColor = other.keyColor;
+		hasKeyColor = other.hasKeyColor;
+	}
+
+	return *this;
+}
 
 bool ImageSdl::isTypeImageBMP(const std::string& filename)
 {
@@ -319,7 +401,11 @@ Geometry::Size ImageSdl::getSize() const
 
 ImageSdl::~ImageSdl()
 {
-//	SDL_FreeSurface(representation);
+	// Avoid that the destructor free the memory multiple times.
+	if (representation not_eq nullptr)
+	{
+		SDL_FreeSurface(representation);
+	}
 }
 
 Color ImageSdl::getPixel(int x, int y) const

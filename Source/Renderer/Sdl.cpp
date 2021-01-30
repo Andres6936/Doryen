@@ -115,7 +115,7 @@ void Doryen::SDL::loadFont()
 
 	bool isTransparent = false;
 
-	image = ImageSdl(getFontfile().c_str());
+	image = std::move(ImageSdl(getFontfile().c_str()));
 
 	charmap = image.getCopySurface();
 
