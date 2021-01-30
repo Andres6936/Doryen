@@ -15,8 +15,14 @@ TEST_CASE("Verify that the console constructed for default is initialized with 8
 	CHECK(console.getWidth() == 80);
 	CHECK(console.getHeight() == 50);
 
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
 	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
-
+	// Verify the size correct of buffer
 	CHECK(mainBuffer.size() == 80 * 50);
+
+	// Internally, the representation of space 2d is realized in one-dimension space (array)
+	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
+	// Verify the size correct of old buffer
+	CHECK(oldBuffer.size() == 80 * 50);
 }
 

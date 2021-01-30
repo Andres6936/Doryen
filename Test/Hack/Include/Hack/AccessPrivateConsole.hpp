@@ -19,19 +19,15 @@ namespace Doryen::Test
 		struct TranslationUnitTag {};
 	}
 
-	// 'Console::<any private member>' accessor.
+	// 'Console::buffer' accessor.
 	template<typename UniqueTag, auto MemberPointer>
-	class AccessPrivateBufferConsole
+	struct AccessPrivateBufferConsole
 	{
-
-	public:
-
 		// (Injected) friend definition.
 		friend std::vector<Char>& accessPrivateBuffer(Console& console)
 		{
 			return console.*MemberPointer;
 		}
-
 	};
 
 	// Friend (re-)declaration.
@@ -40,6 +36,23 @@ namespace Doryen::Test
 	// Single explicit instantiation definition.
 	template struct AccessPrivateBufferConsole<TranslationUnitTag, &Console::buffer>;
 
+
+	// 'Console::buffer' accessor.
+	template<typename UniqueTag, auto MemberPointer>
+	struct AccessPrivateOldBufferConsole
+	{
+		// (Injected) friend definition.
+		friend std::vector<Char>& accessPrivateOldBuffer(Console& console)
+		{
+			return console.*MemberPointer;
+		}
+	};
+
+	// Friend (re-)declaration.
+	std::vector<Char>& accessPrivateOldBuffer(Console& console);
+
+	// Single explicit instantiation definition.
+	template struct AccessPrivateOldBufferConsole<TranslationUnitTag, &Console::oldBuffer>;
 }
 
 #endif //DORYEN_ACCESSPRIVATE_HPP
