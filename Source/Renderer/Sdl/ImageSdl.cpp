@@ -277,20 +277,16 @@ void ImageSdl::readImagePNG(const std::string& filename)
 	this->representation = createNewSurface(width, height, bpp == 32);
 
 	// Reserve
-	unsigned char* source = new unsigned char[image.size()];
-
-	for (int i = 0; i < image.size(); ++i)
-	{
-		source[i] = image[i];
-	}
+	std::vector<unsigned char>::iterator iteratorImage = image.begin();
 
 	unsigned int rowsize = width * bpp / 8;
 
 	for (unsigned y = 0; y < height; y++)
 	{
-		auto row_pointer = (unsigned char*)this->representation->pixels + (y * this->representation->pitch);
-		memcpy(row_pointer, source, rowsize);
-		source += rowsize;
+		auto row_pointer =
+				(unsigned char*)this->representation->pixels + (y * this->representation->pitch);
+		memcpy(row_pointer, iteratorImage.base(), rowsize);
+		iteratorImage += rowsize;
 	}
 }
 
