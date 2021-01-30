@@ -24,3 +24,20 @@ TEST_CASE("Verify the properties define with the construct with parameters")
 	CHECK(cell.isTraversable() == true);
 	CHECK(cell.isTransparent() == true);
 }
+
+TEST_CASE("Verify the change of properties set with the setters")
+{
+	Cell cell {};
+
+	CHECK(cell.isFov() == false);
+	CHECK(cell.isTraversable() == false);
+	CHECK(cell.isTransparent() == false);
+
+	cell.setFov(true);
+	cell.setTraversable(true);
+	cell.setTransparent(true);
+
+	CHECK(cell.isFov() == true);
+	CHECK(cell.isTraversable() == true);
+	CHECK(cell.isTransparent() == true);
+}
