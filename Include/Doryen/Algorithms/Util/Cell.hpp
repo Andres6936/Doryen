@@ -33,6 +33,11 @@ namespace Doryen
 
 		// Construct
 
+		/**
+		 * Construct a cell with all properties to false, it is, not be
+		 * traversable, not be transparent and not is in the field vision
+		 * of any entity.
+		 */
 		Cell() noexcept = default;
 
 		Cell(bool isTransparent, bool isWalkable, bool isFOV) noexcept;
