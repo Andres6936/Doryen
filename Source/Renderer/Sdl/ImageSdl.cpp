@@ -276,7 +276,6 @@ void ImageSdl::readImagePNG(const std::string& filename)
 	/* create the SDL surface */
 	this->representation = createNewSurface(width, height, bpp == 32);
 
-	// Reserve
 	std::vector<unsigned char>::iterator iteratorImage = image.begin();
 
 	unsigned int rowsize = width * bpp / 8;
@@ -285,6 +284,7 @@ void ImageSdl::readImagePNG(const std::string& filename)
 	{
 		auto row_pointer =
 				(unsigned char*)this->representation->pixels + (y * this->representation->pitch);
+		// iterator::base() returns the underlying base iterator. In this case < unsigned char* >
 		memcpy(row_pointer, iteratorImage.base(), rowsize);
 		iteratorImage += rowsize;
 	}
