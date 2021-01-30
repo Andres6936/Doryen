@@ -21,13 +21,13 @@ namespace Doryen::Test
 
 	// 'Console::<any private member>' accessor.
 	template<typename UniqueTag, auto MemberPointer>
-	class AccessPrivateMemberConsole
+	class AccessPrivateBufferConsole
 	{
 
 	public:
 
 		// (Injected) friend definition.
-		friend std::vector<Char>& accessPrivateMainBuffer(Console& console)
+		friend std::vector<Char>& accessPrivateBuffer(Console& console)
 		{
 			return console.*MemberPointer;
 		}
@@ -35,10 +35,10 @@ namespace Doryen::Test
 	};
 
 	// Friend (re-)declaration.
-	std::vector<Char>& accessPrivateMainBuffer(Console& console);
+	std::vector<Char>& accessPrivateBuffer(Console& console);
 
 	// Single explicit instantiation definition.
-	template struct AccessPrivateMemberConsole<TranslationUnitTag, &Console::buffer>;
+	template struct AccessPrivateBufferConsole<TranslationUnitTag, &Console::buffer>;
 
 }
 

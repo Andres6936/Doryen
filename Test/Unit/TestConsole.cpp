@@ -15,7 +15,7 @@ TEST_CASE("Verify that the console constructed for default is initialized with 8
 	CHECK(console.getWidth() == 80);
 	CHECK(console.getHeight() == 50);
 
-	std::vector<Char>& mainBuffer = accessPrivateMainBuffer(console);
+	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
 
 	CHECK(mainBuffer.size() == 80 * 50);
 }
