@@ -15,3 +15,12 @@ TEST_CASE("Verify that all the properties are set to false for the construct for
 	CHECK(cell.isTraversable() == false);
 	CHECK(cell.isTransparent() == false);
 }
+
+TEST_CASE("Verify the properties define with the construct with parameters")
+{
+	Cell cell {true, true, true};
+
+	CHECK(cell.isFov() == true);
+	CHECK(cell.isTraversable() == true);
+	CHECK(cell.isTransparent() == true);
+}
