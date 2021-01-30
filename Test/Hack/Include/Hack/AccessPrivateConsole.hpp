@@ -5,6 +5,7 @@
 
 #include <Doryen/Doryen.hpp>
 
+// The explications for this mechanism is in: https://dfrib.github.io/a-foliage-of-folly/
 // The follow code is based in: https://wandbox.org/permlink/ttKuVlrsMe2AycJo
 
 
