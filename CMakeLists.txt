@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
-PROJECT(Doryen VERSION 2021.0130 LANGUAGES CXX)
+PROJECT(Doryen VERSION 2021.0131 LANGUAGES CXX)
 
 # The shared libraries are libraries that can be linked dynamically and loaded at runtime.
 OPTION(DORYEN_BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" OFF)
