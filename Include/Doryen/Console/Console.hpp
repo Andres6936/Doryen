@@ -69,6 +69,15 @@ namespace Doryen
 
 	private:
 
+		/**
+		 * This variable define the point of communication with the renderer, it
+		 * is the fundamental piece of gear, since without it, displaying
+		 * anything on screen would be a titanic task. Initially this variable
+		 * is null, however, the precondition of initializing this variable
+		 * decay in the renderer used, that is to say, this variable must be
+		 * initialized before any function is called, otherwise, a program crash
+		 * will occur when trying to reference a null pointer.
+		 */
 		static std::unique_ptr<Renderer> renderer;
 
 		/**
