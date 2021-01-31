@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.14 FATAL_ERROR)
 PROJECT(Doryen VERSION 2021.0130 LANGUAGES CXX)
 
 # The shared libraries are libraries that can be linked dynamically and loaded at runtime.
-OPTION(DORYEN_SHARED_LIBRARIES "Generate Shared Libraries" OFF)
+OPTION(DORYEN_BUILD_SHARED_LIBS "Generate Shared Libraries" OFF)
 OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" OFF)
 OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 

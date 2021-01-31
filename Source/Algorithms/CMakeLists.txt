@@ -24,7 +24,7 @@ ADD_LIBRARY(Doryen.Algorithms.Heightmap.Object OBJECT
 SET_TARGET_PROPERTIES(Doryen.Algorithms.Heightmap.Object PROPERTIES CXX_STANDARD 17)
 TARGET_INCLUDE_DIRECTORIES(Doryen.Algorithms.Heightmap.Object PRIVATE ${DORYEN_ROOT_DIR}/Include/)
 
-IF (DORYEN_SHARED_LIBRARIES)
+IF (DORYEN_BUILD_SHARED_LIBS)
 
     # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
     # shared libraries will be created. This property is True by default for SHARED and MODULE library

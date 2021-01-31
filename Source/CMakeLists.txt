@@ -56,7 +56,7 @@ TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object
         PRIVATE
         ${SDL_INCLUDE_DIR})
 
-IF (DORYEN_SHARED_LIBRARIES)
+IF (DORYEN_BUILD_SHARED_LIBS)
 
     # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
     # shared libraries will be created. This property is True by default for SHARED and MODULE library
