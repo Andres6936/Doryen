@@ -64,6 +64,8 @@ public :
 
 	// Fields
 
+	Console& console;
+
 	/**
 	 * Altitude->color map.
 	 */
@@ -109,6 +111,10 @@ public :
 	 */
 	Noise<2>* noise;
 
+	Noise<1> noise1d;
+
+	Noise<2> noise2d;
+
 	/**
 	 * World light intensity map (shadow map).
 	 */
@@ -128,6 +134,10 @@ public :
 	 * Cloud thickness.
 	 */
 	float clouds[HM_WIDTH][HM_HEIGHT];
+
+	// Constructor
+
+	WorldGenerator(Console& _console);
 
 	// Destructor
 

@@ -32,6 +32,8 @@
 #include "Main.hpp"
 #include "Doryen/Algorithms/Drawing/Bresenham.hpp"
 #include "Doryen/Algorithms/Generation/Heightmap.hpp"
+#include "UtilWorldgen.hpp"
+
 
 using namespace Doryen;
 
@@ -252,7 +254,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 {
 	// fix land mass. We want a proportion of landMass above sea level
 #ifndef NDEBUG
-	float t0 = Console::getElapsedSeconds();
+	float t0 = console.getElapsedSeconds();
 #endif
 	int heightcount[256];
 	memset(heightcount, 0, sizeof(heightcount));
@@ -293,18 +295,18 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 		}
 	}
 #ifndef NDEBUG
-	float t1 = Console::getElapsedSeconds();
+	float t1 = console.getElapsedSeconds();
 	printf("  Landmass... %g\n", t1 - t0);
 #endif
 }
 
 void WorldGenerator::buildBaseMap()
 {
-	float timeStart = Console::getElapsedSeconds();
+	float timeStart = console.getElapsedSeconds();
 
 	addHill(600, 16.0 * HM_WIDTH / 200, 0.7, 0.3);
 	heightmap->normalize();
-	float timeEnd = Console::getElapsedSeconds();
+	float timeEnd = console.getElapsedSeconds();
 	printf("\tHills... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -312,7 +314,7 @@ void WorldGenerator::buildBaseMap()
 	heightmap->addFbm(noise, 2.20 * HM_WIDTH / 400, 2.20 * HM_WIDTH / 400, 0, 0, 10.0f, 1.0, 2.05);
 	heightmap->normalize();
 	heightmapWithoutErosion->copy(heightmap);
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("\tFbm... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -334,7 +336,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("\tFlatten plains... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -355,7 +357,7 @@ void WorldGenerator::buildBaseMap()
 		}
 	}
 
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("\tInit clouds... %g\n", timeEnd - timeStart);
 }
 
@@ -369,14 +371,16 @@ void WorldGenerator::smoothMap()
 	static const float smoothKernelWeight[9] = { 2, 8, 2, 8, 20, 8, 2, 8, 2 };
 
 #ifndef NDEBUG
-	float t0 = Console::getElapsedSeconds();
+	float t0 = console.getElapsedSeconds();
 #endif
-	heightmap->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight, -1000, 1000);
-	heightmapWithoutErosion->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight,
+	heightmap->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy, smoothKernelWeight,
+			-1000, 1000);
+	heightmapWithoutErosion->kernelTransform(smoothKernelSize, smoothKernelDx, smoothKernelDy,
+			smoothKernelWeight,
 			-1000, 1000);
 	heightmap->normalize();
 #ifndef NDEBUG
-	float t1 = Console::getElapsedSeconds();
+	float t1 = console.getElapsedSeconds();
 	printf("  Blur... %g\n", t1 - t0);
 #endif
 }
@@ -780,7 +784,7 @@ void WorldGenerator::computePrecipitations()
 	static const float slopeCoef = 2.0f;
 	static const float basePrecip = 0.01f; // precipitation coef when slope == 0
 
-	float timeStart = Console::getElapsedSeconds();
+	float timeStart = console.getElapsedSeconds();
 
 	// north/south winds
 	for (int diry = -1; diry <= 1; diry += 2)
@@ -819,7 +823,7 @@ void WorldGenerator::computePrecipitations()
 		}
 	}
 
-	float timeEnd = Console::getElapsedSeconds();
+	float timeEnd = console.getElapsedSeconds();
 	printf("\tNorth/south winds... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -860,7 +864,7 @@ void WorldGenerator::computePrecipitations()
 			}
 		}
 	}
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("\tEast/west winds... %g\n", timeEnd - timeStart);
 	timeStart = timeEnd;
 
@@ -884,7 +888,7 @@ void WorldGenerator::computePrecipitations()
 			precipitation->setValue(x, y, precip);
 		}
 	}
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("\tlatitude... %g\n", timeEnd - timeStart);
 	timeStart = timeEnd;
 
@@ -922,7 +926,7 @@ void WorldGenerator::computePrecipitations()
 
 void WorldGenerator::smoothPrecipitations()
 {
-	float t0 = Console::getElapsedSeconds();
+	float t0 = console.getElapsedSeconds();
 
 	// better quality polishing blur using a 5x5 kernel
 	// faster than TCODHeightmap kernelTransform function
@@ -976,12 +980,12 @@ void WorldGenerator::smoothPrecipitations()
 	}
 	precipitation->copy(&temphm);
 
-	float t1 = Console::getElapsedSeconds();
+	float t1 = console.getElapsedSeconds();
 	printf("  Blur... %g\n", t1 - t0);
 	t0 = t1;
 
 	precipitation->normalize();
-	t1 = Console::getElapsedSeconds();
+	t1 = console.getElapsedSeconds();
 	printf("  Normalization... %g\n", t1 - t0);
 	t0 = t1;
 
@@ -1236,38 +1240,38 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 
 void WorldGenerator::generate()
 {
-	float timeTotalStart = Console::getElapsedSeconds();
-	float timeStart = Console::getElapsedSeconds();
+	float timeTotalStart = console.getElapsedSeconds();
+	float timeStart = console.getElapsedSeconds();
 
 	generateSmoothColorMap(mapGradient, MAX_COLOR_KEY, keyColor, keyIndex);
 
 	noise = new Noise<2>();
 
-	float timeEnd = Console::getElapsedSeconds();
+	float timeEnd = console.getElapsedSeconds();
 	printf("Initialization... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	buildBaseMap();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Heightmap construction... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computePrecipitations();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Precipitation map... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	erodeMap();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Erosion... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	smoothMap();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Smooth... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
@@ -1279,28 +1283,28 @@ void WorldGenerator::generate()
 		generateRivers();
 	}
 
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Rivers... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	smoothPrecipitations();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Smooth precipitations... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computeTemperaturesAndBiomes();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Temperature map... %g\n", timeEnd - timeStart);
 
 	timeStart = timeEnd;
 
 	computeColors();
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("Color map... %g\n", timeEnd - timeStart);
 
-	timeEnd = Console::getElapsedSeconds();
+	timeEnd = console.getElapsedSeconds();
 	printf("TOTAL TIME... %g\n", timeEnd - timeTotalStart);
 }
 
@@ -1578,4 +1582,9 @@ WorldGenerator::~WorldGenerator()
 
 	delete[] mapData;
 	delete[] worldint;
+}
+
+WorldGenerator::WorldGenerator(Console& _console) : console(_console)
+{
+
 }

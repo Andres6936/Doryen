@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 	App().run();
 }
 
-App::App()
+App::App() : worldGen(console)
 {
 	console.setWindowTitle("World generator v 0.1.0");
 	console.setFramePerSeconds(25);

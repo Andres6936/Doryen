@@ -49,7 +49,7 @@ private:
 
 	Mouse mouse{};
 
-	WorldGenerator worldGen{};
+	WorldGenerator worldGen;
 
 	// Methods
 
