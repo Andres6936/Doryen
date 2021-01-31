@@ -95,7 +95,7 @@ namespace Doryen
 
 		ImageSdl() = default;
 
-		ImageSdl(const std::int32_t width, const std::int32_t heigth);
+		ImageSdl(const std::int32_t width, const std::int32_t height);
 
 		/**
 		 * Move constructor

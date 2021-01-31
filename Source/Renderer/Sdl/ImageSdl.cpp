@@ -356,11 +356,11 @@ SDL_Surface* ImageSdl::createNewSurface(
 	return bitmap;
 }
 
-ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t heigth)
+ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t height)
 {
-	mipmaps.resize(Mipmap::getLevelCount(width, heigth));
+	mipmaps.resize(Mipmap::getLevelCount(width, height));
 
-	Size size{ width, heigth };
+	Size size{ width, height };
 
 	for (Mipmap& mipmap : mipmaps)
 	{
