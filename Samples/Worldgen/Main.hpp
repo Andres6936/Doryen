@@ -45,10 +45,6 @@ private:
 
 	Console console{};
 
-	Noise<1> noise1d{};
-
-	Noise<2> noise2d{};
-
 	KeyCode k = KeyCode::NONE;
 
 	Mouse mouse{};
