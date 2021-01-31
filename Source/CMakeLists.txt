@@ -20,8 +20,9 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         Console/Console.cpp
         Console/Char.cpp
         Renderer/Renderer.cpp
-        Renderer/Sdl.cpp
-        Renderer/Sdl/ImageSdl.cpp
+        # If the renderer to use is SDL version 1, include the files in the process of compilation
+        $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl.cpp>
+        $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/ImageSdl.cpp>
         FOV/CircularRaycasting.cpp
         FOV/DiamondRayCasting.cpp
         FOV/ShadowCasting.cpp
@@ -94,9 +95,11 @@ IF (DORYEN_RENDERER_SDL_1)
     ENDIF ()
 
     TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object PRIVATE ${SDL_INCLUDE_DIR})
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework.Object PRIVATE DORYEN_USE_SDL_1=1)
     TARGET_LINK_LIBRARIES(Doryen.Framework.Object PRIVATE ${SDL_LIBRARY})
 
     TARGET_INCLUDE_DIRECTORIES(Doryen.Framework PRIVATE ${SDL_INCLUDE_DIR})
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_USE_SDL_1=1)
     TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
 
 ENDIF ()
