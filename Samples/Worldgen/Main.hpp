@@ -32,5 +32,41 @@
 
 #define IN_RECTANGLE(x, y, w, h) ((unsigned)(x) < (unsigned)(w) && (unsigned)(y) < (unsigned)(h))
 
-extern Noise<1> noise1d;
-extern Noise<2> noise2d;
+class App final
+{
+
+private:
+
+	// world map panning
+	float wx = 0, wy = 0, curwx = 0, curwy = 0;
+
+	// mouse coordinates in world map
+	float mx = 0, my = 0;
+
+	Console console{};
+
+	Noise<1> noise1d{};
+
+	Noise<2> noise2d{};
+
+	KeyCode k = KeyCode::NONE;
+
+	Mouse mouse{};
+
+	WorldGenerator worldGen{};
+
+	// Methods
+
+	Color getMapShadedColor(float worldX, float worldY, bool clouds);
+
+public:
+
+	App();
+
+	void run();
+
+	void update();
+
+	void render();
+
+};

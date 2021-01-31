@@ -30,31 +30,7 @@ using namespace Doryen;
 #define WIDTH 80
 #define HEIGHT 50
 
-Noise<1> noise1d{};
-
-Noise<2> noise2d{};
-
-WorldGenerator worldGen;
-
-// world map panning
-float wx = 0, wy = 0, curwx = 0, curwy = 0;
-
-// mouse coordinates in world map
-float mx = 0, my = 0;
-
-void update(float elapsed, const KeyCode& k, const Mouse& mouse)
-{
-	// destination wanted
-	wx = (worldGen.getWidth() - 2 * WIDTH) * mouse.getPositionCellX() / WIDTH;
-	wy = (worldGen.getHeight() - 2 * HEIGHT) * mouse.getPositionCellY() / HEIGHT;
-	curwx += (wx - curwx) * elapsed;
-	curwy += (wy - curwy) * elapsed;
-	mx = curwx + mouse.getPositionCellX() * 2;
-	my = curwy + mouse.getPositionCellY() * 2;
-	worldGen.updateClouds(elapsed);
-}
-
-Color getMapShadedColor(float worldX, float worldY, bool clouds)
+Color App::getMapShadedColor(float worldX, float worldY, bool clouds)
 {
 	// sun color
 	static Color sunCol(255, 255, 200);
@@ -79,7 +55,59 @@ Color getMapShadedColor(float worldX, float worldY, bool clouds)
 	return col2;
 }
 
-void render(Console& console)
+int main(int argc, char* argv[])
+{
+	App().run();
+}
+
+App::App()
+{
+	console.setWindowTitle("World generator v 0.1.0");
+	console.setFramePerSeconds(25);
+	console.showCursor(true);
+
+	// generate the world with all data (rain, temperature and so on...)
+	worldGen.generate();
+
+	// compute light intensity on ground (depends on light direction and ground slope)
+	static float lightDir[3] = {
+			1.0f, 1.0f, 0.0f
+	};
+
+	worldGen.computeSunLight(lightDir);
+}
+
+void App::run()
+{
+	while (console.isRunning())
+	{
+		k = console.getKeyPressed().getKeyCode();
+		mouse = console.getMouseEvent();
+
+		// update the game
+		update();
+
+		// render the game screen
+		render();
+
+		// flush updates to screen
+		console.draw();
+	}
+}
+
+void App::update()
+{
+	// destination wanted
+	wx = (worldGen.getWidth() - 2 * WIDTH) * mouse.getPositionCellX() / WIDTH;
+	wy = (worldGen.getHeight() - 2 * HEIGHT) * mouse.getPositionCellY() / HEIGHT;
+	curwx += (wx - curwx) * console.getLastFrameLength();
+	curwy += (wy - curwy) * console.getLastFrameLength();
+	mx = curwx + mouse.getPositionCellX() * 2;
+	my = curwy + mouse.getPositionCellY() * 2;
+	worldGen.updateClouds(console.getLastFrameLength());
+}
+
+void App::render()
 {
 	// subcell resolution image
 	static Image map(WIDTH * 2, HEIGHT * 2);
@@ -123,44 +151,3 @@ void render(Console& console)
 	}
 }
 
-int main(int argc, char* argv[])
-{
-	// initialize the game window
-	Console console{};
-
-	console.setWindowTitle("World generator v 0.1.0");
-	console.setFramePerSeconds(25);
-	console.showCursor(true);
-
-	bool endCredits = false;
-
-	// generate the world with all data (rain, temperature and so on...)
-	worldGen.generate();
-
-	// compute light intensity on ground (depends on light direction and ground slope)
-	static float lightDir[3] = {
-			1.0f, 1.0f, 0.0f
-	};
-
-	worldGen.computeSunLight(lightDir);
-
-	while (console.isRunning())
-	{
-		//	read keyboard
-//		TCOD_key_t k=Console::checkForKeypress(TCOD_KEY_PRESSED|TCOD_KEY_RELEASED);
-//		TCOD_mouse_t mouse=TCODMouse::getStatus();
-
-		const KeyCode k = console.getKeyPressed().getKeyCode();
-		const Mouse mouse = console.getMouseEvent();
-
-		// update the game
-		update(console.getLastFrameLength(), k, mouse);
-
-		// render the game screen
-		render(console);
-
-		// flush updates to screen
-		console.draw();
-	}
-	return 0;
-}
