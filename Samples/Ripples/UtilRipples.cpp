@@ -127,9 +127,10 @@ bool RippleManager::updateRipples(float elapsed) {
 	return updated;
 }
 
-void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* groundWithRipples)
+void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* groundWithRipples,
+		float coefficient)
 {
-	float elCoef = Console::getElapsedSeconds() * 2.0f;
+	float elCoef = coefficient * 2.0f;
 	for (int x = 1; x < width - 1; x++)
 	{
 		for (int y = 1; y < height - 1; y++)

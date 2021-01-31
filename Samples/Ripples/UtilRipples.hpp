@@ -40,7 +40,8 @@ public :
 
 	bool updateRipples(float elapsed);
 
-	void renderRipples(const Doryen::Image* ground, Doryen::Image* groundWithRipples);
+	void
+	renderRipples(const Doryen::Image* ground, Doryen::Image* groundWithRipples, float coefficient);
 
 protected :
 	int width, height;

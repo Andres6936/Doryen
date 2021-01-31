@@ -14,7 +14,7 @@ public :
 	{
 	};
 
-	void compute();
+	void compute() override;
 
 	void calculateShaders() override;
 

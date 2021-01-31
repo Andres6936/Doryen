@@ -80,7 +80,7 @@ void render(Console& console) {
 			ground2->setPixel(x, y, ground->getPixel(x, y));
 		}
 	}
-	rippleManager->renderRipples(ground, ground2);
+	rippleManager->renderRipples(ground, ground2, console.getElapsedSeconds());
 	ground2->blit2x(console, 0, 0);
 
 	console.setForegroundColor(Palette::GRAY_WARN_1);

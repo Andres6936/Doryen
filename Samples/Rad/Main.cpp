@@ -258,9 +258,9 @@ int main()
 	{
 
 		render(console);
-		Doryen::Console::draw();
+		console.draw();
 
-		KeyCode key = Console::getKeyPressed().getKeyCode();
+		KeyCode key = console.getKeyPressed().getKeyCode();
 
 		switch (key)
 		{
