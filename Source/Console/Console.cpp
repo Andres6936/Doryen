@@ -25,9 +25,31 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Doryen/Console/Console.hpp"
+#include <Doryen/Renderer/Sdl.hpp>
 
 using namespace Doryen;
+
+// Initialization of static variable
+
+/*
+ * Injection of dependency based in definition of macros.
+ * My point of view on the use of macros is: minimize the use of macros where
+ * it is possible.
+ *
+ * This macro-based definition offers several advantages that i have not
+ * achieved otherwise, including preventing user who include the Console.hpp
+ * header from accessing rendering-specific code, the ultimate goal of this
+ * maneuver is to prevent the user from using platform-specific code (which is
+ * not very portable).
+ */
+#if defined(DORYEN_USE_SDL_1)
+
+#include "Doryen/Console/Console.hpp"
+
+// Inject the dependency
+std::unique_ptr<Renderer> Console::renderer = std::make_unique<SDL>();
+
+#endif
 
 // Constructs
 

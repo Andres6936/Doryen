@@ -38,7 +38,6 @@
 #include "Doryen/Graphics/Color/Color.hpp"
 #include "Doryen/Renderer/Renderer.hpp"
 #include "Doryen/Geometry/Size.hpp"
-#include "Doryen/Renderer/Sdl.hpp"
 
 namespace Doryen
 {
@@ -70,7 +69,7 @@ namespace Doryen
 
 	private:
 
-		inline static std::unique_ptr<Renderer> renderer = std::make_unique<SDL>();
+		static std::unique_ptr<Renderer> renderer;
 
 		/**
 		 * There is only single main console throughout the program execution.

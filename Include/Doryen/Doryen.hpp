@@ -29,7 +29,6 @@
 
 #include "FOV/Fov.hpp"
 #include "Image/Image.hpp"
-#include "Renderer/Sdl.hpp"
 #include "Random/Number.hpp"
 #include "Format/Flossy.hpp"
 #include "Console/Console.hpp"
