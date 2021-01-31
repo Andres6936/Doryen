@@ -6,6 +6,9 @@ OPTION(DORYEN_BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of st
 OPTION(DORYEN_BUILD_SAMPLES "Generate the Doryen Samples" OFF)
 OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 
+# Render to use by default
+OPTION(DORYEN_RENDERER_SDL_1 "Use the SDL backend" ON)
+
 # Set the root directory where can be found the directory Include/
 # needed for set inclusion guards and more
 SET(DORYEN_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})

@@ -1,11 +1,3 @@
-FIND_PACKAGE(SDL)
-
-IF (NOT SDL_FOUND)
-    MESSAGE(FATAL_ERROR "Cannot found SDL Version 1.2.15")
-ENDIF ()
-
-MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
-
 # Is important the order of definition, Algorithms need of Random
 ADD_SUBDIRECTORY(Random/)
 ADD_SUBDIRECTORY(Algorithms/)
@@ -49,12 +41,7 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         )
 
 SET_TARGET_PROPERTIES(Doryen.Framework.Object PROPERTIES CXX_STANDARD 17)
-TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object
-        PUBLIC
-        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        PRIVATE
-        ${SDL_INCLUDE_DIR})
+TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object PUBLIC $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>)
 
 IF (DORYEN_BUILD_SHARED_LIBS)
 
@@ -72,15 +59,10 @@ ELSE ()
 ENDIF ()
 
 ADD_LIBRARY(Doryen::Framework ALIAS Doryen.Framework)
+SET_TARGET_PROPERTIES(Doryen.Framework PROPERTIES CXX_STANDARD 17)
 # It is necessary to repeat these instructions again, in case of not doing it, the executables
 # will be unable to locate the Headers needed to perform the linking
-TARGET_INCLUDE_DIRECTORIES(Doryen.Framework
-        PUBLIC
-        $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        $<INSTALL_INTERFACE:${DORYEN_ROOT_DIR}/Include/>
-        PRIVATE
-        ${SDL_INCLUDE_DIR})
-TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
+TARGET_INCLUDE_DIRECTORIES(Doryen.Framework PUBLIC $<BUILD_INTERFACE:${DORYEN_ROOT_DIR}/Include/>)
 
 # Important, the use of CPM as Script for download Doryen brings with it several problems.
 # The first problem and most important, is the location of resource Terminal.png, that is
@@ -89,3 +71,23 @@ TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
 # location for to be sure that the resource will be found.
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../Terminal.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../Terminal.png DESTINATION ${CMAKE_BINARY_DIR})
+
+# Configure and link all the need for use SDL as renderer
+IF (DORYEN_RENDERER_SDL_1)
+
+    # Locate the SDL library
+    FIND_PACKAGE(SDL)
+
+    IF (NOT SDL_FOUND)
+        MESSAGE(FATAL_ERROR "Cannot found SDL Version 1.2.15")
+    ENDIF ()
+
+    MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
+
+    TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object PRIVATE ${SDL_INCLUDE_DIR})
+    TARGET_LINK_LIBRARIES(Doryen.Framework.Object PRIVATE ${SDL_LIBRARY})
+
+    TARGET_INCLUDE_DIRECTORIES(Doryen.Framework PRIVATE ${SDL_INCLUDE_DIR})
+    TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
+
+ENDIF ()
