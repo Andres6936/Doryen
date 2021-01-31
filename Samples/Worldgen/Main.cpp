@@ -73,9 +73,9 @@ Color getMapShadedColor(float worldX, float worldY, bool clouds)
 	col2.r = std::clamp(cr, 0, 255);
 	col2.g = std::clamp(cg, 0, 255);
 	col2.b = std::clamp(cb, 0, 255);
-	col2.r = std::max(col2.r, col.r / 2);
-	col2.g = std::max(col2.g, col.g / 2);
-	col2.b = std::max(col2.b, col.b / 2);
+	col2.r = std::max((int)col2.r, (int)col.r / 2);
+	col2.g = std::max((int)col2.g, (int)col.g / 2);
+	col2.b = std::max((int)col2.b, (int)col.b / 2);
 	return col2;
 }
 
