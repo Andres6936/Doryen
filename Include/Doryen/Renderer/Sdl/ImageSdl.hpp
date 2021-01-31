@@ -127,6 +127,12 @@ namespace Doryen
 		 */
 		ImageSdl& operator=(ImageSdl&& other);
 
+		/**
+		 * Copy assignment
+		 *
+		 * @param other The image to copy.
+		 * @return Instance of this image.
+		 */
 		ImageSdl& operator=(const ImageSdl& other);
 
 		// Methods
