@@ -26,5 +26,11 @@ IF (DORYEN_SAMPLES)
 ENDIF ()
 
 IF (DORYEN_TESTS)
+    # How do I use CTest? Simple: you first tell CMake to enable CTest by adding
+    # the following line somewhere near the top of you main CMakeLists.txt
+    # (usually right after the required cmake_minimum_required() and project())
+    # Reference: https://bertvandenbroucke.netlify.app/2019/12/12/unit-testing-with-ctest/
+    ENABLE_TESTING()
+
     ADD_SUBDIRECTORY(Test)
 ENDIF ()
