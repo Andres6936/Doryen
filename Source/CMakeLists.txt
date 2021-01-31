@@ -20,9 +20,12 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         Console/Console.cpp
         Console/Char.cpp
         Renderer/Renderer.cpp
-        # If the renderer to use is SDL version 1, include the files in the process of compilation
+
+        # If the renderer to use is SDL version 1, include the files in the process of compilation.
+        # This source files are the uniques that must be include headers of SDL, aka <SDL/SDL.h>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/ImageSdl.cpp>
+
         FOV/CircularRaycasting.cpp
         FOV/DiamondRayCasting.cpp
         FOV/ShadowCasting.cpp
