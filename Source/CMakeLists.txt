@@ -78,11 +78,18 @@ IF (DORYEN_RENDERER_SDL_1)
     # Locate the SDL library
     FIND_PACKAGE(SDL)
 
+    # Defined by FindSDL: SDL_FOUND, if false, do not try to link to SDL
     IF (NOT SDL_FOUND)
         MESSAGE(FATAL_ERROR "Cannot found SDL Version 1.2.15")
     ENDIF ()
 
-    MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
+    # Defined by FindSDL: SDL_VERSION_STRING, human-readable string containing the version of SDL
+    IF (NOT ${SDL_VERSION_STRING} STREQUAL "1.2.15")
+        MESSAGE(FATAL_ERROR "Doryen need SDL 1.2.15 for the renderer SDL \
+        version 1, the current version of SDL is ${SDL_VERSION_STRING}
+        \nPlease update your version of SDL or use other renderer. See \
+        documentation for more details.")
+    ENDIF ()
 
     TARGET_INCLUDE_DIRECTORIES(Doryen.Framework.Object PRIVATE ${SDL_INCLUDE_DIR})
     TARGET_LINK_LIBRARIES(Doryen.Framework.Object PRIVATE ${SDL_LIBRARY})
