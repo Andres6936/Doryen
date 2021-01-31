@@ -83,6 +83,8 @@ IF (DORYEN_RENDERER_SDL_1)
         MESSAGE(FATAL_ERROR "Cannot found SDL Version 1.2.15")
     ENDIF ()
 
+    # Currently the most widespread version of SDL version 1 is version 1.12.15,
+    # this version is installed by default using the sudo apt-get
     # Defined by FindSDL: SDL_VERSION_STRING, human-readable string containing the version of SDL
     IF (NOT ${SDL_VERSION_STRING} STREQUAL "1.2.15")
         MESSAGE(FATAL_ERROR "Doryen need SDL 1.2.15 for the renderer SDL \
