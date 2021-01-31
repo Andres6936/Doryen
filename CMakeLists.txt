@@ -4,7 +4,7 @@ PROJECT(Doryen VERSION 2021.0130 LANGUAGES CXX)
 # The shared libraries are libraries that can be linked dynamically and loaded at runtime.
 OPTION(DORYEN_SHARED_LIBRARIES "Generate Shared Libraries" OFF)
 OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" OFF)
-OPTION(DORYEN_TESTS "Generate and Execute the Doryen Test" OFF)
+OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 
 # Set the root directory where can be found the directory Include/
 # needed for set inclusion guards and more
@@ -25,7 +25,7 @@ IF (DORYEN_SAMPLES)
     ADD_SUBDIRECTORY(Samples/Worldgen)
 ENDIF ()
 
-IF (DORYEN_TESTS)
+IF (DORYEN_BUILD_TESTING)
     # How do I use CTest? Simple: you first tell CMake to enable CTest by adding
     # the following line somewhere near the top of you main CMakeLists.txt
     # (usually right after the required cmake_minimum_required() and project())
