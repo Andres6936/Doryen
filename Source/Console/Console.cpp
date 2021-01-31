@@ -25,7 +25,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <Doryen/Renderer/Sdl.hpp>
+#include "Doryen/Console/Console.hpp"
 
 using namespace Doryen;
 
@@ -44,7 +44,7 @@ using namespace Doryen;
  */
 #if defined(DORYEN_USE_SDL_1)
 
-#include "Doryen/Console/Console.hpp"
+#include <Doryen/Renderer/Sdl.hpp>
 
 // Inject the dependency
 std::unique_ptr<Renderer> Console::renderer = std::make_unique<SDL>();
