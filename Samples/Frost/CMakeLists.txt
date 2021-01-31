@@ -2,6 +2,7 @@ ADD_EXECUTABLE(Frost Main.cpp Frost.cpp FrostManager.cpp)
 
 SET_TARGET_PROPERTIES(Frost PROPERTIES CXX_STANDARD 17)
 TARGET_LINK_LIBRARIES(Frost PRIVATE Doryen::Framework)
+TARGET_LINK_LIBRARIES(Frost PRIVATE Doryen::Random)
 
 # Moving directory with resources needed
 FILE(COPY ../../Data/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Data)

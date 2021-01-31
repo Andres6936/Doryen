@@ -42,6 +42,9 @@ ELSE ()
 ENDIF ()
 
 ADD_LIBRARY(Doryen::Algorithms::Noise ALIAS Doryen.Algorithms.Noise)
+# The generation of Noise depend of the generation of random numbers.
+TARGET_LINK_LIBRARIES(Doryen.Algorithms.Noise PRIVATE Doryen::Random)
+
 ADD_LIBRARY(Doryen::Algorithms::Heightmap ALIAS Doryen.Algorithms.Heightmap)
 # The generation of Heightmap depend of the generation of Noise
 # Thus, Heightmap Library depend of Noise Library

@@ -6,6 +6,8 @@ ENDIF ()
 
 MESSAGE(STATUS "Version found of SDL ${SDL_VERSION_STRING}")
 
+# Is important the order of definition, Algorithms need of Random
+ADD_SUBDIRECTORY(Random/)
 ADD_SUBDIRECTORY(Algorithms/)
 
 # The OBJECT's can be used to compile the sources in the list given to add_library
@@ -33,7 +35,6 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         FOV/ShadowCasting.cpp
         FOV/Permissive.cpp
         FOV/Fov.cpp
-        Random/Number.cpp
         Image/PNG/DecompressSettings.cpp
         Image/PNG/HuffmanTree.cpp
         Image/PNG/ColorMode.cpp
