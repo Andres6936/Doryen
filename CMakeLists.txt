@@ -3,7 +3,7 @@ PROJECT(Doryen VERSION 2021.0130 LANGUAGES CXX)
 
 # The shared libraries are libraries that can be linked dynamically and loaded at runtime.
 OPTION(DORYEN_BUILD_SHARED_LIBS "Generate Shared Libraries" OFF)
-OPTION(DORYEN_SAMPLES "Generate the Doryen Samples" OFF)
+OPTION(DORYEN_BUILD_SAMPLES "Generate the Doryen Samples" OFF)
 OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 
 # Set the root directory where can be found the directory Include/
@@ -14,7 +14,7 @@ SET(DORYEN_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 ADD_SUBDIRECTORY(Source)
 
 # Use -DLIBTCOD_SAMPLES=OFF if you want do disable the building of the Samples (eg. library API changes).
-IF (DORYEN_SAMPLES)
+IF (DORYEN_BUILD_SAMPLES)
     ADD_SUBDIRECTORY(Samples/CPP)
     ADD_SUBDIRECTORY(Samples/Frost)
     ADD_SUBDIRECTORY(Samples/Images)

@@ -107,7 +107,7 @@ You can clone with Git via the GitHub repository.
 
     git clone --recursive --depth=1 https://github.com/Andres6936/Doryen.git
     cd Doryen && mkdir Build
-    cd Build && cmake .. -DDORYEN_SAMPLES=ON
+    cd Build && cmake .. -DDORYEN_BUILD_SAMPLES=ON
     make
     
 
