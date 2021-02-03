@@ -10,6 +10,7 @@
 #include "Doryen/Graphics/Color/Color.hpp"
 #include "Doryen/Geometry/Size.hpp"
 #include "Doryen/Image/Mipmap.hpp"
+#include <Doryen/Image/MetaImage.hpp>
 
 namespace Doryen
 {
@@ -19,7 +20,7 @@ namespace Doryen
 	 * of an image or a vector that content a representation of pixels
 	 * that represent an image.
 	 */
-	class ImageSdl
+	class ImageSdl : public MetaImage
 	{
 
 	private:
@@ -92,8 +93,6 @@ namespace Doryen
 	public:
 
 		// Construct
-
-		ImageSdl() = default;
 
 		ImageSdl(const std::int32_t width, const std::int32_t height);
 

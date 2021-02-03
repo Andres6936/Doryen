@@ -8,9 +8,31 @@
 
 using namespace Doryen;
 
+// Construct
+
+ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t height)
+		: MetaImage(width, height)
+{
+	// Initialize the variables of the parent class {MetaImage}.
+
+	mipmaps.resize(Mipmap::getLevelCount(width, height));
+
+	Size size{ width, height };
+
+	for (Mipmap& mipmap : mipmaps)
+	{
+		mipmap.setSize(size);
+
+		size.setWidth(size.getWidth() >> 1);
+		size.setHeight(size.getHeight() >> 1);
+	}
+}
 
 ImageSdl::ImageSdl(ImageSdl&& other)
+		: MetaImage(other.getWidth(), other.getHeight())
 {
+	// Initialize the variables of the parent class {MetaImage}.
+
 	representation = other.representation;
 	// Assign the data members of the source object to default values.
 	// This prevents the destructor from freeing resources (such as memory)
@@ -28,7 +50,10 @@ ImageSdl::ImageSdl(ImageSdl&& other)
 }
 
 ImageSdl::ImageSdl(const ImageSdl& other)
+		: MetaImage(other.getWidth(), other.getHeight())
 {
+	// Initialize the variables of the parent class {MetaImage}.
+
 	// Copy the representation of image
 	representation = other.getCopySurface();
 
@@ -38,6 +63,19 @@ ImageSdl::ImageSdl(const ImageSdl& other)
 	keyColor = other.keyColor;
 	hasKeyColor = other.hasKeyColor;
 }
+
+ImageSdl::ImageSdl(const std::string& filename)
+{
+	if (isTypeImageBMP(filename))
+	{
+		readImageBMP(filename);
+	}
+	else if (isTypeImagePNG(filename))
+	{
+		readImagePNG(filename);
+	}
+}
+
 
 // Overload Operator
 
@@ -65,7 +103,6 @@ ImageSdl& ImageSdl::operator=(ImageSdl&& other)
 
 	return *this;
 }
-
 
 ImageSdl& ImageSdl::operator=(const ImageSdl& other)
 {
@@ -154,18 +191,6 @@ bool ImageSdl::isTypeImagePNG(const std::string& filename)
 	else
 	{
 		throw std::runtime_error("The type of image cannot will be opened.\n");
-	}
-}
-
-ImageSdl::ImageSdl(const std::string& filename)
-{
-	if (isTypeImageBMP(filename))
-	{
-		readImageBMP(filename);
-	}
-	else if (isTypeImagePNG(filename))
-	{
-		readImagePNG(filename);
 	}
 }
 
@@ -354,21 +379,6 @@ SDL_Surface* ImageSdl::createNewSurface(
 #endif
 	}
 	return bitmap;
-}
-
-ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t height)
-{
-	mipmaps.resize(Mipmap::getLevelCount(width, height));
-
-	Size size{ width, height };
-
-	for (Mipmap& mipmap : mipmaps)
-	{
-		mipmap.setSize(size);
-
-		size.setWidth(size.getWidth() >> 1);
-		size.setHeight(size.getHeight() >> 1);
-	}
 }
 
 SDL_Surface* ImageSdl::getCopySurface() const
