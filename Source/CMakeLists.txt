@@ -38,6 +38,7 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         Image/PNG/LodePNG.cpp
         Image/PNG/State.cpp
         Image/PNG/Info.cpp
+        Image/MetaImage.cpp
         Image/Mipmap.cpp
         Image/Image.cpp
         Event/Mouse.cpp
