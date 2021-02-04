@@ -30,6 +30,7 @@
 #include <array>
 #include <memory>
 #include <utility>
+#include <cstdint>
 
 #include <Doryen/Console/Console.hpp>
 #include <Doryen/Image/MetaImage.hpp>
@@ -76,6 +77,18 @@ namespace Doryen
 		 * @param filename
 		 */
 		explicit Image(const char* filename);
+
+		// Getters
+
+		/**
+		 * @return Gets the width, in pixels, of this Image.
+		 */
+		std::int32_t getWidth() const noexcept;
+
+		/**
+		 * @return Gets the height, in pixels, of this Image.
+		 */
+		std::int32_t getHeight() const noexcept;
 
 		/**
 		 * @brief Getting the size of an image.

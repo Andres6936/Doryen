@@ -15,5 +15,9 @@ TEST_CASE("Default construct for image class")
 	Console console {10, 10};
 
 	// Here begin the test
-	Image image {50, 50};
+	Image image {69, 36};
+
+	CHECK(image.getWidth() == 69);
+	CHECK(image.getHeight() == 36);
+	CHECK(image.getSize().equals({69, 36}));
 }

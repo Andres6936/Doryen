@@ -679,3 +679,15 @@ int Image::distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs) const
 
 	return dr * dr + dg * dg + db * db;
 }
+
+// Getters
+
+std::int32_t Image::getWidth() const noexcept
+{
+	return imageData->getWidth();
+}
+
+std::int32_t Image::getHeight() const noexcept
+{
+	return imageData->getHeight();
+}
