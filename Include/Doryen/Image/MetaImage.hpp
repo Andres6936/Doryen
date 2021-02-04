@@ -89,6 +89,18 @@ namespace Doryen
 		std::int32_t getHeight() const noexcept;
 
 		/**
+		 * The method return a reference for avoid return an copy, is need take
+		 * into account the life cycle of the variable that is returned.
+		 *
+		 * If the reference returned by the method is to be used almost
+		 * immediately, there will be no problem with the life cycle, if on the
+		 * contrary the reference is stored and the life cycle of this reference
+		 * ends, an unauthorized memory access will occur and the operating
+		 * system will terminate the execution of the application.
+		 *
+		 * If you need to store the data that the method returns, create a copy
+		 * from the reference to avoid problems with the life cycle.
+		 *
 		 * @return Get the key color of this Image.
 		 */
 		const Color& getKeyColor() const noexcept;
