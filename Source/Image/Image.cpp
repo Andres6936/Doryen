@@ -26,6 +26,7 @@
 */
 
 #include <cmath>
+#include <optional>
 
 #include "Doryen/Image/Image.hpp"
 
@@ -326,18 +327,29 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 			grid.at(0) = getPixel(cx, cy);
 
-			if (imageData->getKeyColor().equals(grid.at(0)))
+			// The key color is a value optional in the image.
+			std::optional<Color> keyColor = imageData->getKeyColor();
+
+			// If the image have a key color
+			if (keyColor)
 			{
-				grid.at(0) = consoleBackground;
+				if (keyColor.value().equals(grid.at(0)))
+				{
+					grid.at(0) = consoleBackground;
+				}
 			}
 
 			if (cx < maxX - 1)
 			{
 				grid.at(1) = getPixel(cx + 1, cy);
 
-				if (imageData->getKeyColor().equals(grid.at(1)))
+				// If the image have a key color
+				if (keyColor)
 				{
-					grid.at(1) = consoleBackground;
+					if (keyColor.value().equals(grid.at(1)))
+					{
+						grid.at(1) = consoleBackground;
+					}
 				}
 			}
 			else
@@ -349,9 +361,13 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				grid.at(2) = getPixel(cx, cy + 1);
 
-				if (imageData->getKeyColor().equals(grid.at(2)))
+				// If the image have a key color
+				if (keyColor)
 				{
-					grid.at(2) = consoleBackground;
+					if (keyColor.value().equals(grid.at(2)))
+					{
+						grid.at(2) = consoleBackground;
+					}
 				}
 			}
 			else
@@ -363,9 +379,13 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				grid.at(3) = getPixel(cx + 1, cy + 1);
 
-				if (imageData->getKeyColor().equals(grid.at(3)))
+				// If the image have a key color
+				if (keyColor)
 				{
-					grid.at(3) = consoleBackground;
+					if (keyColor.value().equals(grid.at(3)))
+					{
+						grid.at(3) = consoleBackground;
+					}
 				}
 			}
 			else
@@ -440,7 +460,10 @@ Image::blit(Console& _console,
 			{
 				Color color = imageData->getPixel(cx - minX + offX, cy - minY + offY);
 
-				if (not imageData->isHasKeyColor() or not imageData->getKeyColor().equals(color))
+				// The key color is a value optional in the image.
+				std::optional<Color> keyColor = imageData->getKeyColor();
+
+				if (not keyColor or not keyColor.value().equals(color))
 				{
 					_console.setCellBackgroundColor(cx, cy, color, _flag);
 				}
@@ -512,7 +535,10 @@ Image::blit(Console& _console,
 
 				Color color = imageData->getPixel((int)ix, (int)iy);
 
-				if (not imageData->isHasKeyColor() or not imageData->getKeyColor().equals(color))
+				// The key color is a value optional in the image.
+				std::optional<Color> keyColor = imageData->getKeyColor();
+
+				if (not keyColor or not keyColor.value().equals(color))
 				{
 					if (scaleX < 1.0f or scaleY < 1.0f)
 					{
