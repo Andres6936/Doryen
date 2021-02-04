@@ -545,7 +545,9 @@ Image::blit(Console& _console,
 						Pointf _point0{ ix, iy };
 						Pointf _point1{ ix + 1.0f, iy + 1.0f };
 
-						color = imageData->getMipmapPixel(_point0, _point1);
+						// Impossible, principle of responsibility, this class
+						// not should be known as the MetaImage work.
+						//color = imageData->getMipmapPixel(_point0, _point1);
 					}
 
 					_console.setCellBackgroundColor(cx, cy, color, _flag);

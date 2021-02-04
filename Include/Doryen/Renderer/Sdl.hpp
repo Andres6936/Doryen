@@ -14,7 +14,7 @@ namespace Doryen
 
 		bool eventPending = false;
 
-		ImageSdl image;
+		ImageSdl image{ 0, 0 };
 
 		SDL_Event event;
 
