@@ -40,6 +40,15 @@ namespace Doryen
 		 */
 		MetaImage(const std::int32_t width, const std::int32_t height);
 
+		// Destructor
+
+		/**
+		 * Free resources. Marked virtual for call the child destructors.
+		 */
+		virtual ~MetaImage() = default;
+
+		// Methods
+
 		// Getters
 
 		/**
