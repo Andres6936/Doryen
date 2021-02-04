@@ -49,7 +49,7 @@ namespace Doryen
 
 	public:
 
-		ImageSdl imageData;
+		ImageSdl imageData{ 0, 0 };
 
 		/**
 		 * Creating an empty image.
