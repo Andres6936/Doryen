@@ -31,4 +31,9 @@ std::int32_t MetaImage::getHeight() const noexcept
 	return height;
 }
 
+const Color& MetaImage::getKeyColor() const noexcept
+{
+	return keyColor;
+}
+
 // Setters

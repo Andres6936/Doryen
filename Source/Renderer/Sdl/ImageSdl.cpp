@@ -525,11 +525,6 @@ bool ImageSdl::isHasKeyColor() const
 	return hasKeyColor;
 }
 
-const Color& ImageSdl::getKeyColor() const
-{
-	return keyColor;
-}
-
 const Color& ImageSdl::getMipmapPixel(
 		const Pointf& _point0,
 		const Pointf& _point1)

@@ -43,8 +43,6 @@ namespace Doryen
 		 */
 		std::vector<Mipmap> mipmaps;
 
-		Color keyColor;
-
 		bool hasKeyColor = false;
 
 		// Methods
@@ -185,8 +183,6 @@ namespace Doryen
 		// Getter
 
 		bool isHasKeyColor() const;
-
-		const Color& getKeyColor() const;
 
 		const Color& getMipmapPixel(const Pointf& _point0, const Pointf& _point1);
 
