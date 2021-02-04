@@ -99,6 +99,8 @@ ImageSdl& ImageSdl::operator=(ImageSdl&& other)
 		// Assign the data members of the source object to default values.
 		other.mipmaps.clear();
 
+		width = other.getWidth();
+		height = other.getHeight();
 		keyColor = other.keyColor;
 		hasKeyColor = other.hasKeyColor;
 	}
@@ -122,6 +124,8 @@ ImageSdl& ImageSdl::operator=(const ImageSdl& other)
 		// Copy the content of mipmaps
 		std::copy(other.mipmaps.begin(), other.mipmaps.end(), std::back_inserter(this->mipmaps));
 
+		width = other.getWidth();
+		height = other.getHeight();
 		keyColor = other.keyColor;
 		hasKeyColor = other.hasKeyColor;
 	}
