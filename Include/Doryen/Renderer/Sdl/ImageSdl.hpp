@@ -167,6 +167,13 @@ namespace Doryen
 		 */
 		Color getPixel(const std::int32_t x, const std::int32_t y) const override;
 
+		/**
+		 * @param x The coordinate in the axis X of this image.
+		 * @param y The coordinate in the axis y of this image.
+		 * @return Get the alpha of pixel in this Image. The value is in the range of (0, 255).
+		 */
+		std::int32_t getAlpha(const std::int32_t x, const std::int32_t y) const override;
+
 		// Methods
 
 		static bool isTypeImageBMP(const std::string& filename);
@@ -178,8 +185,6 @@ namespace Doryen
 		// Getter
 
 		bool isHasKeyColor() const;
-
-		int getAlpha(int x, int y) const;
 
 		const Color& getKeyColor() const;
 

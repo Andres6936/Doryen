@@ -411,7 +411,7 @@ ImageSdl::~ImageSdl()
 
 // Methods Override
 
-Color ImageSdl::getPixel(int x, int y) const
+Color ImageSdl::getPixel(const std::int32_t x, const std::int32_t y) const
 {
 	if (representation == nullptr)
 	{
@@ -464,16 +464,7 @@ Color ImageSdl::getPixel(int x, int y) const
 	}
 }
 
-bool ImageSdl::isInvariantSatisfied(int _x, int _y) const
-{
-	if (mipmaps.empty()) return false;
-
-	// Else, evaluate the condition
-	return _x >= 0 and _x < mipmaps[0].getWidth() and
-		   _y >= 0 and _y < mipmaps[0].getHeight();
-}
-
-int ImageSdl::getAlpha(int x, int y) const
+int ImageSdl::getAlpha(const std::int32_t x, const std::int32_t y) const
 {
 	if (representation not_eq nullptr)
 	{
@@ -494,6 +485,15 @@ int ImageSdl::getAlpha(int x, int y) const
 	{
 		return 255;
 	}
+}
+
+bool ImageSdl::isInvariantSatisfied(int _x, int _y) const
+{
+	if (mipmaps.empty()) return false;
+
+	// Else, evaluate the condition
+	return _x >= 0 and _x < mipmaps[0].getWidth() and
+		   _y >= 0 and _y < mipmaps[0].getHeight();
 }
 
 bool ImageSdl::isCoordinateInsideRange(int _x, int _y) const
