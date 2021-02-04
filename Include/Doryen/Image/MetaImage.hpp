@@ -5,6 +5,8 @@
 
 #include <cstdint>
 
+#include <Doryen/Geometry/Size.hpp>
+
 namespace Doryen
 {
 
@@ -48,6 +50,8 @@ namespace Doryen
 		virtual ~MetaImage() = default;
 
 		// Methods
+
+		Geometry::Size getSize() const;
 
 		// Getters
 

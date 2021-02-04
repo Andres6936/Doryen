@@ -12,6 +12,13 @@ MetaImage::MetaImage(const std::int32_t _width, const std::int32_t _height)
 
 }
 
+// Methods
+
+Geometry::Size MetaImage::getSize() const
+{
+	return { width, height };
+}
+
 // Getters
 
 std::int32_t MetaImage::getWidth() const noexcept

@@ -400,25 +400,6 @@ SDL_Surface* ImageSdl::getCopySurface() const
 	return SDL_ConvertSurface(representation, representation->format, SDL_SWSURFACE);
 }
 
-Geometry::Size ImageSdl::getSize() const
-{
-	if (representation == nullptr)
-	{
-		if (mipmaps.empty())
-		{
-			return { 0, 0 };
-		}
-		else
-		{
-			return mipmaps[0].getSize();
-		}
-	}
-	else
-	{
-		return { representation->w, representation->h };
-	}
-}
-
 ImageSdl::~ImageSdl()
 {
 	// Avoid that the destructor free the memory multiple times.

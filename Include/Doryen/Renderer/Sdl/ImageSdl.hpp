@@ -163,8 +163,6 @@ namespace Doryen
 
 		int getAlpha(int x, int y) const;
 
-		Geometry::Size getSize() const;
-
 		Color getPixel(int x, int y) const;
 
 		const Color& getKeyColor() const;

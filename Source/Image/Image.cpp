@@ -72,7 +72,7 @@ Image::Image(const char* filename)
 
 Geometry::Size Image::getSize() const
 {
-	return imageData.getSize();
+	return imageData->getSize();
 }
 
 Color Image::getPixel(int x, int y) const
