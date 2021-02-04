@@ -37,3 +37,8 @@ std::optional<Color> MetaImage::getKeyColor() const noexcept
 }
 
 // Setters
+
+void MetaImage::setKeyColor(const Color& _keyColor)
+{
+	keyColor = std::make_optional(_keyColor);
+}

@@ -97,6 +97,14 @@ namespace Doryen
 
 		// Setters
 
+		/**
+		 * Set a the key color of this image.
+		 *
+		 * @param keyColor The key color that will represent the simulation of
+		 * transparency in the image.
+		 */
+		void setKeyColor(const Color& keyColor);
+
 	};
 
 }

@@ -704,8 +704,3 @@ void ImageSdl::setPixel(int x, int y, const Color& _color)
 	}
 }
 
-void ImageSdl::setKeyColor(const Color& _keyColor)
-{
-	keyColor = _keyColor;
-	hasKeyColor = true;
-}
