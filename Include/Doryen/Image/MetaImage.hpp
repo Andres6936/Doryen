@@ -33,7 +33,7 @@ namespace Doryen
 		std::int32_t height{ 0 };
 
 		/**
-		 * By default the key color is the color black (R: 0, G: 0, B: 0).
+		 * By default the key color not exist.
 		 */
 		std::optional<Color> keyColor;
 
