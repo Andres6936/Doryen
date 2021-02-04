@@ -29,6 +29,8 @@
 
 #include "Doryen/Image/Image.hpp"
 
+// As a general rule, the use of macros should be reduce only to the inclusion
+// of headers and the construction of delegates.
 #if defined(DORYEN_USE_SDL_1)
 
 // Is is important to ensure that the user does not have access to this header,
@@ -44,6 +46,8 @@ using namespace Doryen;
 
 Image::Image(int width, int height)
 {
+// As a general rule, the use of macros should be reduce only to the inclusion
+// of headers and the construction of delegates.
 #if defined(DORYEN_USE_SDL_1)
 
 	// Construct the delegate
@@ -54,6 +58,8 @@ Image::Image(int width, int height)
 
 Image::Image(const char* filename)
 {
+// As a general rule, the use of macros should be reduce only to the inclusion
+// of headers and the construction of delegates.
 #if defined(DORYEN_USE_SDL_1)
 
 	// Construct the delegate
