@@ -33,8 +33,14 @@ namespace Doryen
 
 		// Fields
 
+		/**
+		 * The method getSize() return the width and height of this Surface.
+		 */
 		SDL_Surface* representation = nullptr;
 
+		/**
+		 * The method getSize() return the width and height of first mipmap.
+		 */
 		std::vector<Mipmap> mipmaps;
 
 		Color keyColor;

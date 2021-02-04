@@ -51,6 +51,9 @@ namespace Doryen
 
 		// Methods
 
+		/**
+		 * @return Get the width and height of this Image.
+		 */
 		Geometry::Size getSize() const;
 
 		// Getters
