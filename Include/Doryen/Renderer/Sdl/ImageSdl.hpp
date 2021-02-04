@@ -120,6 +120,11 @@ namespace Doryen
 		 */
 		ImageSdl(const ImageSdl& other);
 
+		/**
+		 * Creates an Image from the specified file.
+		 *
+		 * @param filename A string that contains the name of the file from which to create the Image.
+		 */
 		ImageSdl(const std::string& filename);
 
 		// Destructor
