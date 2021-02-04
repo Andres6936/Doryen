@@ -97,9 +97,9 @@ namespace Doryen
 		std::int32_t getHeight() const noexcept;
 
 		/**
-		 * @brief Getting the size of an image.
+		 * Get the width and height of this Image.
 		 *
-		 * @return The size of image in pixels.
+		 * @return A Geometry::Size structure that represents the width and height of this Image.
 		 */
 		Geometry::Size getSize() const;
 
