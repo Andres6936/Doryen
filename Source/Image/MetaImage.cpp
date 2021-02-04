@@ -31,7 +31,7 @@ std::int32_t MetaImage::getHeight() const noexcept
 	return height;
 }
 
-const Color& MetaImage::getKeyColor() const noexcept
+std::optional<Color> MetaImage::getKeyColor() const noexcept
 {
 	return keyColor;
 }

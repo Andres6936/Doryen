@@ -112,9 +112,11 @@ void Image::setKeyColor(const Color& keyColor)
 
 bool Image::isPixelTransparent(int x, int y) const
 {
-	if (imageData->isHasKeyColor())
+	std::optional<Color> keyColor = imageData->getKeyColor();
+
+	if (keyColor)
 	{
-		if (getPixel(x, y).equals(imageData->getKeyColor()))
+		if (getPixel(x, y).equals(keyColor.value()))
 		{
 			return true;
 		}
