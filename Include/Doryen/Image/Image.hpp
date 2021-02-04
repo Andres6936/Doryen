@@ -28,10 +28,11 @@
 #pragma once
 
 #include <array>
+#include <memory>
 #include <utility>
 
 #include <Doryen/Console/Console.hpp>
-#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
+#include <Doryen/Image/MetaImage.hpp>
 
 namespace Doryen
 {
@@ -47,9 +48,9 @@ namespace Doryen
 
 		using Point = Geometry::Point2D<int>;
 
-	public:
+		std::unique_ptr<MetaImage> imageData;
 
-		ImageSdl imageData{ 0, 0 };
+	public:
 
 		/**
 		 * Creating an empty image.

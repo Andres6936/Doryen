@@ -25,22 +25,37 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "Doryen/Image/Image.hpp"
-#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
-
 #include <cmath>
+
+#include "Doryen/Image/Image.hpp"
 
 using namespace Doryen;
 
+// Construct
+
 Image::Image(int width, int height)
 {
-	imageData = ImageSdl(width, height);
+#if defined(DORYEN_USE_SDL_1)
+
+#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
+
+	imageData = std::make_unique<ImageSdl>(width, height);
+
+#endif
 }
 
 Image::Image(const char* filename)
 {
-	imageData = ImageSdl(filename);
+#if defined(DORYEN_USE_SDL_1)
+
+#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
+
+	imageData = std::make_unique<ImageSdl>(filename);
+
+#endif
 }
+
+// Methods
 
 Geometry::Size Image::getSize() const
 {
