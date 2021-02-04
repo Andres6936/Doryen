@@ -43,8 +43,18 @@ namespace Doryen
 
 		// Methods
 
+		/**
+		 * Precondition: The width and height of image has been set. (Units: pixels).
+		 *
+		 * @param filename A string that contains the name of the file from which to create the Image.
+		 */
 		void readImageBMP(const std::string& filename);
 
+		/**
+		 * Precondition: The width and height of image has been set. (Units: pixels).
+		 *
+		 * @param filename A string that contains the name of the file from which to create the Image.
+		 */
 		void readImagePNG(const std::string& filename);
 
 		/**

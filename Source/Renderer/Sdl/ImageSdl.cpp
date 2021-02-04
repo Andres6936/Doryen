@@ -64,8 +64,10 @@ ImageSdl::ImageSdl(const ImageSdl& other)
 	hasKeyColor = other.hasKeyColor;
 }
 
-ImageSdl::ImageSdl(const std::string& filename)
+ImageSdl::ImageSdl(const std::string& filename) : MetaImage(0, 0)
 {
+	// Initialize the variables of the parent class {MetaImage} to 0 width and 0 height.
+
 	if (isTypeImageBMP(filename))
 	{
 		readImageBMP(filename);
@@ -230,6 +232,10 @@ void ImageSdl::readImageBMP(const std::string& filename)
 		SDL_BlitSurface(representation, nullptr, temp, nullptr);
 		SDL_FreeSurface(temp);
 	}
+
+	// Precondition: Set the width and height of image.
+	this->width = representation->w;
+	this->height = representation->h;
 }
 
 void ImageSdl::readImagePNG(const std::string& filename)
@@ -313,6 +319,10 @@ void ImageSdl::readImagePNG(const std::string& filename)
 		memcpy(row_pointer, iteratorImage.base(), rowsize);
 		iteratorImage += rowsize;
 	}
+
+	// Precondition: Set the width and height of image.
+	this->width = width;
+	this->height = height;
 }
 
 SDL_Surface* ImageSdl::createNewSurface(

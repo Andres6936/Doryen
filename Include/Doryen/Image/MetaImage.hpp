@@ -16,7 +16,7 @@ namespace Doryen
 	class MetaImage
 	{
 
-	private:
+	protected:
 
 		/**
 		 * The height, in pixels, of this Image.
