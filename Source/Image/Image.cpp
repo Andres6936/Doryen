@@ -77,7 +77,7 @@ Geometry::Size Image::getSize() const
 
 Color Image::getPixel(int x, int y) const
 {
-	return imageData.getPixel(x, y);
+	return imageData->getPixel(x, y);
 }
 
 int Image::getAlpha(int x, int y) const

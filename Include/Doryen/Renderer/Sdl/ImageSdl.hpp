@@ -155,6 +155,15 @@ namespace Doryen
 		 */
 		ImageSdl& operator=(const ImageSdl& other);
 
+		// Methods Override
+
+		/**
+		 * @param x The coordinate in the axis X of this image.
+		 * @param y The coordinate in the axis y of this image.
+		 * @return Get pixel (RGB) of this Image at the position indicate.
+		 */
+		Color getPixel(const std::int32_t x, const std::int32_t y) const override;
+
 		// Methods
 
 		static bool isTypeImageBMP(const std::string& filename);
@@ -168,8 +177,6 @@ namespace Doryen
 		bool isHasKeyColor() const;
 
 		int getAlpha(int x, int y) const;
-
-		Color getPixel(int x, int y) const;
 
 		const Color& getKeyColor() const;
 

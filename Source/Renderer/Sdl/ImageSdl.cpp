@@ -409,6 +409,8 @@ ImageSdl::~ImageSdl()
 	}
 }
 
+// Methods Override
+
 Color ImageSdl::getPixel(int x, int y) const
 {
 	if (representation == nullptr)

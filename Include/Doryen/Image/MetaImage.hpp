@@ -6,6 +6,7 @@
 #include <cstdint>
 
 #include <Doryen/Geometry/Size.hpp>
+#include <Doryen/Graphics/Color/Color.hpp>
 
 namespace Doryen
 {
@@ -55,6 +56,13 @@ namespace Doryen
 		 * @return Get the width and height of this Image.
 		 */
 		Geometry::Size getSize() const;
+
+		/**
+		 * @param x The coordinate in the axis X of this image.
+		 * @param y The coordinate in the axis y of this image.
+		 * @return Get pixel (RGB) of this Image at the position indicate.
+		 */
+		virtual Color getPixel(const std::int32_t x, const std::int32_t y) const = 0;
 
 		// Getters
 
