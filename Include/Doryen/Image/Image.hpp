@@ -41,6 +41,7 @@ namespace Doryen
 	/**
 	 * The abstract class Image is the superclass of all classes that represent
 	 * graphical images. The image must be obtained in a platform-specific manner.
+	 * <br><br>
 	 *
 	 * The use of images is intimately associated with the initialization of any
 	 * console (even if it will not be used), since this [the console] will be

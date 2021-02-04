@@ -44,6 +44,7 @@ namespace Doryen
 	/**
 	 * The console emulator handles the rendering of the game screen and the
 	 * keyboard input.
+	 * <br><br>
 	 *
 	 * The instances of Console class are called offscreen consoles, this you
 	 * allow draw on secondary consoles as you would do with the
@@ -51,15 +52,18 @@ namespace Doryen
 	 * console. This allows you to use local coordinate space while rendering
 	 * a portion of the final screen, and easily move components of the screen
 	 * without modifying the rendering functions.
+	 * <br><br>
 	 *
 	 * You can create as many off-screen consoles as you want by using
 	 * instances. You can draw on them as you would do with the root console,
 	 * but you cannot flush them to the screen. Else, you can blit them on other
 	 * consoles, including the root console.
+	 * <br><br>
 	 *
 	 * The keyboard handling functions allow you to get keyboard input from the
 	 * user, either for turn by turn games (the function wait until the user
 	 * press a key), or real time games (non blocking function).
+	 * <br><br>
 	 *
 	 * @note for proper redraw event handling, the keyboard functions should
 	 *  always be called just after draw the console.
