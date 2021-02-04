@@ -62,6 +62,8 @@ namespace Doryen
 		/**
 		 * Get the width and height of this Image.
 		 *
+		 * @note The width and height are returned in pixels.
+		 *
 		 * @return A Geometry::Size structure that represents the width and height of this Image.
 		 */
 		Geometry::Size getSize() const;
