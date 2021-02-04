@@ -135,6 +135,9 @@ namespace Doryen
 
 		// Destructor
 
+		/**
+		 * Releases all resources used by this Image.
+		 */
 		virtual ~ImageSdl();
 
 		// Overload Operators

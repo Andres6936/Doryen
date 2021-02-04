@@ -46,7 +46,7 @@ namespace Doryen
 		// Destructor
 
 		/**
-		 * Free resources. Marked virtual for call the child destructors.
+		 * Releases all resources used by this Image. Marked virtual for call the child destructors.
 		 */
 		virtual ~MetaImage() = default;
 
