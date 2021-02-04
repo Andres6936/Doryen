@@ -33,7 +33,8 @@ namespace Doryen
 		std::int32_t height{ 0 };
 
 		/**
-		 * By default the key color not exist.
+		 * By default the key color not exist. If you wish to establish a key
+		 * color, call to the function setKeyColor().
 		 */
 		std::optional<Color> keyColor;
 
