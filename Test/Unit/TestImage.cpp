@@ -7,7 +7,7 @@
 
 using namespace Doryen;
 
-TEST_CASE("Default construct for image class")
+TEST_CASE("Verify the construction for image class with parameters")
 {
 	// Is important initialize the Console class, because this initialize the
 	// renderer to use, if not is initialized the renderer the class Image not
@@ -20,4 +20,19 @@ TEST_CASE("Default construct for image class")
 	CHECK(image.getWidth() == 69);
 	CHECK(image.getHeight() == 36);
 	CHECK(image.getSize().equals({69, 36}));
+}
+
+TEST_CASE("Verify the construction of an empty image")
+{
+// Is important initialize the Console class, because this initialize the
+	// renderer to use, if not is initialized the renderer the class Image not
+	// work.
+	Console console {10, 10};
+
+	// Here begin the test
+	Image image {0, 0};
+
+	CHECK(image.getWidth() == 0);
+	CHECK(image.getHeight() == 0);
+	CHECK(image.getSize().equals({0, 0}));
 }
