@@ -433,20 +433,20 @@ Image::blit(Console& _console,
 {
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BlendModes::NONE) return;
 
-	// Size of the image
-	Geometry::Size size = imageData->getSize();
+	// Size of the image in pixels
+	const auto[width, height] = imageData->getSize();
 
 	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
 	{
 		// Clip the image
-		int ix = (int)(_center.x - size.w * 0.5f);
-		int iy = (int)(_center.y - size.h * 0.5f);
+		int ix = (int)(_center.x - width * 0.5f);
+		int iy = (int)(_center.y - height * 0.5f);
 
 		int minX = std::max(ix, 0);
 		int minY = std::max(iy, 0);
 
-		int maxX = std::min(ix + size.w, (int)_console.getWidth());
-		int maxY = std::min(iy + size.h, (int)_console.getHeight());
+		int maxX = std::min(ix + width, (int)_console.getWidth());
+		int maxY = std::min(iy + height, (int)_console.getHeight());
 
 		int offX = 0;
 		int offY = 0;
@@ -472,8 +472,8 @@ Image::blit(Console& _console,
 	}
 	else
 	{
-		float iw = (float)size.w / 2 * scaleX;
-		float ih = (float)size.h / 2 * scaleY;
+		float iw = (float)width / 2 * scaleX;
+		float ih = (float)height / 2 * scaleY;
 
 		// Get the coordinates of the image corners in the console
 		float newXX = std::cos(angle);
