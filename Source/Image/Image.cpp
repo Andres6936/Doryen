@@ -82,7 +82,7 @@ Color Image::getPixel(int x, int y) const
 
 int Image::getAlpha(int x, int y) const
 {
-	return imageData.getAlpha(x, y);
+	return imageData->getAlpha(x, y);
 }
 
 void
@@ -107,14 +107,14 @@ Image::blitRect(Console& console, int x, int y, int w, int h, BlendModes flag)
 
 void Image::setKeyColor(const Color& keyColor)
 {
-	imageData.setKeyColor(keyColor);
+	imageData->setKeyColor(keyColor);
 }
 
 bool Image::isPixelTransparent(int x, int y) const
 {
-	if (imageData.isHasKeyColor())
+	if (imageData->isHasKeyColor())
 	{
-		if (getPixel(x, y).equals(imageData.getKeyColor()))
+		if (getPixel(x, y).equals(imageData->getKeyColor()))
 		{
 			return true;
 		}
@@ -227,8 +227,8 @@ void Image::scale(int neww, int newh)
 				// Left and Right Fractional Edges
 				for (int srcy = y0 + 1; srcy < y1; ++srcy)
 				{
-					const Color left = imageData.getPixel(ix0, srcy);
-					const Color right = imageData.getPixel(ix1, srcy);
+					const Color left = imageData->getPixel(ix0, srcy);
+					const Color right = imageData->getPixel(ix1, srcy);
 
 					sumWeight += calculateFractionalEdge(color, left, x0weight, right, x1weight);
 				}
@@ -236,8 +236,8 @@ void Image::scale(int neww, int newh)
 				// Top and Bottom Fractional Edges
 				for (int srcx = x0 + 1; srcx < x1; ++srcx)
 				{
-					const Color top = imageData.getPixel(srcx, iy0);
-					const Color bottom = imageData.getPixel(srcx, iy1);
+					const Color top = imageData->getPixel(srcx, iy0);
+					const Color bottom = imageData->getPixel(srcx, iy1);
 
 					sumWeight += calculateFractionalEdge(color, top, y0weight, bottom, y1weight);
 				}
@@ -324,7 +324,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 			grid.at(0) = getPixel(cx, cy);
 
-			if (imageData.getKeyColor().equals(grid.at(0)))
+			if (imageData->getKeyColor().equals(grid.at(0)))
 			{
 				grid.at(0) = consoleBackground;
 			}
@@ -333,7 +333,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				grid.at(1) = getPixel(cx + 1, cy);
 
-				if (imageData.getKeyColor().equals(grid.at(1)))
+				if (imageData->getKeyColor().equals(grid.at(1)))
 				{
 					grid.at(1) = consoleBackground;
 				}
@@ -347,7 +347,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				grid.at(2) = getPixel(cx, cy + 1);
 
-				if (imageData.getKeyColor().equals(grid.at(2)))
+				if (imageData->getKeyColor().equals(grid.at(2)))
 				{
 					grid.at(2) = consoleBackground;
 				}
@@ -361,7 +361,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				grid.at(3) = getPixel(cx + 1, cy + 1);
 
-				if (imageData.getKeyColor().equals(grid.at(3)))
+				if (imageData->getKeyColor().equals(grid.at(3)))
 				{
 					grid.at(3) = consoleBackground;
 				}
@@ -412,7 +412,7 @@ Image::blit(Console& _console,
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BlendModes::NONE) return;
 
 	// Size of the image
-	Geometry::Size size = imageData.getSize();
+	Geometry::Size size = imageData->getSize();
 
 	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
 	{
@@ -436,9 +436,9 @@ Image::blit(Console& _console,
 		{
 			for (int cy = minY; cy < maxY; cy++)
 			{
-				Color color = imageData.getPixel(cx - minX + offX, cy - minY + offY);
+				Color color = imageData->getPixel(cx - minX + offX, cy - minY + offY);
 
-				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
+				if (not imageData->isHasKeyColor() or not imageData->getKeyColor().equals(color))
 				{
 					_console.setCellBackgroundColor(cx, cy, color, _flag);
 				}
@@ -502,19 +502,22 @@ Image::blit(Console& _console,
 		{
 			for (int cy = min.y; cy < max.y; ++cy)
 			{
-				float ix = (iw + (float)(cx - _center.x) * newXX + (float)(cy - _center.y) * (-newYX)) * invScaleX;
-				float iy = (ih + (float)(cx - _center.x) * newXY - (float)(cy - _center.y) * newYY) * invScaleY;
+				float ix = (iw + (float)(cx - _center.x) * newXX +
+							(float)(cy - _center.y) * (-newYX)) * invScaleX;
+				float iy =
+						(ih + (float)(cx - _center.x) * newXY - (float)(cy - _center.y) * newYY) *
+						invScaleY;
 
-				Color color = imageData.getPixel((int)ix, (int)iy);
+				Color color = imageData->getPixel((int)ix, (int)iy);
 
-				if (not imageData.isHasKeyColor() or not imageData.getKeyColor().equals(color))
+				if (not imageData->isHasKeyColor() or not imageData->getKeyColor().equals(color))
 				{
 					if (scaleX < 1.0f or scaleY < 1.0f)
 					{
 						Pointf _point0{ ix, iy };
 						Pointf _point1{ ix + 1.0f, iy + 1.0f };
 
-						color = imageData.getMipmapPixel(_point0, _point1);
+						color = imageData->getMipmapPixel(_point0, _point1);
 					}
 
 					_console.setCellBackgroundColor(cx, cy, color, _flag);
@@ -526,7 +529,7 @@ Image::blit(Console& _console,
 
 void Image::setPixel(int x, int y, const Color& _color)
 {
-	imageData.setPixel(x, y, _color);
+	imageData->setPixel(x, y, _color);
 }
 
 std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette) const
