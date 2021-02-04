@@ -91,7 +91,7 @@ namespace Doryen
 		std::int32_t getHeight() const noexcept;
 
 		/**
-		 * @return Get the key color of this Image.
+		 * @return Get the key color of this Image. (Can be nullable).
 		 */
 		std::optional<Color> getKeyColor() const noexcept;
 
