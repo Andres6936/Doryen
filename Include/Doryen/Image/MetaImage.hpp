@@ -74,6 +74,13 @@ namespace Doryen
 		/**
 		 * @param x The coordinate in the axis X of this image.
 		 * @param y The coordinate in the axis y of this image.
+		 * @param pixel Set pixel (RGB) of this Image at the position indicate.
+		 */
+		virtual void setPixel(const std::int32_t x, const std::int32_t y, const Color& pixel) = 0;
+
+		/**
+		 * @param x The coordinate in the axis X of this image.
+		 * @param y The coordinate in the axis y of this image.
 		 * @return Get the alpha of pixel in this Image. The value is in the range of (0, 255).
 		 */
 		virtual std::int32_t getAlpha(const std::int32_t x, const std::int32_t y) const = 0;

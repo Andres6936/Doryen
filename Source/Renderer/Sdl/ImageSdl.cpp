@@ -464,6 +464,31 @@ Color ImageSdl::getPixel(const std::int32_t x, const std::int32_t y) const
 	}
 }
 
+void ImageSdl::setPixel(const std::int32_t x, const std::int32_t y, const Color& pixel)
+{
+//	if (representation not_eq nullptr)
+	{
+		if (mipmaps.empty())
+		{
+			updateMipmaps();
+		}
+		else
+		{
+			if (x >= 0 and x < mipmaps.at(0).getWidth() and
+				y >= 0 and y < mipmaps.at(0).getHeight())
+			{
+				mipmaps.at(0).setPixelAt(x, y, pixel);
+
+				// Skip the first mipmap
+				for (int i = 1; i < mipmaps.size(); ++i)
+				{
+					mipmaps[i].setUpdated(true);
+				}
+			}
+		}
+	}
+}
+
 int ImageSdl::getAlpha(const std::int32_t x, const std::int32_t y) const
 {
 	if (representation not_eq nullptr)
@@ -675,31 +700,6 @@ void ImageSdl::generateMip(int _mip)
 			b /= count;
 
 			current.setPixelAt(x, y, { r, g, b });
-		}
-	}
-}
-
-void ImageSdl::setPixel(int x, int y, const Color& _color)
-{
-//	if (representation not_eq nullptr)
-	{
-		if (mipmaps.empty())
-		{
-			updateMipmaps();
-		}
-		else
-		{
-			if (x >= 0 and x < mipmaps.at(0).getWidth() and
-				y >= 0 and y < mipmaps.at(0).getHeight())
-			{
-				mipmaps.at(0).setPixelAt(x, y, _color);
-
-				// Skip the first mipmap
-				for (int i = 1; i < mipmaps.size(); ++i)
-				{
-					mipmaps[i].setUpdated(true);
-				}
-			}
 		}
 	}
 }
