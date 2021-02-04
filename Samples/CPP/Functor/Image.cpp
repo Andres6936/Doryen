@@ -18,7 +18,8 @@ void Functor::Image::render(KeyCode key, const Mouse& mouse)
 	if (img == NULL)
 	{
 		img = new Doryen::Image("Data/img/skull.png");
-		img->setKeyColor(Doryen::Palette::GRAY_WARN_90);
+		// Simulate transparencies with the color Black.
+		img->setKeyColor({ 0, 0, 0 });
 		circle = new Doryen::Image("Data/img/circle.png");
 	}
 
