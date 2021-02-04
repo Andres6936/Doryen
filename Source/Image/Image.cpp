@@ -29,6 +29,15 @@
 
 #include "Doryen/Image/Image.hpp"
 
+#if defined(DORYEN_USE_SDL_1)
+
+// Is is important to ensure that the user does not have access to this header,
+// as it exposes the renderer's API, i.e platform specific code.
+#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
+
+#endif
+
+
 using namespace Doryen;
 
 // Construct
@@ -37,8 +46,7 @@ Image::Image(int width, int height)
 {
 #if defined(DORYEN_USE_SDL_1)
 
-#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
-
+	// Construct the delegate
 	imageData = std::make_unique<ImageSdl>(width, height);
 
 #endif
@@ -48,8 +56,7 @@ Image::Image(const char* filename)
 {
 #if defined(DORYEN_USE_SDL_1)
 
-#include "Doryen/Renderer/Sdl/ImageSdl.hpp"
-
+	// Construct the delegate
 	imageData = std::make_unique<ImageSdl>(filename);
 
 #endif
