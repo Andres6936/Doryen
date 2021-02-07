@@ -136,6 +136,26 @@ TARGET_LINK_LIBRARIES(<TARGET> PRIVATE Doryen::Framework)
 
 ###### Please, in the VERSION option you should preferably specify the latest version available consult [here](https://github.com/Andres6936/Doryen/releases/latest)
 
+### Example
+
+```cpp
+#include <Doryen/Doryen.hpp>
+
+using namespace Doryen;
+
+int main()
+{
+   Console console {50, 50};
+   
+   while (console.isRunning())
+   {
+      console.clear();
+      console.writeString(1, 1, "The answer is 42.");
+      console.draw();
+   }
+}
+```
+
 ###### All screenshots come from the Doryen sample source code.
 
 <details>
