@@ -122,7 +122,7 @@ namespace Doryen
 		 * used for avoid the unnecessary calculation of rendering characters
 		 * that are already drawn.
 		 */
-		std::vector<Char> oldBuffer;
+		std::vector<Char> back;
 
 		// Methods
 
