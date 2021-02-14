@@ -51,7 +51,7 @@ namespace Doryen
 		 */
 		Key keyPressed;
 
-		std::vector<Char> buffer;
+		std::vector<Char> front;
 
 		std::vector<Char> oldBuffer;
 

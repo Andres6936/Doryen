@@ -687,7 +687,7 @@ void Doryen::SDL::draw()
 		for (int x = 0; x < getWidth(); ++x)
 		{
 			// Character to draw
-			Char character = buffer[x + getWidth() * y];
+			Char character = front[x + getWidth() * y];
 
 			// Previous character drawed
 			Char previousCharacter = oldBuffer[x + getWidth() * y];
@@ -697,7 +697,8 @@ void Doryen::SDL::draw()
 
 			if (character.getCharacterFont() == -1)
 			{
-				character.setCharacterFont(getCharacterInLayoutCharacteres(character.getCharacter()));
+				character.setCharacterFont(
+						getCharacterInLayoutCharacteres(character.getCharacter()));
 			}
 
 			character.setDirt(false);
