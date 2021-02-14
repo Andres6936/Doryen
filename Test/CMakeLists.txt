@@ -5,7 +5,7 @@ INCLUDE(CMakeModules/CPM.cmake)
 CPMADDPACKAGE(
         NAME doctest
         GITHUB_REPOSITORY onqtam/doctest
-        GIT_TAG 2.4.0
+        GIT_TAG 2.4.5
 )
 
 ADD_SUBDIRECTORY(Hack)
