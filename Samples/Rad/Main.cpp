@@ -156,7 +156,7 @@ void init(Console& console)
 		for (int i = 0; i < 256; i++)
 		{
 			float v = i / 255.0f;
-			float correctedV = pow(v, GAMMA);
+			float correctedV = std::pow(v, GAMMA);
 			gammaLookup[i] = (int)(correctedV * 255);
 		}
 	}

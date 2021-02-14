@@ -27,8 +27,8 @@
 // world generator
 // this was mostly generated with libtcod 1.4.2 heightmap tool !
 
-#include <math.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
 #include <cstring>
 #include "Main.hpp"
 #include "Doryen/Algorithms/Drawing/Bresenham.hpp"
@@ -1001,7 +1001,8 @@ void WorldGenerator::computeTemperaturesAndBiomes()
 	for (int y = 0; y < HM_HEIGHT; y++)
 	{
 		float lat = (float)(y - HM_HEIGHT / 2) * 2 / HM_HEIGHT;
-		float latTemp = 0.5f * (1.0f + pow(sin(3.1415926 * (lat + 0.5f)), 5)); // between 0 and 1
+		float latTemp =
+				0.5f * (1.0f + std::pow(sin(3.1415926 * (lat + 0.5f)), 5)); // between 0 and 1
 		if (latTemp > 0.0f)
 		{ latTemp = sqrt(latTemp); }
 		latTemp = -30 + latTemp * 60;
