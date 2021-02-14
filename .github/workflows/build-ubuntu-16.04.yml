@@ -33,8 +33,8 @@ jobs:
       
       - name: Build
         working-directory: ./Build
-        run: cmake --build . -j 2
+        run: make
       
       - name: Test
         working-directory: ./Build
-        run: ctest -j 2
+        run: ctest
