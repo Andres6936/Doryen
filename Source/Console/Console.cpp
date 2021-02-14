@@ -76,7 +76,6 @@ Doryen::Console::Console(int w, int h)
 		height = h;
 
 		front.resize(width * height);
-		back.resize(width * height);
 
 		// Only exist a main console durant the life cycle of program.
 		if (not consoleRootCreated)
@@ -118,7 +117,6 @@ void Doryen::Console::setConsoleModeMain()
 
 	// Reinitialize the size of buffers
 	front.resize(width * height);
-	back.resize(width * height);
 
 	renderer->setWidth(width);
 	renderer->setHeight(height);
