@@ -53,12 +53,6 @@ TEST_CASE("Verify that the console constructed for default is initialized with 8
 	// Verify the size correct of buffer
 	CHECK(mainBuffer.size() == 80 * 50);
 	CHECK(verifyBufferPerDefect(mainBuffer));
-
-	// Internally, the representation of space 2d is realized in one-dimension space (array)
-	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
-	// Verify the size correct of old buffer
-	CHECK(oldBuffer.size() == 80 * 50);
-	CHECK(verifyBufferPerDefect(oldBuffer));
 }
 
 TEST_CASE("Verify the width and height of console when it is set with construct parameters")
@@ -73,12 +67,6 @@ TEST_CASE("Verify the width and height of console when it is set with construct 
 	// Verify the size correct of buffer
 	CHECK(mainBuffer.size() == 250 * 100);
 	CHECK(verifyBufferPerDefect(mainBuffer));
-
-	// Internally, the representation of space 2d is realized in one-dimension space (array)
-	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
-	// Verify the size correct of old buffer
-	CHECK(oldBuffer.size() == 250 * 100);
-	CHECK(verifyBufferPerDefect(oldBuffer));
 }
 
 TEST_CASE("Verify the behavior of write characters out of range. (Do not throw exceptions).")
@@ -103,10 +91,6 @@ TEST_CASE("Verify the behavior of write characters out of range. (Do not throw e
 	// Internally, the representation of space 2d is realized in one-dimension space (array)
 	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
 	CHECK(verifyBufferPerDefect(mainBuffer));
-
-	// Internally, the representation of space 2d is realized in one-dimension space (array)
-	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
-	CHECK(verifyBufferPerDefect(oldBuffer));
 }
 
 TEST_CASE("Verify the behavior of write characters out of range. (Do not throw exceptions).")
@@ -129,8 +113,4 @@ TEST_CASE("Verify the behavior of write characters out of range. (Do not throw e
 	// Internally, the representation of space 2d is realized in one-dimension space (array)
 	std::vector<Char>& mainBuffer = accessPrivateBuffer(console);
 	CHECK(verifyBufferPerDefect(mainBuffer));
-
-	// Internally, the representation of space 2d is realized in one-dimension space (array)
-	std::vector<Char>& oldBuffer = accessPrivateOldBuffer(console);
-	CHECK(verifyBufferPerDefect(oldBuffer));
 }
