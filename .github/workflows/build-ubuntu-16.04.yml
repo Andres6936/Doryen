@@ -27,14 +27,10 @@ jobs:
       - name: Create the Build Directory
         run: mkdir Build
 
-      - name: Configure
+      - name: Configure CMake
         working-directory: ./Build
         run: cmake .. -DCMAKE_CXX_COMPILER=clang-9 -DDORYEN_BUILD_TESTING=ON
       
-      - name: Build
+      - name: Build and run test
         working-directory: ./Build
-        run: make
-      
-      - name: Test
-        working-directory: ./Build
-        run: ctest
+        run: make && ctest
