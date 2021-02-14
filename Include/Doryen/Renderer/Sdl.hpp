@@ -16,7 +16,10 @@ namespace Doryen
 
 		ImageSdl image{ 0, 0 };
 
-		SDL_Event event;
+		/**
+		 * Default initialized to zero {0} for avoid warnings of Valgrind.
+		 */
+		SDL_Event event{ 0 };
 
 		SDL_Surface* screen = nullptr;
 
