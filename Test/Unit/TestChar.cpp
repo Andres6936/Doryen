@@ -5,11 +5,9 @@
 #include "doctest/doctest.h"
 #include "Doryen/Doryen.hpp"
 
-using namespace Doryen;
-
 TEST_CASE("Verify the construction of character by default")
 {
-	Char aChar {};
+	Doryen::Char aChar {};
 
 	CHECK(aChar.getCharacter() == ' ');
 	CHECK(aChar.getBackground().equals({0, 0, 0}));
