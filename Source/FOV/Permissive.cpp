@@ -30,10 +30,12 @@ void Doryen::Permissive::computeQuadrant()
 
 	LinkedList<Field> activeFields{};
 
-	Field field{ .steep {{ 1, 0 },
-						 { 0, INFINITY_16 }},
-			.shallow{{ 0,           1 },
-					 { INFINITY_16, 0 }}};
+	Field field;
+
+	field.steep = {{ 1, 0 },
+				   { 0, INFINITY_16 }};
+	field.shallow = {{ 0,           1 },
+					 { INFINITY_16, 0 }};
 
 	activeFields.push_back(field);
 
