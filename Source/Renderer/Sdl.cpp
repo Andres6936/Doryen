@@ -690,7 +690,7 @@ void Doryen::SDL::draw()
 			Char character = front[x + getWidth() * y];
 
 			// Previous character drawed
-			Char previousCharacter = oldBuffer[x + getWidth() * y];
+			Char previousCharacter = back[x + getWidth() * y];
 
 			SDL_Rect sourceRect;
 			SDL_Rect destinRect;

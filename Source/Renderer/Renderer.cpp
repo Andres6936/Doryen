@@ -243,7 +243,7 @@ void Doryen::Renderer::createBuffer()
 {
 	front.resize(getWidth() * getHeight());
 
-	oldBuffer.resize(getWidth() * getHeight());
+	back.resize(getWidth() * getHeight());
 }
 
 const std::string& Doryen::Renderer::getFontfile() const
@@ -387,7 +387,7 @@ void Doryen::Renderer::fillOldBuffer()
 {
 	for (int i = 0; i < front.size(); ++i)
 	{
-		oldBuffer[i] = front[i];
+		back[i] = front[i];
 	}
 }
 

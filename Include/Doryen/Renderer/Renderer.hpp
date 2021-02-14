@@ -53,7 +53,7 @@ namespace Doryen
 
 		std::vector<Char> front;
 
-		std::vector<Char> oldBuffer;
+		std::vector<Char> back;
 
 		std::unique_ptr<CallbackRender> callbackRender;
 
