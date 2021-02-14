@@ -25,6 +25,7 @@
 */
 
 #include <cmath>
+#include <cstring>
 #include "Navier.hpp"
 
 using namespace Doryen;
@@ -232,13 +233,13 @@ void update_velocity(float* u, float* v, float* u0, float* v0, float visc, float
 
 void init()
 {
-	memset(u, 0, sizeof(float) * SIZE);
-	memset(v, 0, sizeof(float) * SIZE);
-	memset(u_prev, 0, sizeof(float) * SIZE);
-	memset(v_prev, 0, sizeof(float) * SIZE);
+	std::memset(u, 0, sizeof(float) * SIZE);
+	std::memset(v, 0, sizeof(float) * SIZE);
+	std::memset(u_prev, 0, sizeof(float) * SIZE);
+	std::memset(v_prev, 0, sizeof(float) * SIZE);
 	for (int i = 0; i < SIZE; i++)
 	{ dens[i] = 0.0f; }
-	memcpy(dens_prev, dens, sizeof(float) * SIZE);
+	std::memcpy(dens_prev, dens, sizeof(float) * SIZE);
 }
 
 void get_from_UI(float* d, float* u, float* v, float elapsed, const KeyCode& k, const Mouse& mouse)

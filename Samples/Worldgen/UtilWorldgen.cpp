@@ -29,6 +29,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <cstring>
 #include "Main.hpp"
 #include "Doryen/Algorithms/Drawing/Bresenham.hpp"
 #include "Doryen/Algorithms/Generation/Heightmap.hpp"
@@ -257,7 +258,7 @@ void WorldGenerator::setLandMass(float landMass, float waterLevel)
 	float t0 = console.getElapsedSeconds();
 #endif
 	int heightcount[256];
-	memset(heightcount, 0, sizeof(heightcount));
+	std::memset(heightcount, 0, sizeof(heightcount));
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
 		for (int y = 0; y < HM_HEIGHT; y++)
@@ -897,7 +898,7 @@ void WorldGenerator::computePrecipitations()
 	static const int smallWidth = (HM_WIDTH + factor - 1) / factor;
 	static const int smallHeight = (HM_HEIGHT + factor - 1) / factor;
 	float* lowResMap = new float[smallWidth * smallHeight];
-	memset(lowResMap, 0, sizeof(float) * smallWidth * smallHeight);
+	std::memset(lowResMap, 0, sizeof(float) * smallWidth * smallHeight);
 
 	for (int x = 0; x < HM_WIDTH; x++)
 	{
