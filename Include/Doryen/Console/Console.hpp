@@ -115,7 +115,7 @@ namespace Doryen
 		 * Main buffer used for the console. The content of this buffer will be
 		 * drawn in the next call to method draw.
 		 */
-		std::vector<Char> buffer;
+		std::vector<Char> front;
 
 		/**
 		 * Copy of main buffer of the console when is was drawn. It buffer is

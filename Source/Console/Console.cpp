@@ -75,7 +75,7 @@ Doryen::Console::Console(int w, int h)
 		width = w;
 		height = h;
 
-		buffer.resize(width * height);
+		front.resize(width * height);
 		oldBuffer.resize(width * height);
 
 		// Only exist a main console durant the life cycle of program.
@@ -117,7 +117,7 @@ void Doryen::Console::setConsoleModeMain()
 	// width and height of console.
 
 	// Reinitialize the size of buffers
-	buffer.resize(width * height);
+	front.resize(width * height);
 	oldBuffer.resize(width * height);
 
 	renderer->setWidth(width);
@@ -266,12 +266,12 @@ void Console::writeChar(int x, int y, int c, const Color& _foreground, const Col
 			_char.setCharacterFont(renderer->getCharacterInLayoutCharacteres(c));
 			_char.setForeground(_foreground);
 
-			Color b = buffer[offset].getBackground();
+			Color b = front[offset].getBackground();
 			b.trasformColor(_background, flag);
 
 			_char.setBackground(b);
 
-			buffer[offset] = _char;
+			front[offset] = _char;
 		}
 	}
 }
@@ -284,7 +284,7 @@ void Doryen::Console::clear()
 	}
 	else
 	{
-		for (Char& c: buffer)
+		for (Char& c: front)
 		{
 			c.setCharacter(' ');
 			c.setCharacterFont(renderer->getCharacterInLayoutCharacteres(' '));
@@ -395,8 +395,9 @@ void Doryen::Console::drawFillRect(int x, int y, int rw, int rh, bool clear, Ble
 					{
 						unsigned index = cx + width * cy;
 
-						buffer[index].setCharacter(' ');
-						buffer[index].setCharacterFont(renderer->getCharacterInLayoutCharacteres(' '));
+						front[index].setCharacter(' ');
+						front[index].setCharacterFont(
+								renderer->getCharacterInLayoutCharacteres(' '));
 					}
 				}
 			}
@@ -672,7 +673,7 @@ Doryen::Console::blit(const Doryen::Geometry::Point2D<>& source, Doryen::Console
 		{
 			if (cx >= getWidth() or cy >= getHeight()) continue;
 
-			const Char srcChar = buffer[cy * width + cx];
+			const Char srcChar = front[cy * width + cx];
 			Char dstChar = srcChar;
 
 			if (foregroundAlpha == 1.0f and backgroundAlpha == 1.0f)
@@ -802,7 +803,7 @@ const Doryen::Color& Doryen::Console::getCellForegroundColor(int x, int y) const
 	{
 		unsigned index = x + width * y;
 
-		return buffer[index].getForeground();
+		return front[index].getForeground();
 	}
 }
 
@@ -825,7 +826,7 @@ int Doryen::Console::getCellCode(int x, int y) const
 	{
 		unsigned offset = x + width * y;
 
-		return buffer[offset].getCharacter();
+		return front[offset].getCharacter();
 	}
 }
 
@@ -848,7 +849,7 @@ const Doryen::Color& Doryen::Console::getCellBackgroundColor(int x, int y) const
 	{
 		unsigned index = x + width * y;
 
-		return buffer[index].getBackground();
+		return front[index].getBackground();
 	}
 }
 
@@ -967,11 +968,11 @@ void Doryen::Console::setCellBackgroundColor(int x, int y, const Doryen::Color& 
 		}
 		else
 		{
-			Color b = buffer[x + width * y].getBackground();
+			Color b = front[x + width * y].getBackground();
 
 			b.trasformColor(col, flag);
 
-			buffer[x + width * y].setBackground(b);
+			front[x + width * y].setBackground(b);
 		}
 	}
 }
@@ -995,7 +996,7 @@ void Doryen::Console::setCellForegroundColor(int x, int y, const Doryen::Color& 
 	{
 		unsigned index = x + width * y;
 
-		buffer[index].setForeground(col);
+		front[index].setForeground(col);
 	}
 }
 
