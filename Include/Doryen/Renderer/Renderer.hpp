@@ -34,6 +34,18 @@ namespace Doryen
 	 *
 	 * If you need to store the data that the method returns, create a copy
 	 * from the reference to avoid problems with the life cycle.
+	 *
+	 * This interface use the double-buffering that uses two buffers, called
+	 * front and back, which hold a array of characters that will be convert to
+	 * a image. The front buffer is visible to the user; the back buffer is not.
+	 * Successive frames of an animation are rendered into the back buffer while
+	 * the previously rendered frame is displayed in the front buffer. When a
+	 * new frame is ready, the back and front buffers swap roles, making the new
+	 * frame visible. Ideally, this exchange appears to happen instantaneously
+	 * to the user and with no visual artifacts. Thus, only completely rendered
+	 * images are presented to the user, and they remain visible during the
+	 * entire time it takes to render a new frame. The result is a flicker-free
+	 * animation.
 	 */
 	class Renderer
 	{
