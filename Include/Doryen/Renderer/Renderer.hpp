@@ -51,8 +51,17 @@ namespace Doryen
 		 */
 		Key keyPressed;
 
+		/**
+		 * Main buffer used for the console. The content of this buffer will be
+		 * drawn in the next call to method draw.
+		 */
 		std::vector<Char> front;
 
+		/**
+		 * Copy of main buffer of the console when is was drawn. It buffer is
+		 * used for avoid the unnecessary calculation of rendering characters
+		 * that are already drawn.
+		 */
 		std::vector<Char> back;
 
 		std::unique_ptr<CallbackRender> callbackRender;
