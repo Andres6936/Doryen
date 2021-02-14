@@ -1,5 +1,6 @@
 // Joan Andrés (@Andres6936) Github.
 
+#define DOCTEST_CONFIG_USE_STD_HEADERS
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include <ostream>
