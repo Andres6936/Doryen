@@ -24,7 +24,7 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <string.h>
+#include <cstring>
 #include "Main.hpp"
 
 // dummy height indicating that a cell is not water
