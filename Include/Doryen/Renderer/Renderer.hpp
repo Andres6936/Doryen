@@ -20,20 +20,24 @@ namespace Doryen
 	/**
 	 * Defines the requirements for an object responsible for "rendering"
 	 * (displaying) a value.
+	 * <br><br>
 	 *
-	 * Note:
+	 * @note
 	 *
 	 * The methods that return a reference are used for avoid return an copy,
 	 * is need take into account the life cycle of the variable that is returned.
+	 * <br><br>
 	 *
 	 * If the reference returned by the method is to be used almost
 	 * immediately, there will be no problem with the life cycle, if on the
 	 * contrary the reference is stored and the life cycle of this reference
 	 * ends, an unauthorized memory access will occur and the operating
 	 * system will terminate the execution of the application.
+	 * <br><br>
 	 *
 	 * If you need to store the data that the method returns, create a copy
 	 * from the reference to avoid problems with the life cycle.
+	 * <br><br>
 	 *
 	 * This interface use the double-buffering that uses two buffers, called
 	 * front and back, which hold a array of characters that will be convert to
@@ -46,6 +50,14 @@ namespace Doryen
 	 * images are presented to the user, and they remain visible during the
 	 * entire time it takes to render a new frame. The result is a flicker-free
 	 * animation.
+	 * <br><br>
+	 *
+	 * In general, both the front and back buffers are treated the same.
+	 * particular, here are some important characteristics:
+	 *
+	 * - Only one buffer per window can be visible at a time (the front buffer).
+	 * - Both buffers associated with a window have the same visual type, depth,
+	 * 	 width, height, and shape as the window.
 	 */
 	class Renderer
 	{
