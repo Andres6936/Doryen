@@ -16,7 +16,7 @@ jobs:
   ci:
     name: Build (Ubuntu)
     runs-on: ${{ matrix.os }}
-
+    # Set to true to allow a workflow run to pass when this job fails.
     continue-on-error: true
     strategy:
       matrix:
