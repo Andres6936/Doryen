@@ -17,6 +17,10 @@ jobs:
     name: Build (Ubuntu)
     runs-on: ${{ matrix.os }}
     # Set to true to allow a workflow run to pass when this job fails.
+    # We purpose with this workflow is verify that Doryen compile on a wide variety of
+    # operating systems and compiler, therefore it is necessary that the workflow does
+    # not stop if any of these fails (it is the default behavior for the workflow to
+    # stop on failure of one of these).
     continue-on-error: true
     strategy:
       matrix:
