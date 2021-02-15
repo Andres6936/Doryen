@@ -35,7 +35,10 @@ jobs:
             compiler: clang-6.0
 
           - os: ubuntu-18.04
-              compiler: clang-6.0
+            compiler: clang-6.0
+
+          - os: ubuntu-20.04
+            compiler: clang-10
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
