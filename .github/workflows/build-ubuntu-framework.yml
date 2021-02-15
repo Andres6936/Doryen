@@ -88,7 +88,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Build Debug Ubuntu 16.04
+      - name: Build Debug (Ubuntu)
         run: |
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
