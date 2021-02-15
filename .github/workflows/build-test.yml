@@ -1,0 +1,32 @@
+name: Doryen-Build-Test
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+      # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  ci:
+    name: Build Test (Ubuntu)
+    runs-on: ubuntu-18.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Build Debug (Ubuntu)
+        run: |
+          sudo apt install libsdl1.2-dev
+          mkdir cmake-build-debug
+          cd cmake-build-debug
+          cmake .. -DCMAKE_CXX_COMPILER=clang-9 -DORYEN_BUILD_TESTING=ON
+          make
+          ctest
