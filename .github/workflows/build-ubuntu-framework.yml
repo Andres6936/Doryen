@@ -1,0 +1,98 @@
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+      # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  Build:
+    name: Doryen-${{ matrix.name }}-Framework
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        name: [
+            Ubuntu-18.04-gcc-7,
+            Ubuntu-18.04-gcc-8,
+            Ubuntu-18.04-gcc-9,
+            Ubuntu-18.04-gcc-10,
+
+            Ubuntu-18.04-clang-3.9,
+            Ubuntu-18.04-clang-4.0,
+            Ubuntu-18.04-clang-5.0,
+            Ubuntu-18.04-clang-6.0,
+            Ubuntu-18.04-clang-7,
+            Ubuntu-18.04-clang-8,
+            Ubuntu-18.04-clang-9,
+            Ubuntu-18.04-clang-10,
+        ]
+
+        include:
+          - name: Ubuntu-18.04-gcc-7
+            os: ubuntu-18.04
+            compiler: gcc-7
+
+          - name: Ubuntu-18.04-gcc-8
+            os: ubuntu-18.04
+            compiler: gcc-8
+
+          - name: Ubuntu-18.04-gcc-9
+            os: ubuntu-18.04
+            compiler: gcc-9
+
+          - name: Ubuntu-latest-gcc-10
+            os: ubuntu-18.04
+            compiler: gcc-10
+
+          - name: Ubuntu-18.04-clang-3.9
+            os: ubuntu-18.04
+            compiler: clang-3.9
+
+          - name: Ubuntu-18.04-clang-4.0
+            os: ubuntu-18.04
+            compiler: clang-4.0
+
+          - name: Ubuntu-18.04-clang-5.0
+            os: ubuntu-18.04
+            compiler: clang-5.0
+
+          - name: Ubuntu-18.04-clang-6.0
+            os: ubuntu-18.04
+            compiler: clang-6.0
+
+          - name: Ubuntu-18.04-clang-7
+            os: ubuntu-18.04
+            compiler: clang-7
+
+          - name: Ubuntu-18.04-clang-8
+            os: ubuntu-18.04
+            compiler: clang-8
+
+          - name: Ubuntu-latest-clang-9
+            os: ubuntu-latest
+            compiler: clang-9
+
+          - name: Ubuntu-latest-clang-10
+            os: ubuntu-latest
+            compiler: clang-10
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Build Debug Ubuntu 16.04
+        run: |
+        #  Install SDL Version 1.2.15
+        sudo apt install libsdl1.2-dev
+        mkdir cmake-build-debug
+        cd cmake-build-debug
+        cmake .. -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+        make
