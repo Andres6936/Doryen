@@ -20,7 +20,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        os: [ubuntu-18.04]
+        os: [ubuntu-16.04, ubuntu-18.04]
         compiler: [
             gcc-7,
             gcc-8,
