@@ -91,8 +91,8 @@ jobs:
       - name: Build Debug Ubuntu 16.04
         run: |
         #  Install SDL Version 1.2.15
-        sudo apt install libsdl1.2-dev
-        mkdir cmake-build-debug
-        cd cmake-build-debug
-        cmake .. -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
-        make
+          sudo apt install libsdl1.2-dev
+          mkdir cmake-build-debug
+          cd cmake-build-debug
+          cmake .. -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+          make
