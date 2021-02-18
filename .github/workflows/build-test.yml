@@ -27,6 +27,6 @@ jobs:
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
           cd cmake-build-debug
-          cmake .. -DCMAKE_CXX_COMPILER=clang-9 -DORYEN_BUILD_TESTING=ON
+          cmake .. -DCMAKE_CXX_COMPILER=clang-9 -DDORYEN_BUILD_TESTING=ON
           make
           ctest
