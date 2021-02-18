@@ -23,7 +23,7 @@ namespace Doryen::Random
 		// Without random device, I wanna a determinist behavior
 		// If you wanna an un-determinist behavior, called to
 		// setRandomSeed function.
-		inline static std::mt19937 randomEngine;
+		inline static std::mt19937 randomEngine{ 0 };
 
 	public:
 
