@@ -14,6 +14,12 @@ namespace Doryen::Random
 	 * (for purpose of debug), if you not wanna the
 	 * determinist behavior, call to function setRandomSeed
 	 * before of generate a new number random.
+	 *
+	 * The PRNG used is Mersenne Twister which is implemented by the
+	 * std::mt19937 class (MT19937 stands for "Mersenne Twister" based on the
+	 * Mersenne prime 2^(19'937) - 1 ). This PRNG produces sequences of 32-bit
+	 * integers with a very long period of 2^(19937) - 1, i.e., the sequence
+	 * will repeat itself only after 2^(19937) − 1 numbers have been generated.
 	 */
 	class Number
 	{
