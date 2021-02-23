@@ -27,7 +27,6 @@ jobs:
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
           cd cmake-build-debug
-        # The test has been deactivate (Doctest produce undefined references [Searching alternative])
-          cmake .. -DCMAKE_CXX_COMPILER=clang-9 -DDORYEN_BUILD_TESTING=OFF
+          cmake ..-DDORYEN_BUILD_TESTING=ON
           make
           ctest
