@@ -27,6 +27,7 @@ ADD_DORYEN_TEST(Doryen.Test.Unit.Point2D TestPoint2D.cpp)
 
 # Moved the font to use by the console in this test. [Not need be Terminal.png, can be any other font].
 ADD_DORYEN_TEST_WITH_RESOURCE(Doryen.Test.Unit.Console TestConsole.cpp ${DORYEN_ROOT_DIR}/Terminal.png)
+# Need for access to private member and functions of Console class.
 TARGET_LINK_LIBRARIES(Doryen.Test.Unit.Console PRIVATE Doryen::Test::Hack::Console)
 
 # Moved the font to use by the console in this test. [Not need be Terminal.png, can be any other font].
