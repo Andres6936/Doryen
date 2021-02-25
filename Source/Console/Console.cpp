@@ -29,8 +29,6 @@
 
 using namespace Doryen;
 
-// Initialization of static variable
-
 /*
  * Injection of dependency based in definition of macros.
  * My point of view on the use of macros is: minimize the use of macros where
@@ -41,15 +39,61 @@ using namespace Doryen;
  * header from accessing rendering-specific code, the ultimate goal of this
  * maneuver is to prevent the user from using platform-specific code (which is
  * not very portable).
+ *
+ * This code (or use of macro) must be used two times, the first for include of
+ * header and the second for initialize and instantiate the renderer backend.
  */
 #if defined(DORYEN_USE_SDL_1)
 
+// Inclusion of header for instantiation and initialization of Sdl backend.
 #include <Doryen/Renderer/Sdl.hpp>
 
-// Inject the dependency
-std::unique_ptr<Renderer> Console::renderer = std::make_unique<SDL>();
+#endif
+
+// Static Private Variable
+
+void Console::setBackendRenderer()
+{
+
+	// What’s the “static initialization order ‘fiasco’ (problem)”?
+	// A subtle way to crash your program.
+	//
+	// The static initialization order problem is a very subtle and commonly
+	// misunderstood aspect of C++. Unfortunately it’s very hard to detect —
+	// the errors often occur before main() begins.
+	//
+	// In short, suppose you have two static objects x and y which exist in
+	// separate source files, say x.cpp and y.cpp. Suppose further that the
+	// initialization for the y object (typically the y object’s constructor)
+	// calls some method on the x object.
+	//
+	// That’s it. It’s that simple.
+	//
+	// The tough part is that you have a 50%-50% chance of corrupting the
+	// program. If the compilation unit for x.cpp happens to get initialized
+	// first, all is well. But if the compilation unit for y.cpp get
+	// initialized first, then y’s initialization will get run before x’s
+	// initialization, and you’re toast. E.g., y’s constructor could call a
+	// method on the x object, yet the x object hasn’t yet been constructed.
+	//
+	// To prevent the static initialization order problem, use the Construct On
+	// First Use Idiom, described below.
+	//
+	// The basic idea of the Construct On First Use Idiom is to wrap your static
+	// object inside a function. A function that should generally be called
+	// only once.
+
+#if defined(DORYEN_USE_SDL_1)
+
+	// Important that the use of this macro accompany the use of inclusion of
+	// header <Doryen/Renderer/Sdl.hpp> for avoid compiler errors.
+
+	// Inject the dependency
+	renderer = std::move(std::make_unique<SDL>());
 
 #endif
+
+}
 
 // Constructs
 
@@ -80,6 +124,11 @@ Doryen::Console::Console(int w, int h)
 		// Only exist a main console durant the life cycle of program.
 		if (not consoleRootCreated)
 		{
+			// Initialize the renderer backend.
+			// This function is called only once.
+			// Avoid the “static initialization order ‘fiasco’ (problem)”.
+			setBackendRenderer();
+
 			setConsoleModeMain();
 			// The first console instanced is the main console
 			// set the variable static to false for avoid that

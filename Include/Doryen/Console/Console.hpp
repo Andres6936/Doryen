@@ -74,6 +74,20 @@ namespace Doryen
 	private:
 
 		/**
+		 * Injection of dependency based in definition of macros.
+		 *
+		 * Current the instantiation and initialization of renderer is made
+		 * based in macros, with this method avoid that the user can be access
+		 * to headers that store code that is rendering-code specific.
+		 *
+		 * Another reason for use this method is avoid the “static
+		 * initialization order ‘fiasco’ (problem)”.
+		 *
+		 * @note This function must be called only once.
+		 */
+		static void setBackendRenderer();
+
+		/**
 		 * This variable define the point of communication with the renderer, it
 		 * is the fundamental piece of gear, since without it, displaying
 		 * anything on screen would be a titanic task. Initially this variable
@@ -82,7 +96,7 @@ namespace Doryen
 		 * initialized before any function is called, otherwise, a program crash
 		 * will occur when trying to reference a null pointer.
 		 */
-		static std::unique_ptr<Renderer> renderer;
+		inline static std::unique_ptr<Renderer> renderer{ nullptr };
 
 		/**
 		 * There is only single main console throughout the program execution.
