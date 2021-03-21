@@ -540,6 +540,9 @@ void Doryen::Console::writeString(int x, int y, const std::string& fmt)
 int Doryen::Console::writeWrapText(int x, int y, int w, int h, BlendModes flag,
 		int alignment, const char* fmt, ...)
 {
+	// Curly braces for create a Point directly.
+	drawFrame({ x, y }, { w, h }, true, flag);
+
 //	va_list ap;
 //	va_start(ap, fmt);
 //	int ret = TCOD_console_print_internal(data, x, y, w, h, flag, alignment, TCOD_console_vsprint(fmt, ap), true,
