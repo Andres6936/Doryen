@@ -13,6 +13,18 @@ namespace Doryen
 
 	public:
 
+		void onRenderer() override;
+
+		void draw() override;
+
+		void loadFont() override;
+
+		void showCursor(bool visible) override;
+
+		void setWindowTitle(const std::string& _title) override;
+
+		void registerCallback(std::unique_ptr<CallbackRender> _callback) override;
+
 	};
 
 }
