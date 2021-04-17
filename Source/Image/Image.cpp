@@ -38,6 +38,12 @@
 // as it exposes the renderer's API, i.e platform specific code.
 #include "Doryen/Renderer/Sdl/ImageSdl.hpp"
 
+#elif defined(DORYEN_USE_DUMMY)
+
+// Is is important to ensure that the user does not have access to this header,
+// as it exposes the renderer's API, i.e platform specific code.
+#include "Doryen/Renderer/Dummy/ImageDummy.hpp"
+
 #endif
 
 
@@ -54,6 +60,11 @@ Image::Image(int width, int height)
 	// Construct the delegate
 	imageData = std::make_unique<ImageSdl>(width, height);
 
+#elif defined(DORYEN_USE_DUMMY)
+
+	// Construct the delegate
+	imageData = std::make_unique<ImageDummy>(width, height);
+
 #endif
 }
 
@@ -65,6 +76,11 @@ Image::Image(const char* filename)
 
 	// Construct the delegate
 	imageData = std::make_unique<ImageSdl>(filename);
+
+#elif defined(DORYEN_USE_DUMMY)
+
+	// Construct the delegate
+	imageData = std::make_unique<ImageDummy>(filename);
 
 #endif
 }
