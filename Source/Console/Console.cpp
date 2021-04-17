@@ -48,6 +48,11 @@ using namespace Doryen;
 // Inclusion of header for instantiation and initialization of Sdl backend.
 #include <Doryen/Renderer/Sdl.hpp>
 
+#elif defined(DORYEN_USE_DUMMY)
+
+// Inclusion of header for instantiation and initialization of Dummy backend.
+#include <Doryen/Renderer/Dummy.hpp>
+
 #endif
 
 // Static Private Variable
@@ -90,6 +95,14 @@ void Console::setBackendRenderer()
 
 	// Inject the dependency
 	renderer = std::move(std::make_unique<SDL>());
+
+#elif defined(DORYEN_USE_DUMMY)
+
+	// Important that the use of this macro accompany the use of inclusion of
+	// header <Doryen/Renderer/Dummy.hpp> for avoid compiler errors.
+
+	// Inject the dependency
+	renderer = std::move(std::make_unique<Dummy>());
 
 #endif
 

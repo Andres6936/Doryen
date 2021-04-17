@@ -3,10 +3,12 @@
 #ifndef DORYEN_DUMMY_HPP
 #define DORYEN_DUMMY_HPP
 
+#include <Doryen/Renderer/Renderer.hpp>
+
 namespace Doryen
 {
 
-	class Dummy
+	class Dummy : public Renderer
 	{
 
 	public:
