@@ -26,6 +26,11 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/ImageSdl.cpp>
 
+        # Include the code needed for use the dummy renderer, for any other renderer define this
+        # two files are exclude of compilation process
+        $<$<BOOL:${DORYEN_RENDERER_DUMMY}>:Renderer/Dummy.cpp>
+        $<$<BOOL:${DORYEN_RENDERER_DUMMY}>:Renderer/Dummy/ImageDummy.cpp>
+
         FOV/CircularRaycasting.cpp
         FOV/DiamondRayCasting.cpp
         FOV/ShadowCasting.cpp
@@ -105,5 +110,11 @@ IF (DORYEN_RENDERER_SDL_1)
     TARGET_INCLUDE_DIRECTORIES(Doryen.Framework PRIVATE ${SDL_INCLUDE_DIR})
     TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_USE_SDL_1=1)
     TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
+
+ELSE (DORYEN_RENDERER_DUMMY)
+
+    # Define the macros needed for include the code of dummy renderer
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework.Object PRIVATE DORYEN_USE_DUMMY=1)
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_USE_DUMMY=1)
 
 ENDIF ()

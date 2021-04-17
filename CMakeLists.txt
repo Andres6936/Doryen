@@ -8,6 +8,8 @@ OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 
 # Render to use by default
 OPTION(DORYEN_RENDERER_SDL_1 "Use the SDL backend" ON)
+# The renderer is used for testing purpose
+OPTION(DORYEN_RENDERER_DUMMY "Use the dummy backend" OFF)
 
 # Set the root directory where can be found the directory Include/
 # needed for set inclusion guards and more
