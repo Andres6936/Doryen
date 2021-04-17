@@ -111,6 +111,7 @@ IF (DORYEN_RENDERER_SDL_1)
     TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_USE_SDL_1=1)
     TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
 
+# Configure and link all the need for use Dummy as renderer
 ELSE (DORYEN_RENDERER_DUMMY)
 
     # Define the macros needed for include the code of dummy renderer
