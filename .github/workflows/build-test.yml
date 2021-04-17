@@ -27,6 +27,6 @@ jobs:
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
           cd cmake-build-debug
-          cmake .. -DDORYEN_BUILD_TESTING=ON
+          cmake .. -DDORYEN_BUILD_TESTING=ON -DDORYEN_RENDERER_DUMMY=ON
           make
           ctest
