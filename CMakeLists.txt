@@ -11,6 +11,16 @@ OPTION(DORYEN_RENDERER_SDL_1 "Use the SDL backend" ON)
 # The renderer is used for testing purpose
 OPTION(DORYEN_RENDERER_DUMMY "Use the dummy backend" OFF)
 
+# For default, the SDL 1 renderer is ON, but if is defined any other renderer the renderer SDL 1
+# will be included in the code and produce compiler error to not found the headers in machines
+# where the SDL renderer not will used.
+IF (DORYEN_RENDERER_DUMMY)
+
+    # Set the SDL 1 renderer to OFF for avoid use this renderer
+    SET(DORYEN_RENDERER_SDL_1 OFF)
+
+ENDIF ()
+
 # Set the root directory where can be found the directory Include/
 # needed for set inclusion guards and more
 SET(DORYEN_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
