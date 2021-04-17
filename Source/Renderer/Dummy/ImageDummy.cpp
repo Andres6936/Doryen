@@ -1,6 +1,6 @@
 // Joan Andrés (@Andres6936) Github.
 
-#include "Doryen/ImageDummy.hpp"
+#include <Doryen/Renderer/Dummy/ImageDummy.hpp>
 
 using namespace Doryen;
 
