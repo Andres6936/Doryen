@@ -18,6 +18,12 @@ namespace Doryen
 
 	public:
 
+		Color getPixel(const std::int32_t x, const std::int32_t y) const override;
+
+		void setPixel(const std::int32_t x, const std::int32_t y, const Color& pixel) override;
+
+		int32_t getAlpha(const std::int32_t x, const std::int32_t y) const override;
+
 	};
 
 }
