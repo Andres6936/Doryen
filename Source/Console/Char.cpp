@@ -44,7 +44,10 @@ void Doryen::Char::setCharacter(std::uint64_t character)
 
 int Doryen::Char::getCharacterFont() const
 {
+	// Clear the bits of character (it is the first 32 bits).
 	std::uint64_t character = value << 32;
+	// Recover the schema for get the value of character in font
+	// (it is the last 32 bits).
 	character >>= 32;
 
 	return static_cast<std::int32_t>(character);
