@@ -152,7 +152,7 @@ const Doryen::Color& Doryen::Renderer::getFontKeyColor() const
 
 const Doryen::Geometry::Size Doryen::Renderer::getFontSize() const noexcept
 {
-	return { static_cast<std::int32_t>(fontWidth), static_cast<std::int32_t>(fontHeight) };
+	return { fontWidth, fontHeight };
 }
 
 bool Doryen::Renderer::isCharacterColored(std::uint32_t index) const

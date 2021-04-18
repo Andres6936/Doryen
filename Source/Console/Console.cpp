@@ -832,7 +832,7 @@ std::uint32_t Doryen::Console::getFramePerSeconds() const
 
 const Geometry::Size Console::getFontSize() const
 {
-	return { (int)renderer->getFontWidth(), (int)renderer->getFontHeight() };
+	return { renderer->getFontWidth(), renderer->getFontHeight() };
 }
 
 std::uint32_t Console::getElapsedMilliseconds() const

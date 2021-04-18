@@ -47,7 +47,7 @@ namespace Doryen
 			 * @param _w Width of object.
 			 * @param _h Height of object.
 			 */
-			Size(std::int32_t _w, std::int32_t _h) noexcept
+			Size(std::uint32_t _w, std::uint32_t _h) noexcept
 			{
 				setWidth(_w);
 				setHeight(_h);
@@ -80,7 +80,7 @@ namespace Doryen
 			 *
 			 * @return Tuple with the values of width and height
 			 */
-			std::pair<std::int32_t, std::int32_t> unpack() const noexcept
+			std::pair<std::uint32_t, std::uint32_t> unpack() const noexcept
 			{
 				return { getWidth(), getHeight() };
 			}
@@ -141,7 +141,7 @@ namespace Doryen
 			/**
 			 * @return The width of this Dimension in Integer precision.
 			 */
-			std::int32_t getWidth() const noexcept
+			std::uint32_t getWidth() const noexcept
 			{
 				// Get the width from the schema of 64 bits where the
 				// first 32 bits are the width of object.
@@ -151,7 +151,7 @@ namespace Doryen
 			/**
 			 * @return The height of this Dimension in Integer precision.
 			 */
-			std::int32_t getHeight() const noexcept
+			std::uint32_t getHeight() const noexcept
 			{
 				// Get the height from the schema of 64 bits where the
 				// last 32 bits are the height of object.

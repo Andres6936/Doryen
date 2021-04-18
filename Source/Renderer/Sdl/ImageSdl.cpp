@@ -10,7 +10,7 @@ using namespace Doryen;
 
 // Construct
 
-ImageSdl::ImageSdl(const std::int32_t width, const std::int32_t height)
+ImageSdl::ImageSdl(const std::uint32_t width, const std::uint32_t height)
 		: MetaImage(width, height)
 {
 	// Initialize the variables of the parent class {MetaImage}.

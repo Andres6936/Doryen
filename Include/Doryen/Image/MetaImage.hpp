@@ -25,12 +25,12 @@ namespace Doryen
 		/**
 		 * The height, in pixels, of this Image.
 		 */
-		std::int32_t width{ 0 };
+		std::uint32_t width{ 0 };
 
 		/**
 		 * The width, in pixels, of this Image.
 		 */
-		std::int32_t height{ 0 };
+		std::uint32_t height{ 0 };
 
 		/**
 		 * By default the key color not exist. If you wish to establish a key
@@ -48,7 +48,7 @@ namespace Doryen
 		 * @param width The width, in pixels, of the new MetaImage.
 		 * @param height The height, in pixels, of the new MetaImge.
 		 */
-		MetaImage(const std::int32_t width, const std::int32_t height);
+		MetaImage(const std::uint32_t width, const std::uint32_t height);
 
 		// Destructor
 

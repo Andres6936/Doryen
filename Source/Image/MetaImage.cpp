@@ -6,7 +6,7 @@ using namespace Doryen;
 
 // Construct
 
-MetaImage::MetaImage(const std::int32_t _width, const std::int32_t _height)
+MetaImage::MetaImage(const std::uint32_t _width, const std::uint32_t _height)
 		: width(_width), height(_height)
 {
 

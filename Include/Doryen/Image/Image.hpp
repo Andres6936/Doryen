@@ -177,7 +177,7 @@ namespace Doryen
 		@Param image	In the C and python version, the image handler, obtained with the load function.
 		@Param neww,newh	The new size of the image.
 		*/
-		void scale(int neww, int newh);
+		void scale(std::uint32_t neww, std::uint32_t newh);
 
 		/**
 		 * Flipping the image horizontally

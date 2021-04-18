@@ -202,7 +202,7 @@ float Image::calculateCorners(Color& _color, const Color& pixel,
 	return weightLeft * weightRight;
 }
 
-void Image::scale(int neww, int newh)
+void Image::scale(std::uint32_t neww, std::uint32_t newh)
 {
 	// TODO: Is necessary resize the image
 
@@ -465,8 +465,8 @@ Image::blit(Console& _console,
 		int minX = std::max(ix, 0);
 		int minY = std::max(iy, 0);
 
-		int maxX = std::min(ix + width, (int)_console.getWidth());
-		int maxY = std::min(iy + height, (int)_console.getHeight());
+		int maxX = std::min(ix + width, _console.getWidth());
+		int maxY = std::min(iy + height, _console.getHeight());
 
 		int offX = 0;
 		int offY = 0;
