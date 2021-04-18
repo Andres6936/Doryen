@@ -207,11 +207,10 @@ namespace Doryen
 
 		/**
 		 * Sum the red parameter to red component of this color.
-		 * The parameter cannot be negative or greater than 255.
-		 * Otherwise, the value wil be set to 0 if negative and
-		 * 255 if higher.
+		 * If the result of operation produce a negative number or greater
+		 * than 255 result it will be truncated to limit [0, 255] (Inclusive).
 		 *
-		 * @param red The red component.
+		 * @param red The red component. A negative value can be passed.
 		 */
 		void addRed(const std::int32_t red);
 

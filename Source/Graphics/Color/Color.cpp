@@ -264,12 +264,10 @@ void Color::add(const Color& other) noexcept
 
 void Color::addRed(const std::int32_t red)
 {
-	// The first operation of clamp above the red parameter set the range
-	// of it to [0, 255] (Inclusive).
 	// In this point, the componentRed can be greater than 255 or lesser
 	// than 0 (A value negative).
-	const std::int32_t componentRed = this->getRed() + std::clamp(red, 0, 255);
-	// Apply the second operation above the componentRed for limite the range
+	const std::int32_t componentRed = this->getRed() + red;
+	// Apply clamp operation above the componentRed for limit the range
 	// of it to [0, 255] (Inclusive).
 	this->setRed(std::clamp(componentRed, 0, 255));
 }

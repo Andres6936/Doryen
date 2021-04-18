@@ -185,7 +185,7 @@ TEST_CASE ("Overflow for operations of add red component")
 
 	// Add a negative value to red component
 	white.addRed(-120);
-	CHECK(white.getRed() == 64);
+	CHECK(white.getRed() == 0);
 
 	// Add a value greater than 255 to red component
 	white.addRed(280);
