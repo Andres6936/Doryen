@@ -851,11 +851,8 @@ void Doryen::SDL::draw()
 			{
 				changed = false;
 
-				if (character.getCharacter() != previousCharacter.getCharacter() ||
-					character.getCharacterFont() != previousCharacter.getCharacterFont() ||
-					isCharacterUpdated(character.getCharacter()) ||
-					!character.getBackground().equals(previousCharacter.getBackground()) ||
-					!character.getForeground().equals(previousCharacter.getForeground()))
+				if (not character.equals(previousCharacter) or
+					isCharacterUpdated(character.getCharacter()))
 				{
 					changed = true;
 				}
