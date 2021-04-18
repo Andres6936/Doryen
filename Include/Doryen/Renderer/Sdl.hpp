@@ -39,6 +39,11 @@ namespace Doryen
 				const SDL_Surface* charmapBackup, Uint32* pix,
 				const std::uint32_t hdelta);
 
+		void fillOnlyNonKeyColorPixels(const SDL_Rect& sourceRect,
+				const SDL_Surface* charmapBackup, const std::uint32_t hdelta,
+				const std::uint32_t bpp, const std::uint32_t SDLFore,
+				const Char& character);
+
 		static void convertToGenericEvent(SDL_Event& event, Key& key);
 
 	public:

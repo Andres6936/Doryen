@@ -710,6 +710,94 @@ Doryen::SDL::coloredCharacter(const SDL_Rect& sourceRect,
 	}
 }
 
+
+void
+Doryen::SDL::fillOnlyNonKeyColorPixels(const SDL_Rect& sourceRect,
+		const SDL_Surface* charmapBackup,
+		const std::uint32_t hdelta, const std::uint32_t bpp,
+		const std::uint32_t SDLFore, const Char& character)
+{
+	// 24 bits font : fill only non key color pixels
+	Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
+							sourceRect.y * charmap->pitch);
+
+	int h = (int)getFontHeight();
+
+	if (!isCharacterColored(character.getCharacterFont()))
+	{
+		while (h--)
+		{
+			int w = (int)getFontWidth();
+
+			while (w--)
+			{
+				if (((*pix) & getRgbMask()) != getSdlKey())
+				{
+					(*pix) &= getNrgbMask();
+					(*pix) |= SDLFore;
+				}
+
+				pix = (Uint32*)((Uint8*)pix + 3);
+			}
+
+			pix = (Uint32*)((Uint8*)pix + hdelta);
+		}
+	}
+	else
+	{
+		// Colored character : multiply color with foreground color
+		Uint32* pixorig = (Uint32*)((Uint8*)charmapBackup->pixels +
+									sourceRect.x * 4 +
+									sourceRect.y * charmapBackup->pitch);
+
+		// CharmapBackup is always 32 bits
+		int hdeltaBackup =
+				(int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
+
+		while (h > 0)
+		{
+			int w = (int)getFontWidth();
+
+			while (w > 0)
+			{
+				if (((*pixorig) & getRgbMask()) != getSdlKey())
+				{
+					int r = (int)(*((Uint8*)(pixorig) +
+									charmapBackup->format->Rshift / 8));
+					int g = (int)(*((Uint8*)(pixorig) +
+									charmapBackup->format->Gshift / 8));
+					int b = (int)(*((Uint8*)(pixorig) +
+									charmapBackup->format->Bshift / 8));
+
+					// erase the color
+					(*pix) &= getNrgbMask();
+
+					const Color& foreground = getForeground();
+
+					r = r * foreground.getRed() / 255;
+					g = g * foreground.g / 255;
+					b = b * foreground.b / 255;
+
+					// set the new color
+					(*pix) |= (r << charmap->format->Rshift) |
+							  (g << charmap->format->Gshift) |
+							  (b << charmap->format->Bshift);
+				}
+
+				w--;
+
+				pix = (Uint32*)(((Uint8*)pix) + 3);
+				pixorig++;
+			}
+
+			h--;
+
+			pix = (Uint32*)(((Uint8*)pix) + hdelta);
+			pixorig += hdeltaBackup;
+		}
+	}
+}
+
 void Doryen::SDL::draw()
 {
 	// Bitmap point to screen
@@ -917,83 +1005,8 @@ void Doryen::SDL::draw()
 						}
 						else
 						{
-							// 24 bits font : fill only non key color pixels
-							Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
-													sourceRect.y * charmap->pitch);
-
-							int h = (int)getFontHeight();
-
-							if (!isCharacterColored(character.getCharacterFont()))
-							{
-								while (h--)
-								{
-									int w = (int)getFontWidth();
-
-									while (w--)
-									{
-										if (((*pix) & getRgbMask()) != getSdlKey())
-										{
-											(*pix) &= getNrgbMask();
-											(*pix) |= SDLFore;
-										}
-
-										pix = (Uint32*)((Uint8*)pix + 3);
-									}
-
-									pix = (Uint32*)((Uint8*)pix + hdelta);
-								}
-							}
-							else
-							{
-								// Colored character : multiply color with foreground color
-								Uint32* pixorig = (Uint32*)((Uint8*)charmapBackup->pixels +
-															sourceRect.x * 4 +
-															sourceRect.y * charmapBackup->pitch);
-
-								// CharmapBackup is always 32 bits
-								int hdeltaBackup =
-										(int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
-
-								while (h > 0)
-								{
-									int w = (int)getFontWidth();
-
-									while (w > 0)
-									{
-										if (((*pixorig) & getRgbMask()) != getSdlKey())
-										{
-											int r = (int)(*((Uint8*)(pixorig) +
-															charmapBackup->format->Rshift / 8));
-											int g = (int)(*((Uint8*)(pixorig) +
-															charmapBackup->format->Gshift / 8));
-											int b = (int)(*((Uint8*)(pixorig) +
-															charmapBackup->format->Bshift / 8));
-
-											// erase the color
-											(*pix) &= getNrgbMask();
-
-											r = r * foreground.getRed() / 255;
-											g = g * foreground.g / 255;
-											b = b * foreground.b / 255;
-
-											// set the new color
-											(*pix) |= (r << charmap->format->Rshift) |
-													  (g << charmap->format->Gshift) |
-													  (b << charmap->format->Bshift);
-										}
-
-										w--;
-
-										pix = (Uint32*)(((Uint8*)pix) + 3);
-										pixorig++;
-									}
-
-									h--;
-
-									pix = (Uint32*)(((Uint8*)pix) + hdelta);
-									pixorig += hdeltaBackup;
-								}
-							}
+							fillOnlyNonKeyColorPixels(sourceRect, charmapBackup, hdelta,
+									bpp, SDLFore, character);
 						}
 					}
 
