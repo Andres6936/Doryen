@@ -165,6 +165,12 @@ namespace Doryen
 		Color(std::int32_t r, std::int32_t g, std::int32_t b, std::int32_t a) noexcept;
 
 		/**
+		 * Copy the component Red, Green, Blue and Alpha of another color.
+		 * @param c The Color object to copy components RGBA.
+		 */
+		void copy(const Color& c) noexcept;
+
+		/**
 		 * Determines whether another Color is equal to this Color.
 		 *
 		 * The result is true if and only if the argument is not null and is a

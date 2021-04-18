@@ -105,6 +105,14 @@ Color::Color(std::int32_t r, std::int32_t g, std::int32_t b, std::int32_t a) noe
 	this->a = std::min(255, a);
 }
 
+void Color::copy(const Color& c) noexcept
+{
+	this->setRed(c.getRed());
+	this->setGreen(c.getGreen());
+	this->setBlue(c.getBlue());
+	this->setAlpha(c.getAlpha());
+}
+
 bool Color::equals(const Color& c) const noexcept
 {
 	return r == c.r && g == c.g && b == c.b && a == c.a;
