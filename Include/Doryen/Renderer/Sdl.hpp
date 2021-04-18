@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <Doryen/Renderer/Renderer.hpp>
 #include <Doryen/Renderer/Sdl/ImageSdl.hpp>
+#include <Doryen/Renderer/Sdl/EventSdl.hpp>
 
 namespace Doryen
 {
@@ -15,6 +16,8 @@ namespace Doryen
 		bool eventPending = false;
 
 		ImageSdl image{ 0, 0 };
+
+		EventSdl eventSdl;
 
 		/**
 		 * Default initialized to zero {0} for avoid warnings of Valgrind.

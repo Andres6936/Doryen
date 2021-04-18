@@ -5,7 +5,12 @@
 using namespace Doryen;
 
 
-void EventSdl::getGenericEvent(SDL_Event& event, Key& key) noexcept
+EventSdl::EventSdl(SDL_Event& _event) noexcept: event(_event)
+{
+	// Construct the reference to main listener event of SDL.
+}
+
+void EventSdl::getGenericEvent(Key& key) noexcept
 {
 	SDL_KeyboardEvent* keyboard = &event.key;
 

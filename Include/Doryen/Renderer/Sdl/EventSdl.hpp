@@ -12,7 +12,20 @@ namespace Doryen
 	class EventSdl
 	{
 
+	protected:
+
+		/**
+		 * Reference to main listener event of SDL.
+		 */
+		SDL_Event& event;
+
 	public:
+
+		/**
+		 * Construct the reference to main listener event of SDL.
+		 * @param event Refernece to main listener event of SDL.
+		 */
+		explicit EventSdl(SDL_Event& event) noexcept;
 
 		/**
 		 * Convert a SDL event to Generic event.
@@ -20,7 +33,7 @@ namespace Doryen
 		 * @param event Event generated for SDL
 		 * @param key Reference to generic event, in this parameter will be store the generic Event
 		 */
-		static void getGenericEvent(SDL_Event& event, Key& key) noexcept;
+		void getGenericEvent(Key& key) noexcept;
 
 	};
 

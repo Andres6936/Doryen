@@ -1,9 +1,8 @@
 #include <Doryen/Renderer/Sdl.hpp>
-#include <Doryen/Renderer/Sdl/EventSdl.hpp>
 
 // Construct
 
-Doryen::SDL::SDL() : Renderer()
+Doryen::SDL::SDL() : Renderer(), eventSdl(event)
 {
 
 }
@@ -905,7 +904,7 @@ void Doryen::SDL::updateKeyEvents()
 
 		// Convert the event of type SDL to a event of
 		// type Doryen (Generic)
-		EventSdl::getGenericEvent(event, keyPressed);
+		eventSdl.getGenericEvent(keyPressed);
 
 		keyPressed.setPressed(true);
 	}
