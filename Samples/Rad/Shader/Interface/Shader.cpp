@@ -40,7 +40,7 @@ int Shader::addLight(const Geometry::Point2D<uint32_t>& _coordinate, int radius,
 	l.coordinate = _coordinate;
 
 	l.radius = radius;
-	l.col = col;
+	l.col.copy(col);
 	lights.push_back(l);
 	return id;
 }
@@ -53,7 +53,7 @@ void Shader::updateLight( int id, int x, int y, int radius, const Doryen::Color 
 	l.coordinate.x = x;
 	l.coordinate.y = y;
 	l.radius = radius;
-	l.col = col;
+	l.col.copy(col);
 }
 
 const Doryen::Color &Shader::getLightColor( int x, int y )

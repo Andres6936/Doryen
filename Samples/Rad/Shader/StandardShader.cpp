@@ -81,7 +81,7 @@ void StandardShader::compute()
 					lightmap[x + y * map.getWidth()].add(light.col);
 
 					// Recovery the original color
-					light.col = copy;
+					light.col.copy(copy);
 				}
 			}
 		}

@@ -749,7 +749,7 @@ void Doryen::SDL::draw()
 					character.setBackground(Color(nr, ng, nb));
 
 					// Overwrite background variable with the new color
-					background = character.getBackground();
+					background.copy(character.getBackground());
 				}
 
 				unsigned int SDLBack = SDL_MapRGB(bitmap->format, background.getRed(), background.g,
@@ -785,7 +785,7 @@ void Doryen::SDL::draw()
 					character.setForeground(Color(nr, ng, nb));
 
 					// Overwrite foreground variable with the new color
-					foreground = character.getForeground();
+					foreground.copy(character.getForeground());
 				}
 
 				// Only draw character if foreground color != background color

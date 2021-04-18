@@ -1096,11 +1096,11 @@ void WorldGenerator::computeColors()
 			EBiome biome = biomeMap[x + y * HM_WIDTH];
 			Doryen::Color c;
 			if (h < sandHeight)
-			{ c = getMapColor(h); }
+			{ c.copy(getMapColor(h)); }
 			else
 			{
-				c = getMapColor(h);
-				c = Doryen::Color::lerp(c, getBiomeColor(biome, x, y), 0.5f);
+				c.copy(getMapColor(h));
+				c.copy(Doryen::Color::lerp(c, getBiomeColor(biome, x, y), 0.5f));
 			}
 
 			// snow near poles
@@ -1124,7 +1124,7 @@ void WorldGenerator::computeColors()
 			else if (temp < 2.0f && h >= sandHeight)
 			{
 				//Doryen::Color snow = mapGradient[(int)(snowHeight*255) + (int)((255 - (int)(snowHeight*255)) * (0.6f-temp)/0.4f)];
-				c = Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c, (temp + 2) / 4.0f);
+				c.copy(Doryen::Color::lerp(Doryen::Palette::GRAY_WARN_1, c, (temp + 2) / 4.0f));
 				imageWorldmap.setPixel(x, y, c);
 			}
 			else
@@ -1143,7 +1143,7 @@ void WorldGenerator::computeColors()
 			if (md->riverId > 0)
 			{
 				Doryen::Color c = imageWorldmap.getPixel(x, y);
-				c = Doryen::Color::lerp(c, Doryen::Palette::BLUE, 0.3f);
+				c.copy(Doryen::Color::lerp(c, Doryen::Palette::BLUE, 0.3f));
 				imageWorldmap.setPixel(x, y, c);
 			}
 			md++;
@@ -1234,8 +1234,8 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 		int idx;
 		for (idx = idxStart; idx <= idxEnd; idx++)
 		{
-			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
-					(float)(idx - idxStart) / (idxEnd - idxStart));
+			map[idx].copy(Color::lerp(keyColor[segment], keyColor[segment + 1],
+					(float)(idx - idxStart) / (idxEnd - idxStart)));
 		}
 	}
 }

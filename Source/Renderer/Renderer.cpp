@@ -164,7 +164,7 @@ void Doryen::Renderer::fillCharacterColorWith(const Doryen::Color& _color)
 {
 	for (Color& c : characterColor)
 	{
-		c = _color;
+		c.copy(_color);
 	}
 }
 
@@ -330,7 +330,7 @@ void Doryen::Renderer::setNrgbMask(std::uint32_t _nRgbMask)
 
 void Doryen::Renderer::setColorInCharacterColorAt(std::uint32_t index, const Doryen::Color& _color)
 {
-	characterColor[index] = _color;
+	characterColor[index].copy(_color);
 }
 
 std::uint32_t Doryen::Renderer::getSdlKey() const
@@ -428,7 +428,7 @@ void Doryen::Renderer::setFade(short _fade)
 
 void Doryen::Renderer::setFadingColor(const Doryen::Color& _fadingColor)
 {
-	fadingColor = _fadingColor;
+	fadingColor.copy(_fadingColor);
 }
 
 void Doryen::Renderer::setCharacterInBufferAt(std::uint32_t index, const Char& _char)
@@ -463,12 +463,12 @@ int Doryen::Renderer::getCharOfCharacterInBufferAt(std::uint32_t index) const
 
 void Doryen::Renderer::setForeground(const Doryen::Color& _foreground)
 {
-	foreground = _foreground;
+	foreground.copy(_foreground);
 }
 
 void Doryen::Renderer::setBackground(const Doryen::Color& _background)
 {
-	background = _background;
+	background.copy(_background);
 }
 
 void Doryen::Renderer::clearBuffer()

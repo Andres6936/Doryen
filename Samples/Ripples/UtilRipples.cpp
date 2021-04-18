@@ -145,7 +145,7 @@ void RippleManager::renderRipples(const Doryen::Image* ground, Doryen::Image* gr
 				if (std::abs(xOffset) < 250 && std::abs(yOffset) < 250)
 				{
 					Doryen::Color col = ground->getPixel(x + (int)(xOffset), y + (int)(yOffset));
-					col = Palette::GRAY_WARN_1;
+					col.copy(Palette::GRAY_WARN_1);
 					col.multiply(xOffset * 0.1f);
 					groundWithRipples->setPixel(x, y, col);
 				}

@@ -136,7 +136,7 @@ void render(Console& root)
 					recoveryLightingColor.multiply(lightning);
 					recoveryLightingColor.multiply(2);
 
-					col = recoveryLightingColor;
+					col.copy(recoveryLightingColor);
 				}
 
 				root.writeChar(x, y, '/');
@@ -215,8 +215,8 @@ void generateSmoothColorMap(Color* map, int nbKey, Color const* keyColor, int co
 		int idx;
 		for (idx = idxStart; idx <= idxEnd; idx++)
 		{
-			map[idx] = Color::lerp(keyColor[segment], keyColor[segment + 1],
-					(float)(idx - idxStart) / (idxEnd - idxStart));
+			map[idx].copy(Color::lerp(keyColor[segment], keyColor[segment + 1],
+					(float)(idx - idxStart) / (idxEnd - idxStart)));
 		}
 	}
 }

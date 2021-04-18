@@ -220,42 +220,43 @@ void Weather::calculateAmbient(float timeInSeconds) {
 	float hour = timeInSeconds / 3600.0f;
 	// TODO : should use a color gradient map for that..
 	if ( hour > 21.0f || hour < 6.0f ) {
-		ambientColor=night; // night
-		coef=0.0;
+		ambientColor.copy(night); // night
+		coef = 0.0;
 	} else if ( hour < 7.0f ) {
 		// between 6am and 7am
 		coef = (hour - 6.0f);
-        ambientColor = Doryen::Color::lerp( night, dawn, coef );
+		ambientColor.copy(Doryen::Color::lerp(night, dawn, coef));
 		coef /= 3.0f;
 	} else if ( hour < 8.0f ) {
 		// between 7am and 8am
 		coef = (hour - 7.0f);
-        ambientColor = Doryen::Color::lerp( dawn, dawn2, coef );
-		coef = 0.33333 + coef/3.0f;
+		ambientColor.copy(Doryen::Color::lerp(dawn, dawn2, coef));
+		coef = 0.33333 + coef / 3.0f;
 	} else if ( hour < 9.0f ) {
 		// between 8am and 9am
 		coef = (hour - 8.0f);
-        ambientColor = Doryen::Color::lerp( dawn2, day, coef );
-		coef = 0.66666 + coef/3.0f;
-	} else if ( hour < 18.0f ) {
+		ambientColor.copy(Doryen::Color::lerp(dawn2, day, coef));
+		coef = 0.66666 + coef / 3.0f;
+	} else if ( hour < 18.0f )
+	{
 		// between 9am and 6pm
-		ambientColor = day;
-		coef=1.0f;
+		ambientColor.copy(day);
+		coef = 1.0f;
 	} else if ( hour < 19.0f ) {
 		// between 6pm and 7pm
 		coef = (hour - 18.0f);
-        ambientColor = Doryen::Color::lerp( day, dawn2, coef );
-		coef = 0.66666 + (1.0f-coef)/3.0f;
+		ambientColor.copy(Doryen::Color::lerp(day, dawn2, coef));
+		coef = 0.66666 + (1.0f - coef) / 3.0f;
 	} else if ( hour < 20.0f ) {
 		// between 7pm and 8pm
 		coef = (hour - 19.0f);
-        ambientColor = Doryen::Color::lerp( dawn2, dawn, coef );
-		coef = 0.33333 + (1.0f-coef)/3.0f;
+		ambientColor.copy(Doryen::Color::lerp(dawn2, dawn, coef));
+		coef = 0.33333 + (1.0f - coef) / 3.0f;
 	} else if ( hour < 21.0f ) {
 		// between 8pm and 9pm
 		coef = (hour - 20.0f);
-        ambientColor = Doryen::Color::lerp( dawn, night, coef );
-		coef = (1.0f-coef)/3.0f;
+		ambientColor.copy(Doryen::Color::lerp(dawn, night, coef));
+		coef = (1.0f - coef) / 3.0f;
 	}
 }
 

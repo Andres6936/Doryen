@@ -125,5 +125,5 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 
 void Mipmap::setPixelAt(const std::uint32_t _x, const std::int32_t _y, const Color& _pixel) noexcept
 {
-	(*this)[_x + _y * dimension.w] = _pixel;
+	(*this)[_x + _y * dimension.w].copy(_pixel);
 }
