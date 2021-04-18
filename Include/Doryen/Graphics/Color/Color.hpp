@@ -193,10 +193,10 @@ namespace Doryen
 		// Operators
 
 		/**
-		 * Deleted the operation of copy, instead is recommendable use
-		 * the copy method.
+		 * Copy the component Red, Green, Blue and Alpha of another color.
+		 * @param c The Color object to copy components RGBA.
 		 */
-		void operator=(const Color& _rhs) noexcept = delete;
+		void operator=(const Color& _rhs) noexcept;
 
 		/**
 		 * Multiply the color.

@@ -290,10 +290,7 @@ Color::Color(const Color& _rhs) noexcept
 
 void Color::operator=(const Color& _rhs) noexcept
 {
-	this->r = _rhs.r;
-	this->g = _rhs.g;
-	this->b = _rhs.b;
-	this->a = _rhs.a;
+	this->copy(_rhs);
 }
 
 std::string Color::toString() const
