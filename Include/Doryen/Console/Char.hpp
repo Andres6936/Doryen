@@ -41,6 +41,8 @@ namespace Doryen
 
 		Char() noexcept;
 
+		bool equals(const Char& _char) noexcept;
+
 		// Getters
 
 		int getCharacter() const;

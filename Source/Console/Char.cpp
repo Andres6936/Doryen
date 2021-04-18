@@ -7,6 +7,15 @@ Doryen::Char::Char() noexcept
 	setCharacter(' ');
 }
 
+// Methods
+
+bool Doryen::Char::equals(const Doryen::Char& _char) noexcept
+{
+	return this->value == _char.value and
+		   this->foreground.equals(_char.getForeground()) and
+		   this->background.equals(_char.getBackground());
+}
+
 // Getters
 
 int Doryen::Char::getCharacter() const
