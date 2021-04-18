@@ -253,5 +253,9 @@ void EventSdl::getGenericEvent(SDL_Event& event, Key& key) noexcept
 	case SDLK_F12:
 		key.setKeyCode(KeyCode::F12);
 		break;
+
+	default:
+		key.setKeyCode(KeyCode::NONE);
+		break;
 	}
 }
