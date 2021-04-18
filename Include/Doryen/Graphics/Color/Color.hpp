@@ -212,7 +212,7 @@ namespace Doryen
 		 *
 		 * @param red The red component. A negative value can be passed.
 		 */
-		void addRed(const std::int32_t red);
+		void addRed(const std::int32_t red) noexcept;
 
 		/**
 		 * @brief Interpolate between two colors.

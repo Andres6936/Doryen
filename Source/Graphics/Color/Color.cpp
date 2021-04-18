@@ -262,7 +262,7 @@ void Color::add(const Color& other) noexcept
 	this->b = std::min(255, this->b + other.b);
 }
 
-void Color::addRed(const std::int32_t red)
+void Color::addRed(const std::int32_t red) noexcept
 {
 	// In this point, the componentRed can be greater than 255 or lesser
 	// than 0 (A value negative).
