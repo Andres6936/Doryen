@@ -192,7 +192,11 @@ namespace Doryen
 
 		// Operators
 
-		void operator=(const Color& _rhs) noexcept;
+		/**
+		 * Deleted the operation of copy, instead is recommendable use
+		 * the copy method.
+		 */
+		void operator=(const Color& _rhs) noexcept = delete;
 
 		/**
 		 * Multiply the color.
