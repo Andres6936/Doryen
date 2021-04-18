@@ -119,3 +119,31 @@ SCENARIO ("Equality and not equality for 2 sizes")
 		}
 	}
 }
+
+TEST_CASE ("Verify the getters and setter")
+{
+	Geometry::Size size1{ 5, 8 };
+
+	CHECK(size1.getWidth() == 5);
+	CHECK(size1.getHeight() == 8);
+
+	size1.setWidth(9);
+	size1.setHeight(22);
+
+	CHECK(size1.getWidth() == 9);
+	CHECK(size1.getHeight() == 22);
+}
+
+TEST_CASE ("Verify the getters and setter for negatives values")
+{
+	Geometry::Size size1{ -5, -8 };
+
+	CHECK(size1.getWidth() == -5);
+	CHECK(size1.getHeight() == -8);
+
+	size1.setWidth(-9);
+	size1.setHeight(-22);
+
+	CHECK(size1.getWidth() == -9);
+	CHECK(size1.getHeight() == -22);
+}
