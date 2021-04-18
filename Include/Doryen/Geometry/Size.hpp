@@ -63,6 +63,11 @@ namespace Doryen
 
 			// Methods
 
+			std::pair<std::int32_t, std::int32_t> unwrap() const noexcept
+			{
+				return { getWidth(), getHeight() };
+			}
+
 			bool lessThan(const Size& _object) const noexcept
 			{
 				if (getWidth() < _object.getWidth()) return true;

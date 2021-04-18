@@ -142,8 +142,18 @@ TEST_CASE ("Verify the getters and setter for zeroes values")
 	CHECK(size1.getHeight() == 8);
 
 	size1.setWidth(9);
-	size1.setHeight(22);
+	size1.setHeight(0);
 
 	CHECK(size1.getWidth() == 9);
-	CHECK(size1.getHeight() == 22);
+	CHECK(size1.getHeight() == 0);
+}
+
+TEST_CASE ("Verify the unwrap of properties")
+{
+	Geometry::Size size1{ 69, 36 };
+
+	const auto[width, height] = size1.unwrap();
+
+	CHECK(width == 69);
+	CHECK(height == 36);
 }
