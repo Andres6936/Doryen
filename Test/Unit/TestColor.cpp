@@ -7,6 +7,26 @@
 
 using namespace Doryen;
 
+TEST_CASE ("Verify the copy method")
+{
+	// Element Null
+	Color white{ 0, 0, 0 };
+	// Element Total
+	Color black{ 255, 255, 255 };
+
+	white.copy(black);
+	CHECK(white.equals({ 255, 255, 255 }));
+
+
+	// Element Component Red
+	Color red{ 255, 0, 0 };
+	// Element Component Green
+	Color green{ 0, 255, 0 };
+
+	red.copy(green);
+	CHECK(red.equals({ 0, 255, 0 }));
+}
+
 TEST_CASE ("Parser color from hexadecimal string literal (Null terminated)")
 {
 	Color c = Color::fromString("#192856");
