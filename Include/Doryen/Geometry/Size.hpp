@@ -147,6 +147,8 @@ namespace Doryen
 			// Setters
 
 			/**
+			 * @note Negative values cannot be used.
+			 *
 			 * @param _w Set the width of object to specified in the parameter.
 			 */
 			void setWidth(std::uint64_t _w) noexcept
@@ -182,6 +184,8 @@ namespace Doryen
 			}
 
 			/**
+			 * @note Negative values cannot be used.
+			 *
 			 * @param _h Set the height of object to specified in the parameter.
 			 */
 			void setHeight(std::uint64_t _h) noexcept
