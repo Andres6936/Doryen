@@ -71,7 +71,7 @@ namespace Doryen
 			 *
 			 * Geometry::Size size{ 69, 36 };
 			 *
-			 * const auto[width, height] = size.unwrap();
+			 * const auto[width, height] = size.unpack();
 			 *
 			 * assert(width == 69) // True
 			 * assert(height == 36) // True
@@ -80,7 +80,7 @@ namespace Doryen
 			 *
 			 * @return Tuple with the values of width and height
 			 */
-			std::pair<std::int32_t, std::int32_t> unwrap() const noexcept
+			std::pair<std::int32_t, std::int32_t> unpack() const noexcept
 			{
 				return { getWidth(), getHeight() };
 			}

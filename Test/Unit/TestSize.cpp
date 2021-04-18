@@ -148,11 +148,11 @@ TEST_CASE ("Verify the getters and setter for zeroes values")
 	CHECK(size1.getHeight() == 0);
 }
 
-TEST_CASE ("Verify the unwrap of properties")
+TEST_CASE ("Verify the unpack of properties")
 {
 	Geometry::Size size1{ 69, 36 };
 
-	const auto[width, height] = size1.unwrap();
+	const auto[width, height] = size1.unpack();
 
 	CHECK(width == 69);
 	CHECK(height == 36);
