@@ -95,14 +95,3 @@ void Doryen::Char::setBackground(const Doryen::Color& _background)
 {
 	background.copy(_background);
 }
-
-bool Doryen::Char::isDirt() const
-{
-	return dirt;
-}
-
-void Doryen::Char::setDirt(bool _dirt)
-{
-	dirt = _dirt;
-}
-

@@ -35,11 +35,6 @@ namespace Doryen
 		 */
 		Color background{ 0, 0, 0 };
 
-		/**
-		 * Cell modified since last flush?
-		 */
-		bool dirt = false;
-
 	public:
 
 		// Construct
@@ -47,8 +42,6 @@ namespace Doryen
 		Char() noexcept;
 
 		// Getters
-
-		bool isDirt() const;
 
 		int getCharacter() const;
 
@@ -67,8 +60,6 @@ namespace Doryen
 		void setForeground(const Color& _foreground);
 
 		void setBackground(const Color& _background);
-
-		void setDirt(bool _dirt);
 
 	};
 }

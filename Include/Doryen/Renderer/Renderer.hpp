@@ -376,8 +376,6 @@ namespace Doryen
 
 		void setColorInCharacterColorAt(std::uint32_t index, const Color& _color);
 
-		void setDirty(const Geometry::Point2D<>& _start, Geometry::Point2D<>& _end);
-
 		void setFontfile(const std::string& _fontfile);
 
 		// Methods Pures

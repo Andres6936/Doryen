@@ -614,11 +614,6 @@ namespace Doryen
 		// Setters
 
 		/**
-		 * Force the re-draw of cells that is into of rectangle.
-		 */
-		void setDirty(int x, int y, int w, int h);
-
-		/**
          * @brief  Allows you to limit the number of frames per second.
          *
          * If a frame is rendered faster than expected, the Console::flush

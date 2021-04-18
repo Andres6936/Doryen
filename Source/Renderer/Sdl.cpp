@@ -845,16 +845,13 @@ void Doryen::SDL::draw()
 						getCharacterInLayoutCharacteres(character.getCharacter()));
 			}
 
-			character.setDirt(false);
-
 			bool changed = true;
 
 			if (trackChanges)
 			{
 				changed = false;
 
-				if (character.isDirt() ||
-					character.getCharacter() != previousCharacter.getCharacter() ||
+				if (character.getCharacter() != previousCharacter.getCharacter() ||
 					character.getCharacterFont() != previousCharacter.getCharacterFont() ||
 					isCharacterUpdated(character.getCharacter()) ||
 					!character.getBackground().equals(previousCharacter.getBackground()) ||

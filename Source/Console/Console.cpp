@@ -350,7 +350,6 @@ void Doryen::Console::clear()
 			c.setCharacterFont(renderer->getCharacterInLayoutCharacteres(' '));
 			c.setForeground(foreground);
 			c.setBackground(background);
-			c.setDirt(false);
 		}
 	}
 }
@@ -1060,27 +1059,6 @@ void Doryen::Console::setCellForegroundColor(int x, int y, const Doryen::Color& 
 		unsigned index = x + width * y;
 
 		front[index].setForeground(col);
-	}
-}
-
-void Doryen::Console::setDirty(int x, int y, int w, int h)
-{
-//	TCOD_console_set_dirty(x, y, w, h);
-
-	if (x < 0 || y < 0 || w < 0 || h < 0)
-	{
-		// Throw error
-		return;
-	}
-	else
-	{
-		// Initial point
-		Point start = Point(x, y);
-
-		// End Point
-		Point end = Point(w, h);
-
-		renderer->setDirty(start, end);
 	}
 }
 

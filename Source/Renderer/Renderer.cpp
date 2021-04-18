@@ -251,38 +251,6 @@ const std::string& Doryen::Renderer::getFontfile() const
 	return fontfile;
 }
 
-void Doryen::Renderer::setDirty(const Geometry::Point2D<>& _start, Geometry::Point2D<>& _end)
-{
-	// Primera comprobación: ¿Es el primer punto mayor a las coordenadas
-	// de la ventana principal?
-	if (_start.x > getWidth() || _start.y > getHeight())
-	{
-		return;
-	}
-	else
-	{
-		// Segunda comprobación: ¿La suma de las coordendas x & y de
-		// ambos puntos (el ancho y alto) es mayor al ancho y alto de
-		// la ventana principal?
-		if (_start.x + _end.x > getWidth() ||
-			_start.y + _end.y > getHeight())
-		{
-			_end.x = (int)getWidth() - _start.x;
-			_end.y = (int)getHeight() - _start.y;
-		}
-
-		for (int x = _start.x; x < _start.x + _end.x; ++x)
-		{
-			for (int y = _start.y; y < _start.y + _end.y; ++y)
-			{
-				std::uint32_t offset = x + getWidth() * y;
-
-				front[offset].setDirt(true);
-			}
-		}
-	}
-}
-
 short Doryen::Renderer::getFade() const
 {
 	return fade;
@@ -479,7 +447,6 @@ void Doryen::Renderer::clearBuffer()
 		c.setCharacterFont(getCharacterInLayoutCharacteres(' '));
 		c.setForeground(foreground);
 		c.setBackground(background);
-		c.setDirt(false);
 	}
 }
 
