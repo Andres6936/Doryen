@@ -791,16 +791,18 @@ void Doryen::SDL::draw()
 							// cannot draw with the key color...
 							if (foreground.getRed() < 255)
 							{
+								foreground.addRed(1);
 								character.setForeground(
-										Color(foreground.r += 1, foreground.g, foreground.b));
+										Color(foreground.getRed(), foreground.g, foreground.b));
 
 								// Overwrite the variable
 								foreground = character.getForeground();
 							}
 							else
 							{
+								foreground.addRed(-1);
 								character.setForeground(
-										Color(foreground.r -= 1, foreground.g, foreground.b));
+										Color(foreground.getRed(), foreground.g, foreground.b));
 
 								// Overwrite the variable
 								foreground = character.getForeground();
