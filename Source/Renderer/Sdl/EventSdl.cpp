@@ -10,9 +10,9 @@ EventSdl::EventSdl(SDL_Event& _event) noexcept: event(_event)
 	// Construct the reference to main listener event of SDL.
 }
 
-void EventSdl::getGenericEvent(Key& key) noexcept
+void EventSdl::getGenericEvent(Key& key) const noexcept
 {
-	SDL_KeyboardEvent* keyboard = &event.key;
+	const SDL_KeyboardEvent* keyboard = &event.key;
 
 	// Convert SDL Event to Doryen Event
 	switch (keyboard->keysym.sym)

@@ -15,9 +15,9 @@ namespace Doryen
 	protected:
 
 		/**
-		 * Reference to main listener event of SDL.
+		 * Reference to main listener event of SDL. Only-read
 		 */
-		SDL_Event& event;
+		const SDL_Event& event;
 
 	public:
 
@@ -33,7 +33,7 @@ namespace Doryen
 		 * @param event Event generated for SDL
 		 * @param key Reference to generic event, in this parameter will be store the generic Event
 		 */
-		void getGenericEvent(Key& key) noexcept;
+		void getGenericEvent(Key& key) const noexcept;
 
 	};
 
