@@ -847,7 +847,9 @@ void Doryen::SDL::updateEventsQueue()
 	processEventsOfExit();
 
 	updateKeyEvents();
-	updateMouseEvents();
+	mouseSdl.updateGeneric(eventSdl, mouse);
+	mouseSdl.updateRelative(
+			{ static_cast<int32_t>(getFontWidth()), static_cast<int32_t>(getFontHeight()) }, mouse);
 }
 
 void Doryen::SDL::processEventsOfExit()
@@ -907,61 +909,6 @@ void Doryen::SDL::updateKeyEvents()
 		eventSdl.getGenericEvent(keyPressed);
 
 		keyPressed.setPressed(true);
-	}
-}
-
-void Doryen::SDL::updateMouseEvents()
-{
-	// The mouse is an object that should be have
-	// memory of past events, the aim is determine
-	// if the user press ALT + Any Key in any moment
-	// or if occur an mouse event while is pressed
-	// the key ALT.
-
-	mouse.resetState();
-
-	int coordinateX = 0;
-	int coordinateY = 0;
-
-	// Ignore the result of function, already manage the events.
-	SDL_GetMouseState(&coordinateX, &coordinateY);
-
-	mouse.setX(coordinateX);
-	mouse.setY(coordinateY);
-
-	const int CHART_WIDTH = getFontWidth();
-	const int CHART_HEIGHT = getFontHeight();
-
-	mouse.setPositionCellX(mouse.getX() / CHART_WIDTH);
-	mouse.setPositionCellY(mouse.getY() / CHART_HEIGHT);
-
-	if (event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		SDL_MouseButtonEvent* mev = &event.button;
-
-		switch (mev->button)
-		{
-		case SDL_BUTTON_LEFT :
-			mouse.setStatus(MouseCode::LEFT);
-			break;
-
-		case SDL_BUTTON_MIDDLE :
-			mouse.setStatus(MouseCode::MIDDLE);
-			break;
-
-
-		case SDL_BUTTON_RIGHT :
-			mouse.setStatus(MouseCode::RIGHT);
-			break;
-
-		case SDL_BUTTON_WHEELUP:
-			mouse.setStatus(MouseCode::WHEEL_UP);
-			break;
-
-		case SDL_BUTTON_WHEELDOWN:
-			mouse.setStatus(MouseCode::WHEEL_DOWN);
-			break;
-		}
 	}
 }
 

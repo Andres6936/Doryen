@@ -5,6 +5,7 @@
 #include <Doryen/Renderer/Renderer.hpp>
 #include <Doryen/Renderer/Sdl/ImageSdl.hpp>
 #include <Doryen/Renderer/Sdl/EventSdl.hpp>
+#include <Doryen/Renderer/Sdl/MouseSdl.hpp>
 
 namespace Doryen
 {
@@ -19,6 +20,8 @@ namespace Doryen
 
 		EventSdl eventSdl;
 
+		MouseSdl mouseSdl;
+
 		/**
 		 * Default initialized to zero {0} for avoid warnings of Valgrind.
 		 */
@@ -31,8 +34,6 @@ namespace Doryen
 		// Methods
 
 		void updateKeyEvents();
-
-		void updateMouseEvents();
 
 		void updateEventsQueue();
 

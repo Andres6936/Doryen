@@ -10,6 +10,11 @@ EventSdl::EventSdl(SDL_Event& _event) noexcept: event(_event)
 	// Construct the reference to main listener event of SDL.
 }
 
+const SDL_Event& EventSdl::getUnderlineListener() const noexcept
+{
+	return event;
+}
+
 void EventSdl::getGenericEvent(Key& key) const noexcept
 {
 	const SDL_KeyboardEvent* keyboard = &event.key;

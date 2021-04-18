@@ -26,6 +26,7 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/ImageSdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/EventSdl.cpp>
+        $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/MouseSdl.cpp>
 
         # Include the code needed for use the dummy renderer, for any other renderer define this
         # two files are exclude of compilation process

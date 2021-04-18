@@ -12,7 +12,7 @@ namespace Doryen
 	class EventSdl
 	{
 
-	protected:
+	private:
 
 		/**
 		 * Reference to main listener event of SDL. Only-read
@@ -26,6 +26,8 @@ namespace Doryen
 		 * @param event Refernece to main listener event of SDL.
 		 */
 		explicit EventSdl(SDL_Event& event) noexcept;
+
+		const SDL_Event& getUnderlineListener() const noexcept;
 
 		/**
 		 * Convert a SDL event to Generic event.
