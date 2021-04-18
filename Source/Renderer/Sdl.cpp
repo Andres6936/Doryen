@@ -806,6 +806,11 @@ void Doryen::SDL::draw()
 	unsigned hdelta = 0;
 
 	// The number of bytes required to hold a pixel value
+	// The data types used to represent pixels are as follows:
+	// 1 Byte per pixel -> Uint8
+	// 2 Byte per pixel -> Uint16
+	// 3 Byte per pixel -> Tuple of Uint8 RGB values
+	// 4 Byte per pixel -> Uint32
 	const std::uint8_t BYTES_PER_PIXEL = charmap->format->BytesPerPixel;
 
 	if (BYTES_PER_PIXEL == 4)
