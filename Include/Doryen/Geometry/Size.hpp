@@ -29,8 +29,8 @@ namespace Doryen
 			/**
 			 * The first 32 bits are the width, the last 32 bits are the height.
 			 * The schema is - W H - for a total of 64 bits.
-			 * The width dimension; negative values can be used.
-			 * The height dimension; negative values can be used.
+			 * The width dimension; negative values cannot be used.
+			 * The height dimension; negative values cannot be used.
 			 */
 			std::uint64_t value{ 0 };
 
