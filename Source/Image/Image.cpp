@@ -105,9 +105,7 @@ int Image::getAlpha(int x, int y) const
 void
 Image::blitRect(Console& console, int x, int y, int w, int h, BlendModes flag)
 {
-	const Geometry::Size& size = getSize();
-	const auto width = size.getWidth();
-	const auto height = size.getHeight();
+	const auto[width, height] = getSize().unpack();
 
 	if (w == -1) w = width;
 	if (h == -1) h = height;
@@ -151,9 +149,7 @@ bool Image::isPixelTransparent(int x, int y) const
 
 void Image::flippingHorizontally()
 {
-	const Geometry::Size& size = getSize();
-	const auto width = size.getWidth();
-	const auto height = size.getHeight();
+	const auto[width, height] = getSize().unpack();
 
 	for (int py = 0; py < height; ++py)
 	{
@@ -170,9 +166,7 @@ void Image::flippingHorizontally()
 
 void Image::flippingVertically()
 {
-	const Geometry::Size& size = getSize();
-	const auto width = size.getWidth();
-	const auto height = size.getHeight();
+	const auto[width, height] = getSize().unpack();
 
 	for (int px = 0; px < width; ++px)
 	{
@@ -460,9 +454,7 @@ Image::blit(Console& _console,
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BlendModes::NONE) return;
 
 	// Size of the image in pixels
-	const Geometry::Size& size = imageData->getSize();
-	const auto width = size.getWidth();
-	const auto height = size.getHeight();
+	const auto[width, height] = imageData->getSize().unpack();
 
 	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
 	{
