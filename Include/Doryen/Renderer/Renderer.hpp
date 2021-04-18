@@ -7,12 +7,13 @@
 #include <memory>
 #include <cstdint>
 
-#include "Doryen/Event/Key.hpp"
-#include "Doryen/Event/Mouse.hpp"
-#include "Doryen/Console/Char.hpp"
-#include "Doryen/Geometry/Point2D.hpp"
-#include "Doryen/Graphics/Color/Color.hpp"
-#include "Doryen/Graphics/Callback/Render.hpp"
+#include <Doryen/Event/Key.hpp>
+#include <Doryen/Event/Mouse.hpp>
+#include <Doryen/Console/Char.hpp>
+#include <Doryen/Geometry/Size.hpp>
+#include <Doryen/Geometry/Point2D.hpp>
+#include <Doryen/Graphics/Color/Color.hpp>
+#include <Doryen/Graphics/Callback/Render.hpp>
 
 namespace Doryen
 {
@@ -309,6 +310,11 @@ namespace Doryen
 		const Color& getFadingColor() const;
 
 		const Color& getFontKeyColor() const;
+
+		/**
+		 * @return The size in width and height of font.
+		 */
+		const Geometry::Size getFontSize() const noexcept;
 
 		// Setters
 

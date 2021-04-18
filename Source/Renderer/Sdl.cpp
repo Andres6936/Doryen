@@ -848,8 +848,7 @@ void Doryen::SDL::updateEventsQueue()
 
 	updateKeyEvents();
 	mouseSdl.updateGeneric(eventSdl, mouse);
-	mouseSdl.updateRelative(
-			{ static_cast<int32_t>(getFontWidth()), static_cast<int32_t>(getFontHeight()) }, mouse);
+	mouseSdl.updateRelative(getFontSize(), mouse);
 }
 
 void Doryen::SDL::processEventsOfExit()
