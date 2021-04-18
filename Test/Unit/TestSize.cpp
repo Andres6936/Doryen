@@ -15,26 +15,10 @@ TEST_CASE ("Equality of size")
 	CHECK(size1.equals(size2));
 }
 
-TEST_CASE ("Equality of size for negatives sizes")
-{
-	Geometry::Size size1{ -5, -8 };
-	Geometry::Size size2{ -5, -8 };
-
-	CHECK(size1.equals(size2));
-}
-
 TEST_CASE ("Not equality of size")
 {
 	Geometry::Size size1{ 5, 8 };
 	Geometry::Size size2{ 8, 5 };
-
-	CHECK(not size1.equals(size2));
-}
-
-TEST_CASE ("Not equality of size for negatives sizes")
-{
-	Geometry::Size size1{ -5, -8 };
-	Geometry::Size size2{ -8, -5 };
 
 	CHECK(not size1.equals(size2));
 }
