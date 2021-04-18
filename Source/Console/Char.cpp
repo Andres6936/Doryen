@@ -83,7 +83,7 @@ const Doryen::Color& Doryen::Char::getForeground() const
 
 void Doryen::Char::setForeground(const Doryen::Color& _foreground)
 {
-	foreground = _foreground;
+	foreground.copy(_foreground);
 }
 
 const Doryen::Color& Doryen::Char::getBackground() const
@@ -93,7 +93,7 @@ const Doryen::Color& Doryen::Char::getBackground() const
 
 void Doryen::Char::setBackground(const Doryen::Color& _background)
 {
-	background = _background;
+	background.copy(_background);
 }
 
 bool Doryen::Char::isDirt() const

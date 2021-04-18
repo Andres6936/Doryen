@@ -798,20 +798,12 @@ void Doryen::SDL::draw()
 						if (foreground.getRed() < 255)
 						{
 							foreground.addRed(1);
-							character.setForeground(
-									Color(foreground.getRed(), foreground.g, foreground.b));
-
-							// Overwrite the variable
-							foreground = character.getForeground();
+							character.setForeground(foreground);
 						}
 						else
 						{
 							foreground.addRed(-1);
-							character.setForeground(
-									Color(foreground.getRed(), foreground.g, foreground.b));
-
-							// Overwrite the variable
-							foreground = character.getForeground();
+							character.setForeground(foreground);
 						}
 					}
 

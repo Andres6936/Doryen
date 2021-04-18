@@ -97,18 +97,18 @@ void Functor::FOV::drawDungeon()
 				{
 					if (wall)
 					{
-						light = Palette::GOLD;
+						light.copy(Palette::GOLD);
 					}
 					else
 					{
-						light = Palette::YELLOW;
+						light.copy(Palette::YELLOW);
 					}
 				}
 				else
 				{
 					// torch flickering fx
 					Doryen::Color base = (wall ? Palette::PRIMARY_DARK : Palette::PRIMARY_VIVID);
-					light = (wall ? Palette::GOLD : Palette::YELLOW);
+					light.copy((wall ? Palette::GOLD : Palette::YELLOW));
 					// cell distance to torch (squared)
 					float r = (float)((x - playerX + dx) * (x - playerX + dx) +
 									  (y - playerY + dy) * (y - playerY + dy));
@@ -118,9 +118,9 @@ void Functor::FOV::drawDungeon()
 						float l = (SQUARED_TORCH_RADIUS - r) / SQUARED_TORCH_RADIUS + di;
 						l = std::clamp(l, 0.0f, 1.0f);
 						// interpolate the color
-						base = Doryen::Color::lerp(base, light, l);
+						base.copy(Doryen::Color::lerp(base, light, l));
 					}
-					light = base;
+					light.copy(base);
 				}
 				sample.setCellBackgroundColor(x, y, light, Doryen::BlendModes::SET);
 			}

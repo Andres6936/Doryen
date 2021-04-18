@@ -198,13 +198,13 @@ void render(Doryen::Console& console)
 			// get the cell dark and lit colors
 			if (bsp.getReferenceToMap().isWalkable(x, y))
 			{
-				darkCol = darkGround;
-				lightCol = lightGround;
+				darkCol.copy(darkGround);
+				lightCol.copy(lightGround);
 			}
 			else
 			{
-				darkCol = darkWall;
-				lightCol = lightWall;
+				darkCol.copy(darkWall);
+				lightCol.copy(lightWall);
 			}
 			// render left map
 			// hack : for a better look, lights are white and we only use them as 

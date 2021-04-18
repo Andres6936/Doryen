@@ -341,7 +341,7 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 			std::array<Color, 4> grid;
 
-			grid.at(0) = getPixel(cx, cy);
+			grid.at(0).copy(getPixel(cx, cy));
 
 			// The key color is a value optional in the image.
 			std::optional<Color> keyColor = imageData->getKeyColor();
@@ -351,62 +351,62 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 			{
 				if (keyColor.value().equals(grid.at(0)))
 				{
-					grid.at(0) = consoleBackground;
+					grid.at(0).copy(consoleBackground);
 				}
 			}
 
 			if (cx < maxX - 1)
 			{
-				grid.at(1) = getPixel(cx + 1, cy);
+				grid.at(1).copy(getPixel(cx + 1, cy));
 
 				// If the image have a key color
 				if (keyColor)
 				{
 					if (keyColor.value().equals(grid.at(1)))
 					{
-						grid.at(1) = consoleBackground;
+						grid.at(1).copy(consoleBackground);
 					}
 				}
 			}
 			else
 			{
-				grid.at(1) = consoleBackground;
+				grid.at(1).copy(consoleBackground);
 			}
 
 			if (cy < maxY - 1)
 			{
-				grid.at(2) = getPixel(cx, cy + 1);
+				grid.at(2).copy(getPixel(cx, cy + 1));
 
 				// If the image have a key color
 				if (keyColor)
 				{
 					if (keyColor.value().equals(grid.at(2)))
 					{
-						grid.at(2) = consoleBackground;
+						grid.at(2).copy(consoleBackground);
 					}
 				}
 			}
 			else
 			{
-				grid.at(2) = consoleBackground;
+				grid.at(2).copy(consoleBackground);
 			}
 
 			if (cx < maxX - 1 and cy < maxY - 1)
 			{
-				grid.at(3) = getPixel(cx + 1, cy + 1);
+				grid.at(3).copy(getPixel(cx + 1, cy + 1));
 
 				// If the image have a key color
 				if (keyColor)
 				{
 					if (keyColor.value().equals(grid.at(3)))
 					{
-						grid.at(3) = consoleBackground;
+						grid.at(3).copy(consoleBackground);
 					}
 				}
 			}
 			else
 			{
-				grid.at(3) = consoleBackground;
+				grid.at(3).copy(consoleBackground);
 			}
 
 			std::array<Color, 2> cols;
@@ -581,7 +581,7 @@ void Image::setPixel(int x, int y, const Color& _color)
 std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<Color, 2>& palette) const
 {
 	// First colour trivial
-	palette.at(0) = desired.at(0);
+	palette.at(0).copy(desired.at(0));
 
 	int numberColors = 0;
 
@@ -608,7 +608,7 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 	std::array<int, 2> weight = { counterOfColorsEquals, 1 };
 
 	// Found a second color ...
-	palette.at(1) = desired.at(counterOfColorsEquals);
+	palette.at(1).copy(desired.at(counterOfColorsEquals));
 
 	int flag = 0;
 
@@ -643,17 +643,17 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 				if (dist0i <= dist01)
 				{
 					// Merge 0 and i
-					palette.at(0) = Color::lerp(desired.at(counterOfColorsEquals), palette.at(0),
-							weight.at(0) / (1.0f + weight.at(0)));
+					palette.at(0).copy(Color::lerp(desired.at(counterOfColorsEquals), palette.at(0),
+							weight.at(0) / (1.0f + weight.at(0))));
 					weight.at(0) += 1;
 				}
 				else
 				{
 					// Merge 0 and 1
-					palette.at(0) = Color::lerp(palette.at(0), palette.at(1),
-							weight.at(1) / weight.at(0) + weight.at(1));
+					palette.at(0).copy(Color::lerp(palette.at(0), palette.at(1),
+							weight.at(1) / weight.at(0) + weight.at(1)));
 					weight.at(0) += 1;
-					palette.at(1) = desired.at(counterOfColorsEquals);
+					palette.at(1).copy(desired.at(counterOfColorsEquals));
 					flag = 1 << (counterOfColorsEquals - 1);
 				}
 			}
@@ -661,17 +661,17 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 			{
 				if (dist1i <= dist01)
 				{
-					palette.at(1) = Color::lerp(desired.at(counterOfColorsEquals), palette.at(1),
-							weight.at(1) / (1.0f + weight.at(1)));
+					palette.at(1).copy(Color::lerp(desired.at(counterOfColorsEquals), palette.at(1),
+							weight.at(1) / (1.0f + weight.at(1))));
 					weight.at(1) += 1;
 					flag |= 1 << (counterOfColorsEquals - 1);
 				}
 				else
 				{
-					palette.at(0) = Color::lerp(palette.at(0), palette.at(1),
-							weight.at(1) / (weight.at(0) + weight.at(1)));
+					palette.at(0).copy(Color::lerp(palette.at(0), palette.at(1),
+							weight.at(1) / (weight.at(0) + weight.at(1))));
 					weight.at(0) += 1;
-					palette.at(1) = desired.at(counterOfColorsEquals);
+					palette.at(1).copy(desired.at(counterOfColorsEquals));
 					flag = 1 << (counterOfColorsEquals - 1);
 				}
 			}

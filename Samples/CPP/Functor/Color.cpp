@@ -81,7 +81,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		{
 			int c;
 			Doryen::Color col = sample.getCellBackgroundColor(x, y);
-			col = Doryen::Color::lerp(col, Doryen::Palette::GRAY_WARN_90, 0.5f);
+			col.copy(Doryen::Color::lerp(col, Doryen::Palette::GRAY_WARN_90, 0.5f));
 			// use colored character 255 on first and last lines
 			if (y == 0 || y == sample.getHeight() - 1)
 			{
@@ -106,8 +106,8 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 
 void Functor::Color::prepareRandomCornerColors()
 {
-	cornerColors[0] = Doryen::Color(50, 40, 150);
-	cornerColors[1] = Doryen::Color(240, 85, 5);
-	cornerColors[2] = Doryen::Color(50, 35, 240);
-	cornerColors[3] = Doryen::Color(10, 200, 130);
+	cornerColors[0].copy(Doryen::Color(50, 40, 150));
+	cornerColors[1].copy(Doryen::Color(240, 85, 5));
+	cornerColors[2].copy(Doryen::Color(50, 35, 240));
+	cornerColors[3].copy(Doryen::Color(10, 200, 130));
 }

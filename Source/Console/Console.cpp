@@ -1092,7 +1092,7 @@ void Doryen::Console::setBackgroundColor(const Color& back)
 	}
 	else
 	{
-		this->background = back;
+		this->background.copy(back);
 	}
 }
 
@@ -1104,7 +1104,7 @@ void Doryen::Console::setForegroundColor(const Color& fore)
 	}
 	else
 	{
-		this->foreground = fore;
+		this->foreground.copy(fore);
 	}
 }
 
