@@ -63,6 +63,23 @@ namespace Doryen
 
 			// Methods
 
+			/**
+			 * Use with C++17 for unpacking of variables
+			 *
+			 * @example
+			 * @code
+			 *
+			 * Geometry::Size size{ 69, 36 };
+			 *
+			 * const auto[width, height] = size.unwrap();
+			 *
+			 * assert(width == 69) // True
+			 * assert(height == 36) // True
+			 *
+			 * @endcode
+			 *
+			 * @return Tuple with the values of width and height
+			 */
 			std::pair<std::int32_t, std::int32_t> unwrap() const noexcept
 			{
 				return { getWidth(), getHeight() };
