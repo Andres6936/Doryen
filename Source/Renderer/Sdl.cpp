@@ -805,15 +805,16 @@ void Doryen::SDL::draw()
 
 	unsigned hdelta = 0;
 
-	unsigned bpp = charmap->format->BytesPerPixel;
+	// The number of bytes required to hold a pixel value
+	const std::uint8_t BYTES_PER_PIXEL = charmap->format->BytesPerPixel;
 
-	if (bpp == 4)
+	if (BYTES_PER_PIXEL == 4)
 	{
-		hdelta = (charmap->pitch - getFontWidth() * bpp) / 4;
+		hdelta = (charmap->pitch - getFontWidth() * BYTES_PER_PIXEL) / 4;
 	}
 	else
 	{
-		hdelta = (charmap->pitch - getFontWidth() * bpp);
+		hdelta = (charmap->pitch - getFontWidth() * BYTES_PER_PIXEL);
 	}
 
 	static SDL_Surface* charmapBackup = nullptr;
@@ -961,10 +962,11 @@ void Doryen::SDL::draw()
 						setColorInCharacterColorAt(character.getCharacterFont(),
 								character.getForeground());
 
-						if (bpp == 4)
+						if (BYTES_PER_PIXEL == 4)
 						{
 							// 32 bits font : fill the whole character with foreground color
-							Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) + sourceRect.x * bpp +
+							Uint32* pix = (Uint32*)(((Uint8*)charmap->pixels) +
+													sourceRect.x * BYTES_PER_PIXEL +
 													sourceRect.y * charmap->pitch);
 
 							int h = (int)getFontHeight();
@@ -993,7 +995,7 @@ void Doryen::SDL::draw()
 						else
 						{
 							fillOnlyNonKeyColorPixels(sourceRect, charmapBackup, hdelta,
-									bpp, SDLFore, character);
+									BYTES_PER_PIXEL, SDLFore, character);
 						}
 					}
 
