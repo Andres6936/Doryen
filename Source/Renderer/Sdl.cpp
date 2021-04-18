@@ -656,7 +656,8 @@ void Doryen::SDL::convertToGenericEvent(SDL_Event& event, Doryen::Key& key)
 
 
 void
-Doryen::SDL::coloredCharacter(const SDL_Rect& sourceRect, SDL_Surface* charmapBackup, Uint32* pix,
+Doryen::SDL::coloredCharacter(const SDL_Rect& sourceRect,
+		const SDL_Surface* charmapBackup, Uint32* pix,
 		const std::uint32_t hdelta)
 {
 	// For images to color the bytes per pixel are 4.
