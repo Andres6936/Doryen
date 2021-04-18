@@ -282,10 +282,7 @@ void Color::addRed(const std::int32_t red) noexcept
 
 Color::Color(const Color& _rhs) noexcept
 {
-	this->r = _rhs.r;
-	this->g = _rhs.g;
-	this->b = _rhs.b;
-	this->a = _rhs.a;
+	this->copy(_rhs);
 }
 
 void Color::operator=(const Color& _rhs) noexcept
