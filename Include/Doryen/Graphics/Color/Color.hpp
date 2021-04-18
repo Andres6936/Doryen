@@ -226,6 +226,9 @@ namespace Doryen
 
 		// Debug
 
+		/**
+		 * @return Returns a string representation of this Color.
+		 */
 		[[maybe_unused]] std::string toString() const;
 
 		// Getters
