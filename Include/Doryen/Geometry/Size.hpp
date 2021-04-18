@@ -151,11 +151,33 @@ namespace Doryen
 			 */
 			void setWidth(std::uint64_t _w) noexcept
 			{
+				// Assert that the numbers of bits of value field and _w
+				// parameter are equals.
 				static_assert(sizeof(value) == sizeof(_w));
 
+				// Clear the width (the first 32 bits) of schema
+				// The schema before of apply the operations is: - W H -
+				// The schema after of apply the operation is: - H 0 -
 				value <<= 32;
+				// Set the original schema of - W H -
+				// So that move the schema 32 bits to right for get
+				// the follow schema - 0 H -
 				value >>= 32;
+				// Remember, the width value is
+				// localize in the side left,
+				// The schema is - W H -
+				// In the parameter _w the schema
+				// is - 0 W -
+				// Need move W to left (aka: - W 0 -)
 				_w <<= 32;
+				// The operator "bitwise XOR (exclusive
+				// OR)" allow interchange the values without
+				// affect the another component ( height ).
+				// See:
+				// - 0 H - The schema of value
+				// - W 0 - The schema of parameter r
+				// Apply the operation xor the result is:
+				// - W H -
 				value ^= _w;
 			}
 
