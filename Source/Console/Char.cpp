@@ -55,8 +55,24 @@ int Doryen::Char::getCharacterFont() const
 
 void Doryen::Char::setCharacterFont(std::uint64_t characterFont)
 {
+	// Remember, the character in font is localized in the side right,
+	// the schema is - C F - where C are the first 32 bits and F are the last 32 bits.
+	// Need set the side right (aka the last 32 bits) of value variable with
+	// the value of characterFont parameter, so that first clear the bits of side
+	// right and then set the value.
 	value >>= 32;
+	// The total of bits in the value variable is of 64 bits, the right side
+	// have in total 32 bits, the bitwise fill with zeros this bits.
 	value <<= 32;
+	// The operator "bitwise XOR (exclusive
+	// OR)" allow interchange the values of
+	// component F without affect the
+	// another components (C).
+	// See:
+	// - C F - The schema of value
+	// - 0 F - The schema of characterFont parameter
+	// Apply the operation xor the result is:
+	// - C F -
 	value ^= characterFont;
 }
 
