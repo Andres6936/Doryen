@@ -186,8 +186,16 @@ namespace Doryen
 			 */
 			void setHeight(std::uint64_t _h) noexcept
 			{
+				// Clear the height of schema
+				// Schema after of apply the operation: - 0 W -
 				value >>= 32;
+				// Set the original schema of - W H -
+				// Schema after of apply the operation: - W 0 -
 				value <<= 32;
+				// - W 0 - Schema value
+				// - 0 H - Schema _h
+				// Result of operation
+				// - W H -
 				value ^= _h;
 			}
 		};
