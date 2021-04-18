@@ -42,14 +42,14 @@ Color App::getMapShadedColor(float worldX, float worldY, bool clouds)
 	// apply sun light
 	float intensity = worldGen.getInterpolatedIntensity(wx, wy);
 	intensity = std::min(intensity, 1.5f - cloudAmount);
-	int cr = (int)(intensity * (int)(col.r) * sunCol.r / 255);
+	int cr = (int)(intensity * (int)(col.getRed()) * sunCol.getRed() / 255);
 	int cg = (int)(intensity * (int)(col.g) * sunCol.g / 255);
 	int cb = (int)(intensity * (int)(col.b) * sunCol.b / 255);
 	Color col2;
-	col2.r = std::clamp(cr, 0, 255);
+	col2.setRed(std::clamp(cr, 0, 255));
 	col2.g = std::clamp(cg, 0, 255);
 	col2.b = std::clamp(cb, 0, 255);
-	col2.r = std::max((int)col2.r, (int)col.r / 2);
+	col2.setRed(std::max((int)col2.getRed(), (int)col.getRed() / 2));
 	col2.g = std::max((int)col2.g, (int)col.g / 2);
 	col2.b = std::max((int)col2.b, (int)col.b / 2);
 	return col2;

@@ -89,7 +89,7 @@ void render(Console& root)
 
 			// take cloud shadow into account
 			float cloudCoef = weather.getCloud(x, y);
-			r += (int)(cloudCoef * weather.getAmbientLightColor().r);
+			r += (int)(cloudCoef * weather.getAmbientLightColor().getRed());
 			g += (int)(cloudCoef * weather.getAmbientLightColor().g);
 			b += (int)(cloudCoef * weather.getAmbientLightColor().b);
 
@@ -98,7 +98,7 @@ void render(Console& root)
 			float lightning = weather.getLightning(x, y);
 			if (lightning > 0.0f)
 			{
-				lr = (int)(2 * lightning * lightningColor.r);
+				lr = (int)(2 * lightning * lightningColor.getRed());
 				lg = (int)(2 * lightning * lightningColor.g);
 				lb = (int)(2 * lightning * lightningColor.b);
 				r += lr;
@@ -108,7 +108,7 @@ void render(Console& root)
 			r = std::min(255, r);
 			g = std::min(255, g);
 			b = std::min(255, b);
-			r = groundCol.r * r / 200;
+			r = groundCol.getRed() * r / 200;
 			g = groundCol.g * g / 200;
 			b = groundCol.b * b / 200;
 			img.setPixel(x, y, Doryen::Color(r, g, b));

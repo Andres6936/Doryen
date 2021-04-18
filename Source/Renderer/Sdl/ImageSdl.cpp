@@ -455,7 +455,7 @@ Color ImageSdl::getPixel(const std::int32_t x, const std::int32_t y) const
 		{
 			Color _color;
 
-			_color.r = *((pixel) + representation->format->Rshift / 8);
+			_color.setRed(*((pixel) + representation->format->Rshift / 8));
 			_color.g = *((pixel) + representation->format->Gshift / 8);
 			_color.b = *((pixel) + representation->format->Bshift / 8);
 
@@ -689,7 +689,7 @@ void ImageSdl::generateMip(int _mip)
 					Color pixel = origin.getPixelAt(sx, sy);
 					++count;
 
-					r += pixel.r;
+					r += pixel.getRed();
 					g += pixel.g;
 					b += pixel.b;
 				}

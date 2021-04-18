@@ -134,7 +134,7 @@ bool Doryen::Renderer::isFontHasRowLayout() const
 
 void Doryen::Renderer::changeFontKeyColor(const Doryen::Color& _color)
 {
-	fontKeyColor.r = _color.r;
+	fontKeyColor.setRed(_color.getRed());
 	fontKeyColor.g = _color.g;
 	fontKeyColor.b = _color.b;
 	fontKeyColor.a = _color.a;

@@ -48,7 +48,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 			for (int y = 0; y < sample.getHeight(); y++)
 			{
 				Doryen::Color col;
-				col.r = (uint8)(x * 255 / (sample.getWidth() - 1));
+				col.setRed((uint8)(x * 255 / (sample.getWidth() - 1)));
 				col.g = (uint8)((x + y) * 255 / (sample.getWidth() - 1 + sample.getHeight() - 1));
 				col.b = (uint8)(y * 255 / (sample.getHeight() - 1));
 				bk.setCellBackgroundColor(x, y, col, Doryen::BlendModes::SET);
@@ -65,7 +65,7 @@ void Functor::Lines::render(KeyCode key, const Mouse& mouse)
 	for (int x = 0; x < sample.getWidth(); x++)
 	{
 		Doryen::Color col;
-		col.r = (uint8)(x * 255 / sample.getWidth());
+		col.setRed((uint8)(x * 255 / sample.getWidth()));
 		col.g = (uint8)(x * 255 / sample.getWidth());
 		col.b = (uint8)(x * 255 / sample.getWidth());
 

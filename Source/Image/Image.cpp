@@ -185,7 +185,7 @@ float Image::calculateFractionalEdge(Color& _color,
 		const Color& leftTop, const float _weightLeft,
 		const Color& rightBottom, const float _weightRight) const
 {
-	_color.r += leftTop.r * _weightLeft + rightBottom.r * _weightRight;
+	_color.addRed(leftTop.getRed() * _weightLeft + rightBottom.getRed() * _weightRight);
 	_color.g += leftTop.g * _weightLeft + rightBottom.g * _weightRight;
 	_color.b += leftTop.b * _weightLeft + rightBottom.b * _weightRight;
 
@@ -195,7 +195,7 @@ float Image::calculateFractionalEdge(Color& _color,
 float Image::calculateCorners(Color& _color, const Color& pixel,
 		const float weightLeft, const float weightRight)
 {
-	_color.r += pixel.r * (weightLeft * weightRight);
+	_color.addRed(pixel.getRed() * (weightLeft * weightRight));
 	_color.g += pixel.g * (weightLeft * weightRight);
 	_color.b += pixel.b * (weightLeft * weightRight);
 
@@ -268,7 +268,7 @@ void Image::scale(int neww, int newh)
 					{
 						const Color pixel = getPixel(srcx, srcy);
 
-						color.r += pixel.r;
+						color.addRed(pixel.getRed());
 						color.g += pixel.g;
 						color.b += pixel.b;
 
@@ -284,7 +284,7 @@ void Image::scale(int neww, int newh)
 
 				sumWeight = 1.0f / sumWeight;
 
-				color.r = color.r * sumWeight + 0.5f;
+				color.setRed(color.getRed() * sumWeight + 0.5f);
 				color.g = color.g * sumWeight + 0.5f;
 				color.b = color.b * sumWeight + 0.5f;
 
@@ -689,7 +689,7 @@ std::pair<int, int> Image::getPattern(std::array<Color, 4>& desired, std::array<
 
 int Image::distanceBetweenTwoColor(const Color& _lhs, const Color& _rhs) const
 {
-	int dr = _lhs.r - _rhs.r;
+	int dr = _lhs.getRed() - _rhs.getRed();
 	int dg = _lhs.g - _rhs.g;
 	int db = _lhs.b - _rhs.b;
 

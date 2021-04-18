@@ -211,12 +211,14 @@ void render(Doryen::Console& console)
 			// a lerp coefficient between dark and light colors.
 			// a true light model would multiply the light color with the cell color 
 			Color leftLight = leftShader->getLightColor(x, y);
-			Color cellLeftCol = Color::lerp(darkCol, lightCol, gammaLookup[leftLight.r] / 255.0f);
+			Color cellLeftCol = Color::lerp(darkCol, lightCol,
+					gammaLookup[leftLight.getRed()] / 255.0f);
 			console.setCellBackgroundColor(x, y, cellLeftCol);
 
 			// render right map
 			Color rightLight = rightShader->getLightColor(x, y);
-			Color cellRightCol = Color::lerp(darkCol, lightCol, gammaLookup[rightLight.r] / 255.0f);
+			Color cellRightCol = Color::lerp(darkCol, lightCol,
+					gammaLookup[rightLight.getRed()] / 255.0f);
 			console.setCellBackgroundColor(x + CON_WIDTH / 2, y, cellRightCol);
 		}
 	}

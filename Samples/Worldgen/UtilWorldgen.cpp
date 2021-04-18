@@ -1058,7 +1058,7 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 			Doryen::Color(192, 192, 112),
 	};
 	int r = 0, g = 0, b = 0, count = 1;
-	r += biomeColors[biome].r;
+	r += biomeColors[biome].getRed();
 	g += biomeColors[biome].g;
 	b += biomeColors[biome].b;
 	for (int i = 0; i < 4; i++)
@@ -1068,7 +1068,7 @@ Doryen::Color WorldGenerator::getBiomeColor(EBiome biome, int x, int y)
 		if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 		{
 			Doryen::Color c = biomeColors[biomeMap[ix + iy * HM_WIDTH]];
-			r += c.r + Random::Number::nextInteger(-10, 10);
+			r += c.getRed() + Random::Number::nextInteger(-10, 10);
 			g += c.g + Random::Number::nextInteger(-10, 10);
 			b += c.b + Random::Number::nextInteger(-10, 10);
 			count++;
@@ -1165,7 +1165,7 @@ void WorldGenerator::computeColors()
 				if (IN_RECTANGLE(ix, iy, HM_WIDTH, HM_HEIGHT))
 				{
 					Doryen::Color c = imageWorldmap.getPixel(ix, iy);
-					r += coef[i] * c.r;
+					r += coef[i] * c.getRed();
 					g += coef[i] * c.g;
 					b += coef[i] * c.b;
 					count += coef[i];

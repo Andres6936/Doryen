@@ -167,10 +167,11 @@ void PhotonShader::compute()
 		int off = l.coordinate.x + l.coordinate.y * map.getWidth();
 		CellData* cellData = &data[off];
 		float sum = ffSum[off];
-		cellData->emission.r = l.col.r * sum;
-		cellData->emission.g = l.col.r * sum;
-		cellData->emission.b = l.col.r * sum;
-		computeLightContribution(l.coordinate.x, l.coordinate.y, l.radius, cellData->emission, 0.5f);
+		cellData->emission.r = l.col.getRed() * sum;
+		cellData->emission.g = l.col.getRed() * sum;
+		cellData->emission.b = l.col.getRed() * sum;
+		computeLightContribution(l.coordinate.x, l.coordinate.y, l.radius, cellData->emission,
+				0.5f);
 	}
 
 	// other passes. all lit cells act as lights
@@ -194,7 +195,7 @@ void PhotonShader::compute()
 
 	for (int c = 0; c < data.size(); ++c)
 	{
-		lightmap[c].r = (uint8)std::min(255, (int)data[c].outgoing.r);
+		lightmap[c].setRed((uint8)std::min(255, (int)data[c].outgoing.r));
 		lightmap[c].g = (uint8)std::min(255, (int)data[c].outgoing.g);
 		lightmap[c].b = (uint8)std::min(255, (int)data[c].outgoing.b);
 	}

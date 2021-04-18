@@ -269,7 +269,7 @@ void Doryen::SDL::loadFont()
 	if (!isTransparent && isFontGrayscale())
 	{
 		// Black on white font ?
-		bool isInvert = getFontKeyColor().r > 128;
+		bool isInvert = getFontKeyColor().getRed() > 128;
 
 		// Convert the surface to 32 bits if needed
 		if (charmap->format->BytesPerPixel != 4)
@@ -347,7 +347,7 @@ void Doryen::SDL::loadFont()
 
 	Color fontKeyColor = getFontKeyColor();
 
-	setSdlKey(SDL_MapRGB(charmap->format, fontKeyColor.r, fontKeyColor.g, fontKeyColor.b));
+	setSdlKey(SDL_MapRGB(charmap->format, fontKeyColor.getRed(), fontKeyColor.g, fontKeyColor.b));
 
 	setRgbMask(charmap->format->Rmask | charmap->format->Gmask | charmap->format->Bmask);
 
@@ -739,9 +739,12 @@ void Doryen::SDL::draw()
 				// Draw Background
 				if (getFade() != 255)
 				{
-					short nr = (short)(background.r * getFade() / 255 + getFadingColor().r * (255 - getFade()) / 255);
-					short ng = (short)(background.g * getFade() / 255 + getFadingColor().g * (255 - getFade()) / 255);
-					short nb = (short)(background.b * getFade() / 255 + getFadingColor().b * (255 - getFade()) / 255);
+					short nr = (short)(background.getRed() * getFade() / 255 +
+									   getFadingColor().r * (255 - getFade()) / 255);
+					short ng = (short)(background.g * getFade() / 255 +
+									   getFadingColor().g * (255 - getFade()) / 255);
+					short nb = (short)(background.b * getFade() / 255 +
+									   getFadingColor().b * (255 - getFade()) / 255);
 
 					character.setBackground(Color(nr, ng, nb));
 
@@ -749,7 +752,8 @@ void Doryen::SDL::draw()
 					background = character.getBackground();
 				}
 
-				unsigned int SDLBack = SDL_MapRGB(bitmap->format, background.r, background.g, background.b);
+				unsigned int SDLBack = SDL_MapRGB(bitmap->format, background.getRed(), background.g,
+						background.b);
 
 				if (isFullscreen())
 				{
@@ -765,8 +769,8 @@ void Doryen::SDL::draw()
 
 					if (getFade() != 255)
 					{
-						short nr = (short)(foreground.r * getFade() / 255 +
-										   getFadingColor().r * (255 - getFade()) / 255);
+						short nr = (short)(foreground.getRed() * getFade() / 255 +
+										   getFadingColor().getRed() * (255 - getFade()) / 255);
 						short ng = (short)(foreground.g * getFade() / 255 +
 										   getFadingColor().g * (255 - getFade()) / 255);
 						short nb = (short)(foreground.b * getFade() / 255 +
@@ -785,16 +789,18 @@ void Doryen::SDL::draw()
 						if (charmap->format->Amask == 0 && foreground.equals(getFontKeyColor()))
 						{
 							// cannot draw with the key color...
-							if (foreground.r < 255)
+							if (foreground.getRed() < 255)
 							{
-								character.setForeground(Color(foreground.r += 1, foreground.g, foreground.b));
+								character.setForeground(
+										Color(foreground.r += 1, foreground.g, foreground.b));
 
 								// Overwrite the variable
 								foreground = character.getForeground();
 							}
 							else
 							{
-								character.setForeground(Color(foreground.r -= 1, foreground.g, foreground.b));
+								character.setForeground(
+										Color(foreground.r -= 1, foreground.g, foreground.b));
 
 								// Overwrite the variable
 								foreground = character.getForeground();
@@ -858,14 +864,17 @@ void Doryen::SDL::draw()
 
 										while (w > 0)
 										{
-											int r = (int)*((Uint8*)pixorig + charmapBackup->format->Rshift / 8);
-											int g = (int)*((Uint8*)pixorig + charmapBackup->format->Gshift / 8);
-											int b = (int)*((Uint8*)pixorig + charmapBackup->format->Bshift / 8);
+											int r = (int)*((Uint8*)pixorig +
+														   charmapBackup->format->Rshift / 8);
+											int g = (int)*((Uint8*)pixorig +
+														   charmapBackup->format->Gshift / 8);
+											int b = (int)*((Uint8*)pixorig +
+														   charmapBackup->format->Bshift / 8);
 
 											// erase the color
 											(*pix) &= getNrgbMask();
 
-											r = r * foreground.r / 255;
+											r = r * foreground.getRed() / 255;
 											g = g * foreground.g / 255;
 											b = b * foreground.b / 255;
 
@@ -939,7 +948,7 @@ void Doryen::SDL::draw()
 												// erase the color
 												(*pix) &= getNrgbMask();
 
-												r = r * foreground.r / 255;
+												r = r * foreground.getRed() / 255;
 												g = g * foreground.g / 255;
 												b = b * foreground.b / 255;
 

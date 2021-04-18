@@ -28,10 +28,10 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 		switch (component)
 		{
 		case 0 :
-			cornerColors[c].r += 5 * dirr[c];
-			if (cornerColors[c].r == 255)
+			cornerColors[c].addRed(5 * dirr[c]);
+			if (cornerColors[c].getRed() == 255)
 			{ dirr[c] = -1; }
-			else if (cornerColors[c].r == 0)
+			else if (cornerColors[c].getRed() == 0)
 			{ dirr[c] = 1; }
 			break;
 		case 1 :
@@ -71,7 +71,7 @@ void Functor::Color::render(KeyCode key, const Mouse& mouse)
 	// get the background color at the text position
 	Doryen::Color textColor = sample.getCellBackgroundColor(sample.getWidth() / 2, 5);
 	// and invert it
-	textColor.r = 255 - textColor.r;
+	textColor.setRed(255 - textColor.getRed());
 	textColor.g = 255 - textColor.g;
 	textColor.b = 255 - textColor.b;
 	// put random text (for performance tests)
