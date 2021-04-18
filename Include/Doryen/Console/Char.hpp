@@ -17,14 +17,13 @@ namespace Doryen
 		// Fields Members
 
 		/**
-		 * Character ASCII code
+		 * Store in the first 32 bits the character (ASCII code) and the
+		 * last 32 bits store the character number in font.
+		 *
+		 * - 1 to 32 bit (Inclusive) = Character ASCII code
+		 * - 33 to 64 bit (Inclusive) = Character number in font
 		 */
-		int character = ' ';
-
-		/**
-		 * Character number in font
-		 */
-		int characterFont = -1;
+		std::uint64_t value{ 0 };
 
 		/**
 		 * Foreground color
@@ -45,7 +44,7 @@ namespace Doryen
 
 		// Construct
 
-		Char() noexcept = default;
+		Char() noexcept;
 
 		// Getters
 
@@ -61,9 +60,9 @@ namespace Doryen
 
 		// Setters
 
-		void setCharacter(int _c);
+		void setCharacter(std::uint64_t character);
 
-		void setCharacterFont(int _cf);
+		void setCharacterFont(std::uint64_t characterFont);
 
 		void setForeground(const Color& _foreground);
 

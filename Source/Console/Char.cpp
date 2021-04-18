@@ -1,23 +1,40 @@
 #include "Doryen/Console/Char.hpp"
 
-int Doryen::Char::getCharacter() const
+// Constructor for Default
+
+Doryen::Char::Char() noexcept
 {
-	return character;
+	setCharacter(' ');
 }
 
-void Doryen::Char::setCharacter(int _c)
+// Getters
+
+int Doryen::Char::getCharacter() const
 {
-	character = _c;
+	return static_cast<std::int32_t>(value >> 32);
+}
+
+void Doryen::Char::setCharacter(std::uint64_t character)
+{
+	value <<= 32;
+	value >>= 32;
+	character <<= 32;
+	value ^= character;
 }
 
 int Doryen::Char::getCharacterFont() const
 {
-	return characterFont;
+	std::uint64_t character = value << 32;
+	character >>= 32;
+
+	return static_cast<std::int32_t>(character);
 }
 
-void Doryen::Char::setCharacterFont(int _cf)
+void Doryen::Char::setCharacterFont(std::uint64_t characterFont)
 {
-	characterFont = _cf;
+	value >>= 32;
+	value <<= 32;
+	value ^= characterFont;
 }
 
 const Doryen::Color& Doryen::Char::getForeground() const
