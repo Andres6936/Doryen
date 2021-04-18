@@ -222,6 +222,12 @@ namespace Doryen
 
 		// Static methods
 
+		/**
+		 * Convert a string that represent the color in hexadecimal to color RGBA.
+		 *
+		 * @param string Representation in hexadecimal of color.
+		 * @return The color in format RGBA.
+		 */
 		static Color fromString(std::string_view string);
 
 		// Debug
