@@ -43,7 +43,8 @@ void App::render()
 		// Get the input of user
 		handleInput(console.getKeyPressed().getKeyCode());
 
-		skull.blit(console, { size.w / 2, size.h / 2 }, BlendModes::SET, scaleImage, scaleImage, 0);
+		skull.blit(console, { size.getWidth() / 2, size.getHeight() / 2 }, BlendModes::SET,
+				scaleImage, scaleImage, 0);
 
 		drawMessageHelp();
 		console.draw();

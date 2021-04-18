@@ -134,16 +134,16 @@ TEST_CASE ("Verify the getters and setter")
 	CHECK(size1.getHeight() == 22);
 }
 
-TEST_CASE ("Verify the getters and setter for negatives values")
+TEST_CASE ("Verify the getters and setter for zeroes values")
 {
-	Geometry::Size size1{ -5, -8 };
+	Geometry::Size size1{ 0, 8 };
 
-	CHECK(size1.getWidth() == -5);
-	CHECK(size1.getHeight() == -8);
+	CHECK(size1.getWidth() == 0);
+	CHECK(size1.getHeight() == 8);
 
-	size1.setWidth(-9);
-	size1.setHeight(-22);
+	size1.setWidth(9);
+	size1.setHeight(22);
 
-	CHECK(size1.getWidth() == -9);
-	CHECK(size1.getHeight() == -22);
+	CHECK(size1.getWidth() == 9);
+	CHECK(size1.getHeight() == 22);
 }

@@ -700,10 +700,10 @@ std::vector<std::string> wrapText(std::string_view _text, const std::uint16_t LI
 void Doryen::Console::writeWrapText(const Geometry::Point2D<>& coordinate,
 		const Geometry::Size& size, BlendModes flag, std::string_view text)
 {
-	if (text.size() > size.w)
+	if (text.size() > size.getWidth())
 	{
 		// Wrap the text
-		const std::vector<std::string> lineTexts = wrapText(text, size.w);
+		const std::vector<std::string> lineTexts = wrapText(text, size.getWidth());
 
 		std::uint16_t currentY = coordinate.y;
 

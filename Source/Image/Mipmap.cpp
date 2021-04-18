@@ -7,7 +7,7 @@ using namespace Doryen;
 void Mipmap::reduce(const Mipmap::Size& _size) noexcept
 {
 	// The buffer is reduced
-	resize(_size.w * _size.h);
+	resize(_size.getWidth() * _size.getHeight());
 
 	// Set the new size
 	dimension = _size;
@@ -44,7 +44,8 @@ std::uint32_t Mipmap::getLevelCount(const std::uint32_t width, const std::uint32
 
 std::string Mipmap::toString() const
 {
-	return { "Width: " + std::to_string(dimension.w) + ", Height: " + std::to_string(dimension.h) };
+	return { "Width: " + std::to_string(dimension.getWidth()) + ", Height: " +
+			 std::to_string(dimension.getHeight()) };
 }
 
 
@@ -68,17 +69,17 @@ const Mipmap::Size& Mipmap::getSize() const noexcept
 
 const Color& Mipmap::getPixelAt(int _x, int _y) const noexcept
 {
-	return (*this)[_x + _y * dimension.w];
+	return (*this)[_x + _y * dimension.getWidth()];
 }
 
 const std::int32_t Mipmap::getWidth() const noexcept
 {
-	return dimension.w;
+	return dimension.getWidth();
 }
 
 const std::int32_t Mipmap::getHeight() const noexcept
 {
-	return dimension.h;
+	return dimension.getHeight();
 }
 
 // Setters
@@ -106,13 +107,13 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 		// 	this function has no effect (strong exception guarantee).
 		// In order for us to provide this same guarantee we must verify that the
 		// 	buffer size has changed.
-		resize(newSize.w * newSize.h);
+		resize(newSize.getWidth() * newSize.getHeight());
 
 		// Verify that the buffer has been resized.
 		// In this point, currentSize had the previous size of buffer.
 		// Compare the previous size with the actual and verify that
 		// 	this are different.
-		const std::int32_t previousLengthBuffer = currentSize.w * currentSize.h;
+		const std::int32_t previousLengthBuffer = currentSize.getWidth() * currentSize.getHeight();
 		const std::int32_t currentLengthBuffer = size();
 
 		if (previousLengthBuffer != currentLengthBuffer)
@@ -125,5 +126,5 @@ void Mipmap::setSize(const Mipmap::Size& newSize) noexcept
 
 void Mipmap::setPixelAt(const std::uint32_t _x, const std::int32_t _y, const Color& _pixel) noexcept
 {
-	(*this)[_x + _y * dimension.w].copy(_pixel);
+	(*this)[_x + _y * dimension.getWidth()].copy(_pixel);
 }

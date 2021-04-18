@@ -27,19 +27,17 @@ namespace Doryen
 		public:
 
 			/**
+			 * The first 32 bits are the width, the last 32 bits are the height.
+			 * The schema is - W H - for a total of 64 bits.
 			 * The width dimension; negative values can be used.
-			 */
-			std::int32_t w = 0;
-
-			/**
 			 * The height dimension; negative values can be used.
 			 */
-			std::int32_t h = 0;
+			std::uint64_t value{ 0 };
 
 			/**
 			 * Creates an instance of Dimension with a width of zero and a height of zero.
 			 */
-			Size() = default;
+			Size() noexcept = default;
 
 			/**
 			 * Constructs a Dimension and initializes it to the specified width and specified height.
@@ -49,26 +47,27 @@ namespace Doryen
 			 */
 			Size(std::int32_t _w, std::int32_t _h) noexcept
 			{
-				w = _w;
-				h = _h;
+				setWidth(_w);
+				setHeight(_h);
 			}
 
 			// Debug
 
 			[[maybe_unused]] std::string toString() const
 			{
-				return { '{' + std::to_string(w) + " ," + std::to_string(h) + '}' };
+				return { '{' + std::to_string(getWidth()) + " ," + std::to_string(getHeight()) +
+						 '}' };
 			}
 
 			// Methods
 
 			bool lessThan(const Size& _object) const noexcept
 			{
-				if (w < _object.w) return true;
+				if (getWidth() < _object.getWidth()) return true;
 
-				if (_object.w < w) return false;
+				if (_object.getWidth() < getWidth()) return false;
 
-				return h < _object.h;
+				return getHeight() < _object.getHeight();
 			}
 
 			bool greaterThan(const Size& _object) const noexcept
@@ -84,18 +83,18 @@ namespace Doryen
 			 */
 			bool equals(const Size& _rhs) const noexcept
 			{
-				return this->w == _rhs.w and this->h == _rhs.h;
+				return this->value == _rhs.value;
 			}
 
 			// Overload Operator
 
 			bool operator<(const Size& _rhs) const noexcept
 			{
-				if (w < _rhs.w) return true;
+				if (getWidth() < _rhs.getWidth()) return true;
 
-				if (_rhs.w < w) return false;
+				if (_rhs.getWidth() < getWidth()) return false;
 
-				return h < _rhs.h;
+				return getHeight() < _rhs.getHeight();
 			}
 
 			bool operator>(const Size& _rhs) const noexcept
@@ -120,7 +119,7 @@ namespace Doryen
 			 */
 			std::int32_t getWidth() const noexcept
 			{
-				return w;
+				return value >> 32;
 			}
 
 			/**
@@ -128,7 +127,8 @@ namespace Doryen
 			 */
 			std::int32_t getHeight() const noexcept
 			{
-				return h;
+				const std::int64_t height = value << 32;
+				return height >> 32;
 			}
 
 			// Setters
@@ -136,17 +136,24 @@ namespace Doryen
 			/**
 			 * @param _w Set the width of object to specified in the parameter.
 			 */
-			void setWidth(std::int32_t _w) noexcept
+			void setWidth(std::uint64_t _w) noexcept
 			{
-				w = _w;
+				static_assert(sizeof(value) == sizeof(_w));
+
+				value <<= 32;
+				value >>= 32;
+				_w <<= 32;
+				value ^= _w;
 			}
 
 			/**
 			 * @param _h Set the height of object to specified in the parameter.
 			 */
-			void setHeight(std::int32_t _h) noexcept
+			void setHeight(std::uint64_t _h) noexcept
 			{
-				h = _h;
+				value >>= 32;
+				value <<= 32;
+				value ^= _h;
 			}
 		};
 

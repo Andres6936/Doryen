@@ -105,7 +105,9 @@ int Image::getAlpha(int x, int y) const
 void
 Image::blitRect(Console& console, int x, int y, int w, int h, BlendModes flag)
 {
-	const auto[width, height] = getSize();
+	const Geometry::Size& size = getSize();
+	const auto width = size.getWidth();
+	const auto height = size.getHeight();
 
 	if (w == -1) w = width;
 	if (h == -1) h = height;
@@ -149,7 +151,9 @@ bool Image::isPixelTransparent(int x, int y) const
 
 void Image::flippingHorizontally()
 {
-	const auto[width, height] = getSize();
+	const Geometry::Size& size = getSize();
+	const auto width = size.getWidth();
+	const auto height = size.getHeight();
 
 	for (int py = 0; py < height; ++py)
 	{
@@ -166,7 +170,9 @@ void Image::flippingHorizontally()
 
 void Image::flippingVertically()
 {
-	const auto[width, height] = getSize();
+	const Geometry::Size& size = getSize();
+	const auto width = size.getWidth();
+	const auto height = size.getHeight();
 
 	for (int px = 0; px < width; ++px)
 	{
@@ -216,26 +222,28 @@ void Image::scale(int neww, int newh)
 	if (newSize < originalSize)
 	{
 		// Scale down image, using super-sampling
-		for (int py = 0; py < newSize.h; ++py)
+		for (int py = 0; py < newSize.getHeight(); ++py)
 		{
-			float y0 = static_cast<float>(py * originalSize.h / newSize.h);
+			float y0 = static_cast<float>(py * originalSize.getHeight() / newSize.getHeight());
 			float y0floor = std::floor(y0);
 			float y0weight = 1.0f - (y0 - y0floor);
 			int iy0 = static_cast<int>(y0floor);
 
-			float y1 = static_cast<float>((py + 1) * originalSize.h / newSize.h);
+			float y1 = static_cast<float>((py + 1) * originalSize.getHeight() /
+										  newSize.getHeight());
 			float y1floor = std::floor(y1 - 0.000'01);
 			float y1weight = (y1 - y1floor);
 			int iy1 = static_cast<int>(y1floor);
 
-			for (int px = 0; px < newSize.h; ++px)
+			for (int px = 0; px < newSize.getHeight(); ++px)
 			{
-				float x0 = static_cast<float>(px * originalSize.w / newSize.w);
+				float x0 = static_cast<float>(px * originalSize.getWidth() / newSize.getWidth());
 				float x0floor = std::floor(x0);
 				float x0weight = 1.0f - (x0 - x0floor);
 				int ix0 = static_cast<int>(x0floor);
 
-				float x1 = static_cast<float>((px + 1) * originalSize.w / newSize.w);
+				float x1 = static_cast<float>((px + 1) * originalSize.getWidth() /
+											  newSize.getWidth());
 				float x1floor = std::floor(x1 - 0.000'01);
 				float x1weight = (x1 - x1floor);
 				int ix1 = static_cast<int>(x1floor);
@@ -295,13 +303,13 @@ void Image::scale(int neww, int newh)
 	else
 	{
 		// Scale up image, using nearest neighbour
-		for (int py = 0; py < newSize.h; ++py)
+		for (int py = 0; py < newSize.getHeight(); ++py)
 		{
-			int srcY = py * originalSize.h / newSize.h;
+			int srcY = py * originalSize.getHeight() / newSize.getHeight();
 
-			for (int px = 0; px < newSize.w; ++px)
+			for (int px = 0; px < newSize.getWidth(); ++px)
 			{
-				int srcX = px * originalSize.w / newSize.w;
+				int srcX = px * originalSize.getWidth() / newSize.getWidth();
 
 				setPixel(px, py, getPixel(srcX, srcY));
 			}
@@ -321,11 +329,13 @@ void Image::blit2x(Console& dest, int dx, int dy, int sx, int sy, int w, int h) 
 
 	Geometry::Size imageSize = getSize();
 
-	if (size.w == -1) size.w = imageSize.w;
-	if (size.h == -1) size.h = imageSize.h;
+	if (size.getWidth() == -1) size.setWidth(imageSize.getWidth());
+	if (size.getHeight() == -1) size.setHeight(imageSize.getHeight());
 
-	int maxX = destination.x + size.w / 2 <= dest.getWidth() ? size.w : (dest.getWidth() - destination.x) * 2;
-	int maxY = destination.y + size.h / 2 <= dest.getHeight() ? size.h : (dest.getHeight() - destination.y) * 2;
+	int maxX = destination.x + size.getWidth() / 2 <= dest.getWidth() ? size.getWidth() :
+			   (dest.getWidth() - destination.x) * 2;
+	int maxY = destination.y + size.getHeight() / 2 <= dest.getHeight() ? size.getHeight() :
+			   (dest.getHeight() - destination.y) * 2;
 
 	maxX += source.x;
 	maxY += source.y;
@@ -450,7 +460,9 @@ Image::blit(Console& _console,
 	if (scaleX == 0.0f or scaleY == 0.0f or _flag == BlendModes::NONE) return;
 
 	// Size of the image in pixels
-	const auto[width, height] = imageData->getSize();
+	const Geometry::Size& size = imageData->getSize();
+	const auto width = size.getWidth();
+	const auto height = size.getHeight();
 
 	if (scaleX == 1.0f and scaleY == 1.0f and angle == 0.0f)
 	{

@@ -622,7 +622,7 @@ void ImageSdl::updateMipmaps()
 	// Copy of size
 	Size size{ getSize() };
 
-	mipmaps.resize(Mipmap::getLevelCount(size.w, size.h));
+	mipmaps.resize(Mipmap::getLevelCount(size.getWidth(), size.getHeight()));
 
 	for (Mipmap& mipmap : mipmaps)
 	{
