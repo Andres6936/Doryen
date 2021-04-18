@@ -166,10 +166,29 @@ TEST_CASE ("Overflow for operations of add for another color")
 	Color blue{ 0, 0, 255 };
 	blue.add({ 0, 0, 255 });
 
-			CHECK(blue.equals({ 0, 0, 255 }));
+	CHECK(blue.equals({ 0, 0, 255 }));
 
 	Color gray{ 127, 127, 127 };
 	gray.add({ 50, 50, 50 });
 
-			CHECK(gray.equals({ 177, 177, 177 }));
+	CHECK(gray.equals({ 177, 177, 177 }));
+}
+
+TEST_CASE ("Overflow for operations of add red component")
+{
+	// Element Null
+	Color white{ 0, 0, 0 };
+	// Add the value of 64 to red component
+	white.addRed(64);
+
+	CHECK(white.getRed() == 64);
+
+	// Add a negative value to red component
+	white.addRed(-120);
+	CHECK(white.getRed() == 64);
+
+	// Add a value greater than 255 to red component
+	white.addRed(280);
+	CHECK(white.getRed() == 255);
+
 }
