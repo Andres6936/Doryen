@@ -654,6 +654,61 @@ void Doryen::SDL::convertToGenericEvent(SDL_Event& event, Doryen::Key& key)
 	}
 }
 
+
+void
+Doryen::SDL::coloredCharacter(const SDL_Rect& sourceRect, SDL_Surface* charmapBackup, Uint32* pix,
+		const std::uint32_t hdelta)
+{
+	// For images to color the bytes per pixel are 4.
+	const std::int8_t BYTE_PER_PIXEL = 4;
+
+	// Colored character : multiply color with foreground color
+	Uint32* pixorig = (Uint32*)(((Uint8*)charmapBackup->pixels) +
+								sourceRect.x * BYTE_PER_PIXEL +
+								sourceRect.y * charmapBackup->pitch);
+
+	int hdeltaBackup =
+			(int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
+
+	int h = getFontHeight();
+
+	while (h > 0)
+	{
+		int w = (int)getFontWidth();
+
+		while (w > 0)
+		{
+			int r = (int)*((Uint8*)pixorig +
+						   charmapBackup->format->Rshift / 8);
+			int g = (int)*((Uint8*)pixorig +
+						   charmapBackup->format->Gshift / 8);
+			int b = (int)*((Uint8*)pixorig +
+						   charmapBackup->format->Bshift / 8);
+
+			// erase the color
+			(*pix) &= getNrgbMask();
+
+			const Color& foreground = getForeground();
+
+			r = r * foreground.getRed() / 255;
+			g = g * foreground.g / 255;
+			b = b * foreground.b / 255;
+
+			// set the new color
+			(*pix) |= (r << charmap->format->Rshift) |
+					  (g << charmap->format->Gshift) |
+					  (b << charmap->format->Bshift);
+			w--;
+			pix++;
+			pixorig++;
+		}
+
+		h--;
+		pix += hdelta;
+		pixorig += hdeltaBackup;
+	}
+}
+
 void Doryen::SDL::draw()
 {
 	// Bitmap point to screen
@@ -856,47 +911,7 @@ void Doryen::SDL::draw()
 							}
 							else
 							{
-								// Colored character : multiply color with foreground color
-								Uint32* pixorig = (Uint32*)(((Uint8*)charmapBackup->pixels) +
-															sourceRect.x * bpp +
-															sourceRect.y * charmapBackup->pitch);
-
-								int hdeltaBackup =
-										(int)(charmapBackup->pitch - getFontWidth() * 4) / 4;
-
-								while (h > 0)
-								{
-									int w = (int)getFontWidth();
-
-									while (w > 0)
-									{
-										int r = (int)*((Uint8*)pixorig +
-													   charmapBackup->format->Rshift / 8);
-										int g = (int)*((Uint8*)pixorig +
-													   charmapBackup->format->Gshift / 8);
-										int b = (int)*((Uint8*)pixorig +
-													   charmapBackup->format->Bshift / 8);
-
-										// erase the color
-										(*pix) &= getNrgbMask();
-
-										r = r * foreground.getRed() / 255;
-										g = g * foreground.g / 255;
-										b = b * foreground.b / 255;
-
-										// set the new color
-										(*pix) |= (r << charmap->format->Rshift) |
-												  (g << charmap->format->Gshift) |
-												  (b << charmap->format->Bshift);
-										w--;
-										pix++;
-										pixorig++;
-									}
-
-									h--;
-									pix += hdelta;
-									pixorig += hdeltaBackup;
-								}
+								coloredCharacter(sourceRect, charmapBackup, pix, hdelta);
 							}
 						}
 						else

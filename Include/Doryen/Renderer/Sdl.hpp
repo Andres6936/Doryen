@@ -35,6 +35,9 @@ namespace Doryen
 
 		void processEventsOfExit();
 
+		void coloredCharacter(const SDL_Rect& sourceRect, SDL_Surface* charmapBackup, Uint32* pix,
+				const std::uint32_t hdelta);
+
 		static void convertToGenericEvent(SDL_Event& event, Key& key);
 
 	public:
