@@ -44,8 +44,6 @@ namespace Doryen
 				const std::uint32_t bpp, const std::uint32_t SDLFore,
 				const Char& character);
 
-		static void convertToGenericEvent(SDL_Event& event, Key& key);
-
 	public:
 
 		// Construct

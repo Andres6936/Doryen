@@ -25,6 +25,7 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         # This source files are the uniques that must be include headers of SDL, aka <SDL/SDL.h>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/ImageSdl.cpp>
+        $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/EventSdl.cpp>
 
         # Include the code needed for use the dummy renderer, for any other renderer define this
         # two files are exclude of compilation process
