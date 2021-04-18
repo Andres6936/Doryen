@@ -121,6 +121,8 @@ namespace Doryen
 			 */
 			std::int32_t getWidth() const noexcept
 			{
+				// Get the width from the schema of 64 bits where the
+				// first 32 bits are the width of object.
 				return value >> 32;
 			}
 
@@ -129,7 +131,16 @@ namespace Doryen
 			 */
 			std::int32_t getHeight() const noexcept
 			{
+				// Get the height from the schema of 64 bits where the
+				// last 32 bits are the height of object.
+				// First clear the first 32 bits (the width) for avoid
+				// get wrong results.
 				const std::int64_t height = value << 32;
+				// The current schema of height is - H 0 -
+				// Needed move the schema in height for that match with
+				// the schema: - 0 H -
+				// So that move the 32 bits (from 0 to 31) to the
+				// positions 32 - 63 for get only the height f object.
 				return height >> 32;
 			}
 
