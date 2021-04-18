@@ -803,8 +803,6 @@ void Doryen::SDL::draw()
 	// Bitmap point to screen
 	SDL_Surface* bitmap = screen;
 
-	bool trackChanges = getOldFade() == getFade();
-
 	unsigned hdelta = 0;
 
 	unsigned bpp = charmap->format->BytesPerPixel;
@@ -845,17 +843,12 @@ void Doryen::SDL::draw()
 						getCharacterInLayoutCharacteres(character.getCharacter()));
 			}
 
-			bool changed = true;
+			bool changed = false;
 
-			if (trackChanges)
+			if (not character.equals(previousCharacter) or
+				isCharacterUpdated(character.getCharacter()))
 			{
-				changed = false;
-
-				if (not character.equals(previousCharacter) or
-					isCharacterUpdated(character.getCharacter()))
-				{
-					changed = true;
-				}
+				changed = true;
 			}
 
 			// An problem with rendering the callback is that not is
