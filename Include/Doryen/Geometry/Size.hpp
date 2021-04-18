@@ -24,7 +24,7 @@ namespace Doryen
 		class Size
 		{
 
-		public:
+		private:
 
 			/**
 			 * The first 32 bits are the width, the last 32 bits are the height.
@@ -33,6 +33,8 @@ namespace Doryen
 			 * The height dimension; negative values can be used.
 			 */
 			std::uint64_t value{ 0 };
+
+		public:
 
 			/**
 			 * Creates an instance of Dimension with a width of zero and a height of zero.
