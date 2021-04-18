@@ -823,7 +823,8 @@ void Doryen::SDL::draw()
 							setCharacterDrawed(character.getCharacterFont(), false);
 
 							unsigned int SDLFore =
-									SDL_MapRGB(charmap->format, foreground.r, foreground.g, foreground.b) &
+									SDL_MapRGB(charmap->format, foreground.getRed(), foreground.g,
+											foreground.b) &
 									getRgbMask();
 
 							setColorInCharacterColorAt(character.getCharacterFont(), character.getForeground());
