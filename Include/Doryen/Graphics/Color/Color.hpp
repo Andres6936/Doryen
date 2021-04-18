@@ -206,6 +206,16 @@ namespace Doryen
 		void add(const Color& other) noexcept;
 
 		/**
+		 * Sum the red parameter to red component of this color.
+		 * The parameter cannot be negative or greater than 255.
+		 * Otherwise, the value wil be set to 0 if negative and
+		 * 255 if higher.
+		 *
+		 * @param red The red component.
+		 */
+		void addRed(const std::int32_t red);
+
+		/**
 		 * @brief Interpolate between two colors.
 		 *
 		 * Interpolation is a technique that allows you to “fill a gap” between

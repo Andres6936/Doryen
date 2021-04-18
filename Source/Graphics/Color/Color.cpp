@@ -262,6 +262,11 @@ void Color::add(const Color& other) noexcept
 	this->b = std::min(255, this->b + other.b);
 }
 
+void Color::addRed(const std::int32_t red)
+{
+	this->setRed(this->getRed() + std::clamp(red, 0, 255));
+}
+
 Color::Color(const Color& _rhs) noexcept
 {
 	this->r = _rhs.r;
