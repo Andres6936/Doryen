@@ -48,6 +48,7 @@ jobs:
           # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
       - run: |
+          sudo apt update
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
           cd cmake-build-debug

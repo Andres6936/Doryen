@@ -24,6 +24,7 @@ jobs:
 
       - name: Build Debug (Ubuntu)
         run: |
+          sudo apt update
           sudo apt install libsdl1.2-dev
           mkdir cmake-build-debug
           cd cmake-build-debug
