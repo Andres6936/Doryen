@@ -1,6 +1,7 @@
 #ifndef LIBTCOD_HUFFMANTREE_HPP
 #define LIBTCOD_HUFFMANTREE_HPP
 
+#include <cstdint>
 #include <vector>
 
 class HuffmanTree
@@ -69,15 +70,15 @@ public:
 	 */
 	static void getTreeInflateDynamic(
 			HuffmanTree& tree_ll, HuffmanTree& tree_d,
-			const std::vector <unsigned char>& in, size_t* bp);
+			const std::vector<unsigned char>& in, std::size_t* bp);
 
 	/**
 	 * @return the code, or (unsigned)(-1) if error happened
 	 * inbitlength is the length of the complete buffer, in
 	 * bits (so its byte length times 8)
 	 */
-	unsigned huffmanDecodeSymbol(const std::vector <unsigned char>& in,
-			size_t* bp, size_t inbitlength);
+	unsigned huffmanDecodeSymbol(const std::vector<unsigned char>& in,
+			std::size_t* bp, std::size_t inbitlength);
 
 private:
 
@@ -99,9 +100,9 @@ private:
 	void makeTreeMultiDimensional();
 
 	static unsigned readBitsFromStream(
-			size_t* bitpointer,
-			const std::vector <unsigned char>& bitstream,
-			size_t nbits);
+			std::size_t* bitpointer,
+			const std::vector<unsigned char>& bitstream,
+			std::size_t nbits);
 };
 
 

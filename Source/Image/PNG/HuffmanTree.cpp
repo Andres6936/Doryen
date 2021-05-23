@@ -193,7 +193,7 @@ void HuffmanTree::makeTreeMultiDimensional()
 
 void HuffmanTree::getTreeInflateDynamic(
 		HuffmanTree& tree_ll, HuffmanTree& tree_d,
-		const std::vector <unsigned char>& in, size_t* bp)
+		const std::vector<unsigned char>& in, std::size_t* bp)
 {
 	// make sure that length values that aren't
 	// filled in will be 0, or a wrong tree will
@@ -219,7 +219,7 @@ void HuffmanTree::getTreeInflateDynamic(
 
 	unsigned error = 0;
 
-	size_t inbitlength = in.size() * 8;
+	std::size_t inbitlength = in.size() * 8;
 
 	while (!error)
 	{
@@ -517,9 +517,9 @@ void HuffmanTree::getTreeInflateDynamic(
 }
 
 unsigned HuffmanTree::readBitsFromStream(
-		size_t* bitpointer,
-		const std::vector <unsigned char>& bitstream,
-		size_t nbits)
+		std::size_t* bitpointer,
+		const std::vector<unsigned char>& bitstream,
+		std::size_t nbits)
 {
 	unsigned result = 0;
 
@@ -535,8 +535,8 @@ unsigned HuffmanTree::readBitsFromStream(
 }
 
 unsigned HuffmanTree::huffmanDecodeSymbol(
-		const std::vector <unsigned char>& in,
-		size_t* bp, size_t inbitlength)
+		const std::vector<unsigned char>& in,
+		std::size_t* bp, std::size_t inbitlength)
 {
 	unsigned treepos = 0;
 
