@@ -159,7 +159,7 @@ int main()
 ###### All screenshots come from the Doryen sample source code.
 
 <details>
-<summary>Click for See Screenshots</summary>
+<summary>Click for see Screenshots</summary>
     <p align="center">
         <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/master/Image/Screen/TrueColors.png" alt="A"/>
         <img src="https://raw.githubusercontent.com/Andres6936/Doryen.Documentation/master/Image/Screen/OffscreenConsole.png" alt="B"/>
