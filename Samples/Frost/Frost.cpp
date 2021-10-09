@@ -122,7 +122,7 @@ bool Frost::update( float elapsed )
 
 void Frost::render(Doryen::Image* img)
 {
-	const auto[w, h] = img->getSize();
+	const auto[w, h] = img->getSize().unpack();
 
 	for (int cx = x - RANGE; cx <= x + RANGE; cx++)
 	{

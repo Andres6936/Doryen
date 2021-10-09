@@ -599,7 +599,7 @@ Doryen::Color WorldGenerator::getInterpolatedColor(float worldX, float worldY)
 
 Doryen::Color WorldGenerator::getInterpolatedColor(Doryen::Image* img, float x, float y)
 {
-	const auto[w, h] = img->getSize();
+	const auto[w, h] = img->getSize().unpack();
 	float wx = std::clamp(x, 0.0f, (float)w - 1);
 	float wy = std::clamp(y, 0.0f, (float)h - 1);
 	int iwx = (int)wx;
@@ -1370,7 +1370,7 @@ void WorldGenerator::saveBiomeMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_biome.png");
 
-		const auto[width, height] = legend->getSize();
+		const auto[width, height] = legend->getSize().unpack();
 
 		legendWidth = width;
 		legendHeight = height;
@@ -1434,7 +1434,7 @@ void WorldGenerator::saveTemperatureMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_temperature.png");
 
-		const auto[width, height] = legend->getSize();
+		const auto[width, height] = legend->getSize().unpack();
 
 		legendWidth = width;
 		legendHeight = height;
@@ -1487,7 +1487,7 @@ void WorldGenerator::savePrecipitationMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_precipitation.png");
 
-		const auto[width, height] = legend->getSize();
+		const auto[width, height] = legend->getSize().unpack();
 
 		legendWidth = width;
 		legendHeight = height;
@@ -1540,7 +1540,7 @@ void WorldGenerator::saveAltitudeMap(const char* filename)
 	{
 		legend = new Doryen::Image("Data/img/legend_altitude.png");
 
-		const auto[width, height] = legend->getSize();
+		const auto[width, height] = legend->getSize().unpack();
 
 		legendWidth = width;
 		legendHeight = height;

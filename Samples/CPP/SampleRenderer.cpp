@@ -18,7 +18,7 @@ void SampleRenderer::render(std::any sdlSurface)
 
 	// now we have almighty access to the screen's precious pixels !!
 	// get the font character size
-	const auto[CHAR_WIDTH, CHAR_HEIGHT] = console.getFontSize();
+	const auto[CHAR_WIDTH, CHAR_HEIGHT] = console.getFontSize().unpack();
 
 	// compute the sample console position in pixels
 	const int SAMPLE_X = SAMPLE_SCREEN_X * CHAR_WIDTH;
