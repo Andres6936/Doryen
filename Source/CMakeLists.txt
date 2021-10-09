@@ -28,6 +28,10 @@ ADD_LIBRARY(Doryen.Framework.Object OBJECT
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/EventSdl.cpp>
         $<$<BOOL:${DORYEN_RENDERER_SDL_1}>:Renderer/Sdl/MouseSdl.cpp>
 
+        # If the renderer to use is SFML version 2.5, include the files in the process of compilation.
+        # This source files are the uniques that must be include headers of SFML, aka <SFML/...hpp>
+        $<$<BOOL:${DORYEN_RENDERER_SFML_25}>:Renderer/Sfml.cpp>
+
         # Include the code needed for use the dummy renderer, for any other renderer define this
         # two files are exclude of compilation process
         $<$<BOOL:${DORYEN_RENDERER_DUMMY}>:Renderer/Dummy.cpp>
@@ -112,6 +116,22 @@ IF (DORYEN_RENDERER_SDL_1)
     TARGET_INCLUDE_DIRECTORIES(Doryen.Framework PRIVATE ${SDL_INCLUDE_DIR})
     TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_USE_SDL_1=1)
     TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE ${SDL_LIBRARY})
+
+ELSEIF(DORYEN_RENDERER_SFML_25)
+
+    # Locate the SFML library
+    FIND_PACKAGE(SFML 2.5 COMPONENTS graphics window REQUIRED)
+
+    # Defined by FindSDL: SDL_FOUND, if false, do not try to link to SDL
+    IF (NOT SFML_FOUND)
+        MESSAGE(FATAL_ERROR "Cannot found SFML Version 2.5")
+    ENDIF ()
+
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework.Object PRIVATE DORYEN_RENDERER_SFML_25=1)
+    TARGET_LINK_LIBRARIES(Doryen.Framework.Object PRIVATE sfml-graphics sfml-window)
+
+    TARGET_COMPILE_DEFINITIONS(Doryen.Framework PRIVATE DORYEN_RENDERER_SFML_25=1)
+    TARGET_LINK_LIBRARIES(Doryen.Framework PRIVATE sfml-graphics sfml-window)
 
 # Configure and link all the need for use Dummy as renderer
 ELSE (DORYEN_RENDERER_DUMMY)

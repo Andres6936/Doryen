@@ -8,6 +8,8 @@ OPTION(DORYEN_BUILD_TESTING "Generate and Execute the Doryen Test" OFF)
 
 # Render to use by default
 OPTION(DORYEN_RENDERER_SDL_1 "Use the SDL backend" ON)
+# Render based in the SFML 2.5 framework
+OPTION(DORYEN_RENDERER_SFML_25 "Use the SFML 2.5 backend" OFF)
 # The renderer is used for testing purpose
 OPTION(DORYEN_RENDERER_DUMMY "Use the dummy backend" OFF)
 
@@ -15,6 +17,11 @@ OPTION(DORYEN_RENDERER_DUMMY "Use the dummy backend" OFF)
 # will be included in the code and produce compiler error to not found the headers in machines
 # where the SDL renderer not will used.
 IF (DORYEN_RENDERER_DUMMY)
+
+    # Set the SDL 1 renderer to OFF for avoid use this renderer
+    SET(DORYEN_RENDERER_SDL_1 OFF)
+
+ELSEIF(DORYEN_RENDERER_SFML_25)
 
     # Set the SDL 1 renderer to OFF for avoid use this renderer
     SET(DORYEN_RENDERER_SDL_1 OFF)

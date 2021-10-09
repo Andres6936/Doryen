@@ -53,6 +53,10 @@ using namespace Doryen;
 // Inclusion of header for instantiation and initialization of Dummy backend.
 #include <Doryen/Renderer/Dummy.hpp>
 
+#elif defined(DORYEN_RENDERER_SFML_25)
+
+#include <Doryen/Renderer/Sfml.hpp>
+
 #endif
 
 // Static Private Variable
@@ -103,6 +107,10 @@ void Console::setBackendRenderer()
 
 	// Inject the dependency
 	renderer = std::move(std::make_unique<Dummy>());
+
+#elif defined(DORYEN_RENDERER_SFML_25)
+
+    renderer = std::move(std::make_unique<SFML>());
 
 #endif
 
