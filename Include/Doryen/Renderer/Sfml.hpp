@@ -12,8 +12,9 @@ namespace Doryen
 
 	private:
 
+		sf::Texture bitmap;
 		sf::RenderWindow window;
-		sf::Texture texture;
+		sf::RenderTexture screen;
 
     public:
 

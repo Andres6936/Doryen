@@ -17,6 +17,7 @@ void Doryen::SFML::onRenderer()
 	// characters in the console
 	createBuffer();
 
+	screen.create(width, height);
 	window.create(sf::VideoMode(width, height), "SFML Renderer");
 }
 
@@ -39,10 +40,69 @@ void Doryen::SFML::draw()
 	// with what you draw, so that no pixel is not drawn to. In this case
 	// you can avoid calling clear (although it won't have a noticeable
 	// impact on performance).
+	screen.clear(sf::Color::Red);
 	window.clear(sf::Color::White);
 
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
+	for (int y = 0; y < getHeight(); ++y)
+	{
+		for (int x = 0; x < getWidth(); ++x)
+		{
+			// Character to draw
+			Char character = front[x + getWidth() * y];
+
+			// Previous character drawed
+			Char previousCharacter = back[x + getWidth() * y];
+
+			sf::Rect<std::uint32_t> sourceRect;
+			sf::Rect<std::uint32_t> destinRect;
+
+			if (character.getCharacterFont() == -1)
+			{
+				character.setCharacterFont(
+						getCharacterInLayoutCharacteres(character.getCharacter()));
+			}
+
+			bool changed = false;
+
+			if (not character.equals(previousCharacter) or
+				isCharacterUpdated(character.getCharacter()))
+			{
+				changed = true;
+			}
+
+			if (changed){
+				destinRect.left = x * getFontWidth();
+				destinRect.top = y * getFontHeight();
+
+				destinRect.width = getFontWidth();
+				destinRect.height = getFontHeight();
+
+				// Avoid draw the space character (A empty character)
+				if (character.getCharacter() == ' ')
+				{
+					// Update the character and continue with the next Char
+					setCharacterInBufferAt(x + getWidth() * y, character);
+					continue;
+				}
+
+				sourceRect.left = (character.getCharacterFont()
+						% getFontCharHorizontalSize()) * getFontWidth();
+				sourceRect.top = (character.getCharacterFont()
+						/ getFontCharHorizontalSize()) * getFontHeight();
+				sourceRect.width = getFontWidth();
+				sourceRect.height = getFontHeight();
+			}
+
+			// Update the character
+			setCharacterInBufferAt(x + getWidth() * y, character);
+		}
+	}
+
+	// Draw the content rendered in the current frame inside texture.
+	screen.display();
+
+	// Get the reference to the contet and draw in the window.
+	sf::Sprite sprite(screen.getTexture());
 	window.draw(sprite);
 
 	// Calling display is also mandatory, it takes what was drawn since
@@ -65,13 +125,13 @@ void Doryen::SFML::draw()
 
 void Doryen::SFML::loadFont()
 {
-	if (!texture.loadFromFile(getFontfile()))
+	if (!bitmap.loadFromFile(getFontfile()))
 	{
 		// Throw Exception
 		throw std::runtime_error("The type of image cannot will be opened.\n");
 	}
 
-	const auto [width, height] = texture.getSize();
+	const auto [width, height] = bitmap.getSize();
 	setFontWidth(width / getFontCharHorizontalSize());
 	setFontHeight(height / getFontCharVerticalSize());
 
@@ -79,6 +139,7 @@ void Doryen::SFML::loadFont()
 	// allocated bool array for colored flags
 	createTablesOfCharacters();
 
+	screen.create(getWidth() * getFontWidth(), getHeight() * getFontHeight());
 	// Update the size of window with the new dimension of font
 	window.create(sf::VideoMode(getWidth() * getFontWidth(),
 			getHeight() * getFontHeight()), "SFML Renderer");
