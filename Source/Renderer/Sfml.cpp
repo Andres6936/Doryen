@@ -41,6 +41,10 @@ void Doryen::SFML::draw()
 	// impact on performance).
 	window.clear(sf::Color::White);
 
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+	window.draw(sprite);
+
 	// Calling display is also mandatory, it takes what was drawn since
 	// the last call to display and displays it on the window. Indeed,
 	// things are not drawn directly to the window, but to a hidden buffer.
@@ -75,6 +79,9 @@ void Doryen::SFML::loadFont()
 	// allocated bool array for colored flags
 	createTablesOfCharacters();
 
+	// Update the size of window with the new dimension of font
+	window.create(sf::VideoMode(getWidth() * getFontWidth(),
+			getHeight() * getFontHeight()), "SFML Renderer");
 }
 
 void Doryen::SFML::showCursor(bool visible)
