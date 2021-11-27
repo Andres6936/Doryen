@@ -12,7 +12,7 @@ namespace Doryen
 
 	private:
 
-		sf::Window window;
+		sf::RenderWindow window;
 		sf::Texture texture;
 
     public:
