@@ -108,8 +108,16 @@ namespace Doryen
 
 		std::uint32_t maxFontChars = 256;
 
+		/**
+		 * In the context of the bitmap it determines how many horizontal
+		 * characters the image contains.
+		 */
 		std::uint32_t fontCharHorizontalSize = 16;
 
+		/**
+		 * In the context of the bitmap it determines how many vertical
+		 * characters the image contains.
+		 */
 		std::uint32_t fontCharVerticalSize = 16;
 
 		std::uint32_t fontWidth = 0;
