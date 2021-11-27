@@ -394,10 +394,16 @@ namespace Doryen
 
 		// Methods Pures
 
+		/**
+		 * Post-condition: The buffer of characters for the console has been initialized.
+		 */
 		virtual void onRenderer() = 0;
 
 		virtual void draw() = 0;
 
+		/**
+		 * Post-condition: The characters table has been initialized.
+		 */
 		virtual void loadFont() = 0;
 
 		virtual void showCursor(bool visible) = 0;

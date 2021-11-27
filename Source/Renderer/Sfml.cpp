@@ -12,6 +12,11 @@ void Doryen::SFML::onRenderer()
 	const std::uint32_t width = getWidth() * getFontCharVerticalSize();
 	const std::uint32_t height = getHeight() * getFontCharHorizontalSize();
 
+	// Satisfies post-condition
+	// Create the buffer for render
+	// characters in the console
+	createBuffer();
+
 	window.create(sf::VideoMode(width, height), "SFML Renderer");
 }
 
@@ -31,6 +36,19 @@ void Doryen::SFML::draw()
 
 void Doryen::SFML::loadFont()
 {
+	if (!texture.loadFromFile(getFontfile()))
+	{
+		// Throw Exception
+		throw std::runtime_error("The type of image cannot will be opened.\n");
+	}
+
+	const auto [width, height] = texture.getSize();
+	setFontWidth(width / getFontCharHorizontalSize());
+	setFontHeight(height / getFontCharVerticalSize());
+
+	// Satisfies post-condition
+	// allocated bool array for colored flags
+	createTablesOfCharacters();
 
 }
 

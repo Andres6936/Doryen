@@ -3,6 +3,7 @@
 
 #include <Doryen/Renderer/Renderer.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace Doryen
 {
@@ -12,6 +13,7 @@ namespace Doryen
 	private:
 
 		sf::Window window;
+		sf::Texture texture;
 
     public:
 
